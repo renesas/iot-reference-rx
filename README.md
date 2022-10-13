@@ -1,6 +1,6 @@
 # FreeRTOS RX Family IoT Reference
 ## Introduction
-This project demonstrates how to integrate modular [ FreeRTOS kernel ](https://www.freertos.org/RTOS.html) and [ libraries ](https://github.com/renesas/iot-reference-rx#supported-board) with hardware enforced security to build more secure updatable cloud connected applications. The project is pre-configured to run on the [ supported boards ](https://www.st.com/en/evaluation-tools/b-u585i-iot02a.html) which includes an kit which includes an [ RX Driver Package ](https://github.com/renesas/rx-driver-package) microcontroller.
+This project demonstrates how to integrate modular [ FreeRTOS kernel ](https://www.freertos.org/RTOS.html) and [ libraries ](https://github.com/renesas/iot-reference-rx#supported-board) which can run RX Family official device drivers package [ RX Driver Package ](https://github.com/renesas/rx-driver-package).
 
 Refer to the [ Getting Started Guide ](Getting_Started_Guide.md) for step by step instructions on setting up your development environment.
 
