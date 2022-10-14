@@ -1,4 +1,0 @@
-set( MQTT_TEST_SOURCES "${CMAKE_CURRENT_LIST_DIR}/mqtt/mqtt_test.c" )
-set( MQTT_TEST_INCLUDE_DIRS
-     "${CMAKE_CURRENT_LIST_DIR}/mqtt"
-     "${CMAKE_CURRENT_LIST_DIR}/common" )

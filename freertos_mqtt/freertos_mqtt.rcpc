@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MicomToolCommonProjectFile Version="1.00">
+  <CreatorType Name="e2studio" Version=""/>
+  <Placeholders>
+    <PlaceholderPrefix>${</PlaceholderPrefix>
+    <PlaceholderPostfix>}</PlaceholderPostfix>
+  </Placeholders>
+  <Project Name="freertos_mqtt" Type="Application">
+    <Files>
+      <Category Name="src">
+        <Path>src\main.c</Path>
+        <Category Name="FreeRTOS">
+          <Category Name="Source">
+            <Path>src\FreeRTOS\Source\History.txt</Path>
+            <Path>src\FreeRTOS\Source\croutine.c</Path>
+            <Path>src\FreeRTOS\Source\event_groups.c</Path>
+            <Path>src\FreeRTOS\Source\list.c</Path>
+            <Path>src\FreeRTOS\Source\queue.c</Path>
+            <Path>src\FreeRTOS\Source\stream_buffer.c</Path>
+            <Path>src\FreeRTOS\Source\tasks.c</Path>
+            <Path>src\FreeRTOS\Source\timers.c</Path>
+            <Category Name="include">
+              <Path>src\FreeRTOS\Source\include\FreeRTOS.h</Path>
+              <Path>src\FreeRTOS\Source\include\StackMacros.h</Path>
+              <Path>src\FreeRTOS\Source\include\atomic.h</Path>
+              <Path>src\FreeRTOS\Source\include\croutine.h</Path>
+              <Path>src\FreeRTOS\Source\include\deprecated_definitions.h</Path>
+              <Path>src\FreeRTOS\Source\include\event_groups.h</Path>
+              <Path>src\FreeRTOS\Source\include\list.h</Path>
+              <Path>src\FreeRTOS\Source\include\message_buffer.h</Path>
+              <Path>src\FreeRTOS\Source\include\mpu_prototypes.h</Path>
+              <Path>src\FreeRTOS\Source\include\mpu_wrappers.h</Path>
+              <Path>src\FreeRTOS\Source\include\portable.h</Path>
+              <Path>src\FreeRTOS\Source\include\projdefs.h</Path>
+              <Path>src\FreeRTOS\Source\include\queue.h</Path>
+              <Path>src\FreeRTOS\Source\include\semphr.h</Path>
+              <Path>src\FreeRTOS\Source\include\stack_macros.h</Path>
+              <Path>src\FreeRTOS\Source\include\stream_buffer.h</Path>
+              <Path>src\FreeRTOS\Source\include\task.h</Path>
+              <Path>src\FreeRTOS\Source\include\timers.h</Path>
+            </Category>
+            <Category Name="portable">
+              <Path>src\FreeRTOS\Source\portable\readme.txt</Path>
+              <Category Name="MemMang">
+                <Path>src\FreeRTOS\Source\portable\MemMang\heap_4.c</Path>
+              </Category>
+              <Category Name="Renesas">
+                <Category Name="RX600v2">
+                  <Path>src\FreeRTOS\Source\portable\Renesas\RX600v2\port.c</Path>
+                  <Path>src\FreeRTOS\Source\portable\Renesas\RX600v2\port_asm.src</Path>
+                  <Path>src\FreeRTOS\Source\portable\Renesas\RX600v2\portmacro.h</Path>
+                  <Path>src\FreeRTOS\Source\portable\Renesas\RX600v2\readme.txt</Path>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+        </Category>
+        <Category Name="FreeRTOS_common">
+          <Path>src\FreeRTOS_common\croutine.h</Path>
+          <Path>src\FreeRTOS_common\entropy_hardware_poll.c</Path>
+          <Path>src\FreeRTOS_common\serial_term_uart.c</Path>
+          <Path>src\FreeRTOS_common\serial_term_uart.h</Path>
+          <Category Name="compiler_support">
+            <Category Name="ccrx">
+              <Path>src\FreeRTOS_common\compiler_support\ccrx\exit.c</Path>
+              <Path>src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h</Path>
+              <Path>src\FreeRTOS_common\compiler_support\ccrx\time.h</Path>
+            </Category>
+          </Category>
+          <Category Name="network_support">
+            <Category Name="onchip_rx_ether">
+              <Path>src\FreeRTOS_common\network_support\onchip_rx_ether\freertos_ip_hook.c</Path>
+            </Category>
+          </Category>
+        </Category>
+        <Category Name="boards">
+          <Category Name="rx65n-rsk">
+            <Category Name="ports">
+              <Category Name="pkcs11">
+                <Path>src\boards\rx65n-rsk\ports\pkcs11\core_pkcs11_pal.c</Path>
+              </Category>
+            </Category>
+          </Category>
+        </Category>
+        <Category Name="demos">
+          <Category Name="common">
+            <Category Name="pkcs11_helpers">
+              <Path>src\demos\common\pkcs11_helpers\pkcs11_helpers.c</Path>
+              <Path>src\demos\common\pkcs11_helpers\pkcs11_helpers.h</Path>
+            </Category>
+          </Category>
+          <Category Name="coreMQTT">
+            <Path>src\demos\coreMQTT\mqtt_demo_mutual_auth.c</Path>
+          </Category>
+          <Category Name="demo_runner">
+            <Path>src\demos\demo_runner\aws_demo.c</Path>
+            <Path>src\demos\demo_runner\aws_demo_network_addr.c</Path>
+            <Path>src\demos\demo_runner\iot_demo_freertos.c</Path>
+            <Path>src\demos\demo_runner\iot_demo_runner.c</Path>
+          </Category>
+          <Category Name="dev_mode_key_provisioning">
+            <Category Name="include">
+              <Path>src\demos\dev_mode_key_provisioning\include\aws_dev_mode_key_provisioning.h</Path>
+            </Category>
+            <Category Name="src">
+              <Path>src\demos\dev_mode_key_provisioning\src\aws_dev_mode_key_provisioning.c</Path>
+            </Category>
+          </Category>
+          <Category Name="include">
+            <Path>src\demos\include\aws_clientcredential.h</Path>
+            <Path>src\demos\include\aws_clientcredential_keys.h</Path>
+            <Path>src\demos\include\aws_demo.h</Path>
+            <Path>src\demos\include\aws_iot_metrics.h</Path>
+            <Path>src\demos\include\iot_config_common.h</Path>
+            <Path>src\demos\include\iot_demo_logging.h</Path>
+            <Path>src\demos\include\iot_demo_runner.h</Path>
+          </Category>
+          <Category Name="network_manager">
+            <Path>src\demos\network_manager\aws_iot_network_manager.c</Path>
+            <Path>src\demos\network_manager\iot_network_manager_private.h</Path>
+          </Category>
+        </Category>
+        <Category Name="frtos_config">
+          <Path>src\frtos_config\FreeRTOSConfig.h</Path>
+          <Path>src\frtos_config\FreeRTOSIPConfig.h</Path>
+          <Path>src\frtos_config\aws_demo_config.h</Path>
+          <Path>src\frtos_config\aws_ggd_config.h</Path>
+          <Path>src\frtos_config\aws_iot_network_config.h</Path>
+          <Path>src\frtos_config\aws_shadow_config.h</Path>
+          <Path>src\frtos_config\aws_wifi_config.h</Path>
+          <Path>src\frtos_config\core_http_config.h</Path>
+          <Path>src\frtos_config\core_mqtt_config.h</Path>
+          <Path>src\frtos_config\core_pkcs11_config.h</Path>
+          <Path>src\frtos_config\defender_config.h</Path>
+          <Path>src\frtos_config\defender_demo_config.h</Path>
+          <Path>src\frtos_config\http_demo_mutual_auth_config.h</Path>
+          <Path>src\frtos_config\http_demo_s3_download_config.h</Path>
+          <Path>src\frtos_config\http_demo_s3_download_multithreaded_config.h</Path>
+          <Path>src\frtos_config\http_demo_s3_upload_config.h</Path>
+          <Path>src\frtos_config\iot_bufferpool_config.h</Path>
+          <Path>src\frtos_config\iot_config.h</Path>
+          <Path>src\frtos_config\iot_mqtt_agent_config.h</Path>
+          <Path>src\frtos_config\iot_mqtt_config.h</Path>
+          <Path>src\frtos_config\iot_secure_sockets_config.h</Path>
+          <Path>src\frtos_config\jobs_demo_config.h</Path>
+          <Path>src\frtos_config\mbedtls_user_config.h</Path>
+          <Path>src\frtos_config\mqtt_agent_demo_config.h</Path>
+          <Path>src\frtos_config\mqtt_demo_mutual_auth_config.h</Path>
+          <Path>src\frtos_config\mqtt_demo_plaintext_config.h</Path>
+          <Path>src\frtos_config\ota_config.h</Path>
+          <Path>src\frtos_config\ota_demo_config.h</Path>
+          <Path>src\frtos_config\shadow_config.h</Path>
+          <Path>src\frtos_config\shadow_demo_config.h</Path>
+        </Category>
+        <Category Name="frtos_skeleton">
+          <Path>src\frtos_skeleton\task_function.h</Path>
+        </Category>
+        <Category Name="frtos_startup">
+          <Path>src\frtos_startup\freertos_object_init.c</Path>
+          <Path>src\frtos_startup\freertos_start.c</Path>
+          <Path>src\frtos_startup\freertos_start.h</Path>
+        </Category>
+        <Category Name="libraries">
+          <Category Name="3rdparty">
+            <Category Name="jsmn">
+              <Path>src\libraries\3rdparty\jsmn\jsmn.c</Path>
+              <Path>src\libraries\3rdparty\jsmn\jsmn.h</Path>
+            </Category>
+            <Category Name="mbedtls">
+              <Category Name="include">
+                <Path>src\libraries\3rdparty\mbedtls\include\CMakeLists.txt</Path>
+                <Category Name="mbedtls">
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\aes.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\aesni.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\arc4.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\aria.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\asn1.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\asn1write.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\base64.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\bignum.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\blowfish.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\bn_mul.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\camellia.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ccm.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\certs.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\chacha20.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\chachapoly.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\check_config.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\cipher.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\cipher_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\cmac.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\compat-1.3.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\config.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ctr_drbg.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\debug.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\des.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\dhm.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecdh.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecdsa.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecjpake.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecp.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecp_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\entropy.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\entropy_poll.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\error.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\gcm.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\havege.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\hkdf.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\hmac_drbg.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md2.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md4.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md5.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\memory_buffer_alloc.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\net.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\net_sockets.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\nist_kw.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\oid.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\padlock.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pem.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pk.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pk_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pkcs11.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pkcs12.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pkcs5.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\platform.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\platform_time.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\platform_util.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\poly1305.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ripemd160.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\rsa.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\rsa_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\sha1.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\sha256.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\sha512.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_cache.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_ciphersuites.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_cookie.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_ticket.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\threading.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\timing.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\version.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\x509.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\x509_crl.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\x509_crt.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\x509_csr.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\xtea.h</Path>
+                </Category>
+              </Category>
+              <Category Name="library">
+                <Path>src\libraries\3rdparty\mbedtls\library\CMakeLists.txt</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\aes.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\aesni.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\arc4.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\aria.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\asn1parse.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\asn1write.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\base64.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\bignum.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\blowfish.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\camellia.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ccm.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\certs.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\chacha20.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\chachapoly.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\cipher.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\cipher_wrap.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\cmac.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ctr_drbg.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\debug.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\des.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\dhm.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ecdh.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ecdsa.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ecjpake.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ecp.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ecp_curves.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\entropy.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\entropy_poll.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\error.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\gcm.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\havege.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\hkdf.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\hmac_drbg.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\md.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\md2.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\md4.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\md5.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\md_wrap.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\memory_buffer_alloc.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\net_sockets.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\nist_kw.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\oid.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\padlock.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\pem.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\pk.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\pk_wrap.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\pkcs11.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\pkcs12.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\pkcs5.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\pkparse.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\pkwrite.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\platform.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\platform_util.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\poly1305.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ripemd160.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\rsa.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\rsa_internal.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\sha1.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\sha256.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\sha512.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ssl_cache.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ssl_ciphersuites.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ssl_cli.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ssl_cookie.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ssl_srv.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ssl_ticket.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\ssl_tls.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\threading.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\timing.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\version.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\version_features.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\x509.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\x509_create.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\x509_crl.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\x509_crt.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\x509_csr.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\x509write_crt.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\x509write_csr.c</Path>
+                <Path>src\libraries\3rdparty\mbedtls\library\xtea.c</Path>
+              </Category>
+            </Category>
+            <Category Name="mbedtls_config">
+              <Path>src\libraries\3rdparty\mbedtls_config\aws_mbedtls_config.h</Path>
+              <Path>src\libraries\3rdparty\mbedtls_config\threading_alt.h</Path>
+            </Category>
+            <Category Name="mbedtls_utils">
+              <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_error.c</Path>
+              <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_error.h</Path>
+              <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_utils.c</Path>
+            </Category>
+            <Category Name="pkcs11">
+              <Path>src\libraries\3rdparty\pkcs11\pkcs11.h</Path>
+              <Path>src\libraries\3rdparty\pkcs11\pkcs11f.h</Path>
+              <Path>src\libraries\3rdparty\pkcs11\pkcs11t.h</Path>
+            </Category>
+          </Category>
+          <Category Name="abstractions">
+            <Category Name="backoff_algorithm">
+              <Category Name="source">
+                <Path>src\libraries\abstractions\backoff_algorithm\source\backoff_algorithm.c</Path>
+                <Category Name="include">
+                  <Path>src\libraries\abstractions\backoff_algorithm\source\include\backoff_algorithm.h</Path>
+                </Category>
+              </Category>
+            </Category>
+            <Category Name="pkcs11">
+              <Category Name="corePKCS11">
+                <Category Name="source">
+                  <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\core_pkcs11.c</Path>
+                  <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\core_pki_utils.c</Path>
+                  <Category Name="include">
+                    <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\include\core_pkcs11.h</Path>
+                    <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\include\core_pkcs11_pal.h</Path>
+                    <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\include\core_pki_utils.h</Path>
+                  </Category>
+                  <Category Name="portable">
+                    <Category Name="mbedtls">
+                      <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\portable\mbedtls\core_pkcs11_mbedtls.c</Path>
+                    </Category>
+                  </Category>
+                </Category>
+              </Category>
+            </Category>
+            <Category Name="platform">
+              <Path>src\libraries\abstractions\platform\CMakeLists.txt</Path>
+              <Category Name="freertos">
+                <Path>src\libraries\abstractions\platform\freertos\iot_clock_freertos.c</Path>
+                <Path>src\libraries\abstractions\platform\freertos\iot_metrics.c</Path>
+                <Path>src\libraries\abstractions\platform\freertos\iot_network_freertos.c</Path>
+                <Path>src\libraries\abstractions\platform\freertos\iot_threads_freertos.c</Path>
+                <Category Name="include">
+                  <Category Name="platform">
+                    <Path>src\libraries\abstractions\platform\freertos\include\platform\iot_network_freertos.h</Path>
+                    <Path>src\libraries\abstractions\platform\freertos\include\platform\iot_platform_types_freertos.h</Path>
+                  </Category>
+                </Category>
+              </Category>
+              <Category Name="include">
+                <Category Name="platform">
+                  <Path>src\libraries\abstractions\platform\include\platform\iot_clock.h</Path>
+                  <Path>src\libraries\abstractions\platform\include\platform\iot_metrics.h</Path>
+                  <Path>src\libraries\abstractions\platform\include\platform\iot_network.h</Path>
+                  <Path>src\libraries\abstractions\platform\include\platform\iot_threads.h</Path>
+                </Category>
+                <Category Name="types">
+                  <Path>src\libraries\abstractions\platform\include\types\iot_network_types.h</Path>
+                  <Path>src\libraries\abstractions\platform\include\types\iot_platform_types.h</Path>
+                </Category>
+              </Category>
+            </Category>
+            <Category Name="secure_sockets">
+              <Category Name="freertos_plus_tcp">
+                <Path>src\libraries\abstractions\secure_sockets\freertos_plus_tcp\iot_secure_sockets.c</Path>
+              </Category>
+              <Category Name="include">
+                <Path>src\libraries\abstractions\secure_sockets\include\iot_secure_sockets.h</Path>
+                <Path>src\libraries\abstractions\secure_sockets\include\iot_secure_sockets_config_defaults.h</Path>
+                <Path>src\libraries\abstractions\secure_sockets\include\iot_secure_sockets_wrapper_metrics.h</Path>
+              </Category>
+            </Category>
+            <Category Name="transport">
+              <Category Name="secure_sockets">
+                <Path>src\libraries\abstractions\transport\secure_sockets\transport_secure_sockets.c</Path>
+                <Path>src\libraries\abstractions\transport\secure_sockets\transport_secure_sockets.h</Path>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="c_sdk">
+            <Category Name="standard">
+              <Category Name="common">
+                <Path>src\libraries\c_sdk\standard\common\CMakeLists.txt</Path>
+                <Path>src\libraries\c_sdk\standard\common\iot_device_metrics.c</Path>
+                <Path>src\libraries\c_sdk\standard\common\iot_init.c</Path>
+                <Path>src\libraries\c_sdk\standard\common\iot_static_memory_common.c</Path>
+                <Category Name="include">
+                  <Path>src\libraries\c_sdk\standard\common\include\iot_atomic.h</Path>
+                  <Path>src\libraries\c_sdk\standard\common\include\iot_init.h</Path>
+                  <Path>src\libraries\c_sdk\standard\common\include\iot_linear_containers.h</Path>
+                  <Path>src\libraries\c_sdk\standard\common\include\iot_logging_setup.h</Path>
+                  <Path>src\libraries\c_sdk\standard\common\include\iot_taskpool.h</Path>
+                  <Category Name="private">
+                    <Path>src\libraries\c_sdk\standard\common\include\private\iot_default_root_certificates.h</Path>
+                    <Path>src\libraries\c_sdk\standard\common\include\private\iot_doubly_linked_list.h</Path>
+                    <Path>src\libraries\c_sdk\standard\common\include\private\iot_error.h</Path>
+                    <Path>src\libraries\c_sdk\standard\common\include\private\iot_lib_init.h</Path>
+                    <Path>src\libraries\c_sdk\standard\common\include\private\iot_logging.h</Path>
+                    <Path>src\libraries\c_sdk\standard\common\include\private\iot_static_memory.h</Path>
+                    <Path>src\libraries\c_sdk\standard\common\include\private\iot_taskpool_internal.h</Path>
+                  </Category>
+                  <Category Name="types">
+                    <Path>src\libraries\c_sdk\standard\common\include\types\iot_taskpool_types.h</Path>
+                  </Category>
+                </Category>
+                <Category Name="taskpool">
+                  <Path>src\libraries\c_sdk\standard\common\taskpool\iot_taskpool.c</Path>
+                  <Path>src\libraries\c_sdk\standard\common\taskpool\iot_taskpool_static_memory.c</Path>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="coreMQTT">
+            <Category Name="source">
+              <Path>src\libraries\coreMQTT\source\core_mqtt.c</Path>
+              <Path>src\libraries\coreMQTT\source\core_mqtt_serializer.c</Path>
+              <Path>src\libraries\coreMQTT\source\core_mqtt_state.c</Path>
+              <Category Name="include">
+                <Path>src\libraries\coreMQTT\source\include\core_mqtt.h</Path>
+                <Path>src\libraries\coreMQTT\source\include\core_mqtt_config_defaults.h</Path>
+                <Path>src\libraries\coreMQTT\source\include\core_mqtt_serializer.h</Path>
+                <Path>src\libraries\coreMQTT\source\include\core_mqtt_state.h</Path>
+              </Category>
+              <Category Name="interface">
+                <Path>src\libraries\coreMQTT\source\interface\transport_interface.h</Path>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="freertos_plus">
+            <Category Name="standard">
+              <Category Name="crypto">
+                <Category Name="include">
+                  <Path>src\libraries\freertos_plus\standard\crypto\include\iot_crypto.h</Path>
+                </Category>
+                <Category Name="src">
+                  <Path>src\libraries\freertos_plus\standard\crypto\src\iot_crypto.c</Path>
+                </Category>
+              </Category>
+              <Category Name="freertos_plus_tcp">
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\FreeRTOS_ARP.c</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\FreeRTOS_DHCP.c</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\FreeRTOS_DNS.c</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\FreeRTOS_IP.c</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\FreeRTOS_Sockets.c</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\FreeRTOS_Stream_Buffer.c</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\FreeRTOS_TCP_IP.c</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\FreeRTOS_TCP_WIN.c</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\FreeRTOS_UDP_IP.c</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\History.txt</Path>
+                <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\readme.txt</Path>
+                <Category Name="include">
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOSIPConfigDefaults.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_ARP.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_DHCP.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_DNS.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_IP.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_IP_Private.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_Sockets.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_Stream_Buffer.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_TCP_IP.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_TCP_WIN.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_UDP_IP.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\FreeRTOS_errno_TCP.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\IPTraceMacroDefaults.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\NetworkBufferManagement.h</Path>
+                  <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\include\NetworkInterface.h</Path>
+                </Category>
+                <Category Name="portable">
+                  <Category Name="BufferManagement">
+                    <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\portable\BufferManagement\BufferAllocation_2.c</Path>
+                  </Category>
+                  <Category Name="Compiler">
+                    <Category Name="Renesas">
+                      <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\portable\Compiler\Renesas\pack_struct_end.h</Path>
+                      <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\portable\Compiler\Renesas\pack_struct_start.h</Path>
+                    </Category>
+                  </Category>
+                  <Category Name="NetworkInterface">
+                    <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\portable\NetworkInterface\README_DRIVER_DISCLAIMER.txt</Path>
+                    <Category Name="RX">
+                      <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\portable\NetworkInterface\RX\NetworkInterface.c</Path>
+                      <Path>src\libraries\freertos_plus\standard\freertos_plus_tcp\portable\NetworkInterface\RX\ether_callback.c</Path>
+                    </Category>
+                  </Category>
+                </Category>
+              </Category>
+              <Category Name="tls">
+                <Path>src\libraries\freertos_plus\standard\tls\CMakeLists.txt</Path>
+                <Category Name="include">
+                  <Path>src\libraries\freertos_plus\standard\tls\include\iot_tls.h</Path>
+                </Category>
+                <Category Name="src">
+                  <Path>src\libraries\freertos_plus\standard\tls\src\iot_tls.c</Path>
+                </Category>
+              </Category>
+              <Category Name="utils">
+                <Path>src\libraries\freertos_plus\standard\utils\CMakeLists.txt</Path>
+                <Category Name="include">
+                  <Path>src\libraries\freertos_plus\standard\utils\include\iot_system_init.h</Path>
+                </Category>
+                <Category Name="src">
+                  <Path>src\libraries\freertos_plus\standard\utils\src\iot_system_init.c</Path>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="logging">
+            <Path>src\libraries\logging\CMakeLists.txt</Path>
+            <Path>src\libraries\logging\iot_logging.c</Path>
+            <Path>src\libraries\logging\iot_logging_task_dynamic_buffers.c</Path>
+            <Category Name="include">
+              <Path>src\libraries\logging\include\iot_logging_task.h</Path>
+              <Path>src\libraries\logging\include\logging_levels.h</Path>
+              <Path>src\libraries\logging\include\logging_stack.h</Path>
+            </Category>
+          </Category>
+        </Category>
+        <Category Name="smc_gen">
+          <Category Name="general">
+            <Path>src\smc_gen\general\r_cg_hardware_setup.c</Path>
+            <Path>src\smc_gen\general\r_cg_macrodriver.h</Path>
+            <Path>src\smc_gen\general\r_cg_userdefine.h</Path>
+            <Path>src\smc_gen\general\r_smc_cgc.c</Path>
+            <Path>src\smc_gen\general\r_smc_cgc.h</Path>
+            <Path>src\smc_gen\general\r_smc_cgc_user.c</Path>
+            <Path>src\smc_gen\general\r_smc_entry.h</Path>
+            <Path>src\smc_gen\general\r_smc_interrupt.c</Path>
+            <Path>src\smc_gen\general\r_smc_interrupt.h</Path>
+          </Category>
+          <Category Name="r_bsp">
+            <Path>src\smc_gen\r_bsp\platform.h</Path>
+            <Path>src\smc_gen\r_bsp\readme.txt</Path>
+            <Category Name="board">
+              <Category Name="generic_rx65n">
+                <Path>src\smc_gen\r_bsp\board\generic_rx65n\hwsetup.c</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rx65n\hwsetup.h</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rx65n\r_bsp.h</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rx65n\r_bsp_config_reference.h</Path>
+                <Path>src\smc_gen\r_bsp\board\generic_rx65n\r_bsp_interrupt_config_reference.h</Path>
+              </Category>
+              <Category Name="user">
+                <Path>src\smc_gen\r_bsp\board\user\r_bsp.h</Path>
+              </Category>
+            </Category>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_bsp\doc\en\r01an1685ej0720-rx-bsp.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_bsp\doc\ja\r01an1685jj0720-rx-bsp.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="mcu">
+              <Category Name="all">
+                <Path>src\smc_gen\r_bsp\mcu\all\dbsct.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\fsp_common_api.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\lowlvl.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\lowlvl.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\lowsrc.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\lowsrc.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\mcu_locks.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_fsp_error.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_rtos.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_rx_compiler.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\r_typedefs.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\resetprg.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\sbrk.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\all\sbrk.h</Path>
+              </Category>
+              <Category Name="rx65n">
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_clocks.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_clocks.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_info.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_init.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_init.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_interrupts.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_interrupts.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_locks.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts_private.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\r_bsp_cpu.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\r_bsp_locking.h</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\vecttbl.c</Path>
+                <Path>src\smc_gen\r_bsp\mcu\rx65n\vecttbl.h</Path>
+                <Category Name="register_access">
+                  <Category Name="ccrx">
+                    <Path>src\smc_gen\r_bsp\mcu\rx65n\register_access\ccrx\iodefine.h</Path>
+                  </Category>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="r_byteq">
+            <Path>src\smc_gen\r_byteq\r_byteq_if.h</Path>
+            <Path>src\smc_gen\r_byteq\readme.txt</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_byteq\doc\en\r01an1683ej0200-rx-apl.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_byteq\doc\ja\r01an1683jj0200-rx-apl.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="src">
+              <Path>src\smc_gen\r_byteq\src\r_byteq.c</Path>
+              <Path>src\smc_gen\r_byteq\src\r_byteq_private.h</Path>
+            </Category>
+          </Category>
+          <Category Name="r_config">
+            <Path>src\smc_gen\r_config\r_bsp_config.h</Path>
+            <Path>src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
+            <Path>src\smc_gen\r_config\r_bsp_interrupt_config.h</Path>
+            <Path>src\smc_gen\r_config\r_byteq_config.h</Path>
+            <Path>src\smc_gen\r_config\r_ether_rx_config.h</Path>
+            <Path>src\smc_gen\r_config\r_flash_rx_config.h</Path>
+            <Path>src\smc_gen\r_config\r_s12ad_rx_config.h</Path>
+            <Path>src\smc_gen\r_config\r_sci_rx_config.h</Path>
+          </Category>
+          <Category Name="r_ether_rx">
+            <Path>src\smc_gen\r_ether_rx\r_ether_rx_if.h</Path>
+            <Path>src\smc_gen\r_ether_rx\readme.txt</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_ether_rx\doc\en\r01an2009ej0123-rx-ether.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_ether_rx\doc\ja\r01an2009jj0123-rx-ether.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="src">
+              <Path>src\smc_gen\r_ether_rx\src\r_ether_rx.c</Path>
+              <Path>src\smc_gen\r_ether_rx\src\r_ether_rx_private.h</Path>
+              <Category Name="phy">
+                <Path>src\smc_gen\r_ether_rx\src\phy\phy.c</Path>
+                <Path>src\smc_gen\r_ether_rx\src\phy\phy.h</Path>
+              </Category>
+              <Category Name="targets">
+                <Category Name="rx65n">
+                  <Path>src\smc_gen\r_ether_rx\src\targets\rx65n\r_ether_setting_rx65n.c</Path>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="r_flash_rx">
+            <Path>src\smc_gen\r_flash_rx\r_flash_rx_if.h</Path>
+            <Path>src\smc_gen\r_flash_rx\readme.txt</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_flash_rx\doc\en\r01an2184ej0490-rx-flash.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_flash_rx\doc\ja\r01an2184jj0490-rx-flash.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="src">
+              <Path>src\smc_gen\r_flash_rx\src\r_flash_fcu.c</Path>
+              <Path>src\smc_gen\r_flash_rx\src\r_flash_fcu.h</Path>
+              <Path>src\smc_gen\r_flash_rx\src\r_flash_group.c</Path>
+              <Path>src\smc_gen\r_flash_rx\src\r_flash_group.h</Path>
+              <Path>src\smc_gen\r_flash_rx\src\r_flash_nofcu.c</Path>
+              <Path>src\smc_gen\r_flash_rx\src\r_flash_nofcu.h</Path>
+              <Path>src\smc_gen\r_flash_rx\src\r_flash_rx.c</Path>
+              <Path>src\smc_gen\r_flash_rx\src\r_flash_rx.h</Path>
+              <Path>src\smc_gen\r_flash_rx\src\r_flash_targets.h</Path>
+              <Category Name="flash_type_1">
+                <Path>src\smc_gen\r_flash_rx\src\flash_type_1\r_flash_type1.c</Path>
+                <Path>src\smc_gen\r_flash_rx\src\flash_type_1\r_flash_type1_if.h</Path>
+              </Category>
+              <Category Name="flash_type_3">
+                <Path>src\smc_gen\r_flash_rx\src\flash_type_3\r_flash_type3.c</Path>
+                <Path>src\smc_gen\r_flash_rx\src\flash_type_3\r_flash_type3_if.h</Path>
+              </Category>
+              <Category Name="flash_type_4">
+                <Path>src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4.c</Path>
+                <Path>src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4_if.h</Path>
+              </Category>
+              <Category Name="targets">
+                <Category Name="rx65n">
+                  <Path>src\smc_gen\r_flash_rx\src\targets\rx65n\r_flash_rx65n.h</Path>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="r_pincfg">
+            <Path>src\smc_gen\r_pincfg\Pin.c</Path>
+            <Path>src\smc_gen\r_pincfg\Pin.h</Path>
+            <Path>src\smc_gen\r_pincfg\r_ether_rx_pinset.c</Path>
+            <Path>src\smc_gen\r_pincfg\r_ether_rx_pinset.h</Path>
+            <Path>src\smc_gen\r_pincfg\r_pinset.h</Path>
+            <Path>src\smc_gen\r_pincfg\r_s12ad_rx_pinset.c</Path>
+            <Path>src\smc_gen\r_pincfg\r_s12ad_rx_pinset.h</Path>
+            <Path>src\smc_gen\r_pincfg\r_sci_rx_pinset.c</Path>
+            <Path>src\smc_gen\r_pincfg\r_sci_rx_pinset.h</Path>
+          </Category>
+          <Category Name="r_s12ad_rx">
+            <Path>src\smc_gen\r_s12ad_rx\r_s12ad_rx_if.h</Path>
+            <Path>src\smc_gen\r_s12ad_rx\readme.txt</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_s12ad_rx\doc\en\r01an1666ej0500-rx-adc.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_s12ad_rx\doc\ja\r01an1666jj0500-rx-adc.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="src">
+              <Path>src\smc_gen\r_s12ad_rx\src\r_s12ad_rx.c</Path>
+              <Path>src\smc_gen\r_s12ad_rx\src\r_s12ad_rx_private.h</Path>
+              <Category Name="targets">
+                <Category Name="rx65n">
+                  <Path>src\smc_gen\r_s12ad_rx\src\targets\rx65n\r_s12ad_rx65n.c</Path>
+                  <Path>src\smc_gen\r_s12ad_rx\src\targets\rx65n\r_s12ad_rx65n_if.h</Path>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="r_sci_rx">
+            <Path>src\smc_gen\r_sci_rx\r_sci_rx_if.h</Path>
+            <Path>src\smc_gen\r_sci_rx\readme.txt</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_sci_rx\doc\en\r01an1815ej0440-rx-serial.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_sci_rx\doc\ja\r01an1815jj0440-rx-serial.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="src">
+              <Path>src\smc_gen\r_sci_rx\src\r_sci_rx.c</Path>
+              <Path>src\smc_gen\r_sci_rx\src\r_sci_rx_dmaca.c</Path>
+              <Path>src\smc_gen\r_sci_rx\src\r_sci_rx_dmaca.h</Path>
+              <Path>src\smc_gen\r_sci_rx\src\r_sci_rx_dtc.c</Path>
+              <Path>src\smc_gen\r_sci_rx\src\r_sci_rx_dtc.h</Path>
+              <Path>src\smc_gen\r_sci_rx\src\r_sci_rx_platform.h</Path>
+              <Path>src\smc_gen\r_sci_rx\src\r_sci_rx_private.h</Path>
+              <Category Name="targets">
+                <Category Name="rx65n">
+                  <Path>src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n.c</Path>
+                  <Path>src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n_data.c</Path>
+                  <Path>src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n_private.h</Path>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+        </Category>
+      </Category>
+    </Files>
+    <Device Category="com.renesas.cdt.managedbuild.renesas.ccrx.common.option.cpu.rx600" Series="RX">R5F565NEDxFC</Device>
+    <BuildOptions Name="CC-RX" Version="v3.04.00">
+      <BuildMode Active="True" Name="HardwareDebug">
+        <GeneralOptions/>
+        <CompileOptions>
+          <Option>-isa=rxv2</Option>
+          <Option>-branch=32</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS\Source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS_common"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS\Source\portable\Renesas\RX600v2"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\frtos_startup"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\frtos_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\demos\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\demos\network_manager"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\c_sdk\standard\common\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\freertos\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\include\platform"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\secure_sockets\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\freertos_plus_tcp\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\freertos_plus_tcp\portable\Compiler\Renesas"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\pkcs11\corePKCS11\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\logging\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\demos\dev_mode_key_provisioning\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\coreMQTT\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\coreMQTT\source\interface"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\backoff_algorithm\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\demos\common\pkcs11_helpers"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\pkcs11"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls\include\mbedtls"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\jsmn"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_ether_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY</Option>
+          <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
+          <Option>-debug</Option>
+          <Option>-outcode=utf8</Option>
+          <Option>-nologo</Option>
+          <Option>-lang=c99</Option>
+          <Option>-lang=cpp</Option>
+          <Option>-output=obj=${CONFIGDIR}\${FILELEAF}.obj</Option>
+          <Option>-obj_path=${CONFIGDIR}</Option>
+        </CompileOptions>
+        <AssembleOptions>
+          <Option>-isa=rxv2</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_ether_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-utf8</Option>
+          <Option>-debug</Option>
+          <Option>-nologo</Option>
+          <Option>-output=${CONFIGDIR}</Option>
+        </AssembleOptions>
+        <LinkOptions>
+          <Option>-output="${ProjName}.abs"</Option>
+          <Option>-form=absolute</Option>
+          <Option>-nomessage</Option>
+          <Option>-vect=_undefined_interrupt_source_isr</Option>
+          <Option>-list=${ProjName}.map</Option>
+          <Option>-nooptimize</Option>
+          <Option>-rom=D=R,D_1=R_1,D_2=R_2,PFRAM2=RPFRAM2</Option>
+          <Option>-nologo</Option>
+          <Option>-start=SU,SI,R_1,B_2,R,RPFRAM2/04,C_PKCS11_STORAGE*/0100000,B_ETHERNET_BUFFERS_1,B_RX_DESC_1,B_TX_DESC_1,B,B_1,R_2/0800000,PResetPRG,C_1,C_2,C,C$*,D*,W*,L,P,PFRAM,PFRAM2/0FFF00300,EXCEPTVECT/0FFFFFF80,RESETVECT/0FFFFFFFC</Option>
+          <PreLinker>Auto</PreLinker>
+        </LinkOptions>
+        <LibraryGenerateOptions>
+          <Option>-isa=rxv2</Option>
+          <Option>-branch=32</Option>
+          <Option>-lang=c99</Option>
+          <Option>-head=runtime,ctype,math,mathf,stdio,stdlib,string,new,fenv,inttypes,wchar,wctype</Option>
+          <Option>-output="${ProjName}.lib"</Option>
+          <Option>-nologo</Option>
+          <GenerateMode>BuildOptionChanged</GenerateMode>
+        </LibraryGenerateOptions>
+        <LinkOrder>
+          <Path>HardwareDebug\port_asm.obj</Path>
+          <Path>HardwareDebug\croutine.obj</Path>
+          <Path>HardwareDebug\event_groups.obj</Path>
+          <Path>HardwareDebug\list.obj</Path>
+          <Path>HardwareDebug\heap_4.obj</Path>
+          <Path>HardwareDebug\port.obj</Path>
+          <Path>HardwareDebug\queue.obj</Path>
+          <Path>HardwareDebug\stream_buffer.obj</Path>
+          <Path>HardwareDebug\tasks.obj</Path>
+          <Path>HardwareDebug\timers.obj</Path>
+          <Path>HardwareDebug\exit.obj</Path>
+          <Path>HardwareDebug\entropy_hardware_poll.obj</Path>
+          <Path>HardwareDebug\freertos_ip_hook.obj</Path>
+          <Path>HardwareDebug\serial_term_uart.obj</Path>
+          <Path>HardwareDebug\core_pkcs11_pal.obj</Path>
+          <Path>HardwareDebug\pkcs11_helpers.obj</Path>
+          <Path>HardwareDebug\mqtt_demo_mutual_auth.obj</Path>
+          <Path>HardwareDebug\aws_demo.obj</Path>
+          <Path>HardwareDebug\aws_demo_network_addr.obj</Path>
+          <Path>HardwareDebug\iot_demo_freertos.obj</Path>
+          <Path>HardwareDebug\iot_demo_runner.obj</Path>
+          <Path>HardwareDebug\aws_dev_mode_key_provisioning.obj</Path>
+          <Path>HardwareDebug\aws_iot_network_manager.obj</Path>
+          <Path>HardwareDebug\freertos_object_init.obj</Path>
+          <Path>HardwareDebug\freertos_start.obj</Path>
+          <Path>HardwareDebug\jsmn.obj</Path>
+          <Path>HardwareDebug\aes.obj</Path>
+          <Path>HardwareDebug\aesni.obj</Path>
+          <Path>HardwareDebug\arc4.obj</Path>
+          <Path>HardwareDebug\aria.obj</Path>
+          <Path>HardwareDebug\asn1parse.obj</Path>
+          <Path>HardwareDebug\asn1write.obj</Path>
+          <Path>HardwareDebug\base64.obj</Path>
+          <Path>HardwareDebug\bignum.obj</Path>
+          <Path>HardwareDebug\blowfish.obj</Path>
+          <Path>HardwareDebug\camellia.obj</Path>
+          <Path>HardwareDebug\ccm.obj</Path>
+          <Path>HardwareDebug\certs.obj</Path>
+          <Path>HardwareDebug\chacha20.obj</Path>
+          <Path>HardwareDebug\chachapoly.obj</Path>
+          <Path>HardwareDebug\cipher.obj</Path>
+          <Path>HardwareDebug\cipher_wrap.obj</Path>
+          <Path>HardwareDebug\cmac.obj</Path>
+          <Path>HardwareDebug\ctr_drbg.obj</Path>
+          <Path>HardwareDebug\debug.obj</Path>
+          <Path>HardwareDebug\des.obj</Path>
+          <Path>HardwareDebug\dhm.obj</Path>
+          <Path>HardwareDebug\ecdh.obj</Path>
+          <Path>HardwareDebug\ecdsa.obj</Path>
+          <Path>HardwareDebug\ecjpake.obj</Path>
+          <Path>HardwareDebug\ecp.obj</Path>
+          <Path>HardwareDebug\ecp_curves.obj</Path>
+          <Path>HardwareDebug\entropy.obj</Path>
+          <Path>HardwareDebug\entropy_poll.obj</Path>
+          <Path>HardwareDebug\error.obj</Path>
+          <Path>HardwareDebug\gcm.obj</Path>
+          <Path>HardwareDebug\havege.obj</Path>
+          <Path>HardwareDebug\hkdf.obj</Path>
+          <Path>HardwareDebug\hmac_drbg.obj</Path>
+          <Path>HardwareDebug\md.obj</Path>
+          <Path>HardwareDebug\md2.obj</Path>
+          <Path>HardwareDebug\md4.obj</Path>
+          <Path>HardwareDebug\md5.obj</Path>
+          <Path>HardwareDebug\md_wrap.obj</Path>
+          <Path>HardwareDebug\memory_buffer_alloc.obj</Path>
+          <Path>HardwareDebug\net_sockets.obj</Path>
+          <Path>HardwareDebug\nist_kw.obj</Path>
+          <Path>HardwareDebug\oid.obj</Path>
+          <Path>HardwareDebug\padlock.obj</Path>
+          <Path>HardwareDebug\pem.obj</Path>
+          <Path>HardwareDebug\pk.obj</Path>
+          <Path>HardwareDebug\pk_wrap.obj</Path>
+          <Path>HardwareDebug\pkcs11.obj</Path>
+          <Path>HardwareDebug\pkcs12.obj</Path>
+          <Path>HardwareDebug\pkcs5.obj</Path>
+          <Path>HardwareDebug\pkparse.obj</Path>
+          <Path>HardwareDebug\pkwrite.obj</Path>
+          <Path>HardwareDebug\platform.obj</Path>
+          <Path>HardwareDebug\platform_util.obj</Path>
+          <Path>HardwareDebug\poly1305.obj</Path>
+          <Path>HardwareDebug\ripemd160.obj</Path>
+          <Path>HardwareDebug\rsa.obj</Path>
+          <Path>HardwareDebug\rsa_internal.obj</Path>
+          <Path>HardwareDebug\sha1.obj</Path>
+          <Path>HardwareDebug\sha256.obj</Path>
+          <Path>HardwareDebug\sha512.obj</Path>
+          <Path>HardwareDebug\ssl_cache.obj</Path>
+          <Path>HardwareDebug\ssl_ciphersuites.obj</Path>
+          <Path>HardwareDebug\ssl_cli.obj</Path>
+          <Path>HardwareDebug\ssl_cookie.obj</Path>
+          <Path>HardwareDebug\ssl_srv.obj</Path>
+          <Path>HardwareDebug\ssl_ticket.obj</Path>
+          <Path>HardwareDebug\ssl_tls.obj</Path>
+          <Path>HardwareDebug\threading.obj</Path>
+          <Path>HardwareDebug\timing.obj</Path>
+          <Path>HardwareDebug\version.obj</Path>
+          <Path>HardwareDebug\version_features.obj</Path>
+          <Path>HardwareDebug\x509.obj</Path>
+          <Path>HardwareDebug\x509_create.obj</Path>
+          <Path>HardwareDebug\x509_crl.obj</Path>
+          <Path>HardwareDebug\x509_crt.obj</Path>
+          <Path>HardwareDebug\x509_csr.obj</Path>
+          <Path>HardwareDebug\x509write_crt.obj</Path>
+          <Path>HardwareDebug\x509write_csr.obj</Path>
+          <Path>HardwareDebug\xtea.obj</Path>
+          <Path>HardwareDebug\mbedtls_error.obj</Path>
+          <Path>HardwareDebug\mbedtls_utils.obj</Path>
+          <Path>HardwareDebug\backoff_algorithm.obj</Path>
+          <Path>HardwareDebug\core_pkcs11.obj</Path>
+          <Path>HardwareDebug\core_pki_utils.obj</Path>
+          <Path>HardwareDebug\core_pkcs11_mbedtls.obj</Path>
+          <Path>HardwareDebug\iot_clock_freertos.obj</Path>
+          <Path>HardwareDebug\iot_metrics.obj</Path>
+          <Path>HardwareDebug\iot_network_freertos.obj</Path>
+          <Path>HardwareDebug\iot_threads_freertos.obj</Path>
+          <Path>HardwareDebug\iot_secure_sockets.obj</Path>
+          <Path>HardwareDebug\transport_secure_sockets.obj</Path>
+          <Path>HardwareDebug\iot_device_metrics.obj</Path>
+          <Path>HardwareDebug\iot_init.obj</Path>
+          <Path>HardwareDebug\iot_static_memory_common.obj</Path>
+          <Path>HardwareDebug\iot_taskpool.obj</Path>
+          <Path>HardwareDebug\iot_taskpool_static_memory.obj</Path>
+          <Path>HardwareDebug\core_mqtt.obj</Path>
+          <Path>HardwareDebug\core_mqtt_serializer.obj</Path>
+          <Path>HardwareDebug\core_mqtt_state.obj</Path>
+          <Path>HardwareDebug\iot_crypto.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_ARP.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_DHCP.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_DNS.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_IP.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_Sockets.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_Stream_Buffer.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_TCP_IP.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_TCP_WIN.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_UDP_IP.obj</Path>
+          <Path>HardwareDebug\BufferAllocation_2.obj</Path>
+          <Path>HardwareDebug\NetworkInterface.obj</Path>
+          <Path>HardwareDebug\ether_callback.obj</Path>
+          <Path>HardwareDebug\iot_tls.obj</Path>
+          <Path>HardwareDebug\iot_system_init.obj</Path>
+          <Path>HardwareDebug\iot_logging.obj</Path>
+          <Path>HardwareDebug\iot_logging_task_dynamic_buffers.obj</Path>
+          <Path>HardwareDebug\main.obj</Path>
+          <Path>HardwareDebug\r_cg_hardware_setup.obj</Path>
+          <Path>HardwareDebug\r_smc_cgc.obj</Path>
+          <Path>HardwareDebug\r_smc_cgc_user.obj</Path>
+          <Path>HardwareDebug\r_smc_interrupt.obj</Path>
+          <Path>HardwareDebug\hwsetup.obj</Path>
+          <Path>HardwareDebug\dbsct.obj</Path>
+          <Path>HardwareDebug\lowlvl.obj</Path>
+          <Path>HardwareDebug\lowsrc.obj</Path>
+          <Path>HardwareDebug\mcu_locks.obj</Path>
+          <Path>HardwareDebug\r_bsp_common.obj</Path>
+          <Path>HardwareDebug\r_bsp_cpu.obj</Path>
+          <Path>HardwareDebug\r_bsp_interrupts.obj</Path>
+          <Path>HardwareDebug\r_bsp_locking.obj</Path>
+          <Path>HardwareDebug\r_bsp_mcu_startup.obj</Path>
+          <Path>HardwareDebug\r_bsp_software_interrupt.obj</Path>
+          <Path>HardwareDebug\r_rx_intrinsic_functions.obj</Path>
+          <Path>HardwareDebug\resetprg.obj</Path>
+          <Path>HardwareDebug\sbrk.obj</Path>
+          <Path>HardwareDebug\mcu_clocks.obj</Path>
+          <Path>HardwareDebug\mcu_init.obj</Path>
+          <Path>HardwareDebug\mcu_interrupts.obj</Path>
+          <Path>HardwareDebug\mcu_mapped_interrupts.obj</Path>
+          <Path>HardwareDebug\vecttbl.obj</Path>
+          <Path>HardwareDebug\r_byteq.obj</Path>
+          <Path>HardwareDebug\phy.obj</Path>
+          <Path>HardwareDebug\r_ether_rx.obj</Path>
+          <Path>HardwareDebug\r_ether_setting_rx65n.obj</Path>
+          <Path>HardwareDebug\r_flash_type1.obj</Path>
+          <Path>HardwareDebug\r_flash_type3.obj</Path>
+          <Path>HardwareDebug\r_flash_type4.obj</Path>
+          <Path>HardwareDebug\r_flash_fcu.obj</Path>
+          <Path>HardwareDebug\r_flash_group.obj</Path>
+          <Path>HardwareDebug\r_flash_nofcu.obj</Path>
+          <Path>HardwareDebug\r_flash_rx.obj</Path>
+          <Path>HardwareDebug\Pin.obj</Path>
+          <Path>HardwareDebug\r_ether_rx_pinset.obj</Path>
+          <Path>HardwareDebug\r_s12ad_rx_pinset.obj</Path>
+          <Path>HardwareDebug\r_sci_rx_pinset.obj</Path>
+          <Path>HardwareDebug\r_s12ad_rx.obj</Path>
+          <Path>HardwareDebug\r_s12ad_rx65n.obj</Path>
+          <Path>HardwareDebug\r_sci_rx.obj</Path>
+          <Path>HardwareDebug\r_sci_rx_dmaca.obj</Path>
+          <Path>HardwareDebug\r_sci_rx_dtc.obj</Path>
+          <Path>HardwareDebug\r_sci_rx65n.obj</Path>
+          <Path>HardwareDebug\r_sci_rx65n_data.obj</Path>
+          <Path>HardwareDebug\freertos_mqtt.lib</Path>
+        </LinkOrder>
+        <CommonOptions>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS\Source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS_common"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\FreeRTOS\Source\portable\Renesas\RX600v2"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\frtos_startup"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\frtos_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\demos\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\demos\network_manager"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\c_sdk\standard\common\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\freertos\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\include\platform"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\secure_sockets\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\freertos_plus_tcp\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\freertos_plus_tcp\portable\Compiler\Renesas"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\pkcs11\corePKCS11\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\logging\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\demos\dev_mode_key_provisioning\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\coreMQTT\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\coreMQTT\source\interface"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\backoff_algorithm\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\demos\common\pkcs11_helpers"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\pkcs11"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\libraries\3rdparty\jsmn"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\general"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\nam22\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
+          <MacroForC>MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;"</MacroForC>
+          <MacroForC>CONFIG_MEDTLS_USE_AFR_MEMORY</MacroForC>
+        </CommonOptions>
+      </BuildMode>
+    </BuildOptions>
+  </Project>
+</MicomToolCommonProjectFile>
