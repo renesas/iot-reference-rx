@@ -1,0 +1,5314 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><style type="text/css">
+table {
+    font-family: verdana,arial,sans-serif;
+    font-size:14px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #a9c6c9;
+	width: 100%
+}
+table thead td {
+    background-color:#4472C7;    border-width: 1px;
+    padding: 13px;
+    border-style: solid;
+    border-color: #a9c6c9;
+	text-align: center;
+	color:#ffffff;
+}
+table tbody td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+.evenrowcolor{
+    background-color:#CFD5EA;
+}
+.oddrowcolor{
+    background-color:#E9EBF5;
+}
+</style>
+</head>
+<body>
+<div style="margin-left:auto;margin-right:auto;width:80%;">
+<div>
+  <h1 style="text-align: center">SmartConfigurator MCU migration report</h1>
+</div>
+<div>
+  <p>From device: R5F565NEHxFC.</p>
+</div>
+<div>
+  <p>To device: R5F565NEDxFC.</p>
+</div>
+<div>
+  <h1 style="text-align: left">1 Clock Settings</h1>
+<div>
+  <p>Success. Settings are fully converted</p>
+</div>
+<div>
+  <p>The following is a summary table with all configured clock values and their conversion status.</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 1-1 Board input clock values migration status</caption>
+<thead>
+<tr>
+<td>Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>Main clock</td>
+<td>24</td>
+<td>24</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Sub-clock</td>
+<td>32.768</td>
+<td>32.768</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+  <p></p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 1-2 Configured clock values migration status</caption>
+<thead>
+<tr>
+<td>Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>FlashIF clock (FCLK)</td>
+<td>60</td>
+<td>60</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>System clock (ICLK)</td>
+<td>120</td>
+<td>120</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Peripheral module clock (PCLKA)</td>
+<td>120</td>
+<td>120</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Peripheral module clock (PCLKB)</td>
+<td>60</td>
+<td>60</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Peripheral module clock (PCLKC)</td>
+<td>60</td>
+<td>60</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Peripheral module clock (PCLKD)</td>
+<td>60</td>
+<td>60</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>External bus clock (BCLK)</td>
+<td>60</td>
+<td>60</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>External bus clock pin (BCLK pin)</td>
+<td>-</td>
+<td>-</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SDRAM clock (SDCLK)</td>
+<td>-</td>
+<td>-</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>USB clock (UCLK)</td>
+<td>48</td>
+<td>48</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>CACLCLK</td>
+<td>-</td>
+<td>-</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>CACHCLK</td>
+<td>-</td>
+<td>-</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>CACSCLK</td>
+<td>32.768</td>
+<td>32.768</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RTCSCLK</td>
+<td>32.768</td>
+<td>32.768</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>IWDTCLK/CACILCLK</td>
+<td>-</td>
+<td>-</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>CANMCLK/CACMCLK</td>
+<td>24</td>
+<td>24</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+  <p></p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 1-3 Configured macro definitions migration status</caption>
+<thead>
+<tr>
+<td>Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>BSP_CFG_MAIN_CLOCK_OSCILLATE_ENABLE</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_SUB_CLOCK_OSCILLATE_ENABLE</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_HOCO_OSCILLATE_ENABLE</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_LOCO_OSCILLATE_ENABLE</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_IWDT_CLOCK_OSCILLATE_ENABLE</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_MCU_VCC_MV</td>
+<td>3300</td>
+<td>3300</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_XTAL_HZ</td>
+<td>24000000</td>
+<td>24000000</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_MOSC_WAIT_TIME</td>
+<td>0x53</td>
+<td>0x53</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_MAIN_CLOCK_SOURCE</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_SOSC_WAIT_TIME</td>
+<td>0x21</td>
+<td>0x21</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_SOSC_DRV_CAP</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_HOCO_FREQUENCY</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_PLL_SRC</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_PLL_DIV</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_PLL_MUL</td>
+<td>10.0</td>
+<td>10.0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_CLOCK_SOURCE</td>
+<td>4</td>
+<td>4</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_FCK_DIV</td>
+<td>4</td>
+<td>4</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_ICK_DIV</td>
+<td>2</td>
+<td>2</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_PCKA_DIV</td>
+<td>2</td>
+<td>2</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_PCKB_DIV</td>
+<td>4</td>
+<td>4</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_PCKC_DIV</td>
+<td>4</td>
+<td>4</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_PCKD_DIV</td>
+<td>4</td>
+<td>4</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_UCK_DIV</td>
+<td>5</td>
+<td>5</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_BCK_DIV</td>
+<td>4</td>
+<td>4</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_BCLK_OUTPUT</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>BSP_CFG_SDCLK_OUTPUT</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>BSP_CFG_RTC_ENABLE</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+  <h1 style="text-align: left">2 Interrupts</h1>
+<div>
+  <p>The following is a summary table with all interrupt assignments and their conversion status</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 2-1 Interrupt Migration Status</caption>
+<thead>
+<tr>
+<td>Vector Number</td>
+<td>Old Interrupt Assignment</td>
+<td>New Interrupt Assignment</td>
+<td>Status (Before device change)</td>
+<td>Status (After device change)</td>
+<td>Interrupt Migration Status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>16</td>
+<td>BSC_BUSERR</td>
+<td>BSC_BUSERR</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>18</td>
+<td>RAM_RAMERR</td>
+<td>RAM_RAMERR</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>21</td>
+<td>FCU_FIFERR</td>
+<td>FCU_FIFERR</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>23</td>
+<td>FCU_FRDYI</td>
+<td>FCU_FRDYI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>26</td>
+<td>ICU_SWINT2</td>
+<td>ICU_SWINT2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>27</td>
+<td>ICU_SWINT</td>
+<td>ICU_SWINT</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>28</td>
+<td>CMT0_CMI0</td>
+<td>CMT0_CMI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>29</td>
+<td>CMT1_CMI1</td>
+<td>CMT1_CMI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>30</td>
+<td>CMTW0_CMWI0</td>
+<td>CMTW0_CMWI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>31</td>
+<td>CMTW1_CMWI1</td>
+<td>CMTW1_CMWI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>34</td>
+<td>USB0_D0FIFO0</td>
+<td>USB0_D0FIFO0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>35</td>
+<td>USB0_D1FIFO0</td>
+<td>USB0_D1FIFO0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>38</td>
+<td>RSPI0_SPRI0</td>
+<td>RSPI0_SPRI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>39</td>
+<td>RSPI0_SPTI0</td>
+<td>RSPI0_SPTI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>40</td>
+<td>RSPI1_SPRI1</td>
+<td>RSPI1_SPRI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>41</td>
+<td>RSPI1_SPTI1</td>
+<td>RSPI1_SPTI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>42</td>
+<td>QSPI_SPRI</td>
+<td>QSPI_SPRI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>43</td>
+<td>QSPI_SPTI</td>
+<td>QSPI_SPTI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>44</td>
+<td>SDHI_SBFAI</td>
+<td>SDHI_SBFAI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>45</td>
+<td>MMCIF_MBFAI</td>
+<td>MMCIF_MBFAI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>50</td>
+<td>RIIC1_RXI1</td>
+<td>RIIC1_RXI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>51</td>
+<td>RIIC1_TXI1</td>
+<td>RIIC1_TXI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>52</td>
+<td>RIIC0_RXI0</td>
+<td>RIIC0_RXI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>53</td>
+<td>RIIC0_TXI0</td>
+<td>RIIC0_TXI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>54</td>
+<td>RIIC2_RXI2</td>
+<td>RIIC2_RXI2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>55</td>
+<td>RIIC2_TXI2</td>
+<td>RIIC2_TXI2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>58</td>
+<td>SCI0_RXI0</td>
+<td>SCI0_RXI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>59</td>
+<td>SCI0_TXI0</td>
+<td>SCI0_TXI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>60</td>
+<td>SCI1_RXI1</td>
+<td>SCI1_RXI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>61</td>
+<td>SCI1_TXI1</td>
+<td>SCI1_TXI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>62</td>
+<td>SCI2_RXI2</td>
+<td>SCI2_RXI2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>63</td>
+<td>SCI2_TXI2</td>
+<td>SCI2_TXI2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>64</td>
+<td>ICU_IRQ0</td>
+<td>ICU_IRQ0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>65</td>
+<td>ICU_IRQ1</td>
+<td>ICU_IRQ1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>66</td>
+<td>ICU_IRQ2</td>
+<td>ICU_IRQ2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>67</td>
+<td>ICU_IRQ3</td>
+<td>ICU_IRQ3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>68</td>
+<td>ICU_IRQ4</td>
+<td>ICU_IRQ4</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>69</td>
+<td>ICU_IRQ5</td>
+<td>ICU_IRQ5</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>70</td>
+<td>ICU_IRQ6</td>
+<td>ICU_IRQ6</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>71</td>
+<td>ICU_IRQ7</td>
+<td>ICU_IRQ7</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>72</td>
+<td>ICU_IRQ8</td>
+<td>ICU_IRQ8</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>73</td>
+<td>ICU_IRQ9</td>
+<td>ICU_IRQ9</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>74</td>
+<td>ICU_IRQ10</td>
+<td>ICU_IRQ10</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>75</td>
+<td>ICU_IRQ11</td>
+<td>ICU_IRQ11</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>76</td>
+<td>ICU_IRQ12</td>
+<td>ICU_IRQ12</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>77</td>
+<td>ICU_IRQ13</td>
+<td>ICU_IRQ13</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>78</td>
+<td>ICU_IRQ14</td>
+<td>ICU_IRQ14</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>79</td>
+<td>ICU_IRQ15</td>
+<td>ICU_IRQ15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>80</td>
+<td>SCI3_RXI3</td>
+<td>SCI3_RXI3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>81</td>
+<td>SCI3_TXI3</td>
+<td>SCI3_TXI3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>82</td>
+<td>SCI4_RXI4</td>
+<td>SCI4_RXI4</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>83</td>
+<td>SCI4_TXI4</td>
+<td>SCI4_TXI4</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>84</td>
+<td>SCI5_RXI5</td>
+<td>SCI5_RXI5</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>85</td>
+<td>SCI5_TXI5</td>
+<td>SCI5_TXI5</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>86</td>
+<td>SCI6_RXI6</td>
+<td>SCI6_RXI6</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>87</td>
+<td>SCI6_TXI6</td>
+<td>SCI6_TXI6</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>88</td>
+<td>LVD1_LVD1</td>
+<td>LVD1_LVD1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>89</td>
+<td>LVD2_LVD2</td>
+<td>LVD2_LVD2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>90</td>
+<td>USB0_USBR0</td>
+<td>USB0_USBR0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>92</td>
+<td>RTC_ALM</td>
+<td>RTC_ALM</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>93</td>
+<td>RTC_PRD</td>
+<td>RTC_PRD</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>95</td>
+<td>IWDT_IWUNI</td>
+<td>IWDT_IWUNI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>96</td>
+<td>WDT_WUNI</td>
+<td>WDT_WUNI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>97</td>
+<td>PDC_PCDFI</td>
+<td>PDC_PCDFI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>98</td>
+<td>SCI7_RXI7</td>
+<td>SCI7_RXI7</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>99</td>
+<td>SCI7_TXI7</td>
+<td>SCI7_TXI7</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>100</td>
+<td>SCI8_RXI8</td>
+<td>SCI8_RXI8</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>101</td>
+<td>SCI8_TXI8</td>
+<td>SCI8_TXI8</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>102</td>
+<td>SCI9_RXI9</td>
+<td>SCI9_RXI9</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>103</td>
+<td>SCI9_TXI9</td>
+<td>SCI9_TXI9</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>104</td>
+<td>SCI10_RXI10</td>
+<td>SCI10_RXI10</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>105</td>
+<td>SCI10_TXI10</td>
+<td>SCI10_TXI10</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>106</td>
+<td>GROUPBE0<br>1-ERS0<br>2-ERS1</td>
+<td>GROUPBE0<br>1-ERS0<br>2-ERS1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>107</td>
+<td>GROUPBL2<br>1-SDIOI</td>
+<td>GROUPBL2<br>1-SDIOI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>108</td>
+<td>RSPI2_SPRI2</td>
+<td>RSPI2_SPRI2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>109</td>
+<td>RSPI2_SPTI2</td>
+<td>RSPI2_SPTI2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>110</td>
+<td>GROUPBL0<br>1-TEI0<br>2-ERI0<br>3-TEI1<br>4-ERI1<br>5-TEI2<br>6-ERI2<br>7-TEI3<br>8-ERI3<br>9-TEI4<br>10-ERI4<br>11-TEI5<br>12-ERI5<br>13-TEI6<br>14-ERI6<br>15-TEI7<br>16-ERI7<br>17-TEI12<br>18-ERI12<br>19-SCIX0<br>20-SCIX1<br>21-SCIX2<br>22-SCIX3<br>23-QSPSSLI<br>24-FERRI<br>25-MENDI<br>26-OVFI<br>27-DOPCI<br>28-PCFEI<br>29-PCERI</td>
+<td>GROUPBL0<br>1-TEI0<br>2-ERI0<br>3-TEI1<br>4-ERI1<br>5-TEI2<br>6-ERI2<br>7-TEI3<br>8-ERI3<br>9-TEI4<br>10-ERI4<br>11-TEI5<br>12-ERI5<br>13-TEI6<br>14-ERI6<br>15-TEI7<br>16-ERI7<br>17-TEI12<br>18-ERI12<br>19-SCIX0<br>20-SCIX1<br>21-SCIX2<br>22-SCIX3<br>23-QSPSSLI<br>24-FERRI<br>25-MENDI<br>26-OVFI<br>27-DOPCI<br>28-PCFEI<br>29-PCERI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>111</td>
+<td>GROUPBL1<br>1-CDETI<br>2-CACI<br>3-SDACI<br>4-CDETIO<br>5-ERRIO<br>6-ACCIO<br>7-OEI1<br>8-OEI2<br>9-OEI3<br>10-OEI4<br>11-TEI0<br>12-EEI0<br>13-TEI2<br>14-EEI2<br>15-S12CMPAI<br>16-S12CMPBI<br>17-S12CMPAI1<br>18-S12CMPBI1<br>19-TEI8<br>20-ERI8<br>21-TEI9<br>22-ERI9<br>23-TEI1<br>24-EEI1</td>
+<td>GROUPBL1<br>1-CDETI<br>2-CACI<br>3-SDACI<br>4-CDETIO<br>5-ERRIO<br>6-ACCIO<br>7-OEI1<br>8-OEI2<br>9-OEI3<br>10-OEI4<br>11-TEI0<br>12-EEI0<br>13-TEI2<br>14-EEI2<br>15-S12CMPAI<br>16-S12CMPBI<br>17-S12CMPAI1<br>18-S12CMPBI1<br>19-TEI8<br>20-ERI8<br>21-TEI9<br>22-ERI9<br>23-TEI1<br>24-EEI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>112</td>
+<td>GROUPAL0<br>1-TEI10<br>2-ERI10<br>3-TEI11<br>4-ERI11<br>5-SPII0<br>6-SPEI0<br>7-SPII1<br>8-SPEI1<br>9-SPII2<br>10-SPEI2</td>
+<td>GROUPAL0<br>1-TEI10<br>2-ERI10<br>3-TEI11<br>4-ERI11<br>5-SPII0<br>6-SPEI0<br>7-SPII1<br>8-SPEI1<br>9-SPII2<br>10-SPEI2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>113</td>
+<td>GROUPAL1<br>1-EINT0<br>2-VPOS<br>3-GR1UF<br>4-GR2UF<br>5-DRW_IRQ</td>
+<td>GROUPAL1<br>1-EINT0<br>2-VPOS<br>3-GR1UF<br>4-GR2UF<br>5-DRW_IRQ</td>
+<td>State= Used<br>Priority= 2</td>
+<td>State= Used<br>Priority= 2</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>114</td>
+<td>SCI11_RXI11</td>
+<td>SCI11_RXI11</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>115</td>
+<td>SCI11_TXI11</td>
+<td>SCI11_TXI11</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>116</td>
+<td>SCI12_RXI12</td>
+<td>SCI12_RXI12</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>117</td>
+<td>SCI12_TXI12</td>
+<td>SCI12_TXI12</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>120</td>
+<td>DMAC_DMAC0I</td>
+<td>DMAC_DMAC0I</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>121</td>
+<td>DMAC_DMAC1I</td>
+<td>DMAC_DMAC1I</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>122</td>
+<td>DMAC_DMAC2I</td>
+<td>DMAC_DMAC2I</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>123</td>
+<td>DMAC_DMAC3I</td>
+<td>DMAC_DMAC3I</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>124</td>
+<td>DMAC_DMAC74I</td>
+<td>DMAC_DMAC74I</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>125</td>
+<td>OST_OSTDI</td>
+<td>OST_OSTDI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>126</td>
+<td>EXDMAC_EXDMAC0I</td>
+<td>EXDMAC_EXDMAC0I</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>127</td>
+<td>EXDMAC_EXDMAC1I</td>
+<td>EXDMAC_EXDMAC1I</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>128</td>
+<td>CMT2_CMI2</td>
+<td>CMT2_CMI2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>129</td>
+<td>CMT3_CMI3</td>
+<td>CMT3_CMI3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>130</td>
+<td>TPU0_TGI0A</td>
+<td>TPU0_TGI0A</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>131</td>
+<td>TPU0_TGI0B</td>
+<td>TPU0_TGI0B</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>132</td>
+<td>TPU0_TGI0C</td>
+<td>TPU0_TGI0C</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>133</td>
+<td>TPU0_TGI0D</td>
+<td>TPU0_TGI0D</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>134</td>
+<td>TPU0_TCI0V</td>
+<td>TPU0_TCI0V</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>135</td>
+<td>TPU1_TGI1B</td>
+<td>TPU1_TGI1B</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>136</td>
+<td>TPU1_TCI1V</td>
+<td>TPU1_TCI1V</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>137</td>
+<td>TPU1_TCI1U</td>
+<td>TPU1_TCI1U</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>138</td>
+<td>TPU2_TGI2A</td>
+<td>TPU2_TGI2A</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>139</td>
+<td>TPU2_TGI2B</td>
+<td>TPU2_TGI2B</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>140</td>
+<td>TPU2_TCI2V</td>
+<td>TPU2_TCI2V</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>141</td>
+<td>TPU2_TCI2U</td>
+<td>TPU2_TCI2U</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>142</td>
+<td>TPU3_TGI3A</td>
+<td>TPU3_TGI3A</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>143</td>
+<td>TPU3_TGI3B</td>
+<td>TPU3_TGI3B</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>144</td>
+<td>TPU1_TGI1A</td>
+<td>TPU1_TGI1A</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>145</td>
+<td>TPU3_TGI3C</td>
+<td>TPU3_TGI3C</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>146</td>
+<td>TMR0_CMIA0</td>
+<td>TMR0_CMIA0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>147</td>
+<td>TMR0_CMIB0</td>
+<td>TMR0_CMIB0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>148</td>
+<td>TMR0_OVI0</td>
+<td>TMR0_OVI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>149</td>
+<td>TMR1_CMIA1</td>
+<td>TMR1_CMIA1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>150</td>
+<td>TMR1_CMIB1</td>
+<td>TMR1_CMIB1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>151</td>
+<td>TMR1_OVI1</td>
+<td>TMR1_OVI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>152</td>
+<td>TMR2_CMIA2</td>
+<td>TMR2_CMIA2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>153</td>
+<td>TMR2_CMIB2</td>
+<td>TMR2_CMIB2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>154</td>
+<td>TMR2_OVI2</td>
+<td>TMR2_OVI2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>155</td>
+<td>TMR3_CMIA3</td>
+<td>TMR3_CMIA3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>156</td>
+<td>TMR3_CMIB3</td>
+<td>TMR3_CMIB3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>157</td>
+<td>TMR3_OVI3</td>
+<td>TMR3_OVI3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>158</td>
+<td>TPU3_TGI3D</td>
+<td>TPU3_TGI3D</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>159</td>
+<td>TPU3_TCI3V</td>
+<td>TPU3_TCI3V</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>160</td>
+<td>TPU4_TGI4A</td>
+<td>TPU4_TGI4A</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>161</td>
+<td>TPU4_TGI4B</td>
+<td>TPU4_TGI4B</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>162</td>
+<td>TPU4_TCI4V</td>
+<td>TPU4_TCI4V</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>163</td>
+<td>TPU4_TCI4U</td>
+<td>TPU4_TCI4U</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>164</td>
+<td>TPU5_TGI5A</td>
+<td>TPU5_TGI5A</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>165</td>
+<td>TPU5_TGI5B</td>
+<td>TPU5_TGI5B</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>166</td>
+<td>TPU5_TCI5V</td>
+<td>TPU5_TCI5V</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>167</td>
+<td>TPU5_TCI5U</td>
+<td>TPU5_TCI5U</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>168</td>
+<td>CMTW0_IC0I0</td>
+<td>CMTW0_IC0I0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>169</td>
+<td>CMTW0_IC1I0</td>
+<td>CMTW0_IC1I0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>170</td>
+<td>CMTW0_OC0I0</td>
+<td>CMTW0_OC0I0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>171</td>
+<td>CMTW0_OC1I0</td>
+<td>CMTW0_OC1I0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>172</td>
+<td>CMTW1_IC0I1</td>
+<td>CMTW1_IC0I1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>173</td>
+<td>CMTW1_IC1I1</td>
+<td>CMTW1_IC1I1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>174</td>
+<td>CMTW1_OC0I1</td>
+<td>CMTW1_OC0I1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>175</td>
+<td>CMTW1_OC1I1</td>
+<td>CMTW1_OC1I1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>176</td>
+<td>RTC_CUP</td>
+<td>RTC_CUP</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>177</td>
+<td>CAN0_RXF0</td>
+<td>CAN0_RXF0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>178</td>
+<td>CAN0_TXF0</td>
+<td>CAN0_TXF0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>179</td>
+<td>CAN0_RXM0</td>
+<td>CAN0_RXM0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>180</td>
+<td>CAN0_TXM0</td>
+<td>CAN0_TXM0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>181</td>
+<td>CAN1_RXF1</td>
+<td>CAN1_RXF1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>182</td>
+<td>CAN1_TXF1</td>
+<td>CAN1_TXF1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>183</td>
+<td>CAN1_RXM1</td>
+<td>CAN1_RXM1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>184</td>
+<td>CAN1_TXM1</td>
+<td>CAN1_TXM1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>185</td>
+<td>USB0_USBI0</td>
+<td>USB0_USBI0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>186</td>
+<td>S12AD_S12ADI</td>
+<td>S12AD_S12ADI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>187</td>
+<td>S12AD_S12GBADI</td>
+<td>S12AD_S12GBADI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>188</td>
+<td>S12AD_S12GCADI</td>
+<td>S12AD_S12GCADI</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>189</td>
+<td>S12AD1_S12ADI1</td>
+<td>S12AD1_S12ADI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>190</td>
+<td>S12AD1_S12GBADI1</td>
+<td>S12AD1_S12GBADI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>191</td>
+<td>S12AD1_S12GCADI1</td>
+<td>S12AD1_S12GCADI1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>192</td>
+<td>RNG_RNGEND</td>
+<td>RNG_RNGEND</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>193</td>
+<td>ELC_ELSR18I</td>
+<td>ELC_ELSR18I</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>194</td>
+<td>ELC_ELSR19I</td>
+<td>ELC_ELSR19I</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>195</td>
+<td>TSIP_PROC_BUSY</td>
+<td>TSIP_PROC_BUSY</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>196</td>
+<td>TSIP_ROMOK</td>
+<td>TSIP_ROMOK</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>197</td>
+<td>TSIP_LONG_PLG</td>
+<td>TSIP_LONG_PLG</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>198</td>
+<td>TSIP_TEST_BUSY</td>
+<td>TSIP_TEST_BUSY</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>199</td>
+<td>TSIP_WRRDY0</td>
+<td>TSIP_WRRDY0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>200</td>
+<td>TSIP_WRRDY1</td>
+<td>TSIP_WRRDY1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>201</td>
+<td>TSIP_WRRDY4</td>
+<td>TSIP_WRRDY4</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>202</td>
+<td>TSIP_RDRDY0</td>
+<td>TSIP_RDRDY0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>203</td>
+<td>TSIP_RDRDY1</td>
+<td>TSIP_RDRDY1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>204</td>
+<td>TSIP_INTEGRATE_WRRDY</td>
+<td>TSIP_INTEGRATE_WRRDY</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>205</td>
+<td>TSIP_INTEGRATE_RDRDY</td>
+<td>TSIP_INTEGRATE_RDRDY</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>206</td>
+<td>PERIB_INTB206</td>
+<td>PERIB_INTB206</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>207</td>
+<td>PERIB_INTB207</td>
+<td>PERIB_INTB207</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>208</td>
+<td>MTU1_TGIA1</td>
+<td>MTU1_TGIA1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>209</td>
+<td>MTU0_TGIA0</td>
+<td>MTU0_TGIA0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>210</td>
+<td>MTU0_TGIB0</td>
+<td>MTU0_TGIB0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>211</td>
+<td>MTU0_TGIC0</td>
+<td>MTU0_TGIC0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>212</td>
+<td>MTU0_TGID0</td>
+<td>MTU0_TGID0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>213</td>
+<td>MTU0_TCIV0</td>
+<td>MTU0_TCIV0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>214</td>
+<td>MTU0_TGIE0</td>
+<td>MTU0_TGIE0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>215</td>
+<td>MTU0_TGIF0</td>
+<td>MTU0_TGIF0</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>216</td>
+<td>MTU1_TGIB1</td>
+<td>MTU1_TGIB1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>217</td>
+<td>MTU1_TCIV1</td>
+<td>MTU1_TCIV1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>218</td>
+<td>MTU1_TCIU1</td>
+<td>MTU1_TCIU1</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>219</td>
+<td>MTU2_TGIA2</td>
+<td>MTU2_TGIA2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>220</td>
+<td>MTU2_TGIB2</td>
+<td>MTU2_TGIB2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>221</td>
+<td>MTU2_TCIV2</td>
+<td>MTU2_TCIV2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>222</td>
+<td>MTU2_TCIU2</td>
+<td>MTU2_TCIU2</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>223</td>
+<td>MTU3_TGIA3</td>
+<td>MTU3_TGIA3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>224</td>
+<td>MTU3_TGIB3</td>
+<td>MTU3_TGIB3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>225</td>
+<td>MTU3_TGIC3</td>
+<td>MTU3_TGIC3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>226</td>
+<td>MTU3_TGID3</td>
+<td>MTU3_TGID3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>227</td>
+<td>MTU3_TCIV3</td>
+<td>MTU3_TCIV3</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>228</td>
+<td>MTU4_TGIA4</td>
+<td>MTU4_TGIA4</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>229</td>
+<td>MTU4_TGIB4</td>
+<td>MTU4_TGIB4</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>230</td>
+<td>MTU4_TGIC4</td>
+<td>MTU4_TGIC4</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>231</td>
+<td>MTU4_TGID4</td>
+<td>MTU4_TGID4</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>232</td>
+<td>MTU4_TCIV4</td>
+<td>MTU4_TCIV4</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>233</td>
+<td>MTU5_TGIU5</td>
+<td>MTU5_TGIU5</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>234</td>
+<td>MTU5_TGIV5</td>
+<td>MTU5_TGIV5</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>235</td>
+<td>MTU5_TGIW5</td>
+<td>MTU5_TGIW5</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>236</td>
+<td>MTU6_TGIA6</td>
+<td>MTU6_TGIA6</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>237</td>
+<td>MTU6_TGIB6</td>
+<td>MTU6_TGIB6</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>238</td>
+<td>MTU6_TGIC6</td>
+<td>MTU6_TGIC6</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>239</td>
+<td>MTU6_TGID6</td>
+<td>MTU6_TGID6</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>240</td>
+<td>MTU6_TCIV6</td>
+<td>MTU6_TCIV6</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>241</td>
+<td>MTU7_TGIA7</td>
+<td>MTU7_TGIA7</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>242</td>
+<td>MTU7_TGIB7</td>
+<td>MTU7_TGIB7</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>243</td>
+<td>MTU7_TGIC7</td>
+<td>MTU7_TGIC7</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>244</td>
+<td>MTU7_TGID7</td>
+<td>MTU7_TGID7</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>245</td>
+<td>MTU7_TCIV7</td>
+<td>MTU7_TCIV7</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>246</td>
+<td>MTU8_TGIA8</td>
+<td>MTU8_TGIA8</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>247</td>
+<td>MTU8_TGIB8</td>
+<td>MTU8_TGIB8</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>248</td>
+<td>MTU8_TGIC8</td>
+<td>MTU8_TGIC8</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>249</td>
+<td>MTU8_TGID8</td>
+<td>MTU8_TGID8</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>250</td>
+<td>MTU8_TCIV8</td>
+<td>MTU8_TCIV8</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>251</td>
+<td>AES_AESRDY</td>
+<td>AES_AESRDY</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>252</td>
+<td>AES_AESEND</td>
+<td>AES_AESEND</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>253</td>
+<td>PERIA_INTA253</td>
+<td>PERIA_INTA253</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="evenrowcolor">
+<td>254</td>
+<td>PERIA_INTA254</td>
+<td>PERIA_INTA254</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+<tr class ="oddrowcolor">
+<td>255</td>
+<td>PERIA_INTA255</td>
+<td>PERIA_INTA255</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>State= Not Use<br>Priority= 15</td>
+<td>Success<br></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+  <h1 style="text-align: left">3 Pins</h1>
+<div>
+  <p>The following is a summary table with all pin assignments and their conversion status.</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 3-1 Pin Migration Status</caption>
+<thead>
+<tr>
+<td>Function</td>
+<td>Pin Number (Before)</td>
+<td>Pin Number (After)</td>
+<td>Status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>EMLE</td>
+<td>10</td>
+<td>10</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TRST#</td>
+<td>17</td>
+<td>17</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>XCIN</td>
+<td>19</td>
+<td>19</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>XCOUT</td>
+<td>20</td>
+<td>20</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>XTAL</td>
+<td>22</td>
+<td>22</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>EXTAL</td>
+<td>24</td>
+<td>24</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_LINKSTA</td>
+<td>27</td>
+<td>27</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TMS</td>
+<td>30</td>
+<td>30</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TDI</td>
+<td>31</td>
+<td>31</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TCK</td>
+<td>34</td>
+<td>34</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TDO</td>
+<td>35</td>
+<td>35</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TXD8</td>
+<td>58</td>
+<td>58</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RXD8</td>
+<td>59</td>
+<td>59</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_CRS</td>
+<td>74</td>
+<td>74</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_COL</td>
+<td>76</td>
+<td>76</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_ETXD3</td>
+<td>77</td>
+<td>77</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_ETXD2</td>
+<td>78</td>
+<td>78</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_ETXD1</td>
+<td>79</td>
+<td>79</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_ETXD0</td>
+<td>80</td>
+<td>80</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_TX_EN</td>
+<td>81</td>
+<td>81</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_TX_CLK</td>
+<td>82</td>
+<td>82</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_RX_ER</td>
+<td>84</td>
+<td>84</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_RX_CLK</td>
+<td>85</td>
+<td>85</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_RX_DV</td>
+<td>86</td>
+<td>86</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_ERXD0</td>
+<td>87</td>
+<td>87</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_ERXD1</td>
+<td>88</td>
+<td>88</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_ERXD2</td>
+<td>89</td>
+<td>89</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_ERXD3</td>
+<td>91</td>
+<td>91</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_MDC</td>
+<td>101</td>
+<td>101</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_MDIO</td>
+<td>102</td>
+<td>102</td>
+<td>Success</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN000</td>
+<td>173</td>
+<td>173</td>
+<td>Success</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ADTRG0#</td>
+<td>176</td>
+<td>176</td>
+<td>Success</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+  <h1 style="text-align: left">4 Software Component</h1>
+<div>
+  <p>The following is a summary table with all configurations and their conversion status.</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-1 Components migration status</caption>
+<thead>
+<tr>
+<td>Configurations</td>
+<td>Migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>r_bsp</td>
+<td>Success.</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>r_byteq</td>
+<td>Success.Settings are fully converted</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>r_ether_rx</td>
+<td>Success.Settings are fully converted</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>r_flash_rx</td>
+<td>Success.Settings are fully converted</td>
+</tr>
+<tr class ="evenrowcolor">
+<td>r_sci_rx</td>
+<td>Success.Settings are fully converted</td>
+</tr>
+<tr class ="oddrowcolor">
+<td>r_s12ad_rx</td>
+<td>Success.Settings are fully converted</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+  <h2 style="text-align: left">4.1 r_bsp</h2>
+<div>
+  <p>Success. </p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-1-1 Configuration migration status</caption>
+<thead>
+<tr>
+<td>Configuration Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Configuration migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>User stack setting</td>
+<td>2 stacks</td>
+<td>2 stacks</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>User stack size</td>
+<td>0x1000</td>
+<td>0x1000</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Interrupt stack size</td>
+<td>0x400</td>
+<td>0x400</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Heap size</td>
+<td>0x400</td>
+<td>0x400</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Initializes C input and output library functions</td>
+<td>Enable</td>
+<td>Enable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Enable user stdio charget function</td>
+<td>Use BSP charget() function</td>
+<td>Use BSP charget() function</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>User stdio charget function name</td>
+<td>my_sw_charget_function</td>
+<td>my_sw_charget_function</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Enable user stdio charput function</td>
+<td>Use BSP charput() function</td>
+<td>Use BSP charput() function</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>User stdio charput function name</td>
+<td>my_sw_charput_function</td>
+<td>my_sw_charput_function</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Processor Mode</td>
+<td>Stay in Supervisor mode</td>
+<td>Stay in Supervisor mode</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ID code 1</td>
+<td>0xFFFFFFFF</td>
+<td>0xFFFFFFFF</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ID code 2</td>
+<td>0xFFFFFFFF</td>
+<td>0xFFFFFFFF</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ID code 3</td>
+<td>0xFFFFFFFF</td>
+<td>0xFFFFFFFF</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ID code 4</td>
+<td>0xFFFFFFFF</td>
+<td>0xFFFFFFFF</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Serial programmer conection select</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ROM Cache Enable Register</td>
+<td>Disabled</td>
+<td>Disabled</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TMEF - TM Enable Flag Register</td>
+<td>0xFFFFFFFF</td>
+<td>0xFFFFFFFF</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>FAW - Flash Access Window Setting Register</td>
+<td>0xFFFFFFFF</td>
+<td>0xFFFFFFFF</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ROMCODE - ROM Code Protection Register</td>
+<td>0xFFFFFFFF</td>
+<td>0xFFFFFFFF</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select the startup bank</td>
+<td>Bank 1: FFE00000h~FFEFFFFFh; Bank 0:  FFF00000h~FFFFFFFFh.</td>
+<td>Bank 1: FFE00000h~FFEFFFFFh; Bank 0:  FFF00000h~FFFFFFFFh.</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Lock function select</td>
+<td>Use default locking (non-RTOS)</td>
+<td>Use default locking (non-RTOS)</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Lock function type</td>
+<td>bsp_lock_t</td>
+<td>bsp_lock_t</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>HW lock function name</td>
+<td>my_hw_locking_function</td>
+<td>my_hw_locking_function</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>HW unlock function name</td>
+<td>my_hw_unlocking_function</td>
+<td>my_hw_unlocking_function</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SW lock function name</td>
+<td>my_sw_locking_function</td>
+<td>my_sw_locking_function</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SW unlock function name</td>
+<td>my_sw_unlocking_function</td>
+<td>my_sw_unlocking_function</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Enable user warm start callback (PRE)</td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>User warm start callback  function name (PRE)</td>
+<td>my_sw_warmstart_prec_function</td>
+<td>my_sw_warmstart_prec_function</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Enable user warm start callback (POST)</td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>User warm start callback  function name (POST)</td>
+<td>my_sw_warmstart_postc_function</td>
+<td>my_sw_warmstart_postc_function</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Parameter checking</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Extended Bus Master 1st Priority Selection</td>
+<td>GLCDC graphics 1 data read</td>
+<td>GLCDC graphics 1 data read</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Extended Bus Master 2nd Priority Selection</td>
+<td>GLCDC graphics 2 data read</td>
+<td>GLCDC graphics 2 data read</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Extended Bus Master 3rd Priority Selection</td>
+<td>DRW2D texture data read</td>
+<td>DRW2D texture data read</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Extended Bus Master 4th Priority Selection</td>
+<td>DRW2D frame buffer data read write and display list data read</td>
+<td>DRW2D frame buffer data read write and display list data read</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Extended Bus Master 5th Priority Selection</td>
+<td>EDMAC</td>
+<td>EDMAC</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Interrupt Priority Level When FIT Module Interrupts Are Disabled</td>
+<td>Priority level 15 (highest)</td>
+<td>Priority level 15 (highest)</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Software Interrupt Unit1 (SWINT1)</td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Software Interrupt Unit2 (SWINT2)</td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Software Interrupt Task Buffer Number</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Initial value of the software interrupt priority.</td>
+<td>Priority level 1</td>
+<td>Priority level 1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Serial terminal select</td>
+<td>Enabled</td>
+<td>Enabled</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Channel for serial terminal</td>
+<td>Channel 8</td>
+<td>Channel 8</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Bitrate for serial terminal</td>
+<td>115200</td>
+<td>115200</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Interrupt priority  for serial terminal</td>
+<td>Priority level 15 (highest)</td>
+<td>Priority level 15 (highest)</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+  <h2 style="text-align: left">4.2 r_byteq</h2>
+<div>
+  <p>Success. Settings are fully converted</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-2-1 Configuration migration status</caption>
+<thead>
+<tr>
+<td>Configuration Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Configuration migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>Parameter check</td>
+<td>Use system default</td>
+<td>Use system default</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Memory allocation for queue control blocks</td>
+<td>Static memory allocation</td>
+<td>Static memory allocation</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Number of static queue control blocks</td>
+<td>32</td>
+<td>32</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use disable interrupt to protect queue</td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use disable interrupt to protect critical section</td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+  <h2 style="text-align: left">4.3 r_ether_rx</h2>
+<div>
+  <p>Success. Settings are fully converted</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-3-1 Configuration migration status</caption>
+<thead>
+<tr>
+<td>Configuration Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Configuration migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>Ethernet interface</td>
+<td>MII  (Media Independent Interface)</td>
+<td>MII  (Media Independent Interface)</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>PHY-LSI address setting for ETHER0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>PHY-LSI address setting for ETHER1</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>The number of Rx descriptors</td>
+<td>6</td>
+<td>6</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>The number of Tx descriptors</td>
+<td>3</td>
+<td>3</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Transmit and Receive buffer size</td>
+<td>1536</td>
+<td>1536</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Group AL1 interrupt priority level</td>
+<td>Level 2</td>
+<td>Level 2</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>The register bus of PHY0 for ETHER0/1</td>
+<td>Use ETHER0</td>
+<td>Use ETHER0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>The register bus of PHY1 for ETHER0/1</td>
+<td>Use ETHER1</td>
+<td>Use ETHER1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>The access timing of MII/RMII register</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>The waiting time for reset completion of PHY-LSI</td>
+<td>0x00020000L</td>
+<td>0x00020000L</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>The polarity of the link signal output by the PHY-LSI</td>
+<td>Fall -> Rise</td>
+<td>Fall -> Rise</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>The link status is detected.</td>
+<td>Used</td>
+<td>Used</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use KSZ8041NL of the Micrel Inc</td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use ICS1894-32 of the Renesas Electronics Corporation</td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use non blocking</td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>The clock of PMGI's MDC</td>
+<td>2500000</td>
+<td>2500000</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>PHY Station Management Preamble Control</td>
+<td>Include</td>
+<td>Include</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>PHY Station Management Hold Time Adjustment</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>PHY Station Management Capture Timing Adjustment</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>PMGI interrupt priority level</td>
+<td>Level 2</td>
+<td>Level 2</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-3-2 Resources migration status</caption>
+<thead>
+<tr>
+<td>Resources Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Resources migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>CLKOUT25M</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_TX_CLK</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_RX_CLK</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_TX_EN</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_ETXD3</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_ETXD2</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_ETXD1</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_ETXD0</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_TX_ER</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_RX_DV</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_ERXD3</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_ERXD2</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_ERXD1</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_ERXD0</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_RX_ER</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_CRS</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_COL</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_MDC</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_MDIO</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>PMGI0_MDC</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>PMGI0_MDIO</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_LINKSTA</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET0_EXOUT</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET0_WOL</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ETHERC0_MII</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>REF50CK0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RMII0_TXD_EN</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RMII0_TXD1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RMII0_TXD0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RMII0_RXD1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RMII0_RXD0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RMII0_RX_ER</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RMII0_CRS_DV</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ETHERC0_RMII</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_TX_CLK</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_RX_CLK</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_TX_EN</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_ETXD3</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_ETXD2</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_ETXD1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_ETXD0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_TX_ER</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_RX_DV</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_ERXD3</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_ERXD2</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_ERXD1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_ERXD0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_RX_ER</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_CRS</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_COL</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_MDC</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_MDIO</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>PMGI1_MDC</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>PMGI1_MDIO</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_LINKSTA</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ET1_EXOUT</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ET1_WOL</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ETHERC1_MII</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>REF50CK1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RMII1_TXD_EN</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RMII1_TXD1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RMII1_TXD0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RMII1_RXD1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RMII1_RXD0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RMII1_RX_ER</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RMII1_CRS_DV</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ETHERC1_RMII</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+  <h2 style="text-align: left">4.4 r_flash_rx</h2>
+<div>
+  <p>Success. Settings are fully converted</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-4-1 Configuration migration status</caption>
+<thead>
+<tr>
+<td>Configuration Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Configuration migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>Parameter check</td>
+<td>Enable parameter checks</td>
+<td>Enable parameter checks</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Enable code flash programming</td>
+<td>Includes code to program ROM area</td>
+<td>Includes code to program ROM area</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Enable BGO/Non-blocking data flash operations</td>
+<td>Enable BGO (background operations/interrupt) mode.</td>
+<td>Enable BGO (background operations/interrupt) mode.</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Enable BGO/Non-blocking code flash operations</td>
+<td>Enable BGO (background operations/interrupt) mode.</td>
+<td>Enable BGO (background operations/interrupt) mode.</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Enable code flash self-programming</td>
+<td>Programming code flash while executing from another segment in ROM.</td>
+<td>Programming code flash while executing from another segment in ROM.</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+  <h2 style="text-align: left">4.5 r_sci_rx</h2>
+<div>
+  <p>Success. Settings are fully converted</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-5-1 Configuration migration status</caption>
+<thead>
+<tr>
+<td>Configuration Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Configuration migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>Parameter checking</td>
+<td>System Default</td>
+<td>System Default</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use ASYNC mode</td>
+<td>Include</td>
+<td>Include</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use SYNC mode</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use SSPI mode</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use IRDA mode</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use circular buffer in ASYNC mode </td>
+<td>Unused</td>
+<td>Unused</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Byte value to transmit while clocking in data in SSPI mode</td>
+<td>0xFF</td>
+<td>0xFF</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Include software support for channel 0</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Include software support for channel 1</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Include software support for channel 2</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Include software support for channel 3</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Include software support for channel 4</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Include software support for channel 5</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Include software support for channel 6</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Include software support for channel 7</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Include software support for channel 8</td>
+<td>Include</td>
+<td>Include</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Include software support for channel 9</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Include software support for channel 10</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Include software support for channel 11</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Include software support for channel 12</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 0</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 1</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 2</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 3</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 4</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 5</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 6</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 7</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 8</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 9</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 10</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 11</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode TX queue buffer size for channel 12</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 0</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 1</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 2</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 3</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 4</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 5</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 6</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 7</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 8</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 9</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 10</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 11</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ASYNC mode RX queue buffer size for channel 12</td>
+<td>80</td>
+<td>80</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Transmit end interrupt</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>GROUPBL0 (ERI, TEI) interrupt priority</td>
+<td>3</td>
+<td>3</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TX/RX FIFO for channel 7</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TX/RX FIFO for channel 8</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TX/RX FIFO for channel 9</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TX/RX FIFO for channel 10</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TX/RX FIFO for channel 11</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TX FIFO threshold for channel 7</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TX FIFO threshold for channel 8</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TX FIFO threshold for channel 9</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TX FIFO threshold for channel 10</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TX FIFO threshold for channel 11</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RX FIFO threshold for channel 7</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RX FIFO threshold for channel 8</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RX FIFO threshold for channel 9</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RX FIFO threshold for channel 10</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RX FIFO threshold for channel 11</td>
+<td>8</td>
+<td>8</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Received data match function for channel 0</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Received data match function for channel 1</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Received data match function for channel 2</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Received data match function for channel 3</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Received data match function for channel 4</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Received data match function for channel 5</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Received data match function for channel 6</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Received data match function for channel 7</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Received data match function for channel 8</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Received data match function for channel 9</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Received data match function for channel 10</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Received data match function for channel 11</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for transmit (SCI0)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for transmit (SCI1)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for transmit (SCI2)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for transmit (SCI3)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for transmit (SCI4)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for transmit (SCI5)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for transmit (SCI6)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for transmit (SCI7)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for transmit (SCI8)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for transmit (SCI9)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for transmit (SCI10)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for transmit (SCI11)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for transmit (SCI12)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for receive (SCI0)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for receive (SCI1)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for receive (SCI2)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for receive (SCI3)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for receive (SCI4)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for receive (SCI5)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for receive (SCI6)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for receive (SCI7)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for receive (SCI8)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for receive (SCI9)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for receive (SCI10)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Use DTC/DMAC for receive (SCI11)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Use DTC/DMAC for receive (SCI12)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC to transmit (TX SCI0)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI1)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI2)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI3)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI4)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI5)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI6)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI7)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI8)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI9)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI10)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI11)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (TX SCI12)</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI0)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI1)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI2)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI3)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI4)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI5)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI6)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI7)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI8)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI9)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI10)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI11)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Select channel DMAC in case using DMAC for transferring data (RX SCI12)</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Include software support for IrDA channel 5</td>
+<td>Not</td>
+<td>Not</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Set the non-active level of the TXD pin</td>
+<td>Include</td>
+<td>Include</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Set the non-active level of the RXD pin</td>
+<td>Include</td>
+<td>Include</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Receive data sampling timing adjustment CH0</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Receive data sampling timing adjustment CH1</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Receive data sampling timing adjustment CH2</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Receive data sampling timing adjustment CH3</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Receive data sampling timing adjustment CH4</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Receive data sampling timing adjustment CH5</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Receive data sampling timing adjustment CH6</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Receive data sampling timing adjustment CH7</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Receive data sampling timing adjustment CH8</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Receive data sampling timing adjustment CH9</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Receive data sampling timing adjustment CH10</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Receive data sampling timing adjustment CH11</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Transmit signal transition timing adjustment CH0</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Transmit signal transition timing adjustment CH1</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Transmit signal transition timing adjustment CH2</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Transmit signal transition timing adjustment CH3</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Transmit signal transition timing adjustment CH4</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Transmit signal transition timing adjustment CH5</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Transmit signal transition timing adjustment CH6</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Transmit signal transition timing adjustment CH7</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Transmit signal transition timing adjustment CH8</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Transmit signal transition timing adjustment CH9</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>Transmit signal transition timing adjustment CH10</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>Transmit signal transition timing adjustment CH11</td>
+<td>Disable</td>
+<td>Disable</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-5-2 Resources migration status</caption>
+<thead>
+<tr>
+<td>Resources Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Resources migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>SCK0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RXD0/SMISO0/SSCL0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TXD0/SMOSI0/SSDA0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>CTS0#/RTS0#/SS0#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCI0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCK1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RXD1/SMISO1/SSCL1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TXD1/SMOSI1/SSDA1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>CTS1#/RTS1#/SS1#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCI1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCK2</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RXD2/SMISO2/SSCL2</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TXD2/SMOSI2/SSDA2</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>CTS2#/RTS2#/SS2#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCI2</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCK3</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RXD3/SMISO3/SSCL3</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TXD3/SMOSI3/SSDA3</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>CTS3#/RTS3#/SS3#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCI3</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCK4</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RXD4/SMISO4/SSCL4</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TXD4/SMOSI4/SSDA4</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>CTS4#/RTS4#/SS4#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCI4</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCK5</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RXD5/SMISO5/SSCL5</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TXD5/SMOSI5/SSDA5</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>CTS5#/RTS5#/SS5#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCI5</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCK6</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RXD6/SMISO6/SSCL6</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TXD6/SMOSI6/SSDA6</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>CTS6#/RTS6#/SS6#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCI6</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCK7</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RXD7/SMISO7/SSCL7</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TXD7/SMOSI7/SSDA7</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>CTS7#/RTS7#/SS7#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCI7</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCK8</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RXD8/SMISO8/SSCL8</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TXD8/SMOSI8/SSDA8</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>CTS8#/RTS8#/SS8#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCI8</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCK9</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RXD9/SMISO9/SSCL9</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TXD9/SMOSI9/SSDA9</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>CTS9#/RTS9#/SS9#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCI9</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCK10</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RXD10/SMISO10/SSCL10</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TXD10/SMOSI10/SSDA10</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SS10#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>CTS10#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RTS10#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCI10</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCK11</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RXD11/SMISO11/SSCL11</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>TXD11/SMOSI11/SSDA11</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SS11#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>CTS11#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>RTS11#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>SCI11</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCK12</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>RXD12/SMISO12/SSCL12</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>TXD12/SMOSI12/SSDA12</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>CTS12#/RTS12#/SS12#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>SCI12</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div>
+  <h2 style="text-align: left">4.6 r_s12ad_rx</h2>
+<div>
+  <p>Success. Settings are fully converted</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-6-1 Configuration migration status</caption>
+<thead>
+<tr>
+<td>Configuration Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Configuration migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>Parameter check</td>
+<td>Use system default</td>
+<td>Use system default</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 4-6-2 Resources migration status</caption>
+<thead>
+<tr>
+<td>Resources Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Resources migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>AN000</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN001</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN002</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN003</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN004</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN005</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN006</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN007</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN008</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN009</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN010</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN011</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN012</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN013</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN014</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN015</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN016</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN017</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN018</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN019</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN020</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN021</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN022</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN023</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN024</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN025</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN026</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN027</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN028</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN029</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN030</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN031</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>VREFH0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>VREFL0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ADTRG0#</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ADST0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>PGAVSS0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>S12AD0</td>
+<td>1</td>
+<td>1</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN100</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN101</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN102</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN103</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN104</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN105</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN106</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN107</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN108</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN109</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN110</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN111</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN112</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN113</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN114</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN115</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN116</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN117</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN118</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN119</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN120</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ANEX0</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ANEX1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ADTRG1#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ADST1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>PGAVSS1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>S12AD1</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN200</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN201</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN202</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN203</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN204</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN205</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN206</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN207</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN208</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN209</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN210</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN211</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>AN216</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>AN217</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>ADTRG2#</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="evenrowcolor">
+<td>ADST2</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+<tr class ="oddrowcolor">
+<td>S12AD2</td>
+<td>0</td>
+<td>0</td>
+<td>Success. </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div>
+  <h1 style="text-align: left">5 System Settings</h1>
+<div>
+  <p>Success. Settings are fully converted</p>
+</div>
+<div>
+  <p>The following is a summary table with all configured system values and their conversion status.</p>
+</div>
+<div>
+<table class="altrowstable">
+<caption>Table 5-1 On-chip debug setting Migration status</caption>
+<thead>
+<tr>
+<td>Settings</td>
+<td>Value(Before device)</td>
+<td>Value(After device)</td>
+<td>Migration status</td>
+</tr>
+</thead>
+<tbody> 
+<tr class ="evenrowcolor">
+<td>Debug interface setting</td>
+<td>JTAG</td>
+<td>JTAG</td>
+<td>Success.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div>
+  <p></p>
+</div>
+</div>
+</div>
+</body>
+</html>
