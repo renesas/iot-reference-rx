@@ -1,0 +1,3 @@
+[submodule "Projects/aws_ether_rsk_rx65n/e2studio_ccrx/src/libraries/FreeRTOS-LTS"]
+	path = Projects/aws_ether_rsk_rx65n/e2studio_ccrx/src/libraries/FreeRTOS-LTS
+	url = https://github.com/FreeRTOS/FreeRTOS-LTS
