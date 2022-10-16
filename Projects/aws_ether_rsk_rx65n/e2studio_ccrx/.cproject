@@ -53,8 +53,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_bsp}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/libraries/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Kernel/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/libraries/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/libraries/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Plus-TCP/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/libraries/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Plus-TCP/portable/Compiler/Renesas}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/libraries/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Plus-TCP/source/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/libraries/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/Compiler/Renesas}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/libraries/FreeRTOS-LTS/FreeRTOS/coreMQTT/source/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/libraries/FreeRTOS-LTS/FreeRTOS/coreMQTT/source/interface}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/libraries/c_sdk/standard/common/include/private}&quot;"/>
@@ -359,18 +359,6 @@
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.typeOfOutputFile.1364609762" name="出力ファイル形式 (-form)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.typeOfOutputFile" value="com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.typeOFOutputFile.none" valueType="enumerated"/>
 							</tool>
 							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.1826428067" name="RTOS Configurator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig"/>
-						</toolChain>
-					</folderInfo>
-					<folderInfo id="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.configuration.1600053140.1490038158" name="/" resourcePath="src/libraries/FreeRTOS-LTS/FreeRTOS">
-						<toolChain id="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.toolChain.1586790437" name="Renesas CCRX Toolchain" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.toolChain" unusedChildren="">
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.dsp.979989479" name="DSP Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.dsp.1705134317"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.common.287336060" name="Common" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.common.175900399"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler.1496197201" name="Compiler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler.1024579005"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.assembler.2064048326" name="Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.assembler.2084394237"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.linker.1127124932" name="Linker" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.linker.337248596"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian.521338841" name="Library Generator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian.437532858"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.converter.1077109277" name="Converter" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.converter.1709762947"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.1714224930" name="RTOS Configurator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.1826428067"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
