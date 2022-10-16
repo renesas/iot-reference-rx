@@ -45,6 +45,10 @@ The *Common/net/mbedtls_transport.c* file contains a transport layer implementat
 
 Optionally, client key / certificate authentication may be used with the mbedtls transport or this parameter may be set to NULL if not needed.
 ### Cloning the Repository
+For long path name:
+```
+git config --global core.longpaths true
+```
 To clone using HTTPS:
 ```
 git clone https://github.com/renesas/iot-reference-rx.git --recurse-submodules
