@@ -50,6 +50,15 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1665886909821</id>
+			<name>src/libraries/3rdparty/mbedtls</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-include|library</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>1665819342680</id>
 			<name>src/libraries/FreeRTOS-LTS/FreeRTOS</name>
 			<type>9</type>
