@@ -300,6 +300,7 @@
           <Category Name="FreeRTOS-LTS">
             <Category Name="FreeRTOS">
               <Category Name="FreeRTOS-Kernel">
+                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\CMakeLists.txt</Path>
                 <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\History.txt</Path>
                 <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\croutine.c</Path>
                 <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\event_groups.c</Path>
@@ -332,6 +333,7 @@
                   <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include\timers.h</Path>
                 </Category>
                 <Category Name="portable">
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\CMakeLists.txt</Path>
                   <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\readme.txt</Path>
                   <Category Name="MemMang">
                     <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\MemMang\heap_4.c</Path>
@@ -347,55 +349,82 @@
                 </Category>
               </Category>
               <Category Name="FreeRTOS-Plus-TCP">
-                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\FreeRTOS_ARP.c</Path>
-                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\FreeRTOS_DHCP.c</Path>
-                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\FreeRTOS_DNS.c</Path>
-                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\FreeRTOS_IP.c</Path>
-                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\FreeRTOS_Sockets.c</Path>
-                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\FreeRTOS_Stream_Buffer.c</Path>
-                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\FreeRTOS_TCP_IP.c</Path>
-                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\FreeRTOS_TCP_WIN.c</Path>
-                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\FreeRTOS_UDP_IP.c</Path>
                 <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\History.txt</Path>
                 <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\readme.txt</Path>
-                <Category Name="include">
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOSIPConfigDefaults.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_ARP.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_DHCP.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_DNS.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_IP.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_IP_Private.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_Sockets.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_Stream_Buffer.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_TCP_IP.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_TCP_WIN.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_UDP_IP.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\FreeRTOS_errno_TCP.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\IPTraceMacroDefaults.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\NetworkBufferManagement.h</Path>
-                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include\NetworkInterface.h</Path>
-                </Category>
-                <Category Name="portable">
-                  <Category Name="BufferManagement">
-                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\portable\BufferManagement\BufferAllocation_2.c</Path>
+                <Category Name="source">
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_ARP.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_DHCP.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_DNS.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_DNS_Cache.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_DNS_Callback.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_DNS_Networking.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_DNS_Parser.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_ICMP.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_IP.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_IP_Timers.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_IP_Utils.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_Sockets.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_Stream_Buffer.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_TCP_IP.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_TCP_Reception.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_TCP_State_Handling.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_TCP_Transmission.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_TCP_Utils.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_TCP_WIN.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_Tiny_TCP.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\FreeRTOS_UDP_IP.c</Path>
+                  <Category Name="include">
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOSIPConfigDefaults.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_ARP.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DHCP.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Cache.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Callback.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Globals.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Networking.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Parser.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_ICMP.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_IP.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_IP_Private.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_IP_Timers.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_IP_Utils.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_Sockets.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_Stream_Buffer.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_IP.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_Reception.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_State_Handling.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_Transmission.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_Utils.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_WIN.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_UDP_IP.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_errno_TCP.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\IPTraceMacroDefaults.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\NetworkBufferManagement.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include\NetworkInterface.h</Path>
                   </Category>
-                  <Category Name="Compiler">
-                    <Category Name="Renesas">
-                      <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\portable\Compiler\Renesas\pack_struct_end.h</Path>
-                      <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\portable\Compiler\Renesas\pack_struct_start.h</Path>
+                  <Category Name="portable">
+                    <Category Name="BufferManagement">
+                      <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\BufferManagement\BufferAllocation_2.c</Path>
                     </Category>
-                  </Category>
-                  <Category Name="NetworkInterface">
-                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\portable\NetworkInterface\README_DRIVER_DISCLAIMER.txt</Path>
-                    <Category Name="RX">
-                      <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\portable\NetworkInterface\RX\NetworkInterface.c</Path>
-                      <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\portable\NetworkInterface\RX\ether_callback.c</Path>
+                    <Category Name="Compiler">
+                      <Category Name="Renesas">
+                        <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas\pack_struct_end.h</Path>
+                        <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas\pack_struct_start.h</Path>
+                      </Category>
+                    </Category>
+                    <Category Name="NetworkInterface">
+                      <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\NetworkInterface\README_DRIVER_DISCLAIMER.txt</Path>
+                      <Category Name="RX">
+                        <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\NetworkInterface\RX\NetworkInterface.c</Path>
+                        <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\NetworkInterface\RX\ether_callback.c</Path>
+                      </Category>
                     </Category>
                   </Category>
                 </Category>
               </Category>
               <Category Name="coreMQTT">
                 <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\lexicon.txt</Path>
+                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\requirements.txt</Path>
                 <Category Name="source">
                   <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\core_mqtt.c</Path>
                   <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\core_mqtt_serializer.c</Path>
@@ -403,6 +432,7 @@
                   <Category Name="include">
                     <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include\core_mqtt.h</Path>
                     <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include\core_mqtt_config_defaults.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include\core_mqtt_default_logging.h</Path>
                     <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include\core_mqtt_serializer.h</Path>
                     <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include\core_mqtt_state.h</Path>
                   </Category>
@@ -816,8 +846,8 @@
           <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_bsp"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\portable\Compiler\Renesas"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\interface"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</Option>
@@ -1029,11 +1059,23 @@
           <Path>HardwareDebug\FreeRTOS_ARP.obj</Path>
           <Path>HardwareDebug\FreeRTOS_DHCP.obj</Path>
           <Path>HardwareDebug\FreeRTOS_DNS.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_DNS_Cache.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_DNS_Callback.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_DNS_Networking.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_DNS_Parser.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_ICMP.obj</Path>
           <Path>HardwareDebug\FreeRTOS_IP.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_IP_Timers.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_IP_Utils.obj</Path>
           <Path>HardwareDebug\FreeRTOS_Sockets.obj</Path>
           <Path>HardwareDebug\FreeRTOS_Stream_Buffer.obj</Path>
           <Path>HardwareDebug\FreeRTOS_TCP_IP.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_TCP_Reception.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_TCP_State_Handling.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_TCP_Transmission.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_TCP_Utils.obj</Path>
           <Path>HardwareDebug\FreeRTOS_TCP_WIN.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_Tiny_TCP.obj</Path>
           <Path>HardwareDebug\FreeRTOS_UDP_IP.obj</Path>
           <Path>HardwareDebug\BufferAllocation_2.obj</Path>
           <Path>HardwareDebug\NetworkInterface.obj</Path>
@@ -1114,8 +1156,8 @@
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\portable\Compiler\Renesas"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</IncludePathForC>
