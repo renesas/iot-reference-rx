@@ -17,7 +17,7 @@ The demo projects both connect to AWS IoT core via the included Ethernet or Cell
 #### Ethernet
 * [RSK-RX65N](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/rx65n-2mb-starter-kit-plus-renesas-starter-kit-rx65n-2mb)
 
-#### Ethernet
+#### Ethernet/Cellular
 * [CK-RX65N](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/ck-rx65n-cloud-kit-based-rx65n-mcu-group)
 
 ## AWS IoT Core Demo Tasks
