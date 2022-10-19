@@ -50,7 +50,7 @@
 #endif
 
 /* Custom mbedtls utls include. */
-#include "mbedtls_error.h"
+#include "mbedtls_utils.h"
 
 /* C runtime includes. */
 #include <string.h>
@@ -67,24 +67,28 @@ static const char * pNoHighLevelMbedTlsCodeStr = "<No-High-Level-Code>";
  * @brief Represents string to be logged when mbedTLS returned error
  * does not contain a low-level code.
  */
+
+/**
+ * @brief Represents string to be logged when mbedTLS returned error
+ * does not contain a low-level code.
+ */
 static const char * pNoLowLevelMbedTlsCodeStr = "<No-Low-Level-Code>";
 
 /**
  * @brief Utility for converting the high-level code in an mbedTLS error to string,
  * if the code-contains a high-level code; otherwise, using a default string.
  */
-#define mbedtlsHighLevelCodeOrDefault( mbedTlsCode )        \
-    ( mbedtls_strerror_highlevel( mbedTlsCode ) != NULL ) ? \
-    mbedtls_strerror_highlevel( mbedTlsCode ) : pNoHighLevelMbedTlsCodeStr
-
+#define mbedtlsHighLevelCodeOrDefault( mbedTlsCode )       \
+    ( mbedtls_high_level_strerr( mbedTlsCode ) != NULL ) ? \
+    mbedtls_high_level_strerr( mbedTlsCode ) : pNoHighLevelMbedTlsCodeStr
 
 /**
  * @brief Utility for converting the level-level code in an mbedTLS error to string,
  * if the code-contains a level-level code; otherwise, using a default string.
  */
-#define mbedtlsLowLevelCodeOrDefault( mbedTlsCode )        \
-    ( mbedtls_strerror_lowlevel( mbedTlsCode ) != NULL ) ? \
-    mbedtls_strerror_lowlevel( mbedTlsCode ) : pNoLowLevelMbedTlsCodeStr
+#define mbedtlsLowLevelCodeOrDefault( mbedTlsCode )       \
+    ( mbedtls_low_level_strerr( mbedTlsCode ) != NULL ) ? \
+    mbedtls_low_level_strerr( mbedTlsCode ) : pNoLowLevelMbedTlsCodeStr
 
 
 /**

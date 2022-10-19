@@ -13,7 +13,7 @@
             </toolchain>
         </configuration>
         <platform id="R5F565NEDxFC"/>
-        <option id="board" value="RSKRX65N-2MB (1.03)"/>
+        <option id="board" value="user_board"/>
     </general>
     <tool id="Clock">
         <option enabled="true" id="vccinput" selection="textinputitem">
@@ -495,232 +495,46 @@
     </tool>
     <tool id="Pins" version="1.0.1.0">
         <pinItem allocation="10" comments="" direction="None" id="EMLE" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="22" comments="" direction="None" id="XTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="30" comments="" direction="None" id="TMS" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="59" comments="" direction="None" id="RXD8" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="173" comments="" direction="None" id="AN000" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="81" comments="" direction="None" id="ET0_TX_EN" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="101" comments="" direction="None" id="ET0_MDC" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="76" comments="" direction="None" id="ET0_COL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="176" comments="" direction="None" id="ADTRG0#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="74" comments="" direction="None" id="ET0_CRS" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="58" comments="" direction="None" id="TXD8" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="24" comments="" direction="None" id="EXTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="17" comments="" direction="None" id="TRST#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="86" comments="" direction="None" id="ET0_RX_DV" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="22" comments="" direction="None" id="XTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="74" comments="" direction="None" id="ET0_CRS" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="27" comments="" direction="None" id="ET0_LINKSTA" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="84" comments="" direction="None" id="ET0_RX_ER" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="77" comments="" direction="None" id="ET0_ETXD3" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="78" comments="" direction="None" id="ET0_ETXD2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="79" comments="" direction="None" id="ET0_ETXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="80" comments="" direction="None" id="ET0_ETXD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="85" comments="" direction="None" id="ET0_RX_CLK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="91" comments="" direction="None" id="ET0_ERXD3" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="89" comments="" direction="None" id="ET0_ERXD2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="77" comments="" direction="None" id="ET0_ETXD3" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="88" comments="" direction="None" id="ET0_ERXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="78" comments="" direction="None" id="ET0_ETXD2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="87" comments="" direction="None" id="ET0_ERXD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="82" comments="" direction="None" id="ET0_TX_CLK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="79" comments="" direction="None" id="ET0_ETXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="80" comments="" direction="None" id="ET0_ETXD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="102" comments="" direction="None" id="ET0_MDIO" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="34" comments="" direction="None" id="TCK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="31" comments="" direction="None" id="TDI" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="24" comments="" direction="None" id="EXTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="173" comments="" direction="None" id="AN000" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="101" comments="" direction="None" id="ET0_MDC" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="59" comments="" direction="None" id="RXD8" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="35" comments="" direction="None" id="TDO" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinnumItem comment="ET-ET0ERXD1_RMII0RXD1" id="88"/>
-        <pinnumItem comment="ET-ET0ERXD2" id="89"/>
-        <pinnumItem comment="OnTFT-G2" id="110"/>
-        <pinnumItem comment="LED1" id="111"/>
-        <pinnumItem comment="OnTFT-G3" id="112"/>
-        <pinnumItem comment="LED2" id="113"/>
-        <pinnumItem comment="OnTFT-G4" id="114"/>
-        <pinnumItem comment="LED3" id="116"/>
-        <pinnumItem comment="ET-ET0ERXD3" id="91"/>
-        <pinnumItem comment="OnTFT-G5" id="118"/>
-        <pinnumItem comment="PMOD1-IO2" id="119"/>
-        <pinnumItem comment="LED0" id="93"/>
-        <pinnumItem comment="OnTFT-BACKLIGHT" id="94"/>
-        <pinnumItem comment="SDRAM-A14" id="95"/>
-        <pinnumItem comment="OnTFT-CLK" id="96"/>
-        <pinnumItem comment="OnTFT-VSYNC" id="97"/>
-        <pinnumItem comment="EMLE" id="10"/>
-        <pinnumItem comment="SDRAM-A11" id="98"/>
-        <pinnumItem comment="OnTFT-HSYNC" id="99"/>
-        <pinnumItem comment="PMOD1-CS" id="13"/>
-        <pinnumItem comment="TRST#" id="17"/>
-        <pinnumItem comment="XCIN" id="19"/>
-        <pinnumItem comment="SDRAM-DQMH" id="120"/>
-        <pinnumItem comment="PMOD1-IO3" id="121"/>
-        <pinnumItem comment="AVSS0" id="1"/>
-        <pinnumItem comment="LED2" id="122"/>
-        <pinnumItem comment="SW2" id="2"/>
-        <pinnumItem comment="RL78G1CRTS" id="123"/>
-        <pinnumItem comment="AVCC1" id="3"/>
-        <pinnumItem comment="SDRAM-CKE" id="124"/>
-        <pinnumItem comment="SW1" id="4"/>
-        <pinnumItem comment="OnTFT-G6" id="125"/>
-        <pinnumItem comment="AVSS1" id="5"/>
-        <pinnumItem comment="OnTFT-G7" id="126"/>
-        <pinnumItem comment="PMOD1-SCK" id="6"/>
-        <pinnumItem comment="PMOD1-MISO" id="7"/>
-        <pinnumItem comment="SDRAM-SDCLK" id="128"/>
-        <pinnumItem comment="PMOD1-MOSI" id="8"/>
-        <pinnumItem comment="PMOD1-IO1" id="9"/>
-        <pinnumItem comment="XCOUT" id="20"/>
-        <pinnumItem comment="RES#" id="21"/>
-        <pinnumItem comment="XTAL" id="22"/>
-        <pinnumItem comment="EXTAL" id="24"/>
-        <pinnumItem comment="NMI" id="26"/>
-        <pinnumItem comment="ET-ET0LINKSTA" id="27"/>
-        <pinnumItem comment="CAN1RX" id="28"/>
-        <pinnumItem comment="CAN1TX" id="29"/>
-        <pinnumItem comment="OnTFT-B3" id="130"/>
-        <pinnumItem comment="OnTFT-B4" id="131"/>
-        <pinnumItem comment="OnTFT-B5" id="132"/>
-        <pinnumItem comment="OnTFT-B6" id="133"/>
-        <pinnumItem comment="OnTFT-B7" id="134"/>
-        <pinnumItem comment="SDRAM-D8" id="135"/>
-        <pinnumItem comment="WE#/" id="136"/>
-        <pinnumItem comment="SDRAM-CASn" id="137"/>
-        <pinnumItem comment="DRAM-RASn" id="138"/>
-        <pinnumItem comment="SDRAM-SDCSn" id="139"/>
-        <pinnumItem comment="E1-TMS" id="30"/>
-        <pinnumItem comment="E1-TDI_RXD" id="31"/>
-        <pinnumItem comment="RSPI-CS" id="32"/>
-        <pinnumItem comment="RSPI-MISO" id="33"/>
-        <pinnumItem comment="E1-TCK" id="34"/>
-        <pinnumItem comment="E1-TDO_TXD" id="35"/>
-        <pinnumItem comment="RSPI-CLK" id="36"/>
-        <pinnumItem comment="RSPI-MOSI" id="37"/>
-        <pinnumItem comment="SDHI_CD" id="38"/>
-        <pinnumItem comment="JA3-Csa" id="141"/>
-        <pinnumItem comment="QIO1-B" id="143"/>
-        <pinnumItem comment="QIO0-B" id="145"/>
-        <pinnumItem comment="QSPCLK-B" id="147"/>
-        <pinnumItem comment="QSSL-B" id="148"/>
-        <pinnumItem comment="OnTFT-DISP" id="149"/>
-        <pinnumItem comment="SDHI_WP" id="40"/>
-        <pinnumItem comment="SDHI-D1" id="42"/>
-        <pinnumItem comment="SDHI_D0" id="43"/>
-        <pinnumItem comment="SDHI_CLK" id="44"/>
-        <pinnumItem comment="SDHI-CMD" id="45"/>
-        <pinnumItem comment="SDHI_D3" id="46"/>
-        <pinnumItem comment="SDHI_D2" id="47"/>
-        <pinnumItem comment="USB0_VBUS" id="48"/>
-        <pinnumItem comment="SDHIPE" id="49"/>
-        <pinnumItem comment="QIO3-B" id="150"/>
-        <pinnumItem comment="QIO2-B" id="154"/>
-        <pinnumItem comment="SDRAM-D1" id="156"/>
-        <pinnumItem comment="SDRAM-D0" id="158"/>
-        <pinnumItem comment="PMOD1-IO0" id="50"/>
-        <pinnumItem comment="USB0_OVRCURA" id="51"/>
-        <pinnumItem comment="E2P-SDA" id="52"/>
-        <pinnumItem comment="E2P-SCL" id="53"/>
-        <pinnumItem comment="SERIAL-TXD" id="58"/>
-        <pinnumItem comment="SERIAL-RXD" id="59"/>
-        <pinnumItem comment="TFT-SCL" id="160"/>
-        <pinnumItem comment="TFT-SDA" id="163"/>
-        <pinnumItem comment="SERIAL-CTS" id="68"/>
-        <pinnumItem comment="OnTFT-INT" id="170"/>
-        <pinnumItem comment="VREFL0" id="172"/>
-        <pinnumItem comment="P40" id="173"/>
-        <pinnumItem comment="VREFH0" id="174"/>
-        <pinnumItem comment="AVCC0" id="175"/>
-        <pinnumItem comment="P07" id="176"/>
-        <pinnumItem comment="ET-ET0CRS_RMII0CRSDV" id="74"/>
-        <pinnumItem comment="ET-ET0COL" id="76"/>
-        <pinnumItem comment="ET-ET0ETXD3" id="77"/>
-        <pinnumItem comment="ET-ET0ETXD2" id="78"/>
-        <pinnumItem comment="ET-ET0ETXD1_RMII0TXD1" id="79"/>
-        <pinnumItem comment="OnTFT-DEN" id="100"/>
-        <pinnumItem comment="ET-ET0MDC" id="101"/>
-        <pinnumItem comment="ET-ET0MDIO" id="102"/>
-        <pinnumItem comment="OnTFT-R3" id="104"/>
-        <pinnumItem comment="OnTFT-R4" id="106"/>
-        <pinnumItem comment="ET-ET0ETXD0_RMII0TXD0" id="80"/>
-        <pinnumItem comment="OnTFT-R5" id="107"/>
-        <pinnumItem comment="ET-ET0TXEN_RMII0TXDEN" id="81"/>
-        <pinnumItem comment="OnTFT-R6" id="108"/>
-        <pinnumItem comment="ET-ET0TXCLK" id="82"/>
-        <pinnumItem comment="OnTFT-R7" id="109"/>
-        <pinnumItem comment="ET-ET0RXER_RMII0RXER" id="84"/>
-        <pinnumItem comment="ET-ET0RXCLK_REF50CK0" id="85"/>
-        <pinnumItem comment="ET-ET0RXDV" id="86"/>
-        <pinnumItem comment="ET-ET0ERXD0_RMII0RXD0" id="87"/>
+        <pinItem allocation="58" comments="" direction="None" id="TXD8" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="84" comments="" direction="None" id="ET0_RX_ER" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="17" comments="" direction="None" id="TRST#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="82" comments="" direction="None" id="ET0_TX_CLK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="76" comments="" direction="None" id="ET0_COL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="30" comments="" direction="None" id="TMS" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="176" comments="" direction="None" id="ADTRG0#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="34" comments="" direction="None" id="TCK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="85" comments="" direction="None" id="ET0_RX_CLK" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
     </tool>
     <tool id="Summary" version="1.0.0.0">
         <option id="com.renesas.smc.code.path" value="src\smc_gen"/>
         <option id="com.renesas.smc.code.type" value="Normal Folder"/>
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
-        <configuration enable="true" exclude="false" id="62b5ad01-05ef-499f-b33c-944637e25dd3" inuse="true" name="FreeRTOS_Kernel">
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110">
-                <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
-                <gridItem id="configUSE_IDLE_HOOK" selectedIndex="0"/>
-                <gridItem id="configUSE_TICK_HOOK" selectedIndex="0"/>
-                <gridItem id="configCPU_CLOCK_HZ" selectedIndex="BSP_ICLK_HZ"/>
-                <gridItem id="configPERIPHERAL_CLOCK_HZ" selectedIndex="BSP_PCLKB_HZ"/>
-                <gridItem id="configTICK_RATE_HZ" selectedIndex="( TickType_t ) 1000"/>
-                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="512"/>
-                <gridItem id="configTOTAL_HEAP_SIZE_N" selectedIndex="256"/>
-                <gridItem id="configTOTAL_HEAP_SIZE" selectedIndex="( size_t ) ( configTOTAL_HEAP_SIZE_N * 1024 )"/>
-                <gridItem id="configMAX_TASK_NAME_LEN" selectedIndex="12"/>
-                <gridItem id="configUSE_TRACE_FACILITY" selectedIndex="1"/>
-                <gridItem id="configUSE_16_BIT_TICKS" selectedIndex="0"/>
-                <gridItem id="configIDLE_SHOULD_YIELD" selectedIndex="1"/>
-                <gridItem id="configUSE_CO_ROUTINES" selectedIndex="0"/>
-                <gridItem id="configUSE_MUTEXES" selectedIndex="1"/>
-                <gridItem id="configGENERATE_RUN_TIME_STATS" selectedIndex="0"/>
-                <gridItem id="configCHECK_FOR_STACK_OVERFLOW" selectedIndex="0"/>
-                <gridItem id="configUSE_RECURSIVE_MUTEXES" selectedIndex="1"/>
-                <gridItem id="configQUEUE_REGISTRY_SIZE" selectedIndex="0"/>
-                <gridItem id="configUSE_MALLOC_FAILED_HOOK" selectedIndex="0"/>
-                <gridItem id="configUSE_APPLICATION_TASK_TAG" selectedIndex="0"/>
-                <gridItem id="configUSE_QUEUE_SETS" selectedIndex="1"/>
-                <gridItem id="configUSE_COUNTING_SEMAPHORES" selectedIndex="1"/>
-                <gridItem id="configMAX_PRIORITIES" selectedIndex="7"/>
-                <gridItem id="configMAX_CO_ROUTINE_PRIORITIES" selectedIndex="2"/>
-                <gridItem id="configUSE_TIMERS" selectedIndex="1"/>
-                <gridItem id="configTIMER_TASK_PRIORITY" selectedIndex="6"/>
-                <gridItem id="configTIMER_QUEUE_LENGTH" selectedIndex="5"/>
-                <gridItem id="configTIMER_TASK_STACK_DEPTH" selectedIndex="configMINIMAL_STACK_SIZE"/>
-                <gridItem id="configKERNEL_INTERRUPT_PRIORITY" selectedIndex="1"/>
-                <gridItem id="configMAX_SYSCALL_INTERRUPT_PRIORITY" selectedIndex="4"/>
-                <gridItem id="configTICK_VECTOR" selectedIndex="0"/>
-                <gridItem id="INCLUDE_vTaskPrioritySet" selectedIndex="1"/>
-                <gridItem id="INCLUDE_uxTaskPriorityGet" selectedIndex="1"/>
-                <gridItem id="INCLUDE_vTaskDelete" selectedIndex="1"/>
-                <gridItem id="INCLUDE_vTaskCleanUpResources" selectedIndex="0"/>
-                <gridItem id="INCLUDE_vTaskSuspend" selectedIndex="1"/>
-                <gridItem id="INCLUDE_vTaskDelayUntil" selectedIndex="1"/>
-                <gridItem id="INCLUDE_vTaskDelay" selectedIndex="1"/>
-                <gridItem id="INCLUDE_uxTaskGetStackHighWaterMark" selectedIndex="1"/>
-                <gridItem id="INCLUDE_xTaskGetSchedulerState" selectedIndex="1"/>
-                <gridItem id="INCLUDE_eTaskGetState" selectedIndex="1"/>
-                <gridItem id="INCLUDE_xTimerPendFunctionCall" selectedIndex="1"/>
-                <gridItem id="bktPRIMARY_PRIORITY" selectedIndex="( configMAX_PRIORITIES - 3 )"/>
-                <gridItem id="bktSECONDARY_PRIORITY" selectedIndex="( configMAX_PRIORITIES - 4 )"/>
-                <gridItem id="intqHIGHER_PRIORITY" selectedIndex="( configMAX_PRIORITIES - 3 )"/>
-                <gridItem id="configMAC_ADDR0" selectedIndex="0x74"/>
-                <gridItem id="configMAC_ADDR1" selectedIndex="0x90"/>
-                <gridItem id="configMAC_ADDR2" selectedIndex="0x50"/>
-                <gridItem id="configMAC_ADDR3" selectedIndex="0x00"/>
-                <gridItem id="configMAC_ADDR4" selectedIndex="0x79"/>
-                <gridItem id="configMAC_ADDR5" selectedIndex="0x03"/>
-                <gridItem id="configIP_ADDR0" selectedIndex="192"/>
-                <gridItem id="configIP_ADDR1" selectedIndex="168"/>
-                <gridItem id="configIP_ADDR2" selectedIndex="11"/>
-                <gridItem id="configIP_ADDR3" selectedIndex="12"/>
-                <gridItem id="configNET_MASK0" selectedIndex="8"/>
-                <gridItem id="configNET_MASK1" selectedIndex="8"/>
-                <gridItem id="configNET_MASK2" selectedIndex="8"/>
-                <gridItem id="configNET_MASK3" selectedIndex="0"/>
-                <gridItem id="configUSE_TASK_NOTIFICATIONS" selectedIndex="1"/>
-                <gridItem id="configRECORD_STACK_HIGH_ADDRESS" selectedIndex="1"/>
-                <gridItem id="configNUM_THREAD_LOCAL_STORAGE_POINTERS" selectedIndex="3"/>
-                <gridItem id="configSUPPORT_DYNAMIC_ALLOCATION" selectedIndex="1"/>
-                <gridItem id="configSUPPORT_STATIC_ALLOCATION" selectedIndex="1"/>
-            </component>
+        <configuration enable="true" exclude="false" id="3d461407-321c-47ac-b0d9-361a57bfee49" inuse="true" name="FreeRTOS_Kernel">
+            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="38f9f538-e96c-42a5-b99b-a64f4ebd7cfd" inuse="true" name="FreeRTOS_Object">
+        <configuration enable="true" exclude="false" id="56e27cb1-f0c5-47dc-b431-17849b041101" inuse="true" name="FreeRTOS_Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
                     <option defaultValue="0" id="LinkNum" value=""/>

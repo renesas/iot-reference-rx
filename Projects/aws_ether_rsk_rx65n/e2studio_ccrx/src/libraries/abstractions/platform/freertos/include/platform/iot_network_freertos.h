@@ -39,7 +39,7 @@
 #include "platform/iot_network.h"
 
 /* FreeRTOS Secure Sockets include. */
-#include "iot_secure_sockets.h"
+//#include "iot_secure_sockets.h"
 
 /* Credentials include. */
 #include "aws_clientcredential.h"
