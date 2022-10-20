@@ -96,7 +96,43 @@
 
 /* Includes MQTT Agent Task management APIs. */
 #include "mqtt_agent_task.h"
+#include "backoff_algorithm.h"
+#ifndef democonfigMQTT_BROKER_ENDPOINT
+    #define democonfigMQTT_BROKER_ENDPOINT    clientcredentialMQTT_BROKER_ENDPOINT
+#endif
 
+/**
+ * @brief The root CA certificate belonging to the broker.
+ */
+#ifndef democonfigROOT_CA_PEM
+    #define democonfigROOT_CA_PEM    tlsATS1_ROOT_CERTIFICATE_PEM
+#endif
+
+#ifndef democonfigCLIENT_IDENTIFIER
+
+/**
+ * @brief The MQTT client identifier used in this example.  Each client identifier
+ * must be unique so edit as required to ensure no two clients connecting to the
+ * same broker use the same client identifier.
+ */
+    #define democonfigCLIENT_IDENTIFIER    clientcredentialIOT_THING_NAME
+#endif
+
+#ifndef democonfigMQTT_BROKER_PORT
+
+/**
+ * @brief The port to use for the demo.
+ */
+    #define democonfigMQTT_BROKER_PORT    clientcredentialMQTT_BROKER_PORT
+#endif
+
+/**
+ * @brief The maximum number of times to run the subscribe publish loop in this
+ * demo.
+ */
+#ifndef democonfigMQTT_MAX_DEMO_COUNT
+    #define democonfigMQTT_MAX_DEMO_COUNT    ( 3 )
+#endif
 
 /**
  * @brief Dimensions the buffer used to serialize and deserialize MQTT packets.
@@ -204,6 +240,7 @@ typedef struct TopicFilterSubscription
 
 /*-----------------------------------------------------------*/
 
+static TlsTransportParams_t xTlsTransportParams;
 
 /**
  * @brief Initializes an MQTT context, including transport interface and
@@ -354,34 +391,7 @@ static MQTTAgentState_t xState = MQTT_AGENT_STATE_NONE;
  */
 static EventGroupHandle_t xStateEventGrp;
 
-/**
- * @brief ThingName which is used as the client identifier for MQTT connection.
- * Thing name is retrieved  at runtime from a key value store.
- */
-static char * pcThingName = NULL;
 
-/**
- * @brief Broker endpoint name for the MQTT connection.
- * Broker endpoint name is retrieved at runtime from a key value store.
- */
-static char * pcBrokerEndpoint = NULL;
-
-/**
- * @brief Broker port used for the MQTT connection.
- * Broker port is retrieved at runtime from a key value store.
- */
-static uint32_t ulBrokerPort;
-
-/**
- * @brief Reference id of private key used to create secure TLS connection to broker endpoint.
- */
-static char * pcDevicePrivKeyID = NULL;
-
-
-/**
- * @brief Reference id of device certificate used to create secure TLS connection to broker endpoint.
- */
-static char * pcDeviceCertID = NULL;
 
 
 /*-----------------------------------------------------------*/
@@ -459,8 +469,8 @@ static MQTTStatus_t prvCreateMQTTConnection( bool xIsReconnect )
     /* The client identifier is used to uniquely identify this MQTT client to
      * the MQTT broker. In a production device the identifier can be something
      * unique, such as a device serial number. */
-    xConnectInfo.pClientIdentifier = pcThingName;
-    xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( pcThingName );
+    xConnectInfo.pClientIdentifier = clientcredentialIOT_THING_NAME;
+    xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( clientcredentialIOT_THING_NAME );
 
     /* Set MQTT keep-alive period. It is the responsibility of the application
      * to ensure that the interval between Control Packets being sent does not
@@ -524,6 +534,9 @@ static BaseType_t prvCreateTLSConnection( NetworkContext_t * pxNetworkContext )
 
     TlsTransportStatus_t xNetworkStatus = TLS_TRANSPORT_CONNECT_FAILURE;
     NetworkCredentials_t xNetworkCredentials = { 0 };
+    BackoffAlgorithmStatus_t xBackoffAlgStatus = BackoffAlgorithmSuccess;
+    BackoffAlgorithmContext_t xReconnectParams = { 0 };
+    uint16_t usNextRetryBackOff = 0U;
 
 #ifdef democonfigUSE_AWS_IOT_CORE_BROKER
 
@@ -544,34 +557,58 @@ static BaseType_t prvCreateTLSConnection( NetworkContext_t * pxNetworkContext )
     /* Set the credentials for establishing a TLS connection. */
     xNetworkCredentials.pRootCa = ( unsigned char * ) democonfigROOT_CA_PEM;
     xNetworkCredentials.rootCaSize = sizeof( democonfigROOT_CA_PEM );
-    xNetworkCredentials.pClientCertLabel = pcDeviceCertID;
-    xNetworkCredentials.pPrivateKeyLabel = pcDevicePrivKeyID;
+    xNetworkCredentials.pClientCertLabel = pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS;
+    xNetworkCredentials.pPrivateKeyLabel = pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS;
+
 
     xNetworkCredentials.disableSni = democonfigDISABLE_SNI;
-
+    BackoffAlgorithm_InitializeParams( &xReconnectParams,
+                                        RETRY_BACKOFF_BASE_MS,
+                                        RETRY_MAX_BACKOFF_DELAY_MS,
+                                        RETRY_MAX_ATTEMPTS );
 
     /* Establish a TCP connection with the MQTT broker. This example connects to
      * the MQTT broker as specified in democonfigMQTT_BROKER_ENDPOINT and
      * democonfigMQTT_BROKER_PORT at the top of this file. */
-    LogInfo( ( "Creating a TLS connection to %s:%u.",
-               pcBrokerEndpoint,
-               ulBrokerPort ) );
-    xNetworkStatus = TLS_FreeRTOS_Connect( pxNetworkContext,
-                                           pcBrokerEndpoint,
-                                           ulBrokerPort,
-                                           &xNetworkCredentials,
+
+    uint32_t ulRandomNum = 0;
+	do
+	{
+	LogInfo( ( "Creating a TLS connection to %s:%u.",
+			democonfigMQTT_BROKER_ENDPOINT,
+			democonfigMQTT_BROKER_PORT ) );
+	xNetworkStatus = TLS_FreeRTOS_Connect( pxNetworkContext,
+                                               democonfigMQTT_BROKER_ENDPOINT,
+                                               democonfigMQTT_BROKER_PORT,
+                                               &xNetworkCredentials,
                                            mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS,
                                            mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS );
 
-    if( xNetworkStatus == TLS_TRANSPORT_SUCCESS )
-    {
-        xConnected = pdPASS;
-    }
-    else
-    {
-        LogError( ( "Failed to create a TLS connection to broker, error = %d.", xNetworkStatus ) );
-        xConnected = pdFAIL;
-    }
+    xConnected = ( xNetworkStatus == TLS_TRANSPORT_SUCCESS ) ? pdPASS : pdFAIL;
+
+		if( !xConnected )
+		{
+			/* Get back-off value (in milliseconds) for the next connection retry. */
+			if( xPkcs11GenerateRandomNumber( ( uint8_t * ) &ulRandomNum,
+												 sizeof( ulRandomNum ) ) == pdPASS )
+			{
+			xBackoffAlgStatus = BackoffAlgorithm_GetNextBackoff( &xReconnectParams, ulRandomNum, &usNextRetryBackOff );
+			}
+
+			if( xBackoffAlgStatus == BackoffAlgorithmSuccess )
+			{
+				LogWarn( ( "Connection to the broker failed. "
+						   "Retrying connection in %hu ms.",
+						   usNextRetryBackOff ) );
+				vTaskDelay( pdMS_TO_TICKS( usNextRetryBackOff ) );
+			}
+		}
+
+		if( xBackoffAlgStatus == BackoffAlgorithmRetriesExhausted )
+		{
+			LogError( ( "Connection to the broker failed, all attempts exhausted." ) );
+		}
+	} while( ( xConnected != pdPASS ) && ( xBackoffAlgStatus == BackoffAlgorithmSuccess ) );
 
     return xConnected;
 }
@@ -718,7 +755,7 @@ static void prvIncomingPublishCallback( MQTTAgentContext_t * pMqttAgentContext,
 
 void prvMQTTAgentTask( void * pvParameters )
 {
-    BaseType_t xStatus = pdFAIL;
+    BaseType_t xStatus = pdPASS;
     MQTTStatus_t xMQTTStatus = MQTTBadParameter;
     MQTTContext_t * pMqttContext = &( xGlobalMqttAgentContext.mqttContext );
 
@@ -728,7 +765,7 @@ void prvMQTTAgentTask( void * pvParameters )
     ulGlobalEntryTimeMs = prvGetTimeMs();
 
     /* Load broker endpoint and thing name for client connection, from the key store. */
-    pcThingName = clientcredentialIOT_THING_NAME;
+//    pcThingName = clientcredentialIOT_THING_NAME;
 
     /* Initialize the MQTT context with the buffer and transport interface. */
     if( xStatus == pdPASS )
@@ -796,6 +833,8 @@ static MQTTConnectionStatus_t prvConnectToMQTTBroker( bool xIsReconnect )
     BackoffAlgorithmStatus_t xBackoffAlgStatus = BackoffAlgorithmSuccess;
     BackoffAlgorithmContext_t xReconnectParams = { 0 };
     uint16_t usNextRetryBackOff = 0U;
+/* Initialize network context. */
+    xNetworkContext.pParams = &xTlsTransportParams;
 
     /* We will use a retry mechanism with an exponential backoff mechanism and
      * jitter.  That is done to prevent a fleet of IoT devices all trying to

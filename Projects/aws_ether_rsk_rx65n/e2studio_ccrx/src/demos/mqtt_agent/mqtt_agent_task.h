@@ -31,7 +31,7 @@
 
 #include "FreeRTOS.h"
 #include "task.h"
-
+#include "core_mqtt_serializer.h"
 /**
  * @brief Enum defines states which MQTT agent exposes to the MQTT application tasks.
  * Application can query the state of the MQTT agent or wait for MQTT agent to reach a
@@ -54,7 +54,7 @@ typedef enum MQTTAgentState
  * @param[in] pxPublishInfo Deserialized publish information.
  */
 typedef void (* IncomingPubCallback_t )( void * pvIncomingPublishCallbackContext,
-                                         MQTTPublishInfo_t * pxPublishInfo );
+					MQTTPublishInfo_t * pxPublishInfo );
 
 /**
  * @brief Starts the MQTT agent task.

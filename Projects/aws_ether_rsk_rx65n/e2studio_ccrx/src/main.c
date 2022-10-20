@@ -216,8 +216,8 @@ void vApplicationDaemonTaskStartupHook( void )
         FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
 
         /* Run all demos. */
-		vStartPKCSMutualAuthDemo();
-
+        vStartSimplePubSubDemo();
+//		vStartPKCSMutualAuthDemo();
 //        vStartOtaDemo();
     }
 }
