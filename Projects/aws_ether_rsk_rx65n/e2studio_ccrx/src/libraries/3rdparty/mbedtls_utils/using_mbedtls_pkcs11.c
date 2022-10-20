@@ -912,7 +912,7 @@ TlsTransportStatus_t TLS_FreeRTOS_Connect( NetworkContext_t * pNetworkContext,
     /* Initialize mbedtls. */
     if( returnStatus == TLS_TRANSPORT_SUCCESS )
     {
-//        returnStatus = initMbedtls();
+        returnStatus = initMbedtls();
     }
 
     /* Perform TLS handshake. */

@@ -130,7 +130,6 @@
               <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_freertos_port.c</Path>
               <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_utils.c</Path>
               <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_utils.h</Path>
-              <Path>src\libraries\3rdparty\mbedtls_utils\threading_alt.h</Path>
               <Path>src\libraries\3rdparty\mbedtls_utils\using_mbedtls_pkcs11.c</Path>
               <Path>src\libraries\3rdparty\mbedtls_utils\using_mbedtls_pkcs11.h</Path>
             </Category>
@@ -676,21 +675,6 @@
                   <Path>src\libraries\freertos_plus\standard\crypto\src\iot_crypto.c</Path>
                 </Category>
               </Category>
-              <Category Name="tls">
-                <Path>src\libraries\freertos_plus\standard\tls\CMakeLists.txt</Path>
-                <Category Name="include">
-                  <Path>src\libraries\freertos_plus\standard\tls\include\iot_tls.h</Path>
-                </Category>
-                <Category Name="src">
-                  <Path>src\libraries\freertos_plus\standard\tls\src\iot_tls.c</Path>
-                </Category>
-              </Category>
-              <Category Name="utils">
-                <Path>src\libraries\freertos_plus\standard\utils\CMakeLists.txt</Path>
-                <Category Name="include">
-                  <Path>src\libraries\freertos_plus\standard\utils\include\iot_system_init.h</Path>
-                </Category>
-              </Category>
             </Category>
           </Category>
           <Category Name="logging">
@@ -981,69 +965,69 @@
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
           <Option>-branch=32</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\CoreMQTT\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\CoreMQTT\source\interface"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\c_sdk\standard\common\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\platform\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\platform\freertos\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\platform\include\platform"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\secure_sockets\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\ports\ota_pal"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\mqtt_agent"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\OtaOverMqtt"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\mqtt-agent-interface\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\mqtt-agent-interface"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreJSON\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\coreMQTT-Agent\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\logging\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\backoffAlgorithm\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\pkcs11"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\mbedtls_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include\mbedtls"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\jsmn"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\tinycbor\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\frtos_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\frtos_startup"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\FreeRTOS_common"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\common\pkcs11_helpers"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\dev_mode_key_provisioning\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\network_manager"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_ether_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\CoreMQTT\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\CoreMQTT\source\interface"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\c_sdk\standard\common\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\freertos\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\include\platform"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\secure_sockets\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\ports\ota_pal"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\mqtt_agent"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\OtaOverMqtt"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\mqtt-agent-interface\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\mqtt-agent-interface"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreJSON\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\coreMQTT-Agent\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\logging\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\backoffAlgorithm\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\pkcs11"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include\mbedtls"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\jsmn"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\tinycbor\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\frtos_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\frtos_startup"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\FreeRTOS_common"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\common\pkcs11_helpers"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\dev_mode_key_provisioning\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\network_manager"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_ether_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_byteq\src"</Option>
           <Option>-include="${ProjDirPath}\generate"</Option>
           <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C</Option>
           <Option>-utf8</Option>
@@ -1059,23 +1043,23 @@
         <AssembleOptions>
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_ether_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_ether_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_byteq\src"</Option>
           <Option>-utf8</Option>
           <Option>-debug</Option>
           <Option>-nologo</Option>
@@ -1289,7 +1273,6 @@
           <Path>HardwareDebug\core_mqtt_agent.obj</Path>
           <Path>HardwareDebug\core_mqtt_agent_command_functions.obj</Path>
           <Path>HardwareDebug\iot_crypto.obj</Path>
-          <Path>HardwareDebug\iot_tls.obj</Path>
           <Path>HardwareDebug\iot_logging.obj</Path>
           <Path>HardwareDebug\iot_logging_task_dynamic_buffers.obj</Path>
           <Path>HardwareDebug\cborencoder.obj</Path>
@@ -1352,87 +1335,87 @@
           <Path>HardwareDebug\freertos_mqtt.lib</Path>
         </LinkOrder>
         <CommonOptions>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\CoreMQTT\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\CoreMQTT\source\interface"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\c_sdk\standard\common\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\platform\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\platform\freertos\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\platform\include\platform"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\secure_sockets\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\ports\ota_pal"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\mqtt_agent"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\OtaOverMqtt"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\mqtt-agent-interface\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\mqtt-agent-interface"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreJSON\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\coreMQTT-Agent\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\logging\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\pkcs11"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\mbedtls_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include\mbedtls"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\3rdparty\jsmn"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\libraries\tinycbor\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\frtos_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\frtos_startup"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\FreeRTOS_common"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\common\pkcs11_helpers"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\dev_mode_key_provisioning\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\network_manager"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\demos\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\general"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\CoreMQTT\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\CoreMQTT\source\interface"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\c_sdk\standard\common\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\freertos\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\platform\include\platform"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\secure_sockets\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\ports\ota_pal"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\mqtt_agent"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\OtaOverMqtt"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\mqtt-agent-interface\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\mqtt-agent-interface"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreJSON\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\coreMQTT-Agent\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\logging\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\pkcs11"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include\mbedtls"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\mbedtls_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\3rdparty\jsmn"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\libraries\tinycbor\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\frtos_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\frtos_startup"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\FreeRTOS_common"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\common\pkcs11_helpers"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\dev_mode_key_provisioning\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\network_manager"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\demos\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\general"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\generate"</IncludePathForC>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\nam23\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam22\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
           <MacroForC>MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;"</MacroForC>
           <MacroForC>CONFIG_MEDTLS_USE_AFR_MEMORY</MacroForC>
           <MacroForC>MBEDTLS_CMAC_C</MacroForC>

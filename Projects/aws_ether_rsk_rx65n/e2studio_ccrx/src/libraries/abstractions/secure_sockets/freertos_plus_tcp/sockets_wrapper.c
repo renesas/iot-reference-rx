@@ -46,8 +46,6 @@
 #include "semphr.h"
 #include "FreeRTOS_IP.h"
 #include "FreeRTOS_Sockets.h"
-//#include "iot_secure_sockets.h"
-#include "iot_tls.h"
 #include "task.h"
 #include "core_pkcs11.h"
 #include "iot_crypto.h"

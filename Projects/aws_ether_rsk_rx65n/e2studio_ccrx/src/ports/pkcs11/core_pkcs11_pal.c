@@ -50,7 +50,7 @@
 /* Amazon FreeRTOS Includes. */
 #include "core_pkcs11.h"
 #include "core_pkcs11_pal.h"
-#include "iot_crypto.h"
+//#include "iot_crypto.h"
 #include "core_pkcs11_config.h"
 #include "FreeRTOS.h"
 #include "mbedtls/sha256.h"
@@ -62,6 +62,19 @@
 /* Renesas RX platform includes */
 #include "platform.h"
 #include "r_flash_rx_if.h"
+
+/* TLS transport header. */
+#include "using_mbedtls_pkcs11.h"
+#include "mbedtls_config.h"
+
+/* FreeRTOS Socket wrapper include. */
+#include "sockets_wrapper.h"
+
+/* PKCS #11 includes. */
+#include "core_pkcs11_config.h"
+#include "core_pkcs11.h"
+#include "pkcs11.h"
+#include "core_pki_utils.h"
 
 typedef struct _pkcs_data
 {
@@ -184,28 +197,54 @@ typedef struct _update_data_flash_control_block {
  Private global variables
  ******************************************************************************/
 static UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
+TlsTransportStatus_t Crypto( void );
+
+TlsTransportStatus_t Crypto( void )
+{
+    TlsTransportStatus_t returnStatus = TLS_TRANSPORT_SUCCESS;
+
+    /* Set the mutex functions for mbed TLS thread safety. */
+    mbedtls_threading_set_alt( mbedtls_platform_mutex_init,
+                               mbedtls_platform_mutex_free,
+                               mbedtls_platform_mutex_lock,
+                               mbedtls_platform_mutex_unlock );
+
+    if( returnStatus == TLS_TRANSPORT_SUCCESS )
+    {
+        LogDebug( ( "Successfully initialized mbedTLS." ) );
+    }
+
+    return returnStatus;
+}
 
 CK_RV PKCS11_PAL_Initialize( CK_VOID_PTR pvInitArgs )
 {
     CK_RV xResult = CKR_OK;
+    TlsTransportStatus_t returnStatus = TLS_TRANSPORT_SUCCESS;
 
-    CRYPTO_Init();
-    R_FLASH_Open();
+    if( returnStatus == TLS_TRANSPORT_SUCCESS )
+	{
+    	returnStatus = Crypto();
+	}
+    if (returnStatus == TLS_TRANSPORT_SUCCESS)
+    {
+    	R_FLASH_Open();
 
-#if defined (BSP_MCU_RX63N) || (BSP_MCU_RX631) || (BSP_MCU_RX630)
-    flash_access_window_config_t flash_access_window_config;
-    flash_access_window_config.read_en_mask = 0xffff;
-    flash_access_window_config.write_en_mask = 0xffff;
-    R_FLASH_Control(FLASH_CMD_ACCESSWINDOW_SET, &flash_access_window_config);
-#endif
+    	#if defined (BSP_MCU_RX63N) || (BSP_MCU_RX631) || (BSP_MCU_RX630)
+    	    flash_access_window_config_t flash_access_window_config;
+    	    flash_access_window_config.read_en_mask = 0xffff;
+    	    flash_access_window_config.write_en_mask = 0xffff;
+    	    R_FLASH_Control(FLASH_CMD_ACCESSWINDOW_SET, &flash_access_window_config);
+    	#endif
 
-    /* check the hash */
-    check_dataflash_area(0);
+		/* check the hash */
+		check_dataflash_area(0);
 
-    /* copy data from storage to ram */
-    memcpy(&pkcs_control_block_data_image, (void *)&pkcs_control_block_data, sizeof(pkcs_control_block_data_image));
+		/* copy data from storage to ram */
+		memcpy(&pkcs_control_block_data_image, (void *)&pkcs_control_block_data, sizeof(pkcs_control_block_data_image));
 
-    R_FLASH_Close();
+		R_FLASH_Close();
+    }
 
     return xResult;
 }
