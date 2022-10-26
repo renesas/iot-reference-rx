@@ -41,30 +41,48 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1665819495132</id>
+			<id>1666589064164</id>
+			<name>src/libraries</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-3rdparty|abstractions|c_sdk|coreMQTT-Agent|freertos_plus|FreeRTOS-LTS|logging|tinycbor</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666161637445</id>
+			<name>src/libraries/3rdparty</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-mbedtls</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666159451382</id>
 			<name>src/libraries/FreeRTOS-LTS</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-FreeRTOS</arguments>
+				<arguments>1.0-name-matches-false-true-FreeRTOS|AWS</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1665886909821</id>
-			<name>src/libraries/3rdparty/mbedtls</name>
-			<type>9</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-include|library</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1665819342680</id>
+			<id>1666589092912</id>
 			<name>src/libraries/FreeRTOS-LTS/FreeRTOS</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-coreMQTT|FreeRTOS-Kernel|FreeRTOS-Plus-TCP</arguments>
+				<arguments>1.0-name-matches-false-true-FreeRTOS-Kernel|FreeRTOS-Plus-TCP|corePKCS11|backoffAlgorithm|coreJSON|CoreMQTT</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666159912351</id>
+			<name>src/libraries/FreeRTOS-LTS/aws</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-ota-for-aws-iot-embedded-sdk</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -77,8 +95,62 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1665819393462</id>
+			<id>1666160363686</id>
+			<name>src/libraries/FreeRTOS-LTS/FreeRTOS/backoffAlgorithm</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-source</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666160363740</id>
+			<name>src/libraries/FreeRTOS-LTS/FreeRTOS/backoffAlgorithm</name>
+			<type>5</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-*.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666160363794</id>
+			<name>src/libraries/FreeRTOS-LTS/FreeRTOS/backoffAlgorithm</name>
+			<type>5</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-*.h</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666160694661</id>
+			<name>src/libraries/FreeRTOS-LTS/FreeRTOS/coreJSON</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-source</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666589118776</id>
 			<name>src/libraries/FreeRTOS-LTS/FreeRTOS/coreMQTT</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-source</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666160379598</id>
+			<name>src/libraries/FreeRTOS-LTS/FreeRTOS/corePKCS11</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-source</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666159534959</id>
+			<name>src/libraries/FreeRTOS-LTS/aws/ota-for-aws-iot-embedded-sdk</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
@@ -92,6 +164,24 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-MemMang|Renesas</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666160396199</id>
+			<name>src/libraries/FreeRTOS-LTS/FreeRTOS/corePKCS11/source</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-dependency</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666159565455</id>
+			<name>src/libraries/FreeRTOS-LTS/aws/ota-for-aws-iot-embedded-sdk/source</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-dependency</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -110,6 +200,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-false-RX600v2</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666160408550</id>
+			<name>src/libraries/FreeRTOS-LTS/FreeRTOS/corePKCS11/source/portable</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-os</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -137,6 +236,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-false-RX</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1666160194750</id>
+			<name>src/libraries/FreeRTOS-LTS/aws/ota-for-aws-iot-embedded-sdk/source/portable/os</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-ota_os_posix.c|ota_os_posix.h</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>

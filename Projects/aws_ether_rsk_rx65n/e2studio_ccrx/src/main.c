@@ -27,9 +27,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "FreeRTOS.h"
 #include "task.h"
 
-/* System init includes. */
-#include "iot_system_init.h"
-
 /* Logging includes. */
 #include "iot_logging_task.h"
 
@@ -42,6 +39,62 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Demo includes */
 #include "aws_demo.h"
 #include "aws_clientcredential.h"
+
+//#include "mqtt_agent_task.h"
+extern void UserInitialization(void);
+/**
+ * @brief Flag which enables OTA update task in background along with other demo tasks.
+ * OTA update task polls regularly for firmware update jobs or acts on a new firmware update
+ * available notification from OTA service.
+ */
+#define appmainINCLUDE_OTA_UPDATE_TASK            ( 1 )
+
+/**
+ * @brief Flag to enable or disable provisioning mode for the demo.
+ * Enabling the flags starts a CLI task, so that user can perform provisioning of the device through
+ * a serial terminal. Provisioning involves running commands to fetch or set the PKI and configuration
+ * information for the device to connect to broker and perform OTA updates. Disabling the flag results
+ * in disabling the CLI task and execution of the demo tasks in normal device operation mode.
+ */
+#define appmainPROVISIONING_MODE                  ( 1 )
+
+/**
+ * @brief Subscribe Publish demo tasks configuration.
+ * Subscribe publish demo task shows the basic functionality of connecting to an MQTT broker, subscribing
+ * to a topic, publishing messages to a topic and reporting the incoming messages on subscribed topic.
+ * Number of subscribe publish demo tasks to be spawned is configurable.
+ */
+#define appmainMQTT_NUM_PUBSUB_TASKS              ( 2 )
+#define appmainMQTT_PUBSUB_TASK_STACK_SIZE        ( 2048 )
+#define appmainMQTT_PUBSUB_TASK_PRIORITY          ( tskIDLE_PRIORITY +1 )
+
+/**
+ * @brief Stack size and priority for OTA Update task.
+ */
+#define appmainMQTT_OTA_UPDATE_TASK_STACK_SIZE    ( 4096 )
+#define appmainMQTT_OTA_UPDATE_TASK_PRIORITY      ( tskIDLE_PRIORITY )
+
+/**
+ * @brief Stack size and priority for MQTT agent task.
+ * Stack size is capped to an adequate value based on requirements from MbedTLS stack
+ * for establishing a TLS connection. Task priority of MQTT agent is set to a priority
+ * higher than other MQTT application tasks, so that the agent can drain the queue
+ * as work is being produced.
+ */
+#define appmainMQTT_AGENT_TASK_STACK_SIZE         ( 6144 )
+#define appmainMQTT_AGENT_TASK_PRIORITY           ( tskIDLE_PRIORITY + 2 )
+
+/**
+ * @brief Stack size and priority for CLI task.
+ */
+#define appmainCLI_TASK_STACK_SIZE                ( 6144 )
+#define appmainCLI_TASK_PRIORITY                  ( tskIDLE_PRIORITY + 1 )
+
+
+
+extern void vOTAUpdateTask( void * pvParam );
+
+
 
 #define mainLOGGING_TASK_STACK_SIZE         ( configMINIMAL_STACK_SIZE * 6 )
 #define mainLOGGING_MESSAGE_QUEUE_LENGTH    ( 15 )
@@ -122,11 +175,13 @@ static void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
     uart_config();
-    FreeRTOS_printf( ( "Initialized UART\n" ) );
+
+    UserInitialization();
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY,
                             mainLOGGING_MESSAGE_QUEUE_LENGTH );
+    FreeRTOS_printf( ( "Initialized UART\n" ) );
 }
 /*-----------------------------------------------------------*/
 
@@ -134,11 +189,13 @@ void vApplicationDaemonTaskStartupHook( void )
 {
 	prvMiscInitialization();
 
-    if( SYSTEM_Init() == pdPASS )
+
     {
         /* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
         are created in the vApplicationIPNetworkEventHook() hook function
         below.  The hook function is called when the network connects. */
+
+
     	FreeRTOS_IPInit( ucIPAddress,
                          ucNetMask,
                          ucGatewayAddress,
@@ -156,51 +213,11 @@ void vApplicationDaemonTaskStartupHook( void )
         /* Provision the device with AWS certificate and private key. */
         vDevModeKeyProvisioning();
 
+        FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
+
         /* Run all demos. */
-        DEMO_RUNNER_RunDemos();
+//        vStartSimplePubSubDemo();
+		vStartPKCSMutualAuthDemo();
+//        vStartOtaDemo();
     }
 }
-#if 0
-
-BaseType_t xApplicationGetRandomNumber( uint32_t * pulNumber )
-{
-	unsigned char *output;
-	void *data;
-	size_t len;
-	size_t *olen;
-//	INTERNAL_NOT_USED(data);
-//	INTERNAL_NOT_USED(len);
-	uint32_t ulRandomValue = 0;
-//	get_random_number( ( uint8_t * ) &ulRandomValue, sizeof( uint32_t ) );
-//	size_t num_bytes = ( len < sizeof( uint32_t ) ) ? len : sizeof( uint32_t );
-//	*olen = 0;
-//
-//	memcpy( output, &ulRandomValue, num_bytes );
-//
-	ulRandomValue = ((((uint32_t) rand()) & UNSIGNED_SHORT_RANDOM_NUMBER_MASK)) |      // NOLINT (rand() has limited randomness. But c99 does not support random)
-					((((uint32_t) rand()) & UNSIGNED_SHORT_RANDOM_NUMBER_MASK) << 16); // NOLINT (rand() has limited randomness. But c99 does not support random)
-
-	*(pulNumber) = ulRandomValue;
-
-	return pdTRUE;
-
-}
-/*-----------------------------------------------------------*/
-
-/**
- * @brief Generate a TCP Initial Sequence Number that is reasonably difficult
- * to predict, per https://tools.ietf.org/html/rfc6528.
- */
-uint32_t ulApplicationGetNextSequenceNumber( uint32_t ulSourceAddress,
-                                             uint16_t usSourcePort,
-                                             uint32_t ulDestinationAddress,
-                                             uint16_t usDestinationPort )
-{
-
-    uint32_t ulNextSequenceNumber = (ulSourceAddress + usSourcePort) * (ulDestinationAddress + usDestinationPort);;
-
-
-    return ulNextSequenceNumber;
-}
-/*-----------------------------------------------------------*/
-#endif
