@@ -9,6 +9,7 @@
     <Files>
       <Category Name="src">
         <Path>src\main.c</Path>
+        <Path>src\user_init.c</Path>
         <Category Name="FreeRTOS_common">
           <Path>src\FreeRTOS_common\croutine.h</Path>
           <Path>src\FreeRTOS_common\entropy_hardware_poll.c</Path>
@@ -28,20 +29,26 @@
           </Category>
         </Category>
         <Category Name="demos">
+          <Category Name="MutualAuthMQTT">
+            <Path>src\demos\MutualAuthMQTT\MutualAuthMQTTExample.c</Path>
+          </Category>
+          <Category Name="OtaOverMqtt">
+            <Path>src\demos\OtaOverMqtt\OtaOverMqttDemoExample.c</Path>
+            <Path>src\demos\OtaOverMqtt\subscription_manager.c</Path>
+            <Path>src\demos\OtaOverMqtt\subscription_manager.h</Path>
+          </Category>
+          <Category Name="SimplePubSub">
+            <Path>src\demos\SimplePubSub\simple_pub_sub_task.c</Path>
+          </Category>
           <Category Name="common">
             <Category Name="pkcs11_helpers">
               <Path>src\demos\common\pkcs11_helpers\pkcs11_helpers.c</Path>
               <Path>src\demos\common\pkcs11_helpers\pkcs11_helpers.h</Path>
             </Category>
           </Category>
-          <Category Name="coreMQTT">
-            <Path>src\demos\coreMQTT\mqtt_demo_mutual_auth.c</Path>
-          </Category>
           <Category Name="demo_runner">
             <Path>src\demos\demo_runner\aws_demo.c</Path>
             <Path>src\demos\demo_runner\aws_demo_network_addr.c</Path>
-            <Path>src\demos\demo_runner\iot_demo_freertos.c</Path>
-            <Path>src\demos\demo_runner\iot_demo_runner.c</Path>
           </Category>
           <Category Name="dev_mode_key_provisioning">
             <Category Name="include">
@@ -60,8 +67,11 @@
             <Path>src\demos\include\iot_demo_logging.h</Path>
             <Path>src\demos\include\iot_demo_runner.h</Path>
           </Category>
+          <Category Name="mqtt_agent">
+            <Path>src\demos\mqtt_agent\mqtt_agent_task.c</Path>
+            <Path>src\demos\mqtt_agent\mqtt_agent_task.h</Path>
+          </Category>
           <Category Name="network_manager">
-            <Path>src\demos\network_manager\aws_iot_network_manager.c</Path>
             <Path>src\demos\network_manager\iot_network_manager_private.h</Path>
           </Category>
         </Category>
@@ -78,6 +88,7 @@
           <Path>src\frtos_config\core_pkcs11_config.h</Path>
           <Path>src\frtos_config\defender_config.h</Path>
           <Path>src\frtos_config\defender_demo_config.h</Path>
+          <Path>src\frtos_config\demo_config.h</Path>
           <Path>src\frtos_config\http_demo_mutual_auth_config.h</Path>
           <Path>src\frtos_config\http_demo_s3_download_config.h</Path>
           <Path>src\frtos_config\http_demo_s3_download_multithreaded_config.h</Path>
@@ -88,6 +99,7 @@
           <Path>src\frtos_config\iot_mqtt_config.h</Path>
           <Path>src\frtos_config\iot_secure_sockets_config.h</Path>
           <Path>src\frtos_config\jobs_demo_config.h</Path>
+          <Path>src\frtos_config\mbedtls_config.h</Path>
           <Path>src\frtos_config\mbedtls_user_config.h</Path>
           <Path>src\frtos_config\mqtt_agent_demo_config.h</Path>
           <Path>src\frtos_config\mqtt_demo_mutual_auth_config.h</Path>
@@ -111,185 +123,246 @@
               <Path>src\libraries\3rdparty\jsmn\jsmn.c</Path>
               <Path>src\libraries\3rdparty\jsmn\jsmn.h</Path>
             </Category>
-            <Category Name="mbedtls">
-              <Path>src\libraries\3rdparty\mbedtls\CMakeLists.txt</Path>
-              <Path>src\libraries\3rdparty\mbedtls\apache-2.0.txt</Path>
-              <Path>src\libraries\3rdparty\mbedtls\dco.txt</Path>
-              <Path>src\libraries\3rdparty\mbedtls\gpl-2.0.txt</Path>
-              <Category Name="include">
-                <Path>src\libraries\3rdparty\mbedtls\include\CMakeLists.txt</Path>
-                <Category Name="mbedtls">
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\aes.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\aesni.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\arc4.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\aria.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\asn1.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\asn1write.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\base64.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\bignum.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\blowfish.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\bn_mul.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\camellia.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ccm.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\certs.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\chacha20.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\chachapoly.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\check_config.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\cipher.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\cipher_internal.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\cmac.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\compat-1.3.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\config.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ctr_drbg.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\debug.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\des.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\dhm.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecdh.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecdsa.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecjpake.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecp.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ecp_internal.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\entropy.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\entropy_poll.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\error.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\gcm.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\havege.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\hkdf.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\hmac_drbg.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md2.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md4.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md5.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\md_internal.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\memory_buffer_alloc.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\net.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\net_sockets.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\nist_kw.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\oid.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\padlock.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pem.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pk.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pk_internal.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pkcs11.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pkcs12.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\pkcs5.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\platform.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\platform_time.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\platform_util.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\poly1305.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ripemd160.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\rsa.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\rsa_internal.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\sha1.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\sha256.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\sha512.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_cache.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_ciphersuites.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_cookie.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_internal.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\ssl_ticket.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\threading.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\timing.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\version.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\x509.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\x509_crl.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\x509_crt.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\x509_csr.h</Path>
-                  <Path>src\libraries\3rdparty\mbedtls\include\mbedtls\xtea.h</Path>
-                </Category>
-              </Category>
-              <Category Name="library">
-                <Path>src\libraries\3rdparty\mbedtls\library\CMakeLists.txt</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\aes.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\aesni.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\arc4.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\aria.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\asn1parse.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\asn1write.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\base64.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\bignum.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\blowfish.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\camellia.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ccm.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\certs.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\chacha20.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\chachapoly.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\cipher.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\cipher_wrap.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\cmac.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ctr_drbg.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\debug.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\des.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\dhm.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ecdh.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ecdsa.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ecjpake.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ecp.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ecp_curves.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\entropy.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\entropy_poll.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\error.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\gcm.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\havege.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\hkdf.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\hmac_drbg.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\md.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\md2.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\md4.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\md5.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\md_wrap.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\memory_buffer_alloc.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\net_sockets.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\nist_kw.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\oid.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\padlock.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\pem.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\pk.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\pk_wrap.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\pkcs11.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\pkcs12.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\pkcs5.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\pkparse.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\pkwrite.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\platform.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\platform_util.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\poly1305.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ripemd160.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\rsa.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\rsa_internal.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\sha1.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\sha256.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\sha512.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ssl_cache.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ssl_ciphersuites.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ssl_cli.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ssl_cookie.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ssl_srv.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ssl_ticket.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\ssl_tls.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\threading.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\timing.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\version.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\version_features.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\x509.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\x509_create.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\x509_crl.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\x509_crt.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\x509_csr.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\x509write_crt.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\x509write_csr.c</Path>
-                <Path>src\libraries\3rdparty\mbedtls\library\xtea.c</Path>
-              </Category>
-            </Category>
             <Category Name="mbedtls_config">
               <Path>src\libraries\3rdparty\mbedtls_config\aws_mbedtls_config.h</Path>
+              <Path>src\libraries\3rdparty\mbedtls_config\error.h</Path>
               <Path>src\libraries\3rdparty\mbedtls_config\threading_alt.h</Path>
             </Category>
             <Category Name="mbedtls_utils">
-              <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_error.c</Path>
-              <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_error.h</Path>
+              <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_bio_freertos_plus_tcp.c</Path>
+              <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_freertos_port.c</Path>
               <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_utils.c</Path>
+              <Path>src\libraries\3rdparty\mbedtls_utils\mbedtls_utils.h</Path>
+              <Path>src\libraries\3rdparty\mbedtls_utils\using_mbedtls_pkcs11.c</Path>
+              <Path>src\libraries\3rdparty\mbedtls_utils\using_mbedtls_pkcs11.h</Path>
+            </Category>
+            <Category Name="mbedtlsv2280">
+              <Category Name="include">
+                <Path>src\libraries\3rdparty\mbedtlsv2280\include\CMakeLists.txt</Path>
+                <Category Name="mbedtls">
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\aes.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\aesni.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\arc4.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\aria.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\asn1.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\asn1write.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\base64.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\bignum.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\blowfish.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\bn_mul.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\camellia.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ccm.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\certs.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\chacha20.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\chachapoly.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\check_config.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\cipher.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\cipher_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\cmac.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\compat-1.3.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\config.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\config_psa.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\constant_time.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ctr_drbg.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\debug.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\des.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\dhm.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ecdh.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ecdsa.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ecjpake.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ecp.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ecp_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\entropy.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\entropy_poll.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\error.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\gcm.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\havege.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\hkdf.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\hmac_drbg.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\md.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\md2.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\md4.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\md5.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\md_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\memory_buffer_alloc.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\net.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\net_sockets.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\nist_kw.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\oid.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\padlock.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\pem.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\pk.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\pk_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\pkcs11.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\pkcs12.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\pkcs5.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\platform.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\platform_time.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\platform_util.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\poly1305.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\psa_util.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ripemd160.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\rsa.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\rsa_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\sha1.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\sha256.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\sha512.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ssl.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ssl_cache.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ssl_ciphersuites.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ssl_cookie.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ssl_internal.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\ssl_ticket.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\threading.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\timing.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\version.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\x509.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\x509_crl.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\x509_crt.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\x509_csr.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\mbedtls\xtea.h</Path>
+                </Category>
+                <Category Name="psa">
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_builtin_composites.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_builtin_primitives.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_compat.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_config.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_driver_common.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_driver_contexts_composites.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_driver_contexts_primitives.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_extra.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_platform.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_se_driver.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_sizes.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_struct.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_types.h</Path>
+                  <Path>src\libraries\3rdparty\mbedtlsv2280\include\psa\crypto_values.h</Path>
+                </Category>
+              </Category>
+              <Category Name="library">
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\CMakeLists.txt</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\aes.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\aesni.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\arc4.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\aria.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\asn1parse.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\asn1write.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\base64.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\bignum.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\blowfish.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\camellia.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ccm.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\certs.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\chacha20.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\chachapoly.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\check_crypto_config.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\cipher.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\cipher_wrap.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\cmac.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\common.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\constant_time.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\constant_time_internal.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\constant_time_invasive.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ctr_drbg.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\debug.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\des.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\dhm.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ecdh.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ecdsa.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ecjpake.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ecp.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ecp_curves.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ecp_invasive.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\entropy.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\entropy_poll.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\error.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\gcm.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\havege.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\hkdf.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\hmac_drbg.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\md.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\md2.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\md4.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\md5.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\memory_buffer_alloc.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\mps_common.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\mps_error.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\mps_reader.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\mps_reader.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\mps_trace.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\mps_trace.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\net_sockets.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\nist_kw.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\oid.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\padlock.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\pem.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\pk.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\pk_wrap.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\pkcs11.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\pkcs12.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\pkcs5.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\pkparse.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\pkwrite.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\platform.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\platform_util.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\poly1305.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_aead.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_aead.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_cipher.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_cipher.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_client.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_core.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_driver_wrappers.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_driver_wrappers.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_ecp.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_ecp.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_hash.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_hash.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_invasive.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_its.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_mac.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_mac.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_random_impl.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_rsa.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_rsa.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_se.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_se.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_slot_management.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_slot_management.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_storage.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_crypto_storage.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\psa_its_file.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ripemd160.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\rsa.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\rsa_internal.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\sha1.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\sha256.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\sha512.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_cache.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_ciphersuites.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_cli.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_cookie.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_msg.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_srv.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_ticket.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_tls.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_tls13_keys.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\ssl_tls13_keys.h</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\threading.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\timing.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\version.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\version_features.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\x509.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\x509_create.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\x509_crl.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\x509_crt.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\x509_csr.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\x509write_crt.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\x509write_csr.c</Path>
+                <Path>src\libraries\3rdparty\mbedtlsv2280\library\xtea.c</Path>
+              </Category>
             </Category>
             <Category Name="pkcs11">
               <Path>src\libraries\3rdparty\pkcs11\pkcs11.h</Path>
@@ -422,6 +495,23 @@
                   </Category>
                 </Category>
               </Category>
+              <Category Name="backoffAlgorithm">
+                <Category Name="source">
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\backoffAlgorithm\source\backoff_algorithm.c</Path>
+                  <Category Name="include">
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\backoffAlgorithm\source\include\backoff_algorithm.h</Path>
+                  </Category>
+                </Category>
+              </Category>
+              <Category Name="coreJSON">
+                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreJSON\lexicon.txt</Path>
+                <Category Name="source">
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreJSON\source\core_json.c</Path>
+                  <Category Name="include">
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreJSON\source\include\core_json.h</Path>
+                  </Category>
+                </Category>
+              </Category>
               <Category Name="coreMQTT">
                 <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\lexicon.txt</Path>
                 <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\requirements.txt</Path>
@@ -441,41 +531,72 @@
                   </Category>
                 </Category>
               </Category>
-            </Category>
-          </Category>
-          <Category Name="abstractions">
-            <Category Name="backoff_algorithm">
-              <Category Name="source">
-                <Path>src\libraries\abstractions\backoff_algorithm\source\backoff_algorithm.c</Path>
-                <Category Name="include">
-                  <Path>src\libraries\abstractions\backoff_algorithm\source\include\backoff_algorithm.h</Path>
-                </Category>
-              </Category>
-            </Category>
-            <Category Name="pkcs11">
               <Category Name="corePKCS11">
+                <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\lexicon.txt</Path>
                 <Category Name="source">
-                  <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\core_pkcs11.c</Path>
-                  <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\core_pki_utils.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\core_pkcs11.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\core_pki_utils.c</Path>
                   <Category Name="include">
-                    <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\include\core_pkcs11.h</Path>
-                    <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\include\core_pkcs11_pal.h</Path>
-                    <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\include\core_pki_utils.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include\core_pkcs11.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include\core_pkcs11_config_defaults.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include\core_pkcs11_pal.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include\core_pki_utils.h</Path>
                   </Category>
                   <Category Name="portable">
                     <Category Name="mbedtls">
-                      <Path>src\libraries\abstractions\pkcs11\corePKCS11\source\portable\mbedtls\core_pkcs11_mbedtls.c</Path>
+                      <Path>src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\portable\mbedtls\core_pkcs11_mbedtls.c</Path>
                     </Category>
                   </Category>
                 </Category>
+              </Category>
+            </Category>
+            <Category Name="aws">
+              <Category Name="ota-for-aws-iot-embedded-sdk">
+                <Category Name="source">
+                  <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\ota.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\ota_base64.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\ota_cbor.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\ota_http.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\ota_interface.c</Path>
+                  <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\ota_mqtt.c</Path>
+                  <Category Name="include">
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_appversion32.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_base64_private.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_cbor_private.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_config_defaults.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_http_interface.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_http_private.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_interface_private.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_mqtt_interface.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_mqtt_private.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_os_interface.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_platform_interface.h</Path>
+                    <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include\ota_private.h</Path>
+                  </Category>
+                  <Category Name="portable">
+                    <Category Name="os">
+                      <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable\os\ota_os_freertos.c</Path>
+                      <Path>src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable\os\ota_os_freertos.h</Path>
+                    </Category>
+                  </Category>
+                </Category>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="abstractions">
+            <Category Name="mqtt-agent-interface">
+              <Path>src\libraries\abstractions\mqtt-agent-interface\freertos_agent_message.c</Path>
+              <Path>src\libraries\abstractions\mqtt-agent-interface\freertos_command_pool.c</Path>
+              <Category Name="include">
+                <Path>src\libraries\abstractions\mqtt-agent-interface\include\freertos_agent_message.h</Path>
+                <Path>src\libraries\abstractions\mqtt-agent-interface\include\freertos_command_pool.h</Path>
               </Category>
             </Category>
             <Category Name="platform">
               <Path>src\libraries\abstractions\platform\CMakeLists.txt</Path>
               <Category Name="freertos">
                 <Path>src\libraries\abstractions\platform\freertos\iot_clock_freertos.c</Path>
-                <Path>src\libraries\abstractions\platform\freertos\iot_metrics.c</Path>
-                <Path>src\libraries\abstractions\platform\freertos\iot_network_freertos.c</Path>
                 <Path>src\libraries\abstractions\platform\freertos\iot_threads_freertos.c</Path>
                 <Category Name="include">
                   <Category Name="platform">
@@ -499,18 +620,10 @@
             </Category>
             <Category Name="secure_sockets">
               <Category Name="freertos_plus_tcp">
-                <Path>src\libraries\abstractions\secure_sockets\freertos_plus_tcp\iot_secure_sockets.c</Path>
+                <Path>src\libraries\abstractions\secure_sockets\freertos_plus_tcp\sockets_wrapper.c</Path>
               </Category>
               <Category Name="include">
-                <Path>src\libraries\abstractions\secure_sockets\include\iot_secure_sockets.h</Path>
-                <Path>src\libraries\abstractions\secure_sockets\include\iot_secure_sockets_config_defaults.h</Path>
-                <Path>src\libraries\abstractions\secure_sockets\include\iot_secure_sockets_wrapper_metrics.h</Path>
-              </Category>
-            </Category>
-            <Category Name="transport">
-              <Category Name="secure_sockets">
-                <Path>src\libraries\abstractions\transport\secure_sockets\transport_secure_sockets.c</Path>
-                <Path>src\libraries\abstractions\transport\secure_sockets\transport_secure_sockets.h</Path>
+                <Path>src\libraries\abstractions\secure_sockets\include\sockets_wrapper.h</Path>
               </Category>
             </Category>
           </Category>
@@ -547,6 +660,17 @@
               </Category>
             </Category>
           </Category>
+          <Category Name="coreMQTT-Agent">
+            <Category Name="source">
+              <Path>src\libraries\coreMQTT-Agent\source\core_mqtt_agent.c</Path>
+              <Path>src\libraries\coreMQTT-Agent\source\core_mqtt_agent_command_functions.c</Path>
+              <Category Name="include">
+                <Path>src\libraries\coreMQTT-Agent\source\include\core_mqtt_agent.h</Path>
+                <Path>src\libraries\coreMQTT-Agent\source\include\core_mqtt_agent_command_functions.h</Path>
+                <Path>src\libraries\coreMQTT-Agent\source\include\core_mqtt_agent_message_interface.h</Path>
+              </Category>
+            </Category>
+          </Category>
           <Category Name="freertos_plus">
             <Category Name="standard">
               <Category Name="crypto">
@@ -555,24 +679,6 @@
                 </Category>
                 <Category Name="src">
                   <Path>src\libraries\freertos_plus\standard\crypto\src\iot_crypto.c</Path>
-                </Category>
-              </Category>
-              <Category Name="tls">
-                <Path>src\libraries\freertos_plus\standard\tls\CMakeLists.txt</Path>
-                <Category Name="include">
-                  <Path>src\libraries\freertos_plus\standard\tls\include\iot_tls.h</Path>
-                </Category>
-                <Category Name="src">
-                  <Path>src\libraries\freertos_plus\standard\tls\src\iot_tls.c</Path>
-                </Category>
-              </Category>
-              <Category Name="utils">
-                <Path>src\libraries\freertos_plus\standard\utils\CMakeLists.txt</Path>
-                <Category Name="include">
-                  <Path>src\libraries\freertos_plus\standard\utils\include\iot_system_init.h</Path>
-                </Category>
-                <Category Name="src">
-                  <Path>src\libraries\freertos_plus\standard\utils\src\iot_system_init.c</Path>
                 </Category>
               </Category>
             </Category>
@@ -587,8 +693,29 @@
               <Path>src\libraries\logging\include\logging_stack.h</Path>
             </Category>
           </Category>
+          <Category Name="tinycbor">
+            <Category Name="src">
+              <Path>src\libraries\tinycbor\src\cbor.h</Path>
+              <Path>src\libraries\tinycbor\src\cborencoder.c</Path>
+              <Path>src\libraries\tinycbor\src\cborencoder_close_container_checked.c</Path>
+              <Path>src\libraries\tinycbor\src\cborerrorstrings.c</Path>
+              <Path>src\libraries\tinycbor\src\cborinternal_p.h</Path>
+              <Path>src\libraries\tinycbor\src\cborparser.c</Path>
+              <Path>src\libraries\tinycbor\src\cborparser_dup_string.c</Path>
+              <Path>src\libraries\tinycbor\src\cborpretty.c</Path>
+              <Path>src\libraries\tinycbor\src\cborpretty_stdio.c</Path>
+              <Path>src\libraries\tinycbor\src\cborvalidation.c</Path>
+              <Path>src\libraries\tinycbor\src\compilersupport_p.h</Path>
+              <Path>src\libraries\tinycbor\src\tinycbor-version.h</Path>
+              <Path>src\libraries\tinycbor\src\utf8_p.h</Path>
+            </Category>
+          </Category>
         </Category>
         <Category Name="ports">
+          <Category Name="ota_pal">
+            <Path>src\ports\ota_pal\ota_pal.c</Path>
+            <Path>src\ports\ota_pal\ota_pal.h</Path>
+          </Category>
           <Category Name="pkcs11">
             <Path>src\ports\pkcs11\core_pkcs11_pal.c</Path>
           </Category>
@@ -836,68 +963,84 @@
         </Category>
       </Category>
     </Files>
-    <Device Category="com.renesas.cdt.managedbuild.renesas.ccrx.common.option.cpu.rx600" Series="RX">R5F565NEDxFC</Device>
+    <Device Category="com.renesas.cdt.managedbuild.renesas.ccrx.common.option.cpu.rx600" Series="RX">R5F565NEDxFC_DUAL</Device>
     <BuildOptions Name="CC-RX" Version="v3.04.00">
       <BuildMode Active="True" Name="HardwareDebug">
         <GeneralOptions/>
         <CompileOptions>
           <Option>-isa=rxv2</Option>
+          <Option>-fpu</Option>
           <Option>-branch=32</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\interface"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\c_sdk\standard\common\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\platform\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\platform\freertos\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\platform\include\platform"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\secure_sockets\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\pkcs11\corePKCS11\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\logging\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\backoff_algorithm\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\pkcs11"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\mbedtls\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\mbedtls_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\mbedtls\include\mbedtls"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\jsmn"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\frtos_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\frtos_startup"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\FreeRTOS_common"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\demos\common\pkcs11_helpers"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\demos\dev_mode_key_provisioning\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\demos\network_manager"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\demos\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_ether_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_byteq\src"</Option>
-          <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\c_sdk\standard\common\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\platform\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\platform\freertos\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\platform\include\platform"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\secure_sockets\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\ports\ota_pal"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\mqtt_agent"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\OtaOverMqtt"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\mqtt-agent-interface\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\mqtt-agent-interface"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreJSON\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\coreMQTT-Agent\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\logging\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\backoffAlgorithm\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\pkcs11"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include\mbedtls"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\mbedtls_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\jsmn"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\tinycbor\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_startup"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\FreeRTOS_common"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\common\pkcs11_helpers"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\dev_mode_key_provisioning\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\network_manager"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_ether_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\generate"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\interface"</Option>
+          <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C</Option>
+          <Option>-utf8</Option>
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
           <Option>-debug</Option>
           <Option>-outcode=utf8</Option>
+          <Option>-optimize=0</Option>
           <Option>-nologo</Option>
           <Option>-lang=c99</Option>
           <Option>-lang=cpp</Option>
@@ -906,23 +1049,24 @@
         </CompileOptions>
         <AssembleOptions>
           <Option>-isa=rxv2</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_ether_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-fpu</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_ether_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</Option>
           <Option>-utf8</Option>
           <Option>-debug</Option>
           <Option>-nologo</Option>
@@ -935,13 +1079,22 @@
           <Option>-vect=_undefined_interrupt_source_isr</Option>
           <Option>-list=${ProjName}.map</Option>
           <Option>-nooptimize</Option>
-          <Option>-rom=D=R,D_1=R_1,D_2=R_2,PFRAM2=RPFRAM2</Option>
+          <Option>-rom=D=R,D_1=R_1,D_2=R_2</Option>
+          <Option>-cpu=RAM=00000000-0003ffff,FIX=00080000-00083fff,FIX=00086000-00087fff,FIX=00088000-0009ffff,FIX=000a0000-000a3fff,RAM=000a4000-000a5fff,FIX=000a6000-000bffff,FIX=000c0000-000dffff,FIX=000e0000-000fffff,ROM=00100000-00107fff,FIX=007fc000-007fcfff,FIX=007fe000-007fffff,RAM=00800000-0085ffff,RAM=fe7f5d00-fe7f5d7f,RAM=fe7f7d70-fe7f7d9f,ROM=ffe00000-ffffffff</Option>
           <Option>-nologo</Option>
-          <Option>-start=SU,SI,R_1,B_2,R,RPFRAM2/04,C_PKCS11_STORAGE*/0100000,B_ETHERNET_BUFFERS_1,B_RX_DESC_1,B_TX_DESC_1,B,B_1,R_2/0800000,PResetPRG,C_1,C_2,C,C$*,D*,W*,L,P,PFRAM,PFRAM2/0FFF00300,EXCEPTVECT/0FFFFFF80,RESETVECT/0FFFFFFFC</Option>
+          <Option>-start=SU,SI,R_1,B_2,R,RPFRAM2/04,C_PKCS11_STORAGE*/0100800,B_ETHERNET_BUFFERS_1,B_RX_DESC_1,B_TX_DESC_1,B,B_1,R_2/0800000,PResetPRG,C_1,C_2,C,C$*,D*,W*,L,P,PFRAM,PFRAM2/0FFF00300,EXCEPTVECT/0FFFFFF80,RESETVECT/0FFFFFFFC</Option>
+          <Option>-end</Option>
+          <Option>-output="${ProjName}.mot"</Option>
+          <Option>-form=stype</Option>
+          <Option>-byte_count=10</Option>
+          <Option>-nologo</Option>
+          <Option>-nomessage</Option>
+          <Option>-exit</Option>
           <PreLinker>Auto</PreLinker>
         </LinkOptions>
         <LibraryGenerateOptions>
           <Option>-isa=rxv2</Option>
+          <Option>-fpu</Option>
           <Option>-branch=32</Option>
           <Option>-lang=c99</Option>
           <Option>-head=runtime,ctype,math,mathf,stdio,stdlib,string,new,fenv,inttypes,wchar,wctype</Option>
@@ -955,17 +1108,22 @@
           <Path>HardwareDebug\entropy_hardware_poll.obj</Path>
           <Path>HardwareDebug\freertos_ip_hook.obj</Path>
           <Path>HardwareDebug\serial_term_uart.obj</Path>
+          <Path>HardwareDebug\MutualAuthMQTTExample.obj</Path>
+          <Path>HardwareDebug\OtaOverMqttDemoExample.obj</Path>
+          <Path>HardwareDebug\subscription_manager.obj</Path>
+          <Path>HardwareDebug\simple_pub_sub_task.obj</Path>
           <Path>HardwareDebug\pkcs11_helpers.obj</Path>
-          <Path>HardwareDebug\mqtt_demo_mutual_auth.obj</Path>
           <Path>HardwareDebug\aws_demo.obj</Path>
           <Path>HardwareDebug\aws_demo_network_addr.obj</Path>
-          <Path>HardwareDebug\iot_demo_freertos.obj</Path>
-          <Path>HardwareDebug\iot_demo_runner.obj</Path>
           <Path>HardwareDebug\aws_dev_mode_key_provisioning.obj</Path>
-          <Path>HardwareDebug\aws_iot_network_manager.obj</Path>
+          <Path>HardwareDebug\mqtt_agent_task.obj</Path>
           <Path>HardwareDebug\freertos_object_init.obj</Path>
           <Path>HardwareDebug\freertos_start.obj</Path>
           <Path>HardwareDebug\jsmn.obj</Path>
+          <Path>HardwareDebug\mbedtls_bio_freertos_plus_tcp.obj</Path>
+          <Path>HardwareDebug\mbedtls_freertos_port.obj</Path>
+          <Path>HardwareDebug\mbedtls_utils.obj</Path>
+          <Path>HardwareDebug\using_mbedtls_pkcs11.obj</Path>
           <Path>HardwareDebug\aes.obj</Path>
           <Path>HardwareDebug\aesni.obj</Path>
           <Path>HardwareDebug\arc4.obj</Path>
@@ -983,6 +1141,7 @@
           <Path>HardwareDebug\cipher.obj</Path>
           <Path>HardwareDebug\cipher_wrap.obj</Path>
           <Path>HardwareDebug\cmac.obj</Path>
+          <Path>HardwareDebug\constant_time.obj</Path>
           <Path>HardwareDebug\ctr_drbg.obj</Path>
           <Path>HardwareDebug\debug.obj</Path>
           <Path>HardwareDebug\des.obj</Path>
@@ -1003,8 +1162,9 @@
           <Path>HardwareDebug\md2.obj</Path>
           <Path>HardwareDebug\md4.obj</Path>
           <Path>HardwareDebug\md5.obj</Path>
-          <Path>HardwareDebug\md_wrap.obj</Path>
           <Path>HardwareDebug\memory_buffer_alloc.obj</Path>
+          <Path>HardwareDebug\mps_reader.obj</Path>
+          <Path>HardwareDebug\mps_trace.obj</Path>
           <Path>HardwareDebug\net_sockets.obj</Path>
           <Path>HardwareDebug\nist_kw.obj</Path>
           <Path>HardwareDebug\oid.obj</Path>
@@ -1020,6 +1180,19 @@
           <Path>HardwareDebug\platform.obj</Path>
           <Path>HardwareDebug\platform_util.obj</Path>
           <Path>HardwareDebug\poly1305.obj</Path>
+          <Path>HardwareDebug\psa_crypto.obj</Path>
+          <Path>HardwareDebug\psa_crypto_aead.obj</Path>
+          <Path>HardwareDebug\psa_crypto_cipher.obj</Path>
+          <Path>HardwareDebug\psa_crypto_client.obj</Path>
+          <Path>HardwareDebug\psa_crypto_driver_wrappers.obj</Path>
+          <Path>HardwareDebug\psa_crypto_ecp.obj</Path>
+          <Path>HardwareDebug\psa_crypto_hash.obj</Path>
+          <Path>HardwareDebug\psa_crypto_mac.obj</Path>
+          <Path>HardwareDebug\psa_crypto_rsa.obj</Path>
+          <Path>HardwareDebug\psa_crypto_se.obj</Path>
+          <Path>HardwareDebug\psa_crypto_slot_management.obj</Path>
+          <Path>HardwareDebug\psa_crypto_storage.obj</Path>
+          <Path>HardwareDebug\psa_its_file.obj</Path>
           <Path>HardwareDebug\ripemd160.obj</Path>
           <Path>HardwareDebug\rsa.obj</Path>
           <Path>HardwareDebug\rsa_internal.obj</Path>
@@ -1030,9 +1203,11 @@
           <Path>HardwareDebug\ssl_ciphersuites.obj</Path>
           <Path>HardwareDebug\ssl_cli.obj</Path>
           <Path>HardwareDebug\ssl_cookie.obj</Path>
+          <Path>HardwareDebug\ssl_msg.obj</Path>
           <Path>HardwareDebug\ssl_srv.obj</Path>
           <Path>HardwareDebug\ssl_ticket.obj</Path>
           <Path>HardwareDebug\ssl_tls.obj</Path>
+          <Path>HardwareDebug\ssl_tls13_keys.obj</Path>
           <Path>HardwareDebug\threading.obj</Path>
           <Path>HardwareDebug\timing.obj</Path>
           <Path>HardwareDebug\version.obj</Path>
@@ -1045,8 +1220,6 @@
           <Path>HardwareDebug\x509write_crt.obj</Path>
           <Path>HardwareDebug\x509write_csr.obj</Path>
           <Path>HardwareDebug\xtea.obj</Path>
-          <Path>HardwareDebug\mbedtls_error.obj</Path>
-          <Path>HardwareDebug\mbedtls_utils.obj</Path>
           <Path>HardwareDebug\croutine.obj</Path>
           <Path>HardwareDebug\event_groups.obj</Path>
           <Path>HardwareDebug\list.obj</Path>
@@ -1080,30 +1253,46 @@
           <Path>HardwareDebug\BufferAllocation_2.obj</Path>
           <Path>HardwareDebug\NetworkInterface.obj</Path>
           <Path>HardwareDebug\ether_callback.obj</Path>
+          <Path>HardwareDebug\backoff_algorithm.obj</Path>
+          <Path>HardwareDebug\core_json.obj</Path>
           <Path>HardwareDebug\core_mqtt.obj</Path>
           <Path>HardwareDebug\core_mqtt_serializer.obj</Path>
           <Path>HardwareDebug\core_mqtt_state.obj</Path>
-          <Path>HardwareDebug\backoff_algorithm.obj</Path>
           <Path>HardwareDebug\core_pkcs11.obj</Path>
           <Path>HardwareDebug\core_pki_utils.obj</Path>
           <Path>HardwareDebug\core_pkcs11_mbedtls.obj</Path>
+          <Path>HardwareDebug\ota.obj</Path>
+          <Path>HardwareDebug\ota_base64.obj</Path>
+          <Path>HardwareDebug\ota_cbor.obj</Path>
+          <Path>HardwareDebug\ota_http.obj</Path>
+          <Path>HardwareDebug\ota_interface.obj</Path>
+          <Path>HardwareDebug\ota_mqtt.obj</Path>
+          <Path>HardwareDebug\ota_os_freertos.obj</Path>
+          <Path>HardwareDebug\freertos_agent_message.obj</Path>
+          <Path>HardwareDebug\freertos_command_pool.obj</Path>
           <Path>HardwareDebug\iot_clock_freertos.obj</Path>
-          <Path>HardwareDebug\iot_metrics.obj</Path>
-          <Path>HardwareDebug\iot_network_freertos.obj</Path>
           <Path>HardwareDebug\iot_threads_freertos.obj</Path>
-          <Path>HardwareDebug\iot_secure_sockets.obj</Path>
-          <Path>HardwareDebug\transport_secure_sockets.obj</Path>
+          <Path>HardwareDebug\sockets_wrapper.obj</Path>
           <Path>HardwareDebug\iot_device_metrics.obj</Path>
           <Path>HardwareDebug\iot_init.obj</Path>
           <Path>HardwareDebug\iot_static_memory_common.obj</Path>
           <Path>HardwareDebug\iot_taskpool.obj</Path>
           <Path>HardwareDebug\iot_taskpool_static_memory.obj</Path>
+          <Path>HardwareDebug\core_mqtt_agent.obj</Path>
+          <Path>HardwareDebug\core_mqtt_agent_command_functions.obj</Path>
           <Path>HardwareDebug\iot_crypto.obj</Path>
-          <Path>HardwareDebug\iot_tls.obj</Path>
-          <Path>HardwareDebug\iot_system_init.obj</Path>
           <Path>HardwareDebug\iot_logging.obj</Path>
           <Path>HardwareDebug\iot_logging_task_dynamic_buffers.obj</Path>
+          <Path>HardwareDebug\cborencoder.obj</Path>
+          <Path>HardwareDebug\cborencoder_close_container_checked.obj</Path>
+          <Path>HardwareDebug\cborerrorstrings.obj</Path>
+          <Path>HardwareDebug\cborparser.obj</Path>
+          <Path>HardwareDebug\cborparser_dup_string.obj</Path>
+          <Path>HardwareDebug\cborpretty.obj</Path>
+          <Path>HardwareDebug\cborpretty_stdio.obj</Path>
+          <Path>HardwareDebug\cborvalidation.obj</Path>
           <Path>HardwareDebug\main.obj</Path>
+          <Path>HardwareDebug\ota_pal.obj</Path>
           <Path>HardwareDebug\core_pkcs11_pal.obj</Path>
           <Path>HardwareDebug\r_cg_hardware_setup.obj</Path>
           <Path>HardwareDebug\r_smc_cgc.obj</Path>
@@ -1150,79 +1339,96 @@
           <Path>HardwareDebug\r_sci_rx_dtc.obj</Path>
           <Path>HardwareDebug\r_sci_rx65n.obj</Path>
           <Path>HardwareDebug\r_sci_rx65n_data.obj</Path>
+          <Path>HardwareDebug\user_init.obj</Path>
           <Path>HardwareDebug\freertos_mqtt.lib</Path>
         </LinkOrder>
         <CommonOptions>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\c_sdk\standard\common\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\platform\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\platform\freertos\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\platform\include\platform"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\secure_sockets\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\pkcs11\corePKCS11\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\logging\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\backoff_algorithm\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\pkcs11"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\mbedtls\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\mbedtls_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\libraries\3rdparty\jsmn"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\frtos_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\frtos_startup"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\FreeRTOS_common"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\demos\common\pkcs11_helpers"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\demos\dev_mode_key_provisioning\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\demos\network_manager"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\demos\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\general"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\Users\Shelty\e2_studio\workspace20\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\c_sdk\standard\common\include\private"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\c_sdk\standard\common\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\platform\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\platform\freertos\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\platform\include\platform"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\secure_sockets\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\aws\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\ports\ota_pal"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\mqtt_agent"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\OtaOverMqtt"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\mqtt-agent-interface\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\mqtt-agent-interface"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreJSON\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\coreMQTT-Agent\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\freertos_plus\standard\tls\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\freertos_plus\standard\crypto\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\freertos_plus\standard\utils\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\logging\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\abstractions\transport\secure_sockets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\pkcs11"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\mbedtlsv2280\include\mbedtls"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\mbedtls_utils"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\mbedtls_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\3rdparty\jsmn"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\tinycbor\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_startup"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\FreeRTOS_common"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\common\pkcs11_helpers"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\dev_mode_key_provisioning\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\network_manager"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\demos\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\generate"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\libraries\FreeRTOS-LTS\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_ether_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
           <MacroForC>MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;"</MacroForC>
           <MacroForC>CONFIG_MEDTLS_USE_AFR_MEMORY</MacroForC>
+          <MacroForC>MBEDTLS_CMAC_C</MacroForC>
+          <MacroForC>MBEDTLS_ERROR_C</MacroForC>
+          <MacroForC>MBEDTLS_THREADING_C</MacroForC>
         </CommonOptions>
       </BuildMode>
     </BuildOptions>
