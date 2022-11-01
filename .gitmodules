@@ -1,9 +1,12 @@
-[submodule "Projects/aws_ether_ck_rx65n/e2studio_ccrx/src/libraries/FreeRTOS-LTS"]
-	path = Projects/aws_ether_ck_rx65n/e2studio_ccrx/src/libraries/FreeRTOS-LTS
-	url = https://github.com/FreeRTOS/FreeRTOS-LTS
-[submodule "Projects/aws_ether_ck_rx65n/e2studio_ccrx/src/libraries/3rdparty/mbedtls"]
-	path = Projects/aws_ether_ck_rx65n/e2studio_ccrx/src/libraries/3rdparty/mbedtls
+[submodule "Middleware/FreeRTOS-LTS"]
+	path = Middleware/FreeRTOS-LTS
+	url = https://github.com/FreeRTOS/FreeRTOS-LTS.git
+[submodule "Middleware/coreMQTT-Agent"]
+	path = Middleware/coreMQTT-Agent
+	url = https://github.com/FreeRTOS/coreMQTT-Agent.git
+[submodule "Middleware/3rdparty/mbedtls"]
+	path = Middleware/3rdparty/mbedtls
 	url = https://github.com/Mbed-TLS/mbedtls.git
-[submodule "Projects/aws_ether_ck_rx65n/e2studio_ccrx/src/libraries/3rdparty/pkcs11"]
-	path = Projects/aws_ether_ck_rx65n/e2studio_ccrx/src/libraries/3rdparty/pkcs11
+[submodule "Middleware/pkcs11"]
+	path = Middleware/pkcs11
 	url = https://github.com/amazon-freertos/pkcs11.git
