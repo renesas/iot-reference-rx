@@ -40,7 +40,8 @@
 
 /* OTA PAL test config file include. */
 #include "ota_config.h"
-#include "ota_demo_config.h"
+
+
 
 /* Amazon FreeRTOS include. */
 #include "iot_crypto.h"
@@ -576,6 +577,11 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
             tmp = fragmented_flash_block_list_delete( tmp, tmp->content.offset );
         }
         while( tmp != NULL );
+    }
+    else
+    {
+    	xSemaphoreTake( xSemaphoreFlashig, portMAX_DELAY );
+    	xSemaphoreGive( xSemaphoreFlashig );
     }
 
     /* Verify an ECDSA-SHA256 signature. */

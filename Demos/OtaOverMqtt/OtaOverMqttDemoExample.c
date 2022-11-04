@@ -109,13 +109,12 @@
  * statistics like number of packets received, dropped, processed and queued per connection.
  */
 #define otaexampleTASK_DELAY_MS                          ( 1000U )
-
 /**
- * @brief The maximum time for which OTA demo waits for an MQTT operation to be complete.
- * This involves receiving an acknowledgment for broker for SUBSCRIBE, UNSUBSCRIBE and non
- * QOS0 publishes.
+ * @brief The maximum amount of time in milliseconds to wait for the commands
+ * to be posted to the MQTT agent should the MQTT agent's command queue be full.
+ * Tasks wait in the Blocked state, so don't use any CPU time.
  */
-#define otaexampleMQTT_TIMEOUT_MS                        ( 5000U )
+#define MQTT_AGENT_SEND_BLOCK_TIME_MS               	 ( 200U )
 
 /**
  * @brief The common prefix for all OTA topics.
@@ -193,7 +192,7 @@
  * anticipated MQTT payload.
  */
 #ifndef MQTT_AGENT_NETWORK_BUFFER_SIZE
-    #define MQTT_AGENT_NETWORK_BUFFER_SIZE    ( 10240 )
+    #define MQTT_AGENT_NETWORK_BUFFER_SIZE    ( 1024 )
 #endif
 
 /**
@@ -208,7 +207,7 @@
  * to be posted to the MQTT agent should the MQTT agent's command queue be full.
  * Tasks wait in the Blocked state, so don't use any CPU time.
  */
-#define MQTT_AGENT_SEND_BLOCK_TIME_MS               ( 200U )
+#define MQTT_AGENT_SEND_BLOCK_TIME_MS               ( 500U )
 
 /**
  * @brief This demo uses task notifications to signal tasks from MQTT callback
@@ -248,7 +247,7 @@
 /**
  * @brief Socket send and receive timeouts to use.  Specified in milliseconds.
  */
-#define otaexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 750 )
+#define otaexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 750U )
 
 /**
  * @brief Timeout for receiving CONNACK after sending an MQTT CONNECT packet.
@@ -397,17 +396,6 @@
 #ifndef democonfigHARDWARE_PLATFORM_NAME
     #define democonfigHARDWARE_PLATFORM_NAME    "WinSim"
 #endif
-
-#ifndef democonfigMQTT_LIB
-    #define democonfigMQTT_LIB    "core-mqtt@1.0.0"
-#endif
-
-/**
- * @brief The MQTT metrics string expected by AWS IoT.
- */
-#define AWS_IOT_METRICS_STRING                                 \
-    "?SDK=" democonfigOS_NAME "&Version=" democonfigOS_VERSION \
-    "&Platform=" democonfigHARDWARE_PLATFORM_NAME "&MQTTLib=" democonfigMQTT_LIB
 
 /*---------------------------------------------------------*/
 
@@ -1635,7 +1623,7 @@ static OtaMqttStatus_t prvMQTTSubscribe( const char * pTopicFilter,
     xApplicationDefinedContext.pArgs = &xSubscribeArgs;
     xApplicationDefinedContext.xReturnStatus = MQTTSendFailed;
 
-    xCommandParams.blockTimeMs = otaexampleMQTT_TIMEOUT_MS;
+    xCommandParams.blockTimeMs = MQTT_AGENT_SEND_BLOCK_TIME_MS;
     xCommandParams.cmdCompleteCallback = prvMQTTSubscribeCompleteCallback;
     xCommandParams.pCmdCompleteCallbackContext = ( void * ) &xApplicationDefinedContext;
 
@@ -1649,7 +1637,7 @@ static OtaMqttStatus_t prvMQTTSubscribe( const char * pTopicFilter,
      * duration of the command. */
     if( mqttStatus == MQTTSuccess )
     {
-        result = xTaskNotifyWait( 0, otaexampleMAX_UINT32, &ulNotifiedValue, pdMS_TO_TICKS( otaexampleMQTT_TIMEOUT_MS ) );
+        result = xTaskNotifyWait( 0, otaexampleMAX_UINT32, &ulNotifiedValue, pdMS_TO_TICKS( MQTT_AGENT_MS_TO_WAIT_FOR_NOTIFICATION ) );
 
         if( result == pdTRUE )
         {
@@ -1702,7 +1690,7 @@ static OtaMqttStatus_t prvMQTTPublish( const char * const pacTopic,
     xCommandContext.xTaskToNotify = xTaskGetCurrentTaskHandle();
     xTaskNotifyStateClear( NULL );
 
-    xCommandParams.blockTimeMs = otaexampleMQTT_TIMEOUT_MS;
+    xCommandParams.blockTimeMs = MQTT_AGENT_SEND_BLOCK_TIME_MS;
     xCommandParams.cmdCompleteCallback = prvCommandCallback;
     xCommandParams.pCmdCompleteCallbackContext = ( void * ) &xCommandContext;
 
@@ -1714,7 +1702,7 @@ static OtaMqttStatus_t prvMQTTPublish( const char * const pacTopic,
      * duration of the command. */
     if( mqttStatus == MQTTSuccess )
     {
-        result = xTaskNotifyWait( 0, otaexampleMAX_UINT32, NULL, pdMS_TO_TICKS( otaexampleMQTT_TIMEOUT_MS ) );
+        result = xTaskNotifyWait( 0, otaexampleMAX_UINT32, NULL, pdMS_TO_TICKS( MQTT_AGENT_MS_TO_WAIT_FOR_NOTIFICATION ) );
 
         if( result != pdTRUE )
         {
@@ -1768,7 +1756,7 @@ static OtaMqttStatus_t prvMQTTUnsubscribe( const char * pTopicFilter,
 
     xApplicationDefinedContext.xTaskToNotify = xTaskGetCurrentTaskHandle();
 
-    xCommandParams.blockTimeMs = otaexampleMQTT_TIMEOUT_MS;
+    xCommandParams.blockTimeMs = MQTT_AGENT_SEND_BLOCK_TIME_MS;
     xCommandParams.cmdCompleteCallback = prvMQTTUnsubscribeCompleteCallback;
     xCommandParams.pCmdCompleteCallbackContext = ( void * ) &xApplicationDefinedContext;
 
@@ -1784,7 +1772,7 @@ static OtaMqttStatus_t prvMQTTUnsubscribe( const char * pTopicFilter,
      * duration of the command. */
     if( mqttStatus == MQTTSuccess )
     {
-        result = xTaskNotifyWait( 0, otaexampleMAX_UINT32, &ulNotifiedValue, pdMS_TO_TICKS( otaexampleMQTT_TIMEOUT_MS ) );
+        result = xTaskNotifyWait( 0, otaexampleMAX_UINT32, &ulNotifiedValue, pdMS_TO_TICKS( MQTT_AGENT_MS_TO_WAIT_FOR_NOTIFICATION ) );
 
         if( result == pdTRUE )
         {
