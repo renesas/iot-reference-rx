@@ -55,7 +55,7 @@
 #endif
 
 #include "logging_stack.h"
-
+#include "ota_demo_config.h"
 /************ End of logging configuration ****************/
 
 /**

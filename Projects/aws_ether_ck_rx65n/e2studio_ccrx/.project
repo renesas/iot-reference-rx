@@ -121,6 +121,15 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1667352918588</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>1667295503032</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS</name>
 			<type>9</type>
@@ -136,6 +145,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-ota-for-aws-iot-embedded-sdk</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1667352999602</id>
+			<name>src/Middleware/coreMQTT-Agent/source</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-dependency</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -217,6 +235,24 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-source</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1667352931118</id>
+			<name>src/Middleware/abstractions/secure_sockets/freertos_plus_tcp</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-sockets_wrapper_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1667352940830</id>
+			<name>src/Middleware/abstractions/secure_sockets/include</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-sockets_wrapper_cellular.h</arguments>
 			</matcher>
 		</filter>
 		<filter>
