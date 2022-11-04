@@ -10,3 +10,9 @@
 [submodule "Middleware/pkcs11"]
 	path = Middleware/pkcs11
 	url = https://github.com/amazon-freertos/pkcs11.git
+[submodule "test/freertos_lib_integration"]
+	path = test/freertos_lib_integration
+	url = https://github.com/FreeRTOS/FreeRTOS-Libraries-Integration-Tests.git
+[submodule "test/Unity"]
+	path = test/Unity
+	url = https://github.com/ThrowTheSwitch/Unity.git

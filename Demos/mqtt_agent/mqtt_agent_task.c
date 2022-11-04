@@ -427,6 +427,7 @@ static MQTTStatus_t prvMQTTInit( void )
     xTransport.pNetworkContext = &xNetworkContext;
     xTransport.send = TLS_FreeRTOS_send;
     xTransport.recv = TLS_FreeRTOS_recv;
+    xTransport.writev = NULL;
 
     /* Initialize MQTT library. */
     xReturn = MQTTAgent_Init( &xGlobalMqttAgentContext,
