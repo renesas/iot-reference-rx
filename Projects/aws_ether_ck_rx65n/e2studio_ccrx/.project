@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>freertos_mqtt</name>
+	<name>aws_ether_ck_rx65n</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -67,7 +67,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667296152453</id>
+			<id>1668152043513</id>
 			<name>src/Middleware/coreMQTT-Agent</name>
 			<type>9</type>
 			<matcher>
@@ -76,7 +76,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295552024</id>
+			<id>1668153024965</id>
 			<name>src/Middleware/pkcs11</name>
 			<type>9</type>
 			<matcher>
@@ -112,7 +112,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667272927452</id>
+			<id>1668152506327</id>
 			<name>src/Middleware/3rdparty/mbedtls</name>
 			<type>9</type>
 			<matcher>
@@ -121,16 +121,178 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667352918588</id>
+			<id>1668152456694</id>
 			<name>src/Middleware/3rdparty/mbedtls_utils</name>
 			<type>6</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-mbedtls_bio_freertos_plus_cellular.c</arguments>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295503032</id>
+			<id>1668152456697</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456710</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456713</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456715</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456718</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456721</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456723</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456726</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456728</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456730</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456732</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456734</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456736</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456739</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456742</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456744</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456747</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668152456767</id>
+			<name>src/Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668151551449</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS</name>
 			<type>9</type>
 			<matcher>
@@ -139,7 +301,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295418108</id>
+			<id>1668151579631</id>
 			<name>src/Middleware/FreeRTOS-LTS/aws</name>
 			<type>9</type>
 			<matcher>
@@ -148,12 +310,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667352999602</id>
+			<id>1668152063946</id>
 			<name>src/Middleware/coreMQTT-Agent/source</name>
 			<type>10</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-dependency</arguments>
+				<arguments>1.0-name-matches-false-true-dependency</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -184,7 +346,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295578504</id>
+			<id>1668151701010</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Plus-TCP</name>
 			<type>9</type>
 			<matcher>
@@ -193,7 +355,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667296088302</id>
+			<id>1668151597695</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/backoffAlgorithm</name>
 			<type>9</type>
 			<matcher>
@@ -202,16 +364,16 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667296063249</id>
+			<id>1668151612504</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/coreJSON</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-source</arguments>
+				<arguments>1.0-name-matches-false-false-source</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667296046411</id>
+			<id>1668151627130</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/coreMQTT</name>
 			<type>9</type>
 			<matcher>
@@ -220,16 +382,16 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295988330</id>
+			<id>1668151640936</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/corePKCS11</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-source</arguments>
+				<arguments>1.0-name-matches-false-false-source</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667296122193</id>
+			<id>1668151924448</id>
 			<name>src/Middleware/FreeRTOS-LTS/aws/ota-for-aws-iot-embedded-sdk</name>
 			<type>9</type>
 			<matcher>
@@ -238,21 +400,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667352931118</id>
+			<id>1668152583767</id>
 			<name>src/Middleware/abstractions/secure_sockets/freertos_plus_tcp</name>
 			<type>6</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-sockets_wrapper_cellular.c</arguments>
+				<arguments>1.0-name-matches-false-true-sockets_wrapper_cellular.c</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667352940830</id>
+			<id>1668152600503</id>
 			<name>src/Middleware/abstractions/secure_sockets/include</name>
 			<type>6</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-sockets_wrapper_cellular.h</arguments>
+				<arguments>1.0-name-matches-false-true-sockets_wrapper_cellular.h</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -328,16 +490,16 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295875914</id>
+			<id>1668153191118</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Kernel/portable</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-MemMang|Renesas</arguments>
+				<arguments>1.0-name-matches-false-true-Renesas|MemMang</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667296028770</id>
+			<id>1668151900985</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/corePKCS11/source</name>
 			<type>10</type>
 			<matcher>
@@ -346,12 +508,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667308855315</id>
+			<id>1668151946346</id>
 			<name>src/Middleware/FreeRTOS-LTS/aws/ota-for-aws-iot-embedded-sdk/source</name>
-			<type>9</type>
+			<type>10</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-include|portable</arguments>
+				<arguments>1.0-name-matches-false-true-dependency</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -382,7 +544,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295909156</id>
+			<id>1668153214053</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Kernel/portable/MemMang</name>
 			<type>5</type>
 			<matcher>
@@ -391,7 +553,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295966449</id>
+			<id>1668151682489</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 			<type>9</type>
 			<matcher>
@@ -400,7 +562,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667296269291</id>
+			<id>1668152756368</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/corePKCS11/source/portable</name>
 			<type>9</type>
 			<matcher>
@@ -436,7 +598,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295720841</id>
+			<id>1668151791032</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/BufferManagement</name>
 			<type>5</type>
 			<matcher>
@@ -445,7 +607,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295788953</id>
+			<id>1668151807633</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/Compiler</name>
 			<type>9</type>
 			<matcher>
@@ -454,7 +616,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667295810632</id>
+			<id>1668151822193</id>
 			<name>src/Middleware/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/NetworkInterface</name>
 			<type>9</type>
 			<matcher>
@@ -463,12 +625,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1667308902154</id>
+			<id>1668151986768</id>
 			<name>src/Middleware/FreeRTOS-LTS/aws/ota-for-aws-iot-embedded-sdk/source/portable/os</name>
-			<type>6</type>
+			<type>5</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-ota_os_posix.c|ota_os_posix.h</arguments>
+				<arguments>1.0-name-matches-false-true-ota_os_freertos.c|ota_os_freertos.h</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -512,6 +674,10 @@
 		<variable>
 			<name>AWS_IOT_MCU_ROOT</name>
 			<value>$%7BPARENT-3-PROJECT_LOC%7D</value>
+		</variable>
+		<variable>
+			<name>AWS_IOT_MCU_ROOT1</name>
+			<value>$%7BAWS_IOT_MCU_ROOT%7D/downloads/iot-reference-rx</value>
 		</variable>
 	</variableList>
 </projectDescription>
