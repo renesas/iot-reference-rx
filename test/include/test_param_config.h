@@ -107,6 +107,7 @@ static const char ECHO_SERVER_ROOT_CA[] = "";
  *
  * #define MQTT_TEST_CLIENT_IDENTIFIER				"insert here."
  */
+#define MQTT_TEST_CLIENT_IDENTIFIER				"insert here."
 
 /**
  * @brief Network buffer size specified in bytes. Must be large enough to hold the maximum

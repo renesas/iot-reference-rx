@@ -39,7 +39,7 @@
 #include "ota_pal.h"
 
 /* OTA PAL test config file include. */
-#include "ota_config.h"
+#include "ota_demo_config.h"
 
 
 
