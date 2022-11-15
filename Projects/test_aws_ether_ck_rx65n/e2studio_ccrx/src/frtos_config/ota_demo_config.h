@@ -31,8 +31,12 @@
 /**
  * @brief Certificate used for validating code signing signatures in the OTA PAL.
  */
-#ifndef otapalconfigCODE_SIGNING_CERTIFICATE
-    #define otapalconfigCODE_SIGNING_CERTIFICATE    "Insert code signing certificate..."
+#include "test_execution_config.h"
+#if ( OTA_PAL_TEST_ENABLED )
+    #include "aws_test_ota_pal_ecdsa_sha256_signature.h"
+	#define otapalconfigCODE_SIGNING_CERTIFICATE OTA_PAL_CODE_SIGNING_CERTIFICATE
+#else
+	#define otapalconfigCODE_SIGNING_CERTIFICATE    "Insert code signing certificate..."
 #endif
 
 /**
