@@ -257,7 +257,7 @@ Configuration Options
    0 = Stop Oscillating the Sub Clock. (default)
    1 = Enable Oscillating the Sub Clock.
 */
-#define BSP_CFG_SUB_CLOCK_OSCILLATE_ENABLE     (0) /* Generated value. Do not edit this manually */
+#define BSP_CFG_SUB_CLOCK_OSCILLATE_ENABLE     (1) /* Generated value. Do not edit this manually */
 
 /* Select whether to oscillate the High Speed On-Chip Oscillator (HOCO).
    0 = Stop Oscillating the HOCO. (default)
@@ -677,7 +677,7 @@ Configuration Options
 /* Version number of Smart Configurator.
    This macro definition is updated by Smart Configurator.
 */
-#define BSP_CFG_CONFIGURATOR_VERSION                (2140) /* Generated value. Do not edit this manually */
+#define BSP_CFG_CONFIGURATOR_VERSION                (2150) /* Generated value. Do not edit this manually */
 
 /* For some BSP functions, it is necessary to ensure that, while these functions are executing, interrupts from other 
    FIT modules do not occur. By controlling the IPL, these functions disable interrupts that are at or below the 
