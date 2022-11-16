@@ -56,9 +56,6 @@
 
 #include "logging_stack.h"
 
-#include "aws_test_ota_pal_ecdsa_sha256_signature.h"
-
-#define otapalconfigCODE_SIGNING_CERTIFICATE OTA_PAL_CODE_SIGNING_CERTIFICATE
 /************ End of logging configuration ****************/
 
 /**
