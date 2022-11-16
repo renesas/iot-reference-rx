@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : r_cg_hardware_setup.c
-* Version          : 1.2.110
+* Version          : 1.2.111
 * Device(s)        : R5F565NEHxFB
 * Description      : Initialization file for code generation configurations.
 ***********************************************************************************************************************/
@@ -80,6 +80,9 @@ void R_Systeminit(void)
 
     /* Initialize clocks settings */
     R_CGC_Create();
+
+    /* Set interrupt settings */
+    R_Interrupt_Create();
 
     /* Register undefined interrupt */
     R_BSP_InterruptWrite(BSP_INT_SRC_UNDEFINED_INTERRUPT,(bsp_int_cb_t)r_undefined_exception);

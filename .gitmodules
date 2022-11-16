@@ -1,18 +1,60 @@
-[submodule "Middleware/FreeRTOS-LTS"]
-	path = Middleware/FreeRTOS-LTS
-	url = https://github.com/FreeRTOS/FreeRTOS-LTS.git
-[submodule "Middleware/coreMQTT-Agent"]
-	path = Middleware/coreMQTT-Agent
-	url = https://github.com/FreeRTOS/coreMQTT-Agent.git
 [submodule "Middleware/3rdparty/mbedtls"]
 	path = Middleware/3rdparty/mbedtls
 	url = https://github.com/Mbed-TLS/mbedtls.git
+[submodule "Middleware/AWS/Device-Defender-for-AWS-IoT-embedded-sdk"]
+	path = Middleware/AWS/Device-Defender-for-AWS-IoT-embedded-sdk
+	url = https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk.git
+[submodule "Middleware/AWS/Device-Shadow-for-AWS-IoT-embedded-sdk"]
+	path = Middleware/AWS/Device-Shadow-for-AWS-IoT-embedded-sdk
+	url = https://github.com/aws/Device-Shadow-for-AWS-IoT-embedded-sdk.git
+[submodule "Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk"]
+	path = Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk
+	url = https://github.com/aws/Fleet-Provisioning-for-AWS-IoT-embedded-sdk.git
+[submodule "Middleware/AWS/Jobs-for-AWS-IoT-embedded-sdk"]
+	path = Middleware/AWS/Jobs-for-AWS-IoT-embedded-sdk
+	url = https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk.git
+[submodule "Middleware/AWS/ota-for-aws-iot-embedded-sdk"]
+	path = Middleware/AWS/ota-for-aws-iot-embedded-sdk
+	url = https://github.com/aws/ota-for-aws-iot-embedded-sdk.git
+[submodule "Middleware/AWS/SigV4-for-AWS-IoT-embedded-sdk"]
+	path = Middleware/AWS/SigV4-for-AWS-IoT-embedded-sdk
+	url = https://github.com/aws/SigV4-for-AWS-IoT-embedded-sdk.git
+[submodule "Middleware/FreeRTOS/FreeRTOS-Cellular-Interface"]
+	path = Middleware/FreeRTOS/FreeRTOS-Cellular-Interface
+	url = https://github.com/FreeRTOS/FreeRTOS-Cellular-Interface.git
+[submodule "Middleware/FreeRTOS/FreeRTOS-Kernel"]
+	path = Middleware/FreeRTOS/FreeRTOS-Kernel
+	url = https://github.com/FreeRTOS/FreeRTOS-Kernel.git
+[submodule "Middleware/FreeRTOS/FreeRTOS-Plus-TCP"]
+	path = Middleware/FreeRTOS/FreeRTOS-Plus-TCP
+	url = https://github.com/FreeRTOS/FreeRTOS-Plus-TCP.git
+[submodule "Middleware/FreeRTOS/backoffAlgorithm"]
+	path = Middleware/FreeRTOS/backoffAlgorithm
+	url = https://github.com/FreeRTOS/backoffAlgorithm.git
+[submodule "Middleware/FreeRTOS/coreHTTP"]
+	path = Middleware/FreeRTOS/coreHTTP
+	url = https://github.com/FreeRTOS/coreHTTP.git
+[submodule "Middleware/FreeRTOS/coreJSON"]
+	path = Middleware/FreeRTOS/coreJSON
+	url = https://github.com/FreeRTOS/coreJSON.git
+[submodule "Middleware/FreeRTOS/coreMQTT"]
+	path = Middleware/FreeRTOS/coreMQTT
+	url = https://github.com/FreeRTOS/coreMQTT.git
+[submodule "Middleware/FreeRTOS/corePKCS11"]
+	path = Middleware/FreeRTOS/corePKCS11
+	url = https://github.com/FreeRTOS/corePKCS11.git
+[submodule "Middleware/FreeRTOS/coreSNTP"]
+	path = Middleware/FreeRTOS/coreSNTP
+	url = https://github.com/FreeRTOS/coreSNTP.git
+[submodule "Middleware/FreeRTOS/coreMQTT-Agent"]
+	path = Middleware/FreeRTOS/coreMQTT-Agent
+	url = https://github.com/FreeRTOS/coreMQTT-Agent.git
+[submodule "Test/Unity"]
+	path = Test/Unity
+	url = https://github.com/ThrowTheSwitch/Unity.git
+[submodule "Test/FreeRTOS-Libraries-Integration-Tests"]
+	path = Test/FreeRTOS-Libraries-Integration-Tests
+	url = https://github.com/FreeRTOS/FreeRTOS-Libraries-Integration-Tests.git
 [submodule "Middleware/pkcs11"]
 	path = Middleware/pkcs11
 	url = https://github.com/amazon-freertos/pkcs11.git
-[submodule "test/freertos_lib_integration"]
-	path = test/freertos_lib_integration
-	url = https://github.com/FreeRTOS/FreeRTOS-Libraries-Integration-Tests.git
-[submodule "test/Unity"]
-	path = test/Unity
-	url = https://github.com/ThrowTheSwitch/Unity.git

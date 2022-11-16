@@ -14,12 +14,12 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2019 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2022 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : r_smc_interrupt.c
-* Version          : 1.2.10
+* Version          : 1.2.11
 * Device(s)        : R5F565NEHxFB
 * Description      : This file implements interrupt setting.
 ***********************************************************************************************************************/
@@ -54,7 +54,15 @@ Global variables and functions
 
 void R_Interrupt_Create(void)
 {
-    /* No fast interrupt and group settings have been configured in the Interrupts tab. */
+    /* Disable group BL0 interrupt*/
+    IEN(ICU,GROUPBL0) = 0U;
+    
+
+    /* Set group BL0 interrupt priority level */
+    IPR(ICU,GROUPBL0) = _03_ICU_PRIORITY_LEVEL3;
+
+    /* Enable group BL0 interrupt */
+    IEN(ICU,GROUPBL0) = 1U;
 }
 
 /* Start user code for adding. Do not edit comment generated here */
