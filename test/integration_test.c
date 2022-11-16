@@ -49,9 +49,9 @@ struct NetworkContext
 };
 typedef struct TaskParam
 {
-    StaticSemaphore_t joinMutexBuffer;
-    SemaphoreHandle_t joinMutexHandle;
-    FRTestThreadFunction_t threadFunc;
+    StaticSemaphore_t pxjoinMutexBuffer;
+    SemaphoreHandle_t pxjoinMutexHandle;
+    FRTestThreadFunction_t xthreadFunc;
     void * pxParam;
     TaskHandle_t taskHandle;
 } TaskParam_t;
@@ -62,7 +62,7 @@ void prvTransportTestDelay( uint32_t delayMs );
 /**
  * @brief Socket send and receive timeouts to use.  Specified in milliseconds.
  */
-#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 1000 )
+#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 500U )
 #define mqttexampleMILLISECONDS_PER_SECOND           ( 1000U )
 #define mqttexampleMILLISECONDS_PER_TICK             ( mqttexampleMILLISECONDS_PER_SECOND / configTICK_RATE_HZ )
 
@@ -100,12 +100,12 @@ static void ThreadWrapper( void * pParam )
 {
     TaskParam_t * pTaskParam = pParam;
 
-    if( ( pTaskParam != NULL ) && ( pTaskParam->threadFunc != NULL ) && ( pTaskParam->joinMutexHandle != NULL ) )
+    if( ( pTaskParam != NULL ) && ( pTaskParam->xthreadFunc != NULL ) && ( pTaskParam->pxjoinMutexHandle != NULL ) )
     {
-        pTaskParam->threadFunc( pTaskParam->pxParam );
+        pTaskParam->xthreadFunc( pTaskParam->pxParam );
 
         /* Give the mutex. */
-        xSemaphoreGive( pTaskParam->joinMutexHandle );
+        xSemaphoreGive( pTaskParam->pxjoinMutexHandle );
     }
 
     vTaskDelete( NULL );
@@ -133,10 +133,10 @@ FRTestThreadHandle_t FRTest_ThreadCreate( FRTestThreadFunction_t threadFunc,
     pTaskParam = pvPortMalloc( sizeof( TaskParam_t ) );
     configASSERT( pTaskParam != NULL );
 
-    pTaskParam->joinMutexHandle = xSemaphoreCreateBinaryStatic( &pTaskParam->joinMutexBuffer );
-    configASSERT( pTaskParam->joinMutexHandle != NULL );
+    pTaskParam->pxjoinMutexHandle = xSemaphoreCreateBinaryStatic( &pTaskParam->pxjoinMutexBuffer );
+    configASSERT( pTaskParam->pxjoinMutexHandle != NULL );
 
-    pTaskParam->threadFunc = threadFunc;
+    pTaskParam->xthreadFunc = threadFunc;
     pTaskParam->pxParam = pParam;
 
     xReturned = xTaskCreate( ThreadWrapper,    /* Task code. */
@@ -163,10 +163,10 @@ int FRTest_ThreadTimedJoin( FRTestThreadHandle_t threadHandle,
 
     /* Check the parameters. */
     configASSERT( pTaskParam != NULL );
-    configASSERT( pTaskParam->joinMutexHandle != NULL );
+    configASSERT( pTaskParam->pxjoinMutexHandle != NULL );
 
     /* Wait for the thread. */
-    xReturned = xSemaphoreTake( pTaskParam->joinMutexHandle, pdMS_TO_TICKS( timeoutMs ) );
+    xReturned = xSemaphoreTake( pTaskParam->pxjoinMutexHandle, pdMS_TO_TICKS( timeoutMs ) );
 
     if( xReturned != pdTRUE )
     {
@@ -179,7 +179,7 @@ int FRTest_ThreadTimedJoin( FRTestThreadHandle_t threadHandle,
         configASSERT( 0 );
     }
 
-    free( pTaskParam );
+    FRTest_MemoryFree( pTaskParam );
 
     return retValue;
 }
@@ -204,7 +204,7 @@ void FRTest_MemoryFree( void * ptr )
 {
     return vPortFree( ptr );
 }
-uint32_t FRTest_GetTimeMs()
+uint32_t FRTest_GetTimeMs(void)
 {
     return MqttTestGetTimeMs();
 }
@@ -232,19 +232,24 @@ uint32_t MqttTestGetTimeMs( void )
 void SetupMqttTestParam( MqttTestParam_t * pTestParam )
 {
     configASSERT( pTestParam != NULL );
-
+    TlsTransportParams_t *xTlsTransportParams = NULL;
+	xTlsTransportParams = ( TlsTransportParams_t * ) pvPortMalloc( sizeof( TlsTransportParams_t ) );
+	xNetworkContext.pParams = xTlsTransportParams;
+	xSecondNetworkContext.pParams = xTlsTransportParams;
     /* Initialization of timestamp for MQTT. */
     ulGlobalEntryTimeMs = MqttTestGetTimeMs();
 
     /* Setup the transport interface. */
     xTransport.send = TLS_FreeRTOS_send;
     xTransport.recv = TLS_FreeRTOS_recv;
+    xTransport.writev = NULL;
 
     xNetworkCredentials.pRootCa = ( unsigned char * ) democonfigROOT_CA_PEM;
     xNetworkCredentials.rootCaSize = sizeof( democonfigROOT_CA_PEM );
     xNetworkCredentials.pClientCertLabel = pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS;
     xNetworkCredentials.pPrivateKeyLabel = pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS;
-    xNetworkCredentials.disableSni = pdFALSE;
+    xNetworkCredentials.disableSni = pdFAIL;
+
 
     pTestParam->pTransport = &xTransport;
     pTestParam->pNetworkContext = &xNetworkContext;
@@ -274,8 +279,8 @@ void SetupTransportTestParam( TransportTestParam_t * pTestParam )
     xNetworkCredentials.rootCaSize = sizeof( ECHO_SERVER_ROOT_CA );
     xNetworkCredentials.pClientCertLabel = pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS;
     xNetworkCredentials.pPrivateKeyLabel = pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS;
-    xNetworkCredentials.disableSni = pdFALSE;
-    xNetworkCredentials.pAlpnProtos = NULL;
+    xNetworkCredentials.disableSni = pdTRUE;
+//    xNetworkCredentials.pAlpnProtos = NULL;
 
     pTestParam->pTransport = &xTransport;
     pTestParam->pNetworkContext = &xNetworkContext;
