@@ -60,7 +60,6 @@
 /* mbedTLS includes. */
 #include "mbedtls/pk.h"
 #include "mbedtls/oid.h"
-#include "mbedtls/ecdsa.h"
 
 /* Default FreeRTOS API for console logging. */
 #define DEV_MODE_KEY_PROVISIONING_PRINT( X )    vLoggingPrintf X
@@ -328,7 +327,7 @@ CK_RV xProvisionPrivateKey( CK_SESSION_HANDLE xSession,
     mbedtls_pk_context xMbedPkContext = { 0 };
 
     mbedtls_pk_init( &xMbedPkContext );
-    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucPrivateKey, xPrivateKeyLength, NULL, 0, NULL, NULL );
+    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucPrivateKey, xPrivateKeyLength, NULL, 0 );
 
     if( lMbedResult != 0 )
     {
@@ -389,7 +388,7 @@ CK_RV xProvisionPublicKey( CK_SESSION_HANDLE xSession,
     mbedtls_pk_init( &xMbedPkContext );
 
     /* Try parsing the private key using mbedtls_pk_parse_key. */
-    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucKey, xKeyLength, NULL, 0, NULL, NULL );
+    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucKey, xKeyLength, NULL, 0 );
 
     /* If mbedtls_pk_parse_key didn't work, maybe the private key is not included in the input passed in.
      * Try to parse just the public key. */
