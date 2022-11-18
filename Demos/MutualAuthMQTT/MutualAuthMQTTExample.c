@@ -55,7 +55,7 @@
 #include "core_mqtt.h"
 
 /* Transport interface implementation include header for TLS. */
-#include "using_mbedtls_pkcs11.h"
+#include "transport_mbedtls_pkcs11.h"
 #include "aws_clientcredential.h"
 #include "iot_default_root_certificates.h"
 /*-----------------------------------------------------------*/

@@ -40,6 +40,7 @@
 #include "mbedtls/sha1.h"
 #include "mbedtls/pk.h"
 #include "mbedtls/x509_crt.h"
+#include "mbedtls/compat-2.x.h"
 /* Threading mutex implementations for mbedTLS. */
 #include "mbedtls/threading.h"
 #include "threading_alt.h"
