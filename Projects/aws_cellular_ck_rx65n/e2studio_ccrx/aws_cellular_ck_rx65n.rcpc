@@ -355,6 +355,16 @@
         </Category>
         <Category Name="Application-Protocols">
           <Category Name="network_transport">
+            <Category Name="sockets_wrapper">
+              <Category Name="include">
+                <Path>..\..\..\Middleware\Application-Protocols\network_transport\sockets_wrapper\include\tcp_sockets_wrapper.h</Path>
+              </Category>
+              <Category Name="ports">
+                <Category Name="cellular_ryz014a">
+                  <Path>..\..\..\Middleware\Application-Protocols\network_transport\sockets_wrapper\ports\cellular_ryz014a\sockets_wrapper.c</Path>
+                </Category>
+              </Category>
+            </Category>
             <Category Name="using_mbedtls_pkcs11">
               <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.c</Path>
               <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.h</Path>
@@ -1089,7 +1099,7 @@
           <Option>-include="C:\downloads\iot-reference-rx\Demos\common\mqtt-agent-interface"</Option>
           <Option>-include="C:\downloads\iot-reference-rx\Common\ports\ota_pal"</Option>
           <Option>-include="C:\downloads\iot-reference-rx\Demos\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
           <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,MBEDTLS_ALLOW_PRIVATE_ACCESS</Option>
           <Option>-utf8</Option>
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
@@ -1336,6 +1346,7 @@
           <Path>HardwareDebug\ota_interface.obj</Path>
           <Path>HardwareDebug\ota_mqtt.obj</Path>
           <Path>HardwareDebug\ota_os_freertos.obj</Path>
+          <Path>HardwareDebug\sockets_wrapper.obj</Path>
           <Path>HardwareDebug\mbedtls_pk_pkcs11.obj</Path>
           <Path>HardwareDebug\transport_mbedtls_pkcs11.obj</Path>
           <Path>HardwareDebug\croutine.obj</Path>
@@ -1549,7 +1560,7 @@
           <IncludePathForC>"C:\downloads\iot-reference-rx\Demos\common\mqtt-agent-interface"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx\Common\ports\ota_pal"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx\Demos\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>

@@ -36,7 +36,7 @@
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
 
-#include "sockets_wrapper.h"
+#include "tcp_sockets_wrapper.h"
 
 
 
@@ -50,6 +50,7 @@
 #include "iot_crypto.h"
 #include "r_cellular_if.h"
 
+static uint32_t SOCKETS_GetHostByName( const char * pcHostName );
 
 typedef struct xSOCKETContext
 {
@@ -196,7 +197,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
                             uint32_t receiveTimeoutMs,
                             uint32_t sendTimeoutMs )
 {
-	int32_t lStatus = SOCKETS_ERROR_NONE;
+	int32_t lStatus = TCP_SOCKETS_ERRNO_NONE;
 	e_cellular_err_t ret;
 
     freertos_sockaddr_t serverAddress = { 0 };
@@ -209,7 +210,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
     if(0 > ret)
 	{
 		configPRINTF(("create error: %d\r\n",ret));
-		lStatus = SOCKETS_SOCKET_ERROR;
+		lStatus = TCP_SOCKETS_ERRNO_ERROR;
 	}
 	else
 	{
@@ -218,7 +219,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 		pxContext->receiveTimeout = 10000;
 		pxContext->sendTimeout = 10000;
 	}
-    if( SOCKETS_ERROR_NONE != lStatus )
+    if( TCP_SOCKETS_ERRNO_NONE != lStatus )
 		{
 			if(NULL != pxContext)
 			{
@@ -248,7 +249,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 		ret = R_CELLULAR_ConnectSocket(&cellular_ctrl, pxContext->socket_no, SOCKETS_GetHostByName( pHostName ), SOCKETS_htons(serverAddress.sin_port));
 	}
 
-    if( SOCKETS_ERROR_NONE != ret )
+    if( TCP_SOCKETS_ERRNO_NONE != ret )
 	{
 	return SOCKETS_INVALID_SOCKET;
 	}
@@ -296,7 +297,7 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 
 }
 
-uint32_t SOCKETS_GetHostByName( const char * pcHostName )
+static uint32_t SOCKETS_GetHostByName( const char * pcHostName )
 {
 	uint32_t ulAddr = 0;
 	uint32_t ret;
@@ -325,7 +326,7 @@ void TCP_Sockets_Disconnect( Socket_t tcpSocket )
 	}
 	else
 	{
-		return SOCKETS_EINVAL;
+		return TCP_SOCKETS_ERRNO_EINVAL;
 	}
 
 	return pdFREERTOS_ERRNO_NONE;
