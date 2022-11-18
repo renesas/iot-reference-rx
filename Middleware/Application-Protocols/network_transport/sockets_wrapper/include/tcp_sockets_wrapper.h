@@ -32,6 +32,27 @@
 #ifndef TCP_SOCKETS_WRAPPER_H
 #define TCP_SOCKETS_WRAPPER_H
 
+/* Logging related header files are required to be included in the following order:
+ * 1. Include the header file "logging_levels.h".
+ * 2. Define LIBRARY_LOG_NAME and  LIBRARY_LOG_LEVEL.
+ * 3. Include the header file "logging_stack.h".
+ */
+
+/* Include header that defines log levels. */
+#include "logging_levels.h"
+
+/* Logging configuration for the Sockets. */
+#ifndef LIBRARY_LOG_NAME
+    #define LIBRARY_LOG_NAME     "Sockets"
+#endif
+#ifndef LIBRARY_LOG_LEVEL
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
+#endif
+
+extern void vLoggingPrintf( const char * pcFormatString,
+                            ... );
+
+#include "logging_stack.h"
 
 /* Standard includes. */
 #include <stdint.h>
@@ -52,6 +73,8 @@
 #define TCP_SOCKETS_ERRNO_PERIPHERAL_RESET    ( -9 )  /*!< Communications peripheral has been reset. */
 #define TCP_SOCKETS_ERRNO_ENOSPC              ( -10 ) /*!< No space left on device */
 #define TCP_SOCKETS_ERRNO_EINTR               ( -11 ) /*!< Interrupted system call */
+
+#define SOCKETS_INVALID_SOCKET      ( ( Socket_t ) ~0U )
 
 #ifndef SOCKET_T_TYPEDEFED
     struct xSOCKET;

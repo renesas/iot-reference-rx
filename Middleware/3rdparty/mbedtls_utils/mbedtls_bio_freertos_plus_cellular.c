@@ -33,6 +33,8 @@
 #include "FreeRTOS.h"
 #include "FreeRTOS_Sockets.h"
 
+#include "tcp_sockets_wrapper.h"
+
 /* mbed TLS includes. */
 #if !defined( MBEDTLS_CONFIG_FILE )
     #include "config.h"
@@ -61,7 +63,7 @@ int mbedtls_platform_send( void * ctx,
     configASSERT( ctx != NULL );
     configASSERT( buf != NULL );
 
-    return Sockets_Send( ( Socket_t ) ctx, buf, len );
+    return TCP_Sockets_Send( ( Socket_t ) ctx, buf, len );
 }
 
 /*-----------------------------------------------------------*/
@@ -85,7 +87,7 @@ int mbedtls_platform_recv( void * ctx,
 	    configASSERT( ctx != NULL );
 	    configASSERT( buf != NULL );
 
-	    recvStatus = Sockets_Recv( ( Socket_t ) ctx, buf, len );
+	    recvStatus = TCP_Sockets_Recv( ( Socket_t ) ctx, buf, len );
 
 	    if( recvStatus < 0 )
 	    {
