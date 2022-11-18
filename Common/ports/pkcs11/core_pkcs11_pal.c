@@ -64,11 +64,14 @@
 #include "r_flash_rx_if.h"
 
 /* TLS transport header. */
-#include "using_mbedtls_pkcs11.h"
+#include "transport_mbedtls_pkcs11.h"
+
+/* mbedTLS includes. */
 #include "mbedtls_config.h"
+#include "mbedtls/compat-2.x.h"
 
 /* FreeRTOS Socket wrapper include. */
-#include "sockets_wrapper.h"
+#include "tcp_sockets_wrapper.h"
 
 /* PKCS #11 includes. */
 #include "core_pkcs11_config.h"

@@ -327,7 +327,7 @@ CK_RV xProvisionPrivateKey( CK_SESSION_HANDLE xSession,
     mbedtls_pk_context xMbedPkContext = { 0 };
 
     mbedtls_pk_init( &xMbedPkContext );
-    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucPrivateKey, xPrivateKeyLength, NULL, 0 );
+    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucPrivateKey, xPrivateKeyLength, NULL, 0, NULL, NULL );
 
     if( lMbedResult != 0 )
     {
@@ -388,7 +388,7 @@ CK_RV xProvisionPublicKey( CK_SESSION_HANDLE xSession,
     mbedtls_pk_init( &xMbedPkContext );
 
     /* Try parsing the private key using mbedtls_pk_parse_key. */
-    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucKey, xKeyLength, NULL, 0 );
+    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucKey, xKeyLength, NULL, 0, NULL, NULL );
 
     /* If mbedtls_pk_parse_key didn't work, maybe the private key is not included in the input passed in.
      * Try to parse just the public key. */

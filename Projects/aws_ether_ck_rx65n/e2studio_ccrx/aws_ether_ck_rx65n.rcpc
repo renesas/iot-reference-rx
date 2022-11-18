@@ -18,6 +18,7 @@
               <Path>..\..\..\Common\FreeRTOS_common\compiler_support\ccrx\exit.c</Path>
               <Path>..\..\..\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h</Path>
               <Path>..\..\..\Common\FreeRTOS_common\compiler_support\ccrx\time.h</Path>
+              <Path>..\..\..\Common\FreeRTOS_common\compiler_support\ccrx\unistd.h</Path>
             </Category>
           </Category>
           <Category Name="network_support">
@@ -75,26 +76,20 @@
               <Path>..\..\..\Middleware\3rdparty\mbedtls\include\CMakeLists.txt</Path>
               <Category Name="mbedtls">
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\aes.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\aesni.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\arc4.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\aria.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\asn1.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\asn1write.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\base64.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\bignum.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\blowfish.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\bn_mul.h</Path>
+                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\build_info.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\camellia.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ccm.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\certs.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\chacha20.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\chachapoly.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\check_config.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\cipher.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\cipher_internal.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\cmac.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\compat-1.3.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\config.h</Path>
+                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\compat-2.x.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\config_psa.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\constant_time.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ctr_drbg.h</Path>
@@ -105,39 +100,30 @@
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ecdsa.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ecjpake.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ecp.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ecp_internal.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\entropy.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\entropy_poll.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\error.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\gcm.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\havege.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\hkdf.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\hmac_drbg.h</Path>
+                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\mbedtls_config.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\md.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\md2.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\md4.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\md5.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\md_internal.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\memory_buffer_alloc.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\net.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\net_sockets.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\nist_kw.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\oid.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\padlock.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\pem.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\pk.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\pk_internal.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\pkcs11.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\pkcs12.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\pkcs5.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\platform.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\platform_time.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\platform_util.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\poly1305.h</Path>
+                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\private_access.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\psa_util.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ripemd160.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\rsa.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\rsa_internal.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\sha1.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\sha256.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\sha512.h</Path>
@@ -145,7 +131,6 @@
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ssl_cache.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ssl_ciphersuites.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ssl_cookie.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ssl_internal.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\ssl_ticket.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\threading.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\timing.h</Path>
@@ -154,7 +139,6 @@
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\x509_crl.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\x509_crt.h</Path>
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\x509_csr.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\mbedtls\include\mbedtls\xtea.h</Path>
               </Category>
               <Category Name="psa">
                 <Path>..\..\..\Middleware\3rdparty\mbedtls\include\psa\crypto.h</Path>
@@ -178,21 +162,22 @@
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\CMakeLists.txt</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\aes.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\aesni.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\arc4.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\aesni.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\aria.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\asn1parse.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\asn1write.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\base64.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\bignum.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\blowfish.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\bignum_internal.h</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\bn_mul.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\camellia.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ccm.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\certs.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\chacha20.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\chachapoly.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\check_crypto_config.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\cipher.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\cipher_wrap.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\cipher_wrap.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\cmac.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\common.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\constant_time.c</Path>
@@ -207,18 +192,18 @@
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ecjpake.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ecp.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ecp_curves.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ecp_internal_alt.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ecp_invasive.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\entropy.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\entropy_poll.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\entropy_poll.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\error.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\gcm.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\havege.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\hkdf.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\hmac_drbg.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\md.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\md2.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\md4.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\md5.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\md_wrap.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\memory_buffer_alloc.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\mps_common.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\mps_error.h</Path>
@@ -230,14 +215,16 @@
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\nist_kw.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\oid.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\padlock.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\padlock.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pem.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pk.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pk_wrap.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pkcs11.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pk_wrap.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pkcs12.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pkcs5.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pkparse.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pkwrite.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\pkwrite.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\platform.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\platform_util.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\poly1305.c</Path>
@@ -270,20 +257,30 @@
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\psa_its_file.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ripemd160.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\rsa.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\rsa_internal.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\rsa_alt_helpers.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\rsa_alt_helpers.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\sha1.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\sha256.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\sha512.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_cache.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_ciphersuites.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_cli.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_client.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_client.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_cookie.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_debug_helpers.h</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_debug_helpers_generated.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_misc.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_msg.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_srv.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_ticket.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_tls.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_tls12_client.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_tls12_server.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_tls13_client.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_tls13_generic.c</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_tls13_invasive.h</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_tls13_keys.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_tls13_keys.h</Path>
+              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\ssl_tls13_server.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\threading.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\timing.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\version.c</Path>
@@ -295,7 +292,6 @@
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\x509_csr.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\x509write_crt.c</Path>
               <Path>..\..\..\Middleware\3rdparty\mbedtls\library\x509write_csr.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\mbedtls\library\xtea.c</Path>
             </Category>
           </Category>
           <Category Name="mbedtls_config">
@@ -305,6 +301,8 @@
           </Category>
           <Category Name="mbedtls_utils">
             <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_bio_freertos_plus_tcp.c</Path>
+            <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_bio_tcp_sockets_wrapper.c</Path>
+            <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_bio_tcp_sockets_wrapper.h</Path>
             <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_freertos_port.c</Path>
             <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_utils.c</Path>
             <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_utils.h</Path>
@@ -363,14 +361,20 @@
         <Category Name="Application-Protocols">
           <Category Name="network_transport">
             <Category Name="sockets_wrapper">
-              <Category Name="freertos_plus_tcp">
-                <Path>..\..\..\Middleware\Application-Protocols\network_transport\sockets_wrapper\freertos_plus_tcp\sockets_wrapper.c</Path>
-                <Path>..\..\..\Middleware\Application-Protocols\network_transport\sockets_wrapper\freertos_plus_tcp\sockets_wrapper.h</Path>
+              <Category Name="include">
+                <Path>..\..\..\Middleware\Application-Protocols\network_transport\sockets_wrapper\include\tcp_sockets_wrapper.h</Path>
+              </Category>
+              <Category Name="ports">
+                <Category Name="freertos_plus_tcp">
+                  <Path>..\..\..\Middleware\Application-Protocols\network_transport\sockets_wrapper\ports\freertos_plus_tcp\tcp_sockets_wrapper.c</Path>
+                </Category>
               </Category>
             </Category>
             <Category Name="using_mbedtls_pkcs11">
-              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\using_mbedtls_pkcs11.c</Path>
-              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\using_mbedtls_pkcs11.h</Path>
+              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.c</Path>
+              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.h</Path>
+              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\transport_mbedtls_pkcs11.c</Path>
+              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\transport_mbedtls_pkcs11.h</Path>
             </Category>
           </Category>
         </Category>
@@ -953,7 +957,6 @@
           <Option>-include="C:\downloads\iot-reference-rx\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
           <Option>-include="C:\downloads\iot-reference-rx\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
           <Option>-include="C:\downloads\iot-reference-rx\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx\Middleware\Application-Protocols\network_transport\sockets_wrapper\freertos_plus_tcp"</Option>
           <Option>-include="C:\downloads\iot-reference-rx\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
           <Option>-include="C:\downloads\iot-reference-rx\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
           <Option>-include="C:\downloads\iot-reference-rx\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
@@ -975,7 +978,8 @@
           <Option>-include="C:\downloads\iot-reference-rx\Common\ports\ota_pal"</Option>
           <Option>-include="C:\downloads\iot-reference-rx\Demos\common\mqtt-agent-interface\include"</Option>
           <Option>-include="C:\downloads\iot-reference-rx\Demos\common\mqtt-agent-interface"</Option>
-          <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C</Option>
+          <Option>-include="C:\downloads\iot-reference-rx\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
+          <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,MBEDTLS_ALLOW_PRIVATE_ACCESS</Option>
           <Option>-utf8</Option>
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
           <Option>-debug</Option>
@@ -1109,16 +1113,13 @@
           <Path>HardwareDebug\mqtt_agent_task.obj</Path>
           <Path>HardwareDebug\aes.obj</Path>
           <Path>HardwareDebug\aesni.obj</Path>
-          <Path>HardwareDebug\arc4.obj</Path>
           <Path>HardwareDebug\aria.obj</Path>
           <Path>HardwareDebug\asn1parse.obj</Path>
           <Path>HardwareDebug\asn1write.obj</Path>
           <Path>HardwareDebug\base64.obj</Path>
           <Path>HardwareDebug\bignum.obj</Path>
-          <Path>HardwareDebug\blowfish.obj</Path>
           <Path>HardwareDebug\camellia.obj</Path>
           <Path>HardwareDebug\ccm.obj</Path>
-          <Path>HardwareDebug\certs.obj</Path>
           <Path>HardwareDebug\chacha20.obj</Path>
           <Path>HardwareDebug\chachapoly.obj</Path>
           <Path>HardwareDebug\cipher.obj</Path>
@@ -1138,12 +1139,9 @@
           <Path>HardwareDebug\entropy_poll.obj</Path>
           <Path>HardwareDebug\error.obj</Path>
           <Path>HardwareDebug\gcm.obj</Path>
-          <Path>HardwareDebug\havege.obj</Path>
           <Path>HardwareDebug\hkdf.obj</Path>
           <Path>HardwareDebug\hmac_drbg.obj</Path>
           <Path>HardwareDebug\md.obj</Path>
-          <Path>HardwareDebug\md2.obj</Path>
-          <Path>HardwareDebug\md4.obj</Path>
           <Path>HardwareDebug\md5.obj</Path>
           <Path>HardwareDebug\memory_buffer_alloc.obj</Path>
           <Path>HardwareDebug\mps_reader.obj</Path>
@@ -1155,7 +1153,6 @@
           <Path>HardwareDebug\pem.obj</Path>
           <Path>HardwareDebug\pk.obj</Path>
           <Path>HardwareDebug\pk_wrap.obj</Path>
-          <Path>HardwareDebug\pkcs11.obj</Path>
           <Path>HardwareDebug\pkcs12.obj</Path>
           <Path>HardwareDebug\pkcs5.obj</Path>
           <Path>HardwareDebug\pkparse.obj</Path>
@@ -1178,19 +1175,24 @@
           <Path>HardwareDebug\psa_its_file.obj</Path>
           <Path>HardwareDebug\ripemd160.obj</Path>
           <Path>HardwareDebug\rsa.obj</Path>
-          <Path>HardwareDebug\rsa_internal.obj</Path>
+          <Path>HardwareDebug\rsa_alt_helpers.obj</Path>
           <Path>HardwareDebug\sha1.obj</Path>
           <Path>HardwareDebug\sha256.obj</Path>
           <Path>HardwareDebug\sha512.obj</Path>
           <Path>HardwareDebug\ssl_cache.obj</Path>
           <Path>HardwareDebug\ssl_ciphersuites.obj</Path>
-          <Path>HardwareDebug\ssl_cli.obj</Path>
+          <Path>HardwareDebug\ssl_client.obj</Path>
           <Path>HardwareDebug\ssl_cookie.obj</Path>
+          <Path>HardwareDebug\ssl_debug_helpers_generated.obj</Path>
           <Path>HardwareDebug\ssl_msg.obj</Path>
-          <Path>HardwareDebug\ssl_srv.obj</Path>
           <Path>HardwareDebug\ssl_ticket.obj</Path>
           <Path>HardwareDebug\ssl_tls.obj</Path>
+          <Path>HardwareDebug\ssl_tls12_client.obj</Path>
+          <Path>HardwareDebug\ssl_tls12_server.obj</Path>
+          <Path>HardwareDebug\ssl_tls13_client.obj</Path>
+          <Path>HardwareDebug\ssl_tls13_generic.obj</Path>
           <Path>HardwareDebug\ssl_tls13_keys.obj</Path>
+          <Path>HardwareDebug\ssl_tls13_server.obj</Path>
           <Path>HardwareDebug\threading.obj</Path>
           <Path>HardwareDebug\timing.obj</Path>
           <Path>HardwareDebug\version.obj</Path>
@@ -1202,8 +1204,8 @@
           <Path>HardwareDebug\x509_csr.obj</Path>
           <Path>HardwareDebug\x509write_crt.obj</Path>
           <Path>HardwareDebug\x509write_csr.obj</Path>
-          <Path>HardwareDebug\xtea.obj</Path>
           <Path>HardwareDebug\mbedtls_bio_freertos_plus_tcp.obj</Path>
+          <Path>HardwareDebug\mbedtls_bio_tcp_sockets_wrapper.obj</Path>
           <Path>HardwareDebug\mbedtls_freertos_port.obj</Path>
           <Path>HardwareDebug\mbedtls_utils.obj</Path>
           <Path>HardwareDebug\cborencoder.obj</Path>
@@ -1221,8 +1223,9 @@
           <Path>HardwareDebug\ota_interface.obj</Path>
           <Path>HardwareDebug\ota_mqtt.obj</Path>
           <Path>HardwareDebug\ota_os_freertos.obj</Path>
-          <Path>HardwareDebug\sockets_wrapper.obj</Path>
-          <Path>HardwareDebug\using_mbedtls_pkcs11.obj</Path>
+          <Path>HardwareDebug\tcp_sockets_wrapper.obj</Path>
+          <Path>HardwareDebug\mbedtls_pk_pkcs11.obj</Path>
+          <Path>HardwareDebug\transport_mbedtls_pkcs11.obj</Path>
           <Path>HardwareDebug\croutine.obj</Path>
           <Path>HardwareDebug\event_groups.obj</Path>
           <Path>HardwareDebug\list.obj</Path>
@@ -1308,7 +1311,6 @@
           <IncludePathForC>"C:\downloads\iot-reference-rx\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx\Middleware\Application-Protocols\network_transport\sockets_wrapper\freertos_plus_tcp"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
@@ -1330,6 +1332,7 @@
           <IncludePathForC>"C:\downloads\iot-reference-rx\Common\ports\ota_pal"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx\Demos\common\mqtt-agent-interface"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
@@ -1352,6 +1355,7 @@
           <MacroForC>MBEDTLS_CMAC_C</MacroForC>
           <MacroForC>MBEDTLS_ERROR_C</MacroForC>
           <MacroForC>MBEDTLS_THREADING_C</MacroForC>
+          <MacroForC>MBEDTLS_ALLOW_PRIVATE_ACCESS</MacroForC>
         </CommonOptions>
       </BuildMode>
     </BuildOptions>

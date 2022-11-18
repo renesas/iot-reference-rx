@@ -85,7 +85,6 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/Compiler/Renesas}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/FreeRTOS/coreMQTT/source/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/FreeRTOS/coreMQTT/source/interface}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/Application-Protocols/network_transport/sockets_wrapper/freertos_plus_tcp}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os}&quot;"/>
@@ -107,6 +106,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/application_code/ports/ota_pal}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Demos/common/mqtt-agent-interface/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Demos/common/mqtt-agent-interface}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/Application-Protocols/network_transport/sockets_wrapper/include}&quot;"/>
 								</option>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.userBefore.147939764" name="追加するオプション（すべての指定オプションの前に追加）" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.userBefore" useByScannerDiscovery="false" valueType="stringList">
 									<listOptionValue builtIn="false" value=""/>
@@ -124,6 +124,7 @@
 									<listOptionValue builtIn="false" value="MBEDTLS_CMAC_C"/>
 									<listOptionValue builtIn="false" value="MBEDTLS_ERROR_C"/>
 									<listOptionValue builtIn="false" value="MBEDTLS_THREADING_C"/>
+									<listOptionValue builtIn="false" value="MBEDTLS_ALLOW_PRIVATE_ACCESS"/>
 								</option>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize.70492347" name="最適化レベル (-optimize)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize.level0" valueType="enumerated"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.nomessage.1714816644" name="出力を抑止するメッセージ番号 (-nomessage)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.nomessage" useByScannerDiscovery="false" value="11174,21644,20010,23034,23035,20177,23033" valueType="string"/>

@@ -35,7 +35,7 @@
 #include "test_param_config.h"
 #include "qualification_test.h"
 #include "transport_interface_test.h"
-#include "using_mbedtls_pkcs11.h"
+#include "transport_mbedtls_pkcs11.h"
 #include "demo_config.h"
 #include "mqtt_test.h"
 

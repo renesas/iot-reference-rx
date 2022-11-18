@@ -29,66 +29,80 @@
  * @brief FreeRTOS Sockets connect and disconnect wrapper implementation.
  */
 
+/* Include header that defines log levels. */
+#include "logging_levels.h"
+
+/* Logging configuration for the Sockets. */
+#ifndef LIBRARY_LOG_NAME
+    #define LIBRARY_LOG_NAME     "SocketsWrapper"
+#endif
+#ifndef LIBRARY_LOG_LEVEL
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
+#endif
+
+extern void vLoggingPrintf( const char * pcFormatString,
+                            ... );
+
+#include "logging_stack.h"
+
 /* Standard includes. */
 #include <string.h>
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
 
-#include "sockets_wrapper.h"
-
-#define _SECURE_SOCKETS_WRAPPER_NOT_REDEFINE
-
-/* FreeRTOS includes. */
-#include "FreeRTOS.h"
-#include "FreeRTOSIPConfig.h"
-#include "list.h"
-#include "semphr.h"
+/* FreeRTOS+TCP includes. */
 #include "FreeRTOS_IP.h"
 #include "FreeRTOS_Sockets.h"
-#include "task.h"
+#include "FreeRTOS_DNS.h"
+
+/* TCP Sockets Wrapper include.*/
+/* Let sockets wrapper know that Socket_t is defined already. */
+#define SOCKET_T_TYPEDEFED
+#include "tcp_sockets_wrapper.h"
+
+/* FreeRTOS includes. */
 #include "core_pkcs11.h"
 #include "iot_crypto.h"
 
-#undef _SECURE_SOCKETS_WRAPPER_NOT_REDEFINE
-
-/* Internal context structure. */
-typedef struct SSOCKETContext
-{
-    Socket_t xSocket;
-    char * pcDestination;
-    void * pvTLSContext;
-    BaseType_t xRequireTLS;
-    BaseType_t xSendFlags;
-    BaseType_t xRecvFlags;
-    char * pcServerCertificate;
-    uint32_t ulServerCertificateLength;
-    char ** ppcAlpnProtocols;
-    uint32_t ulAlpnProtocolsCount;
-    BaseType_t xConnectAttempted;
-} SSOCKETContext_t, * SSOCKETContextPtr_t;
-/*-----------------------------------------------------------*/
-
-/* Maximum number of times to call FreeRTOS_recv when initiating a graceful shutdown. */
+/**
+ * @brief Maximum number of times to call FreeRTOS_recv when initiating a graceful shutdown.
+ */
 #ifndef FREERTOS_SOCKETS_WRAPPER_SHUTDOWN_LOOPS
     #define FREERTOS_SOCKETS_WRAPPER_SHUTDOWN_LOOPS    ( 3 )
 #endif
 
-/* A negative error code indicating a network failure. */
+/**
+ * @brief negative error code indicating a network failure.
+ */
 #define FREERTOS_SOCKETS_WRAPPER_NETWORK_ERROR    ( -1 )
 
-/*-----------------------------------------------------------*/
-
-BaseType_t Sockets_Connect( Socket_t * pTcpSocket,
-                            const char * pHostName,
-                            uint16_t port,
-                            uint32_t receiveTimeoutMs,
-                            uint32_t sendTimeoutMs )
+/**
+ * @brief Establish a connection to server.
+ *
+ * @param[out] pTcpSocket The output parameter to return the created socket descriptor.
+ * @param[in] pHostName Server hostname to connect to.
+ * @param[in] pServerInfo Server port to connect to.
+ * @param[in] receiveTimeoutMs Timeout (in milliseconds) for transport receive.
+ * @param[in] sendTimeoutMs Timeout (in milliseconds) for transport send.
+ *
+ * @note A timeout of 0 means infinite timeout.
+ *
+ * @return Non-zero value on error, 0 on success.
+ */
+BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
+                                const char * pHostName,
+                                uint16_t port,
+                                uint32_t receiveTimeoutMs,
+                                uint32_t sendTimeoutMs )
 {
     Socket_t tcpSocket = FREERTOS_INVALID_SOCKET;
     BaseType_t socketStatus = 0;
     struct freertos_sockaddr serverAddress = { 0 };
     TickType_t transportTimeout = 0;
+
+    configASSERT( pTcpSocket != NULL );
+    configASSERT( pHostName != NULL );
 
     /* Create a new TCP socket. */
     tcpSocket = FreeRTOS_socket( FREERTOS_AF_INET, FREERTOS_SOCK_STREAM, FREERTOS_IPPROTO_TCP );
@@ -172,9 +186,12 @@ BaseType_t Sockets_Connect( Socket_t * pTcpSocket,
     return socketStatus;
 }
 
-/*-----------------------------------------------------------*/
-
-void Sockets_Disconnect( Socket_t tcpSocket )
+/**
+ * @brief End connection to server.
+ *
+ * @param[in] tcpSocket The socket descriptor.
+ */
+void TCP_Sockets_Disconnect( Socket_t tcpSocket )
 {
     BaseType_t waitForShutdownLoopCount = 0;
     uint8_t pDummyBuffer[ 2 ];
@@ -199,6 +216,126 @@ void Sockets_Disconnect( Socket_t tcpSocket )
         ( void ) FreeRTOS_closesocket( tcpSocket );
     }
 }
+
+/**
+ * @brief Transmit data to the remote socket.
+ *
+ * The socket must have already been created using a call to TCP_Sockets_Connect().
+ *
+ * @param[in] xSocket The handle of the sending socket.
+ * @param[in] pvBuffer The buffer containing the data to be sent.
+ * @param[in] xDataLength The length of the data to be sent.
+ *
+ * @return
+ * * On success, the number of bytes actually sent is returned.
+ * * If an error occurred, a negative value is returned. @ref SocketsErrors
+ */
+int32_t TCP_Sockets_Send( Socket_t xSocket,
+                          const void * pvBuffer,
+                          size_t xBufferLength )
+{
+    BaseType_t xSendStatus;
+    int xReturnStatus = TCP_SOCKETS_ERRNO_ERROR;
+
+    configASSERT( xSocket != NULL );
+    configASSERT( pvBuffer != NULL );
+
+    xSendStatus = FreeRTOS_send( xSocket, pvBuffer, xBufferLength, 0 );
+
+    switch( xSendStatus )
+    {
+        /* Socket was closed or just got closed. */
+        case -pdFREERTOS_ERRNO_ENOTCONN:
+            xReturnStatus = TCP_SOCKETS_ERRNO_ENOTCONN;
+            break;
+
+        /* Not enough memory for the socket to create either an Rx or Tx stream. */
+        case -pdFREERTOS_ERRNO_ENOMEM:
+            xReturnStatus = TCP_SOCKETS_ERRNO_ENOMEM;
+            break;
+
+        /* Socket is not valid, is not a TCP socket, or is not bound. */
+        case -pdFREERTOS_ERRNO_EINVAL:
+            xReturnStatus = TCP_SOCKETS_ERRNO_EINVAL;
+            break;
+
+        /* Socket received a signal, causing the read operation to be aborted. */
+        case -pdFREERTOS_ERRNO_EINTR:
+            xReturnStatus = TCP_SOCKETS_ERRNO_EINTR;
+            break;
+
+        /* A timeout occurred before any data could be sent as the TCP buffer was full. */
+        case -pdFREERTOS_ERRNO_ENOSPC:
+            xReturnStatus = TCP_SOCKETS_ERRNO_ENOSPC;
+            break;
+
+        default:
+            xReturnStatus = ( int ) xSendStatus;
+            break;
+    }
+
+    return xReturnStatus;
+}
+
+/**
+ * @brief Receive data from a TCP socket.
+ *
+ * The socket must have already been created using a call to TCP_Sockets_Connect().
+ *
+ * @param[in] xSocket The handle of the socket from which data is being received.
+ * @param[out] pvBuffer The buffer into which the received data will be placed.
+ * @param[in] xBufferLength The maximum number of bytes which can be received.
+ * pvBuffer must be at least xBufferLength bytes long.
+ *
+ * @return
+ * * If the receive was successful then the number of bytes received (placed in the
+ *   buffer pointed to by pvBuffer) is returned.
+ * * If a timeout occurred before data could be received then 0 is returned (timeout
+ *   is set using @ref SOCKETS_SO_RCVTIMEO).
+ * * If an error occurred, a negative value is returned. @ref SocketsErrors
+ */
+int32_t TCP_Sockets_Recv( Socket_t xSocket,
+                          void * pvBuffer,
+                          size_t xBufferLength )
+{
+    BaseType_t xRecvStatus;
+    int xReturnStatus = TCP_SOCKETS_ERRNO_ERROR;
+
+    configASSERT( xSocket != NULL );
+    configASSERT( pvBuffer != NULL );
+
+    xRecvStatus = FreeRTOS_recv( xSocket, pvBuffer, xBufferLength, 0 );
+
+    switch( xRecvStatus )
+    {
+        /* Socket was closed or just got closed. */
+        case -pdFREERTOS_ERRNO_ENOTCONN:
+            xReturnStatus = TCP_SOCKETS_ERRNO_ENOTCONN;
+            break;
+
+        /* Not enough memory for the socket to create either an Rx or Tx stream. */
+        case -pdFREERTOS_ERRNO_ENOMEM:
+            xReturnStatus = TCP_SOCKETS_ERRNO_ENOMEM;
+            break;
+
+        /* Socket is not valid, is not a TCP socket, or is not bound. */
+        case -pdFREERTOS_ERRNO_EINVAL:
+            xReturnStatus = TCP_SOCKETS_ERRNO_EINVAL;
+            break;
+
+        /* Socket received a signal, causing the read operation to be aborted. */
+        case -pdFREERTOS_ERRNO_EINTR:
+            xReturnStatus = TCP_SOCKETS_ERRNO_EINTR;
+            break;
+
+        default:
+            xReturnStatus = ( int ) xRecvStatus;
+            break;
+    }
+
+    return xReturnStatus;
+}
+
 static CK_RV prvSocketsGetCryptoSession( SemaphoreHandle_t * pxSessionLock,
                                          CK_SESSION_HANDLE * pxSession,
                                          CK_FUNCTION_LIST_PTR_PTR ppxFunctionList )
