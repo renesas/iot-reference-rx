@@ -128,7 +128,7 @@
 /**
  * @brief Timeout for receiving CONNACK packet in milliseconds.
  */
-#define mqttexampleCONNACK_RECV_TIMEOUT_MS                ( 1000U )
+#define mqttexampleCONNACK_RECV_TIMEOUT_MS                ( 2000U )
 
 /**
  * @brief The topic to subscribe and publish to in the example.
@@ -177,7 +177,7 @@
 /**
  * @brief Transport timeout in milliseconds for transport send and receive.
  */
-#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS         ( 200U )
+#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS         ( 750U )
 
 /**
  * @brief Milliseconds per second.

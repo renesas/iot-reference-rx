@@ -313,17 +313,49 @@ CK_RV xPKCS11_initMbedtlsPkContext( mbedtls_pk_context * pxMbedtlsPkCtx,
     return xResult;
 }
 
-int lPKCS11PkMbedtlsCloseSessionAndFree( mbedtls_pk_context * pxMbedtlsPkCtx )
+int lPKCS11PkMbedtlsCloseSessionAndFree( mbedtls_pk_context * pxMbedtlsPkCtx,
+    	                                 CK_SESSION_HANDLE xSessionHandle,
+    	                                 CK_OBJECT_HANDLE xPkHandle )
 {
+	CK_KEY_TYPE xKeyType = CKK_VENDOR_DEFINED;
     CK_RV xResult = CKR_OK;
     P11PkCtx_t * pxP11Ctx = NULL;
     CK_FUNCTION_LIST_PTR pxFunctionList = NULL;
 
+    CK_ATTRIBUTE xAttrTemplate =
+    {
+        .pValue     = &xKeyType,
+        .type       = CKA_KEY_TYPE,
+        .ulValueLen = sizeof( CK_KEY_TYPE )
+    };
+
     configASSERT( pxMbedtlsPkCtx );
 
-    if( pxMbedtlsPkCtx )
+    xResult = C_GetFunctionList( &pxFunctionList );
+
+    if( (pxMbedtlsPkCtx) && (xResult == CKR_OK) )
     {
-        pxP11Ctx = &( ( ( P11EcDsaCtx_t * ) ( pxMbedtlsPkCtx->pk_ctx ) )->xP11PkCtx );
+    	configASSERT( pxFunctionList );
+    	xResult = pxFunctionList->C_GetAttributeValue( xSessionHandle,
+    	                                               xPkHandle,
+    	                                               &xAttrTemplate,
+    	                                               sizeof( xAttrTemplate ) / sizeof( CK_ATTRIBUTE ) );
+        if( xResult == CKR_OK )
+        {
+    	    switch( xKeyType )
+    	    {
+    	        case CKK_ECDSA:
+    	            pxP11Ctx = &( ( ( P11EcDsaCtx_t * ) ( pxMbedtlsPkCtx->pk_ctx ) )->xP11PkCtx );
+    	        break;
+
+    	        case CKK_RSA:
+    	            pxP11Ctx = &( ( ( P11RsaCtx_t * ) ( pxMbedtlsPkCtx->pk_ctx ) )->xP11PkCtx );
+                break;
+
+    	        default:
+    	    	    break;
+    	    }
+    	}
     }
     else
     {
@@ -332,12 +364,6 @@ int lPKCS11PkMbedtlsCloseSessionAndFree( mbedtls_pk_context * pxMbedtlsPkCtx )
 
     if( xResult == CKR_OK )
     {
-        xResult = C_GetFunctionList( &pxFunctionList );
-    }
-
-    if( xResult == CKR_OK )
-    {
-        configASSERT( pxFunctionList );
         xResult = pxFunctionList->C_CloseSession( pxP11Ctx->xSessionHandle );
     }
 
