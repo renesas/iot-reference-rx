@@ -216,7 +216,7 @@ void vApplicationDaemonTaskStartupHook( void )
 
         /* Run all demos. */
 //      vStartSimplePubSubDemo();
-		vStartPKCSMutualAuthDemo();
+        vStartPKCSMutualAuthDemo();
 //      vStartOtaDemo();
     }
 }

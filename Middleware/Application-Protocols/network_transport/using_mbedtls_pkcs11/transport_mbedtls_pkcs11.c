@@ -243,7 +243,7 @@ static void sslContextFree( SSLContext_t * pSslContext )
     mbedtls_ssl_config_free( &( pSslContext->config ) );
 
 
-    ( void ) lPKCS11PkMbedtlsCloseSessionAndFree( &( pSslContext->privKey ) );
+    ( void ) lPKCS11PkMbedtlsCloseSessionAndFree( &( pSslContext->privKey ), pSslContext->xP11Session, pSslContext->xP11PrivateKey );
 
     pSslContext->pxP11FunctionList->C_CloseSession( pSslContext->xP11Session );
 }

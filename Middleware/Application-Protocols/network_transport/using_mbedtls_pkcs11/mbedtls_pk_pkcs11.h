@@ -38,7 +38,9 @@ CK_RV xPKCS11_initMbedtlsPkContext( mbedtls_pk_context * pxMbedtlsPkCtx,
                                     CK_SESSION_HANDLE xSessionHandle,
                                     CK_OBJECT_HANDLE xPkHandle );
 
-int lPKCS11PkMbedtlsCloseSessionAndFree( mbedtls_pk_context * pxMbedtlsPkCtx );
+int lPKCS11PkMbedtlsCloseSessionAndFree( mbedtls_pk_context * pxMbedtlsPkCtx,
+		                                 CK_SESSION_HANDLE xSessionHandle,
+                                         CK_OBJECT_HANDLE xPkHandle );
 
 int lPKCS11RandomCallback( void * pvCtx,
                            unsigned char * pucOutput,
