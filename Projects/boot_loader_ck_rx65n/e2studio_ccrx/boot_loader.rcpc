@@ -261,27 +261,27 @@
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
           <Option>-branch=32</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\src\tinycrypt\lib\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\key"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\src\tinycrypt\lib\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\key"</Option>
           <Option>-include="${ProjDirPath}\generate"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_cmt_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_cmt_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cmt_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cmt_rx\src"</Option>
           <Option>-utf8</Option>
           <Option>-nomessage</Option>
           <Option>-debug</Option>
@@ -295,22 +295,22 @@
         <AssembleOptions>
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_cmt_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_cmt_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cmt_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cmt_rx\src"</Option>
           <Option>-utf8</Option>
           <Option>-debug</Option>
           <Option>-nologo</Option>
@@ -396,43 +396,43 @@
           <Path>HardwareDebug\boot_loader.lib</Path>
         </LinkOrder>
         <CommonOptions>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\src\tinycrypt\lib\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\key"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\src\tinycrypt\lib\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\key"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\generate"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\general"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_cmt_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_cmt_rx\src"</IncludePathForC>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_cmt_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam2\${ProjName}\src\smc_gen\r_cmt_rx\src"</IncludePathForAsm>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cmt_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cmt_rx\src"</IncludePathForC>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cmt_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cmt_rx\src"</IncludePathForAsm>
         </CommonOptions>
       </BuildMode>
     </BuildOptions>
