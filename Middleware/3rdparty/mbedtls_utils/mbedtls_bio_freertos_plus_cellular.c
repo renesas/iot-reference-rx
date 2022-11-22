@@ -31,9 +31,12 @@
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
-#include "FreeRTOS_Sockets.h"
 
+/* TCP Sockets Wrapper include.*/
 #include "tcp_sockets_wrapper.h"
+
+/* MbedTLS Bio TCP sockets wrapper include. */
+#include "mbedtls_bio_tcp_sockets_wrapper.h"
 
 /* mbed TLS includes. */
 #if !defined( MBEDTLS_CONFIG_FILE )
@@ -56,7 +59,7 @@
  *
  * @return Number of bytes sent on success; else a negative value.
  */
-int mbedtls_platform_send( void * ctx,
+int xMbedTLSBioTCPSocketsWrapperSend( void * ctx,
                            const unsigned char * buf,
                            size_t len )
 {
@@ -77,7 +80,7 @@ int mbedtls_platform_send( void * ctx,
  *
  * @return Number of bytes received if successful; Negative value on error.
  */
-int mbedtls_platform_recv( void * ctx,
+int xMbedTLSBioTCPSocketsWrapperRecv( void * ctx,
                            unsigned char * buf,
                            size_t len )
 {

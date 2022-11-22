@@ -154,12 +154,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>0</id>
+			<id>1669097410311</id>
 			<name>Middleware/3rdparty/mbedtls_utils</name>
 			<type>6</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-mbedtls_bio_freertos_plus_cellular.c</arguments>
+				<arguments>1.0-name-matches-false-true-mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</arguments>
 			</matcher>
 		</filter>
 		<filter>
