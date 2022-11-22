@@ -57,9 +57,16 @@
 /* Utilities include. */
 #include "core_pki_utils.h"
 
+/**
+ *  @brief Declaring MBEDTLS_ALLOW_PRIVATE_ACCESS allows access to mbedtls "private" fields.
+ */
+#define MBEDTLS_ALLOW_PRIVATE_ACCESS
+
 /* mbedTLS includes. */
 #include "mbedtls/pk.h"
 #include "mbedtls/oid.h"
+#include "mbedtls/ctr_drbg.h"
+#include "mbedtls/entropy.h"
 
 /* Default FreeRTOS API for console logging. */
 #define DEV_MODE_KEY_PROVISIONING_PRINT( X )    vLoggingPrintf X
@@ -325,9 +332,26 @@ CK_RV xProvisionPrivateKey( CK_SESSION_HANDLE xSession,
     mbedtls_pk_type_t xMbedKeyType = MBEDTLS_PK_NONE;
     int lMbedResult = 0;
     mbedtls_pk_context xMbedPkContext = { 0 };
+    #if MBEDTLS_VERSION_NUMBER >= 0x03000000
+        mbedtls_entropy_context xEntropyContext;
+        mbedtls_ctr_drbg_context xDrbgContext;
+    #endif
 
     mbedtls_pk_init( &xMbedPkContext );
-    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucPrivateKey, xPrivateKeyLength, NULL, 0 );
+    #if MBEDTLS_VERSION_NUMBER < 0x03000000
+        lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucPrivateKey, xPrivateKeyLength, NULL, 0 );
+    #else
+        mbedtls_entropy_init( &xEntropyContext );
+        mbedtls_ctr_drbg_init( &xDrbgContext );
+        lMbedResult = mbedtls_ctr_drbg_seed( &xDrbgContext, mbedtls_entropy_func, &xEntropyContext, NULL, 0 );
+        if( lMbedResult == 0 )
+        {
+            lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucPrivateKey, xPrivateKeyLength, NULL, 0,
+                mbedtls_ctr_drbg_random, &xDrbgContext );
+        }
+        mbedtls_ctr_drbg_free( &xDrbgContext );
+        mbedtls_entropy_free( &xEntropyContext );
+    #endif /* MBEDTLS_VERSION_NUMBER < 0x03000000 */
 
     if( lMbedResult != 0 )
     {
@@ -382,13 +406,30 @@ CK_RV xProvisionPublicKey( CK_SESSION_HANDLE xSession,
     CK_OBJECT_CLASS xClass = CKO_PUBLIC_KEY;
     int lMbedResult = 0;
     mbedtls_pk_context xMbedPkContext = { 0 };
+    #if MBEDTLS_VERSION_NUMBER >= 0x03000000
+        mbedtls_entropy_context xEntropyContext;
+        mbedtls_ctr_drbg_context xDrbgContext;
+    #endif
 
     xResult = C_GetFunctionList( &pxFunctionList );
 
     mbedtls_pk_init( &xMbedPkContext );
 
     /* Try parsing the private key using mbedtls_pk_parse_key. */
-    lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucKey, xKeyLength, NULL, 0 );
+    #if MBEDTLS_VERSION_NUMBER < 0x03000000
+        lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucKey, xKeyLength, NULL, 0 );
+    #else
+        mbedtls_entropy_init( &xEntropyContext );
+        mbedtls_ctr_drbg_init( &xDrbgContext );
+        lMbedResult = mbedtls_ctr_drbg_seed( &xDrbgContext, mbedtls_entropy_func, &xEntropyContext, NULL, 0 );
+        if( lMbedResult == 0 )
+        {
+            lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucKey, xKeyLength, NULL, 0,
+                mbedtls_ctr_drbg_random, &xDrbgContext );
+        }
+        mbedtls_ctr_drbg_free( &xDrbgContext );
+        mbedtls_entropy_free( &xEntropyContext );
+    #endif /* MBEDTLS_VERSION_NUMBER < 0x03000000 */
 
     /* If mbedtls_pk_parse_key didn't work, maybe the private key is not included in the input passed in.
      * Try to parse just the public key. */

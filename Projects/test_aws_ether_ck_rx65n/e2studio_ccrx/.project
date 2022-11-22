@@ -271,15 +271,6 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668556581029</id>
-			<name>Middleware/Application-Protocols/network_transport/sockets_wrapper</name>
-			<type>9</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-freertos_plus_tcp</arguments>
-			</matcher>
-		</filter>
-		<filter>
 			<id>1668567402558</id>
 			<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable</name>
 			<type>9</type>
@@ -349,6 +340,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-dependency</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668756502881</id>
+			<name>Middleware/Application-Protocols/network_transport/sockets_wrapper/ports</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-freertos_plus_tcp</arguments>
 			</matcher>
 		</filter>
 		<filter>
