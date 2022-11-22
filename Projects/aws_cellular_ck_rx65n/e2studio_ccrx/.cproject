@@ -133,7 +133,7 @@
 									<listOptionValue builtIn="false" value="MBEDTLS_THREADING_C"/>
 									<listOptionValue builtIn="false" value="MBEDTLS_ALLOW_PRIVATE_ACCESS"/>
 								</option>
-								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize.70492347" name="最適化レベル (-optimize)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize.level0" valueType="enumerated"/>
+								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize.70492347" name="最適化レベル (-optimize)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.optimize.level2" valueType="enumerated"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.nomessage.1714816644" name="出力を抑止するメッセージ番号 (-nomessage)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.nomessage" useByScannerDiscovery="false" value="11174,21644,20010,23034,23035,20177,23033" valueType="string"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.gOptimize.48738254" name="リンク時にモジュール間最適化の対象にする (-goptimize)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.gOptimize" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<inputType id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.gcc.inputType.1890882674" name="Compiler Input C" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.gcc.inputType"/>

@@ -1105,7 +1105,6 @@
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
           <Option>-debug</Option>
           <Option>-outcode=utf8</Option>
-          <Option>-optimize=0</Option>
           <Option>-goptimize</Option>
           <Option>-nologo</Option>
           <Option>-lang=c99</Option>
