@@ -198,11 +198,13 @@ static void prvMiscInitialization( void )
     uart_config();
 
 //    UserInitialization();
-    FreeRTOS_printf( ( "Initialized UART\n" ) );
+
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY,
                             mainLOGGING_MESSAGE_QUEUE_LENGTH );
+
+    FreeRTOS_printf( ( "Initialized UART\n" ) );
 }
 /*-----------------------------------------------------------*/
 
