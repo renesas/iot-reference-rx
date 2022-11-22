@@ -43,10 +43,12 @@
 #include "task.h"
 #include "semphr.h"
 #include "ota_config.h"
+
 struct NetworkContext
 {
     TlsTransportParams_t * pParams;
 };
+
 typedef struct TaskParam
 {
     StaticSemaphore_t pxjoinMutexBuffer;
@@ -62,7 +64,7 @@ void prvTransportTestDelay( uint32_t delayMs );
 /**
  * @brief Socket send and receive timeouts to use.  Specified in milliseconds.
  */
-#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 500U )
+#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 1000U )
 #define mqttexampleMILLISECONDS_PER_SECOND           ( 1000U )
 #define mqttexampleMILLISECONDS_PER_TICK             ( mqttexampleMILLISECONDS_PER_SECOND / configTICK_RATE_HZ )
 
@@ -70,7 +72,7 @@ static NetworkCredentials_t xNetworkCredentials = { 0 };
 static TransportInterface_t xTransport = { 0 };
 static NetworkContext_t xSecondNetworkContext = { 0 };
 static NetworkContext_t xNetworkContext = { 0 };
-static uint32_t ulGlobalEntryTimeMs;
+static uint32_t ulGlobalEntryTimeMs = 0;
 
 
 
@@ -232,10 +234,10 @@ uint32_t MqttTestGetTimeMs( void )
 void SetupMqttTestParam( MqttTestParam_t * pTestParam )
 {
     configASSERT( pTestParam != NULL );
-    TlsTransportParams_t *xTlsTransportParams = NULL;
-	xTlsTransportParams = ( TlsTransportParams_t * ) pvPortMalloc( sizeof( TlsTransportParams_t ) );
-	xNetworkContext.pParams = xTlsTransportParams;
-	xSecondNetworkContext.pParams = xTlsTransportParams;
+	TlsTransportParams_t *xTlsTransportParams0 = ( TlsTransportParams_t * ) pvPortMalloc( sizeof( TlsTransportParams_t ) );
+	TlsTransportParams_t *xTlsTransportParams1 = ( TlsTransportParams_t * ) pvPortMalloc( sizeof( TlsTransportParams_t ) );
+    xNetworkContext.pParams = xTlsTransportParams0;
+    xSecondNetworkContext.pParams = xTlsTransportParams1;
     /* Initialization of timestamp for MQTT. */
     ulGlobalEntryTimeMs = MqttTestGetTimeMs();
 
@@ -248,8 +250,8 @@ void SetupMqttTestParam( MqttTestParam_t * pTestParam )
     xNetworkCredentials.rootCaSize = sizeof( democonfigROOT_CA_PEM );
     xNetworkCredentials.pClientCertLabel = pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS;
     xNetworkCredentials.pPrivateKeyLabel = pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS;
-    xNetworkCredentials.disableSni = pdFAIL;
-
+    xNetworkCredentials.disableSni = pdFALSE;
+	xNetworkCredentials.pAlpnProtos = NULL;
 
     pTestParam->pTransport = &xTransport;
     pTestParam->pNetworkContext = &xNetworkContext;
@@ -264,10 +266,10 @@ void SetupMqttTestParam( MqttTestParam_t * pTestParam )
 #if ( TRANSPORT_INTERFACE_TEST_ENABLED == 1 )
 void SetupTransportTestParam( TransportTestParam_t * pTestParam )
 {
-	TlsTransportParams_t *xTlsTransportParams = NULL;
-	xTlsTransportParams = ( TlsTransportParams_t * ) pvPortMalloc( sizeof( TlsTransportParams_t ) );
-    xNetworkContext.pParams = xTlsTransportParams;
-    xSecondNetworkContext.pParams = xTlsTransportParams;
+	TlsTransportParams_t *xTlsTransportParams0 = ( TlsTransportParams_t * ) pvPortMalloc( sizeof( TlsTransportParams_t ) );
+	TlsTransportParams_t *xTlsTransportParams1 = ( TlsTransportParams_t * ) pvPortMalloc( sizeof( TlsTransportParams_t ) );
+    xNetworkContext.pParams = xTlsTransportParams0;
+    xSecondNetworkContext.pParams = xTlsTransportParams1;
 
     configASSERT( pTestParam != NULL );
     /* Setup the transport interface. */
