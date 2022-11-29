@@ -159,7 +159,7 @@
 /**
  * @brief The maximum number of retries for network operation with server.
  */
-#define RETRY_MAX_ATTEMPTS                           ( 20U )
+#define RETRY_MAX_ATTEMPTS                           ( BACKOFF_ALGORITHM_RETRY_FOREVER )
 
 /**
  * @brief The maximum back-off delay (in milliseconds) for retrying failed operation
