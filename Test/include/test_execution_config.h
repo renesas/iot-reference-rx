@@ -55,7 +55,7 @@
  *
  * #define OTA_PAL_TEST_ENABLED  (0)
  */
-#define OTA_PAL_TEST_ENABLED                ( 1 )
+#define OTA_PAL_TEST_ENABLED                ( 0 )
 
 /**
  * @brief Configuration to enable the OTA End-to-end test.
@@ -69,6 +69,6 @@
  *
  * #define CORE_PKCS11_TEST_ENABLED  (0)
  */
-#define CORE_PKCS11_TEST_ENABLED            ( 1 )
+#define CORE_PKCS11_TEST_ENABLED            ( 0 )
 
 #endif /* TEST_EXECUTION_CONFIG_H */

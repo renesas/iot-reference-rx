@@ -25,13 +25,13 @@
 
 #ifndef __AWS_CLIENTCREDENTIAL__H__
 #define __AWS_CLIENTCREDENTIAL__H__
-
+#include "test_param_config.h"
 /*
  * @brief MQTT Broker endpoint.
  *
  * @todo Set this to the fully-qualified DNS name of your MQTT broker.
  */
-#define clientcredentialMQTT_BROKER_ENDPOINT         ""
+#define clientcredentialMQTT_BROKER_ENDPOINT         MQTT_SERVER_ENDPOINT
 
 /*
  * @brief Host name.
@@ -43,7 +43,7 @@
  * by software, such as a production serial number, rather
  * than a hard coded constant.
  */
-#define clientcredentialIOT_THING_NAME               ""
+#define clientcredentialIOT_THING_NAME               IOT_THING_NAME
 
 /*
  * @brief Port number the MQTT broker is using.
@@ -55,27 +55,5 @@
  */
 #define clientcredentialGREENGRASS_DISCOVERY_PORT    8443
 
-/*
- * @brief Wi-Fi network to join.
- *
- * @todo If you are using Wi-Fi, set this to your network name.
- */
-#define clientcredentialWIFI_SSID                    ""
-
-/*
- * @brief Password needed to join Wi-Fi network.
- * @todo If you are using WPA, set this to your network password.
- */
-#define clientcredentialWIFI_PASSWORD                ""
-
-/*
- * @brief Wi-Fi network security type.
- *
- * @see WIFISecurity_t.
- *
- * @note Possible values are eWiFiSecurityOpen, eWiFiSecurityWEP, eWiFiSecurityWPA,
- * eWiFiSecurityWPA2 (depending on the support of your device Wi-Fi radio).
- */
-#define clientcredentialWIFI_SECURITY                eWiFiSecurityWPA2
 
 #endif /* ifndef __AWS_CLIENTCREDENTIAL__H__ */
