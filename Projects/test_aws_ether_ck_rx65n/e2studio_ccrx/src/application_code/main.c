@@ -235,41 +235,37 @@ void vApplicationDaemonTaskStartupHook( void )
 	prvMiscInitialization();
 	BaseType_t xResult = pdPASS;
 
-    {
-        /* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
-        are created in the vApplicationIPNetworkEventHook() hook function
-        below.  The hook function is called when the network connects. */
+	/* Provision the device with AWS certificate and private key. */
+	vDevModeKeyProvisioning();
+
+	/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
+	are created in the vApplicationIPNetworkEventHook() hook function
+	below.  The hook function is called when the network connects. */
 
 
-    	FreeRTOS_IPInit( ucIPAddress,
-                         ucNetMask,
-                         ucGatewayAddress,
-                         ucDNSServerAddress,
-                         ucMACAddress );
+	FreeRTOS_IPInit( ucIPAddress,
+					 ucNetMask,
+					 ucGatewayAddress,
+					 ucDNSServerAddress,
+					 ucMACAddress );
 
-        /* We should wait for the network to be up before we run any demos. */
-        while( FreeRTOS_IsNetworkUp() == pdFALSE )
-        {
-            vTaskDelay(300);
-        }
+	/* We should wait for the network to be up before we run any demos. */
+	while( FreeRTOS_IsNetworkUp() == pdFALSE )
+	{
+		vTaskDelay(300);
+	}
 
-        FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+	FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
 
-        /* Provision the device with AWS certificate and private key. */
-        vDevModeKeyProvisioning();
-
-
-        if( xResult == pdPASS )
-        {
-            xResult = xTaskCreate( prvQualificationTestTask,
-                                   "TEST",
-                                   appmainTEST_TASK_STACK_SIZE,
-                                   NULL,
-                                   appmainTEST_TASK_PRIORITY,
-                                   NULL );
-        }
-
-    }
+	if( xResult == pdPASS )
+	{
+		xResult = xTaskCreate( prvQualificationTestTask,
+							   "TEST",
+							   appmainTEST_TASK_STACK_SIZE,
+							   NULL,
+							   appmainTEST_TASK_PRIORITY,
+							   NULL );
+	}
 }
 
 /*-----------------------------------------------------------*/
