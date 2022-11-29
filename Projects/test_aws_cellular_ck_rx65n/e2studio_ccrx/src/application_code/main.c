@@ -38,8 +38,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /* Demo includes */
 #include "aws_clientcredential.h"
-
 #include "r_cellular_if.h"
+#include "test_execution_config.h"
+
 
 static bool _wifiEnable( void );
 static bool _wifiConnectAccessPoint( void );
@@ -207,6 +208,12 @@ int RunDeviceAdvisorDemo( void )
     return ( xResult == pdPASS ) ? 0 : -1;
 }
 
+int RunOtaE2eDemo( void )
+{
+	vStartOtaDemo();
+
+}
+
 /**
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
@@ -240,6 +247,11 @@ void vApplicationDaemonTaskStartupHook( void )
 
 	vDevModeKeyProvisioning();
 	_wifiEnable();
+#if OTA_E2E_TEST_ENABLED
+
+	RunOtaE2eDemo();
+
+#else
 	if( xResult == pdPASS )
 	{
 		xResult = xTaskCreate( prvQualificationTestTask,
@@ -249,6 +261,7 @@ void vApplicationDaemonTaskStartupHook( void )
 							   appmainTEST_TASK_PRIORITY,
 							   NULL );
 	}
+#endif
 }
 
 static bool _wifiConnectAccessPoint( void )

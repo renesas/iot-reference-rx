@@ -40,7 +40,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "aws_clientcredential.h"
 #include "mqtt_agent_task.h"
 
-//#include "mqtt_agent_task.h"
+#include "test_execution_config.h"
+
 extern void UserInitialization(void);
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.
@@ -184,6 +185,7 @@ extern void vSubscribePublishTestTask( void * pvParameters );
 
 extern void vOTAUpdateTask( void * pvParam );
 
+
 int RunDeviceAdvisorDemo( void )
 {
     BaseType_t xResult = pdFAIL;
@@ -201,6 +203,10 @@ int RunDeviceAdvisorDemo( void )
 
     }
     return ( xResult == pdPASS ) ? 0 : -1;
+}
+int RunOtaE2eDemo( void )
+{
+	vStartOtaDemo();
 }
 /**
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
@@ -256,7 +262,11 @@ void vApplicationDaemonTaskStartupHook( void )
 	}
 
 	FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+#if OTA_E2E_TEST_ENABLED
 
+	RunOtaE2eDemo();
+
+#else
 	if( xResult == pdPASS )
 	{
 		xResult = xTaskCreate( prvQualificationTestTask,
@@ -266,6 +276,7 @@ void vApplicationDaemonTaskStartupHook( void )
 							   appmainTEST_TASK_PRIORITY,
 							   NULL );
 	}
+#endif
 }
 
 /*-----------------------------------------------------------*/
