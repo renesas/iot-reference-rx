@@ -182,6 +182,30 @@ void vApplicationDaemonTaskStartupHook( void );
  */
 static void prvMiscInitialization( void );
 /*-----------------------------------------------------------*/
+extern void prvQualificationTestTask( void * pvParameters );
+
+extern void vSubscribePublishTestTask( void * pvParameters );
+
+extern void vOTAUpdateTask( void * pvParam );
+
+int RunDeviceAdvisorDemo( void )
+{
+    BaseType_t xResult = pdFAIL;
+
+	xResult = xMQTTAgentInit( appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY );
+
+    if( xResult == pdPASS )
+    {
+        xResult = xTaskCreate( vSubscribePublishTestTask,
+                               "TEST",
+                               appmainTEST_TASK_STACK_SIZE,
+                               NULL,
+                               appmainTEST_TASK_PRIORITY,
+                               NULL );
+
+    }
+    return ( xResult == pdPASS ) ? 0 : -1;
+}
 
 /**
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
@@ -201,8 +225,6 @@ static void prvMiscInitialization( void )
     /* Initialize UART for serial terminal. */
     uart_config();
 
-//    UserInitialization();
-
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY,
@@ -218,42 +240,15 @@ void vApplicationDaemonTaskStartupHook( void )
 
 	vDevModeKeyProvisioning();
 	_wifiEnable();
-
-#if ( appmainRUN_QUALIFICATION_TEST_SUITE == 1 )
-    {
-        if( xResult == pdPASS )
-        {
-            xResult = xTaskCreate( prvQualificationTestTask,
-                                   "TEST",
-                                   appmainTEST_TASK_STACK_SIZE,
-                                   NULL,
-                                   appmainTEST_TASK_PRIORITY,
-                                   NULL );
-        }
-    }
-#endif /* if ( appmainRUN_QUALIFICATION_TEST_SUITE == 1 ) */
-
-
-
-#if ( appmainRUN_DEVICE_ADVISOR_TEST_SUITE == 1 )
-    {
-        if( xResult == pdPASS )
-        {
-            xResult = xMQTTAgentInit( appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY );
-        }
-
-        if( xResult == pdPASS )
-        {
-            xResult = xTaskCreate( vSubscribePublishTestTask,
-                                   "TEST",
-                                   appmainTEST_TASK_STACK_SIZE,
-                                   NULL,
-                                   appmainTEST_TASK_PRIORITY,
-                                   NULL );
-        }
-    }
-#endif /* if ( appmainRUN_DEVICE_ADVISOR_TEST_SUITE == 1 ) */
-
+	if( xResult == pdPASS )
+	{
+		xResult = xTaskCreate( prvQualificationTestTask,
+							   "TEST",
+							   appmainTEST_TASK_STACK_SIZE,
+							   NULL,
+							   appmainTEST_TASK_PRIORITY,
+							   NULL );
+	}
 }
 
 static bool _wifiConnectAccessPoint( void )
