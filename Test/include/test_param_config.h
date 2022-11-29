@@ -43,12 +43,14 @@
  *
  * #define MQTT_SERVER_ENDPOINT   "PLACE_HOLDER"
  */
+#define MQTT_SERVER_ENDPOINT   "PLACE_HOLDER"
 
 /**
  * @brief Port of the MQTT broker to connect to in mqtt test.
  *
  * #define MQTT_SERVER_PORT       (8883)
  */
+#define MQTT_SERVER_PORT        ( 8883 )
 
 /**
  * @brief Endpoint of the echo server to connect to in transport interface test.
@@ -76,9 +78,10 @@
  *
  * #define ECHO_SERVER_ROOT_CA "PLACE_HOLDER"
  */
-static const char ECHO_SERVER_ROOT_CA[] = "";
+#define ECHO_SERVER_ROOT_CA "PLACE_HOLDER"
 
-/**
+
+	/**
  * @brief Client certificate to connect to echo server.
  *
  * @note This certificate should be PEM-encoded.
@@ -90,15 +93,54 @@ static const char ECHO_SERVER_ROOT_CA[] = "";
  *
  * #define TRANSPORT_CLIENT_CERTIFICATE NULL
  */
+#define TRANSPORT_CLIENT_CERTIFICATE "PLACE_HOLDER"
 
-#define MQTT_SERVER_ENDPOINT    "PLACE_HOLDER"
-
+/**
+ * @brief Client private key to connect to echo server.
+ *
+ * @note This is should only be used for testing purpose.
+ *
+ * For qualification, the key should be generated on-device.
+ *
+ * #define TRANSPORT_CLIENT_PRIVATE_KEY  NULL
 /**
  * @brief Port of the MQTT broker to connect to in mqtt test.
  *
  * #define MQTT_SERVER_PORT       (8883)
  */
-#define MQTT_SERVER_PORT        ( 8883 )
+#define TRANSPORT_CLIENT_PRIVATE_KEY  "PLACE_HOLDER"
+
+	/**
+ * @brief Client certificate to connect to MQTT server.
+ *
+ * @note This certificate should be PEM-encoded.
+ *
+ * Must include the PEM header and footer:
+ * "-----BEGIN CERTIFICATE-----\n"\
+ * "...base64 data...\n"\
+ * "-----END CERTIFICATE-----\n"
+ *
+ * #define MQTT_CLIENT_CERTIFICATE NULL
+ */
+#define MQTT_CLIENT_CERTIFICATE "PLACE_HOLDER"
+
+	/**
+ * @brief Client private key to connect to MQTT server.
+	 *
+	 * @note This is should only be used for testing purpose.
+	 *
+	 * For qualification, the key should be generated on-device.
+	 *
+	 * #define MQTT_CLIENT_PRIVATE_KEY  NULL
+	 */
+#define MQTT_CLIENT_PRIVATE_KEY  "PLACE_HOLDER"
+
+/**
+ * @brief The IoT Thing name for the device for OTA test and MQTT test.
+ *
+ * #define IOT_THING_NAME  "PLACE_HOLDER"
+ */
+#define IOT_THING_NAME                                   "PLACE_HOLDER"
 
 /**
  * @brief The MQTT client identifier used in MQTT test.  Each client identifier
@@ -107,7 +149,7 @@ static const char ECHO_SERVER_ROOT_CA[] = "";
  *
  * #define MQTT_TEST_CLIENT_IDENTIFIER				"insert here."
  */
-#define MQTT_TEST_CLIENT_IDENTIFIER				"insert here."
+#define MQTT_TEST_CLIENT_IDENTIFIER	IOT_THING_NAME
 
 /**
  * @brief Network buffer size specified in bytes. Must be large enough to hold the maximum
@@ -129,7 +171,7 @@ static const char ECHO_SERVER_ROOT_CA[] = "";
 #define PKCS11_TEST_RSA_KEY_SUPPORT                      ( 0 )
 #define PKCS11_TEST_EC_KEY_SUPPORT                       ( 1 )
 #define PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT           ( 1 )
-#define PKCS11_TEST_GENERATE_KEYPAIR_SUPPORT             ( 1 )
+#define PKCS11_TEST_GENERATE_KEYPAIR_SUPPORT             ( 0 )
 #define PKCS11_TEST_PREPROVISIONED_SUPPORT               ( 0 )
 #define PKCS11_TEST_LABEL_DEVICE_PRIVATE_KEY_FOR_TLS     pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS
 #define PKCS11_TEST_LABEL_DEVICE_PUBLIC_KEY_FOR_TLS      pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS
@@ -167,12 +209,7 @@ static const char ECHO_SERVER_ROOT_CA[] = "";
  */
 #define OTA_PAL_USE_FILE_SYSTEM                          0
 
-/**
- * @brief The IoT Thing name for the device for OTA test and MQTT test.
- *
- * #define IOT_THING_NAME  "PLACE_HOLDER"
- */
-#define IOT_THING_NAME                                   "PLACE_HOLDER"
+
 
 /**
  * @brief 1 if using PKCS #11 to access the code sign certificate from NVM.
