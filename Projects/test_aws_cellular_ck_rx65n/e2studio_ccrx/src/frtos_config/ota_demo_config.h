@@ -27,6 +27,7 @@
 
 #ifndef OTA_DEMO_CONFIG_H_
 #define OTA_DEMO_CONFIG_H_
+#include "test_param_config.h"
 
 /**
  * @brief Certificate used for validating code signing signatures in the OTA PAL.
@@ -36,7 +37,7 @@
     #include "aws_test_ota_pal_ecdsa_sha256_signature.h"
 	#define otapalconfigCODE_SIGNING_CERTIFICATE OTA_PAL_CODE_SIGNING_CERTIFICATE
 #else
-	#define otapalconfigCODE_SIGNING_CERTIFICATE    "Insert code signing certificate..."
+	#define otapalconfigCODE_SIGNING_CERTIFICATE    OTA_PAL_CERTIFICATE_FILE
 #endif
 
 /**
@@ -46,7 +47,7 @@
  * declared in the ota_appversion32.h file in the OTA library.
  */
 #ifndef APP_VERSION_MAJOR
-    #define APP_VERSION_MAJOR    0
+    #define APP_VERSION_MAJOR    OTA_APP_VERSION_MAJOR
 #endif
 
 /**
@@ -56,7 +57,7 @@
  * declared in the ota_appversion32.h file in the OTA library.
  */
 #ifndef APP_VERSION_MINOR
-    #define APP_VERSION_MINOR    9
+    #define APP_VERSION_MINOR    OTA_APP_VERSION_MINOR
 #endif
 
 /**
@@ -66,7 +67,7 @@
  * declared in the ota_appversion32.h file in the OTA library.
  */
 #ifndef APP_VERSION_BUILD
-    #define APP_VERSION_BUILD    2
+    #define APP_VERSION_BUILD    OTA_APP_VERSION_BUILD
 #endif
 
 /**
