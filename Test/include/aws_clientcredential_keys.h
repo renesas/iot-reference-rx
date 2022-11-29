@@ -91,7 +91,7 @@
 	 * "...base64 data...\n"\
 	 * "-----END RSA PRIVATE KEY-----\n"
 	 */
-	#define keyCLIENT_PRIVATE_KEY_PEM                   TRANSPORT_CLIENT_CERTIFICATE
+	#define keyCLIENT_PRIVATE_KEY_PEM                   TRANSPORT_CLIENT_PRIVATE_KEY
 #elif (CORE_PKCS11_TEST_ENABLED)
 
 	/*
