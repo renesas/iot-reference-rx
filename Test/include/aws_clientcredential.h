@@ -48,7 +48,7 @@
 /*
  * @brief Port number the MQTT broker is using.
  */
-#define clientcredentialMQTT_BROKER_PORT             8883
+#define clientcredentialMQTT_BROKER_PORT             MQTT_SERVER_PORT
 
 /*
  * @brief Port number the Green Grass Discovery use for JSON retrieval from cloud is using.
