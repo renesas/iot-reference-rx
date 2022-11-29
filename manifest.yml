@@ -1,44 +1,44 @@
 name : "Renesas Reference Integration"
-version: "v202210.00"
+version: "v202210.01"
 description: |-
   "Reference IoT integration project using CK-RX65N and FreeRTOS LTS libraries"
 dependencies:
   - name: "FreeRTOS-Kernel"
-    version: "V10.5.0"
+    version: "V10.5.1"
     repository:
       type: "git"
       url: "https://github.com/FreeRTOS/FreeRTOS-Kernel.git"
-      path: "/Middleware/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Kernel"
+      path: "/Middleware/FreeRTOS/FreeRTOS-Kernel"
   - name: "FreeRTOS-Plus-TCP"
     version: "V3.1.0"
     repository:
       type: "git"
       url: "https://github.com/FreeRTOS/FreeRTOS-Plus-TCP.git"
-      path: "/Middleware/FreeRTOS-LTS/FreeRTOS/FreeRTOS-Plus-TCP"
+      path: "/Middleware/FreeRTOS/FreeRTOS-Plus-TCP"
   - name: "coreJSON"
     version: "v3.2.0"
     repository:
       type: "git"
       url: "https://github.com/FreeRTOS/coreJSON.git"
-      path: "/Middleware/FreeRTOS-LTS/FreeRTOS/coreJSON"
+      path: "/Middleware/FreeRTOS/coreJSON"
   - name: "coreMQTT"
-    version: "v2.1.0"
+    version: "v2.1.1"
     repository:
       type: "git"
       url: "https://github.com/FreeRTOS/coreMQTT.git"
-      path: "/Middleware/FreeRTOS-LTS/FreeRTOS/coreMQTT"
+      path: "/Middleware/FreeRTOS/coreMQTT"
   - name: "corePKCS11"
     version: "v3.5.0"
     repository:
       type: "git"
       url: "https://github.com/FreeRTOS/corePKCS11.git"
-      path: "/Middleware/FreeRTOS-LTS/FreeRTOS/corePKCS11"
+      path: "/Middleware/FreeRTOS/corePKCS11"
   - name: "backoffAlgorithm"
     version: "v1.3.0"
     repository:
       type: "git"
       url: "https://github.com/FreeRTOS/backoffAlgorithm"
-      path: "/Middleware/FreeRTOS-LTS/FreeRTOS/backoffAlgorithm"
+      path: "/Middleware/FreeRTOS/backoffAlgorithm"
   - name: "coreMQTT-Agent"
     version: "v1.2.0"
     repository:
@@ -50,19 +50,19 @@ dependencies:
     repository:
       type: "git"
       url: "https://github.com/aws/Device-Defender-for-AWS-IoT-embedded-sdk.git"
-      path: "/Middleware/FreeRTOS-LTS/aws/device-defender-for-aws-iot-embedded-sdk"
+      path: "/Middleware/AWS/device-defender-for-aws-iot-embedded-sdk"
   - name: "ota"
     version: "v3.4.0"
     repository:
       type: "git"
       url: "https://github.com/aws/ota-for-AWS-IoT-embedded-sdk.git"
-      path: "/Middleware/FreeRTOS-LTS/aws/ota-for-aws-iot-embedded-sdk"
+      path: "/Middleware/AWS/ota-for-aws-iot-embedded-sdk"
   - name: "device-shadow"
     version: "v1.3.0"
     repository:
       type: "git"
       url: "https://github.com/aws/Device-Shadow-for-AWS-IoT-embedded-sdk.git"
-      path: "/Middleware/FreeRTOS-LTS/aws/device-shadow-for-aws-iot-embedded-sdk"
+      path: "/Middleware/AWS/device-shadow-for-aws-iot-embedded-sdk"
   - name: "mbedtls"
     version: "v2.28.1"
     repository:
@@ -74,12 +74,12 @@ dependencies:
     repository:
       type: "git"
       url: "https://github.com/ThrowTheSwitch/Unity.git"
-      path: "/test/unity"
+      path: "/Test/Unity"
   - name: "FreeRTOS-Libraries-Integration-Tests"
     version: "202210.00"
     repository:
       type: "git"
       url: "https://github.com/FreeRTOS/FreeRTOS-Libraries-Integration-Tests"
-      path: "/test/freertos_lib_integration"
+      path: "/Test/FreeRTOS-Libraries-Integration-Tests"
 
 license: "MIT"

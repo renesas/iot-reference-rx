@@ -199,9 +199,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 {
 	int32_t lStatus = TCP_SOCKETS_ERRNO_NONE;
 	e_cellular_err_t ret;
-
     freertos_sockaddr_t serverAddress = { 0 };
-
     pxContext = pvPortMalloc( sizeof( cellularSocketWrapper_t ) ) ;
     memset( pxContext, 0, sizeof( cellularSocketWrapper_t ) );
 //    xSemaphoreTake( xUcInUse, xMaxSemaphoreBlockTime);
@@ -313,21 +311,11 @@ static uint32_t SOCKETS_GetHostByName( const char * pcHostName )
 void TCP_Sockets_Disconnect( Socket_t tcpSocket )
 {
 	xSOCKETContextPtr_t pxContext = ( xSOCKETContextPtr_t ) tcpSocket; /*lint !e9087 cast used for portability. */
-
-	e_cellular_err_t cellular_ret;
-
+	e_cellular_err_t cellular_ret = CELLULAR_SUCCESS;
 	cellular_ret = R_CELLULAR_ShutdownSocket(&cellular_ctrl, pxContext->socket_no);
-	if( ( NULL != pxContext ) && ( SOCKETS_INVALID_SOCKET != pxContext ) )
-	{
 
-		R_CELLULAR_CloseSocket(&cellular_ctrl, pxContext->socket_no);
-		vPortFree( pxContext );
+	cellular_ret = R_CELLULAR_CloseSocket(&cellular_ctrl, pxContext->socket_no);
 
-	}
-	else
-	{
-		return TCP_SOCKETS_ERRNO_EINVAL;
-	}
-
-	return pdFREERTOS_ERRNO_NONE;
+	vPortFree( pxContext );
+	return cellular_ret;
 }
