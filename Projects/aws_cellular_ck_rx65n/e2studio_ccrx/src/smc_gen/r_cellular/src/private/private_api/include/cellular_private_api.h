@@ -143,7 +143,7 @@
 #error "The SCI receive buffer size is too small."
 #endif
 #if BSP_CFG_RTOS_USED == (1)
-#if CELLULAR_CFG_INT_PRIORITY > configMAX_SYSCALL_INTERRUPT_PRIORITY
+#if CELLULAR_CFG_SCI_PRIORITY > configMAX_SYSCALL_INTERRUPT_PRIORITY
 #error "SCI interrupt priority is outside the control of the FreeRTOS."
 #endif
 #endif
@@ -322,6 +322,18 @@ void cellular_irq_close (st_cellular_ctrl_t * const p_ctrl);
  ******************************************************************************/
 void cellular_rts_ctrl (const uint8_t lowhigh);
 
+/*******************************************************************************
+ * Function Name  @fn            cellular_rts_hw_flow_enable
+ * Description    @details       Enable hardware flow.
+ ******************************************************************************/
+void cellular_rts_hw_flow_enable (void);
+
+/*******************************************************************************
+ * Function Name  @fn            cellular_rts_hw_flow_disable
+ * Description    @details       Disable hardware flow.
+ ******************************************************************************/
+void cellular_rts_hw_flow_disable (void);
+
 /***********************************************************************************************
  * Function Name  @fn            cellular_recv_task
  * Description    @details       Process incoming data from the module.
@@ -429,8 +441,8 @@ e_cellular_atc_return_t cellular_get_atc_response (st_cellular_ctrl_t * const p_
  *                                  Time out.
  ************************************************************************************/
 e_cellular_err_t cellular_execute_at_command (st_cellular_ctrl_t * const p_ctrl, const uint32_t timeout_ms,
-                                                const e_cellular_atc_return_t expect_code,
-                                                const e_atc_list_t command);
+                                                        const e_cellular_atc_return_t expect_code,
+                                                                const e_atc_list_t command);
 
 /****************************************************************************************
  * Function Name  @fn            cellular_smcwrx
@@ -464,5 +476,15 @@ e_cellular_err_t cellular_smcwrx (st_cellular_ctrl_t * const p_ctrl, const uint1
  *************************************************************************************************************/
 e_cellular_err_t cellular_smcwtx (st_cellular_ctrl_t * const p_ctrl, const uint8_t enable,
                                     const uint16_t earfcn, const int32_t level);
+
+/**************************************************************************************************************
+ * Function Name  @fn            cellular_getpdpaddr
+ * Description    @details       Stores the obtained PDP address in the structure.
+ * Arguments      @param[in/out] p_ctrl -
+ *                                  Pointer to managed structure.
+ *                @param[in/out] p_addr -
+ *                                  Pointer to structure to store address.
+ *************************************************************************************************************/
+void cellular_getpdpaddr (st_cellular_ctrl_t * const p_ctrl, st_cellular_ipaddr_t * const p_addr);
 
 #endif /* CELLULAR_PRIVATE_API_H */

@@ -78,46 +78,53 @@ static uint32_t cellular_recv_size_check (st_cellular_ctrl_t * const p_ctrl,
 int32_t R_CELLULAR_ReceiveSocket(st_cellular_ctrl_t * const p_ctrl, const uint8_t socket_no,
                         uint8_t * const p_data, const int32_t length, const uint32_t timeout_ms)
 {
+    uint32_t preemption = 0;
     int32_t total_receive_length = 0;
     e_cellular_err_t ret = CELLULAR_SUCCESS;
     e_cellular_err_semaphore_t semaphore_ret = CELLULAR_SEMAPHORE_SUCCESS;
 
+    preemption = cellular_interrupt_disable();
     if ((NULL == p_data) || (0 >= length) || (NULL == p_ctrl))
     {
         ret = CELLULAR_ERR_PARAMETER;
     }
     else
     {
-        if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
+        if (0 != (p_ctrl->running_api_count % 2))
+        {
+            ret = CELLULAR_ERR_OTHER_API_RUNNING;
+        }
+        else if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
         {
             ret = CELLULAR_ERR_NOT_OPEN;
         }
         else if (CELLULAR_SYSTEM_OPEN == p_ctrl->system_state)
         {
-            ret =  CELLULAR_ERR_NOT_CONNECT;
+            ret = CELLULAR_ERR_NOT_CONNECT;
         }
         else
         {
             R_BSP_NOP();
         }
-    }
 
-    if (CELLULAR_SUCCESS == ret)
-    {
-        if ((CELLULAR_START_SOCKET_NUMBER > socket_no) || (p_ctrl->creatable_socket < socket_no))
+        if (CELLULAR_SUCCESS == ret)
         {
-            ret = CELLULAR_ERR_PARAMETER;
+            if ((CELLULAR_START_SOCKET_NUMBER > socket_no) || (p_ctrl->creatable_socket < socket_no))
+            {
+                ret = CELLULAR_ERR_PARAMETER;
+            }
+            else if (CELLULAR_SOCKET_STATUS_CONNECTED !=
+                        p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].socket_status)
+            {
+                ret = CELLULAR_ERR_SOCKET_NOT_READY;
+            }
+            else
+            {
+                p_ctrl->running_api_count += 2;
+            }
         }
     }
-
-    if (CELLULAR_SUCCESS == ret)
-    {
-        if ((CELLULAR_SOCKET_STATUS_CONNECTED !=
-                p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].socket_status))
-        {
-            ret = CELLULAR_ERR_SOCKET_NOT_READY;
-        }
-    }
+    cellular_interrupt_enable(preemption);
 
     if (CELLULAR_SUCCESS == ret)
     {
@@ -125,14 +132,15 @@ int32_t R_CELLULAR_ReceiveSocket(st_cellular_ctrl_t * const p_ctrl, const uint8_
                                                     - CELLULAR_START_SOCKET_NUMBER].rx_semaphore);
         if (CELLULAR_SEMAPHORE_SUCCESS != semaphore_ret)
         {
-            ret = CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING;
+            total_receive_length = CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING;
         }
-    }
+        else
+        {
+            total_receive_length = cellular_receive_data(p_ctrl, socket_no, p_data, length, timeout_ms);
+            cellular_give_semaphore(p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].rx_semaphore);
+        }
 
-    if (CELLULAR_SUCCESS == ret)
-    {
-        total_receive_length = cellular_receive_data(p_ctrl, socket_no, p_data, length, timeout_ms);
-        cellular_give_semaphore(p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].rx_semaphore);
+        p_ctrl->running_api_count -= 2;
     }
     else
     {
@@ -194,7 +202,11 @@ static int32_t cellular_receive_data(st_cellular_ctrl_t * const p_ctrl, const ui
             }
             cellular_delay_task(1);
         }
+#if CELLULAR_CFG_CTS_SW_CTRL == 1
+        cellular_rts_hw_flow_enable();
+#else
         cellular_rts_ctrl(0);
+#endif
     }
 
     /* Data receive loop */
@@ -240,6 +252,9 @@ static int32_t cellular_receive_data(st_cellular_ctrl_t * const p_ctrl, const ui
     if (CELLULAR_PSM_ACTIVE == p_ctrl->ring_ctrl.psm)
     {
         cellular_give_semaphore(p_ctrl->ring_ctrl.rts_semaphore);
+#if CELLULAR_CFG_CTS_SW_CTRL == 1
+        cellular_rts_hw_flow_disable();
+#endif
         cellular_rts_ctrl(1);
     }
 
@@ -253,6 +268,9 @@ cellular_receive_data_fail:
         if (CELLULAR_PSM_ACTIVE == p_ctrl->ring_ctrl.psm)
         {
             cellular_give_semaphore(p_ctrl->ring_ctrl.rts_semaphore);
+#if CELLULAR_CFG_CTS_SW_CTRL == 1
+            cellular_rts_hw_flow_disable();
+#endif
             cellular_rts_ctrl(1);
         }
 

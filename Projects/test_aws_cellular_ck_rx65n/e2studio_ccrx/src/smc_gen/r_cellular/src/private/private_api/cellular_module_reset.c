@@ -81,8 +81,8 @@ e_cellular_err_t cellular_module_reset(st_cellular_ctrl_t * const p_ctrl)
         cellular_rts_ctrl(0);
     }
 
-    CELLULAR_SET_DR(CELLULAR_CFG_RESET_PORT, CELLULAR_CFG_RESET_PIN) = CELLULAR_CFG_RESET_SIGNAL_ON;
-    CELLULAR_SET_DDR(CELLULAR_CFG_RESET_PORT, CELLULAR_CFG_RESET_PIN) = CELLULAR_PIN_DIRECTION_MODE_OUTPUT;
+    CELLULAR_SET_PODR(CELLULAR_CFG_RESET_PORT, CELLULAR_CFG_RESET_PIN) = CELLULAR_CFG_RESET_SIGNAL_ON;
+    CELLULAR_SET_PDR(CELLULAR_CFG_RESET_PORT, CELLULAR_CFG_RESET_PIN) = CELLULAR_PIN_DIRECTION_MODE_OUTPUT;
 
     p_ctrl->system_state = CELLULAR_SYSTEM_OPEN;
     p_ctrl->module_status = CELLULAR_MODULE_OPERATING_RESET;
@@ -93,7 +93,7 @@ e_cellular_err_t cellular_module_reset(st_cellular_ctrl_t * const p_ctrl)
         cellular_delay_task(1); /* hold reset signal time for cellular module */
     } while ((count < CELLULAR_RESTART_LIMIT) && (CELLULAR_MODULE_OPERATING_LEVEL0 != p_ctrl->module_status));
 
-    CELLULAR_SET_DR(CELLULAR_CFG_RESET_PORT, CELLULAR_CFG_RESET_PIN) = CELLULAR_CFG_RESET_SIGNAL_OFF;
+    CELLULAR_SET_PODR(CELLULAR_CFG_RESET_PORT, CELLULAR_CFG_RESET_PIN) = CELLULAR_CFG_RESET_SIGNAL_OFF;
     cellular_delay_task(2000); /* wait wake up time for cellular module initialization */
 
     do

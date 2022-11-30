@@ -737,10 +737,10 @@
             <Path>src\smc_gen\r_cellular\r_cellular_if.h</Path>
             <Category Name="doc">
               <Category Name="en">
-                <Path>src\smc_gen\r_cellular\doc\en\r01an6324ej0108-rx-ryz014a-cellular.pdf</Path>
+                <Path>src\smc_gen\r_cellular\doc\en\r01an6324ej0109-rx-ryz014a-cellular.pdf</Path>
               </Category>
               <Category Name="ja">
-                <Path>src\smc_gen\r_cellular\doc\ja\r01an6324jj0108-rx-ryz014a-cellular.pdf</Path>
+                <Path>src\smc_gen\r_cellular\doc\ja\r01an6324jj0109-rx-ryz014a-cellular.pdf</Path>
               </Category>
             </Category>
             <Category Name="src">
@@ -756,6 +756,7 @@
                 <Path>src\smc_gen\r_cellular\src\RTOS\cellular_get_event_flg.c</Path>
                 <Path>src\smc_gen\r_cellular\src\RTOS\cellular_get_tickcount.c</Path>
                 <Path>src\smc_gen\r_cellular\src\RTOS\cellular_give_semaphore.c</Path>
+                <Path>src\smc_gen\r_cellular\src\RTOS\cellular_interrupt_ctrl.c</Path>
                 <Path>src\smc_gen\r_cellular\src\RTOS\cellular_malloc.c</Path>
                 <Path>src\smc_gen\r_cellular\src\RTOS\cellular_set_event_flg.c</Path>
                 <Path>src\smc_gen\r_cellular\src\RTOS\cellular_synchro_event_group.c</Path>
@@ -775,7 +776,6 @@
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_configsslprofile.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_configsslsocket.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_connectsocket.c</Path>
-                <Path>src\smc_gen\r_cellular\src\api\r_cellular_connectsockettohost.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_createsocket.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_disconnect.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_dnsquery.c</Path>
@@ -822,6 +822,7 @@
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cgmm.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cgmr.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cgpaddr.c</Path>
+                  <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cgpiaf.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cgsn.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cimi.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cmer.c</Path>
@@ -879,6 +880,7 @@
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_closesocket.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_disconnect.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_execute_at_cmd.c</Path>
+                  <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_getpdpaddr.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_irq_ctrl.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_module_reset.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_power_down.c</Path>
@@ -1036,74 +1038,75 @@
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
           <Option>-branch=32</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_irq_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_startup"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
-          <Option>-include="C:\work\commit\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
-          <Option>-include="C:\work\commit\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
-          <Option>-include="C:\work\commit\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
-          <Option>-include="C:\work\commit\Demos\mqtt_agent"</Option>
-          <Option>-include="C:\work\commit\Demos\OtaOverMqtt"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\coreJSON\source\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\freertos_plus\standard\crypto\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\logging\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\pkcs11\published\2-40-errata-1"</Option>
-          <Option>-include="C:\work\commit\Middleware\3rdparty\mbedtls\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
-          <Option>-include="C:\work\commit\Middleware\3rdparty\mbedtls\library"</Option>
-          <Option>-include="C:\work\commit\Middleware\3rdparty\mbedtls_utils"</Option>
-          <Option>-include="C:\work\commit\Middleware\3rdparty\mbedtls_config"</Option>
-          <Option>-include="C:\work\commit\Common\FreeRTOS_common"</Option>
-          <Option>-include="C:\work\commit\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
-          <Option>-include="C:\work\commit\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
-          <Option>-include="C:\work\commit\Demos\common\pkcs11_helpers"</Option>
-          <Option>-include="C:\work\commit\Demos\dev_mode_key_provisioning\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\3rdparty\tinycbor\src"</Option>
-          <Option>-include="C:\work\commit\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
-          <Option>-include="C:\work\commit\Demos\common\mqtt-agent-interface\include"</Option>
-          <Option>-include="C:\work\commit\Demos\common\mqtt-agent-interface"</Option>
-          <Option>-include="C:\work\commit\Common\ports\ota_pal"</Option>
-          <Option>-include="C:\work\commit\Demos\include"</Option>
-          <Option>-include="C:\work\commit\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_startup"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\mqtt_agent"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\OtaOverMqtt"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreJSON\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\freertos_plus\standard\crypto\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\logging\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\pkcs11\published\2-40-errata-1"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\library"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls_utils"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls_config"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\pkcs11_helpers"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\dev_mode_key_provisioning\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\tinycbor\src"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Common\ports\ota_pal"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
           <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,MBEDTLS_ALLOW_PRIVATE_ACCESS</Option>
           <Option>-utf8</Option>
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
           <Option>-debug</Option>
           <Option>-outcode=utf8</Option>
+          <Option>-optimize=0</Option>
           <Option>-goptimize</Option>
           <Option>-nologo</Option>
           <Option>-lang=c99</Option>
@@ -1114,31 +1117,31 @@
         <AssembleOptions>
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_irq_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
           <Option>-utf8</Option>
           <Option>-debug</Option>
           <Option>-goptimize</Option>
@@ -1383,6 +1386,7 @@
           <Path>HardwareDebug\cellular_get_event_flg.obj</Path>
           <Path>HardwareDebug\cellular_get_tickcount.obj</Path>
           <Path>HardwareDebug\cellular_give_semaphore.obj</Path>
+          <Path>HardwareDebug\cellular_interrupt_ctrl.obj</Path>
           <Path>HardwareDebug\cellular_malloc.obj</Path>
           <Path>HardwareDebug\cellular_set_event_flg.obj</Path>
           <Path>HardwareDebug\cellular_synchro_event_group.obj</Path>
@@ -1394,7 +1398,6 @@
           <Path>HardwareDebug\r_cellular_configsslprofile.obj</Path>
           <Path>HardwareDebug\r_cellular_configsslsocket.obj</Path>
           <Path>HardwareDebug\r_cellular_connectsocket.obj</Path>
-          <Path>HardwareDebug\r_cellular_connectsockettohost.obj</Path>
           <Path>HardwareDebug\r_cellular_createsocket.obj</Path>
           <Path>HardwareDebug\r_cellular_disconnect.obj</Path>
           <Path>HardwareDebug\r_cellular_dnsquery.obj</Path>
@@ -1438,6 +1441,7 @@
           <Path>HardwareDebug\cgmm.obj</Path>
           <Path>HardwareDebug\cgmr.obj</Path>
           <Path>HardwareDebug\cgpaddr.obj</Path>
+          <Path>HardwareDebug\cgpiaf.obj</Path>
           <Path>HardwareDebug\cgsn.obj</Path>
           <Path>HardwareDebug\cimi.obj</Path>
           <Path>HardwareDebug\cmer.obj</Path>
@@ -1478,6 +1482,7 @@
           <Path>HardwareDebug\cellular_closesocket.obj</Path>
           <Path>HardwareDebug\cellular_disconnect.obj</Path>
           <Path>HardwareDebug\cellular_execute_at_cmd.obj</Path>
+          <Path>HardwareDebug\cellular_getpdpaddr.obj</Path>
           <Path>HardwareDebug\cellular_irq_ctrl.obj</Path>
           <Path>HardwareDebug\cellular_module_reset.obj</Path>
           <Path>HardwareDebug\cellular_power_down.obj</Path>
@@ -1495,94 +1500,94 @@
           <Path>HardwareDebug\aws_cellular_ck_rx65n.lib</Path>
         </LinkOrder>
         <CommonOptions>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\general"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_startup"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Demos\mqtt_agent"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Demos\OtaOverMqtt"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\logging\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Common\FreeRTOS_common"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Demos\common\pkcs11_helpers"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Demos\dev_mode_key_provisioning\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Demos\common\mqtt-agent-interface"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Common\ports\ota_pal"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Demos\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\commit\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForAsm>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_startup"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\mqtt_agent"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\OtaOverMqtt"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\logging\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\pkcs11_helpers"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\dev_mode_key_provisioning\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Common\ports\ota_pal"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForAsm>
           <MacroForC>MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;"</MacroForC>
           <MacroForC>CONFIG_MEDTLS_USE_AFR_MEMORY</MacroForC>
           <MacroForC>MBEDTLS_CMAC_C</MacroForC>

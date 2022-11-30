@@ -17,16 +17,16 @@
  * Copyright (C) 2022 Renesas Electronics Corporation. All rights reserved.
  *********************************************************************************************************************/
 /**********************************************************************************************************************
- * File Name    : r_cellular_connectsocket.c
- * Description  : Function to implement socket connection using host name..
+ * File Name    : cellular_getpdpaddr.c
+ * Description  : Function to obtain a PDP address.
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
  * Includes   <System Includes> , "Project Includes"
  *********************************************************************************************************************/
 #include "cellular_private_api.h"
-#include "cellular_freertos.h"
 #include "at_command.h"
+#include "cellular_freertos.h"
 
 /**********************************************************************************************************************
  * Macro definitions
@@ -45,98 +45,37 @@
  *********************************************************************************************************************/
 
 /************************************************************************
- * Function Name  @fn            R_CELLULAR_ConnectSocketToHost
+ * Function Name  @fn            cellular_getpdpaddr
  ***********************************************************************/
-e_cellular_err_t R_CELLULAR_ConnectSocketToHost(st_cellular_ctrl_t * const p_ctrl, const uint8_t socket_no,
-                                            const uint8_t * p_hostname, const uint16_t port)
+void cellular_getpdpaddr(st_cellular_ctrl_t * const p_ctrl, st_cellular_ipaddr_t * const p_addr)
 {
-    e_cellular_err_t ret = CELLULAR_SUCCESS;
-    e_cellular_err_semaphore_t semaphore_ret = CELLULAR_SEMAPHORE_SUCCESS;
+    uint32_t dns[4] = {0};
+    uint8_t * p_add = NULL;
 
-    if ((NULL == p_ctrl) || (NULL == p_hostname) || (0 == port))
+    p_add = (uint8_t *)strstr((char *)p_ctrl->recv_data, "\"");  //(uint8_t *)<->(char *)
+    if (NULL != p_add)
     {
-        ret = CELLULAR_ERR_PARAMETER;
-    }
-    if (CELLULAR_SUCCESS == ret)
-    {
-        if (0 == strlen((const char *)p_hostname))  //(const uint8_t *) -> (const char *)
-        {
-            ret = CELLULAR_ERR_PARAMETER;
-        }
-        else if (CELLULAR_MAX_HOSTNAME_LENGTH < strlen((const char *)p_hostname))  //(const uint8_t *) -> (const char *)
-        {
-            ret = CELLULAR_ERR_PARAMETER;
-        }
-        else
-        {
-            R_BSP_NOP();
-        }
-    }
-    if (CELLULAR_SUCCESS == ret)
-    {
-        if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
-        {
-            ret = CELLULAR_ERR_NOT_OPEN;
-        }
-        else if (CELLULAR_SYSTEM_OPEN == p_ctrl->system_state)
-        {
-            ret =  CELLULAR_ERR_NOT_CONNECT;
-        }
-        else
-        {
-            R_BSP_NOP();
-        }
+        sscanf((char *)p_add + 1,       //(uint8_t *)->(char *)
+                "%ld.%ld.%ld.%ld",
+                &dns[0], &dns[1], &dns[2], &dns[3]);
+
+        sprintf((char *)p_addr->ipv4,   //(uint8_t *)->(char *)
+                "%ld.%ld.%ld.%ld",
+                dns[0], dns[1], dns[2], dns[3]);
+
+        p_add = (uint8_t *)strstr((char *)p_add + 1, "\"");  //(uint8_t *)<->(char *)
     }
 
-    if (CELLULAR_SUCCESS == ret)
+    if (NULL != p_add)
     {
-        if ((CELLULAR_START_SOCKET_NUMBER > socket_no) || (p_ctrl->creatable_socket < socket_no))
-        {
-            ret = CELLULAR_ERR_PARAMETER;
-        }
+        p_add = (uint8_t *)strstr((char *)p_add + 1, "\"");  //(uint8_t *)<->(char *)
     }
 
-    if (CELLULAR_SUCCESS == ret)
+    if (NULL != p_add)
     {
-        if (CELLULAR_SOCKET_STATUS_CLOSED ==
-                p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].socket_status)
-        {
-            ret = CELLULAR_ERR_SOCKET_NOT_READY;
-        }
-        else if (CELLULAR_SOCKET_STATUS_CONNECTED ==
-                p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].socket_status)
-        {
-            ret = CELLULAR_ERR_ALREADY_SOCKET_CONNECT;
-        }
-        else
-        {
-            R_BSP_NOP();
-        }
+        strncpy((char *)p_addr->ipv6, (char *)p_add + 1, CELLULAR_IPV6_ADDR_LENGTH);  //(uint8_t *)->(char *)
     }
-
-    if (CELLULAR_SUCCESS == ret)
-    {
-        semaphore_ret = cellular_take_semaphore(p_ctrl->at_semaphore);
-        if (CELLULAR_SEMAPHORE_SUCCESS == semaphore_ret)
-        {
-            ret = atc_sqnsd_host(p_ctrl, socket_no, p_hostname, port);
-            if (CELLULAR_SUCCESS == ret)
-            {
-                p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].socket_status
-                    = CELLULAR_SOCKET_STATUS_CONNECTED;
-                p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].ipaddr = 0;
-                p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].port   = port;
-            }
-            cellular_give_semaphore(p_ctrl->at_semaphore);
-        }
-        else
-        {
-            ret = CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING;
-        }
-    }
-
-    return ret;
 }
 /**********************************************************************************************************************
- * End of function R_CELLULAR_ConnectSocketToHost
+ * End of function cellular_getpdpaddr
  *********************************************************************************************************************/
