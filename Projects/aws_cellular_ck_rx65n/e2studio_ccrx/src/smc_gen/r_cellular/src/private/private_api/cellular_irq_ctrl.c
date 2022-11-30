@@ -146,7 +146,11 @@ void cellular_ring_task(ULONG p_pvParameters)
                                 CELLULAR_TIME_OUT_MAX_DELAY);
 
         cellular_timeout_init(p_timeout_ctrl, CELLULAR_CFG_RING_LINE_ACTIVE_TIME);
+#if CELLULAR_CFG_CTS_SW_CTRL == 1
+        cellular_rts_hw_flow_enable();
+#else
         cellular_rts_ctrl(0);
+#endif
 
         while (1)
         {
@@ -162,6 +166,9 @@ void cellular_ring_task(ULONG p_pvParameters)
             semaphore_ret = cellular_take_semaphore(p_ctrl->ring_ctrl.rts_semaphore);
             if (CELLULAR_SEMAPHORE_SUCCESS == semaphore_ret)
             {
+#if CELLULAR_CFG_CTS_SW_CTRL == 1
+                cellular_rts_hw_flow_disable();
+#endif
                 cellular_rts_ctrl(1);
                 cellular_give_semaphore(p_ctrl->ring_ctrl.rts_semaphore);
                 break;

@@ -59,6 +59,7 @@ e_cellular_err_t atc_reset(st_cellular_ctrl_t * const p_ctrl)
 
     if (CELLULAR_SUCCESS == ret)
     {
+        p_ctrl->system_state = CELLULAR_SYSTEM_OPEN;
         cellular_delay_task(CELLULAR_RESET_WAIT);
     }
 

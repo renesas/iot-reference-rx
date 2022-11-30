@@ -511,24 +511,15 @@
         <pinItem allocation="22" comments="" direction="None" id="EXTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="16" comments="" direction="None" id="FINED" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="13" comments="" direction="None" id="CTS6#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinnumItem comment="SENSOR-SDA" id="44"/>
         <pinnumItem comment="LED2_B" id="88"/>
-        <pinnumItem comment="SENSOR-SCL" id="45"/>
         <pinnumItem comment="SERIAL-CTS" id="89"/>
-        <pinnumItem comment="USB_DM" id="47"/>
-        <pinnumItem comment="USB_DP" id="48"/>
         <pinnumItem comment="OUTDOOR-AIR-QUALITY-RES_N" id="113"/>
         <pinnumItem comment="INDOOR-AIR-QUALITY-RES_N" id="114"/>
         <pinnumItem comment="LED2_G" id="90"/>
         <pinnumItem comment="LED4" id="94"/>
-        <pinnumItem comment="PMOD1-GPIO1" id="51"/>
-        <pinnumItem comment="ETHERNET-LINKSTA" id="52"/>
         <pinnumItem comment="PMOD2-GPIO1" id="96"/>
-        <pinnumItem comment="PMOD2-GPIO3" id="54"/>
         <pinnumItem comment="BIOMETRIC-INT" id="98"/>
-        <pinnumItem comment="PMOD2-GPIO2" id="56"/>
         <pinnumItem comment="PMOD1-CS" id="13"/>
-        <pinnumItem comment="ETHERNET-CRS_DV" id="58"/>
         <pinnumItem comment="XCIN" id="17"/>
         <pinnumItem comment="XCOUT" id="18"/>
         <pinnumItem comment="S1" id="19"/>
@@ -540,44 +531,53 @@
         <pinnumItem comment="PMOD1-MISO" id="7"/>
         <pinnumItem comment="PMOD1-MOSI" id="8"/>
         <pinnumItem comment="MICROPHONES1-OUT" id="129"/>
-        <pinnumItem comment="ETHERNET-TXD1" id="63"/>
         <pinnumItem comment="XTAL" id="20"/>
-        <pinnumItem comment="ETHERNET-TXD0" id="64"/>
-        <pinnumItem comment="ETHERNET-RST#" id="65"/>
         <pinnumItem comment="EXTAL" id="22"/>
-        <pinnumItem comment="SERIAL-TXD" id="67"/>
-        <pinnumItem comment="ETHERNET-RX_ER" id="68"/>
         <pinnumItem comment="PMOD2-SCK" id="25"/>
-        <pinnumItem comment="ETHERNET-REF-50-CK" id="69"/>
         <pinnumItem comment="PMOD2-MISO" id="26"/>
         <pinnumItem comment="PMOD2-MOSI" id="27"/>
         <pinnumItem comment="INDOOR-AIR-QUALITY-INT" id="134"/>
         <pinnumItem comment="OUTDOOR-AIR-QUALITY-INT" id="135"/>
+        <pinnumItem comment="LED6" id="32"/>
+        <pinnumItem comment="USB_VBUSEN" id="33"/>
+        <pinnumItem comment="PMOD2-CS" id="34"/>
+        <pinnumItem comment="LED3" id="35"/>
+        <pinnumItem comment="LED2_R" id="38"/>
+        <pinnumItem comment="USBFS_VBUS" id="40"/>
+        <pinnumItem comment="PMOD1-GPIO0" id="42"/>
+        <pinnumItem comment="USB_OVRCURA" id="43"/>
+        <pinnumItem comment="SENSOR-SDA" id="44"/>
+        <pinnumItem comment="SENSOR-SCL" id="45"/>
+        <pinnumItem comment="USB_DM" id="47"/>
+        <pinnumItem comment="USB_DP" id="48"/>
+        <pinnumItem comment="PMOD1-GPIO1" id="51"/>
+        <pinnumItem comment="ETHERNET-LINKSTA" id="52"/>
+        <pinnumItem comment="PMOD2-GPIO3" id="54"/>
+        <pinnumItem comment="PMOD2-GPIO2" id="56"/>
+        <pinnumItem comment="ETHERNET-CRS_DV" id="58"/>
+        <pinnumItem comment="ETHERNET-TXD1" id="63"/>
+        <pinnumItem comment="ETHERNET-TXD0" id="64"/>
+        <pinnumItem comment="ETHERNET-RST#" id="65"/>
+        <pinnumItem comment="SERIAL-TXD" id="67"/>
+        <pinnumItem comment="ETHERNET-RX_ER" id="68"/>
+        <pinnumItem comment="ETHERNET-REF-50-CK" id="69"/>
         <pinnumItem comment="SERIAL-RXD" id="70"/>
         <pinnumItem comment="ETHERNET-RXD0" id="71"/>
         <pinnumItem comment="ETHERNET-RXD1" id="72"/>
         <pinnumItem comment="SERIAL-RTS" id="75"/>
-        <pinnumItem comment="LED6" id="32"/>
-        <pinnumItem comment="USB_VBUSEN" id="33"/>
-        <pinnumItem comment="PMOD2-CS" id="34"/>
         <pinnumItem comment="PMOD1-GPIO2" id="78"/>
-        <pinnumItem comment="LED3" id="35"/>
         <pinnumItem comment="PMOD1-GPIO3" id="79"/>
-        <pinnumItem comment="LED2_R" id="38"/>
         <pinnumItem comment="MOTION-TRACKING-INT1" id="101"/>
         <pinnumItem comment="ETHERNET-TXD_EN" id="81"/>
-        <pinnumItem comment="USBFS_VBUS" id="40"/>
         <pinnumItem comment="ETHERNET-MDC" id="85"/>
-        <pinnumItem comment="PMOD1-GPIO0" id="42"/>
         <pinnumItem comment="ETHERNET-MDIO" id="86"/>
-        <pinnumItem comment="USB_OVRCURA" id="43"/>
     </tool>
     <tool id="Summary" version="1.0.0.0">
         <option id="com.renesas.smc.code.path" value="src\smc_gen"/>
         <option id="com.renesas.smc.code.type" value="Normal Folder"/>
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
-        <configuration enable="true" exclude="false" id="8ba604b0-198a-4f2d-8dab-9396da8c1054" inuse="true" name="FreeRTOS_Kernel">
+        <configuration enable="true" exclude="false" id="dcb07819-badd-48ac-94be-7183cf24e988" inuse="true" name="FreeRTOS_Kernel">
             <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110">
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
                 <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
@@ -647,7 +647,7 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="85a373a1-7142-42df-9b8b-ace2be877d0a" inuse="true" name="FreeRTOS_Object">
+        <configuration enable="true" exclude="false" id="ffa922f8-9a7f-41a2-a04a-a0282cca3ff2" inuse="true" name="FreeRTOS_Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
                     <option defaultValue="0" id="LinkNum" value=""/>
@@ -1065,35 +1065,6 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration inuse="true" name="r_cellular">
-            <component description="依存モジュール: r_bsp バージョン 7.10&#10;依存モジュール: r_sci_rx バージョン 4.30&#10;依存モジュール: r_irq_rx バージョン 4.00&#10;Use UART to control RYZ014A and connect to the Internet." detailDescription="Cellular Module control functions for Renesas MCUs." display="r_cellular" id="r_cellular1.08" version="1.08">
-                <gridItem id="CELLULAR_CFG_AP_NAME" selectedIndex="ibasis.iot"/>
-                <gridItem id="CELLULAR_CFG_AP_USERID" selectedIndex=""/>
-                <gridItem id="CELLULAR_CFG_AP_PASSWORD" selectedIndex=""/>
-                <gridItem id="CELLULAR_CFG_PIN_CODE" selectedIndex=""/>
-                <gridItem id="CELLULAR_CFG_AUTH_TYPE" selectedIndex="2"/>
-                <gridItem id="CELLULAR_CFG_NETWORK_NOTIFY_LEVEL" selectedIndex="2"/>
-                <gridItem id="CELLULAR_CFG_ATC_RETRY_GATT" selectedIndex="100"/>
-                <gridItem id="CELLULAR_CFG_EX_TIMEOUT" selectedIndex="0"/>
-                <gridItem id="CELLULAR_CFG_SCI_PRIORITY" selectedIndex="4"/>
-                <gridItem id="CELLULAR_CFG_SEMAPHORE_BLOCK_TIME" selectedIndex="15000"/>
-                <gridItem id="CELLULAR_CFG_PSM_PREPARATION_TIME" selectedIndex="100"/>
-                <gridItem id="CELLULAR_CFG_PSM_WAKEUP_LATENCY" selectedIndex="5000"/>
-                <gridItem id="CELLULAR_CFG_RING_LINE_ACTIVE_TIME" selectedIndex="1000"/>
-                <gridItem id="CELLULAR_CFG_URC_CHARGET_ENABLED" selectedIndex="0"/>
-                <gridItem id="CELLULAR_CFG_URC_CHARGET_FUNCTION" selectedIndex="my_sw_urc_charget_function"/>
-                <gridItem id="CELLULAR_CFG_DEBUGLOG" selectedIndex="0"/>
-                <gridItem id="CELLULAR_CFG_RESET_SIGNAL_LOGIC" selectedIndex="1"/>
-                <gridItem id="CELLULAR_CFG_UART_SCI_CH" selectedIndex="6"/>
-                <gridItem id="CELLULAR_CFG_RTS_PORT" selectedIndex="0"/>
-                <gridItem id="CELLULAR_CFG_RTS_PIN" selectedIndex="2"/>
-                <gridItem id="CELLULAR_CFG_RESET_PORT" selectedIndex="5"/>
-                <gridItem id="CELLULAR_CFG_RESET_PIN" selectedIndex="5"/>
-                <gridItem id="CELLULAR_CFG_IRQ_NUM" selectedIndex="4"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
         <configuration inuse="true" name="r_irq_rx">
             <component description="依存モジュール: r_bsp バージョン 7.10&#10;This software provides a unified, abstracted interface for low-level handling of interrupt events from external pin interrupts. These events are mapped to the IRQ vectors." detailDescription="IRQ Driver" display="r_irq_rx" id="r_irq_rx4.00" version="4.00">
                 <gridItem id="IRQ0" selectedIndex="0"/>
@@ -1146,6 +1117,39 @@
                 <gridItem id="IRQ_CFG_FILT_PLCK_IRQ14" selectedIndex="0"/>
                 <gridItem id="IRQ_CFG_FILT_EN_IRQ15" selectedIndex="1"/>
                 <gridItem id="IRQ_CFG_FILT_PLCK_IRQ15" selectedIndex="0"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_cellular">
+            <component description="依存モジュール: r_bsp バージョン 7.10&#10;依存モジュール: r_sci_rx バージョン 4.30&#10;依存モジュール: r_irq_rx バージョン 4.00&#10;Use UART to control RYZ014A and connect to the Internet." detailDescription="Cellular Module control functions for Renesas MCUs." display="r_cellular" id="r_cellular1.09" version="1.09">
+                <gridItem id="CELLULAR_CFG_AP_NAME" selectedIndex="ibasis.iot"/>
+                <gridItem id="CELLULAR_CFG_AP_USERID" selectedIndex=""/>
+                <gridItem id="CELLULAR_CFG_AP_PASSWORD" selectedIndex=""/>
+                <gridItem id="CELLULAR_CFG_PIN_CODE" selectedIndex=""/>
+                <gridItem id="CELLULAR_CFG_AUTH_TYPE" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_NETWORK_NOTIFY_LEVEL" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_ATC_RETRY_GATT" selectedIndex="100"/>
+                <gridItem id="CELLULAR_CFG_EX_TIMEOUT" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_SCI_PRIORITY" selectedIndex="4"/>
+                <gridItem id="CELLULAR_CFG_SEMAPHORE_BLOCK_TIME" selectedIndex="15000"/>
+                <gridItem id="CELLULAR_CFG_PSM_PREPARATION_TIME" selectedIndex="100"/>
+                <gridItem id="CELLULAR_CFG_PSM_WAKEUP_LATENCY" selectedIndex="5000"/>
+                <gridItem id="CELLULAR_CFG_RING_LINE_ACTIVE_TIME" selectedIndex="1000"/>
+                <gridItem id="CELLULAR_CFG_URC_CHARGET_ENABLED" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_URC_CHARGET_FUNCTION" selectedIndex="my_sw_urc_charget_function"/>
+                <gridItem id="CELLULAR_CFG_DEBUGLOG" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_RESET_SIGNAL_LOGIC" selectedIndex="1"/>
+                <gridItem id="CELLULAR_CFG_UART_SCI_CH" selectedIndex="6"/>
+                <gridItem id="CELLULAR_CFG_CTS_SW_CTRL" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_CTS_PORT" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_CTS_PIN" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_PFS_SET_VALUE" selectedIndex="0x0BU"/>
+                <gridItem id="CELLULAR_CFG_RTS_PORT" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_RTS_PIN" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_RESET_PORT" selectedIndex="5"/>
+                <gridItem id="CELLULAR_CFG_RESET_PIN" selectedIndex="5"/>
+                <gridItem id="CELLULAR_CFG_IRQ_NUM" selectedIndex="4"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>

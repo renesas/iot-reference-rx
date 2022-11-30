@@ -52,17 +52,23 @@ static e_cellular_err_t cellular_ctm_config (st_cellular_ctrl_t * const p_ctrl);
  ***********************************************************************/
 e_cellular_err_t R_CELLULAR_SetBand(st_cellular_ctrl_t * const p_ctrl, const uint8_t * const p_band)
 {
+    uint32_t preemption = 0;
     e_cellular_err_t ret = CELLULAR_SUCCESS;
     uint8_t flg = CELLULAR_START_FLG_OFF;
     uint8_t count = 0;
 
+    preemption = cellular_interrupt_disable();
     if ((NULL == p_ctrl) || (NULL == p_band))
     {
         ret = CELLULAR_ERR_PARAMETER;
     }
     else
     {
-        if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
+        if (0 != (p_ctrl->running_api_count % 2))
+        {
+            ret = CELLULAR_ERR_OTHER_API_RUNNING;
+        }
+        else if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
         {
             ret = CELLULAR_ERR_NOT_OPEN;
         }
@@ -72,9 +78,10 @@ e_cellular_err_t R_CELLULAR_SetBand(st_cellular_ctrl_t * const p_ctrl, const uin
         }
         else
         {
-            R_BSP_NOP();
+            p_ctrl->running_api_count += 2;
         }
     }
+    cellular_interrupt_enable(preemption);
 
     if (CELLULAR_SUCCESS == ret)
     {
@@ -83,11 +90,13 @@ e_cellular_err_t R_CELLULAR_SetBand(st_cellular_ctrl_t * const p_ctrl, const uin
         {
             ret = atc_sqnbandsel(p_ctrl, p_band);
         }
+
         if (CELLULAR_SUCCESS == ret)
         {
             p_ctrl->recv_data = (void *) &flg;  //(&uint8_t)->(void *)
             ret = atc_reset(p_ctrl);
         }
+
         if (CELLULAR_SUCCESS == ret)
         {
             ret = CELLULAR_ERR_MODULE_COM;
@@ -105,8 +114,10 @@ e_cellular_err_t R_CELLULAR_SetBand(st_cellular_ctrl_t * const p_ctrl, const uin
                 count++;
             } while (count < CELLULAR_FLG_CHECK_LIMIT);
         }
+
         p_ctrl->recv_data = NULL;
         cellular_give_semaphore(p_ctrl->at_semaphore);
+        p_ctrl->running_api_count -= 2;
     }
 
     return ret;

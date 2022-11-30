@@ -66,6 +66,11 @@
 /* These default value is for using RX65N Cloud Kit PMOD to control PMOD-RYZ014A */
 #define CELLULAR_CFG_UART_SCI_CH            (6)
 
+#define CELLULAR_CFG_CTS_SW_CTRL            (0)
+#define CELLULAR_CFG_CTS_PORT               2
+#define CELLULAR_CFG_CTS_PIN                2
+#define CELLULAR_CFG_PFS_SET_VALUE          0x0BU
+
 #define CELLULAR_CFG_RTS_PORT               0
 #define CELLULAR_CFG_RTS_PIN                2
 

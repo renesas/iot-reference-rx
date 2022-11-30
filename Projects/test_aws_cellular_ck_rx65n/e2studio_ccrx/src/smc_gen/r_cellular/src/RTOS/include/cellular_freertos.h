@@ -307,6 +307,19 @@ e_cellular_err_t cellular_set_event_flg (void * const xEventGroup, const uint32_
 e_cellular_err_t cellular_get_event_flg (void * const xEventGroup, const uint32_t uxBitsToGet,
                                             const uint32_t xTicksToWait);
 
+/*****************************************************************************************
+ * Function Name  @fn            cellular_interrupt_disable
+ * Description    @details       Disable Interrupt.
+ * Return Value   @retval        Preemption value of the calling task.
+ ****************************************************************************************/
+uint32_t cellular_interrupt_disable (void);
+
+/*****************************************************************************************
+ * Function Name  @fn            cellular_interrupt_enable
+ * Description    @details       Enable Interrupt.
+ ****************************************************************************************/
+void cellular_interrupt_enable (uint32_t preemption);
+
 #if BSP_CFG_RTOS_USED == (5)
 /*****************************************************************************************
  * Function Name  @fn            cellular_block_pool_create
