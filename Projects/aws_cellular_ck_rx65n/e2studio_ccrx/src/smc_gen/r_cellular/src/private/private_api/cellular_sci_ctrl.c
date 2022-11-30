@@ -75,13 +75,17 @@ e_cellular_err_t cellular_serial_open(st_cellular_ctrl_t * const p_ctrl)
     }
     else
     {
+#if CELLULAR_CFG_CTS_SW_CTRL == 0
         R_SCI_Control(p_ctrl->sci_ctrl.sci_hdl, SCI_CMD_EN_CTS_IN, NULL);
+#endif
 #if defined(__CCRX__) || defined(__ICCRX__) || defined(__RX__)
         R_SCI_Control(p_ctrl->sci_ctrl.sci_hdl, SCI_CMD_SET_TXI_PRIORITY, &priority);
 #endif
         R_SCI_CFG_PINSET_CELLULAR_SERIAL();
-        CELLULAR_SET_DR(CELLULAR_CFG_RTS_PORT, CELLULAR_CFG_RTS_PIN) = 0;
-        CELLULAR_SET_DDR(CELLULAR_CFG_RTS_PORT, CELLULAR_CFG_RTS_PIN) = CELLULAR_PIN_DIRECTION_MODE_OUTPUT;
+#if CELLULAR_CFG_CTS_SW_CTRL == 0
+        CELLULAR_SET_PODR(CELLULAR_CFG_RTS_PORT, CELLULAR_CFG_RTS_PIN) = 0;
+        CELLULAR_SET_PDR(CELLULAR_CFG_RTS_PORT, CELLULAR_CFG_RTS_PIN) = CELLULAR_PIN_DIRECTION_MODE_OUTPUT;
+#endif
     }
 
     return ret;

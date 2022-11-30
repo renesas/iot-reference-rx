@@ -57,16 +57,22 @@ static e_cellular_err_t cellular_sync_check (st_cellular_ctrl_t * const p_ctrl);
  *************************************************************************/
 e_cellular_err_t R_CELLULAR_APConnect(st_cellular_ctrl_t * const p_ctrl, const st_cellular_ap_cfg_t * const p_ap_cfg)
 {
+    uint32_t preemption = 0;
     e_cellular_err_t ret = CELLULAR_SUCCESS;
     e_cellular_err_semaphore_t semahore_ret = CELLULAR_SEMAPHORE_SUCCESS;
 
+    preemption = cellular_interrupt_disable();
     if (NULL == p_ctrl)
     {
         ret = CELLULAR_ERR_PARAMETER;
     }
     else
     {
-        if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
+        if (0 != (p_ctrl->running_api_count % 2))
+        {
+            ret = CELLULAR_ERR_OTHER_API_RUNNING;
+        }
+        else if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
         {
             ret = CELLULAR_ERR_NOT_OPEN;
         }
@@ -76,9 +82,10 @@ e_cellular_err_t R_CELLULAR_APConnect(st_cellular_ctrl_t * const p_ctrl, const s
         }
         else
         {
-            R_BSP_NOP();
+            p_ctrl->running_api_count += 2;
         }
     }
+    cellular_interrupt_enable(preemption);
 
     if (CELLULAR_SUCCESS == ret)
     {
@@ -89,7 +96,6 @@ e_cellular_err_t R_CELLULAR_APConnect(st_cellular_ctrl_t * const p_ctrl, const s
             {
                 ret = atc_cfun_check(p_ctrl);
             }
-
             if (CELLULAR_SUCCESS == ret)
             {
                 if (CELLULAR_MODULE_OPERATING_LEVEL4 != p_ctrl->module_status)
@@ -97,7 +103,10 @@ e_cellular_err_t R_CELLULAR_APConnect(st_cellular_ctrl_t * const p_ctrl, const s
                     ret = atc_cfun(p_ctrl, CELLULAR_MODULE_OPERATING_LEVEL4);
                 }
             }
-
+            if (CELLULAR_SUCCESS == ret)
+            {
+                ret = atc_cgpiaf(p_ctrl);
+            }
             if (CELLULAR_SUCCESS == ret)
             {
                 ret = atc_cgdcont(p_ctrl, p_ap_cfg);
@@ -140,6 +149,8 @@ e_cellular_err_t R_CELLULAR_APConnect(st_cellular_ctrl_t * const p_ctrl, const s
         {
             ret = CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING;
         }
+
+        p_ctrl->running_api_count -= 2;
     }
 
     return ret;
@@ -209,6 +220,7 @@ static e_cellular_err_t cellular_apconnect(st_cellular_ctrl_t * const p_ctrl,
 static e_cellular_err_t cellular_sync_check(st_cellular_ctrl_t * const p_ctrl)
 {
     uint8_t count = 0;
+    uint8_t pdpaddr[70] = {0};
     e_cellular_err_t ret = CELLULAR_ERR_MODULE_TIMEOUT;
     st_cellular_datetime_t datetime = {0};
 
@@ -229,9 +241,21 @@ static e_cellular_err_t cellular_sync_check(st_cellular_ctrl_t * const p_ctrl)
             count++;
             cellular_delay_task(CELLULAR_SYNC_DELAY);
         }
-    };
+    }
 
     p_ctrl->recv_data = NULL;
+
+
+    if (CELLULAR_SUCCESS == ret)
+    {
+        p_ctrl->recv_data = pdpaddr;
+        ret = atc_cgpaddr(p_ctrl);
+        if (CELLULAR_SUCCESS == ret)
+        {
+            cellular_getpdpaddr(p_ctrl, &p_ctrl->pdp_addr);
+        }
+        p_ctrl->recv_data = NULL;
+    }
 
     return ret;
 }

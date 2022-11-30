@@ -49,19 +49,30 @@
 e_cellular_err_t R_CELLULAR_Close(st_cellular_ctrl_t * const p_ctrl)
 {
     uint8_t i;
+    uint32_t preemption = 0;
     e_cellular_err_t ret = CELLULAR_SUCCESS;
 
+    preemption = cellular_interrupt_disable();
     if (NULL == p_ctrl)
     {
         ret = CELLULAR_ERR_PARAMETER;
     }
     else
     {
-        if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
+        if (0 < (p_ctrl->running_api_count))
+        {
+            ret = CELLULAR_ERR_OTHER_API_RUNNING;
+        }
+        else if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
         {
             ret = CELLULAR_ERR_NOT_OPEN;
         }
+        else
+        {
+            p_ctrl->running_api_count++;
+        }
     }
+    cellular_interrupt_enable(preemption);
 
     if (CELLULAR_SUCCESS == ret)
     {
@@ -126,6 +137,10 @@ e_cellular_err_t R_CELLULAR_Close(st_cellular_ctrl_t * const p_ctrl)
         memset(p_ctrl, 0, sizeof(st_cellular_ctrl_t));
 
         ret = CELLULAR_SUCCESS;
+    }
+    else
+    {
+        cellular_delay_task(1);
     }
 
     return ret;

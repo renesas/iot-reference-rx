@@ -44,7 +44,6 @@ const uint8_t g_ryz014_function_level[]          = RYZ014_ATC_FUNCTION_LEVEL;
 const uint8_t g_ryz014_pin_lock_check[]          = RYZ014_ATC_PIN_LOCK_CHECK;
 const uint8_t g_ryz014_pin_lock_release[]        = RYZ014_ATC_PIN_LOCK_RELEASE;
 const uint8_t g_ryz014_connect_socket[]          = RYZ014_ATC_CONNECT_SOCKET;
-const uint8_t g_ryz014_connect_socket_tohost[]   = RYZ014_ATC_CONNECT_SOCKET_TOHOST;
 const uint8_t g_ryz014_close_socket[]            = RYZ014_ATC_CLOSE_SOCKET;
 const uint8_t g_ryz014_send_socket[]             = RYZ014_ATC_SEND_SCOKET;
 const uint8_t g_ryz014_recv_socket[]             = RYZ014_ATC_RECV_SCOKET;
@@ -96,6 +95,7 @@ const uint8_t g_ryz014_atc_set_band[]            = RYZ014_ATC_SET_BAND;
 const uint8_t g_ryz014_atc_factoryreset[]        = RYZ014_ATC_FACTORYRESET;
 const uint8_t g_ryz014_atc_smcwrx[]              = RYZ014_ATC_SMCWRX;
 const uint8_t g_ryz014_atc_smcwtx[]              = RYZ014_ATC_SMCWTX;
+const uint8_t g_ryz014_atc_cgpiaf[]              = RYZ014_ATC_CGPIAF;
 const uint8_t g_ryz014_no_command[]              = RYZ014_NO_COMMAND;
 #if (CELLULAR_IMPLEMENT_TYPE == 'B')
 const uint8_t g_ryz014_write_certificate[]       = RYZ014_ATC_WRITE_CERTIFICATE;
@@ -112,7 +112,6 @@ const uint8_t * const gp_at_command[ATC_LIST_MAX] =
     g_ryz014_pin_lock_check,
     g_ryz014_pin_lock_release,
     g_ryz014_connect_socket,
-    g_ryz014_connect_socket_tohost,
     g_ryz014_close_socket,
     g_ryz014_send_socket,
     g_ryz014_recv_socket,
@@ -164,6 +163,7 @@ const uint8_t * const gp_at_command[ATC_LIST_MAX] =
     g_ryz014_atc_factoryreset,
     g_ryz014_atc_smcwrx,
     g_ryz014_atc_smcwtx,
+    g_ryz014_atc_cgpiaf,
     g_ryz014_no_command,
 #if (CELLULAR_IMPLEMENT_TYPE == 'B')
     g_ryz014_write_certificate,

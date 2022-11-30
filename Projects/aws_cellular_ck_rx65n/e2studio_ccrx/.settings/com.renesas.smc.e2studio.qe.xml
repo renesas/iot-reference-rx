@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<QE>
+    <Segment id="Project">
+        <Setting id="SrcGeneratedPath" value="src/smc_gen"/>
+    </Segment>
+    <Segment id="Pin">
+        <Setting id="EMLE" value="EMLE"/>
+        <Setting id="PC3" value="TXD5"/>
+        <Setting id="PE7" value="IRQ7"/>
+        <Setting id="P91" value="AN115"/>
+        <Setting id="P93" value="AN117"/>
+        <Setting id="P45" value="IRQ13"/>
+        <Setting id="P67" value="IRQ15"/>
+        <Setting id="P01" value="RXD6"/>
+        <Setting id="P00" value="TXD6"/>
+        <Setting id="P36" value="EXTAL"/>
+        <Setting id="P46" value="IRQ14"/>
+        <Setting id="XCOUT" value="XCOUT"/>
+        <Setting id="P37" value="XTAL"/>
+        <Setting id="MD" value="FINED"/>
+        <Setting id="PJ3" value="CTS6#"/>
+        <Setting id="XCIN" value="XCIN"/>
+        <Setting id="PD1" value="IRQ1"/>
+        <Setting id="PC2" value="RXD5"/>
+        <Setting id="PD2" value="IRQ2"/>
+    </Segment>
+    <Segment id="Device">
+        <Setting id="Series" value="RX600"/>
+        <Setting id="Group" value="RX65N"/>
+        <Setting id="Board" value="CK-RX65N (V1.02)"/>
+        <Setting id="PartNo" value="R5F565NEHxFB"/>
+        <Setting id="PinCount" value="144"/>
+    </Segment>
+    <Segment id="Clock">
+        <Setting id="SubCLK" value="32.768"/>
+        <Setting id="CacSubCLK" value="32.768"/>
+        <Setting id="CacMCLK" value="24000.0"/>
+        <Setting id="PLLCLK" value="240000.0"/>
+        <Setting id="BusCLK" value="120000.0"/>
+        <Setting id="PCLKA" value="120000.0"/>
+        <Setting id="ExtCLK" value="24000.0"/>
+        <Setting id="UsbCLK" value="48000.0"/>
+        <Setting id="PCLKD" value="60000.0"/>
+        <Setting id="PCLKB" value="60000.0"/>
+        <Setting id="VCC" value="3.3"/>
+        <Setting id="PCLKC" value="60000.0"/>
+        <Setting id="ICLK" value="120000.0"/>
+        <Setting id="FCLK" value="60000.0"/>
+        <Setting id="SysCLKSrc" value="4.0"/>
+    </Segment>
+    <Segment id="Component">
+        <Setting id="r_cellular" value="FIT"/>
+        <Setting id="r_bsp" value="FIT"/>
+        <Setting id="r_s12ad_rx" value="FIT"/>
+        <Setting id="r_irq_rx" value="FIT"/>
+        <Setting id="FreeRTOS_Object" value=""/>
+        <Setting id="r_byteq" value="FIT"/>
+        <Setting id="r_sci_rx" value="FIT"/>
+        <Setting id="FreeRTOS_Kernel" value=""/>
+        <Setting id="r_flash_rx" value="FIT"/>
+    </Segment>
+</QE>

@@ -92,15 +92,17 @@ typedef enum
     CELLULAR_ERR_NOT_CONNECT    = -7,           // Not connected to access point
     CELLULAR_ERR_ALREADY_CONNECT = -8,          // Already connect to access point
     CELLULAR_ERR_ALREADY_SOCKET_CONNECT = -9,   // Already socket connect
-    CELLULAR_ERR_SOCKET_NOT_READY = -10,        // Socket is not ready for use
+    CELLULAR_ERR_SOCKET_NOT_READY   = -10,      // Socket is not ready for use
     CELLULAR_ERR_SOCKET_CREATE_LIMIT = -11,     // Socket creation limit exceeded
-    CELLULAR_ERR_BYTEQ_OPEN     = -12,          // Failed to initialize the byte queue
-    CELLULAR_ERR_SEMAPHORE_INIT = -13,          // Failed to initialize the semaphore
-    CELLULAR_ERR_EVENT_GROUP_INIT = -14,        // Failed to initialize the event group
-    CELLULAR_ERR_CREATE_TASK    = -15,          // Failed to create task
+    CELLULAR_ERR_BYTEQ_OPEN         = -12,      // Failed to initialize the byte queue
+    CELLULAR_ERR_SEMAPHORE_INIT     = -13,      // Failed to initialize the semaphore
+    CELLULAR_ERR_EVENT_GROUP_INIT   = -14,      // Failed to initialize the event group
+    CELLULAR_ERR_CREATE_TASK        = -15,      // Failed to create task
     CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING = -16, // Other AT commands are running
-    CELLULAR_ERR_MEMORY_ALLOCATION  = -17,      // Failed to allocate memory
-    CELLULAR_ERR_IRQ_OPEN       = -18,          // IRQ initialization failed
+    CELLULAR_ERR_OTHER_API_RUNNING  = -17,      // Other API are running
+    CELLULAR_ERR_MEMORY_ALLOCATION  = -18,      // Failed to allocate memory
+    CELLULAR_ERR_IRQ_OPEN           = -19,      // IRQ initialization failed
+    CELLULAR_ERR_SIM_NOT_SUPPORT_IPV6   = -20,  // The SIM card does not support IPv6
 } e_cellular_err_t;
 
 typedef enum
@@ -266,9 +268,9 @@ typedef enum
 
 typedef enum
 {
-    CELLULAR_PSM_MODE_INVALID        = 0,   // Disable the PSM function
-    CELLULAR_PSM_MODE_ACTIVE         = 1,   // Enable the PSM function
-    CELLULAR_PSM_MODE_INIT           = 2,   // Initialize and disable the PSM function
+    CELLULAR_PSM_MODE_INVALID   = 0,    // Disable the PSM function
+    CELLULAR_PSM_MODE_ACTIVE    = 1,    // Enable the PSM function
+    CELLULAR_PSM_MODE_INIT      = 2,    // Initialize and disable the PSM function
 } e_cellular_psm_mode_t;
 
 typedef enum
@@ -371,9 +373,9 @@ typedef enum
 typedef struct cellular_time_ctrl
 {
     e_cellular_timeout_ovf_check_t timeout_overflow_flag;
-    uint32_t start_time;            // Start time
-    uint32_t this_time;             // Now Time
-    uint32_t end_time;              // End time
+    uint32_t start_time;    // Start time
+    uint32_t this_time;     // Now Time
+    uint32_t end_time;      // End time
 } st_cellular_time_ctrl_t;
 
 typedef struct cellular_datetime
@@ -446,6 +448,20 @@ typedef struct cellular_notice
     uint8_t                     tau[9];         // Periodic-TAU
 } st_cellular_notice_t;
 
+typedef struct cellular_ipaddr
+{
+    uint8_t     ipv4[CELLULAR_IPV4_ADDR_LENGTH + 1];    // IPv4 address
+    uint8_t     ipv6[CELLULAR_IPV6_ADDR_LENGTH + 1];    // IPv6 address
+} st_cellular_ipaddr_t;
+
+typedef struct cellular_ping_cfg
+{
+    uint8_t     count;      // Number of Ping Echo Request to send (default: 4, 1-64)
+    uint16_t    len;        // Length of Ping Echo Request message (default: 32, 32-1400).
+    uint16_t    interval;   // Wait interval seconds between sending each Ping Echo Request (in seconds)(default: 1, 1-600)
+    uint8_t     timeout;    // Time to wait for an Echo Reply (in seconds)(default: 10, 1-60).
+} st_cellular_ping_cfg_t;
+
 typedef struct cellular_sci_ctrl
 {
     uint32_t                baud_rate;                              // Baudrate
@@ -458,7 +474,7 @@ typedef struct cellular_sci_ctrl
     uint32_t                atc_timeout;                            // AT command response timeout
     volatile e_cellular_tx_end_flg_t tx_end_flg;                    // Transmission completion flag
     sci_cb_evt_t            sci_err_flg;                            // sci error flg
-    st_cellular_time_ctrl_t  timeout_ctrl;                          // Timeout management structure
+    st_cellular_time_ctrl_t timeout_ctrl;                           // Timeout management structure
     e_atc_list_t            at_command;                             // Running AT command
     e_cellular_atc_return_t atc_res;                                // AT command response
     e_cellular_atc_res_check_t  atc_flg;                            // Response status of AT command
@@ -480,7 +496,7 @@ typedef struct cellular_socket_ctrl
     e_cellular_socket_status_t      socket_status;              // Socket Status
     uint8_t                         ipversion;                  // IP Version
     uint8_t                         protocol;                   // Protocol Type
-    uint32_t                        ipaddr;                     // Destination IP address
+    st_cellular_ipaddr_t            ip_addr;                    // Destination address
     uint32_t                        port;                       // Destination port number
     void *                          rx_semaphore;               // Semaphore handle (for receiving)
     st_cellular_time_ctrl_t         cellular_tx_timeout_ctrl;   // Transmission timeout management structure
@@ -489,10 +505,10 @@ typedef struct cellular_socket_ctrl
 
 typedef struct cellular_ap_cfg
 {
-    uint8_t                     ap_name[64 + 1];        // AP name
-    uint8_t                     ap_user_name[32 + 1];   // AP user name
-    uint8_t                     ap_pass[64 + 1];        // AP Password
-    e_cellular_auth_type_t      auth_type;              // Authentication protocol type
+    uint8_t                     ap_name[CELLULAR_MAX_AP_NAME_LENGTH + 1];       // AP name
+    uint8_t                     ap_user_name[CELLULAR_MAX_AP_ID_LENGTH + 1];    // AP user name
+    uint8_t                     ap_pass[CELLULAR_MAX_AP_PASS_LENGTH + 1];       // AP Password
+    e_cellular_auth_type_t      auth_type;  // Authentication protocol type
 } st_cellular_ap_cfg_t;
 
 typedef struct cellular_ring_ctrl
@@ -507,10 +523,11 @@ typedef struct cellular_ring_ctrl
 
 typedef struct cellular_ctrl
 {
+    uint8_t                     running_api_count;  // Number of running APIs
     uint8_t                     ap_connect_retry;   // AP connection retry limit
-    uint8_t                     dns_address[4];     // IP address obtained by DNS query
     e_cellular_system_status_t  system_state;       // AP connection status
     e_cellular_module_status_t  module_status;      // Module Status
+    st_cellular_ipaddr_t        pdp_addr;           // PDP Address
     void *                      at_semaphore;       // Semaphore handle (for at command)
     void *                      recv_taskhandle;    // Task handle
     void *                      eventgroup;         // Event Group Handles
@@ -523,7 +540,7 @@ typedef struct cellular_ctrl
 
 typedef struct cellular_cfg
 {
-    uint8_t     sim_pin_code[8 + 1];    // SIM Pin Code
+    uint8_t     sim_pin_code[CELLULAR_MAX_SIM_PASS_LENGTH + 1]; // SIM Pin Code
     uint32_t    baud_rate;              // Baudrate
     uint8_t     ap_gatt_retry_count;    // AP connection retry limit
     uint32_t    sci_timeout;            // Communication timeout with module
@@ -710,8 +727,8 @@ e_cellular_err_t R_CELLULAR_CloseSocket (st_cellular_ctrl_t * const p_ctrl, cons
  *                                  Pointer to managed structure.
  *                @param[in]     socket_no -
  *                                  Number to close socket.
- *                @param[in]     ip_address -
- *                                  Destination IP address.
+ *                @param[in]     p_ip_addr -
+ *                                  Pointer to destination address.
  *                @param[in]     port -
  *                                  Destination port number.
  * Return Value   @retval        CELLULAR_SUCCESS -
@@ -723,7 +740,7 @@ e_cellular_err_t R_CELLULAR_CloseSocket (st_cellular_ctrl_t * const p_ctrl, cons
  *                @retval        CELLULAR_ERR_MODULE_COM -
  *                                  Communication with module failed.
  *                @retval        CELLULAR_ERR_MODULE_TIMEOUT
- *                                      Communication with module timed out.
+ *                                  Communication with module timed out.
  *                @retval        CELLULAR_ERR_NOT_CONNECT -
  *                                  Not connected to access point.
  *                @retval        CELLULAR_ERR_ALREADY_SOCKET_CONNECT
@@ -734,7 +751,7 @@ e_cellular_err_t R_CELLULAR_CloseSocket (st_cellular_ctrl_t * const p_ctrl, cons
  *                                  Other AT commands are running.
  ***********************************************************************/
 e_cellular_err_t R_CELLULAR_ConnectSocket (st_cellular_ctrl_t * const p_ctrl, const uint8_t socket_no,
-                                                const uint32_t ip_address, const uint16_t port);
+                                                const uint8_t * const p_ip_addr, const uint16_t port);
 
 /************************************************************************
  * Function Name  @fn            R_CELLULAR_ConnectSocketToHost
@@ -744,7 +761,7 @@ e_cellular_err_t R_CELLULAR_ConnectSocket (st_cellular_ctrl_t * const p_ctrl, co
  *                @param[in]     socket_no -
  *                                  Number to connect socket.
  *                @param[in]     p_hostname -
- *                                  Destination Host Name.
+ *                                  Pointer to destination host name.
  *                @param[in]     port -
  *                                  Destination port number.
  * Return Value   @retval        CELLULAR_SUCCESS -
@@ -1077,7 +1094,9 @@ e_cellular_err_t R_CELLULAR_GetRSSI (st_cellular_ctrl_t * const p_ctrl, st_cellu
  *                                  Pointer to managed structure.
  *                @param[in]     p_domain_name -
  *                                  Pointer to domain name.
- *                @param[out]    p_ip_address -
+ *                @param[in]     ip_version -
+ *                                  Protocol Type.
+ *                @param[in/out] p_addr -
  *                                  Pointer to store IP address.
  * Return Value   @retval        CELLULAR_SUCCESS -
  *                                  Successfully DNS query.
@@ -1095,7 +1114,7 @@ e_cellular_err_t R_CELLULAR_GetRSSI (st_cellular_ctrl_t * const p_ctrl, st_cellu
  *                                  Other AT commands are running.
  ***********************************************************************/
 e_cellular_err_t R_CELLULAR_DnsQuery (st_cellular_ctrl_t * const p_ctrl, const uint8_t * const p_domain_name,
-                                            uint32_t * const p_ip_address);
+                                        const uint8_t ip_version, st_cellular_ipaddr_t * const p_addr);
 
 /************************************************************************
  * Function Name  @fn            R_CELLULAR_SetEDRX
@@ -1154,7 +1173,9 @@ e_cellular_err_t R_CELLULAR_SetPSM (st_cellular_ctrl_t * const p_ctrl,
  * Description    @details       Perform Ping.
  * Arguments      @param[in/out] p_ctrl -
  *                                  Pointer to managed structure.
- *                @param[in]     p_host -
+ *                @param[in]     p_hostname -
+ *                                  Pointer to destination host name.
+ *                @param[in]     p_cfg -
  *                                  Pointer to the configuration structure.
  * Return Value   @retval        CELLULAR_SUCCESS -
  *                                  Successfully obtained time.
@@ -1173,7 +1194,8 @@ e_cellular_err_t R_CELLULAR_SetPSM (st_cellular_ctrl_t * const p_ctrl,
  *                @retval        CELLULAR_ERR_MEMORY_ALLOCATION -
  *                                  Failed to create the memory pool.
  ************************************************************************************************/
-e_cellular_err_t R_CELLULAR_Ping (st_cellular_ctrl_t * const p_ctrl, const uint8_t * const p_host);
+e_cellular_err_t R_CELLULAR_Ping (st_cellular_ctrl_t * const p_ctrl, const uint8_t * const p_hostname,
+                                    const st_cellular_ping_cfg_t * const p_cfg);
 
 /*************************************************************************************************
  * Function Name  @fn            R_CELLULAR_GetAPConnectState
@@ -1272,7 +1294,7 @@ e_cellular_err_t R_CELLULAR_SetBand (st_cellular_ctrl_t * const p_ctrl, const ui
  * Description    @details       Get PDP address.
  * Arguments      @param[in/out] p_ctrl -
  *                                  Pointer to managed structure.
- *                @param[in/out]     p_band -
+ *                @param[in/out] p_addr -
  *                                  Pointer to array storing PDP addresses.
  * Return Value   @retval        CELLULAR_SUCCESS -
  *                                  Successfully obtained time.
@@ -1289,7 +1311,7 @@ e_cellular_err_t R_CELLULAR_SetBand (st_cellular_ctrl_t * const p_ctrl, const ui
  *                @retval        CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING -
  *                                  Other AT commands are running.
  ************************************************************************************************/
-e_cellular_err_t R_CELLULAR_GetPDPAddress (st_cellular_ctrl_t * const p_ctrl, uint8_t * const p_addr);
+e_cellular_err_t R_CELLULAR_GetPDPAddress (st_cellular_ctrl_t * const p_ctrl, st_cellular_ipaddr_t * const p_addr);
 
 /*************************************************************************************************
  * Function Name  @fn            R_CELLULAR_SoftwareReset
