@@ -50,8 +50,6 @@
 #include "iot_crypto.h"
 #include "r_cellular_if.h"
 
-static uint32_t SOCKETS_GetHostByName( const char * pcHostName );
-
 typedef struct xSOCKETContext
 {
 	Socket_t xSocket;
@@ -200,11 +198,14 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 	int32_t lStatus = TCP_SOCKETS_ERRNO_NONE;
 	e_cellular_err_t ret;
     freertos_sockaddr_t serverAddress = { 0 };
+    st_cellular_ipaddr_t ip_addr = {0};
+    uint32_t dns[4] = {0};
+
     pxContext = pvPortMalloc( sizeof( cellularSocketWrapper_t ) ) ;
     memset( pxContext, 0, sizeof( cellularSocketWrapper_t ) );
 //    xSemaphoreTake( xUcInUse, xMaxSemaphoreBlockTime);
     LogInfo( ( "Creating TCP Connection to %s.", pHostName ) );
-    ret = R_CELLULAR_CreateSocket(&cellular_ctrl, CELLULAR_SOCKET_IP_PROTOCOL_TCP, CELLULAR_SOCKET_IP_VERSION_4);
+    ret = R_CELLULAR_CreateSocket(&cellular_ctrl, CELLULAR_PROTOCOL_TCP, CELLULAR_PROTOCOL_IPV4);
     if(0 > ret)
 	{
 		configPRINTF(("create error: %d\r\n",ret));
@@ -230,7 +231,20 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
     /* Connection parameters. */
     serverAddress.sin_family = SOCKETS_AF_INET;
     serverAddress.sin_port = SOCKETS_htons( port );
-    serverAddress.sin_addr = SOCKETS_GetHostByName( pHostName );
+
+    ret = R_CELLULAR_DnsQuery(&cellular_ctrl, (uint8_t *)pHostName, CELLULAR_PROTOCOL_IPV4, &ip_addr);
+    if (CELLULAR_SUCCESS == ret)
+    {
+        sscanf((char *)ip_addr.ipv4,   //(uint8_t *)->(char *)
+                "%ld.%ld.%ld.%ld",
+                &dns[0], &dns[1], &dns[2], &dns[3]);
+    	serverAddress.sin_addr = SOCKETS_inet_addr_quick(dns[0], dns[1], dns[2], dns[3]);
+    }
+    else
+    {
+    	return SOCKETS_INVALID_SOCKET;
+    }
+
     serverAddress.sin_len = ( uint8_t ) sizeof( serverAddress );
 
 
@@ -239,12 +253,19 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 	{
 		LogError( ( "Failed to connect to server: DNS resolution failed: Hostname=%s.",
 					pHostName ) );
-
 	}
 	else
 	{
 		LogInfo( ( "Connecting to TCP Connection %s.", pHostName ) );
-		ret = R_CELLULAR_ConnectSocket(&cellular_ctrl, pxContext->socket_no, SOCKETS_GetHostByName( pHostName ), SOCKETS_htons(serverAddress.sin_port));
+		ret = R_CELLULAR_DnsQuery(&cellular_ctrl, (uint8_t *)pHostName, CELLULAR_PROTOCOL_IPV4, &ip_addr);
+		if (CELLULAR_SUCCESS == ret)
+		{
+			ret = R_CELLULAR_ConnectSocket(&cellular_ctrl, pxContext->socket_no, ip_addr.ipv4, SOCKETS_htons(serverAddress.sin_port));
+		}
+		else
+		{
+			return SOCKETS_INVALID_SOCKET;
+		}
 	}
 
     if( TCP_SOCKETS_ERRNO_NONE != ret )
@@ -293,19 +314,6 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 	send_byte = R_CELLULAR_SendSocket(&cellular_ctrl, pxContext->socket_no, (uint8_t *)pvBuffer, xDataLength, pxContext->sendTimeout);
 	return send_byte;
 
-}
-
-static uint32_t SOCKETS_GetHostByName( const char * pcHostName )
-{
-	uint32_t ulAddr = 0;
-	uint32_t ret;
-
-	ret = R_CELLULAR_DnsQuery(&cellular_ctrl, (uint8_t *)pcHostName, &ulAddr);
-	if(0 == ret)
-	{
-		ulAddr = SOCKETS_htonl( ulAddr );
-	}
-	return ulAddr;
 }
 
 void TCP_Sockets_Disconnect( Socket_t tcpSocket )

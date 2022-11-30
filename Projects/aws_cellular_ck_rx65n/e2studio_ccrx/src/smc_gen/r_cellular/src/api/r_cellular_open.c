@@ -279,6 +279,7 @@ static e_cellular_err_t cellular_init(st_cellular_ctrl_t * const p_ctrl, const s
             goto R_CELLULAR_Open_fail;
         }
     }
+
     p_ctrl->system_state = CELLULAR_SYSTEM_OPEN;
 
 R_CELLULAR_Open_fail:

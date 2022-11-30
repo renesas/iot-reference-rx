@@ -53,7 +53,7 @@ e_cellular_err_t atc_sqnsl(st_cellular_ctrl_t * const p_ctrl, const uint8_t sock
     uint8_t ip_type = 1;
     uint8_t str[3][10] = {0};
 
-    if (CELLULAR_SOCKET_IP_VERSION_4 != ip_version)
+    if (CELLULAR_PROTOCOL_IPV4 != ip_version)
     {
         ip_type = 2;
     }

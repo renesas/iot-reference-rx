@@ -54,7 +54,7 @@ e_cellular_err_t cellular_start_recv_task(st_cellular_ctrl_t * const p_ctrl)
     p_ctrl->eventgroup = cellular_create_event_group("task_event");
     if (NULL == p_ctrl->eventgroup)
     {
-        ret =  CELLULAR_ERR_EVENT_GROUP_INIT;
+        ret = CELLULAR_ERR_EVENT_GROUP_INIT;
     }
     else
     {

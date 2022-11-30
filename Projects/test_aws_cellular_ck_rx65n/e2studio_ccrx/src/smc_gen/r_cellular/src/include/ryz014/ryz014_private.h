@@ -67,6 +67,16 @@
 #define CELLULAR_SOCKETCONNECT_DELAY    (5000)      /* Socket Connect Response delay time (millisecond) */
 #define CELLULAR_SQNRICFG_MODE          (2)         /* All URCs are indicated by activated RING0 line of theÅ@UART0 interface, whatever URC AT channel origin */
 #define CELLULAR_SQNIPSCFG_MODE         (1)         /* Power saving is activated. Module power state is controlled by RTS0 line*/
+#define CELLULAR_PING_REQ_MIN           (1)         /* Minimum number of ping echo requests to send */
+#define CELLULAR_PING_REQ_DEFAULT       (4)         /* Default number of ping echo requests to send */
+#define CELLULAR_PING_REQ_MAX           (64)        /* Maximum number of ping echo requests to send */
+#define CELLULAR_PING_MES_MIN           (32)        /* Minimum length of ping echo request message */
+#define CELLULAR_PING_MES_MAX           (1400)      /* Maximum length of ping echo request message */
+#define CELLULAR_PING_INTER_MIN         (1)         /* Minimum Echo Interval (second) */
+#define CELLULAR_PING_INTER_MAX         (600)       /* Maximum Echo Interval (second) */
+#define CELLULAR_PING_TIMEOUT_MIN       (1)         /* Minimum time to wait for Echo reply (second) */
+#define CELLULAR_PING_TIMEOUT_DEFAULT   (10)        /* Default time to wait for Echo reply (second) */
+#define CELLULAR_PING_TIMEOUT_MAX       (60)        /* Maximum time to wait for Echo reply (second) */
 #if (CELLULAR_IMPLEMENT_TYPE == 'B')
 #define CELLULAR_SECURITY_PROFILE_ID_H  (6)         /* Maximum Security Profile ID Number  */
 #define CELLULAR_SECURITY_PROFILE_ID_L  (1)         /* Minimum Security Profile ID Number  */
@@ -80,12 +90,11 @@
 #define RYZ014_ATC_FUNCTION_LEVEL           "AT+CFUN=%s\r"
 #define RYZ014_ATC_PIN_LOCK_CHECK           "AT+CPIN?\r"
 #define RYZ014_ATC_PIN_LOCK_RELEASE         "AT+CPIN=\"%s\"\r"
-#define RYZ014_ATC_CONNECT_SOCKET           "AT+SQNSD=%s,%s,%s,\"%s.%s.%s.%s\",0,%s,1\r"
-#define RYZ014_ATC_CONNECT_SOCKET_TOHOST    "AT+SQNSD=%s,%s,%s,\"%s\",0,%s,1\r"
+#define RYZ014_ATC_CONNECT_SOCKET           "AT+SQNSD=%s,%s,%s,\"%s\",0,%s,1\r"
 #define RYZ014_ATC_CLOSE_SOCKET             "AT+SQNSH=%s\r"
 #define RYZ014_ATC_SEND_SCOKET              "AT+SQNSSENDEXT=%s,%s\r"
 #define RYZ014_ATC_RECV_SCOKET              "AT+SQNSRECV=%s,%s\r"
-#define RYZ014_ATC_DNS_LOOKUP               "AT+SQNDNSLKUP=\"%s\",0\r"
+#define RYZ014_ATC_DNS_LOOKUP               "AT+SQNDNSLKUP=\"%s\",%s\r"
 #define RYZ014_ATC_AP_CONFIG                "AT+CGDCONT=1,\"IPV4V6\",\"%s\",,,,0,0,0,0,0,0,1,,0\r"
 #define RYZ014_ATC_USER_CONFIG              "AT+CGAUTH=1,%s,\"%s\",\"%s\"\r"
 #define RYZ014_ATC_SOCKET_CONFIG_1          "AT+SQNSCFG=%s,1,%s,%s,%s,%s\r"
@@ -125,7 +134,7 @@
 #define RYZ014_ATC_SET_IND_NOTIFY           "AT+CMER=3,0,0,%s,0,0,0\r"
 #define RYZ014_ATC_GET_PHONE_NUM            "AT+CNUM\r"
 #define RYZ014_ATC_GET_ICCID                "AT+SQNCCID?\r"
-#define RYZ014_ATC_PING                     "AT+PING=\"%s\"\r"
+#define RYZ014_ATC_PING                     "AT+PING=\"%s\",%s,%s,%s,%s\r"
 #define RYZ014_ATC_GET_CELLINFO             "AT+SQNMONI=%s\r"
 #define RYZ014_ATC_SET_CTM                  "AT+SQNCTM=\"standard\"\r"
 #define RYZ014_ATC_GET_CTM                  "AT+SQNCTM?\r"
@@ -133,6 +142,7 @@
 #define RYZ014_ATC_FACTORYRESET             "AT+SQNSFACTORYRESET\r"
 #define RYZ014_ATC_SMCWRX                   "AT+SMCWRX=%s\r"
 #define RYZ014_ATC_SMCWTX                   "AT+SMCWTX=%s,%s,%s\r"
+#define RYZ014_ATC_CGPIAF                   "AT+CGPIAF=1,0,1,0\n"
 #define RYZ014_NO_COMMAND                   "\r"
 #if (CELLULAR_IMPLEMENT_TYPE == 'B')
 #define RYZ014_ATC_WRITE_CERTIFICATE        "AT+SQNSNVW=\"%s\",%s,%s\r"
@@ -152,7 +162,6 @@ typedef enum
     ATC_PIN_LOCK_CHECK,
     ATC_PIN_LOCK_RELEASE,
     ATC_CONNECT_SOCKET,
-    ATC_CONNECT_SOCKET_TOHOST,
     ATC_CLOSE_SOCKET,
     ATC_SEND_SOCKET,
     ATC_RECV_SOCKET,
@@ -204,6 +213,7 @@ typedef enum
     ATC_FACTORYRESET,
     ATC_SMCWRX,
     ATC_SMCWTX,
+    ATC_IPV6_CONFIG,
     ATC_SQNSSENDEXT_END,
 #if (CELLULAR_IMPLEMENT_TYPE == 'B')
     ATC_WRITE_CERTIFICATE,

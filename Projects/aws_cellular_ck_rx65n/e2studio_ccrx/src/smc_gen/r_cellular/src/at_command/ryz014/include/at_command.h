@@ -162,12 +162,15 @@ e_cellular_err_t atc_cpin_check (st_cellular_ctrl_t * const p_ctrl);
  *                                  Pointer to managed structure.
  *                @param[in]     p_dmain_name -
  *                                  Pointer to the domain name.
+ *                @param[in]     ip_version -
+ *                                  IP address version.
  * Return Value   @retval        CELLULAR_SUCCESS -
  *                                  Successfully executed AT command.
  *                @retval        CELLULAR_ERR_MODULE_COM -
  *                                  Communication with module failed.
  ************************************************************************************************/
-e_cellular_err_t atc_sqndnslkup (st_cellular_ctrl_t * const p_ctrl, const uint8_t * const p_domain_name);
+e_cellular_err_t atc_sqndnslkup (st_cellular_ctrl_t * const p_ctrl, const uint8_t * const p_domain_name,
+                                    const uint8_t ip_version);
 
 /*************************************************************************************************
  * Function Name  @fn            atc_sqnscfg
@@ -204,7 +207,7 @@ e_cellular_err_t atc_sqnscfgext (st_cellular_ctrl_t * const p_ctrl, const uint8_
  *                                  Pointer to managed structure.
  *                @param[in]     socket_no -
  *                                  Number to connect socket.
- *                @param[in]     ip_address -
+ *                @param[in]     p_ip_addr -
  *                                  Destination IP address.
  *                @param[in]     port -
  *                                  Destination port number.
@@ -214,7 +217,7 @@ e_cellular_err_t atc_sqnscfgext (st_cellular_ctrl_t * const p_ctrl, const uint8_
  *                                  Communication with module failed.
  ******************************************************************************************************/
 e_cellular_err_t atc_sqnsd (st_cellular_ctrl_t * const p_ctrl, const uint8_t socket_no,
-                                const uint32_t ip_address, const uint16_t port);
+                                const uint8_t * const p_ip_addr, const uint16_t port);
 
 /****************************************************************************************************
  * Function Name  @fn            atc_sqnsd_host
@@ -737,13 +740,16 @@ e_cellular_err_t atc_sqnsl (st_cellular_ctrl_t * const p_ctrl, const uint8_t soc
  * Arguments      @param[in/out] p_ctrl -
  *                                  Pointer to managed structure.
  *                @param[in]     p_host -
- *                                  Host name or IP address.
+ *                                  Pointer to destination host name.
+ *                @param[in]     p_cfg -
+ *                                  Pointer to config structure.
  * Return Value   @retval        CELLULAR_SUCCESS -
  *                                  Successfully executed AT command.
  *                @retval        CELLULAR_ERR_MODULE_COM -
  *                                  Communication with module failed.
  ********************************************************************************************************************/
-e_cellular_err_t atc_ping (st_cellular_ctrl_t * const p_ctrl, const uint8_t * const p_host);
+e_cellular_err_t atc_ping (st_cellular_ctrl_t * const p_ctrl, const uint8_t * const p_host,
+                            const st_cellular_ping_cfg_t * const p_cfg);
 
 /*********************************************************************************************************************
  * Function Name  @fn            atc_sqnmoni
@@ -842,6 +848,18 @@ e_cellular_err_t atc_smcwrx (st_cellular_ctrl_t * const p_ctrl, const uint16_t e
  ********************************************************************************************************************/
 e_cellular_err_t atc_smcwtx (st_cellular_ctrl_t * const p_ctrl, const uint8_t enable,
                                 const uint16_t earfcn, const int32_t level);
+
+/*************************************************************************************************
+ * Function Name  @fn            atc_cgpiaf
+ * Description    @details       Execute the AT command (CGPIAF). / Output format of IPv6 address.
+ * Arguments      @param[in/out] p_ctrl -
+ *                                  Pointer to managed structure.
+ * Return Value   @retval        CELLULAR_SUCCESS -
+ *                                  Successfully executed AT command.
+ *                @retval        CELLULAR_ERR_MODULE_COM -
+ *                                  Communication with module failed.
+ ************************************************************************************************/
+e_cellular_err_t atc_cgpiaf (st_cellular_ctrl_t * const p_ctrl);
 
 #if (CELLULAR_IMPLEMENT_TYPE == 'B')
 /****************************************************************************************************************
