@@ -29,6 +29,8 @@
 
 /* FreeRTOS include. */
 #include "FreeRTOS.h"
+#include "aws_clientcredential.h"
+#include "aws_clientcredential_keys.h"
 #include "iot_default_root_certificates.h"
 /**************************************************/
 /******* DO NOT CHANGE the following order ********/
@@ -54,9 +56,54 @@
 
 #include "iot_logging_task.h"
 
+//#define democonfigCLIENT_CERTIFICATE_PEM    keyCLIENT_CERTIFICATE_PEM
+//#define democonfigCLIENT_PRIVATE_KEY_PEM    keyCLIENT_PRIVATE_KEY_PEM
+//#define democonfigCLIENT_USERNAME			  keyJITR_DEVICE_CERTIFICATE_AUTHORITY_PEM
 
+/* Select only one demo task to run. */
+#define SIMPLE_PUBSUB_DEMO
+//#define PKCS_MUTUAL_AUTH_DEMO
+//#define OTA_OVER_MQTT_DEMO
+//#define FLEET_PROVISIONING_DEMO
 
-#define democonfigROOT_CA_PEM                   tlsSTARFIELD_ROOT_CERTIFICATE_PEM
+#if defined(FLEET_PROVISIONING_DEMO)
+#define democonfigROOT_CA_PEM             "...insert here..."
+#else
+#define democonfigROOT_CA_PEM               tlsSTARFIELD_ROOT_CERTIFICATE_PEM
+#endif
+
+/**
+ * @brief Path of the file containing the provisioning claim certificate. This
+ * certificate is used to connect to AWS IoT Core and use Fleet Provisioning
+ * APIs to provision the client device. This is used for the "Provisioning by
+ * Claim" provisioning workflow.
+ *
+ * For information about provisioning by claim, see the following AWS documentation:
+ * https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html#claim-based
+ *
+ * @note This certificate should be PEM-encoded. The certificate should be
+ * registered on AWS IoT Core beforehand. It should have an AWS IoT policy to
+ * allow it to access only the Fleet Provisioning APIs. An example policy for
+ * the claim certificates for this demo is available in the
+ * example_claim_policy.json file in the demo directory. In the example,
+ * replace <aws-region> with your AWS region, <aws-account-id> with your
+ * account ID, and <template-name> with the name of your provisioning template.
+ *
+ */
+#define democonfigCLAIM_CERT_PEM            "...insert here..."
+
+/**
+ * @brief Path of the file containing the provisioning claim private key. This
+ * key corresponds to the provisioning claim certificate and is used to
+ * authenticate with AWS IoT for provisioning by claim.
+ *
+ * For information about provisioning by claim, see the following AWS documentation:
+ * https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html#claim-based
+ *
+ * @note This private key should be PEM-encoded.
+ *
+ */
+#define democonfigCLAIM_PRIVATE_KEY_PEM     "...insert here..."
 
 /**
  * @brief An option to disable Server Name Indication.
@@ -79,7 +126,87 @@
  */
 #define democonfigUSE_AWS_IOT_CORE_BROKER    ( 1 )
 
+/**
+ * @brief The unique ID used by the demo to differentiate instances.
+ *
+ *!!! Please note a #defined constant is used for convenience of demonstration
+ *!!! only.  Production devices can use something unique to the device that can
+ *!!! be read by software, such as a production serial number, instead of a
+ *!!! hard coded constant.
+ */
+#define democonfigFP_DEMO_ID    "FPDemoID"__TIME__
 
+/**
+ * @brief The MQTT client identifier used in this example.  Each client identifier
+ * must be unique so edit as required to ensure no two clients connecting to the
+ * same broker use the same client identifier.
+ *
+ * @note Appending __TIME__ to the client id string will reduce the possibility of a
+ * client id collision in the broker. Note that the appended time is the compilation
+ * time. This client id can cause collision, if more than one instance of the same
+ * binary is used at the same time to connect to the broker.
+ */
+#ifndef democonfigCLIENT_IDENTIFIER
+#if defined(FLEET_PROVISIONING_DEMO)
+    #define democonfigCLIENT_IDENTIFIER    "client"democonfigFP_DEMO_ID
+#else
+    #define democonfigCLIENT_IDENTIFIER    clientcredentialIOT_THING_NAME
+#endif
+#endif
+
+/**
+ * @brief Details of the MQTT broker to connect to.
+ *
+ * This is the Claim's Rest API Endpoint for AWS IoT.
+ *
+ * @note Your AWS IoT Core endpoint can be found in the AWS IoT console under
+ * Settings/Custom Endpoint, or using the describe-endpoint API.
+ *
+ */
+#define democonfigMQTT_BROKER_ENDPOINT     clientcredentialMQTT_BROKER_ENDPOINT
+
+/**
+ * @brief AWS IoT MQTT broker port number.
+ *
+ * In general, port 8883 is for secured MQTT connections.
+ *
+ * @note Port 443 requires use of the ALPN TLS extension with the ALPN protocol
+ * name. When using port 8883, ALPN is not required.
+ */
+#define democonfigMQTT_BROKER_PORT    ( clientcredentialMQTT_BROKER_PORT )
+
+/**
+ * @brief Name of the provisioning template to use for the RegisterThing
+ * portion of the Fleet Provisioning workflow.
+ *
+ * For information about provisioning templates, see the following AWS documentation:
+ * https://docs.aws.amazon.com/iot/latest/developerguide/provision-template.html#fleet-provision-template
+ *
+ * The example template used for this demo is available in the
+ * example_demo_template.json file in the DemoSetup directory. In the example,
+ * replace <provisioned-thing-policy> with the policy provisioned devices
+ * should have.  The demo template uses Fn::Join to construct the Thing name by
+ * concatenating fp_demo_ and the serial number sent by the demo.
+ *
+ * @note The provisioning template MUST be created in AWS IoT before running the
+ * demo.
+ *
+ * @note If you followed the manual setup steps on https://freertos.org/iot-fleet-provisioning/demo.html,
+ * the provisioning template name is "FleetProvisioningDemoTemplate".
+ * However, if you used CloudFormation to set up the demo, the template name is "CF_FleetProvisioningDemoTemplate"
+ */
+ #define democonfigPROVISIONING_TEMPLATE_NAME    "...insert here..."
+
+/**
+ * @brief Subject name to use when creating the certificate signing request (CSR)
+ * for provisioning the demo client with using the Fleet Provisioning
+ * CreateCertificateFromCsr APIs.
+ *
+ * This is passed to MbedTLS; see https://tls.mbed.org/api/x509__csr_8h.html#a954eae166b125cea2115b7db8c896e90
+ */
+#ifndef democonfigCSR_SUBJECT_NAME
+    #define democonfigCSR_SUBJECT_NAME    "CN="democonfigFP_DEMO_ID
+#endif
 
 /**
  * @brief Set the stack size of the main demo task.
@@ -101,7 +228,6 @@
 
 #include "core_mqtt.h" /* Include coreMQTT header for MQTT_LIBRARY_VERSION macro. */
 #define democonfigMQTT_LIB    "core-mqtt@"MQTT_LIBRARY_VERSION
-
 
 #define democonfigDISABLE_SNI       ( pdFALSE )
 
@@ -138,10 +264,11 @@
 #define democonfigOS_VERSION    "V10.4.3"
 
 /**
- * @brief The name of the MQTT library used and its version, following an "@"
- * symbol.
+ * @brief The name of the hardware platform the application is running on. The
+ * current value is given as an example. Please update for your specific
+ * hardware platform.
  */
-#define democonfigMQTT_LIB      "core-mqtt@" MQTT_LIBRARY_VERSION
+#define democonfigHARDWARE_PLATFORM_NAME    "CK-RX65N"
 
 /**
  * @brief The MQTT metrics string expected by AWS IoT.

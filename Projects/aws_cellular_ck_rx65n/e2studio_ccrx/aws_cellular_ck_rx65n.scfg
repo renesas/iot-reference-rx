@@ -579,7 +579,7 @@
         <option id="com.renesas.smc.code.type" value="Normal Folder"/>
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
-        <configuration enable="true" exclude="false" id="a3c55747-b1cf-4366-b8ad-850f959d713f" inuse="true" name="FreeRTOS_Kernel">
+        <configuration enable="true" exclude="false" id="b4a60c32-85fd-46b7-9a8d-c762d6bba8e5" inuse="true" name="FreeRTOS_Kernel">
             <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110">
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
                 <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
@@ -587,7 +587,7 @@
                 <gridItem id="configCPU_CLOCK_HZ" selectedIndex="BSP_ICLK_HZ"/>
                 <gridItem id="configPERIPHERAL_CLOCK_HZ" selectedIndex="BSP_PCLKB_HZ"/>
                 <gridItem id="configTICK_RATE_HZ" selectedIndex="( TickType_t ) 1000"/>
-                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="768"/>
+                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="2048"/>
                 <gridItem id="configTOTAL_HEAP_SIZE_N" selectedIndex="256"/>
                 <gridItem id="configTOTAL_HEAP_SIZE" selectedIndex="( size_t ) ( configTOTAL_HEAP_SIZE_N * 1024 )"/>
                 <gridItem id="configMAX_TASK_NAME_LEN" selectedIndex="12"/>
@@ -649,7 +649,7 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="6a1e12da-5a3a-4ed9-a73e-c42bab713fe3" inuse="true" name="FreeRTOS_Object">
+        <configuration enable="true" exclude="false" id="6f32131f-f301-4d3d-a631-7ee629b9fc8d" inuse="true" name="FreeRTOS_Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
                     <option defaultValue="0" id="LinkNum" value=""/>
@@ -681,7 +681,7 @@
                 <gridItem id="BSP_CFG_USER_STACK_ENABLE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_USTACK_BYTES" selectedIndex="0x1000"/>
                 <gridItem id="BSP_CFG_ISTACK_BYTES" selectedIndex="0x400"/>
-                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x400"/>
+                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x1000"/>
                 <gridItem id="BSP_CFG_IO_LIB_ENABLE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_FUNCTION" selectedIndex="my_sw_charget_function"/>
