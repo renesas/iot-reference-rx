@@ -70,6 +70,8 @@
 /* Check certificate key usage. */
 #define MBEDTLS_X509_CHECK_KEY_USAGE
 #define MBEDTLS_X509_CHECK_EXTENDED_KEY_USAGE
+#define MBEDTLS_X509_CREATE_C
+#define MBEDTLS_X509_CSR_WRITE_C
 
 /* Disable platform entropy functions. */
 #define MBEDTLS_NO_PLATFORM_ENTROPY
@@ -109,6 +111,7 @@
 #define MBEDTLS_X509_USE_C
 #define MBEDTLS_X509_CRT_PARSE_C
 #define MBEDTLS_CMAC_C
+#define MBEDTLS_PEM_WRITE_C
 
 /* Set the memory allocation functions on FreeRTOS. */
 void * mbedtls_platform_calloc( size_t nmemb,

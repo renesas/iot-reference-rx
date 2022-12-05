@@ -202,7 +202,7 @@ Configuration Options
       settings and choosing the Standard Library section. After that choose 'Contents' in e2 studio.
       This will present a list of modules that can be included. Uncheck the box for stdio.h.
    NOTE: This setting is available only when using CCRX and GNUC. */
-#define BSP_CFG_HEAP_BYTES              (0x400)
+#define BSP_CFG_HEAP_BYTES              (0x1000)
 
 /* Initializes C input & output library functions.
    0 = Disable I/O library initialization in resetprg.c. If you are not using stdio then use this value.
@@ -677,7 +677,7 @@ Configuration Options
 /* Version number of Smart Configurator.
    This macro definition is updated by Smart Configurator.
 */
-#define BSP_CFG_CONFIGURATOR_VERSION                (2140) /* Generated value. Do not edit this manually */
+#define BSP_CFG_CONFIGURATOR_VERSION                (2150) /* Generated value. Do not edit this manually */
 
 /* For some BSP functions, it is necessary to ensure that, while these functions are executing, interrupts from other 
    FIT modules do not occur. By controlling the IPL, these functions disable interrupts that are at or below the 
