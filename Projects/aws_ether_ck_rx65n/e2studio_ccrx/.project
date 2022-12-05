@@ -86,12 +86,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668405617736</id>
+			<id>1669864398185</id>
 			<name>Middleware/AWS</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-ota-for-aws-iot-embedded-sdk</arguments>
+				<arguments>1.0-name-matches-false-true-ota-for-aws-iot-embedded-sdk|Fleet-Provisioning-for-AWS-IoT-embedded-sdk</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -137,6 +137,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-false-mbedtls_bio_freertos_plus_tcp.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1669864423183</id>
+			<name>Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-source</arguments>
 			</matcher>
 		</filter>
 		<filter>
