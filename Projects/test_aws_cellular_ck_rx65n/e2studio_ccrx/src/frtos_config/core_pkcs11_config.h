@@ -33,7 +33,8 @@
 #define _AWS_PKCS11_CONFIG_H_
 
 #include "FreeRTOS.h"
-
+#include "test_execution_config.h"
+#include "test_param_config.h"
 /**************************************************/
 /******* DO NOT CHANGE the following order ********/
 /**************************************************/
@@ -163,4 +164,11 @@
  */
 #define pkcs11configLABEL_ROOT_CERTIFICATE                 "Root Cert"
 
+#if TRANSPORT_INTERFACE_TEST_ENABLED
+#define pkcs11configIMPORT_PRIVATE_KEYS_SUPPORTED			0
+#define keyprovisioningFORCE_GENERATE_NEW_KEY_PAIR			1
+#else
+#define pkcs11configIMPORT_PRIVATE_KEYS_SUPPORTED			PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT
+#define keyprovisioningFORCE_GENERATE_NEW_KEY_PAIR			PKCS11_TEST_GENERATE_KEYPAIR_SUPPORT
+#endif
 #endif /* _AWS_PKCS11_CONFIG_H_ include guard. */
