@@ -33,7 +33,8 @@
 #define _AWS_PKCS11_CONFIG_H_
 
 #include "FreeRTOS.h"
-
+#include "test_execution_config.h"
+#include "test_param_config.h"
 /**************************************************/
 /******* DO NOT CHANGE the following order ********/
 /**************************************************/
