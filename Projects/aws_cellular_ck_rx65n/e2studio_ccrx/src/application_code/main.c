@@ -30,9 +30,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Logging includes. */
 #include "iot_logging_task.h"
 
-/* Key provisioning includes. */
-#include "aws_dev_mode_key_provisioning.h"
-
 /* FreeRTOS+TCP includes. */
 #include "FreeRTOS_IP.h"
 
@@ -40,8 +37,30 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "aws_clientcredential.h"
 #include "r_cellular_if.h"
 
+/* Key provisioning includes. */
+#include "aws_dev_mode_key_provisioning.h"
+
+#include "demo_config.h"
+
 //#include "mqtt_agent_task.h"
 extern void UserInitialization(void);
+
+#if defined(SIMPLE_PUBSUB_DEMO)
+    extern void vStartSimplePubSubDemo( void * pvParameters );
+#endif
+
+#if defined(PKCS_MUTUAL_AUTH_DEMO)
+    extern void vStartPKCSMutualAuthDemo( void );
+#endif
+
+#if defined(OTA_OVER_MQTT_DEMO)
+    extern void vStartOtaDemo( void );
+#endif
+
+#if defined(FLEET_PROVISIONING_DEMO)
+    extern void vStartFleetProvisioningDemo(void);
+#endif
+
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.
  * OTA update task polls regularly for firmware update jobs or acts on a new firmware update
@@ -143,17 +162,31 @@ void vApplicationDaemonTaskStartupHook( void )
 {
 	prvMiscInitialization();
 
-	/* Provision the device with AWS certificate and private key. */
-	vDevModeKeyProvisioning();
 	_wifiEnable();
-
 
 	FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
 
+#if !defined(FLEET_PROVISIONING_DEMO)
+	/* Provision the device with AWS certificate and private key. */
+	vDevModeKeyProvisioning();
+#endif
+
 	/* Run all demos. */
-//  vStartSimplePubSubDemo();
+#if defined(SIMPLE_PUBSUB_DEMO)
+    vStartSimplePubSubDemo(NULL);
+#endif
+
+#if defined(PKCS_MUTUAL_AUTH_DEMO)
     vStartPKCSMutualAuthDemo();
-//  vStartOtaDemo();
+#endif
+
+#if defined(OTA_OVER_MQTT_DEMO)
+    vStartOtaDemo();
+#endif
+
+#if defined(FLEET_PROVISIONING_DEMO)
+    vStartFleetProvisioningDemo();
+#endif
 }
 
 static bool _wifiConnectAccessPoint( void )

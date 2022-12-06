@@ -93,7 +93,7 @@ typedef struct _pkcs_data
 #define PKCS_DATA_STATUS_HIT 2
 
 #define PKCS_HANDLES_LABEL_MAX_LENGTH 40
-#define PKCS_OBJECT_HANDLES_NUM 5
+#define PKCS_OBJECT_HANDLES_NUM 7
 #define PKCS_SHA256_LENGTH 32
 
 #define MAX_CHECK_DATAFLASH_AREA_RETRY_COUNT 3
@@ -162,6 +162,8 @@ enum eObjectHandles
     eAwsDevicePublicKey,
     eAwsDeviceCertificate,
     eAwsCodeSigningKey,
+    eAwsClaimPrivateKey,
+    eAwsClaimCertificate,
     //eAwsRootCertificate
 };
 
@@ -172,6 +174,8 @@ uint8_t object_handle_dictionary[PKCS_OBJECT_HANDLES_NUM][PKCS_HANDLES_LABEL_MAX
     pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
     pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
     pkcs11configLABEL_CODE_VERIFICATION_KEY,
+	pkcs11configLABEL_CLAIM_PRIVATE_KEY,
+	pkcs11configLABEL_CLAIM_CERTIFICATE,
     //pkcs11configLABEL_ROOT_CERTIFICATE,
 };
 
@@ -503,7 +507,7 @@ CK_RV PKCS11_PAL_GetObjectValue( CK_OBJECT_HANDLE xHandle,
         *ppucData = &pkcs_control_block_data_image.data.local_storage[pkcs_control_block_data_image.data.pkcs_data[xHandleStorage].local_storage_index];
         *pulDataSize = pkcs_control_block_data_image.data.pkcs_data[xHandleStorage].ulDataSize;
 
-        if (xHandle == eAwsDevicePrivateKey)
+        if (xHandle == eAwsDevicePrivateKey || xHandle == eAwsClaimPrivateKey)
         {
             *pIsPrivate = CK_TRUE;
         }

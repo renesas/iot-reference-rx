@@ -24,6 +24,13 @@
         </Category>
       </Category>
       <Category Name="Demos">
+        <Category Name="Fleet_Provisioning_With_CSR_Demo">
+          <Path>..\..\..\Demos\Fleet_Provisioning_With_CSR_Demo\FleetProvisioningDemoExample.c</Path>
+          <Path>..\..\..\Demos\Fleet_Provisioning_With_CSR_Demo\pkcs11_operations.c</Path>
+          <Path>..\..\..\Demos\Fleet_Provisioning_With_CSR_Demo\pkcs11_operations.h</Path>
+          <Path>..\..\..\Demos\Fleet_Provisioning_With_CSR_Demo\tinycbor_serializer.c</Path>
+          <Path>..\..\..\Demos\Fleet_Provisioning_With_CSR_Demo\tinycbor_serializer.h</Path>
+        </Category>
         <Category Name="MutualAuthMQTT">
           <Path>..\..\..\Demos\MutualAuthMQTT\MutualAuthMQTTExample.c</Path>
         </Category>
@@ -36,6 +43,10 @@
           <Path>..\..\..\Demos\SimplePubSub\simple_pub_sub_task.c</Path>
         </Category>
         <Category Name="common">
+          <Category Name="Mqtt_Demo_Helpers">
+            <Path>..\..\..\Demos\common\Mqtt_Demo_Helpers\mqtt_pkcs11_demo_helpers.c</Path>
+            <Path>..\..\..\Demos\common\Mqtt_Demo_Helpers\mqtt_pkcs11_demo_helpers.h</Path>
+          </Category>
           <Category Name="mqtt-agent-interface">
             <Path>..\..\..\Demos\common\mqtt-agent-interface\freertos_agent_message.c</Path>
             <Path>..\..\..\Demos\common\mqtt-agent-interface\freertos_command_pool.c</Path>
@@ -312,6 +323,16 @@
           </Category>
         </Category>
         <Category Name="AWS">
+          <Category Name="Fleet-Provisioning-for-AWS-IoT-embedded-sdk">
+            <Path>..\..\..\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\lexicon.txt</Path>
+            <Category Name="source">
+              <Path>..\..\..\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\fleet_provisioning.c</Path>
+              <Category Name="include">
+                <Path>..\..\..\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include\fleet_provisioning.h</Path>
+                <Path>..\..\..\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include\fleet_provisioning_config_defaults.h</Path>
+              </Category>
+            </Category>
+          </Category>
           <Category Name="ota-for-aws-iot-embedded-sdk">
             <Category Name="source">
               <Path>..\..\..\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\ota.c</Path>
@@ -636,10 +657,7 @@
           <Category Name="include">
             <Path>..\..\..\Test\include\aws_clientcredential.h</Path>
             <Path>..\..\..\Test\include\aws_clientcredential_keys.h</Path>
-            <Path>..\..\..\Test\include\iot_config_common.h</Path>
             <Path>..\..\..\Test\include\iot_default_root_certificates.h</Path>
-            <Path>..\..\..\Test\include\iot_demo_logging.h</Path>
-            <Path>..\..\..\Test\include\iot_demo_runner.h</Path>
             <Path>..\..\..\Test\include\test_execution_config.h</Path>
             <Path>..\..\..\Test\include\test_param_config.h</Path>
             <Path>..\..\..\Test\include\unity_config.h</Path>
@@ -657,37 +675,18 @@
         <Category Name="frtos_config">
           <Path>src\frtos_config\FreeRTOSConfig.h</Path>
           <Path>src\frtos_config\FreeRTOSIPConfig.h</Path>
-          <Path>src\frtos_config\aws_demo_config.h</Path>
-          <Path>src\frtos_config\aws_ggd_config.h</Path>
-          <Path>src\frtos_config\aws_iot_network_config.h</Path>
-          <Path>src\frtos_config\aws_shadow_config.h</Path>
-          <Path>src\frtos_config\aws_wifi_config.h</Path>
           <Path>src\frtos_config\core_http_config.h</Path>
           <Path>src\frtos_config\core_mqtt_agent_config.h</Path>
           <Path>src\frtos_config\core_mqtt_config.h</Path>
           <Path>src\frtos_config\core_pkcs11_config.h</Path>
           <Path>src\frtos_config\defender_config.h</Path>
-          <Path>src\frtos_config\defender_demo_config.h</Path>
           <Path>src\frtos_config\demo_config.h</Path>
-          <Path>src\frtos_config\http_demo_mutual_auth_config.h</Path>
-          <Path>src\frtos_config\http_demo_s3_download_config.h</Path>
-          <Path>src\frtos_config\http_demo_s3_download_multithreaded_config.h</Path>
-          <Path>src\frtos_config\http_demo_s3_upload_config.h</Path>
-          <Path>src\frtos_config\iot_bufferpool_config.h</Path>
-          <Path>src\frtos_config\iot_config.h</Path>
-          <Path>src\frtos_config\iot_mqtt_agent_config.h</Path>
-          <Path>src\frtos_config\iot_mqtt_config.h</Path>
-          <Path>src\frtos_config\iot_secure_sockets_config.h</Path>
-          <Path>src\frtos_config\jobs_demo_config.h</Path>
+          <Path>src\frtos_config\fleet_provisioning_config.h</Path>
           <Path>src\frtos_config\mbedtls_config.h</Path>
           <Path>src\frtos_config\mbedtls_user_config.h</Path>
-          <Path>src\frtos_config\mqtt_agent_demo_config.h</Path>
-          <Path>src\frtos_config\mqtt_demo_mutual_auth_config.h</Path>
-          <Path>src\frtos_config\mqtt_demo_plaintext_config.h</Path>
           <Path>src\frtos_config\ota_config.h</Path>
           <Path>src\frtos_config\ota_demo_config.h</Path>
           <Path>src\frtos_config\shadow_config.h</Path>
-          <Path>src\frtos_config\shadow_demo_config.h</Path>
         </Category>
         <Category Name="frtos_skeleton">
           <Path>src\frtos_skeleton\task_function.h</Path>
@@ -1143,8 +1142,6 @@
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\mqtt_agent"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\OtaOverMqtt"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreJSON\source\include"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\freertos_plus\standard\crypto\include"</Option>
@@ -1172,14 +1169,18 @@
           <Option>-include="C:\downloads\iot-reference-rx-fork\Test\Unity\extras\memory\src"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Test\Unity\src"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Common\ports\ota_pal"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\tinycbor\src"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Test\include"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
           <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\library"</Option>
-          <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,_COMPLEX,__RX=1,__RENESAS__,__LITTLE_ENDIAN__,UNITY_INCLUDE_CONFIG_H,__FUNCTION__=__func__</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\mqtt_agent"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\OtaOverMqtt"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\Mqtt_Demo_Helpers"</Option>
+          <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,MBEDTLS_ALLOW_PRIVATE_ACCESS,_COMPLEX,__RX=1,__RENESAS__,__LITTLE_ENDIAN__,UNITY_INCLUDE_CONFIG_H,__FUNCTION__=__func__</Option>
           <Option>-utf8</Option>
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
           <Option>-debug</Option>
@@ -1303,10 +1304,14 @@
           <Path>HardwareDebug\exit.obj</Path>
           <Path>HardwareDebug\entropy_hardware_poll.obj</Path>
           <Path>HardwareDebug\serial_term_uart.obj</Path>
+          <Path>HardwareDebug\FleetProvisioningDemoExample.obj</Path>
+          <Path>HardwareDebug\pkcs11_operations.obj</Path>
+          <Path>HardwareDebug\tinycbor_serializer.obj</Path>
           <Path>HardwareDebug\MutualAuthMQTTExample.obj</Path>
           <Path>HardwareDebug\OtaOverMqttDemoExample.obj</Path>
           <Path>HardwareDebug\subscription_manager.obj</Path>
           <Path>HardwareDebug\simple_pub_sub_task.obj</Path>
+          <Path>HardwareDebug\mqtt_pkcs11_demo_helpers.obj</Path>
           <Path>HardwareDebug\freertos_agent_message.obj</Path>
           <Path>HardwareDebug\freertos_command_pool.obj</Path>
           <Path>HardwareDebug\pkcs11_helpers.obj</Path>
@@ -1415,6 +1420,7 @@
           <Path>HardwareDebug\cborpretty.obj</Path>
           <Path>HardwareDebug\cborpretty_stdio.obj</Path>
           <Path>HardwareDebug\cborvalidation.obj</Path>
+          <Path>HardwareDebug\fleet_provisioning.obj</Path>
           <Path>HardwareDebug\ota.obj</Path>
           <Path>HardwareDebug\ota_base64.obj</Path>
           <Path>HardwareDebug\ota_cbor.obj</Path>
@@ -1626,8 +1632,6 @@
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\mqtt_agent"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\OtaOverMqtt"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
@@ -1655,13 +1659,17 @@
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\Unity\extras\memory\src"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\Unity\src"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Common\ports\ota_pal"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\include"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
           <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\mqtt_agent"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\OtaOverMqtt"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\Mqtt_Demo_Helpers"</IncludePathForC>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
@@ -1692,6 +1700,7 @@
           <MacroForC>MBEDTLS_CMAC_C</MacroForC>
           <MacroForC>MBEDTLS_ERROR_C</MacroForC>
           <MacroForC>MBEDTLS_THREADING_C</MacroForC>
+          <MacroForC>MBEDTLS_ALLOW_PRIVATE_ACCESS</MacroForC>
           <MacroForC>_COMPLEX</MacroForC>
           <MacroForC>__RX=1</MacroForC>
           <MacroForC>__RENESAS__</MacroForC>
