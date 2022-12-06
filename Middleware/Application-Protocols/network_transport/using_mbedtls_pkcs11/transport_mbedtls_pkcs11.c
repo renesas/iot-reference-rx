@@ -242,8 +242,7 @@ static void sslContextFree( SSLContext_t * pSslContext )
     mbedtls_x509_crt_free( &( pSslContext->clientCert ) );
     mbedtls_ssl_config_free( &( pSslContext->config ) );
 
-
-    ( void ) lPKCS11PkMbedtlsCloseSessionAndFree( &( pSslContext->privKey ) );
+    mbedtls_pk_free( &( pSslContext->privKey ) );
 
     pSslContext->pxP11FunctionList->C_CloseSession( pSslContext->xP11Session );
 }
@@ -571,7 +570,10 @@ static CK_RV readCertificateIntoContext( SSLContext_t * pSslContext,
     }
 
     /* Free memory. */
-    vPortFree( xTemplate.pValue );
+    if( xTemplate.pValue != NULL )
+    {
+        vPortFree( xTemplate.pValue );
+    }
 
     return xResult;
 }
@@ -657,7 +659,10 @@ static CK_RV initializeClientKeys( SSLContext_t * pxCtx,
     }
 
     /* Free memory. */
-    vPortFree( pxSlotIds );
+    if( pxSlotIds!= NULL )
+    {
+        vPortFree( pxSlotIds );
+    }
 
     return xResult;
 }
