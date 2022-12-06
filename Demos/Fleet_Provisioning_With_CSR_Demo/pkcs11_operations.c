@@ -349,7 +349,7 @@ bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
 
         mbedtls_x509write_csr_free( &xReq );
 
-        lPKCS11PkMbedtlsCloseSessionAndFree( &xPrivKey );
+        mbedtls_pk_free( &xPrivKey );
     }
 
     *pxOutCsrLength = strlen( pcCsrBuffer );
