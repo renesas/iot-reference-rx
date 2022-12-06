@@ -1,0 +1,48 @@
+{
+  "sourcePath": "<path to project root, e.g. C:/Users/foobar/iot-reference-rx>",
+  "freeRTOSTestParamConfigPath": "{{testData.sourcePath}}/Test/include/test_param_config.h",
+  "freeRTOSTestExecutionConfigPath": "{{testData.sourcePath}}/Test/include/test_execution_config.h",
+  "freeRTOSVersion": "202210.01-LTS",
+  "buildTool": {
+    "name": "e2studio",
+    "version": "2022-10",
+    "command": [
+      "{{config.idtRootPath}}/configs/build.bat {{testData.sourcePath}} test_aws_ether_ck_rx65n ccrx"
+    ]
+  },
+  "flashTool": {
+    "name": "RFPV3",
+    "version": "v3.09",
+    "command": [
+      "{{config.idtRootPath}}/configs/flash.bat {{testData.sourcePath}} test_aws_ether_ck_rx65n ccrx"
+    ]
+    },
+  "testStartDelayms": 5000,
+  "echoServerCertificateConfiguration": {
+    "certificateGenerationMethod": "Automatic"
+  },
+  "echoServerConfiguration": {
+    "keyGenerationMethod": "EC",
+    "serverPort": 9000
+  },
+  "otaConfiguration": {
+	  "otaPALCertificatePath": "secp256r1.crt",
+	  "otaE2EFirmwarePath":"{{testData.sourcePath}}/Projects/test_aws_cellular_ck_rx65n/e2studio_ccrx/HardwareDebug/userprog.rsu",
+	  "deviceFirmwarePath":"NA",
+	  "codeSigningConfiguration": {
+      "signingMethod": "AWS",
+      "signerHashingAlgorithm": "SHA256",
+      "signerSigningAlgorithm": "ECDSA",
+      "signerCertificate": "<ARN of certificate made in section 6.2>",
+      "untrustedSignerCertificate": "<ARN of any untrusted certificate>",
+      "signerCertificateFileName": "secp256r1.crt",
+      "compileSignerCertificate": true,
+      "signerPlatform": "AmazonFreeRTOS-Default"
+    }
+  },
+  "pkcs11LabelConfiguration":{
+    "pkcs11LabelDevicePrivateKeyForTLS": "pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS",
+    "pkcs11LabelDevicePublicKeyForTLS": "pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS",
+    "pkcs11LabelDeviceCertificateForTLS": "pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS"    
+  }
+}
