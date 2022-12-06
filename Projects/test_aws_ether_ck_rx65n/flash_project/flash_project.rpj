@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <RfpProject>
   <FileVersion>V1.04.00</FileVersion>
-  <ProductVersion>V3.06.01</ProductVersion>
+  <ProductVersion>V3.09.00</ProductVersion>
   <ParameterFile>RX Group.fcf</ParameterFile>
   <Device>RX650</Device>
   <OperationTab>
@@ -36,6 +36,12 @@
     <SetLockbit>False</SetLockbit>
     <SetOTP>False</SetOTP>
     <SetAW>False</SetAW>
+    <OperationAW>Outside</OperationAW>
+    <DisableRewritingAW>False</DisableRewritingAW>
+    <SetRP>False</SetRP>
+    <StartRP>-1</StartRP>
+    <EndRP>-1</EndRP>
+    <DisableRewritingRP>False</DisableRewritingRP>
     <SetOPBT>False</SetOPBT>
     <EnableExtendOPBT>False</EnableExtendOPBT>
     <ListOPBT>ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff</ListOPBT>
@@ -46,6 +52,7 @@
     <DisableProgramCmd>False</DisableProgramCmd>
     <DisableReadCmd>False</DisableReadCmd>
     <DisableBootProgram>False</DisableBootProgram>
+    <DisableInitCmd>False</DisableInitCmd>
     <SetIDandPWD>False</SetIDandPWD>
     <IdCode>FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</IdCode>
     <CodeFlashPWD>
@@ -53,6 +60,10 @@
     <DataFlashPWD>
     </DataFlashPWD>
     <SetDisableSerialProgram>False</SetDisableSerialProgram>
+    <SetExtraOption>False</SetExtraOption>
+    <ExtraOption>
+    </ExtraOption>
+    <ExtraOptionProtect>False</ExtraOptionProtect>
   </DeviceOptionTab>
   <ConnectOptionTab>
     <Tool>COMMTYPE_E2L</Tool>
@@ -62,8 +73,9 @@
     <ToolConnectPinOut>0</ToolConnectPinOut>
     <ToolConnectPinLvl>0</ToolConnectPinLvl>
     <ToolDisconnectReset>High</ToolDisconnectReset>
+    <ToolResetSignalFlag>09000000</ToolResetSignalFlag>
     <ToolInterface>IFTYPE_FINE</ToolInterface>
-    <ToolSpeed>500000</ToolSpeed>
+    <ToolSpeed>1500000</ToolSpeed>
     <ToolWideVoltage>False</ToolWideVoltage>
     <MainClock>16000000</MainClock>
     <AutoAuthen>True</AutoAuthen>
@@ -82,4 +94,8 @@
     <EndIndex>0</EndIndex>
     <Overwrite>False</Overwrite>
   </UniqueCodeTab>
+  <UserKeyTab>
+    <Enable>False</Enable>
+    <Files />
+  </UserKeyTab>
 </RfpProject>
