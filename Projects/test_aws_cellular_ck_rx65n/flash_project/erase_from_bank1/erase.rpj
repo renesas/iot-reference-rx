@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <RfpProject>
   <FileVersion>V1.04.00</FileVersion>
-  <ProductVersion>V3.10.00</ProductVersion>
+  <ProductVersion>V3.09.00</ProductVersion>
   <ParameterFile>RX Group.fcf</ParameterFile>
   <Device>RX650</Device>
   <OperationTab>
@@ -53,7 +53,6 @@
     <DisableReadCmd>False</DisableReadCmd>
     <DisableBootProgram>False</DisableBootProgram>
     <DisableInitCmd>False</DisableInitCmd>
-    <DisableTestMode>False</DisableTestMode>
     <SetIDandPWD>False</SetIDandPWD>
     <IdCode>FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</IdCode>
     <CodeFlashPWD>

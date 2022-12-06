@@ -93,7 +93,7 @@
  *
  * #define TRANSPORT_CLIENT_CERTIFICATE NULL
  */
-#define TRANSPORT_CLIENT_CERTIFICATE "PLACE_HOLDER"
+#define TRANSPORT_CLIENT_CERTIFICATE NULL
 
 /**
  * @brief Client private key to connect to echo server.
@@ -108,7 +108,7 @@
  *
  * #define MQTT_SERVER_PORT       (8883)
  */
-#define TRANSPORT_CLIENT_PRIVATE_KEY  "PLACE_HOLDER"
+#define TRANSPORT_CLIENT_PRIVATE_KEY  NULL
 
 	/**
  * @brief Client certificate to connect to MQTT server.

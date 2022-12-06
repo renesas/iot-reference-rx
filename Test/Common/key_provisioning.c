@@ -8,8 +8,8 @@
 #include "semphr.h"
 
 /* PKCS#11 includes. */
-#include "core_pkcs11_config.h"
 #include "core_pkcs11.h"
+#include "test_param_config.h"
 
 /* Client credential includes. */
 #include "aws_clientcredential.h"
@@ -335,7 +335,7 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
 
     xResult = C_GetFunctionList( &pxFunctionList );
 
-    #if ( pkcs11configIMPORT_PRIVATE_KEYS_SUPPORTED == 1 )
+    #if ( PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT == 1 )
 
         /* Attempt to clean-up old crypto objects, but only if private key import is
          * supported by this application, and only if the caller has provided new
@@ -351,7 +351,7 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
                 configPRINTF( ( "Warning: could not clean-up old crypto objects. %d \r\n", xResult ) );
             }
         }
-    #endif /* if ( pkcs11configIMPORT_PRIVATE_KEYS_SUPPORTED == 1 ) */
+    #endif /* if ( PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT == 1 ) */
 
     /* If a client certificate has been provided by the caller, attempt to
      * import it. */
@@ -369,7 +369,7 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
         }
     }
 
-    #if ( pkcs11configIMPORT_PRIVATE_KEYS_SUPPORTED == 1 )
+    #if ( PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT == 1 )
 
         /* If this application supports importing private keys, and if a private
          * key has been provided by the caller, attempt to import it. */
@@ -390,7 +390,7 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
                 xImportedPrivateKey = CK_TRUE;
             }
         }
-    #endif /* if ( pkcs11configIMPORT_PRIVATE_KEYS_SUPPORTED == 1 ) */
+    #endif /* if ( PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT == 1 ) */
 
     /* If a Just-in-Time Provisioning certificate has been provided by the
      * caller, attempt to import it. Not all crypto tokens
@@ -433,7 +433,7 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
         xResult = CKR_OK;
     }
 
-    #if ( 1 == keyprovisioningFORCE_GENERATE_NEW_KEY_PAIR )
+    #if ( 1 == FORCE_GENERATE_NEW_KEY_PAIR )
         xKeyPairGenerationMode = CK_TRUE;
     #endif
 
@@ -446,7 +446,7 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
          * flashing a new image, then a race condition can occur between the execution of an already
          * existing image on device (that is triggered by the device reset) and the flashing of the new image on the
          * device. When the existing image present on the device is configured to generate new key-pair (through the
-         * keyprovisioningFORCE_GENERATE_NEW_KEY_PAIR config), then a possible scenario of unexpected key-pair
+         * FORCE_GENERATE_NEW_KEY_PAIR config), then a possible scenario of unexpected key-pair
          * generation on device can occur during flashing process, in which case, the certificate provisioned by
          * user becomes stale and device cannot perform TLS connection with servers as the provisioned device certificate
          * does not match the unexpectedly generated new key-pair.
