@@ -30,6 +30,7 @@ HardwareDebug/
 DefaultBuild/
 trash/
 *.mtud
+.settings/
 
 ### IAR Embedded Workbench specific ignore files/folders
 Debug/
