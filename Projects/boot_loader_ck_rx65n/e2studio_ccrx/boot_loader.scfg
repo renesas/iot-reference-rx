@@ -7,7 +7,7 @@
                 <option id="com.renesas.smc.toolchain.option.language" key="com.renesas.smc.toolchain.option.language.c"/>
                 <option id="com.renesas.smc.toolchain.option.buildArtefactType" key="com.renesas.smc.toolchain.option.buildArtefactType.exe"/>
                 <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.none"/>
-                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.false"/>
+                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.true"/>
             </toolchain>
         </configuration>
         <platform id="R5F565NEHxFB"/>
@@ -31,18 +31,18 @@
         <option enabled="true" id="mainwaittime" selection="textinputitem">
             <item enabled="true" id="textinputitem" input="9980" value="9980.000000"/>
         </option>
-        <option enabled="true" id="subclockenable" selection="uncheck">
+        <option enabled="true" id="subclockenable" selection="check">
             <item enabled="true" id="check"/>
             <item enabled="true" id="uncheck"/>
         </option>
-        <option enabled="false" id="subfrequency" selection="textinputitem">
+        <option enabled="true" id="subfrequency" selection="textinputitem">
             <item enabled="true" id="textinputitem" input="" value="32.768"/>
         </option>
-        <option enabled="false" id="subdrivecap" selection="standardCL">
+        <option enabled="true" id="subdrivecap" selection="standardCL">
             <item enabled="true" id="standardCL"/>
             <item enabled="true" id="lowCL"/>
         </option>
-        <option enabled="false" id="subwaittime" selection="textinputitem">
+        <option enabled="true" id="subwaittime" selection="textinputitem">
             <item enabled="true" id="textinputitem" input="2000" value="2000.000000"/>
         </option>
         <option enabled="true" id="hococlockenable" selection="uncheck">
@@ -127,7 +127,7 @@
         <option enabled="true" id="sckswitcher" selection="pll">
             <item enabled="true" id="pll" input="" value="2.4E8"/>
             <item enabled="true" id="main" input="" value="2.4E7"/>
-            <item enabled="false" id="sub" input="" value="32768.0"/>
+            <item enabled="true" id="sub" input="" value="32768.0"/>
             <item enabled="false" id="hoco" input="" value="16000000"/>
             <item enabled="false" id="loco" input="" value="240000"/>
         </option>
@@ -252,10 +252,10 @@
         <option enabled="false" id="cachclk" selection="textoutputitem">
             <item enabled="true" id="textoutputitem" input="" value="16"/>
         </option>
-        <option enabled="false" id="cacsclk" selection="textoutputitem">
+        <option enabled="true" id="cacsclk" selection="textoutputitem">
             <item enabled="true" id="textoutputitem" input="" value="32.768"/>
         </option>
-        <option enabled="false" id="rtcsclkenable" selection="uncheck">
+        <option enabled="true" id="rtcsclkenable" selection="uncheck">
             <item enabled="true" id="check"/>
             <item enabled="true" id="uncheck"/>
         </option>
@@ -495,8 +495,10 @@
         <pinItem allocation="10" comments="" direction="None" id="EMLE" isUsedBySoftware="false" locked="false" operationMode="" status="0"/>
         <pinItem allocation="70" comments="" direction="None" id="RXD5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="67" comments="" direction="None" id="TXD5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="18" comments="" direction="None" id="XCOUT" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="16" comments="" direction="None" id="FINED" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="22" comments="" direction="None" id="EXTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="17" comments="" direction="None" id="XCIN" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="20" comments="" direction="None" id="XTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
     </tool>
     <tool id="Summary" version="1.0.0.0">

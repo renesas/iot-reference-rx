@@ -22,6 +22,17 @@
             </Category>
           </Category>
         </Category>
+        <Category Name="littlefs_common">
+          <Path>..\..\..\Common\littlefs_common\common_data.c</Path>
+          <Path>..\..\..\Common\littlefs_common\common_data.h</Path>
+          <Path>..\..\..\Common\littlefs_common\lfs_util_.h</Path>
+          <Path>..\..\..\Common\littlefs_common\rm_littlefs_api.h</Path>
+          <Path>..\..\..\Common\littlefs_common\rm_littlefs_flash.h</Path>
+          <Path>..\..\..\Common\littlefs_common\rm_stdio_littlefs.h</Path>
+          <Category Name="rm_littlefs_flash">
+            <Path>..\..\..\Common\littlefs_common\rm_littlefs_flash\rm_littlefs_flash.c</Path>
+          </Category>
+        </Category>
       </Category>
       <Category Name="Demos">
         <Category Name="Fleet_Provisioning_With_CSR_Demo">
@@ -41,6 +52,12 @@
         </Category>
         <Category Name="SimplePubSub">
           <Path>..\..\..\Demos\SimplePubSub\simple_pub_sub_task.c</Path>
+        </Category>
+        <Category Name="cli">
+          <Path>..\..\..\Demos\cli\CLIcommands.c</Path>
+          <Path>..\..\..\Demos\cli\UARTCommandConsole.c</Path>
+          <Path>..\..\..\Demos\cli\serial.c</Path>
+          <Path>..\..\..\Demos\cli\serial.h</Path>
         </Category>
         <Category Name="common">
           <Category Name="Mqtt_Demo_Helpers">
@@ -435,6 +452,13 @@
               </Category>
             </Category>
           </Category>
+          <Category Name="FreeRTOS-Plus-CLI">
+            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\FreeRTOS_CLI.c</Path>
+            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\FreeRTOS_CLI.h</Path>
+            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\History.txt</Path>
+            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\LICENSE_INFORMATION.txt</Path>
+            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\readme.txt</Path>
+          </Category>
           <Category Name="FreeRTOS-Plus-TCP">
             <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\History.txt</Path>
             <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\readme.txt</Path>
@@ -560,6 +584,12 @@
             </Category>
           </Category>
         </Category>
+        <Category Name="littlefs">
+          <Path>..\..\..\Middleware\littlefs\lfs.c</Path>
+          <Path>..\..\..\Middleware\littlefs\lfs.h</Path>
+          <Path>..\..\..\Middleware\littlefs\lfs_util.c</Path>
+          <Path>..\..\..\Middleware\littlefs\lfs_util.h</Path>
+        </Category>
         <Category Name="logging">
           <Path>..\..\..\Middleware\logging\CMakeLists.txt</Path>
           <Path>..\..\..\Middleware\logging\iot_logging_task_dynamic_buffers.c</Path>
@@ -653,7 +683,6 @@
         <Category Name="application_code">
           <Path>src\application_code\main.c</Path>
           <Path>src\application_code\pub_sub_test_task.c</Path>
-          <Path>src\application_code\user_init.c</Path>
           <Category Name="include">
             <Path>..\..\..\Test\include\aws_clientcredential.h</Path>
             <Path>..\..\..\Test\include\aws_clientcredential_keys.h</Path>
@@ -667,8 +696,8 @@
               <Path>..\..\..\Common\ports\ota_pal\ota_pal.c</Path>
               <Path>..\..\..\Common\ports\ota_pal\ota_pal.h</Path>
             </Category>
-            <Category Name="pkcs11">
-              <Path>..\..\..\Common\ports\pkcs11\core_pkcs11_pal.c</Path>
+            <Category Name="rm_aws_pkcs11_pal_littlefs">
+              <Path>..\..\..\Common\ports\rm_aws_pkcs11_pal_littlefs\rm_aws_pkcs11_pal_littlefs.c</Path>
             </Category>
           </Category>
         </Category>
@@ -972,10 +1001,35 @@
             <Path>src\smc_gen\r_config\r_bsp_interrupt_config.h</Path>
             <Path>src\smc_gen\r_config\r_byteq_config.h</Path>
             <Path>src\smc_gen\r_config\r_cellular_config.h</Path>
+            <Path>src\smc_gen\r_config\r_dtc_rx_config.h</Path>
             <Path>src\smc_gen\r_config\r_flash_rx_config.h</Path>
             <Path>src\smc_gen\r_config\r_irq_rx_config.h</Path>
             <Path>src\smc_gen\r_config\r_s12ad_rx_config.h</Path>
             <Path>src\smc_gen\r_config\r_sci_rx_config.h</Path>
+            <Path>src\smc_gen\r_config\r_tsip_rx_config.h</Path>
+          </Category>
+          <Category Name="r_dtc_rx">
+            <Path>src\smc_gen\r_dtc_rx\r_dtc_rx_if.h</Path>
+            <Path>src\smc_gen\r_dtc_rx\readme.txt</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_dtc_rx\doc\en\r01an1819ej0410-rx-dtc-dmac2.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_dtc_rx\doc\ja\r01an1819jj0410-rx-dtc-dmac2.pdf</Path>
+              </Category>
+            </Category>
+            <Category Name="src">
+              <Path>src\smc_gen\r_dtc_rx\src\r_dtc_rx.c</Path>
+              <Path>src\smc_gen\r_dtc_rx\src\r_dtc_rx_private.h</Path>
+              <Category Name="targets">
+                <Category Name="rx65n">
+                  <Path>src\smc_gen\r_dtc_rx\src\targets\rx65n\r_dtc_rx_target.c</Path>
+                  <Path>src\smc_gen\r_dtc_rx\src\targets\rx65n\r_dtc_rx_target.h</Path>
+                  <Path>src\smc_gen\r_dtc_rx\src\targets\rx65n\r_dtc_rx_target_if.h</Path>
+                </Category>
+              </Category>
+            </Category>
           </Category>
           <Category Name="r_flash_rx">
             <Path>src\smc_gen\r_flash_rx\r_flash_rx_if.h</Path>
@@ -1094,10 +1148,22 @@
               </Category>
             </Category>
           </Category>
+          <Category Name="r_tsip_rx">
+            <Path>src\smc_gen\r_tsip_rx\r_tsip_rx_if.h</Path>
+            <Path>src\smc_gen\r_tsip_rx\readme.txt</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_tsip_rx\doc\en\r20an0548ej0115-rx-tsip-security.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_tsip_rx\doc\ja\r20an0548jj0115-rx-tsip-security.pdf</Path>
+              </Category>
+            </Category>
+          </Category>
         </Category>
       </Category>
     </Files>
-    <Device Category="com.renesas.cdt.managedbuild.renesas.ccrx.common.option.cpu.rx600" Series="RX">R5F565NEHxFB</Device>
+    <Device Category="com.renesas.cdt.managedbuild.renesas.ccrx.common.option.cpu.rx600" Series="RX">R5F565NEHxFB_DUAL</Device>
     <BuildOptions Name="CC-RX" Version="v3.04.00">
       <BuildMode Active="True" Name="HardwareDebug">
         <GeneralOptions/>
@@ -1105,82 +1171,88 @@
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
           <Option>-branch=32</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_startup"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreJSON\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\freertos_plus\standard\crypto\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\logging\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\pkcs11\published\2-40-errata-1"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls_utils"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls_config"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\pkcs11_helpers"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\Unity\extras\fixture\src"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\Unity\extras\memory\src"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\Unity\src"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Common\ports\ota_pal"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\tinycbor\src"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Test\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\library"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\mqtt_agent"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\OtaOverMqtt"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-fork\Demos\common\Mqtt_Demo_Helpers"</Option>
-          <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,MBEDTLS_ALLOW_PRIVATE_ACCESS,_COMPLEX,__RX=1,__RENESAS__,__LITTLE_ENDIAN__,UNITY_INCLUDE_CONFIG_H,__FUNCTION__=__func__</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_irq_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_tsip_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_dtc_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_dtc_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\frtos_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\frtos_startup"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Plus-CLI"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreJSON\source\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\freertos_plus\standard\crypto\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\logging\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\pkcs11\published\2-40-errata-1"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls_utils"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls_config"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\littlefs"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Common\FreeRTOS_common"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Demos\common\pkcs11_helpers"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Common\littlefs_common"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\Unity\extras\fixture\src"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\Unity\extras\memory\src"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\Unity\src"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Common\ports\ota_pal"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\tinycbor\src"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Test\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\library"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Demos\mqtt_agent"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Demos\common\mqtt-agent-interface\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Demos\common\mqtt-agent-interface"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Demos\OtaOverMqtt"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\work\non-blocking-littleFS\Demos\common\Mqtt_Demo_Helpers"</Option>
+          <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,MBEDTLS_ALLOW_PRIVATE_ACCESS,_COMPLEX,__RX=1,__RENESAS__,__LITTLE_ENDIAN__,UNITY_INCLUDE_CONFIG_H,__FUNCTION__=__func__,__TEST__</Option>
           <Option>-utf8</Option>
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
           <Option>-debug</Option>
@@ -1195,31 +1267,34 @@
         <AssembleOptions>
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_irq_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_tsip_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_dtc_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_dtc_rx\src"</Option>
           <Option>-utf8</Option>
           <Option>-debug</Option>
           <Option>-goptimize</Option>
@@ -1233,10 +1308,11 @@
           <Option>-vect=_undefined_interrupt_source_isr</Option>
           <Option>-list=${ProjName}.map</Option>
           <Option>-samesize=1E</Option>
-          <Option>-rom=PFRAM2=RPFRAM2,D=R,D_1=R_1,D_2=R_2</Option>
+          <Option>-rom=D=R,D_1=R_1,D_2=R_2,PFRAM2=RPFRAM2</Option>
           <Option>-cpu=RAM=00000000-0003ffff,FIX=00080000-00083fff,FIX=00086000-00087fff,FIX=00088000-0009ffff,FIX=000a0000-000a3fff,RAM=000a4000-000a5fff,FIX=000a6000-000bffff,FIX=000c0000-000dffff,FIX=000e0000-000fffff,ROM=00100000-00107fff,FIX=007fc000-007fcfff,FIX=007fe000-007fffff,RAM=00800000-0085ffff,RAM=fe7f5d00-fe7f5d7f,RAM=fe7f7d70-fe7f7d9f,ROM=ffe00000-ffffffff</Option>
           <Option>-nologo</Option>
-          <Option>-start=SU,SI,R_1,B_2,R,RPFRAM2/04,C_PKCS11_STORAGE*/0100800,B,B_1,R_2/0800000,PResetPRG,C_1,C_2,C,C$*,D*,W*,L,P,PFRAM,PFRAM2/0FFF00300,EXCEPTVECT/0FFFFFF80,RESETVECT/0FFFFFFFC</Option>
+          <Option>-library="${ProjDirPath}/../../../ws/test_aws_cellular_ck_rx65n-ccrx/${ProjName}/src/smc_gen/r_tsip_rx/lib/ccrx/r_tsip_rx65n_little.lib"</Option>
+          <Option>-start=SU,SI,R_1,B_2,R,RPFRAM2/04,B,B_1,R_2/0800000,PResetPRG,C_1,C_2,C,C$*,D*,W*,L,P,PFRAM,PFRAM2/0FFF00300,EXCEPTVECT/0FFFBFF80,RESETVECT/0FFFBFFFC</Option>
           <Option>-end</Option>
           <Option>-output="${ProjName}.mot"</Option>
           <Option>-form=stype</Option>
@@ -1304,6 +1380,8 @@
           <Path>HardwareDebug\exit.obj</Path>
           <Path>HardwareDebug\entropy_hardware_poll.obj</Path>
           <Path>HardwareDebug\serial_term_uart.obj</Path>
+          <Path>HardwareDebug\common_data.obj</Path>
+          <Path>HardwareDebug\rm_littlefs_flash.obj</Path>
           <Path>HardwareDebug\FleetProvisioningDemoExample.obj</Path>
           <Path>HardwareDebug\pkcs11_operations.obj</Path>
           <Path>HardwareDebug\tinycbor_serializer.obj</Path>
@@ -1311,6 +1389,9 @@
           <Path>HardwareDebug\OtaOverMqttDemoExample.obj</Path>
           <Path>HardwareDebug\subscription_manager.obj</Path>
           <Path>HardwareDebug\simple_pub_sub_task.obj</Path>
+          <Path>HardwareDebug\CLIcommands.obj</Path>
+          <Path>HardwareDebug\UARTCommandConsole.obj</Path>
+          <Path>HardwareDebug\serial.obj</Path>
           <Path>HardwareDebug\mqtt_pkcs11_demo_helpers.obj</Path>
           <Path>HardwareDebug\freertos_agent_message.obj</Path>
           <Path>HardwareDebug\freertos_command_pool.obj</Path>
@@ -1440,6 +1521,7 @@
           <Path>HardwareDebug\stream_buffer.obj</Path>
           <Path>HardwareDebug\tasks.obj</Path>
           <Path>HardwareDebug\timers.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_CLI.obj</Path>
           <Path>HardwareDebug\backoff_algorithm.obj</Path>
           <Path>HardwareDebug\core_json.obj</Path>
           <Path>HardwareDebug\core_mqtt.obj</Path>
@@ -1451,6 +1533,8 @@
           <Path>HardwareDebug\core_pki_utils.obj</Path>
           <Path>HardwareDebug\core_pkcs11_mbedtls.obj</Path>
           <Path>HardwareDebug\iot_crypto.obj</Path>
+          <Path>HardwareDebug\lfs.obj</Path>
+          <Path>HardwareDebug\lfs_util.obj</Path>
           <Path>HardwareDebug\iot_logging_task_dynamic_buffers.obj</Path>
           <Path>HardwareDebug\key_provisioning.obj</Path>
           <Path>HardwareDebug\test_framework.obj</Path>
@@ -1466,9 +1550,8 @@
           <Path>HardwareDebug\integration_test.obj</Path>
           <Path>HardwareDebug\main.obj</Path>
           <Path>HardwareDebug\ota_pal.obj</Path>
-          <Path>HardwareDebug\core_pkcs11_pal.obj</Path>
+          <Path>HardwareDebug\rm_aws_pkcs11_pal_littlefs.obj</Path>
           <Path>HardwareDebug\pub_sub_test_task.obj</Path>
-          <Path>HardwareDebug\user_init.obj</Path>
           <Path>HardwareDebug\cellular_block_pool_control.obj</Path>
           <Path>HardwareDebug\cellular_create_event_group.obj</Path>
           <Path>HardwareDebug\cellular_create_semaphore.obj</Path>
@@ -1590,111 +1673,123 @@
           <Path>HardwareDebug\cellular_task_ctrl.obj</Path>
           <Path>HardwareDebug\cellular_timeout_ctrl.obj</Path>
           <Path>HardwareDebug\r_cellular_receive_task.obj</Path>
+          <Path>HardwareDebug\r_dtc_rx.obj</Path>
+          <Path>HardwareDebug\r_dtc_rx_target.obj</Path>
           <Path>HardwareDebug\r_irq_rx.obj</Path>
           <Path>HardwareDebug\r_irq_rx_pinset.obj</Path>
           <Path>HardwareDebug\test_aws_cellular_ck_rx65n.lib</Path>
+          <Path>HardwareDebug\r_tsip_rx65n_little.lib}</Path>
         </LinkOrder>
         <CommonOptions>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_startup"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\logging\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\pkcs11_helpers"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\Unity\extras\fixture\src"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\Unity\extras\memory\src"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\Unity\src"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Common\ports\ota_pal"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Test\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\mqtt_agent"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\mqtt-agent-interface"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\OtaOverMqtt"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-fork\Demos\common\Mqtt_Demo_Helpers"</IncludePathForC>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForAsm>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\general"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_tsip_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_dtc_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_dtc_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\frtos_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\frtos_startup"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Plus-CLI"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\logging\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\littlefs"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\FreeRTOS_common"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\common\pkcs11_helpers"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\littlefs_common"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\Unity\extras\fixture\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\Unity\extras\memory\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\Unity\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\ports\ota_pal"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Test\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\mqtt_agent"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\common\mqtt-agent-interface"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\OtaOverMqtt"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\common\Mqtt_Demo_Helpers"</IncludePathForC>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_tsip_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_dtc_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\ws\test_aws_cellular_ck_rx65n-ccrx\${ProjName}\src\smc_gen\r_dtc_rx\src"</IncludePathForAsm>
           <MacroForC>MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;"</MacroForC>
           <MacroForC>CONFIG_MEDTLS_USE_AFR_MEMORY</MacroForC>
           <MacroForC>MBEDTLS_CMAC_C</MacroForC>
@@ -1707,6 +1802,7 @@
           <MacroForC>__LITTLE_ENDIAN__</MacroForC>
           <MacroForC>UNITY_INCLUDE_CONFIG_H</MacroForC>
           <MacroForC>__FUNCTION__=__func__</MacroForC>
+          <MacroForC>__TEST__</MacroForC>
         </CommonOptions>
       </BuildMode>
     </BuildOptions>

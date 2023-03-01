@@ -267,7 +267,7 @@ static char * prvGetThingNameFromKeyStore( void );
  * @param pvParameters The parameters to the task.
  */
 void vSimpleSubscribePublishTask( void * pvParameters );
-void vStartSimplePubSubDemo( void * pvParameters );
+void vStartSimplePubSubDemo( void  );
 
 /**
  * @brief Starts a group of publish subscribe tasks as requested by the user.
@@ -652,7 +652,7 @@ BaseType_t xStartSimplePubSubTasks( uint32_t ulNumPubsubTasks,
     return xResult;
 }
 
-void vStartSimplePubSubDemo( void * pvParameters )
+void vStartSimplePubSubDemo( void  )
 {
 	BaseType_t xResult = pdPASS;
 	if( xResult == pdPASS )
