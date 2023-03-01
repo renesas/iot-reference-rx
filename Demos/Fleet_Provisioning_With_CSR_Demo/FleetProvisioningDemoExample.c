@@ -82,6 +82,8 @@
 #include "pkcs11_operations.h"
 #include "tinycbor_serializer.h"
 
+#include "unique_id.h"
+
 /**
  * These configurations are required. Throw compilation error if it is not
  * defined.
@@ -109,6 +111,13 @@
  * See https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThing.html#iot-CreateThing-request-thingName
  */
 #define fpdemoMAX_THING_NAME_LENGTH                128
+
+/**
+ * @brief Size of CSR subject name buffer.
+ *
+ * See https://docs.aws.amazon.com/iot/latest/apireference/API_CreateThing.html#iot-CreateThing-request-thingName
+ */
+#define fpdemoMAX_CSR_SUBJECT_NAME_LENGTH          128
 
 /**
  * @brief The maximum number of times to run the loop in this demo.
@@ -184,14 +193,26 @@ struct NetworkContext
 /*-----------------------------------------------------------*/
 
 /**
- * @brief Status reported from the MQTT publish callback.
+ * @brief Buffer to hold the fleet provisioning demo ID.
  */
-static ResponseStatus_t xResponseStatus;
+static char pcDemoID[ fpdemoMAX_THING_NAME_LENGTH ] = { 0 };
 
 /**
  * @brief Buffer to hold the provisioned AWS IoT Thing name.
  */
-static char pcThingName[ fpdemoMAX_THING_NAME_LENGTH ];
+static char pcThingName[ fpdemoMAX_THING_NAME_LENGTH ] = { 0 };
+
+/**
+ * @brief Buffer to hold the CSR subject name.
+ */
+static char pcCSRSubjectName[ fpdemoMAX_CSR_SUBJECT_NAME_LENGTH ] = { 0 };
+
+/*-----------------------------------------------------------*/
+
+/**
+ * @brief Status reported from the MQTT publish callback.
+ */
+static ResponseStatus_t xResponseStatus;
 
 /**
  * @brief Length of the AWS IoT Thing name.
@@ -554,17 +575,23 @@ int prvFleetProvisioningTask( void * pvParameters )
     CK_SESSION_HANDLE xP11Session;
     uint32_t ulDemoRunCount = 0U;
     CK_RV xPkcs11Ret = CKR_OK;
+    CK_OBJECT_HANDLE xClientCertificate;
+    CK_OBJECT_HANDLE xPrivateKey;
+    uuid_param_t uuid;
 
     /* Silence compiler warnings about unused variables. */
     ( void ) pvParameters;
+
+    /* Generate unique fleet provisioning demo ID. */
+    get_unique_id(&uuid);
+    snprintf( pcDemoID, fpdemoMAX_THING_NAME_LENGTH, "%s_%d_%d_%d_%d", democonfigFP_DEMO_ID, uuid.uuid0, uuid.uuid1, uuid.uuid2, uuid.uuid3);
+    snprintf( pcCSRSubjectName, fpdemoMAX_CSR_SUBJECT_NAME_LENGTH, "CN=%s_%d_%d_%d_%d", democonfigFP_DEMO_ID, uuid.uuid0, uuid.uuid1, uuid.uuid2, uuid.uuid3);
 
     /* Set the pParams member of the network context with desired transport. */
     xNetworkContext.pxParams = &xTlsTransportParams;
 
     do
     {
-        LogInfo( ( "---------STARTING DEMO---------\r\n" ) );
-
         /* Initialize the buffer lengths to their max lengths. */
         xCertificateLength = fpdemoCERT_BUFFER_LENGTH;
         xCertificateIdLength = fpdemoCERT_ID_BUFFER_LENGTH;
@@ -580,196 +607,236 @@ int prvFleetProvisioningTask( void * pvParameters )
         }
         else
         {
-        	loadClaimCredentials(xP11Session, democonfigCLAIM_CERT_PEM, sizeof( democonfigCLAIM_CERT_PEM ), democonfigCLAIM_PRIVATE_KEY_PEM, sizeof ( democonfigCLAIM_PRIVATE_KEY_PEM ) );
-            xStatus = xGenerateKeyAndCsr( xP11Session,
-                                          pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
-                                          pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
-                                          pcCsr,
-                                          fpdemoCSR_BUFFER_LENGTH,
-                                          &xCsrLength );
-
-            if( xStatus == false )
+            xPkcs11Ret = xGetCertificateAndKeyState( xP11Session,
+                                                     &xClientCertificate,
+                                                     &xPrivateKey );
+            if( xPkcs11Ret != CKR_OK )
             {
-                LogError( ( "Failed to generate Key and Certificate Signing Request." ) );
+                LogError( ( "Failed to get state of device certificate and private key." ) );
+                xStatus = false;
             }
         }
 
-        /**** Connect to AWS IoT Core with provisioning claim credentials *****/
-
-        /* We first use the claim credentials to connect to the broker. These
-         * credentials should allow use of the RegisterThing API and one of the
-         * CreateCertificatefromCsr or CreateKeysAndCertificate.
-         * In this demo we use CreateCertificatefromCsr. */
-        if( xStatus == true )
+        if ( (xPkcs11Ret == CKR_OK) && (xClientCertificate == CK_INVALID_HANDLE) && (xPrivateKey == CK_INVALID_HANDLE) )
         {
-            /* Attempts to connect to the AWS IoT MQTT broker. If the
-             * connection fails, retries after a timeout. Timeout value will
-             * exponentially increase until maximum attempts are reached. */
-            LogInfo( ( "Establishing MQTT session with claim certificate..." ) );
-            xStatus = xEstablishMqttSession( &xMqttContext,
-                                             &xNetworkContext,
-                                             &xBuffer,
-                                             prvProvisioningPublishCallback,
-                                             pkcs11configLABEL_CLAIM_CERTIFICATE,
-                                             pkcs11configLABEL_CLAIM_PRIVATE_KEY );
+        	xStatus = xLoadClaimCredentials(xP11Session,
+        	                      democonfigCLAIM_CERT_PEM,
+        	                      sizeof( democonfigCLAIM_CERT_PEM ),
+        	                      democonfigCLAIM_PRIVATE_KEY_PEM,
+        	                      sizeof ( democonfigCLAIM_PRIVATE_KEY_PEM ) );
+        	if( xStatus != true)
+        	{
+        	    LogError( ( "Failed to load claim certificate and claim private key." ) );
+        	}
+        	else
+        	{
+                xStatus = xGenerateKeyAndCsr( xP11Session,
+                                              pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+                                              pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
+                                              pcCsr,
+                                              fpdemoCSR_BUFFER_LENGTH,
+                                              &xCsrLength,
+                                              pcCSRSubjectName );
 
-            if( xStatus == false )
+                if( xStatus == false )
+                {
+                    LogError( ( "Failed to generate Key and Certificate Signing Request." ) );
+                }
+        	}
+        }
+        else if ( (xPkcs11Ret == CKR_OK) && (xClientCertificate != CK_INVALID_HANDLE) && (xPrivateKey != CK_INVALID_HANDLE) )
+        {
+            LogInfo( ( "It uses the device certificate and private key already stored." ) );
+            snprintf( pcThingName, fpdemoMAX_THING_NAME_LENGTH, "fp_demo_%s_%d_%d_%d_%d", democonfigFP_DEMO_ID, uuid.uuid0, uuid.uuid1, uuid.uuid2, uuid.uuid3);
+            xStatus = true;
+        }
+        else
+        {
+            LogError( ( "Failed to initialize PKCS #11 or get state." ) );
+            xStatus = false;
+        }
+
+        /* Skip fleet provisioning if you already have a device certificate and private key. */
+        if ( (xClientCertificate == CK_INVALID_HANDLE) && (xPrivateKey == CK_INVALID_HANDLE) )
+        {
+            /**** Connect to AWS IoT Core with provisioning claim credentials *****/
+
+            /* We first use the claim credentials to connect to the broker. These
+             * credentials should allow use of the RegisterThing API and one of the
+             * CreateCertificatefromCsr or CreateKeysAndCertificate.
+             * In this demo we use CreateCertificatefromCsr. */
+            if( xStatus == true )
             {
-                LogError( ( "Failed to establish MQTT session." ) );
+                /* Attempts to connect to the AWS IoT MQTT broker. If the
+                 * connection fails, retries after a timeout. Timeout value will
+                 * exponentially increase until maximum attempts are reached. */
+                LogInfo( ( "Establishing MQTT session with claim certificate..." ) );
+                xStatus = xEstablishMqttSession( &xMqttContext,
+                                                 &xNetworkContext,
+                                                 &xBuffer,
+                                                 prvProvisioningPublishCallback,
+                                                 pkcs11configLABEL_CLAIM_CERTIFICATE,
+                                                 pkcs11configLABEL_CLAIM_PRIVATE_KEY,
+                                                 pcDemoID);
+
+                if( xStatus == false )
+                {
+                    LogError( ( "Failed to establish MQTT session." ) );
+                }
+                else
+                {
+                    LogInfo( ( "Established connection with claim credentials." ) );
+                    xConnectionEstablished = true;
+                }
             }
-            else
+
+            /**** Call the CreateCertificateFromCsr API ***************************/
+
+            /* We use the CreateCertificatefromCsr API to obtain a client certificate
+             * for a key on the device by means of sending a certificate signing
+             * request (CSR). */
+            if( xStatus == true )
             {
-                LogInfo( ( "Established connection with claim credentials." ) );
-                xConnectionEstablished = true;
+                /* Subscribe to the CreateCertificateFromCsr accepted and rejected
+                 * topics. In this demo we use CBOR encoding for the payloads,
+                 * so we use the CBOR variants of the topics. */
+                xStatus = prvSubscribeToCsrResponseTopics();
             }
-        }
-
-        /**** Call the CreateCertificateFromCsr API ***************************/
-
-        /* We use the CreateCertificatefromCsr API to obtain a client certificate
-         * for a key on the device by means of sending a certificate signing
-         * request (CSR). */
-        if( xStatus == true )
-        {
-            /* Subscribe to the CreateCertificateFromCsr accepted and rejected
-             * topics. In this demo we use CBOR encoding for the payloads,
-             * so we use the CBOR variants of the topics. */
-            xStatus = prvSubscribeToCsrResponseTopics();
-        }
-
-        if( xStatus == true )
-        {
-            /* Create the request payload containing the CSR to publish to the
-             * CreateCertificateFromCsr APIs. */
-            xStatus = xGenerateCsrRequest( pucPayloadBuffer,
-                                           democonfigNETWORK_BUFFER_SIZE,
-                                           pcCsr,
-                                           xCsrLength,
-                                           &xPayloadLength );
-        }
-
-        if( xStatus == true )
-        {
-            /* Publish the CSR to the CreateCertificatefromCsr API. */
-            xPublishToTopic( &xMqttContext,
-                             FP_CBOR_CREATE_CERT_PUBLISH_TOPIC,
-                             FP_CBOR_CREATE_CERT_PUBLISH_LENGTH,
-                             ( char * ) pucPayloadBuffer,
-                             xPayloadLength );
-
-            if( xStatus == false )
-            {
-                LogError( ( "Failed to publish to fleet provisioning topic: %.*s.",
-                            FP_CBOR_CREATE_CERT_PUBLISH_LENGTH,
-                            FP_CBOR_CREATE_CERT_PUBLISH_TOPIC ) );
-            }
-        }
-
-        if( xStatus == true )
-        {
-            /* From the response, extract the certificate, certificate ID, and
-             * certificate ownership token. */
-            xStatus = xParseCsrResponse( pucPayloadBuffer,
-                                         xPayloadLength,
-                                         pcCertificate,
-                                         &xCertificateLength,
-                                         pcCertificateId,
-                                         &xCertificateIdLength,
-                                         pcOwnershipToken,
-                                         &xOwnershipTokenLength );
 
             if( xStatus == true )
             {
-                LogInfo( ( "Received certificate with Id: %.*s", ( int ) xCertificateIdLength, pcCertificateId ) );
+                /* Create the request payload containing the CSR to publish to the
+                 * CreateCertificateFromCsr APIs. */
+                xStatus = xGenerateCsrRequest( pucPayloadBuffer,
+                                               democonfigNETWORK_BUFFER_SIZE,
+                                               pcCsr,
+                                               xCsrLength,
+                                               &xPayloadLength );
             }
-        }
-
-        if( xStatus == true )
-        {
-            /* Save the certificate into PKCS #11. */
-            xStatus = xLoadCertificate( xP11Session,
-                                        pcCertificate,
-                                        pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
-                                        xCertificateLength );
-        }
-
-        if( xStatus == true )
-        {
-            /* Unsubscribe from the CreateCertificateFromCsr topics. */
-            xStatus = prvUnsubscribeFromCsrResponseTopics();
-        }
-
-        /**** Call the RegisterThing API **************************************/
-
-        /* We then use the RegisterThing API to activate the received certificate,
-         * provision AWS IoT resources according to the provisioning template, and
-         * receive device configuration. */
-        if( xStatus == true )
-        {
-            /* Create the request payload to publish to the RegisterThing API. */
-            xStatus = xGenerateRegisterThingRequest( pucPayloadBuffer,
-                                                     democonfigNETWORK_BUFFER_SIZE,
-                                                     pcOwnershipToken,
-                                                     xOwnershipTokenLength,
-                                                     democonfigFP_DEMO_ID,
-                                                     fpdemoFP_DEMO_ID_LENGTH,
-                                                     &xPayloadLength );
-        }
-
-        if( xStatus == true )
-        {
-            /* Subscribe to the RegisterThing response topics. */
-            xStatus = prvSubscribeToRegisterThingResponseTopics();
-        }
-
-        if( xStatus == true )
-        {
-            /* Publish the RegisterThing request. */
-            xPublishToTopic( &xMqttContext,
-                             FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
-                             FP_CBOR_REGISTER_PUBLISH_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
-                             ( char * ) pucPayloadBuffer,
-                             xPayloadLength );
-
-            if( xStatus == false )
-            {
-                LogError( ( "Failed to publish to fleet provisioning topic: %.*s.",
-                            FP_CBOR_REGISTER_PUBLISH_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
-                            FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
-            }
-        }
-
-        if( xStatus == true )
-        {
-            /* Extract the Thing name from the response. */
-            xThingNameLength = fpdemoMAX_THING_NAME_LENGTH;
-            xStatus = xParseRegisterThingResponse( pucPayloadBuffer,
-                                                   xPayloadLength,
-                                                   pcThingName,
-                                                   &xThingNameLength );
 
             if( xStatus == true )
             {
-                LogInfo( ( "Received AWS IoT Thing name: %.*s", ( int ) xThingNameLength, pcThingName ) );
+                /* Publish the CSR to the CreateCertificatefromCsr API. */
+                xPublishToTopic( &xMqttContext,
+                                 FP_CBOR_CREATE_CERT_PUBLISH_TOPIC,
+                                 FP_CBOR_CREATE_CERT_PUBLISH_LENGTH,
+                                 ( char * ) pucPayloadBuffer,
+                                 xPayloadLength );
+
+                if( xStatus == false )
+                {
+                    LogError( ( "Failed to publish to fleet provisioning topic: %.*s.",
+                                FP_CBOR_CREATE_CERT_PUBLISH_LENGTH,
+                                FP_CBOR_CREATE_CERT_PUBLISH_TOPIC ) );
+                }
             }
-        }
 
-        if( xStatus == true )
-        {
-            /* Unsubscribe from the RegisterThing topics. */
-            prvUnsubscribeFromRegisterThingResponseTopics();
-        }
+            if( xStatus == true )
+            {
+                /* From the response, extract the certificate, certificate ID, and
+                 * certificate ownership token. */
+                xStatus = xParseCsrResponse( pucPayloadBuffer,
+                                             xPayloadLength,
+                                             pcCertificate,
+                                             &xCertificateLength,
+                                             pcCertificateId,
+                                             &xCertificateIdLength,
+                                             pcOwnershipToken,
+                                             &xOwnershipTokenLength );
 
-        /**** Disconnect from AWS IoT Core ************************************/
+                if( xStatus == true )
+                {
+                    LogInfo( ( "Received certificate with Id: %.*s", ( int ) xCertificateIdLength, pcCertificateId ) );
+                }
+            }
 
-        /* As we have completed the provisioning workflow, we disconnect from
-         * the connection using the provisioning claim credentials. We will
-         * establish a new MQTT connection with the newly provisioned
-         * credentials. */
-        if( xConnectionEstablished == true )
-        {
-            xDisconnectMqttSession( &xMqttContext, &xNetworkContext );
-            xConnectionEstablished = false;
+            if( xStatus == true )
+            {
+                /* Save the certificate into PKCS #11. */
+                xStatus = xLoadCertificate( xP11Session,
+                                            pcCertificate,
+                                            pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
+                                            xCertificateLength );
+            }
+
+            if( xStatus == true )
+            {
+                /* Unsubscribe from the CreateCertificateFromCsr topics. */
+                xStatus = prvUnsubscribeFromCsrResponseTopics();
+            }
+
+            /**** Call the RegisterThing API **************************************/
+
+            /* We then use the RegisterThing API to activate the received certificate,
+             * provision AWS IoT resources according to the provisioning template, and
+             * receive device configuration. */
+            if( xStatus == true )
+            {
+                /* Create the request payload to publish to the RegisterThing API. */
+                xStatus = xGenerateRegisterThingRequest( pucPayloadBuffer,
+                                                         democonfigNETWORK_BUFFER_SIZE,
+                                                         pcOwnershipToken,
+                                                         xOwnershipTokenLength,
+                                                         pcDemoID,
+                                                         strlen ( pcDemoID ),
+                                                         &xPayloadLength );
+            }
+
+            if( xStatus == true )
+            {
+                /* Subscribe to the RegisterThing response topics. */
+                xStatus = prvSubscribeToRegisterThingResponseTopics();
+            }
+
+            if( xStatus == true )
+            {
+                /* Publish the RegisterThing request. */
+                xPublishToTopic( &xMqttContext,
+                                 FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
+                                 FP_CBOR_REGISTER_PUBLISH_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
+                                 ( char * ) pucPayloadBuffer,
+                                 xPayloadLength );
+
+                if( xStatus == false )
+                {
+                    LogError( ( "Failed to publish to fleet provisioning topic: %.*s.",
+                                FP_CBOR_REGISTER_PUBLISH_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
+                                FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
+                }
+            }
+
+            if( xStatus == true )
+            {
+                /* Extract the Thing name from the response. */
+                xThingNameLength = fpdemoMAX_THING_NAME_LENGTH;
+                xStatus = xParseRegisterThingResponse( pucPayloadBuffer,
+                                                       xPayloadLength,
+                                                       pcThingName,
+                                                       &xThingNameLength );
+
+                if( xStatus == true )
+                {
+                    LogInfo( ( "Received AWS IoT Thing name: %.*s", ( int ) xThingNameLength, pcThingName ) );
+                }
+            }
+
+            if( xStatus == true )
+            {
+                /* Unsubscribe from the RegisterThing topics. */
+                prvUnsubscribeFromRegisterThingResponseTopics();
+            }
+
+            /**** Disconnect from AWS IoT Core ************************************/
+
+            /* As we have completed the provisioning workflow, we disconnect from
+             * the connection using the provisioning claim credentials. We will
+             * establish a new MQTT connection with the newly provisioned
+             * credentials. */
+            if( xConnectionEstablished == true )
+            {
+                xDisconnectMqttSession( &xMqttContext, &xNetworkContext );
+                xConnectionEstablished = false;
+            }
         }
 
         /**** Connect to AWS IoT Core with provisioned certificate ************/
@@ -782,7 +849,8 @@ int prvFleetProvisioningTask( void * pvParameters )
                                              &xBuffer,
                                              prvProvisioningPublishCallback,
                                              pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
-                                             pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS );
+                                             pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+                                             pcThingName );
 
             if( xStatus != true )
             {

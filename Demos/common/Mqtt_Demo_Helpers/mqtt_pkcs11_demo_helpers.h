@@ -54,7 +54,8 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
                                   MQTTFixedBuffer_t * pxNetworkBuffer,
                                   MQTTEventCallback_t eventCallback,
                                   char * pcClientCertLabel,
-                                  char * pcPrivateKeyLabel );
+                                  char * pcPrivateKeyLabel,
+                                  char * pcClient_identifier );
 
 /**
  * @brief Handle the incoming packet if it's not related to the device shadow.
