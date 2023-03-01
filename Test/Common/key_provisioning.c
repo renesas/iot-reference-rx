@@ -10,6 +10,7 @@
 /* PKCS#11 includes. */
 #include "core_pkcs11.h"
 #include "test_param_config.h"
+#include "test_execution_config.h"
 
 /* Client credential includes. */
 #include "aws_clientcredential.h"
@@ -25,6 +26,12 @@
 /* mbedTLS includes. */
 #include "mbedtls/pk.h"
 #include "mbedtls/oid.h"
+#include "store.h"
+
+/* Default FreeRTOS API for console logging. */
+#define DEV_MODE_KEY_PROVISIONING_PRINT( X )    configPRINTF (X)
+
+CK_RV vDevModeKeyPreProvisioning( KeyValueStore_t Keystore, KVStoreKey_t ID, int32_t xvaluelength );
 
 typedef struct ProvisionedState_t
 {
@@ -40,6 +47,26 @@ typedef struct ProvisionedState_t
 #ifndef DELAY_BEFORE_KEY_PAIR_GENERATION_SECS
     #define DELAY_BEFORE_KEY_PAIR_GENERATION_SECS    ( 10 )
 #endif
+
+extern KeyValueStore_t gKeyValueStore;
+
+#define PEM_BEGIN              "-----BEGIN "
+#define PEM_END                "-----END "
+
+typedef struct PreProvisioningParams_t
+{
+    uint8_t * pucClientCredential;      /**< Pointer to the device Credential in PEM format.
+                                         *   See tools/certificate_configuration/PEMfileToCString.html
+                                         *   for help with formatting.*/
+    uint32_t ulClientCredentialLength;  /**< Length of the Credential data, in bytes. */
+} PreProvisioningParams_t;
+
+CK_RV vDevModeKeyPreProvisioning( KeyValueStore_t Keystore,KVStoreKey_t ID, int32_t xvaluelength );
+CK_RV xDestroyDefaultPrivatekeyObjects( CK_SESSION_HANDLE xSession );
+CK_RV xDestroyDefaultCertificateObjects( CK_SESSION_HANDLE xSession );
+CK_RV xDestroyDefaultObjects( KVStoreKey_t ID, CK_SESSION_HANDLE xSession );
+BaseType_t vAlternateKeyPreProvisioning( KVStoreKey_t ID, PreProvisioningParams_t * xParams );
+CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvisioningParams_t * pxParams );
 
 
 /* Delete well-known crypto objects from storage. */
@@ -70,7 +97,60 @@ CK_RV xDestroyDefaultCryptoObjects( CK_SESSION_HANDLE xSession )
 }
 
 /*-----------------------------------------------------------*/
+CK_RV xDestroyDefaultObjects( KVStoreKey_t ID, CK_SESSION_HANDLE xSession )
+{
+	CK_RV xResult = CKR_ARGUMENTS_BAD;
+	if (ID == KVS_DEVICE_CERT_ID)
+	{
+		CK_BYTE * pxPkcsLabels[] =
+		{
+			( CK_BYTE * ) pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
+		};
+		CK_OBJECT_CLASS xClass[] =
+		{
+			CKO_PRIVATE_KEY
+		};
+		xResult = xDestroyProvidedObjects( xSession,
+											   pxPkcsLabels,
+											   xClass,
+											   sizeof( xClass ) / sizeof( CK_OBJECT_CLASS ) );
+	}
 
+	if(ID == KVS_DEVICE_PRIVKEY_ID)
+	{
+		CK_BYTE * pxPkcsLabels[] =
+		{
+			( CK_BYTE * ) pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+		};
+		CK_OBJECT_CLASS xClass[] =
+		{
+			CKO_PRIVATE_KEY
+		};
+		xResult = xDestroyProvidedObjects( xSession,
+											   pxPkcsLabels,
+											   xClass,
+											   sizeof( xClass ) / sizeof( CK_OBJECT_CLASS ) );
+	}
+	if (ID == KVS_DEVICE_PUBKEY_ID)
+		{
+			CK_BYTE * pxPkcsLabels[] =
+			{
+				( CK_BYTE * ) pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
+			};
+			CK_OBJECT_CLASS xClass[] =
+			{
+					CKO_PUBLIC_KEY
+			};
+			xResult = xDestroyProvidedObjects( xSession,
+												   pxPkcsLabels,
+												   xClass,
+												   sizeof( xClass ) / sizeof( CK_OBJECT_CLASS ) );
+		}
+
+
+	return xResult;
+}
+/*-----------------------------------------------------------*/
 static CK_RV prvExportPublicKey( CK_SESSION_HANDLE xSession,
                                  CK_OBJECT_HANDLE xPublicKeyHandle,
                                  uint8_t ** ppucDerPublicKey,
@@ -318,11 +398,6 @@ static void prvWriteHexBytesToConsole( char * pcDescription,
     }
 }
 
-/*-----------------------------------------------------------*/
-/* Attempt to provision the device with a client certificate, associated
- * private and public key pair, and optional Just-in-Time Registration certificate.
- * If either component of the key pair is unavailable in storage, generate a new
- * pair. */
 CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
                         ProvisioningParams_t * pxParams )
 {
@@ -340,16 +415,36 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
         /* Attempt to clean-up old crypto objects, but only if private key import is
          * supported by this application, and only if the caller has provided new
          * objects to use instead. */
-        if( ( CKR_OK == xResult ) &&
-            ( NULL != pxParams->pucClientCertificate ) &&
-            ( NULL != pxParams->pucClientPrivateKey ) )
+        if( ( CKR_OK == xResult ))
         {
-            xResult = xDestroyDefaultCryptoObjects( xSession );
+        	if(( NULL == pxParams->pucClientCertificate ) &&
+        	    				( NULL == pxParams->pucClientPrivateKey ) )
+			{
+				DEV_MODE_KEY_PROVISIONING_PRINT( ( "Missing certificate and private key!\r\n") );
+				xResult = CKR_SLOT_ID_INVALID;
+			}
+        	else if( ( NULL != pxParams->pucClientPrivateKey ) &&( NULL != pxParams->pucClientCertificate))
+			{
+//				xResult = xDestroyDefaultCryptoObjects( xSession );
 
-            if( xResult != CKR_OK )
-            {
-                configPRINTF( ( "Warning: could not clean-up old crypto objects. %d \r\n", xResult ) );
-            }
+				if( xResult != CKR_OK )
+				{
+					DEV_MODE_KEY_PROVISIONING_PRINT( ( "Warning: could not clean-up old crypto objects!\r\n" ) );
+				}
+			}
+        	else if( ( NULL != pxParams->pucClientPrivateKey ) || ( NULL == pxParams->pucClientCertificate ))
+			{
+//				xResult = xDestroyDefaultCryptoObjects( xSession );
+
+				if( xResult != CKR_OK )
+				{
+					DEV_MODE_KEY_PROVISIONING_PRINT( ( "Warning: could not clean-up old crypto objects!\r\n" ) );
+				}
+			}
+        	else
+        	{
+        		xResult = CKR_OK;
+        	}
         }
     #endif /* if ( PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT == 1 ) */
 
@@ -365,8 +460,9 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
 
         if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )
         {
-            configPRINTF( ( "ERROR: Failed to provision device certificate. %d \r\n", xResult ) );
+            DEV_MODE_KEY_PROVISIONING_PRINT( ( "ERROR: Failed to provision device certificate. %d \r\n", xResult ) );
         }
+
     }
 
     #if ( PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT == 1 )
@@ -383,15 +479,19 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
 
             if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )
             {
-                configPRINTF( ( "ERROR: Failed to provision device private key with status %d.\r\n", xResult ) );
+                DEV_MODE_KEY_PROVISIONING_PRINT( ( "ERROR: Failed to provision device private key with status %d.\r\n", xResult ) );
             }
             else
             {
                 xImportedPrivateKey = CK_TRUE;
             }
+            if (xResult == CKR_OK)
+            {
+            	DEV_MODE_KEY_PROVISIONING_PRINT( ( "Write key...\r\n" ) );
+            }
         }
     #endif /* if ( PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT == 1 ) */
-
+#if 0
     /* If a Just-in-Time Provisioning certificate has been provided by the
      * caller, attempt to import it. Not all crypto tokens
      * and PKCS #11 module implementations provide storage for this particular
@@ -408,7 +508,7 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
         if( xResult == CKR_DEVICE_MEMORY )
         {
             xResult = CKR_OK;
-            configPRINTF( ( "Warning: no persistent storage is available for the JITP certificate. The certificate in aws_clientcredential_keys.h will be used instead.\r\n" ) );
+            DEV_MODE_KEY_PROVISIONING_PRINT( ( "Warning: no persistent storage is available for the JITP certificate. The certificate in aws_clientcredential_keys.h will be used instead.\r\n" ) );
         }
     }
 
@@ -495,7 +595,7 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
      * matches the public key on the device. */
     if( CK_INVALID_HANDLE != xProvisionedState.xPublicKey )
     {
-        configPRINTF( ( "Printing device public key.\nMake sure that provisioned device certificate matches public key on device." ) );
+        DEV_MODE_KEY_PROVISIONING_PRINT( ( "Printing device public key.\nMake sure that provisioned device certificate matches public key on device." ) );
         prvWriteHexBytesToConsole( "Device public key",
                                    xProvisionedState.pucDerPublicKey,
                                    xProvisionedState.ulDerPublicKeyLength );
@@ -508,14 +608,14 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
           ( CK_TRUE == xKeyPairGenerationMode ) ) &&
         ( CK_FALSE == xImportedPrivateKey ) )
     {
-        configPRINTF( ( "Warning: the client certificate should be updated. Please see https://aws.amazon.com/freertos/getting-started/.\r\n" ) );
+        DEV_MODE_KEY_PROVISIONING_PRINT( ( "Warning: the client certificate should be updated. Please see https://aws.amazon.com/freertos/getting-started/.\r\n" ) );
 
         if( NULL != xProvisionedState.pcIdentifier )
         {
-            configPRINTF( ( "Recommended certificate subject name: CN=%s\r\n", xProvisionedState.pcIdentifier ) );
+            DEV_MODE_KEY_PROVISIONING_PRINT( ( "Recommended certificate subject name: CN=%s\r\n", xProvisionedState.pcIdentifier ) );
         }
     }
-
+#endif
     /* Free memory. */
     if( NULL != xProvisionedState.pucDerPublicKey )
     {
@@ -527,13 +627,13 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
         vPortFree( xProvisionedState.pcIdentifier );
     }
 
-    return xResult;
+    return  xResult ;
 }
 
 /*-----------------------------------------------------------*/
 
 /* Perform device provisioning using the specified TLS client credentials. */
-CK_RV vAlternateKeyProvisioning( ProvisioningParams_t * xParams )
+BaseType_t vAlternateKeyProvisioning( ProvisioningParams_t * xParams )
 {
     CK_RV xResult = CKR_OK;
     CK_FUNCTION_LIST_PTR pxFunctionList = NULL;
@@ -551,7 +651,6 @@ CK_RV vAlternateKeyProvisioning( ProvisioningParams_t * xParams )
     {
         xResult = xInitializePkcs11Session( &xSession );
     }
-
     if( xResult == CKR_OK )
     {
         xResult = xProvisionDevice( xSession, xParams );
@@ -559,62 +658,205 @@ CK_RV vAlternateKeyProvisioning( ProvisioningParams_t * xParams )
         pxFunctionList->C_CloseSession( xSession );
     }
 
-    return xResult;
+    return ( xResult == CKR_OK );
 }
 
 /*-----------------------------------------------------------*/
+
+
 
 /* Perform device provisioning using the default TLS client credentials. */
-CK_RV vDevModeKeyProvisioning( void )
+CK_RV vDevModeKeyPreProvisioning( KeyValueStore_t Keystore, KVStoreKey_t ID, int32_t xvaluelength )
 {
-    ProvisioningParams_t xParams;
+	PreProvisioningParams_t xParams ;
 
-    xParams.pucJITPCertificate = ( uint8_t * ) keyJITR_DEVICE_CERTIFICATE_AUTHORITY_PEM;
-    xParams.pucClientPrivateKey = ( uint8_t * ) keyCLIENT_PRIVATE_KEY_PEM;
-    xParams.pucClientCertificate = ( uint8_t * ) keyCLIENT_CERTIFICATE_PEM;
+	xParams.pucClientCredential  =  (uint8_t *)GetStringValue(ID,xvaluelength);
 
-    /* If using a JITR flow, a JITR certificate must be supplied. If using credentials generated by
-     * AWS, this certificate is not needed. */
-    if( ( NULL != xParams.pucJITPCertificate ) &&
-        ( 0 != strcmp( "", ( const char * ) xParams.pucJITPCertificate ) ) )
-    {
-        /* We want the NULL terminator to be written to storage, so include it
-         * in the length calculation. */
-        xParams.ulJITPCertificateLength = sizeof( char ) + strlen( ( const char * ) xParams.pucJITPCertificate );
-    }
-    else
-    {
-        xParams.pucJITPCertificate = NULL;
-    }
+	/* The hard-coded client certificate and private key can be useful for
+	 * first-time lab testing. They are optional after the first run, though, and
+	 * not recommended at all for going into production. */
+	if( ( NULL != xParams.pucClientCredential ) &&
+		( 0 != strcmp( "", ( const char * ) xParams.pucClientCredential ) ) )
+	{
+		/* We want the NULL terminator to be written to storage, so include it
+		 * in the length calculation. */
+		xParams.ulClientCredentialLength = sizeof( char ) + Keystore.table[ ID ].valueLength;
+	}
+	else
+	{
+		xParams.pucClientCredential = NULL;
+	}
 
-    /* The hard-coded client certificate and private key can be useful for
-     * first-time lab testing. They are optional after the first run, though, and
-     * not recommended at all for going into production. */
-    if( ( NULL != xParams.pucClientPrivateKey ) &&
-        ( 0 != strcmp( "", ( const char * ) xParams.pucClientPrivateKey ) ) )
-    {
-        /* We want the NULL terminator to be written to storage, so include it
-         * in the length calculation. */
-        xParams.ulClientPrivateKeyLength = sizeof( char ) + strlen( ( const char * ) xParams.pucClientPrivateKey );
-    }
-    else
-    {
-        xParams.pucClientPrivateKey = NULL;
-    }
 
-    if( ( NULL != xParams.pucClientCertificate ) &&
-        ( 0 != strcmp( "", ( const char * ) xParams.pucClientCertificate ) ) )
-    {
-        /* We want the NULL terminator to be written to storage, so include it
-         * in the length calculation. */
-        xParams.ulClientCertificateLength = sizeof( char ) + strlen( ( const char * ) xParams.pucClientCertificate );
-    }
-    else
-    {
-        xParams.pucClientCertificate = NULL;
-    }
+    return vAlternateKeyPreProvisioning(ID, &xParams );
+}
+BaseType_t vAlternateKeyPreProvisioning(KVStoreKey_t ID, PreProvisioningParams_t * xParams )
+{
+	CK_RV xResult = CKR_OK;
+	CK_FUNCTION_LIST_PTR pxFunctionList = NULL;
+	CK_SESSION_HANDLE xSession = 0;
 
-    return vAlternateKeyProvisioning( &xParams );
+	xResult = C_GetFunctionList( &pxFunctionList );
+
+	/* Initialize the PKCS Module */
+	if( xResult == CKR_OK )
+	{
+		xResult = xInitializePkcs11Token();
+	}
+
+	if( xResult == CKR_OK )
+	{
+		xResult = xInitializePkcs11Session( &xSession );
+	}
+	if( xResult == CKR_OK )
+	{
+		xResult = xPreProvisionDevice( xSession,ID, xParams );
+
+		pxFunctionList->C_CloseSession( xSession );
+	}
+
+	return ( xResult == CKR_OK );
 }
 
-/*-----------------------------------------------------------*/
+CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvisioningParams_t * pxParams )
+{
+	CK_RV xResult;
+	CK_FUNCTION_LIST_PTR pxFunctionList;
+	ProvisionedState_t xProvisionedState = { 0 };
+	CK_OBJECT_HANDLE xObject = 0;
+
+
+	xResult = C_GetFunctionList( &pxFunctionList );
+	if (xResult == CKR_OK)
+	{
+		if( ( NULL != pxParams->pucClientCredential ))
+		{
+			if(gKeyValueStore.table[ ID ].xChangePending == pdTRUE)
+			{
+				if ( strncmp( PEM_BEGIN,  (const char *)pxParams->pucClientCredential, strlen( PEM_BEGIN ) ) == 0 )
+				{
+					bool contain_end = strstr((const char *)pxParams->pucClientCredential,PEM_END);
+					if( !contain_end )
+					{
+						DEV_MODE_KEY_PROVISIONING_PRINT(( "Error: PEM header does not contain the expected ending: '" PEM_END "'.\r\n" ));
+						xResult = CKR_ARGUMENTS_BAD;
+					}
+					else
+					{
+						xResult = xDestroyDefaultObjects( ID,xSession );
+
+						if (ID ==KVS_DEVICE_CERT_ID)
+						{
+							if( xResult != CKR_OK )
+							{
+								DEV_MODE_KEY_PROVISIONING_PRINT( ( "Warning: could not clean-up old crypto Certificate!\r\n" ) );
+							}
+							else
+							{
+								DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Certificate.\r\n" ));
+								xResult = xProvisionCertificate( xSession,
+																		 (uint8_t *)pxParams->pucClientCredential,
+																		 pxParams->ulClientCredentialLength,
+																		 ( uint8_t * ) pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
+																		 &xObject );
+
+								if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT( ( "ERROR: Failed to provision device certificate. %d \r\n", xResult ) );
+								}
+							}
+						}
+						if (ID == KVS_DEVICE_PRIVKEY_ID)
+						{
+							if( xResult != CKR_OK )
+							{
+								DEV_MODE_KEY_PROVISIONING_PRINT( ( "Warning: could not clean-up old crypto Private key!\r\n" ) );
+							}
+							else
+							{
+
+								xResult = xDestroyDefaultObjects( ID,xSession );
+								if( xResult == CKR_OK )
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Private key.\r\n",CKR_OK ));
+									xResult = xProvisionPrivateKey( xSession,  (uint8_t *)pxParams->pucClientCredential,
+																	 pxParams->ulClientCredentialLength,
+																	 ( uint8_t * ) pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+																	 &xObject );
+								}
+
+
+								if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT( ( "ERROR: Failed to provision device Private key. %d \r\n", xResult ) );
+								}
+								else
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT(( "Write Private key...\r\n" ));
+								}
+							}
+						}
+						if (ID == KVS_DEVICE_PUBKEY_ID)
+						{
+							if( xResult != CKR_OK )
+							{
+								DEV_MODE_KEY_PROVISIONING_PRINT( ( "Warning: could not clean-up old crypto PUB key!\r\n" ) );
+							}
+							else
+							{
+
+								xResult = xDestroyDefaultObjects( ID,xSession );
+								if( xResult == CKR_OK )
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Public key.\r\n" ));
+									xResult = xProvisionPublicKey( xSession,  (uint8_t *)pxParams->pucClientCredential,
+														 pxParams->ulClientCredentialLength,
+														 CKK_EC,
+														 ( uint8_t * ) pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
+														 &xObject );
+								}
+
+
+								if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT( ( "ERROR: Failed to provision device Public key. %d \r\n", xResult ) );
+								}
+								else
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT(( "Write Public key...\r\n" ));
+								}
+							}
+						}
+
+					}
+				}
+				else
+				{
+					DEV_MODE_KEY_PROVISIONING_PRINT(( "Error: PEM header does not contain the expected text: '" PEM_BEGIN "'.\r\n" ));
+					xResult = CKR_ARGUMENTS_BAD;
+				}
+			}
+			else
+			{
+				DEV_MODE_KEY_PROVISIONING_PRINT( ( "Committed last time!\r\n" ) );
+			}
+
+		}
+		else
+		{
+			DEV_MODE_KEY_PROVISIONING_PRINT( ( "No credentials!\r\n" ) );
+			xResult = CKR_ARGUMENTS_BAD;
+		}
+	}
+	/* Free memory. */
+	if( NULL != xProvisionedState.pucDerPublicKey )
+	{
+		vPortFree( xProvisionedState.pucDerPublicKey );
+	}
+
+	if( NULL != xProvisionedState.pcIdentifier )
+	{
+		vPortFree( xProvisionedState.pcIdentifier );
+	}
+	return xResult;
+}

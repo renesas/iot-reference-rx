@@ -109,12 +109,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668567332453</id>
+			<id>1673398072542</id>
 			<name>Middleware/FreeRTOS</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-backoffAlgorithm|coreJSON|coreMQTT|coreMQTT-Agent|corePKCS11|FreeRTOS-Kernel|FreeRTOS-Plus-TCP</arguments>
+				<arguments>1.0-name-matches-false-true-backoffAlgorithm|coreJSON|coreMQTT|coreMQTT-Agent|corePKCS11|FreeRTOS-Kernel|FreeRTOS-Plus-TCP|FreeRTOS-Plus-CLI</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1673399025171</id>
+			<name>Middleware/littlefs</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-bd|scripts|tests</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -241,6 +250,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-fixture|memory</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1673399189284</id>
+			<name>src/application_code/ports</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-pkcs11</arguments>
 			</matcher>
 		</filter>
 		<filter>

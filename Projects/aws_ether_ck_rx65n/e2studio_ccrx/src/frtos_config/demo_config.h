@@ -56,15 +56,22 @@
 
 #include "iot_logging_task.h"
 
-//#define democonfigCLIENT_CERTIFICATE_PEM    keyCLIENT_CERTIFICATE_PEM
-//#define democonfigCLIENT_PRIVATE_KEY_PEM    keyCLIENT_PRIVATE_KEY_PEM
-//#define democonfigCLIENT_USERNAME			  keyJITR_DEVICE_CERTIFICATE_AUTHORITY_PEM
+
+/* To run a particular demo you need to define one of these.
+ * Only one demo can be configured at a time
+ *
+ *          CONFIG_FLEET_PROVISIONING_DEMO
+ *          CONFIG_SIMPLE_PUBSUB_DEMO
+ *          CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED
+ *
+ *  These defines are used in iot_demo_runner.h for demo selection */
+
+/* demo is configured for MQTT */
 
 /* Select only one demo task to run. */
-#define SIMPLE_PUBSUB_DEMO
-//#define PKCS_MUTUAL_AUTH_DEMO
-//#define OTA_OVER_MQTT_DEMO
-//#define FLEET_PROVISIONING_DEMO
+
+#define CONFIG_SIMPLE_PUBSUB_DEMO
+
 
 #if defined(FLEET_PROVISIONING_DEMO)
 #define democonfigROOT_CA_PEM             "...insert here..."
@@ -214,7 +221,7 @@
  * In the Windows port, this stack only holds a structure. The actual
  * stack is created by an operating system thread.
  */
-#define democonfigDEMO_STACKSIZE        configMINIMAL_STACK_SIZE * 8
+#define democonfigDEMO_STACKSIZE        configMINIMAL_STACK_SIZE * 3
 
 /**
  * @brief Set the stack size of the main demo task.
@@ -224,7 +231,7 @@
  */
 #define democonfigDEMO_TASK_PRIORITY    ( tskIDLE_PRIORITY + 1 )
 
-#define democonfigNETWORK_BUFFER_SIZE    ( configMINIMAL_STACK_SIZE  )
+#define democonfigNETWORK_BUFFER_SIZE    ( configMINIMAL_STACK_SIZE * 3 )
 
 #include "core_mqtt.h" /* Include coreMQTT header for MQTT_LIBRARY_VERSION macro. */
 #define democonfigMQTT_LIB    "core-mqtt@"MQTT_LIBRARY_VERSION
@@ -294,5 +301,12 @@
 #define CLIENT_USERNAME_WITH_METRICS    democonfigCLIENT_USERNAME AWS_IOT_METRICS_STRING
 #endif
 
-//#define democonfigUSE_TLS                   0
+/**
+ * @brief Flag to enable or disable provisioning mode for the demo.
+ * Enabling the flags starts a CLI task, so that user can perform provisioning of the device through
+ * a serial terminal. Provisioning involves running commands to fetch or set the PKI and configuration
+ * information for the device to connect to broker and perform OTA updates. Disabling the flag results
+ * in disabling the CLI task and execution of the demo tasks in normal device operation mode.
+ */
+#define appmainPROVISIONING_MODE                  ( 1 )
 #endif /* DEMO_CONFIG_H */

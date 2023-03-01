@@ -91,6 +91,10 @@
 #include "core_pkcs11_config.h"
 #include "../OtaOverMqtt/subscription_manager.h"
 
+#include "store.h"
+
+extern KeyValueStore_t gKeyValueStore;
+
 /*------------- Demo configurations -------------------------*/
 
 /**
@@ -397,6 +401,17 @@
     #define democonfigHARDWARE_PLATFORM_NAME    "WinSim"
 #endif
 
+/**
+ * @brief ThingName which is used as the client identifier for MQTT connection.
+ * Thing name is retrieved  at runtime from a key value store.
+ */
+static char * pcThingName = NULL;
+
+/**
+ * @brief Broker endpoint name for the MQTT connection.
+ * Broker endpoint name is retrieved at runtime from a key value store.
+ */
+static char * pcBrokerEndpoint = NULL;
 /*---------------------------------------------------------*/
 
 /**
@@ -1375,10 +1390,10 @@ static BaseType_t prvSocketConnect( NetworkContext_t * pxNetworkContext )
          * the MQTT broker as specified in democonfigMQTT_BROKER_ENDPOINT and
          * democonfigMQTT_BROKER_PORT at the top of this file. */
         LogInfo( ( "Creating a TLS connection to %s:%d.",
-                   democonfigMQTT_BROKER_ENDPOINT,
+                   pcBrokerEndpoint,
                    democonfigMQTT_BROKER_PORT ) );
         xNetworkStatus = TLS_FreeRTOS_Connect( pxNetworkContext,
-                                               democonfigMQTT_BROKER_ENDPOINT,
+                                               pcBrokerEndpoint,
                                                democonfigMQTT_BROKER_PORT,
                                                &xNetworkCredentials,
                                                otaexampleTRANSPORT_SEND_RECV_TIMEOUT_MS,
@@ -1489,8 +1504,8 @@ static MQTTStatus_t prvMQTTConnect( bool xCleanSession )
     /* The client identifier is used to uniquely identify this MQTT client to
      * the MQTT broker. In a production device the identifier can be something
      * unique, such as a device serial number. */
-    xConnectInfo.pClientIdentifier = democonfigCLIENT_IDENTIFIER;
-    xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( democonfigCLIENT_IDENTIFIER );
+    xConnectInfo.pClientIdentifier = pcThingName;
+    xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( pcThingName );
 
     /* Set MQTT keep-alive period. It is the responsibility of the application
      * to ensure that the interval between Control Packets being sent does not
@@ -1575,7 +1590,7 @@ static void prvDisconnectFromMQTTBroker( void )
     MQTTStatus_t xCommandStatus;
 
     /* Disconnect from broker. */
-    LogInfo( ( "Disconnecting the MQTT connection with %s.", democonfigMQTT_BROKER_ENDPOINT ) );
+    LogInfo( ( "Disconnecting the MQTT connection with %s.", pcBrokerEndpoint ) );
 
     xCommandParams.blockTimeMs = MQTT_AGENT_SEND_BLOCK_TIME_MS;
     xCommandParams.cmdCompleteCallback = prvCommandCallback;
@@ -1991,7 +2006,7 @@ static BaseType_t prvRunOTADemo( void )
     {
         if( ( otaRet = OTA_Init( &otaBuffer,
                                  &otaInterfaces,
-                                 ( const uint8_t * ) ( democonfigCLIENT_IDENTIFIER ),
+                                 ( const uint8_t * ) ( pcThingName ),
                                  otaAppCallback ) ) != OtaErrNone )
         {
             LogError( ( "Failed to initialize OTA Agent, exiting = %u.",
@@ -2086,7 +2101,23 @@ static void vOtaDemoTask( void * pvParam )
     bool mqttInitialized = false;
 
     ( void ) pvParam;
+#if defined(__TEST__)
+    pcThingName = clientcredentialIOT_THING_NAME ;
+    pcBrokerEndpoint = clientcredentialMQTT_BROKER_ENDPOINT;
+#else
+    /* Load broker endpoint and thing name for client connection, from the key store. */
+	if (gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength > 0)
+	{
+		pcThingName = pvPortMalloc( gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength);
+		pcThingName = gKeyValueStore.table[ KVS_CORE_THING_NAME ].value;
+	}
 
+	if (gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength > 0)
+	{
+		pcBrokerEndpoint = pvPortMalloc( gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength);
+		pcBrokerEndpoint = gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].value;
+	}
+#endif
     LogInfo( ( "OTA over MQTT demo, Application version %u.%u.%u",
                appFirmwareVersion.u.x.major,
                appFirmwareVersion.u.x.minor,
@@ -2150,6 +2181,19 @@ static void vOtaDemoTask( void * pvParam )
         /* Cleanup semaphore created for buffer operations. */
         vSemaphoreDelete( xBufferSemaphore );
     }
+
+    if( pcThingName != NULL )
+	{
+		vPortFree( pcThingName );
+		pcThingName = NULL;
+	}
+
+	if( pcBrokerEndpoint != NULL )
+	{
+		vPortFree( pcBrokerEndpoint );
+		pcBrokerEndpoint = NULL;
+	}
+
 }
 
 /*
