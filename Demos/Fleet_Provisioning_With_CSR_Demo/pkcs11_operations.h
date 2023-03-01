@@ -35,6 +35,19 @@
 #include "core_pkcs11.h"
 
 /**
+ * @brief Determine which required client crypto objects are already present in storage.
+ *
+ * @param[in] p11Session The PKCS #11 session to use.
+ * @param[out] object handle for device certificate.
+ * @param[out] object handle for device private key.
+ *
+ * @return CKR_OK if certificate import succeeded. Otherwise, a positive PKCS #11 error code.
+ */
+CK_RV xGetCertificateAndKeyState( CK_SESSION_HANDLE xP11Session,
+                                  CK_OBJECT_HANDLE_PTR pxClientCertificate,
+                                  CK_OBJECT_HANDLE_PTR pxPrivateKey );
+
+/**
  * @brief Loads the claim credentials into the PKCS #11 module. Claim
  * credentials are used in "Provisioning by Claim" workflow of Fleet
  * Provisioning feature of AWS IoT Core. For more information, refer to the
@@ -53,7 +66,7 @@
  *
  * @return True on success.
  */
-bool loadClaimCredentials( CK_SESSION_HANDLE p11Session,
+bool xLoadClaimCredentials( CK_SESSION_HANDLE xP11Session,
                            const char * pClaimCert,
                            size_t       ClaimCertLength,
                            const char * pClaimPrivKey,
@@ -81,7 +94,8 @@ bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
                          const char * pcPubKeyLabel,
                          char * pcCsrBuffer,
                          size_t xCsrBufferLength,
-                         size_t * pcOutCsrLength );
+                         size_t * pcOutCsrLength,
+                         const char * pcCsrsubjectname );
 
 /**
  * @brief Save the device client certificate into the PKCS #11 module.

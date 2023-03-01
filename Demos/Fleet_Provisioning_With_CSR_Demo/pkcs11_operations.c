@@ -294,7 +294,8 @@ bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
                          const char * pcPubKeyLabel,
                          char * pcCsrBuffer,
                          size_t xCsrBufferLength,
-                         size_t * pxOutCsrLength )
+                         size_t * pxOutCsrLength,
+                         const char * pcCsrsubjectname )
 {
     CK_OBJECT_HANDLE xPrivKeyHandle;
     CK_OBJECT_HANDLE xPubKeyHandle;
@@ -335,7 +336,7 @@ bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
 
         if( ulMbedtlsRet == 0 )
         {
-            ulMbedtlsRet = mbedtls_x509write_csr_set_subject_name( &xReq, democonfigCSR_SUBJECT_NAME );
+            ulMbedtlsRet = mbedtls_x509write_csr_set_subject_name( &xReq, pcCsrsubjectname );
         }
 
         if( ulMbedtlsRet == 0 )
@@ -858,7 +859,7 @@ static CK_RV provisionCertificate( CK_SESSION_HANDLE session,
 
 /*-----------------------------------------------------------*/
 
-bool loadClaimCredentials( CK_SESSION_HANDLE p11Session,
+bool xLoadClaimCredentials( CK_SESSION_HANDLE xP11Session,
                            const char * pClaimCert,
                            size_t       ClaimCertLength,
                            const char * pClaimPrivKey,
@@ -876,7 +877,7 @@ bool loadClaimCredentials( CK_SESSION_HANDLE p11Session,
 
     if( status == true )
     {
-        ret = provisionPrivateKey( p11Session, pClaimPrivKey,
+        ret = provisionPrivateKey( xP11Session, pClaimPrivKey,
                                    ClaimPrivKeyLength, /* MbedTLS includes null character in length for PEM objects. */
 								   pkcs11configLABEL_CLAIM_PRIVATE_KEY );
         status = ( ret == CKR_OK );
@@ -884,7 +885,7 @@ bool loadClaimCredentials( CK_SESSION_HANDLE p11Session,
 
     if( status == true )
     {
-        ret = provisionCertificate( p11Session, pClaimCert,
+        ret = provisionCertificate( xP11Session, pClaimCert,
                                     ClaimCertLength, /* MbedTLS includes null character in length for PEM objects. */
 									pkcs11configLABEL_CLAIM_CERTIFICATE );
         status = ( ret == CKR_OK );
@@ -893,4 +894,37 @@ bool loadClaimCredentials( CK_SESSION_HANDLE p11Session,
     return status;
 }
 
+/*-----------------------------------------------------------*/
+
+CK_RV xGetCertificateAndKeyState( CK_SESSION_HANDLE xP11Session,
+                                  CK_OBJECT_HANDLE_PTR pxClientCertificate,
+                                  CK_OBJECT_HANDLE_PTR pxPrivateKey )
+{
+    CK_RV xResult;
+    CK_FUNCTION_LIST_PTR pxFunctionList;
+
+    xResult = C_GetFunctionList( &pxFunctionList );
+
+    /* Check for a private key. */
+    if( CKR_OK == xResult )
+    {
+        xResult = xFindObjectWithLabelAndClass( xP11Session,
+                                                pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+                                                sizeof( pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS ) - 1,
+                                                CKO_PRIVATE_KEY,
+                                                pxPrivateKey );
+    }
+
+    /* Check for the client certificate. */
+    if( CKR_OK == xResult )
+    {
+        xResult = xFindObjectWithLabelAndClass( xP11Session,
+                                                pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
+                                                sizeof( pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS ) - 1,
+                                                CKO_CERTIFICATE,
+                                                pxClientCertificate );
+    }
+
+    return xResult;
+}
 /*-----------------------------------------------------------*/
