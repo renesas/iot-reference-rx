@@ -257,7 +257,7 @@ Configuration Options
    0 = Stop Oscillating the Sub Clock. (default)
    1 = Enable Oscillating the Sub Clock.
 */
-#define BSP_CFG_SUB_CLOCK_OSCILLATE_ENABLE     (0) /* Generated value. Do not edit this manually */
+#define BSP_CFG_SUB_CLOCK_OSCILLATE_ENABLE     (1) /* Generated value. Do not edit this manually */
 
 /* Select whether to oscillate the High Speed On-Chip Oscillator (HOCO).
    0 = Stop Oscillating the HOCO. (default)
@@ -731,7 +731,7 @@ Configuration Options
 /* This macro is interrupt priority for serial terminal.
    0(low) - 15(high)
 */
-#define BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY   (15)
+#define BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY   (3)
 
 /* This macro is used for C++ project and updated by Smart Configurator.
    0 = This project is a C project.(Not a C++ project).

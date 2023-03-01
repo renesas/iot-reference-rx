@@ -38,25 +38,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /* Demo includes */
 #include "aws_clientcredential.h"
-
 #include "demo_config.h"
+#include "store.h"
 
-//#include "mqtt_agent_task.h"
-extern void UserInitialization(void);
 
-#if defined(SIMPLE_PUBSUB_DEMO)
-    extern void vStartSimplePubSubDemo( void * pvParameters );
+extern int32_t littlFs_init(void);
+bool ApplicationCounter(uint32_t xWaitTime);
+signed char vISR_Routine( void );
+
+
+#if defined(CONFIG_SIMPLE_PUBSUB_DEMO)
+    extern void vStartSimplePubSubDemo( void  );
 #endif
 
-#if defined(PKCS_MUTUAL_AUTH_DEMO)
-    extern void vStartPKCSMutualAuthDemo( void );
-#endif
-
-#if defined(OTA_OVER_MQTT_DEMO)
+#if defined(CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED)
     extern void vStartOtaDemo( void );
 #endif
 
-#if defined(FLEET_PROVISIONING_DEMO)
+#if defined(CONFIG_FLEET_PROVISIONING_DEMO)
     extern void vStartFleetProvisioningDemo(void);
 #endif
 
@@ -67,14 +66,6 @@ extern void UserInitialization(void);
  */
 #define appmainINCLUDE_OTA_UPDATE_TASK            ( 1 )
 
-/**
- * @brief Flag to enable or disable provisioning mode for the demo.
- * Enabling the flags starts a CLI task, so that user can perform provisioning of the device through
- * a serial terminal. Provisioning involves running commands to fetch or set the PKI and configuration
- * information for the device to connect to broker and perform OTA updates. Disabling the flag results
- * in disabling the CLI task and execution of the demo tasks in normal device operation mode.
- */
-#define appmainPROVISIONING_MODE                  ( 1 )
 
 /**
  * @brief Subscribe Publish demo tasks configuration.
@@ -108,16 +99,11 @@ extern void UserInitialization(void);
 #define appmainCLI_TASK_STACK_SIZE                ( 6144 )
 #define appmainCLI_TASK_PRIORITY                  ( tskIDLE_PRIORITY + 1 )
 
-
-
-extern void vOTAUpdateTask( void * pvParam );
-
-
-
 #define mainLOGGING_TASK_STACK_SIZE         ( configMINIMAL_STACK_SIZE * 6 )
 #define mainLOGGING_MESSAGE_QUEUE_LENGTH    ( 15 )
 #define mainTEST_RUNNER_TASK_STACK_SIZE    ( configMINIMAL_STACK_SIZE * 8 )
 #define UNSIGNED_SHORT_RANDOM_NUMBER_MASK         (0xFFFFUL)
+
 /* The MAC address array is not declared const as the MAC address will
 normally be read from an EEPROM and not hard coded (in real deployed
 applications).*/
@@ -173,7 +159,12 @@ void vApplicationDaemonTaskStartupHook( void );
 /**
  * @brief Initializes the board.
  */
-static void prvMiscInitialization( void );
+void prvMiscInitialization( void );
+
+extern void CLI_Support_Settings(void);
+extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
+extern void vRegisterSampleCLICommands( void );
+
 /*-----------------------------------------------------------*/
 
 /**
@@ -189,69 +180,80 @@ void main( void )
 }
 /*-----------------------------------------------------------*/
 
-static void prvMiscInitialization( void )
+void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
-    uart_config();
+//	CLI_Support_Settings();
 
-    UserInitialization();
-    /* Start logging task. */
-    xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
-                            tskIDLE_PRIORITY,
-                            mainLOGGING_MESSAGE_QUEUE_LENGTH );
-    FreeRTOS_printf( ( "Initialized UART\n" ) );
 }
 /*-----------------------------------------------------------*/
 
 void vApplicationDaemonTaskStartupHook( void )
 {
-	prvMiscInitialization();
+	int32_t xResults, Time2Wait = 10000;
+
+	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
+	/* The priority used by the UART command console task. */
+	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( configMAX_PRIORITIES - 1 )
+
+	/* Initialize UART for serial terminal. */
+	CLI_Support_Settings();
+
+	/* Register the standard CLI commands. */
+	vRegisterSampleCLICommands();
+	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
+
+	xResults = littlFs_init();
+
+	if (xResults == LFS_ERR_OK)
+	{
+		xResults = vprvCacheInit();
+	}
+
+	if(ApplicationCounter(Time2Wait))
+	{
+		/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
+			are created in the vApplicationIPNetworkEventHook() hook function
+			below.  The hook function is called when the network connects. */
 
 
-    {
-        /* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
-        are created in the vApplicationIPNetworkEventHook() hook function
-        below.  The hook function is called when the network connects. */
+		FreeRTOS_IPInit( ucIPAddress,
+						 ucNetMask,
+						 ucGatewayAddress,
+						 ucDNSServerAddress,
+						 ucMACAddress );
 
+		/* We should wait for the network to be up before we run any demos. */
+		while( FreeRTOS_IsNetworkUp() == pdFALSE )
+		{
+			vTaskDelay(300);
+		}
 
-    	FreeRTOS_IPInit( ucIPAddress,
-                         ucNetMask,
-                         ucGatewayAddress,
-                         ucDNSServerAddress,
-                         ucMACAddress );
+		FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
 
-        /* We should wait for the network to be up before we run any demos. */
-        while( FreeRTOS_IsNetworkUp() == pdFALSE )
-        {
-            vTaskDelay(300);
-        }
+		FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
 
-        FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+		#if !defined(FLEET_PROVISIONING_DEMO)
+		#if ( appmainPROVISIONING_MODE == 0 )
+				/* Provision the device with AWS certificate and private key. */
+				littlFs_init(NULL);
+				vDevModeKeyPreProvisioning();
+		#endif
 
-        FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
+		#endif
+				/* Run all demos. */
+		#if defined(CONFIG_SIMPLE_PUBSUB_DEMO)
+				vStartSimplePubSubDemo();
+		#endif
 
-#if !defined(FLEET_PROVISIONING_DEMO)
-	    /* Provision the device with AWS certificate and private key. */
-	    vDevModeKeyProvisioning();
-#endif
+		#if defined(CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED)
+				vStartOtaDemo();
+		#endif
 
-	    /* Run all demos. */
-#if defined(SIMPLE_PUBSUB_DEMO)
-        vStartSimplePubSubDemo(NULL);
-#endif
-
-#if defined(PKCS_MUTUAL_AUTH_DEMO)
-        vStartPKCSMutualAuthDemo();
-#endif
-
-#if defined(OTA_OVER_MQTT_DEMO)
-        vStartOtaDemo();
-#endif
-
-#if defined(FLEET_PROVISIONING_DEMO)
-        vStartFleetProvisioningDemo();
-#endif
-    }
+		#if defined(FLEET_PROVISIONING_DEMO)
+				vStartFleetProvisioningDemo();
+		#endif
+	}
 }
 
 /*-----------------------------------------------------------*/
@@ -378,3 +380,33 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
     }
 
 #endif
+
+bool ApplicationCounter(uint32_t xWaitTime)
+{
+    TickType_t xCurrent;
+    bool DEMO_TEST = pdTRUE;
+    const TickType_t xPrintFrequency = pdMS_TO_TICKS( xWaitTime );
+    xCurrent = xTaskGetTickCount();
+    signed char cRxChar;
+    while( xCurrent < xPrintFrequency )
+    {
+
+    	xCurrent = xTaskGetTickCount();
+
+    	cRxChar = vISR_Routine();
+    	if ((cRxChar != 0) )
+    	{
+
+    		DEMO_TEST = pdFALSE;
+    		break;
+    	}
+    }
+    return DEMO_TEST;
+}
+
+signed char vISR_Routine( void )
+{
+	BaseType_t xTaskWokenByReceive = pdFALSE;
+	extern signed char cRxedChar;
+    return cRxedChar;
+}

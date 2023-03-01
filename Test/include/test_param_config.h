@@ -29,6 +29,15 @@
 #define TEST_PARAM_CONFIG_H
 
 /**
+ * @brief Flag to enable or disable provisioning mode for the demo.
+ * Enabling the flags starts a CLI task, so that user can perform provisioning of the device through
+ * a serial terminal. Provisioning involves running commands to fetch or set the PKI and configuration
+ * information for the device to connect to broker and perform OTA updates. Disabling the flag results
+ * in disabling the CLI task and execution of the demo tasks in normal device operation mode.
+ */
+#define appmainPROVISIONING_MODE                  ( 1 )
+
+/**
  * @brief Configuration that indicates if the device should generate a key pair.
  *
  * @note When FORCE_GENERATE_NEW_KEY_PAIR is set to 1, the device should generate
@@ -170,12 +179,10 @@
  */
 #define PKCS11_TEST_RSA_KEY_SUPPORT                      ( 0 )
 #define PKCS11_TEST_EC_KEY_SUPPORT                       ( 1 )
-#define PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT           ( 1 )
+#define PKCS11_TEST_IMPORT_PRIVATE_KEY_SUPPORT           ( 0 )
 #define PKCS11_TEST_GENERATE_KEYPAIR_SUPPORT             ( 0 )
-#define PKCS11_TEST_PREPROVISIONED_SUPPORT               ( 0 )
-#define PKCS11_TEST_LABEL_DEVICE_PRIVATE_KEY_FOR_TLS     pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS
-#define PKCS11_TEST_LABEL_DEVICE_PUBLIC_KEY_FOR_TLS      pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS
-#define PKCS11_TEST_LABEL_DEVICE_CERTIFICATE_FOR_TLS     pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS
+#define PKCS11_TEST_PREPROVISIONED_SUPPORT               ( 1 )
+
 #define PKCS11_TEST_JITP_CODEVERIFY_ROOT_CERT_SUPPORTED   (0)
 
 #define OTA_RSA_SHA1                                     1

@@ -58,7 +58,11 @@
 #include "transport_mbedtls_pkcs11.h"
 #include "aws_clientcredential.h"
 #include "iot_default_root_certificates.h"
+#include "store.h"
 /*-----------------------------------------------------------*/
+
+
+extern KeyValueStore_t gKeyValueStore;
 
 #ifndef democonfigMQTT_BROKER_ENDPOINT
     #define democonfigMQTT_BROKER_ENDPOINT    clientcredentialMQTT_BROKER_ENDPOINT
@@ -130,13 +134,6 @@
  */
 #define mqttexampleCONNACK_RECV_TIMEOUT_MS                ( 2000U )
 
-/**
- * @brief The topic to subscribe and publish to in the example.
- *
- * The topic name starts with the client identifier to ensure that each demo
- * interacts with a unique topic name.
- */
-#define mqttexampleTOPIC                                  democonfigCLIENT_IDENTIFIER "/example/topic"
 
 /**
  * @brief The MQTT message published in this example.
@@ -191,7 +188,27 @@
 
 #define ulMaxPublishCount								  (5UL)
 
+/**
+ * @brief ThingName which is used as the client identifier for MQTT connection.
+ * Thing name is retrieved  at runtime from a key value store.
+ */
+static char * pcThingName = NULL;
+
+/**
+ * @brief Broker endpoint name for the MQTT connection.
+ * Broker endpoint name is retrieved at runtime from a key value store.
+ */
+static char * pcBrokerEndpoint = NULL;
+
+/**
+ * @brief The topic to subscribe and publish to in the example.
+ *
+ * The topic name starts with the client identifier to ensure that each demo
+ * interacts with a unique topic name.
+ */
+static char * mqttexampleTOPIC = NULL;
 /*-----------------------------------------------------------*/
+
 
 /** 
  * @brief Each compilation unit that consumes the NetworkContext must define it. 
@@ -380,6 +397,13 @@ static void prvMQTTDemoTask( void * pvParameters )
     MQTTContext_t xMQTTContext = { 0 };
     MQTTStatus_t xMQTTStatus;
 
+    pcThingName = pvPortMalloc( gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength);
+    pcThingName = gKeyValueStore.table[ KVS_CORE_THING_NAME ].value;
+    pcBrokerEndpoint = pvPortMalloc( gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength);
+    pcBrokerEndpoint = gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].value;
+    mqttexampleTOPIC = pvPortMalloc( gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength+strlen("/example/topic"));
+    mqttexampleTOPIC = pcThingName;
+    strcat(mqttexampleTOPIC,"/example/topic");
     /* Remove compiler warnings about unused parameters. */
     ( void ) pvParameters;
 
@@ -400,13 +424,13 @@ static void prvMQTTDemoTask( void * pvParameters )
          * to the MQTT broker as specified by democonfigMQTT_BROKER_ENDPOINT and
          * democonfigMQTT_BROKER_PORT in the demo_config.h file. */
         LogInfo( ( "Creating a TLS connection to %s:%u.\r\n",
-                   democonfigMQTT_BROKER_ENDPOINT,
+        		pcBrokerEndpoint,
                    democonfigMQTT_BROKER_PORT ) );
         prvTLSConnect( &xNetworkCredentials, &xNetworkContext );
 
         /* Sends an MQTT Connect packet over the already established TLS connection,
          * and waits for connection acknowledgment (CONNACK) packet. */
-        LogInfo( ( "Creating an MQTT connection to %s.\r\n", democonfigMQTT_BROKER_ENDPOINT ) );
+        LogInfo( ( "Creating an MQTT connection to %s.\r\n", pcBrokerEndpoint ) );
         prvCreateMQTTConnectionWithBroker( &xMQTTContext, &xNetworkContext );
 
         /**************************** Subscribe. ******************************/
@@ -465,7 +489,7 @@ static void prvMQTTDemoTask( void * pvParameters )
          * connection. There is no corresponding response for the disconnect packet.
          * After sending disconnect, client must close the network connection. */
         LogInfo( ( "Disconnecting the MQTT connection with %s.\r\n",
-                   democonfigMQTT_BROKER_ENDPOINT ) );
+        		pcBrokerEndpoint ) );
         xMQTTStatus = MQTT_Disconnect( &xMQTTContext );
         configASSERT( xMQTTStatus == MQTTSuccess );
 
@@ -481,6 +505,23 @@ static void prvMQTTDemoTask( void * pvParameters )
         LogInfo( ( "Short delay before starting the next iteration.... \r\n\r\n" ) );
         vTaskDelay( mqttexampleDELAY_BETWEEN_DEMO_ITERATIONS_TICKS );
     }
+	if( pcThingName != NULL )
+	{
+		vPortFree( pcThingName );
+		pcThingName = NULL;
+	}
+
+	if( pcBrokerEndpoint != NULL )
+	{
+		vPortFree( pcBrokerEndpoint );
+		pcBrokerEndpoint = NULL;
+	}
+	if( mqttexampleTOPIC != NULL )
+	{
+		vPortFree( mqttexampleTOPIC );
+		mqttexampleTOPIC = NULL;
+	}
+	vTaskDelete( NULL );
 }
 /*-----------------------------------------------------------*/
 
@@ -497,14 +538,14 @@ static void prvTLSConnect( NetworkCredentials_t * pxNetworkCredentials,
 
     /* Attempt to create a mutually authenticated TLS connection. */
     xNetworkStatus = TLS_FreeRTOS_Connect( pxNetworkContext,
-                                           democonfigMQTT_BROKER_ENDPOINT,
+                                           pcBrokerEndpoint,
                                            democonfigMQTT_BROKER_PORT,
                                            pxNetworkCredentials,
                                            mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS,
                                            mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS );
     configASSERT( xNetworkStatus == TLS_TRANSPORT_SUCCESS );
     LogInfo( ( "A mutually authenticated TLS connection established with %s:%u.\r\n",
-               democonfigMQTT_BROKER_ENDPOINT,
+    		pcBrokerEndpoint,
                democonfigMQTT_BROKER_PORT ) );
 }
 /*-----------------------------------------------------------*/
@@ -546,8 +587,8 @@ static void prvCreateMQTTConnectionWithBroker( MQTTContext_t * pxMQTTContext,
     /* The client identifier is used to uniquely identify this MQTT client to
      * the MQTT broker. In a production device the identifier can be something
      * unique, such as a device serial number. */
-    xConnectInfo.pClientIdentifier = democonfigCLIENT_IDENTIFIER;
-    xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( democonfigCLIENT_IDENTIFIER );
+    xConnectInfo.pClientIdentifier = pcThingName;
+    xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( pcThingName );
 
     /* Set MQTT keep-alive period. If the application does not send packets at an interval less than
      * the keep-alive period, the MQTT library will send PINGREQ packets. */
@@ -563,7 +604,7 @@ static void prvCreateMQTTConnectionWithBroker( MQTTContext_t * pxMQTTContext,
     configASSERT( xResult == MQTTSuccess );
 
     /* Successfully established and MQTT connection with the broker. */
-    LogInfo( ( "An MQTT connection is established with %s.", democonfigMQTT_BROKER_ENDPOINT ) );
+    LogInfo( ( "An MQTT connection is established with %s.", pcBrokerEndpoint ) );
 }
 /*-----------------------------------------------------------*/
 
