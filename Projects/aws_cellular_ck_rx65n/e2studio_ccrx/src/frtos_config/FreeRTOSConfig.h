@@ -54,7 +54,7 @@
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION    0
 #define configMAX_PRIORITIES                       (7)
 #define configTICK_RATE_HZ                         (( TickType_t ) 1000)
-#define configMINIMAL_STACK_SIZE                   (2048)
+#define configMINIMAL_STACK_SIZE                   (768)
 #define configTOTAL_HEAP_SIZE_N						(256)
 #define configTOTAL_HEAP_SIZE                      (( size_t ) ( configTOTAL_HEAP_SIZE_N * 1024 ))
 #define configMAX_TASK_NAME_LEN                    (12)
@@ -175,8 +175,9 @@ extern void vLoggingPrintf( const char * pcFormat, ... );
 extern void vLoggingPrint( const char * pcMessage );
 #define configPRINT( X )     vLoggingPrint( X )
 
+extern void vOutputString( const char * pcMessage );
 /* Map the logging task's printf to the board specific output function. */
-#define configPRINT_STRING( x )    uart_string_printf( x )
+#define configPRINT_STRING( x )    vOutputString(x)
 
 /* Sets the length of the buffers into which logging messages are written - so
  * also defines the maximum length of each log message. */
@@ -200,7 +201,7 @@ extern void vLoggingPrint( const char * pcMessage );
  * command interpreter running, and it has its own local output buffer, so the
  * global buffer is just set to be one byte long as it is not used and should not
  * take up unnecessary RAM. */
-#define configCOMMAND_INT_MAX_OUTPUT_SIZE    1
+#define configCOMMAND_INT_MAX_OUTPUT_SIZE    200
 
 /* Only used when running in the FreeRTOS Windows simulator.  Defines the
  * priority of the task used to simulate Ethernet interrupts. */

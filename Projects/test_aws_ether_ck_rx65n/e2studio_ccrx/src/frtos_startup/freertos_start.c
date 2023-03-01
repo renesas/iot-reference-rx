@@ -311,7 +311,6 @@ void vApplicationIdleHook(void)
 
     if( ( xTimeNow - xLastPrint ) > xPrintFrequency )
     {
-        configPRINT_STRING(("."));
         xLastPrint = xTimeNow;
     }
 
@@ -343,10 +342,9 @@ void vApplicationTickHook(void)
 void Processing_Before_Start_Kernel(void)
 {
     BaseType_t ret;
-
     /************** task creation ****************************/
     /* Main task. */
-    ret = xTaskCreate(main, "MAIN_TASK", 512, NULL, 3, NULL);
+    ret = xTaskCreate(main, "MAIN_TASK", 512, NULL, 1, NULL);
     if (pdPASS != ret)
     {
         while(1)
@@ -354,6 +352,7 @@ void Processing_Before_Start_Kernel(void)
             /* Failed! Task can not be created. */
         }
     }
+
 } /* End of function Processing_Before_Start_Kernel() */
 
 #endif /* (BSP_CFG_RTOS_USED == 1) */

@@ -31,7 +31,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "iot_logging_task.h"
 
 /* FreeRTOS+TCP includes. */
-#include "FreeRTOS_IP.h"
+#include "FreeRTOSIPConfig.h"
 
 /* Demo includes */
 #include "aws_clientcredential.h"
@@ -42,22 +42,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "demo_config.h"
 
-//#include "mqtt_agent_task.h"
-extern void UserInitialization(void);
+st_cellular_ctrl_t cellular_ctrl;
+static bool _wifiEnable( void );
+static bool _wifiConnectAccessPoint( void );
 
-#if defined(SIMPLE_PUBSUB_DEMO)
-    extern void vStartSimplePubSubDemo( void * pvParameters );
+extern int32_t littlFs_init(void);
+bool ApplicationCounter(uint32_t xWaitTime);
+signed char vISR_Routine( void );
+
+
+#if defined(CONFIG_SIMPLE_PUBSUB_DEMO)
+    extern void vStartSimplePubSubDemo( void  );
 #endif
 
-#if defined(PKCS_MUTUAL_AUTH_DEMO)
-    extern void vStartPKCSMutualAuthDemo( void );
-#endif
-
-#if defined(OTA_OVER_MQTT_DEMO)
+#if defined(CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED)
     extern void vStartOtaDemo( void );
 #endif
 
-#if defined(FLEET_PROVISIONING_DEMO)
+#if defined(CONFIG_FLEET_PROVISIONING_DEMO)
     extern void vStartFleetProvisioningDemo(void);
 #endif
 
@@ -68,14 +70,6 @@ extern void UserInitialization(void);
  */
 #define appmainINCLUDE_OTA_UPDATE_TASK            ( 1 )
 
-/**
- * @brief Flag to enable or disable provisioning mode for the demo.
- * Enabling the flags starts a CLI task, so that user can perform provisioning of the device through
- * a serial terminal. Provisioning involves running commands to fetch or set the PKI and configuration
- * information for the device to connect to broker and perform OTA updates. Disabling the flag results
- * in disabling the CLI task and execution of the demo tasks in normal device operation mode.
- */
-#define appmainPROVISIONING_MODE                  ( 1 )
 
 /**
  * @brief Subscribe Publish demo tasks configuration.
@@ -109,11 +103,11 @@ extern void UserInitialization(void);
 #define appmainCLI_TASK_STACK_SIZE                ( 6144 )
 #define appmainCLI_TASK_PRIORITY                  ( tskIDLE_PRIORITY + 1 )
 
-
 #define mainLOGGING_TASK_STACK_SIZE         ( configMINIMAL_STACK_SIZE * 6 )
 #define mainLOGGING_MESSAGE_QUEUE_LENGTH    ( 15 )
 #define mainTEST_RUNNER_TASK_STACK_SIZE    ( configMINIMAL_STACK_SIZE * 8 )
 #define UNSIGNED_SHORT_RANDOM_NUMBER_MASK         (0xFFFFUL)
+
 
 /**
  * @brief Application task startup hook.
@@ -123,12 +117,22 @@ void vApplicationDaemonTaskStartupHook( void );
 /**
  * @brief Initializes the board.
  */
-static void prvMiscInitialization( void );
-static bool _wifiEnable( void );
-static bool _wifiConnectAccessPoint( void );
-/*-----------------------------------------------------------*/
+void prvMiscInitialization( void );
 
-st_cellular_ctrl_t cellular_ctrl;
+#if ( appmainPROVISIONING_MODE == 1 )
+	void vCLITask( void * pvParam );
+
+	extern void CLI_Support_Settings(void);
+	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
+	extern void vRegisterSampleCLICommands( void );
+	extern void CLI_Close(void);
+	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
+	/* The priority used by the UART command console task. */
+	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( configMAX_PRIORITIES - 1 )
+	ProvisioningParams_t xPrvsnParams;
+
+#endif
+/*-----------------------------------------------------------*/
 
 /**
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
@@ -143,74 +147,76 @@ void main( void )
 }
 /*-----------------------------------------------------------*/
 
-static void prvMiscInitialization( void )
+void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
-    uart_config();
-
-    UserInitialization();
+	CLI_Support_Settings();
 
     /* Start logging task. */
-    xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
-                            tskIDLE_PRIORITY,
-                            mainLOGGING_MESSAGE_QUEUE_LENGTH );
-    FreeRTOS_printf( ( "Initialized UART\n" ) );
+//    xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
+//                            tskIDLE_PRIORITY,
+//                            mainLOGGING_MESSAGE_QUEUE_LENGTH );
+
 }
 /*-----------------------------------------------------------*/
 
 void vApplicationDaemonTaskStartupHook( void )
 {
-	prvMiscInitialization();
 
-	_wifiEnable();
+	int32_t xResults, Time2Wait = 10000;
+	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
+	/* The priority used by the UART command console task. */
+	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( configMAX_PRIORITIES - 1 )
+    prvMiscInitialization();
+    /************** task creation ****************************/
 
-	FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
-
-#if !defined(FLEET_PROVISIONING_DEMO)
-	/* Provision the device with AWS certificate and private key. */
-	vDevModeKeyProvisioning();
-#endif
-
-	/* Run all demos. */
-#if defined(SIMPLE_PUBSUB_DEMO)
-    vStartSimplePubSubDemo(NULL);
-#endif
-
-#if defined(PKCS_MUTUAL_AUTH_DEMO)
-    vStartPKCSMutualAuthDemo();
-#endif
-
-#if defined(OTA_OVER_MQTT_DEMO)
-    vStartOtaDemo();
-#endif
-
-#if defined(FLEET_PROVISIONING_DEMO)
-    vStartFleetProvisioningDemo();
-#endif
-}
-
-static bool _wifiConnectAccessPoint( void )
-{
-	e_cellular_err_t ret = CELLULAR_ERR_PARAMETER;
-
-	/* Try to connect to wifi access point with retry and exponential delay */
-	ret = R_CELLULAR_APConnect(&cellular_ctrl, NULL);
-
-	return ret;
-}
+    vRegisterSampleCLICommands();
+	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
+	/* Register the standard CLI commands. */
 
 
-static bool _wifiEnable( void )
-{
-	e_cellular_err_t ret = CELLULAR_ERR_PARAMETER;
-	ret = R_CELLULAR_Open(&cellular_ctrl, NULL);
+	xResults = littlFs_init();
 
-	if(CELLULAR_SUCCESS == ret )
+	if (xResults == LFS_ERR_OK)
 	{
-		ret = _wifiConnectAccessPoint();
+		xResults = vprvCacheInit();
 	}
 
-	return ret;
+
+	if(ApplicationCounter(Time2Wait))
+	{
+
+		/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
+			are created in the vApplicationIPNetworkEventHook() hook function
+			below.  The hook function is called when the network connects. */
+
+		if(_wifiEnable())
+		{
+			FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
+
+			#if !defined(FLEET_PROVISIONING_DEMO)
+			#if ( appmainPROVISIONING_MODE == 0 )
+					/* Provision the device with AWS certificate and private key. */
+					littlFs_init(NULL);
+					vDevModeKeyPreProvisioning();
+			#endif
+
+			#endif
+					/* Run all demos. */
+			#if defined(CONFIG_SIMPLE_PUBSUB_DEMO)
+					vStartSimplePubSubDemo();
+			#endif
+
+			#if defined(CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED)
+					vStartOtaDemo();
+			#endif
+
+			#if defined(FLEET_PROVISIONING_DEMO)
+					vStartFleetProvisioningDemo();
+			#endif
+		}
+
+	}
 }
 
 /*-----------------------------------------------------------*/
@@ -312,7 +318,7 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
     void vApplicationStackOverflowHook( TaskHandle_t xTask,
                                         char * pcTaskName )
     {
-        configPRINT_STRING( ( "ERROR: stack overflow\r\n" ) );
+    	FreeRTOS_printf( ( "ERROR: stack overflow\r\n" ) );
         portDISABLE_INTERRUPTS();
 
         /* Unused Parameters */
@@ -327,14 +333,54 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 #endif /* iotconfigUSE_PORT_SPECIFIC_HOOKS */
 /*-----------------------------------------------------------*/
 
-#if ( ipconfigUSE_LLMNR != 0 ) || ( ipconfigUSE_NBNS != 0 ) || ( ipconfigDHCP_REGISTER_HOSTNAME == 1 )
 
-    const char * pcApplicationHostnameHook( void )
+bool ApplicationCounter(uint32_t xWaitTime)
+{
+    TickType_t xCurrent;
+    bool DEMO_TEST = pdTRUE;
+    const TickType_t xPrintFrequency = pdMS_TO_TICKS( xWaitTime );
+    xCurrent = xTaskGetTickCount();
+    signed char cRxChar;
+    while( xCurrent < xPrintFrequency )
     {
-        /* This function will be called during the DHCP: the machine will be registered
-         * with an IP address plus this name. */
-        return clientcredentialIOT_THING_NAME;
-    }
 
-#endif
+    	xCurrent = xTaskGetTickCount();
+
+    	cRxChar = vISR_Routine();
+    	if ((cRxChar != 0) )
+    	{
+
+    		DEMO_TEST = pdFALSE;
+    		break;
+    	}
+    }
+    return DEMO_TEST;
+}
+
+signed char vISR_Routine( void )
+{
+	BaseType_t xTaskWokenByReceive = pdFALSE;
+	extern signed char cRxedChar;
+    return cRxedChar;
+}
+
+static bool _wifiConnectAccessPoint( void )
+{
+	e_cellular_err_t ret = R_CELLULAR_APConnect(&cellular_ctrl, NULL);
+	return (ret == CELLULAR_SUCCESS);
+}
+
+
+static bool _wifiEnable( void )
+{
+	bool result = pdFALSE;
+	e_cellular_err_t ret = R_CELLULAR_Open(&cellular_ctrl, NULL);
+	if(CELLULAR_SUCCESS == ret )
+	{
+		result = _wifiConnectAccessPoint();
+	}
+
+	return result;
+}
+
 

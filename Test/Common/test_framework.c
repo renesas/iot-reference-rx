@@ -96,9 +96,7 @@ void TEST_NotifyTestFinished()
 
 void TEST_SubmitResult( const char * pcResult )
 {
-    /* We want to print test result no matter configPRINTF is defined or not */
-    vLoggingPrint( pcResult );
-
+	configPRINT_STRING( pcResult );
     /* Wait for 0.1 seconds to let print task empty its buffer. */
     vTaskDelay( pdMS_TO_TICKS( 100UL ) );
 }
