@@ -211,7 +211,7 @@ void vApplicationDaemonTaskStartupHook( void )
 					vStartOtaDemo();
 			#endif
 
-			#if defined(FLEET_PROVISIONING_DEMO)
+			#if defined(CONFIG_FLEET_PROVISIONING_DEMO)
 					vStartFleetProvisioningDemo();
 			#endif
 		}

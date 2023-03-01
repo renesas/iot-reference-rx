@@ -647,7 +647,8 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
                                   MQTTFixedBuffer_t * pxNetworkBuffer,
                                   MQTTEventCallback_t eventCallback,
                                   char * pcClientCertLabel,
-                                  char * pcPrivateKeyLabel )
+                                  char * pcPrivateKeyLabel,
+                                  char * pcClient_identifier)
 {
     BaseType_t xReturnStatus = pdTRUE;
     MQTTStatus_t xMQTTStatus;
@@ -723,8 +724,8 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
                 /* The client identifier is used to uniquely identify this MQTT client to
                  * the MQTT broker. In a production device the identifier can be something
                  * unique, such as a device serial number. */
-                xConnectInfo.pClientIdentifier = democonfigCLIENT_IDENTIFIER;
-                xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( democonfigCLIENT_IDENTIFIER );
+                xConnectInfo.pClientIdentifier = pcClient_identifier;
+                xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( pcClient_identifier );
 
                 /* The maximum time interval in seconds which is allowed to elapse
                  * between two Control Packets.
