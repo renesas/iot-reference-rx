@@ -13,6 +13,8 @@
           <Path>..\..\..\Common\FreeRTOS_common\entropy_hardware_poll.c</Path>
           <Path>..\..\..\Common\FreeRTOS_common\serial_term_uart.c</Path>
           <Path>..\..\..\Common\FreeRTOS_common\serial_term_uart.h</Path>
+          <Path>..\..\..\Common\FreeRTOS_common\unique_id.c</Path>
+          <Path>..\..\..\Common\FreeRTOS_common\unique_id.h</Path>
           <Category Name="compiler_support">
             <Category Name="ccrx">
               <Path>..\..\..\Common\FreeRTOS_common\compiler_support\ccrx\exit.c</Path>
@@ -1189,6 +1191,7 @@
           <Path>HardwareDebug\entropy_hardware_poll.obj</Path>
           <Path>HardwareDebug\freertos_ip_hook.obj</Path>
           <Path>HardwareDebug\serial_term_uart.obj</Path>
+          <Path>HardwareDebug\unique_id.obj</Path>
           <Path>HardwareDebug\common_data.obj</Path>
           <Path>HardwareDebug\rm_littlefs_flash.obj</Path>
           <Path>HardwareDebug\FleetProvisioningDemoExample.obj</Path>
