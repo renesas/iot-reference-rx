@@ -55,7 +55,6 @@ typedef struct xSOCKETContext
     uint32_t socket_no;
 } cellularSocketWrapper_t,* xSOCKETContextPtr_t;
 extern st_cellular_ctrl_t cellular_ctrl;
-#define FREERTOS_SOCKETS_WRAPPER_NETWORK_ERROR    ( -1 )
 /**@} */
 /*-----------------------------------------------------------*/
 
@@ -74,13 +73,14 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
     configASSERT( pTcpSocket != NULL );
     configASSERT( pHostName != NULL );
 
+    pxContext = pvPortMalloc(sizeof(cellularSocketWrapper_t));
     memset( pxContext, 0, sizeof( cellularSocketWrapper_t ) );
-    socketStatus = (e_cellular_err_t)R_CELLULAR_CreateSocket(&cellular_ctrl, CELLULAR_PROTOCOL_TCP, CELLULAR_PROTOCOL_IPV4);
+    socketStatus = R_CELLULAR_CreateSocket(&cellular_ctrl, CELLULAR_PROTOCOL_TCP, CELLULAR_PROTOCOL_IPV4);
 
     if(0 >= socketStatus)
 	{
     	LogError( ( "Failed to create new socket." ) );
-    	socketStatus = FREERTOS_SOCKETS_WRAPPER_NETWORK_ERROR;
+    	return socketStatus;
 	}
 	else
 	{
@@ -96,7 +96,6 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 		{
 			LogError( ( "Failed to connect to server: DNS resolution failed: Hostname=%s.",
 						pHostName ) );
-			socketStatus = FREERTOS_SOCKETS_WRAPPER_NETWORK_ERROR;
 		}
 	}
 
@@ -119,10 +118,10 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
     /* Clean up on failure. */
 	if( CELLULAR_SUCCESS != socketStatus )
 	{
-		LogError( ( "Close Socket: Socket Number=%d.",pxContext->socket_no ) );
+		LogError( ( "Close Socket: Socket Number = %d.",pxContext->socket_no ) );
 		R_CELLULAR_ShutdownSocket(&cellular_ctrl, pxContext->socket_no);
 		R_CELLULAR_CloseSocket(&cellular_ctrl, pxContext->socket_no);
-
+		vPortFree( pxContext );
 	}
 	else
 	{
@@ -144,7 +143,6 @@ int32_t TCP_Sockets_Recv( Socket_t xSocket,
 	BaseType_t receive_byte;
 	xSOCKETContextPtr_t pxContext =  (xSOCKETContextPtr_t) xSocket; /*lint !e9087 cast used for portability. */
 
-
    receive_byte = R_CELLULAR_ReceiveSocket(&cellular_ctrl, pxContext->socket_no, (uint8_t *)pvBuffer, xBufferLength, pxContext->receiveTimeout);
 
    return receive_byte;
@@ -160,10 +158,10 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
                       const void * pvBuffer,
                       size_t xDataLength )
 {
-	BaseType_t send_byte;
+
 	xSOCKETContextPtr_t pxContext =  (xSOCKETContextPtr_t) xSocket; /*lint !e9087 cast used for portability. */
 
-	send_byte = R_CELLULAR_SendSocket(&cellular_ctrl, pxContext->socket_no, (uint8_t *)pvBuffer, xDataLength, pxContext->sendTimeout);
+	BaseType_t send_byte = R_CELLULAR_SendSocket(&cellular_ctrl, pxContext->socket_no, (uint8_t *)pvBuffer, xDataLength, pxContext->sendTimeout);
 	return send_byte;
 
 }
@@ -171,9 +169,8 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 void TCP_Sockets_Disconnect( Socket_t tcpSocket )
 {
 	xSOCKETContextPtr_t pxContext = ( xSOCKETContextPtr_t ) tcpSocket; /*lint !e9087 cast used for portability. */
-	e_cellular_err_t cellular_ret = CELLULAR_SUCCESS;
-	cellular_ret = R_CELLULAR_ShutdownSocket(&cellular_ctrl, pxContext->socket_no);
 
+	e_cellular_err_t cellular_ret = R_CELLULAR_ShutdownSocket(&cellular_ctrl, pxContext->socket_no);
 	cellular_ret = R_CELLULAR_CloseSocket(&cellular_ctrl, pxContext->socket_no);
 	(void) cellular_ret;
 	vPortFree( pxContext );
