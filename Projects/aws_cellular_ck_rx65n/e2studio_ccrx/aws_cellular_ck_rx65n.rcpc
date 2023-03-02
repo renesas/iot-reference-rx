@@ -31,9 +31,6 @@
           <Path>..\..\..\Common\littlefs_common\rm_littlefs_api.h</Path>
           <Path>..\..\..\Common\littlefs_common\rm_littlefs_flash.h</Path>
           <Path>..\..\..\Common\littlefs_common\rm_stdio_littlefs.h</Path>
-          <Category Name="rm_littlefs_flash">
-            <Path>..\..\..\Common\littlefs_common\rm_littlefs_flash\rm_littlefs_flash.c</Path>
-          </Category>
         </Category>
       </Category>
       <Category Name="Demos">
@@ -43,9 +40,6 @@
           <Path>..\..\..\Demos\Fleet_Provisioning_With_CSR_Demo\pkcs11_operations.h</Path>
           <Path>..\..\..\Demos\Fleet_Provisioning_With_CSR_Demo\tinycbor_serializer.c</Path>
           <Path>..\..\..\Demos\Fleet_Provisioning_With_CSR_Demo\tinycbor_serializer.h</Path>
-        </Category>
-        <Category Name="MutualAuthMQTT">
-          <Path>..\..\..\Demos\MutualAuthMQTT\MutualAuthMQTTExample.c</Path>
         </Category>
         <Category Name="OtaOverMqtt">
           <Path>..\..\..\Demos\OtaOverMqtt\OtaOverMqttDemoExample.c</Path>
@@ -96,6 +90,12 @@
       </Category>
       <Category Name="Middleware">
         <Category Name="3rdparty">
+          <Category Name="littlefs">
+            <Path>..\..\..\Middleware\3rdparty\littlefs\lfs.c</Path>
+            <Path>..\..\..\Middleware\3rdparty\littlefs\lfs.h</Path>
+            <Path>..\..\..\Middleware\3rdparty\littlefs\lfs_util.c</Path>
+            <Path>..\..\..\Middleware\3rdparty\littlefs\lfs_util.h</Path>
+          </Category>
           <Category Name="mbedtls">
             <Path>..\..\..\Middleware\3rdparty\mbedtls\CMakeLists.txt</Path>
             <Path>..\..\..\Middleware\3rdparty\mbedtls\dco.txt</Path>
@@ -464,13 +464,6 @@
               </Category>
             </Category>
           </Category>
-          <Category Name="FreeRTOS-Plus-CLI">
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\FreeRTOS_CLI.c</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\FreeRTOS_CLI.h</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\History.txt</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\LICENSE_INFORMATION.txt</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\readme.txt</Path>
-          </Category>
           <Category Name="backoffAlgorithm">
             <Path>..\..\..\Middleware\FreeRTOS\backoffAlgorithm\lexicon.txt</Path>
             <Category Name="source">
@@ -541,6 +534,13 @@
             </Category>
           </Category>
         </Category>
+        <Category Name="FreeRTOS-Plus-CLI">
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\FreeRTOS_CLI.c</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\FreeRTOS_CLI.h</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\History.txt</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\LICENSE_INFORMATION.txt</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\readme.txt</Path>
+        </Category>
         <Category Name="freertos_plus">
           <Category Name="standard">
             <Category Name="crypto">
@@ -552,12 +552,6 @@
               </Category>
             </Category>
           </Category>
-        </Category>
-        <Category Name="littlefs">
-          <Path>..\..\..\Middleware\littlefs\lfs.c</Path>
-          <Path>..\..\..\Middleware\littlefs\lfs.h</Path>
-          <Path>..\..\..\Middleware\littlefs\lfs_util.c</Path>
-          <Path>..\..\..\Middleware\littlefs\lfs_util.h</Path>
         </Category>
         <Category Name="logging">
           <Path>..\..\..\Middleware\logging\CMakeLists.txt</Path>
@@ -593,6 +587,9 @@
             </Category>
             <Category Name="rm_aws_pkcs11_pal_littlefs">
               <Path>..\..\..\Common\ports\rm_aws_pkcs11_pal_littlefs\rm_aws_pkcs11_pal_littlefs.c</Path>
+            </Category>
+            <Category Name="rm_littlefs_flash">
+              <Path>..\..\..\Common\ports\rm_littlefs_flash\rm_littlefs_flash.c</Path>
             </Category>
           </Category>
         </Category>
@@ -1097,34 +1094,34 @@
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_config"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_startup"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\application_code"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Plus-CLI"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreJSON\source\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\freertos_plus\standard\crypto\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\logging\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\pkcs11\published\2-40-errata-1"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls_utils"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls_config"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\littlefs"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Common\FreeRTOS_common"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Demos\common\pkcs11_helpers"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Demos\cli"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Demos\dev_mode_key_provisioning\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Common\littlefs_common"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS-Plus-CLI"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\coreJSON\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\freertos_plus\standard\crypto\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\logging\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\pkcs11\published\2-40-errata-1"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\3rdparty\mbedtls\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\3rdparty\mbedtls_utils"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\3rdparty\mbedtls_config"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\3rdparty\littlefs"</Option>
+          <Option>-include="C:\work\nam-gitlab\Common\FreeRTOS_common"</Option>
+          <Option>-include="C:\work\nam-gitlab\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
+          <Option>-include="C:\work\nam-gitlab\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
+          <Option>-include="C:\work\nam-gitlab\Demos\common\pkcs11_helpers"</Option>
+          <Option>-include="C:\work\nam-gitlab\Demos\cli"</Option>
+          <Option>-include="C:\work\nam-gitlab\Demos\dev_mode_key_provisioning\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Common\littlefs_common"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</Option>
@@ -1136,18 +1133,18 @@
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\Unity\extras\fixture\src"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\Unity\extras\memory\src"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\Unity\src"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Common\ports\ota_pal"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\tinycbor\src"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Demos\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\library"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Demos\mqtt_agent"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Demos\common\mqtt-agent-interface\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Demos\common\mqtt-agent-interface"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Demos\OtaOverMqtt"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</Option>
-          <Option>-include="C:\work\non-blocking-littleFS\Demos\common\Mqtt_Demo_Helpers"</Option>
+          <Option>-include="C:\work\nam-gitlab\Common\ports\ota_pal"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\3rdparty\tinycbor\src"</Option>
+          <Option>-include="C:\work\nam-gitlab\Demos\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\3rdparty\mbedtls\library"</Option>
+          <Option>-include="C:\work\nam-gitlab\Demos\mqtt_agent"</Option>
+          <Option>-include="C:\work\nam-gitlab\Demos\common\mqtt-agent-interface\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Demos\common\mqtt-agent-interface"</Option>
+          <Option>-include="C:\work\nam-gitlab\Demos\OtaOverMqtt"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab\Demos\common\Mqtt_Demo_Helpers"</Option>
           <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,MBEDTLS_ALLOW_PRIVATE_ACCESS</Option>
           <Option>-utf8</Option>
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
@@ -1278,11 +1275,9 @@
           <Path>HardwareDebug\serial_term_uart.obj</Path>
           <Path>HardwareDebug\unique_id.obj</Path>
           <Path>HardwareDebug\common_data.obj</Path>
-          <Path>HardwareDebug\rm_littlefs_flash.obj</Path>
           <Path>HardwareDebug\FleetProvisioningDemoExample.obj</Path>
           <Path>HardwareDebug\pkcs11_operations.obj</Path>
           <Path>HardwareDebug\tinycbor_serializer.obj</Path>
-          <Path>HardwareDebug\MutualAuthMQTTExample.obj</Path>
           <Path>HardwareDebug\OtaOverMqttDemoExample.obj</Path>
           <Path>HardwareDebug\subscription_manager.obj</Path>
           <Path>HardwareDebug\simple_pub_sub_task.obj</Path>
@@ -1296,6 +1291,8 @@
           <Path>HardwareDebug\pkcs11_helpers.obj</Path>
           <Path>HardwareDebug\aws_dev_mode_key_provisioning.obj</Path>
           <Path>HardwareDebug\mqtt_agent_task.obj</Path>
+          <Path>HardwareDebug\lfs.obj</Path>
+          <Path>HardwareDebug\lfs_util.obj</Path>
           <Path>HardwareDebug\aes.obj</Path>
           <Path>HardwareDebug\aesni.obj</Path>
           <Path>HardwareDebug\aria.obj</Path>
@@ -1420,7 +1417,6 @@
           <Path>HardwareDebug\stream_buffer.obj</Path>
           <Path>HardwareDebug\tasks.obj</Path>
           <Path>HardwareDebug\timers.obj</Path>
-          <Path>HardwareDebug\FreeRTOS_CLI.obj</Path>
           <Path>HardwareDebug\backoff_algorithm.obj</Path>
           <Path>HardwareDebug\core_json.obj</Path>
           <Path>HardwareDebug\core_mqtt.obj</Path>
@@ -1431,13 +1427,13 @@
           <Path>HardwareDebug\core_pkcs11.obj</Path>
           <Path>HardwareDebug\core_pki_utils.obj</Path>
           <Path>HardwareDebug\core_pkcs11_mbedtls.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_CLI.obj</Path>
           <Path>HardwareDebug\iot_crypto.obj</Path>
-          <Path>HardwareDebug\lfs.obj</Path>
-          <Path>HardwareDebug\lfs_util.obj</Path>
           <Path>HardwareDebug\iot_logging_task_dynamic_buffers.obj</Path>
           <Path>HardwareDebug\main.obj</Path>
           <Path>HardwareDebug\ota_pal.obj</Path>
           <Path>HardwareDebug\rm_aws_pkcs11_pal_littlefs.obj</Path>
+          <Path>HardwareDebug\rm_littlefs_flash.obj</Path>
           <Path>HardwareDebug\cellular_block_pool_control.obj</Path>
           <Path>HardwareDebug\cellular_create_event_group.obj</Path>
           <Path>HardwareDebug\cellular_create_semaphore.obj</Path>
@@ -1598,34 +1594,34 @@
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_config"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_startup"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\application_code"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\FreeRTOS-Plus-CLI"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\logging\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\littlefs"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\FreeRTOS_common"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\common\pkcs11_helpers"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\cli"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\dev_mode_key_provisioning\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\littlefs_common"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS-Plus-CLI"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\logging\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\3rdparty\littlefs"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Common\FreeRTOS_common"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Demos\common\pkcs11_helpers"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Demos\cli"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Demos\dev_mode_key_provisioning\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Common\littlefs_common"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</IncludePathForC>
@@ -1637,18 +1633,18 @@
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\Unity\extras\fixture\src"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\Unity\extras\memory\src"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Test\Unity\src"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Common\ports\ota_pal"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\mqtt_agent"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\common\mqtt-agent-interface"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\OtaOverMqtt"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\non-blocking-littleFS\Demos\common\Mqtt_Demo_Helpers"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Common\ports\ota_pal"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Demos\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Demos\mqtt_agent"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Demos\common\mqtt-agent-interface"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Demos\OtaOverMqtt"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Demos\common\Mqtt_Demo_Helpers"</IncludePathForC>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
