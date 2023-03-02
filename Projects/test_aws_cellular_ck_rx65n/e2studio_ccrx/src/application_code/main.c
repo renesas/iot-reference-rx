@@ -33,9 +33,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Key provisioning includes. */
 #include "dev_mode_key_provisioning.h"
 
-/* FreeRTOS+TCP includes. */
-#include "FreeRTOS_IP.h"
-
 /* Demo includes */
 #include "aws_clientcredential.h"
 #include "r_cellular_if.h"

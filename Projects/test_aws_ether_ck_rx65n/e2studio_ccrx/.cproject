@@ -79,7 +79,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/Compiler/Renesas}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/FreeRTOS/coreMQTT/source/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/FreeRTOS/coreMQTT/source/interface}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/FreeRTOS/FreeRTOS-Plus-CLI}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/FreeRTOS-Plus-CLI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os}&quot;"/>
@@ -484,18 +484,6 @@
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.outputHexFile.2026575219" name="Output hex file" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.outputHexFile" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.1826428067" name="RTOS Configurator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig"/>
-						</toolChain>
-					</folderInfo>
-					<folderInfo id="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.configuration.1600053140.1358574624" name="/" resourcePath="Middleware/3rdparty/littlefs">
-						<toolChain id="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.toolChain.1877783962" name="Renesas CCRX Toolchain" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.toolChain" unusedChildren="">
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.dsp.376857199" name="DSP Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.dsp.1705134317"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.common.781376809" name="Common" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.common.175900399"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler.1538448363" name="Compiler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler.1024579005"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.assembler.1968675718" name="Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.assembler.2084394237"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.linker.778171318" name="Linker" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.linker.337248596"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian.24521528" name="Library Generator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian.437532858"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.converter.1653659810" name="Converter" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.converter.1709762947"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.2024356884" name="RTOS Configurator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.1826428067"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>

@@ -469,13 +469,6 @@
               </Category>
             </Category>
           </Category>
-          <Category Name="FreeRTOS-Plus-CLI">
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\FreeRTOS_CLI.c</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\FreeRTOS_CLI.h</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\History.txt</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\LICENSE_INFORMATION.txt</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\readme.txt</Path>
-          </Category>
           <Category Name="FreeRTOS-Plus-TCP">
             <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\History.txt</Path>
             <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\readme.txt</Path>
@@ -619,6 +612,13 @@
               </Category>
             </Category>
           </Category>
+        </Category>
+        <Category Name="FreeRTOS-Plus-CLI">
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\FreeRTOS_CLI.c</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\FreeRTOS_CLI.h</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\History.txt</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\LICENSE_INFORMATION.txt</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\readme.txt</Path>
         </Category>
         <Category Name="freertos_plus">
           <Category Name="standard">
@@ -1035,7 +1035,7 @@
           <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
-          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-CLI"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS-Plus-CLI"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
@@ -1332,7 +1332,6 @@
           <Path>HardwareDebug\stream_buffer.obj</Path>
           <Path>HardwareDebug\tasks.obj</Path>
           <Path>HardwareDebug\timers.obj</Path>
-          <Path>HardwareDebug\FreeRTOS_CLI.obj</Path>
           <Path>HardwareDebug\FreeRTOS_ARP.obj</Path>
           <Path>HardwareDebug\FreeRTOS_DHCP.obj</Path>
           <Path>HardwareDebug\FreeRTOS_DNS.obj</Path>
@@ -1367,6 +1366,7 @@
           <Path>HardwareDebug\core_pkcs11.obj</Path>
           <Path>HardwareDebug\core_pki_utils.obj</Path>
           <Path>HardwareDebug\core_pkcs11_mbedtls.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_CLI.obj</Path>
           <Path>HardwareDebug\iot_crypto.obj</Path>
           <Path>HardwareDebug\iot_logging_task_dynamic_buffers.obj</Path>
           <Path>HardwareDebug\main.obj</Path>
@@ -1417,7 +1417,7 @@
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
-          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-CLI"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS-Plus-CLI"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
