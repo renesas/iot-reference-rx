@@ -456,56 +456,6 @@
               </Category>
             </Category>
           </Category>
-          <Category Name="FreeRTOS-Plus-CLI">
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\FreeRTOS_CLI.c</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\FreeRTOS_CLI.h</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\History.txt</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\LICENSE_INFORMATION.txt</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-CLI\readme.txt</Path>
-          </Category>
-          <Category Name="FreeRTOS-Plus-TCP">
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\History.txt</Path>
-            <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\readme.txt</Path>
-            <Category Name="source">
-              <Category Name="include">
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOSIPConfigDefaults.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_ARP.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DHCP.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Cache.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Callback.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Globals.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Networking.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_DNS_Parser.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_ICMP.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_IP.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_IP_Private.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_IP_Timers.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_IP_Utils.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_Sockets.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_Stream_Buffer.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_IP.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_Reception.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_State_Handling.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_Transmission.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_Utils.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_TCP_WIN.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_UDP_IP.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\FreeRTOS_errno_TCP.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\IPTraceMacroDefaults.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\NetworkBufferManagement.h</Path>
-                <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include\NetworkInterface.h</Path>
-              </Category>
-              <Category Name="portable">
-                <Category Name="Compiler">
-                  <Category Name="Renesas">
-                    <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas\pack_struct_end.h</Path>
-                    <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas\pack_struct_start.h</Path>
-                  </Category>
-                </Category>
-              </Category>
-            </Category>
-          </Category>
           <Category Name="backoffAlgorithm">
             <Path>..\..\..\Middleware\FreeRTOS\backoffAlgorithm\lexicon.txt</Path>
             <Category Name="source">
@@ -575,6 +525,13 @@
               </Category>
             </Category>
           </Category>
+        </Category>
+        <Category Name="FreeRTOS-Plus-CLI">
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\FreeRTOS_CLI.c</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\FreeRTOS_CLI.h</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\History.txt</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\LICENSE_INFORMATION.txt</Path>
+          <Path>..\..\..\Middleware\FreeRTOS-Plus-CLI\readme.txt</Path>
         </Category>
         <Category Name="freertos_plus">
           <Category Name="standard">
@@ -1204,11 +1161,11 @@
           <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_startup"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
-          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
-          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
-          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-CLI"</Option>
+          <Option>-include="C:\work\nam-gitlab\Middleware\FreeRTOS-Plus-CLI"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
           <Option>-include="C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
@@ -1525,7 +1482,6 @@
           <Path>HardwareDebug\stream_buffer.obj</Path>
           <Path>HardwareDebug\tasks.obj</Path>
           <Path>HardwareDebug\timers.obj</Path>
-          <Path>HardwareDebug\FreeRTOS_CLI.obj</Path>
           <Path>HardwareDebug\backoff_algorithm.obj</Path>
           <Path>HardwareDebug\core_json.obj</Path>
           <Path>HardwareDebug\core_mqtt.obj</Path>
@@ -1536,6 +1492,7 @@
           <Path>HardwareDebug\core_pkcs11.obj</Path>
           <Path>HardwareDebug\core_pki_utils.obj</Path>
           <Path>HardwareDebug\core_pkcs11_mbedtls.obj</Path>
+          <Path>HardwareDebug\FreeRTOS_CLI.obj</Path>
           <Path>HardwareDebug\iot_crypto.obj</Path>
           <Path>HardwareDebug\iot_logging_task_dynamic_buffers.obj</Path>
           <Path>HardwareDebug\key_provisioning.obj</Path>
@@ -1716,11 +1673,11 @@
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\src\frtos_startup"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
-          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam25\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
-          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS\FreeRTOS-Plus-CLI"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab\Middleware\FreeRTOS-Plus-CLI"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
           <IncludePathForC>"C:\work\nam-gitlab\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
