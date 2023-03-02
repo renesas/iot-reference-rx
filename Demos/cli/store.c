@@ -16,6 +16,13 @@ const char * keys[ KVS_NUM_KEYS ] = KVSTORE_KEYS;
 KeyValueStore_t gKeyValueStore = { 0 };
 extern volatile uint32_t pvwrite;
 extern CK_RV vDevModeKeyPreProvisioning( KeyValueStore_t Keystore, KVStoreKey_t ID, int32_t xvaluelength );
+
+/*
+ * @brief Write a value for a given key to Data Flash.
+ * @param[in] KVStoreKey_t Key to store the given value in.
+ * @param[in] pucData Pointer to a buffer containing the value to be stored.
+ * @param[in] ulDataSize length of the value given in pucData.
+ */
 BaseType_t xprvWriteValueToImpl (KVStoreKey_t keyIndex, char *pucData, uint32_t ulDataSize)
 {
 	lfs_file_t file;
@@ -43,6 +50,12 @@ BaseType_t xprvWriteValueToImpl (KVStoreKey_t keyIndex, char *pucData, uint32_t 
 	return( lfs_err == LFS_ERR_OK );
 }
 
+/*
+ * @brief Read a value for a given key to Data Flash.
+ * @param[in] KVStoreKey_t Key to store the given value in.
+ * @param[in] pucData Pointer to a buffer containing the value to be stored.
+ * @param[in] ulDataSize length of the value given in pucData.
+ */
 int32_t xprvReadValueFromImpl (KVStoreKey_t keyIndex,
         char **ppucData,
 		uint32_t *pulDataSize,
@@ -80,7 +93,11 @@ int32_t xprvReadValueFromImpl (KVStoreKey_t keyIndex,
 	return (lfs_ret == LFS_ERR_OK);
 }
 
-
+/*
+ * @brief Get the length of a value stored in the Data Flash
+ * @param[in] KVStoreKey_t Key to lookup
+ * @return length of the value stored in the KVStore or 0 if not found.
+ */
 int32_t xprvGetValueLengthFromImpl( KVStoreKey_t keyIndex)
 {
 	size_t xLength = 0;
@@ -95,6 +112,14 @@ int32_t xprvGetValueLengthFromImpl( KVStoreKey_t keyIndex)
 
 }
 
+/*
+ * @brief Write a given and key / value pair to the cache
+ * @param[in] size_t Length of the key to store
+ * @param[in] Key Pointer to the key data to be copied into the cache.
+ * @param[in] ValueLength Length of the data to store.
+ * @param[in] pvNewValue Pointer to the new data to be copied into the cache.
+ * @return key.
+ */
 int32_t xprvWriteCacheEntry(size_t KeyLength,
 						char * Key,
 						size_t ValueLength,
@@ -210,6 +235,11 @@ int32_t Filename2Handle( char * pcFileName,size_t KeyLength)
 
     return xHandle;
 }
+
+/*
+ * @brief Commit data and save it into Data Flash
+ * @return True if successfully.
+ */
 BaseType_t KVStore_xCommitChanges( void )
 {
     BaseType_t xSuccess = pdFALSE;
@@ -218,7 +248,9 @@ BaseType_t KVStore_xCommitChanges( void )
     {
         if( gKeyValueStore.table[ i ].xChangePending == pdTRUE )
         {
-
+        	/*
+        	 * Check if certificate or privatekey or publickey
+        	 */
         	if ((i  == KVS_DEVICE_CERT_ID ) || (i  == KVS_DEVICE_PRIVKEY_ID )|| (i  == KVS_DEVICE_PUBKEY_ID ))
 			{
 				xSuccess = vDevModeKeyPreProvisioning(gKeyValueStore, (KVStoreKey_t)i,gKeyValueStore.table[ i ].valueLength);
@@ -228,6 +260,9 @@ BaseType_t KVStore_xCommitChanges( void )
 				}
 				gKeyValueStore.table[ i ].xChangePending = pdFALSE;
 			}
+        	/*
+        	 * Check if others
+        	 */
         	else
         	{
         		xSuccess = xprvWriteValueToImpl((KVStoreKey_t)i,(char *)gKeyValueStore.table[ i ].value,
@@ -337,7 +372,9 @@ static inline void * pvGetDataWritePtr( KVStoreKey_t key )
     configASSERT( pvData != NULL );
     return pvData;
 }
-
+/*
+ * @brief Initialize the Key Value Store Cache by reading each entry from the Data Flash.
+ */
 int32_t vprvCacheInit( void )
 {
 	int32_t xNvLength = -1;
@@ -423,7 +460,13 @@ int32_t vprvCacheInit( void )
 
 }
 
-
+/*
+ * @brief Get the length of a value in cache excepted certificate, public and private key
+ * @param[in] xKey Key to lookup
+ * @param[in] pvBuffer Pointer to a buffer containing the value to be stored.
+ * @param[in] xBufferSize buffer size
+ * @return length of the value stored in the KVStore or 0 if not found.
+ */
 size_t xReadEntry( KVStoreKey_t xKey,
                                    void * pvBuffer,
                                    size_t xBufferSize )
@@ -437,6 +480,12 @@ size_t xReadEntry( KVStoreKey_t xKey,
 
 }
 
+/*
+ * @brief Get the string value in cache excepted certificate, public and private key
+ * @param[in] xKey Key to lookup
+ * @param[in] xBufferSize buffer size
+ * @return value of buffer.
+ */
 char *GetStringValue( KVStoreKey_t key, size_t  pxLength )
 {
 	size_t xSizeWritten = 0;
@@ -465,6 +514,12 @@ char *GetStringValue( KVStoreKey_t key, size_t  pxLength )
 	return pcBuffer;
 }
 
+/*
+ * @brief Get the string value in cache included certificate, public and private key
+ * @param[in] xKey Key to lookup
+ * @param[in] xBufferSize buffer size
+ * @return value of buffer.
+ */
 char *xprvGetCacheEntry(char* key, size_t pxLength )
 {
 	char* buffervalue = NULL;
