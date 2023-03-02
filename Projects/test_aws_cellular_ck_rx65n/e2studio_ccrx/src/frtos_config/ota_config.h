@@ -45,14 +45,10 @@
 
 #include "logging_levels.h"
 
-/* Logging configuration for the MQTT library. */
-#ifndef LIBRARY_LOG_NAME
-    #define LIBRARY_LOG_NAME    "OTA"
-#endif
+/* Logging configuration for the OTA library. */
 
-#ifndef LIBRARY_LOG_LEVEL
-    #define LIBRARY_LOG_LEVEL    LOG_INFO
-#endif
+#define LIBRARY_LOG_NAME    "OTA"
+#define LIBRARY_LOG_LEVEL    LOG_ERROR
 
 #include "logging_stack.h"
 
@@ -64,7 +60,7 @@
  *
  * 10 bits yields a data block size of 1KB.
  */
-#define otaconfigLOG2_FILE_BLOCK_SIZE           11UL
+#define otaconfigLOG2_FILE_BLOCK_SIZE           12UL
 
 /**
  * @brief Size of the file data block message (excluding the header).

@@ -1344,7 +1344,7 @@ static void ota_flashing_task( void * pvParameters )
         length = packet_block_for_queue2.length;
         flash_err = R_FLASH_Write( ( uint32_t ) block, ulOffset + BOOT_LOADER_UPDATE_TEMPORARY_AREA_LOW_ADDRESS + BOOT_LOADER_USER_FIRMWARE_HEADER_LENGTH, length );
 
-        if( packet_block_for_queue2.length != 1024 )
+        if( packet_block_for_queue2.length != ( 1 << otaconfigLOG2_FILE_BLOCK_SIZE ) )
         {
             nop();
         }
