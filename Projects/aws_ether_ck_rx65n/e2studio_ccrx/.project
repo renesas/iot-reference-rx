@@ -104,21 +104,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1671681622708</id>
-			<name>Middleware/littlefs</name>
-			<type>10</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-bd|scripts|tests</arguments>
-			</matcher>
-		</filter>
-		<filter>
 			<id>1666589064164</id>
 			<name>src/libraries</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-3rdparty|abstractions|c_sdk|coreMQTT-Agent|freertos_plus|FreeRTOS-LTS|logging|tinycbor</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1677741395282</id>
+			<name>Middleware/3rdparty/littlefs</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-*</arguments>
 			</matcher>
 		</filter>
 		<filter>
