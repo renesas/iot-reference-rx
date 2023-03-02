@@ -97,6 +97,9 @@
 /* Includes MQTT Agent Task management APIs. */
 #include "mqtt_agent_task.h"
 #include "backoff_algorithm.h"
+
+#include "store.h"
+
 #ifndef democonfigMQTT_BROKER_ENDPOINT
     #define democonfigMQTT_BROKER_ENDPOINT    clientcredentialMQTT_BROKER_ENDPOINT
 #endif
@@ -223,6 +226,18 @@
  * state is set at anytime.
  */
 #define mqttexampleEVENT_BITS_ALL    ( ( EventBits_t ) ( ( 1ULL << MQTT_AGENT_NUM_STATES ) - 1U ) )
+
+/**
+ * @brief ThingName which is used as the client identifier for MQTT connection.
+ * Thing name is retrieved  at runtime from a key value store.
+ */
+static char * pcThingName = NULL;
+
+/**
+ * @brief Broker endpoint name for the MQTT connection.
+ * Broker endpoint name is retrieved at runtime from a key value store.
+ */
+static char * pcBrokerEndpoint = NULL;
 
 /*-----------------------------------------------------------*/
 
@@ -470,8 +485,8 @@ static MQTTStatus_t prvCreateMQTTConnection( bool xIsReconnect )
     /* The client identifier is used to uniquely identify this MQTT client to
      * the MQTT broker. In a production device the identifier can be something
      * unique, such as a device serial number. */
-    xConnectInfo.pClientIdentifier = clientcredentialIOT_THING_NAME;
-    xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( clientcredentialIOT_THING_NAME );
+    xConnectInfo.pClientIdentifier = pcThingName;
+    xConnectInfo.clientIdentifierLength = ( uint16_t ) strlen( pcThingName );
 
     /* Set MQTT keep-alive period. It is the responsibility of the application
      * to ensure that the interval between Control Packets being sent does not
@@ -576,10 +591,10 @@ static BaseType_t prvCreateTLSConnection( NetworkContext_t * pxNetworkContext )
 	do
 	{
 	LogInfo( ( "Creating a TLS connection to %s:%u.",
-			democonfigMQTT_BROKER_ENDPOINT,
+			pcBrokerEndpoint,
 			democonfigMQTT_BROKER_PORT ) );
 	xNetworkStatus = TLS_FreeRTOS_Connect( pxNetworkContext,
-                                               democonfigMQTT_BROKER_ENDPOINT,
+                                               pcBrokerEndpoint,
                                                democonfigMQTT_BROKER_PORT,
                                                &xNetworkCredentials,
                                            mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS,
@@ -759,14 +774,33 @@ void prvMQTTAgentTask( void * pvParameters )
     BaseType_t xStatus = pdPASS;
     MQTTStatus_t xMQTTStatus = MQTTBadParameter;
     MQTTContext_t * pMqttContext = &( xGlobalMqttAgentContext.mqttContext );
-
+    extern KeyValueStore_t gKeyValueStore ;
     ( void ) pvParameters;
 
     /* Initialization of timestamp for MQTT. */
     ulGlobalEntryTimeMs = prvGetTimeMs();
 
+#if defined(__TEST__)
+    pcThingName = clientcredentialIOT_THING_NAME ;
+    pcBrokerEndpoint = clientcredentialMQTT_BROKER_ENDPOINT;
+#else
     /* Load broker endpoint and thing name for client connection, from the key store. */
-//    pcThingName = clientcredentialIOT_THING_NAME;
+    if (gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength > 0)
+    {
+    	pcThingName = pvPortMalloc( gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength);
+		pcThingName = gKeyValueStore.table[ KVS_CORE_THING_NAME ].value;
+    }
+
+    if (gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength > 0)
+    {
+        pcBrokerEndpoint = pvPortMalloc( gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength);
+        pcBrokerEndpoint = gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].value;
+    }
+
+
+#endif
+
+
 
     /* Initialize the MQTT context with the buffer and transport interface. */
     if( xStatus == pdPASS )
@@ -819,7 +853,17 @@ void prvMQTTAgentTask( void * pvParameters )
     }
 
     prvSetMQTTAgentState( MQTT_AGENT_STATE_TERMINATED );
+    if( pcThingName != NULL )
+   {
+	   vPortFree( pcThingName );
+	   pcThingName = NULL;
+   }
 
+   if( pcBrokerEndpoint != NULL )
+   {
+	   vPortFree( pcBrokerEndpoint );
+	   pcBrokerEndpoint = NULL;
+   }
 
     vTaskDelete( NULL );
 }

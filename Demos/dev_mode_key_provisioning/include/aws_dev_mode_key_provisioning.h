@@ -41,7 +41,7 @@
 
 #include "core_pkcs11_config.h"
 #include "core_pkcs11.h"
-
+#include "store.h"
 typedef struct ProvisioningParams_t
 {
     uint8_t * pucClientPrivateKey;      /**< Pointer to the device private key in PEM format.
@@ -65,6 +65,7 @@ typedef struct ProvisioningParams_t
                                          *   If JITP is not being used, this value should be set to 0. */
 } ProvisioningParams_t;
 
+
 /** \brief Provisions device with default credentials.
  *
  * Imports the certificate and private key located in
@@ -73,7 +74,7 @@ typedef struct ProvisioningParams_t
  * \return CKR_OK upon successful credential setup.
  * Otherwise, a positive PKCS #11 error code.
  */
-CK_RV vDevModeKeyProvisioning( void );
+CK_RV vDevModeKeyProvisioning( void);
 
 /** \brief Provisiong a device given a valid PKCS #11 session.
  *
@@ -95,7 +96,7 @@ CK_RV xProvisionDevice( CK_SESSION_HANDLE xSession,
  * \return CKR_OK upon successful credential setup.
  * Otherwise, a positive PKCS #11 error code.
  */
-CK_RV vAlternateKeyProvisioning( ProvisioningParams_t * xParams );
+BaseType_t vAlternateKeyProvisioning( ProvisioningParams_t * xParams );
 
 /** \brief Provisions a private key using PKCS #11 library.
  *

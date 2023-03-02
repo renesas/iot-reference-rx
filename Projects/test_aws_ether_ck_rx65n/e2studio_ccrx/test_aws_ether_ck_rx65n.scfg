@@ -9,7 +9,7 @@
                 <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.freertos.kernel">
                     <item id="com.renesas.smc.toolchain.option.rtos.freertos.kernel" value="10.4.3-rx-1.0.1"/>
                 </option>
-                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.false"/>
+                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.true"/>
             </toolchain>
         </configuration>
         <platform id="R5F565NEHxFB"/>
@@ -17,7 +17,7 @@
     </general>
     <tool id="Clock">
         <option enabled="true" id="vccinput" selection="textinputitem">
-            <item enabled="true" id="textinputitem" input="3.3" value="3.300"/>
+            <item enabled="true" id="textinputitem" input="3.3" value="3.3"/>
         </option>
         <option enabled="true" id="mainclockenable" selection="check">
             <item enabled="true" id="check"/>
@@ -28,24 +28,24 @@
             <item enabled="true" id="srcEOI"/>
         </option>
         <option enabled="true" id="mainfrequency" selection="textinputitem">
-            <item enabled="true" id="textinputitem" input="24" value="24.000000"/>
+            <item enabled="true" id="textinputitem" input="24" value="24"/>
         </option>
         <option enabled="true" id="mainwaittime" selection="textinputitem">
-            <item enabled="true" id="textinputitem" input="9980" value="9980.000000"/>
+            <item enabled="true" id="textinputitem" input="9980" value="9980"/>
         </option>
-        <option enabled="true" id="subclockenable" selection="uncheck">
+        <option enabled="true" id="subclockenable" selection="check">
             <item enabled="true" id="check"/>
             <item enabled="true" id="uncheck"/>
         </option>
-        <option enabled="false" id="subfrequency" selection="textinputitem">
+        <option enabled="true" id="subfrequency" selection="textinputitem">
             <item enabled="true" id="textinputitem" input="" value="32.768"/>
         </option>
-        <option enabled="false" id="subdrivecap" selection="standardCL">
+        <option enabled="true" id="subdrivecap" selection="standardCL">
             <item enabled="true" id="standardCL"/>
             <item enabled="true" id="lowCL"/>
         </option>
-        <option enabled="false" id="subwaittime" selection="textinputitem">
-            <item enabled="true" id="textinputitem" input="2000" value="2000.000000"/>
+        <option enabled="true" id="subwaittime" selection="textinputitem">
+            <item enabled="true" id="textinputitem" input="2000" value="2000"/>
         </option>
         <option enabled="true" id="hococlockenable" selection="uncheck">
             <item enabled="true" id="check"/>
@@ -75,7 +75,7 @@
             <item enabled="true" id="textinputitem" input="" value="120"/>
         </option>
         <option enabled="true" id="pllswitcher" selection="pllmain">
-            <item enabled="true" id="pllmain" input="" value="24.0"/>
+            <item enabled="true" id="pllmain" input="" value="24"/>
             <item enabled="false" id="pllhoco" input="" value="16"/>
         </option>
         <option enabled="true" id="plldivider" selection="div1-1">
@@ -128,8 +128,8 @@
         </option>
         <option enabled="true" id="sckswitcher" selection="pll">
             <item enabled="true" id="pll" input="" value="2.4E8"/>
-            <item enabled="true" id="main" input="" value="2.4E7"/>
-            <item enabled="false" id="sub" input="" value="32768.0"/>
+            <item enabled="true" id="main" input="" value="24000000"/>
+            <item enabled="true" id="sub" input="" value="32768.0"/>
             <item enabled="false" id="hoco" input="" value="16000000"/>
             <item enabled="false" id="loco" input="" value="240000"/>
         </option>
@@ -254,10 +254,10 @@
         <option enabled="false" id="cachclk" selection="textoutputitem">
             <item enabled="true" id="textoutputitem" input="" value="16"/>
         </option>
-        <option enabled="false" id="cacsclk" selection="textoutputitem">
+        <option enabled="true" id="cacsclk" selection="textoutputitem">
             <item enabled="true" id="textoutputitem" input="" value="32.768"/>
         </option>
-        <option enabled="false" id="rtcsclkenable" selection="uncheck">
+        <option enabled="true" id="rtcsclkenable" selection="uncheck">
             <item enabled="true" id="check"/>
             <item enabled="true" id="uncheck"/>
         </option>
@@ -268,7 +268,7 @@
             <item enabled="true" id="textoutputitem" input="" value="120"/>
         </option>
         <option enabled="true" id="cacmclk" selection="textoutputitem">
-            <item enabled="true" id="textoutputitem" input="" value="24.0"/>
+            <item enabled="true" id="textoutputitem" input="" value="24"/>
         </option>
     </tool>
     <tool id="Interrupt">
@@ -498,11 +498,13 @@
         <pinItem allocation="20" comments="" direction="None" id="XTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="71" comments="" direction="None" id="RMII0_RXD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="72" comments="" direction="None" id="RMII0_RXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="18" comments="" direction="None" id="XCOUT" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="63" comments="" direction="None" id="RMII0_TXD1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="64" comments="" direction="None" id="RMII0_TXD0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="70" comments="" direction="None" id="RXD5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="69" comments="" direction="None" id="REF50CK0" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="141" comments="" direction="None" id="AN000" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
+        <pinItem allocation="17" comments="" direction="None" id="XCIN" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="85" comments="" direction="None" id="ET0_MDC" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="144" comments="" direction="None" id="ADTRG0#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="67" comments="" direction="None" id="TXD5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -513,10 +515,10 @@
         <pinItem allocation="81" comments="" direction="None" id="RMII0_TXD_EN" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="86" comments="" direction="None" id="ET0_MDIO" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="58" comments="" direction="None" id="RMII0_CRS_DV" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinnumItem comment="LED2_B" id="88"/>
         <pinnumItem comment="SENSOR-SDA" id="44"/>
-        <pinnumItem comment="SERIAL-CTS" id="89"/>
+        <pinnumItem comment="LED2_B" id="88"/>
         <pinnumItem comment="SENSOR-SCL" id="45"/>
+        <pinnumItem comment="SERIAL-CTS" id="89"/>
         <pinnumItem comment="USB_DM" id="47"/>
         <pinnumItem comment="USB_DP" id="48"/>
         <pinnumItem comment="OUTDOOR-AIR-QUALITY-RES_N" id="113"/>
@@ -524,10 +526,10 @@
         <pinnumItem comment="LED2_G" id="90"/>
         <pinnumItem comment="LED4" id="94"/>
         <pinnumItem comment="PMOD1-GPIO1" id="51"/>
-        <pinnumItem comment="PMOD2-GPIO1" id="96"/>
         <pinnumItem comment="ETHERNET-LINKSTA" id="52"/>
-        <pinnumItem comment="BIOMETRIC-INT" id="98"/>
+        <pinnumItem comment="PMOD2-GPIO1" id="96"/>
         <pinnumItem comment="PMOD2-GPIO3" id="54"/>
+        <pinnumItem comment="BIOMETRIC-INT" id="98"/>
         <pinnumItem comment="PMOD2-GPIO2" id="56"/>
         <pinnumItem comment="PMOD1-CS" id="13"/>
         <pinnumItem comment="ETHERNET-CRS_DV" id="58"/>
@@ -579,11 +581,11 @@
         <option id="com.renesas.smc.code.type" value="Normal Folder"/>
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
-        <configuration enable="true" exclude="false" id="be87924b-06eb-48fb-83e2-ee790615770b" inuse="true" name="FreeRTOS_Kernel">
+        <configuration enable="true" exclude="false" id="3ad0c1c1-3c90-4e04-a08b-fd449a641ee8" inuse="true" name="FreeRTOS_Kernel">
             <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="1684b7e4-5e07-4adc-8bc5-b2b2dff0058f" inuse="true" name="FreeRTOS_Object">
+        <configuration enable="true" exclude="false" id="2a3c0e78-55c9-44a5-8d02-79c109c1a8b5" inuse="true" name="FreeRTOS_Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
                     <option defaultValue="0" id="LinkNum" value=""/>
@@ -615,7 +617,7 @@
                 <gridItem id="BSP_CFG_USER_STACK_ENABLE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_USTACK_BYTES" selectedIndex="0x1000"/>
                 <gridItem id="BSP_CFG_ISTACK_BYTES" selectedIndex="0x400"/>
-                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x400"/>
+                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x1000"/>
                 <gridItem id="BSP_CFG_IO_LIB_ENABLE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_FUNCTION" selectedIndex="my_sw_charget_function"/>
@@ -850,8 +852,8 @@
                 <gridItem id="ETHER_CFG_MODE_SEL" selectedIndex="1"/>
                 <gridItem id="ETHER_CFG_CH0_PHY_ADDRESS" selectedIndex="5"/>
                 <gridItem id="ETHER_CFG_CH1_PHY_ADDRESS" selectedIndex="1"/>
-                <gridItem id="ETHER_CFG_EMAC_RX_DESCRIPTORS" selectedIndex="1"/>
-                <gridItem id="ETHER_CFG_EMAC_TX_DESCRIPTORS" selectedIndex="1"/>
+                <gridItem id="ETHER_CFG_EMAC_RX_DESCRIPTORS" selectedIndex="6"/>
+                <gridItem id="ETHER_CFG_EMAC_TX_DESCRIPTORS" selectedIndex="3"/>
                 <gridItem id="ETHER_CFG_BUFSIZE" selectedIndex="1536"/>
                 <gridItem id="ETHER_CFG_AL1_INT_PRIORTY" selectedIndex="1"/>
                 <gridItem id="ETHER_CFG_CH0_PHY_ACCESS" selectedIndex="0"/>
@@ -989,7 +991,7 @@
                 <gridItem id="SCI_CFG_CH10_RX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH11_RX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH12_RX_BUFSIZ" selectedIndex="80"/>
-                <gridItem id="SCI_CFG_TEI_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_TEI_INCLUDED" selectedIndex="1"/>
                 <gridItem id="SCI_CFG_ERI_TEI_PRIORITY" selectedIndex="3"/>
                 <gridItem id="SCI_CFG_CH7_FIFO_INCLUDED" selectedIndex="0"/>
                 <gridItem id="SCI_CFG_CH8_FIFO_INCLUDED" selectedIndex="0"/>
@@ -1109,6 +1111,23 @@
                 <gridItem id="BYTEQ_CFG_PROTECT_QUEUE" selectedIndex="0"/>
                 <gridItem id="BYTEQ_CFG_CRITICAL_SECTION" selectedIndex="0"/>
             </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_dtc_rx">
+            <component description="Dependency : r_bsp version(s) 7.20&#10;This driver gives the user an easy API to control the MCU's DTC. DTC module transfers the data corresponding to an interrupt when it signals to DTC. Each module can register its transfer settings with DTC driver such as: interrupt number, destination and source address, data counter, transfer mode (3 modes: normal, repeat, block), enable or disable chain transfer." detailDescription="DTC driver" display="r_dtc_rx" id="r_dtc_rx4.10" version="4.10">
+                <gridItem id="DTC_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
+                <gridItem id="DTC_CFG_DISABLE_ALL_ACT_SOURCE" selectedIndex="1"/>
+                <gridItem id="DTC_CFG_SHORT_ADDRESS_MODE" selectedIndex="0"/>
+                <gridItem id="DTC_CFG_TRANSFER_DATA_READ_SKIP_EN" selectedIndex="1"/>
+                <gridItem id="DTC_CFG_USE_DMAC_FIT_MODULE" selectedIndex="1"/>
+                <gridItem id="DTC_CFG_USE_SEQUENCE_TRANSFER" selectedIndex="0"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_tsip_rx">
+            <component description="Dependency : r_bsp version(s) 7.00&#10;Support functions: AES, GCM, CCM, CMAC, SHA, MD5, Triple-DES, ARC4, RSA, ECC, Random number generate, Key management, secure boot/secure firmware update.&#10;The &quot;.l&quot; in version number means library version." detailDescription="TSIP(Trusted Secure IP) driver." display="r_tsip_rx" id="r_tsip_rx1.15.l" version="1.15.l"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>

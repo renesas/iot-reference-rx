@@ -53,7 +53,7 @@
 
 /* A block time of 0 just means don't block. */
 #define loggingDONT_BLOCK    0
-
+extern void vOutputString(char * pcString);
 /*
  * Wrapper functions for vsnprintf and snprintf to return the actual number of
  * characters written.
@@ -199,9 +199,10 @@ static void prvLoggingTask( void * pvParameters )
 {
     /* Disable unused parameter warning. */
     ( void ) pvParameters;
+    typedef void * xComPortHandle;
 
     char * pcReceivedString = NULL;
-
+    xComPortHandle xPort;
     for( ; ; )
     {
         /* Block to wait for the next string to print. */
@@ -348,7 +349,8 @@ static void prvLoggingPrintfCommon( uint8_t usLoggingLevel,
         if( xLength > 0 )
         {
             /* Send the string to the logging task for IO. */
-            if( xQueueSend( xQueue, &pcPrintString, loggingDONT_BLOCK ) != pdPASS )
+//            if( xQueueSend( xQueue, &pcPrintString, loggingDONT_BLOCK ) != pdPASS )
+        	configPRINT_STRING(pcPrintString);
             {
                 /* The buffer was not sent so must be freed again. */
                 vPortFree( ( void * ) pcPrintString );

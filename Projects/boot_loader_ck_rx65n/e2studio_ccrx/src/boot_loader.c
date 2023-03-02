@@ -13,7 +13,6 @@
 #include "r_smc_entry.h"
 #include "r_flash_rx_if.h"
 #include "r_sci_rx_if.h"
-#include "r_simple_filesystem_on_dataflash_if.h"
 #include "r_sci_rx_pinset.h"
 #include "r_cmt_rx_if.h"
 
@@ -296,8 +295,8 @@ static int32_t secure_boot(void)
     flash_interrupt_config_t cb_func_info;
 	FIRMWARE_UPDATE_CONTROL_BLOCK *firmware_update_control_block_tmp = (FIRMWARE_UPDATE_CONTROL_BLOCK*)load_firmware_control_block.flash_buffer;
 	int32_t verification_result = -1;
-	uint8_t *local_code_signer_public_key;
-	uint32_t local_code_signer_public_key_size;
+	uint8_t *local_code_signer_public_key = code_signer_public_key;
+	uint32_t local_code_signer_public_key_size = code_signer_public_key_length;
 
     switch(secure_boot_state)
     {
@@ -306,7 +305,6 @@ static int32_t secure_boot(void)
 
     	    sci_cfg_t   my_sci_config;
     	    sci_err_t   my_sci_err;
-    	    SFD_HANDLE sfd_handle;
     	    uint32_t my_cmt_channel;
 
     	    /* Set up the configuration data structure for asynchronous (UART) operation. */
@@ -354,35 +352,6 @@ static int32_t secure_boot(void)
     	    printf("-------------------------------------------------\r\n");
     	    printf("RX65N secure boot program\r\n");
     	    printf("-------------------------------------------------\r\n");
-
-    	    printf("Checking data flash ROM status.\r\n");
-    	    R_SFD_Open();
-
-    	    printf("Loading user code signer public key: ");
-    	    sfd_handle = R_SFD_FindObject((uint8_t *)code_signer_public_key_label, sizeof(code_signer_public_key_label));
-    	    if(sfd_handle != SFD_HANDLE_INVALID)
-    	    {
-    	    	printf("found.\r\n");
-    	    	R_SFD_GetObjectValue(sfd_handle, (uint8_t **)&local_code_signer_public_key, &local_code_signer_public_key_size);
-    	    }
-    	    else
-    	    {
-    	    	printf("not found.\r\n");
-				printf("provision the user code signer public key: ");
-				R_SFD_Open();
-				sfd_handle = R_SFD_SaveObject((uint8_t *)code_signer_public_key_label, sizeof(code_signer_public_key_label), (uint8_t *)code_signer_public_key, code_signer_public_key_length);
-				if(sfd_handle != SFD_HANDLE_INVALID)
-				{
-					printf("OK.\r\n");
-	    	    	R_SFD_GetObjectValue(sfd_handle, (uint8_t **)&local_code_signer_public_key, &local_code_signer_public_key_size);
-				}
-				else
-				{
-					printf("NG.\r\n");
-				}
-				R_SFD_Close();
-    	    }
-    	    R_SFD_Close();
 
     	    printf("Checking code flash ROM status.\r\n");
 
