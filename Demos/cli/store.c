@@ -174,7 +174,7 @@ int32_t xprvWriteCacheEntry(size_t KeyLength,
 static inline void vAllocateDataBuffer( uint32_t key,
                                         size_t xNewLength )
 {
-    if( xNewLength > sizeof( void * ) )
+    if( xNewLength > 0 )
     {
     	gKeyValueStore.table[ key ].value = pvPortMalloc( xNewLength);
     	gKeyValueStore.table[ key ].valueLength = xNewLength;
@@ -189,8 +189,8 @@ static inline void vAllocateDataBuffer( uint32_t key,
 
 static inline void vClearDataBuffer( KVStoreKey_t key )
 {
-    /* Check if data is heap allocated > sizeof( void * ) */
-    if( gKeyValueStore.table[ key ].valueLength > sizeof( void * ) )
+    /* Check if data is heap allocated > 0 */
+    if( gKeyValueStore.table[ key ].valueLength > 0 )
     {
         vPortFree( gKeyValueStore.table[ key ].value );
         gKeyValueStore.table[ key ].value = NULL;
@@ -265,6 +265,7 @@ BaseType_t KVStore_xCommitChanges( void )
         	 */
         	else
         	{
+//        		gKeyValueStore.table[ i ].value = GetStringValue(i,gKeyValueStore.table[ i ].valueLength);
         		xSuccess = xprvWriteValueToImpl((KVStoreKey_t)i,(char *)gKeyValueStore.table[ i ].value,
         		    											gKeyValueStore.table[ i ].valueLength);
 				if (xSuccess == pdFALSE)
@@ -304,7 +305,7 @@ static inline const void * pvGetDataReadPtr( KVStoreKey_t key )
     {
         pvData = NULL;
     }
-    else if( gKeyValueStore.table[ key ].valueLength > sizeof( void * ) )
+    else if( gKeyValueStore.table[ key ].valueLength > 0 )
     {
         pvData = gKeyValueStore.table[ key ].value;
     }
@@ -359,7 +360,7 @@ static inline void * pvGetDataWritePtr( KVStoreKey_t key )
 {
     void * pvData = NULL;
 
-    if( gKeyValueStore.table[ key ].valueLength > sizeof( void * ) )
+    if( gKeyValueStore.table[ key ].valueLength > 0 )
     {
         pvData = gKeyValueStore.table[ key ].value;
     }

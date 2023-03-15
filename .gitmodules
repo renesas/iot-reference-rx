@@ -58,8 +58,8 @@
 [submodule "Middleware/pkcs11"]
 	path = Middleware/pkcs11
 	url = https://github.com/amazon-freertos/pkcs11.git
-[submodule "Middleware/littlefs"]
-	path = Middleware/littlefs
+[submodule "Middleware/3rdparty/littlefs"]
+	path = Middleware/3rdparty/littlefs
 	url = https://github.com/littlefs-project/littlefs.git
 [submodule "Middleware/3rdparty/littlefs"]
 	path = Middleware/3rdparty/littlefs
