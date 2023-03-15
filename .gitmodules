@@ -61,6 +61,3 @@
 [submodule "Middleware/3rdparty/littlefs"]
 	path = Middleware/3rdparty/littlefs
 	url = https://github.com/littlefs-project/littlefs.git
-[submodule "Middleware/3rdparty/littlefs"]
-	path = Middleware/3rdparty/littlefs
-	url = https://github.com/littlefs-project/littlefs.git
