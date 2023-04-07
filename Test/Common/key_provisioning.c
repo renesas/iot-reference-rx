@@ -29,7 +29,7 @@
 #include "store.h"
 
 /* Default FreeRTOS API for console logging. */
-#define DEV_MODE_KEY_PROVISIONING_PRINT( X )    configPRINTF (X)
+#define DEV_MODE_KEY_PROVISIONING_PRINT( X )    configPRINT_STRING (X)
 
 CK_RV vDevModeKeyPreProvisioning( KeyValueStore_t Keystore, KVStoreKey_t ID, int32_t xvaluelength );
 
@@ -764,6 +764,10 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 								{
 									DEV_MODE_KEY_PROVISIONING_PRINT( ( "ERROR: Failed to provision device certificate. %d \r\n", xResult ) );
 								}
+								else
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT(( "Write Certificate key...\r\n" ));
+								}
 							}
 						}
 						if (ID == KVS_DEVICE_PRIVKEY_ID)
@@ -775,15 +779,12 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 							else
 							{
 
-								xResult = xDestroyDefaultObjects( ID,xSession );
-								if( xResult == CKR_OK )
-								{
-									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Private key.\r\n",CKR_OK ));
-									xResult = xProvisionPrivateKey( xSession,  (uint8_t *)pxParams->pucClientCredential,
-																	 pxParams->ulClientCredentialLength,
+								DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Private key.\r\n" ));
+								xResult = xProvisionPrivateKey( xSession,  (uint8_t *)pxParams->pucClientCredential,
+																 pxParams->ulClientCredentialLength,
 																	 ( uint8_t * ) pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
 																	 &xObject );
-								}
+
 
 
 								if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )

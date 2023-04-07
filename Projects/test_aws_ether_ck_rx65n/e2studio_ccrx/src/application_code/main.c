@@ -219,6 +219,9 @@ void prvMiscInitialization( void )
     /* Initialize UART for serial terminal. */
 	extern void CLI_Support_Settings(void);
 	CLI_Support_Settings();
+    xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
+                            tskIDLE_PRIORITY,
+                            mainLOGGING_MESSAGE_QUEUE_LENGTH );
 
 }
 /*-----------------------------------------------------------*/
@@ -234,8 +237,7 @@ void vApplicationDaemonTaskStartupHook( void )
 	extern void vRegisterSampleCLICommands( void );
 
     /* Initialize UART for serial terminal. */
-	extern void CLI_Support_Settings(void);
-	CLI_Support_Settings();
+	prvMiscInitialization();
 
 	/* Register the standard CLI commands. */
 	vRegisterSampleCLICommands();

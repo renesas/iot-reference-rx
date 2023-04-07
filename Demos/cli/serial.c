@@ -79,13 +79,13 @@ void CLI_Support_Settings(void)
     xSerialSciConfig.async.stop_bits    = SCI_STOPBITS_1;
     xSerialSciConfig.async.int_priority = 1; /* lowest at first. */
     R_SCI_Open(U_SCI_UART_CLI_SCI_CH, SCI_MODE_ASYNC, &xSerialSciConfig, vSerialSciCallback, &xSerialSciHandle);
-    R_DTC_Open();
-    R_DTC_Control(DTC_CMD_DTC_START, NULL, NULL);
+//    R_DTC_Open();
+//    R_DTC_Control(DTC_CMD_DTC_START, NULL, NULL);
 }
 
 void CLI_Close(void)
 {
-	R_DTC_Close();
+//	R_DTC_Close();
 	R_SCI_Close(xSerialSciHandle);
 }
 

@@ -183,7 +183,12 @@ void main( void )
 void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
-//	CLI_Support_Settings();
+	CLI_Support_Settings();
+
+    /* Start logging task. */
+    xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
+                            tskIDLE_PRIORITY,
+                            mainLOGGING_MESSAGE_QUEUE_LENGTH );
 
 }
 /*-----------------------------------------------------------*/
@@ -197,8 +202,8 @@ void vApplicationDaemonTaskStartupHook( void )
 	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( configMAX_PRIORITIES - 1 )
 
 	/* Initialize UART for serial terminal. */
-	CLI_Support_Settings();
-
+//	CLI_Support_Settings();
+	prvMiscInitialization();
 	/* Register the standard CLI commands. */
 	vRegisterSampleCLICommands();
 	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );

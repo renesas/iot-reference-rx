@@ -73,7 +73,7 @@
 #include "serial.h"
 
 /* Default FreeRTOS API for console logging. */
-#define DEV_MODE_KEY_PROVISIONING_PRINT( X )    configPRINTF (X)
+#define DEV_MODE_KEY_PROVISIONING_PRINT( X )    configPRINT_STRING (X)
 
 /* For writing log lines without a prefix. */
 extern void vLoggingPrint( const char * pcFormat );

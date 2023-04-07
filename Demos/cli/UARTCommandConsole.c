@@ -79,7 +79,7 @@ static const char * const pcNewLine = "\r\n";
 
 /* Used to guard access to the UART in case messages are sent to the UART from
 more than one task. */
-static SemaphoreHandle_t xTxMutex = NULL;
+//static SemaphoreHandle_t xTxMutex = NULL;
 
 /* The handle to the UART port, which is not used by all ports. */
 static xComPortHandle xPort = 0;
@@ -90,8 +90,8 @@ signed char cRxedChar;
 void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority )
 {
 	/* Create the semaphore used to access the UART Tx. */
-	xTxMutex = xSemaphoreCreateMutex();
-	configASSERT( xTxMutex );
+//	xTxMutex = xSemaphoreCreateMutex();
+//	configASSERT( xTxMutex );
 
 	/* Create that task that handles the console itself. */
 	xTaskCreate( 	prvUARTCommandConsoleTask,	/* The task that implements the command console. */
@@ -134,7 +134,7 @@ xComPortHandle xPort;
 		while( xSerialGetChar( xPort, &cRxedChar, portMAX_DELAY ) != pdPASS );
 
 		/* Ensure exclusive access to the UART Tx. */
-		if( xSemaphoreTake( xTxMutex, cmdMAX_MUTEX_WAIT ) == pdPASS )
+//		if( xSemaphoreTake( xTxMutex, cmdMAX_MUTEX_WAIT ) == pdPASS )
 		{
 			/* Echo the character back. */
 			xSerialPutChar( xPort, cRxedChar, portMAX_DELAY );
@@ -211,7 +211,7 @@ xComPortHandle xPort;
 			}
 
 			/* Must ensure to give the mutex back. */
-			xSemaphoreGive( xTxMutex );
+//			xSemaphoreGive( xTxMutex );
 		}
 		cPrevChar = cRxedChar;
 	}

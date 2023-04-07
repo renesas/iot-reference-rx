@@ -349,8 +349,8 @@ static void prvLoggingPrintfCommon( uint8_t usLoggingLevel,
         if( xLength > 0 )
         {
             /* Send the string to the logging task for IO. */
-//            if( xQueueSend( xQueue, &pcPrintString, loggingDONT_BLOCK ) != pdPASS )
-        	configPRINT_STRING(pcPrintString);
+            if( xQueueSend( xQueue, &pcPrintString, loggingDONT_BLOCK ) != pdPASS )
+//        	configPRINT_STRING(pcPrintString);
             {
                 /* The buffer was not sent so must be freed again. */
                 vPortFree( ( void * ) pcPrintString );
