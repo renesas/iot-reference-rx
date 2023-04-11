@@ -187,7 +187,7 @@ void prvMiscInitialization( void )
 
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
-                            tskIDLE_PRIORITY,
+                            tskIDLE_PRIORITY + 2,
                             mainLOGGING_MESSAGE_QUEUE_LENGTH );
 
 }
@@ -199,11 +199,10 @@ void vApplicationDaemonTaskStartupHook( void )
 
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
 	/* The priority used by the UART command console task. */
-	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( configMAX_PRIORITIES - 1 )
+	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
 
-	/* Initialize UART for serial terminal. */
-//	CLI_Support_Settings();
 	prvMiscInitialization();
+
 	/* Register the standard CLI commands. */
 	vRegisterSampleCLICommands();
 	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
@@ -395,7 +394,7 @@ bool ApplicationCounter(uint32_t xWaitTime)
     signed char cRxChar;
     while( xCurrent < xPrintFrequency )
     {
-
+    	vTaskDelay(1);
     	xCurrent = xTaskGetTickCount();
 
     	cRxChar = vISR_Routine();
