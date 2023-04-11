@@ -79,13 +79,13 @@ void CLI_Support_Settings(void)
     xSerialSciConfig.async.stop_bits    = SCI_STOPBITS_1;
     xSerialSciConfig.async.int_priority = 1; /* lowest at first. */
     R_SCI_Open(U_SCI_UART_CLI_SCI_CH, SCI_MODE_ASYNC, &xSerialSciConfig, vSerialSciCallback, &xSerialSciHandle);
-    R_DTC_Open();
-    R_DTC_Control(DTC_CMD_DTC_START, NULL, NULL);
+//    R_DTC_Open();
+//    R_DTC_Control(DTC_CMD_DTC_START, NULL, NULL);
 }
 
 void CLI_Close(void)
 {
-	R_DTC_Close();
+//	R_DTC_Close();
 	R_SCI_Close(xSerialSciHandle);
 }
 
@@ -115,20 +115,20 @@ sci_cb_args_t *pxArgs = (sci_cb_args_t *)pvArgs;
         portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
     }
     /* Renesas API notifies the completion of transmission by SCI_EVT_TEI event. */
-    else if( SCI_EVT_TEI == pxArgs->event )
-    {
-        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-
-        if( xSendingTask != NULL )
-        {
-            /* A task is waiting for the end of the Tx, unblock it now.
-            http://www.freertos.org/vTaskNotifyGiveFromISR.html */
-            vTaskNotifyGiveFromISR( xSendingTask, &xHigherPriorityTaskWoken );
-            xSendingTask = NULL;
-
-            portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-        }
-    }
+//    else if( SCI_EVT_TEI == pxArgs->event )
+//    {
+//        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+//
+//        if( xSendingTask != NULL )
+//        {
+//            /* A task is waiting for the end of the Tx, unblock it now.
+//            http://www.freertos.org/vTaskNotifyGiveFromISR.html */
+//            vTaskNotifyGiveFromISR( xSendingTask, &xHigherPriorityTaskWoken );
+//            xSendingTask = NULL;
+//
+//            portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+//        }
+//    }
 }
 
 /* Function required in order to link UARTCommandConsole.c - which is used by
@@ -167,7 +167,7 @@ const TickType_t xMaxBlockTime = pdMS_TO_TICKS( 5000 );
 
 
     /* Don't send the string unless the previous string has been sent. */
-    if( ( xSendingTask == NULL ) && ( usStringLength > 0 ) )
+//    if( ( xSendingTask == NULL ) && ( usStringLength > 0 ) )
     {
         /* Ensure the calling task's notification state is not already
         pending. */
@@ -176,12 +176,10 @@ const TickType_t xMaxBlockTime = pdMS_TO_TICKS( 5000 );
         /* Store the handle of the transmitting task.  This is used to unblock
         the task when the transmission has completed. */
         xSendingTask = xTaskGetCurrentTaskHandle();
-        uint16_t str_length = 0;
-		uint16_t transmit_length = 0;
+        uint32_t str_length = usStringLength;
+		uint32_t transmit_length = 0;
 		sci_err_t sci_err;
 		uint32_t retry = 0xFFFF;
-
-		str_length = usStringLength;
 
 		while ((retry > 0) && (str_length > 0))
 		{
@@ -245,7 +243,7 @@ const TickType_t xMaxBlockTime = pdMS_TO_TICKS( 5000 );
 
         /* Wait in the Blocked state (so not using any CPU time) until the
         transmission has completed. */
-        ulTaskNotifyTake( pdTRUE, xMaxBlockTime );
+//        ulTaskNotifyTake( pdTRUE, xMaxBlockTime );
 
         /* A breakpoint can be set here for debugging. */
         nop();

@@ -149,40 +149,17 @@ int RunOtaE2eDemo( void )
  */
 void main( void )
 {
-    while(1)
-    {
-        vTaskDelay(10000);
-    }
-}
-/*-----------------------------------------------------------*/
-
-void prvMiscInitialization( void )
-{
-    /* Initialize UART for serial terminal. */
-	extern void CLI_Support_Settings(void);
-	CLI_Support_Settings();
-    /* Start logging task. */
-//    xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
-//                            tskIDLE_PRIORITY,
-//                            mainLOGGING_MESSAGE_QUEUE_LENGTH );
-
-}
-/*-----------------------------------------------------------*/
-
-void vApplicationDaemonTaskStartupHook( void )
-{
-
 	int32_t xResults, Time2Wait = 10000;
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
 	/* The priority used by the UART command console task. */
-	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( configMAX_PRIORITIES - 1 )
+	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
 	extern void vRegisterSampleCLICommands( void );
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 
-    prvMiscInitialization();
-    /************** task creation ****************************/
+	prvMiscInitialization();
+	/************** task creation ****************************/
 
-    vRegisterSampleCLICommands();
+	vRegisterSampleCLICommands();
 	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
 	/* Register the standard CLI commands. */
 
@@ -217,6 +194,28 @@ void vApplicationDaemonTaskStartupHook( void )
 		(void) xResults;
 		}
 	}
+	while( 1 )
+	{
+		vTaskSuspend( NULL );
+	}
+}
+/*-----------------------------------------------------------*/
+
+void prvMiscInitialization( void )
+{
+    /* Initialize UART for serial terminal. */
+	extern void CLI_Support_Settings(void);
+	CLI_Support_Settings();
+    /* Start logging task. */
+    xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
+                            tskIDLE_PRIORITY + 2,
+                            mainLOGGING_MESSAGE_QUEUE_LENGTH );
+
+}
+/*-----------------------------------------------------------*/
+
+void vApplicationDaemonTaskStartupHook( void )
+{
 
 }
 
@@ -290,7 +289,7 @@ bool ApplicationCounter(uint32_t xWaitTime)
     signed char cRxChar;
     while( xCurrent < xPrintFrequency )
     {
-
+    	vTaskDelay(1);
     	xCurrent = xTaskGetTickCount();
 
     	cRxChar = vISR_Routine();
