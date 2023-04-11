@@ -743,7 +743,7 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 					}
 					else
 					{
-						xResult = xDestroyDefaultObjects( ID,xSession );
+
 
 						if (ID ==KVS_DEVICE_CERT_ID)
 						{
@@ -753,16 +753,24 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 							}
 							else
 							{
-								DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Certificate.\r\n" ));
-								xResult = xProvisionCertificate( xSession,
-																		 (uint8_t *)pxParams->pucClientCredential,
-																		 pxParams->ulClientCredentialLength,
-																		 ( uint8_t * ) pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
-																		 &xObject );
+								xResult = xDestroyDefaultObjects( ID,xSession );
+								if( xResult == CKR_OK )
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Certificate.\r\n" ));
+									xResult = xProvisionCertificate( xSession,
+																			 (uint8_t *)pxParams->pucClientCredential,
+																			 pxParams->ulClientCredentialLength,
+																			 ( uint8_t * ) pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
+																			 &xObject );
+								}
 
 								if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )
 								{
 									DEV_MODE_KEY_PROVISIONING_PRINT( ( "ERROR: Failed to provision device certificate. %d \r\n", xResult ) );
+								}
+								else
+								{
+									DEV_MODE_KEY_PROVISIONING_PRINT(( "Write Certificate key...\r\n" ));
 								}
 							}
 						}
@@ -778,12 +786,13 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 								xResult = xDestroyDefaultObjects( ID,xSession );
 								if( xResult == CKR_OK )
 								{
-									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Private key.\r\n",CKR_OK ));
+									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Private key.\r\n" ));
 									xResult = xProvisionPrivateKey( xSession,  (uint8_t *)pxParams->pucClientCredential,
 																	 pxParams->ulClientCredentialLength,
-																	 ( uint8_t * ) pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
-																	 &xObject );
+																		 ( uint8_t * ) pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+																		 &xObject );
 								}
+
 
 
 								if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )
