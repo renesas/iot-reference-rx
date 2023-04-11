@@ -34,7 +34,7 @@
 
 /* Renesas includes. */
 #include "platform.h"
-#include "r_dtc_rx_if.h"
+//#include "r_dtc_rx_if.h"
 #include "r_sci_rx_if.h"
 #include "r_byteq_if.h"
 
@@ -60,7 +60,7 @@ static TaskHandle_t xSendingTask = NULL;
 
 /* Board Support Data Structures. */
 sci_hdl_t xSerialSciHandle;
-dtc_transfer_data_t xSerialTxDtcInfo;
+//dtc_transfer_data_t xSerialTxDtcInfo;
 void CLI_Support_Settings(void);
 void vSerialSciCallback( void *pvArgs );
 void CLI_Close(void);
