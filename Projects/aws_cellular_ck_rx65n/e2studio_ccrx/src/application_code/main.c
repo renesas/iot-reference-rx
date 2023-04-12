@@ -119,19 +119,6 @@ void vApplicationDaemonTaskStartupHook( void );
  */
 void prvMiscInitialization( void );
 
-#if ( appmainPROVISIONING_MODE == 1 )
-	void vCLITask( void * pvParam );
-
-	extern void CLI_Support_Settings(void);
-	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
-	extern void vRegisterSampleCLICommands( void );
-	extern void CLI_Close(void);
-	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
-	/* The priority used by the UART command console task. */
-	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( configMAX_PRIORITIES - 1 )
-	ProvisioningParams_t xPrvsnParams;
-
-#endif
 /*-----------------------------------------------------------*/
 
 /**
@@ -144,13 +131,14 @@ void main( void )
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
 	/* The priority used by the UART command console task. */
 	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
-	prvMiscInitialization();
-	/************** task creation ****************************/
 
+	extern void vRegisterSampleCLICommands( void );
+	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
+	extern TaskHandle_t xCLIHandle;
+	prvMiscInitialization();
+	/* Register the standard CLI commands. */
 	vRegisterSampleCLICommands();
 	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
-	/* Register the standard CLI commands. */
-
 
 	xResults = littlFs_init();
 
@@ -159,13 +147,10 @@ void main( void )
 		xResults = vprvCacheInit();
 	}
 
-
 	if(ApplicationCounter(Time2Wait))
 	{
-
-		/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
-			are created in the vApplicationIPNetworkEventHook() hook function
-			below.  The hook function is called when the network connects. */
+		/* Remove CLI task before going to demo. */
+		vTaskDelete(xCLIHandle);
 
 		if(_wifiEnable())
 		{
@@ -366,6 +351,7 @@ signed char vISR_Routine( void )
 
 static bool _wifiConnectAccessPoint( void )
 {
+	configPRINTF(("Connect to AccessPoint \r\n "));
 	e_cellular_err_t ret = R_CELLULAR_APConnect(&cellular_ctrl, NULL);
 	return (ret == CELLULAR_SUCCESS);
 }

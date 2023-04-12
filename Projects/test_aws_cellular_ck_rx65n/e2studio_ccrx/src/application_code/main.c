@@ -155,14 +155,13 @@ void main( void )
 	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
 	extern void vRegisterSampleCLICommands( void );
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
+	extern TaskHandle_t xCLIHandle;
 
 	prvMiscInitialization();
-	/************** task creation ****************************/
 
+	/* Register the standard CLI commands. */
 	vRegisterSampleCLICommands();
 	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
-	/* Register the standard CLI commands. */
-
 
 	xResults = littlFs_init();
 
@@ -171,9 +170,11 @@ void main( void )
 		xResults = vprvCacheInit();
 	}
 
-
 	if(ApplicationCounter(Time2Wait))
 	{
+		/* Remove CLI task before going to demo. */
+		vTaskDelete(xCLIHandle);
+
 		if(_wifiEnable())
 		{
 
