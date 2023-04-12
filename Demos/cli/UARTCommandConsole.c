@@ -80,7 +80,7 @@ static const char * const pcNewLine = "\r\n";
 /* Used to guard access to the UART in case messages are sent to the UART from
 more than one task. */
 static SemaphoreHandle_t xTxMutex = NULL;
-
+TaskHandle_t xCLIHandle = NULL;
 /* The handle to the UART port, which is not used by all ports. */
 static xComPortHandle xPort = 0;
 signed char cRxedChar;
@@ -99,7 +99,7 @@ void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority )
 					usStackSize,				/* The size of the stack allocated to the task. */
 					NULL,						/* The parameter is not used, so NULL is passed. */
 					uxPriority,					/* The priority allocated to the task. */
-					NULL );						/* A handle is not required, so just pass NULL. */
+					&xCLIHandle );				/* A CLI handle */
 }
 /*-----------------------------------------------------------*/
 
