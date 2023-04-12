@@ -214,6 +214,7 @@ void main( void )
 	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 	extern void vRegisterSampleCLICommands( void );
+	extern TaskHandle_t xCLIHandle;
 
 	/* Initialize UART for serial terminal. */
 	prvMiscInitialization();
@@ -232,10 +233,12 @@ void main( void )
 
 	if(ApplicationCounter(Time2Wait))
 	{
+		/* Remove CLI task before going to demo. */
+		vTaskDelete(xCLIHandle);
+
 		/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
 		are created in the vApplicationIPNetworkEventHook() hook function
 		below.  The hook function is called when the network connects. */
-
 
 		FreeRTOS_IPInit( ucIPAddress,
 						 ucNetMask,
