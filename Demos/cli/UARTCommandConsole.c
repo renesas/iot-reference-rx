@@ -72,7 +72,12 @@ void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 /*-----------------------------------------------------------*/
 
 /* Const messages output by the command console. */
-static const char * const pcWelcomeMessage = "FreeRTOS command server.\r\nType Help to view a list of registered commands.\r\n\r\n>";
+static const char * const pcWelcomeMessage = "FreeRTOS command server.\r\n"\
+		"Type Help to view a list of registered commands.\r\n\r\n"\
+		"\tStandard procedure:\r\n"\
+		"\t\t1. Set value for IoT endpoint/thing name/certificate/private key.\r\n"\
+		"\t\t2. Write the key value to Internal Data Flash Memory with 'commit' command.\r\n"\
+		"\t\t3. Reset the program to start the demo.\r\n\r\n>";
 static const char * const pcWaitMessage = "Press CLI and enter to switch to CLI mode or wait 10secs to run demo! \r\n";
 static const char * const pcEndOfOutputMessage = "\r\n>";
 static const char * const pcNewLine = "\r\n";
