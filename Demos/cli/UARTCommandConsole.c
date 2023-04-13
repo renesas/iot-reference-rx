@@ -165,6 +165,7 @@ xComPortHandle xPort;
 
 					/* Write the generated string to the UART. */
 					vSerialPutString( ( signed char * ) pcOutputString, ( unsigned short ) strlen( pcOutputString ) );
+					memset(pcOutputString, '\0', configCOMMAND_INT_MAX_OUTPUT_SIZE);
 
 				} while( xReturned != pdFALSE );
 
