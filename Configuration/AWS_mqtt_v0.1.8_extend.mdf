@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+/***********************************************************************************************************************
+  Purpose: Module Description File (MDF) Example (Schema Version 2.0)
+           This is a description of a sample FIT module configuration file
+***********************************************************************************************************************/
+-->
+<module xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="2.0" xs:noNamespaceSchemaLocation="schema_mdf_2.00.xsd">
+    <fileVersion>1.00</fileVersion>
+    <formatVersion>2.00</formatVersion>
+    <fileTemplate></fileTemplate>
+    <configuration>
+        <property id="mqttconfigENABLE_METRICS" display="Report usage metrics to the AWS IoT broker" default="1" type="combobox">
+            <option id="mqttconfigENABLE_METRICS.1" display="Enable " value="1"/>
+            <option id="mqttconfigENABLE_METRICS.0" display="Disable" value="0"/>
+            <description>1 = Enable AWS IoT broker.
+0 = Disable AWS IoT broker</description>
+        </property>
+        <property id="mqttOPERATION_TIMEOUT_MS" display="The maximum time  task waits" default="120000" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttOPERATION_TIMEOUT_MS}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttOPERATION_TIMEOUT_MS}" &gt;= 1) </constraint>
+            <description>The maximum time an application task waits</description>
+        </property>
+        <property id="mqttconfigKEEP_ALIVE_INTERVAL_SECONDS" display="The maximum time between 2 consecutive control packets" default="100" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigKEEP_ALIVE_INTERVAL_SECONDS}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigKEEP_ALIVE_INTERVAL_SECONDS}" &gt;= 1) </constraint>
+            <description>The maximum time to elapse between 2 consecutive control packets</description>
+        </property>
+        <property id="mqttconfigKEEP_ALIVE_ACTUAL_INTERVAL_TICKS" display="Frequency Keep Alive messages" default="pdMS_TO_TICKS( 300000 )" type="textbox">
+            <constraint display="Please enter a valid function name without spaces or funny characters">testExists("${mqttconfigKEEP_ALIVE_ACTUAL_INTERVAL_TICKS}")</constraint>
+            <description>Frequency at which the client should send Keep Alive messages</description>
+        </property>
+        <property id="mqttconfigKEEP_ALIVE_TIMEOUT_TICKS" display="The maximum interval in ticks to wait for PINGRESP" default="1000" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigKEEP_ALIVE_TIMEOUT_TICKS}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigKEEP_ALIVE_TIMEOUT_TICKS}" &gt;= 1) </constraint>
+            <description>The maximum interval in ticks to wait for PINGRESP</description>
+        </property>
+        <property id="mqttconfigMQTT_TASK_STACK_DEPTH" display="MQTTTask MQTT task stack depth" default="2048" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigMQTT_TASK_STACK_DEPTH}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigMQTT_TASK_STACK_DEPTH}" &gt;= 1) </constraint>
+            <description>MQTTTask MQTT task stack depth</description>
+        </property>
+        <property id="mqttconfigMQTT_TASK_PRIORITY" display="MQTTTask MQTT task priority" default="configMAX_PRIORITIES - 3" type="textbox">
+            <constraint display="Please enter a valid function name without spaces or funny characters">testExists("${mqttconfigMQTT_TASK_PRIORITY}")</constraint>
+            <description>MQTTTask MQTT task priority</description>
+        </property>
+        <property id="mqttconfigMAX_BROKERS" display="Maximum number of simultaneously MQTT clients" default="2" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigMAX_BROKERS}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigMAX_BROKERS}" &gt;= 1) </constraint>
+            <description>Maximum number of MQTT clients that can exist simultaneously</description>
+        </property>
+        <property id="mqttconfigMAX_PARALLEL_OPS" display="Maximum number of parallel operations per client" default="5" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigMAX_PARALLEL_OPS}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigMAX_PARALLEL_OPS}" &gt;= 1) </constraint>
+            <description>Maximum number of parallel operations per client</description>
+        </property>
+        <property id="mqttconfigTCP_SEND_TIMEOUT_MS" display="The timeout TCP send operation" default="20" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigTCP_SEND_TIMEOUT_MS}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigTCP_SEND_TIMEOUT_MS}" &gt;= 1) </constraint>
+            <description>Time in milliseconds after which the TCP send operation should timeout</description>
+        </property>
+        <property id="mqttconfigRX_BUFFER_SIZE" display="Length of the buffer" default="1024" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigRX_BUFFER_SIZE}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigRX_BUFFER_SIZE}" &gt;= 1) </constraint>
+            <description>Length of the buffer used to receive data</description>
+        </property>
+        <property id="mqttconfigMQTT_TASK_MAX_BLOCK_TICKS" display="The maximum time in ticks for which the MQTT task" default="100" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigMQTT_TASK_MAX_BLOCK_TICKS}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigMQTT_TASK_MAX_BLOCK_TICKS}" &gt;= 1) </constraint>
+            <description>The maximum time in ticks for which the MQTT task is permitted to block</description>
+        </property>
+        <property id="mqttconfigENABLE_SUBSCRIPTION_MANAGEMENT" display="This gives the user flexibility of registering a callback per topic" default="1" type="combobox">
+            <option id="mqttconfigENABLE_SUBSCRIPTION_MANAGEMENT.1" display="Enable " value="1"/>
+            <option id="mqttconfigENABLE_SUBSCRIPTION_MANAGEMENT.0" display="Disable" value="0"/>
+            <description>1 = Enable flexibility.
+0 = Disable flexibility.</description>
+        </property>
+        <property id="mqttconfigSUBSCRIPTION_MANAGER_MAX_TOPIC_LENGTH" display="Maximum length of the topic" default="128" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigSUBSCRIPTION_MANAGER_MAX_TOPIC_LENGTH}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigSUBSCRIPTION_MANAGER_MAX_TOPIC_LENGTH}" &gt;= 1) </constraint>
+            <description>Maximum length of the topic which can be stored in subscription manager</description>
+        </property>
+        <property id="mqttconfigSUBSCRIPTION_MANAGER_MAX_SUBSCRIPTIONS" display="Maximum number of subscriptions" default="8" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${mqttconfigSUBSCRIPTION_MANAGER_MAX_SUBSCRIPTIONS}")</constraint>
+            <constraint display="Value must be greater than 1">("${mqttconfigSUBSCRIPTION_MANAGER_MAX_SUBSCRIPTIONS}" &gt;= 1) </constraint>
+            <description>Maximum number of subscriptions which can be stored in subscription manager</description>
+        </property>
+        <property id="mqttconfigENABLE_DEBUG_LOGS" display="Debug logs" default="0" type="combobox">
+            <option id="mqttconfigENABLE_DEBUG_LOGS.1" display="Enable " value="1"/>
+            <option id="mqttconfigENABLE_DEBUG_LOGS.0" display="Disable" value="0"/>
+            <description>1 = Enable logs.
+0 = Disable logs.</description>
+        </property>
+    </configuration>
+</module>
