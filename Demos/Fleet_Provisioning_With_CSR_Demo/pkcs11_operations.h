@@ -112,6 +112,33 @@ bool xLoadCertificate( CK_SESSION_HANDLE xP11Session,
                        const char * pcLabel,
                        size_t xCertificateLength );
 
+
+/**
+ * @brief Import the specified private key into storage.
+ *
+ * @param[in] session The PKCS #11 session.
+ * @param[in] privateKey The private key to store, in PEM format.
+ * @param[in] privateKeyLength The length of the key, including null terminator.
+ * @param[in] label The label to store the key.
+ */
+CK_RV provisionPrivateKey( CK_SESSION_HANDLE session,
+                                  const char * privateKey,
+                                  size_t privateKeyLength,
+                                  const char * label );
+
+/**
+ * @brief Import the specified X.509 client certificate into storage.
+ *
+ * @param[in] session The PKCS #11 session.
+ * @param[in] certificate The certificate to store, in PEM format.
+ * @param[in] certificateLength The length of the certificate, including the null terminator.
+ * @param[in] label The label to store the certificate.
+ */
+CK_RV provisionCertificate( CK_SESSION_HANDLE session,
+                                   const char * certificate,
+                                   size_t certificateLength,
+                                   const char * label );
+
 /**
  * @brief Close the PKCS #11 session.
  *

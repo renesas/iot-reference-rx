@@ -58,7 +58,7 @@
 
 /* Demo specific config. */
 #include "demo_config.h"
-
+#include "store.h"
 /*------------- Demo configurations -------------------------*/
 
 /**
@@ -256,7 +256,16 @@ static MQTTPubAckInfo_t pOutgoingPublishRecords[ mqttexampleOUTGOING_PUBLISH_REC
  */
 static MQTTPubAckInfo_t pIncomingPublishRecords[ mqttexampleINCOMING_PUBLISH_RECORD_LEN ];
 
+/**
+ * @brief Broker endpoint name for the MQTT connection.
+ * Broker endpoint name is retrieved at runtime from a key value store.
+ */
+static char * pcBrokerEndpoint = NULL;
 
+/**
+ * @brief Root CA
+ */
+static char * pcRootCA = NULL;
 /*-----------------------------------------------------------*/
 
 /**
@@ -391,8 +400,8 @@ static TlsTransportStatus_t prvConnectToServerWithBackoffRetries( NetworkContext
     configASSERT( pxNetworkContext != NULL );
 
     /* Set the credentials for establishing a TLS connection. */
-    xNetworkCredentials.pRootCa = ( const unsigned char * ) democonfigROOT_CA_PEM;
-    xNetworkCredentials.rootCaSize = sizeof( democonfigROOT_CA_PEM );
+    xNetworkCredentials.pRootCa = ( const unsigned char * ) pcRootCA;
+    xNetworkCredentials.rootCaSize = strlen( pcRootCA ) + 1;
     xNetworkCredentials.pClientCertLabel = pcClientCertLabel;
     xNetworkCredentials.pPrivateKeyLabel = pcPrivateKeyLabel;
 
@@ -414,10 +423,10 @@ static TlsTransportStatus_t prvConnectToServerWithBackoffRetries( NetworkContext
          * the MQTT broker as specified in democonfigMQTT_BROKER_ENDPOINT and
          * democonfigMQTT_BROKER_PORT at the top of this file. */
         LogInfo( ( "Create a TCP connection to %s:%d.",
-                   democonfigMQTT_BROKER_ENDPOINT,
+                   pcBrokerEndpoint,
                    democonfigMQTT_BROKER_PORT ) );
         xNetworkStatus = TLS_FreeRTOS_Connect( pxNetworkContext,
-                                               democonfigMQTT_BROKER_ENDPOINT,
+                                               pcBrokerEndpoint,
                                                democonfigMQTT_BROKER_PORT,
                                                &xNetworkCredentials,
                                                mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS,
@@ -655,10 +664,29 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
     MQTTConnectInfo_t xConnectInfo;
     TransportInterface_t xTransport;
     bool sessionPresent = false;
+    extern KeyValueStore_t gKeyValueStore ;
 
     configASSERT( pxMqttContext != NULL );
     configASSERT( pxNetworkContext != NULL );
 
+#if defined(__TEST__)
+    pcBrokerEndpoint = clientcredentialMQTT_BROKER_ENDPOINT;
+    pcRootCA = democonfigROOT_CA_PEM;
+#else
+    if (gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength > 0)
+    {
+        pcBrokerEndpoint = gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].value;
+    }
+
+    if (gKeyValueStore.table[KVS_ROOT_CA_ID].valueLength > 0)
+    {
+        pcRootCA = gKeyValueStore.table[KVS_ROOT_CA_ID].value;
+    }
+    else
+    {
+        pcRootCA = tlsSTARFIELD_ROOT_CERTIFICATE_PEM;
+    }
+#endif
     /* Initialize the mqtt context. */
     ( void ) memset( pxMqttContext, 0U, sizeof( MQTTContext_t ) );
 
@@ -669,8 +697,8 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
         /* Log error to indicate connection failure after all
          * reconnect attempts are over. */
         LogError( ( "Failed to connect to MQTT broker %.*s.",
-                    strlen( democonfigMQTT_BROKER_ENDPOINT ),
-                    democonfigMQTT_BROKER_ENDPOINT ) );
+                    strlen( pcBrokerEndpoint ),
+                    pcBrokerEndpoint ) );
         xReturnStatus = pdFAIL;
     }
     else
