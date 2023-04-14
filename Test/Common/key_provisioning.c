@@ -26,6 +26,8 @@
 /* mbedTLS includes. */
 #include "mbedtls/pk.h"
 #include "mbedtls/oid.h"
+#include "mbedtls/ctr_drbg.h"
+#include "mbedtls/entropy.h"
 #include "store.h"
 
 /* Default FreeRTOS API for console logging. */
@@ -67,7 +69,7 @@ CK_RV xDestroyDefaultCertificateObjects( CK_SESSION_HANDLE xSession );
 CK_RV xDestroyDefaultObjects( KVStoreKey_t ID, CK_SESSION_HANDLE xSession );
 BaseType_t vAlternateKeyPreProvisioning( KVStoreKey_t ID, PreProvisioningParams_t * xParams );
 CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvisioningParams_t * pxParams );
-
+CK_KEY_TYPE xGetKeyType( uint8_t * pucKey, size_t xKeyLength);
 
 /* Delete well-known crypto objects from storage. */
 CK_RV xDestroyDefaultCryptoObjects( CK_SESSION_HANDLE xSession )
@@ -721,6 +723,7 @@ BaseType_t vAlternateKeyPreProvisioning(KVStoreKey_t ID, PreProvisioningParams_t
 CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvisioningParams_t * pxParams )
 {
 	CK_RV xResult;
+	CK_KEY_TYPE xKeyType;
 	CK_FUNCTION_LIST_PTR pxFunctionList;
 	ProvisionedState_t xProvisionedState = { 0 };
 	CK_OBJECT_HANDLE xObject = 0;
@@ -743,7 +746,7 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 					}
 					else
 					{
-
+						xResult = xDestroyDefaultObjects( ID,xSession );
 
 						if (ID ==KVS_DEVICE_CERT_ID)
 						{
@@ -753,24 +756,16 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 							}
 							else
 							{
-								xResult = xDestroyDefaultObjects( ID,xSession );
-								if( xResult == CKR_OK )
-								{
-									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Certificate.\r\n" ));
-									xResult = xProvisionCertificate( xSession,
-																			 (uint8_t *)pxParams->pucClientCredential,
-																			 pxParams->ulClientCredentialLength,
-																			 ( uint8_t * ) pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
-																			 &xObject );
-								}
+								DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Certificate.\r\n" ));
+								xResult = xProvisionCertificate( xSession,
+																		 (uint8_t *)pxParams->pucClientCredential,
+																		 pxParams->ulClientCredentialLength,
+																		 ( uint8_t * ) pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
+																		 &xObject );
 
 								if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )
 								{
 									DEV_MODE_KEY_PROVISIONING_PRINT( ( "ERROR: Failed to provision device certificate. %d \r\n", xResult ) );
-								}
-								else
-								{
-									DEV_MODE_KEY_PROVISIONING_PRINT(( "Write Certificate key...\r\n" ));
 								}
 							}
 						}
@@ -786,13 +781,12 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 								xResult = xDestroyDefaultObjects( ID,xSession );
 								if( xResult == CKR_OK )
 								{
-									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Private key.\r\n" ));
+									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Private key.\r\n",CKR_OK ));
 									xResult = xProvisionPrivateKey( xSession,  (uint8_t *)pxParams->pucClientCredential,
 																	 pxParams->ulClientCredentialLength,
-																		 ( uint8_t * ) pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
-																		 &xObject );
+																	 ( uint8_t * ) pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+																	 &xObject );
 								}
-
 
 
 								if( ( xResult != CKR_OK ) || ( xObject == CK_INVALID_HANDLE ) )
@@ -813,6 +807,8 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 							}
 							else
 							{
+								xKeyType = xGetKeyType( (uint8_t *)pxParams->pucClientCredential,
+												pxParams->ulClientCredentialLength );
 
 								xResult = xDestroyDefaultObjects( ID,xSession );
 								if( xResult == CKR_OK )
@@ -820,7 +816,7 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 									DEV_MODE_KEY_PROVISIONING_PRINT(( "Destroyed Public key.\r\n" ));
 									xResult = xProvisionPublicKey( xSession,  (uint8_t *)pxParams->pucClientCredential,
 														 pxParams->ulClientCredentialLength,
-														 CKK_EC,
+														 xKeyType,
 														 ( uint8_t * ) pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
 														 &xObject );
 								}
@@ -868,4 +864,59 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 		vPortFree( xProvisionedState.pcIdentifier );
 	}
 	return xResult;
+}
+
+CK_KEY_TYPE xGetKeyType( uint8_t * pucKey,
+						 size_t xKeyLength)
+{
+	CK_KEY_TYPE xKeyType = CKK_VENDOR_DEFINED;
+    mbedtls_pk_type_t xMbedKeyType = MBEDTLS_PK_NONE;
+    int lMbedResult = 0;
+    mbedtls_pk_context xMbedPkContext = { 0 };
+
+    #if MBEDTLS_VERSION_NUMBER >= 0x03000000
+        mbedtls_entropy_context xEntropyContext;
+        mbedtls_ctr_drbg_context xDrbgContext;
+    #endif
+
+	mbedtls_pk_init( &xMbedPkContext );
+	#if MBEDTLS_VERSION_NUMBER < 0x03000000
+		lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucKey, xKeyLength, NULL, 0 );
+	#else
+		mbedtls_entropy_init( &xEntropyContext );
+		mbedtls_ctr_drbg_init( &xDrbgContext );
+		lMbedResult = mbedtls_ctr_drbg_seed( &xDrbgContext, mbedtls_entropy_func, &xEntropyContext, NULL, 0 );
+		/* Try parsing the private key using mbedtls_pk_parse_key. */
+		if( lMbedResult == 0 )
+		{
+			lMbedResult = mbedtls_pk_parse_key( &xMbedPkContext, pucKey, xKeyLength, NULL, 0,
+				mbedtls_ctr_drbg_random, &xDrbgContext );
+		}
+
+	    if( lMbedResult != 0 )
+	    {
+	        lMbedResult = mbedtls_pk_parse_public_key( &xMbedPkContext, pucKey, xKeyLength );
+	    }
+		mbedtls_ctr_drbg_free( &xDrbgContext );
+		mbedtls_entropy_free( &xEntropyContext );
+	#endif /* MBEDTLS_VERSION_NUMBER < 0x03000000 */
+
+	if( lMbedResult == 0 )
+	{
+		xMbedKeyType = mbedtls_pk_get_type( &xMbedPkContext );
+	}
+	else {
+		return CKK_VENDOR_DEFINED;
+	}
+
+    if( xMbedKeyType == MBEDTLS_PK_RSA )
+    {
+        xKeyType = CKK_RSA;
+    }
+    else if( ( xMbedKeyType == MBEDTLS_PK_ECDSA ) || ( xMbedKeyType == MBEDTLS_PK_ECKEY ) || ( xMbedKeyType == MBEDTLS_PK_ECKEY_DH ) )
+    {
+        xKeyType = CKK_EC;
+    }
+
+	return xKeyType;
 }
