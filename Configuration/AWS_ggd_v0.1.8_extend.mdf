@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+/***********************************************************************************************************************
+  Purpose: Module Description File (MDF) Example (Schema Version 2.0)
+           This is a description of a sample FIT module configuration file
+***********************************************************************************************************************/
+-->
+<module xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="2.0" xs:noNamespaceSchemaLocation="schema_mdf_2.00.xsd">
+    <fileVersion>1.00</fileVersion>
+    <formatVersion>2.00</formatVersion>
+    <fileTemplate></fileTemplate>
+    <configuration>
+        <property id="ggdconfigCORE_NETWORK_INTERFACE" display="The number network interface" default="0" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${ggdconfigCORE_NETWORK_INTERFACE}")</constraint>
+            <constraint display="Value must be greater than 0">("${ggdconfigCORE_NETWORK_INTERFACE}" &gt;= 0) </constraint>
+            <description>The number of your network interface here</description>
+        </property>
+        <property id="ggdconfigJSON_MAX_TOKENS" display="Size of the array for tokens" default="128" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${ggdconfigJSON_MAX_TOKENS}")</constraint>
+            <constraint display="Value must be greater than 1">("${ggdconfigJSON_MAX_TOKENS}" &gt;= 1) </constraint>
+            <description>Size of the array used by jsmn to store the tokens</description>
+        </property>
+    </configuration>
+</module>

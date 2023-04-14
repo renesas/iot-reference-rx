@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+/***********************************************************************************************************************
+  Purpose: Module Description File (MDF) Example (Schema Version 2.0)
+           This is a description of a sample FIT module configuration file
+***********************************************************************************************************************/
+-->
+<module xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="2.0" xs:noNamespaceSchemaLocation="schema_mdf_2.00.xsd">
+    <fileVersion>1.00</fileVersion>
+    <formatVersion>2.00</formatVersion>
+    <fileTemplate></fileTemplate>
+    <configuration>
+        <property id="shadowConfigJSON_JSMN_TOKENS" display="Number of jsmn tokens" default="64" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${shadowConfigJSON_JSMN_TOKENS}")</constraint>
+            <constraint display="Value must be greater than 1">("${shadowConfigJSON_JSMN_TOKENS}" &gt;= 1) </constraint>
+            <description>Number of jsmn tokens to use in parsing</description>
+        </property>
+        <property id="shadowConfigJSON_CLIENT_TOKEN" display="The JSON key" default="&quot;clientToken&quot;" type="textbox">
+            <description>The JSON key to search for when looking for client tokens</description>
+        </property>
+        <property id="shadowConfigUNIQUE_CLIENT_TOKEN_CHECK" display="ShadowConfigUNIQUE_CLIENT_TOKEN_CHECK mode" default="0" type="combobox">
+            <option id="shadowConfigUNIQUE_CLIENT_TOKEN_CHECK.1" display="Enable " value="1"/>
+            <option id="shadowConfigUNIQUE_CLIENT_TOKEN_CHECK.0" display="Disable" value="0"/>
+            <description>1: Enable
+0: Disable</description>
+        </property>
+    </configuration>
+</module>
