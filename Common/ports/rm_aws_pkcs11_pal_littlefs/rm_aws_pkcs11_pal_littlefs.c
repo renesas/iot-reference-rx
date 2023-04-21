@@ -55,7 +55,6 @@
 /* mbedTLS includes. */
 #include "mbedtls_config.h"
 #include "mbedtls/compat-2.x.h"
-//#define RM_STDIO_LITTLEFS_CFG_LFS g_rm_littlefs0_lfs
 extern lfs_t RM_STDIO_LITTLEFS_CFG_LFS;
 volatile uint32_t pvwrite = 0;
 enum eObjectHandles

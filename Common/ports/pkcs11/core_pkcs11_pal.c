@@ -50,7 +50,6 @@
 /* Amazon FreeRTOS Includes. */
 #include "core_pkcs11.h"
 #include "core_pkcs11_pal.h"
-//#include "iot_crypto.h"
 #include "core_pkcs11_config.h"
 #include "FreeRTOS.h"
 #include "mbedtls/sha256.h"
