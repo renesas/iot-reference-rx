@@ -34,7 +34,6 @@
 
 /* Renesas includes. */
 #include "platform.h"
-//#include "r_dtc_rx_if.h"
 #include "r_sci_rx_if.h"
 #include "r_byteq_if.h"
 
@@ -60,7 +59,6 @@ static TaskHandle_t xSendingTask = NULL;
 
 /* Board Support Data Structures. */
 sci_hdl_t xSerialSciHandle;
-//dtc_transfer_data_t xSerialTxDtcInfo;
 void CLI_Support_Settings(void);
 void vSerialSciCallback( void *pvArgs );
 void CLI_Close(void);
@@ -79,13 +77,10 @@ void CLI_Support_Settings(void)
     xSerialSciConfig.async.stop_bits    = SCI_STOPBITS_1;
     xSerialSciConfig.async.int_priority = 1; /* lowest at first. */
     R_SCI_Open(U_SCI_UART_CLI_SCI_CH, SCI_MODE_ASYNC, &xSerialSciConfig, vSerialSciCallback, &xSerialSciHandle);
-//    R_DTC_Open();
-//    R_DTC_Control(DTC_CMD_DTC_START, NULL, NULL);
 }
 
 void CLI_Close(void)
 {
-//	R_DTC_Close();
 	R_SCI_Close(xSerialSciHandle);
 }
 
@@ -114,21 +109,6 @@ sci_cb_args_t *pxArgs = (sci_cb_args_t *)pvArgs;
         on the semantics of this ISR. */
         portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
     }
-    /* Renesas API notifies the completion of transmission by SCI_EVT_TEI event. */
-//    else if( SCI_EVT_TEI == pxArgs->event )
-//    {
-//        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-//
-//        if( xSendingTask != NULL )
-//        {
-//            /* A task is waiting for the end of the Tx, unblock it now.
-//            http://www.freertos.org/vTaskNotifyGiveFromISR.html */
-//            vTaskNotifyGiveFromISR( xSendingTask, &xHigherPriorityTaskWoken );
-//            xSendingTask = NULL;
-//
-//            portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-//        }
-//    }
 }
 
 /* Function required in order to link UARTCommandConsole.c - which is used by
@@ -167,7 +147,6 @@ const TickType_t xMaxBlockTime = pdMS_TO_TICKS( 5000 );
 
 
     /* Don't send the string unless the previous string has been sent. */
-//    if( ( xSendingTask == NULL ) && ( usStringLength > 0 ) )
     {
         /* Ensure the calling task's notification state is not already
         pending. */
@@ -209,42 +188,6 @@ const TickType_t xMaxBlockTime = pdMS_TO_TICKS( 5000 );
 		{
 			R_BSP_NOP(); //TODO error handling code
 		}
-        /* Send the string using the Renesas API with a workaround. */
-//        if( usStringLength > 1 )
-//        {
-//            /* Set up Data Transfer Control. */
-//            dtc_cmd_arg_t xSerialTxDtcArg;
-//            dtc_transfer_data_cfg_t xSerialTxDtcConfig;
-//
-//            xSerialTxDtcArg.act_src                   = U_DTC_UART_CLI_TX_ACT;
-//            xSerialTxDtcConfig.transfer_mode          = DTC_TRANSFER_MODE_NORMAL;
-//            xSerialTxDtcConfig.data_size              = DTC_DATA_SIZE_BYTE;
-//            xSerialTxDtcConfig.src_addr_mode          = DTC_SRC_ADDR_INCR;
-//            xSerialTxDtcConfig.dest_addr_mode         = DTC_DES_ADDR_FIXED;
-//            xSerialTxDtcConfig.response_interrupt     = DTC_INTERRUPT_AFTER_ALL_COMPLETE;
-//            xSerialTxDtcConfig.repeat_block_side      = DTC_REPEAT_BLOCK_SOURCE;
-//            xSerialTxDtcConfig.chain_transfer_enable  = DTC_CHAIN_TRANSFER_DISABLE;
-//            xSerialTxDtcConfig.chain_transfer_mode    = (dtc_chain_transfer_mode_t)0;
-//            xSerialTxDtcConfig.source_addr            = ( uint32_t ) pcString;
-//            xSerialTxDtcConfig.dest_addr              = ( uint32_t ) &U_DTC_UART_CLI_TX_DR;
-//            xSerialTxDtcConfig.transfer_count         = ( uint32_t ) usStringLength;
-//            xSerialTxDtcArg.chain_transfer_nr         = 0;
-//            xSerialTxDtcArg.p_transfer_data           = &xSerialTxDtcInfo;
-//            xSerialTxDtcArg.p_data_cfg                = &xSerialTxDtcConfig;
-//
-//            R_DTC_Create( xSerialTxDtcArg.act_src, &xSerialTxDtcInfo, &xSerialTxDtcConfig, 0 );
-//            R_DTC_Control( DTC_CMD_ACT_SRC_ENABLE, NULL, &xSerialTxDtcArg );
-//            R_SCI_Send( xSerialSciHandle, ( uint8_t * ) (pcString + usStringLength - 1), 1 );
-//        }
-//        else
-//        {
-//            R_SCI_Send( xSerialSciHandle, ( uint8_t * ) pcString, 1 );
-//        }
-
-        /* Wait in the Blocked state (so not using any CPU time) until the
-        transmission has completed. */
-//        ulTaskNotifyTake( pdTRUE, xMaxBlockTime );
-
         /* A breakpoint can be set here for debugging. */
         nop();
     }

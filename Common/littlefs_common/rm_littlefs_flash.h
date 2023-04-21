@@ -49,13 +49,6 @@ FSP_HEADER
 /***********************************************************************************************************************
  * Typedef definitions
  **********************************************************************************************************************/
-
-/** User configuration structure, used in open function */
-//typedef struct st_rm_littlefs_flash_cfg
-//{
-//	flash_interrupt_config_t  p_flash;  ///< Pointer to a flash instance
-//} rm_littlefs_flash_cfg_t;
-
 /** Instance control block.  This is private to the FSP and should not be used or modified by the application. */
 typedef struct st_rm_littlefs_flash_instance_ctrl
 {

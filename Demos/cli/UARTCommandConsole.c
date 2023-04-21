@@ -157,7 +157,6 @@ xComPortHandle xPort;
 			xSerialPutChar( xPort, cRxedChar, portMAX_DELAY );
 
 			/* Was it the end of the line? */
-			//if( cRxedChar == '\n' || cRxedChar == '\r' )
 			if( cRxedChar == '\n' && cPrevChar == '\r')
 			{
 				/* Just to space the output from the input. */
@@ -217,14 +216,11 @@ xComPortHandle xPort;
 					/* A character was entered.  Add it to the string entered so
 					far.  When a \n is entered the complete	string will be
 					passed to the command interpreter. */
-					//if( ( cRxedChar >= ' ' ) && ( cRxedChar <= '~' ) )
-					//{
 						if( ucInputIndex < cmdMAX_INPUT_SIZE )
 						{
 							cInputString[ ucInputIndex ] = cRxedChar;
 							ucInputIndex++;
 						}
-					//}
 				}	
 			}
 
@@ -238,10 +234,8 @@ xComPortHandle xPort;
 
 void vOutputString( const char * pcMessage )
 {
-//	if( xSemaphoreTake( xTxMutex, cmdMAX_MUTEX_WAIT ) == pdPASS )
 	{
 		vSerialPutString( ( signed char * ) pcMessage, ( unsigned short ) strlen( pcMessage ) );
-//		xSemaphoreGive( xTxMutex );
 	}
 }
 /*-----------------------------------------------------------*/

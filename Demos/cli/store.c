@@ -144,8 +144,6 @@ int32_t xprvWriteCacheEntry(size_t KeyLength,
 	{
 
 		vAllocateDataBuffer(xKey,ValueLength);
-//		memcpy(gKeyValueStore.table[ xKey ].value, pvNewValue,ValueLength);
-//		gKeyValueStore.table[xKey].value[ValueLength] = '\0';
 		gKeyValueStore.table[xKey ].type = KV_TYPE_STRING;
 		gKeyValueStore.table[xKey ].xChangePending = pdTRUE;
 	}
@@ -153,8 +151,6 @@ int32_t xprvWriteCacheEntry(size_t KeyLength,
 	{
 
 		vReallocDataBuffer( xKey, ValueLength );
-//		memcpy(gKeyValueStore.table[ xKey ].value, pvNewValue,ValueLength);
-//		gKeyValueStore.table[xKey].value[ValueLength] = '\0';
 		gKeyValueStore.table[xKey ].type = KV_TYPE_STRING;
 		gKeyValueStore.table[xKey ].xChangePending = pdTRUE;
 	}
@@ -315,7 +311,6 @@ BaseType_t KVStore_xCommitChanges( void )
         	 */
         	else
         	{
-//        		gKeyValueStore.table[ i ].value = GetStringValue(i,gKeyValueStore.table[ i ].valueLength);
         		xSuccess = xprvWriteValueToImpl((KVStoreKey_t)i,(char *)gKeyValueStore.table[ i ].value,
         		    											gKeyValueStore.table[ i ].valueLength);
 				if (xSuccess == pdFALSE)
@@ -553,12 +548,6 @@ char *GetStringValue( KVStoreKey_t key, size_t  pxLength )
 			pcBuffer[ xSizeWritten] = '\0';
 		}
 	}
-
-//	if( pxLength != NULL )
-//	{
-//		*pxLength = xSizeWritten;
-//	}
-
 	return pcBuffer;
 }
 

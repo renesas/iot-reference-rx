@@ -376,7 +376,6 @@ CK_RV xProvisionPrivateKey( CK_SESSION_HANDLE xSession,
         mbedtls_ctr_drbg_free( &xDrbgContext );
         mbedtls_entropy_free( &xEntropyContext );
     #endif /* MBEDTLS_VERSION_NUMBER < 0x03000000 */
-//	DEV_MODE_KEY_PROVISIONING_PRINT( ( "%s\n",pucPrivateKey ) );
     if( lMbedResult != 0 )
     {
         DEV_MODE_KEY_PROVISIONING_PRINT( ( "Unable to parse private key.\r\n" ) );
@@ -386,11 +385,6 @@ CK_RV xProvisionPrivateKey( CK_SESSION_HANDLE xSession,
     /* Determine whether the key to be imported is RSA or EC. */
     if( xResult == CKR_OK )
     {
-//    	xResult = xDestroyProvidedObjects( xSession,
-//    	                                 &pucLabel,
-//    	                                 &xPrivateKeyClass,
-//    	                                 1 );
-//    	if (xResult == CKR_OK )
     	{
             xMbedKeyType = mbedtls_pk_get_type( &xMbedPkContext );
 

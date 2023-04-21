@@ -1,8 +1,6 @@
-/* generated common header file - do not edit */
 #ifndef COMMON_DATA_H_
 #define COMMON_DATA_H_
 #include <stdint.h>
-//#include "bsp_api.h"
 
 #ifdef __TEST__
 #include "dev_mode_key_provisioning.h"
@@ -13,16 +11,12 @@
 #include "psa/crypto.h"
 #include "psa/crypto_extra.h"
 #include "r_flash_rx_if.h"
-//#include "r_flash_hp.h"
-//#include "r_flash_api.h"
 #include "rm_littlefs_api.h"
 #include "rm_littlefs_flash.h"
 #include "lfs_util.h"
 #include "lfs_util.h"
 #include "mbedtls_pk_pkcs11.h"
 #include "core_mqtt.h"
-//#include "r_ioport.h"
-//#include "bsp_pin_cfg.h"
 FSP_HEADER
 /* Flash on Flash HP Instance */
 

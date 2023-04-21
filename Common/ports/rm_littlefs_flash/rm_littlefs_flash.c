@@ -21,7 +21,6 @@
 /* FSP includes. */
 #include "string.h"
 #include "rm_littlefs_flash.h"
-//#include "rm_littlefs_flash_cfg.h"
 
 /* Get the data flash block size defined in bsp_feature.h for this MCU. */
 #define BSP_FEATURE_FLASH_HP_DF_BLOCK_SIZE	64

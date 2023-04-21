@@ -1,28 +1,4 @@
-/* generated common source file - do not edit */
 #include "common_data.h"
-//#ifndef vLoggingPrintf
-//#include <stdarg.h>
-//void vLoggingPrintf(const char *pcFormat, ...);
-//
-//void vLoggingPrintf(const char *pcFormat, ...)
-//{
-//    va_list arg;
-//
-//    va_start (arg, pcFormat);
-//    vprintf (pcFormat, arg);
-//    va_end (arg);
-//}
-//#endif
-//
-//#ifndef vLoggingPrint
-//void vLoggingPrint(const char *pcFormat);
-//
-//void vLoggingPrint(const char *pcFormat)
-//{
-//    printf ("%s", pcFormat);
-//}
-//#endif
-
 
 /* Instance structure to use this module. */
 
@@ -87,8 +63,3 @@ int32_t littlFs_format( void )
 	}
 	return err;
 }
-
-
-
-
-
