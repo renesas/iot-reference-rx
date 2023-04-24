@@ -60,6 +60,7 @@ static void flashing_callback( void * event );
 
 static void write_callback( void * event );
 static void erase_flashing_callback( void * event );
+static xSemaphoreHandle xSemaphoreFlashSync;
 
 static UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
 static void update_dataflash_data(const struct lfs_config * c,
@@ -120,6 +121,11 @@ fsp_err_t RM_LITTLEFS_FLASH_Open (rm_littlefs_ctrl_t * const p_ctrl, rm_littlefs
     /* This module is now open. */
     p_instance_ctrl->open = RM_LITTLEFS_FLASH_OPEN;
 
+    xSemaphoreFlashSync = xSemaphoreCreateMutex();
+    xSemaphoreGive( xSemaphoreFlashSync );
+
+    data_flash_update_status_initialize();
+
     return FSP_SUCCESS;
 }
 
@@ -141,6 +147,12 @@ fsp_err_t RM_LITTLEFS_FLASH_Close (rm_littlefs_ctrl_t * const p_ctrl)
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) p_ctrl;
 
     p_instance_ctrl->open = 0;
+
+    if( NULL != xSemaphoreFlashSync )
+    {
+        vSemaphoreDelete( xSemaphoreFlashSync );
+        xSemaphoreFlashSync = NULL;
+    }
 
     R_FLASH_Close();
 
@@ -174,10 +186,14 @@ int rm_littlefs_flash_read (const struct lfs_config * c,
                             lfs_size_t                size)
 {
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
+
+    /* No flash access while reading */
+    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
     /* Read directly from the flash. */
     memcpy(buffer,
                (uint8_t *) (rm_littlefs_flash_data_start + (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block) + off),
                size);
+    xSemaphoreGive(xSemaphoreFlashSync);
 
     return LFS_ERR_OK;
 }
@@ -200,19 +216,30 @@ int rm_littlefs_flash_write (const struct lfs_config * c,
                              const void              * buffer,
                              lfs_size_t                size)
 {
-    data_flash_update_status_initialize();
-	while ( update_data_flash_control_block.status < DATA_FLASH_UPDATE_STATE_FINALIZE_COMPLETED )
-	{
-		update_dataflash_data(c,block,off,buffer,size,1);
-		vTaskDelay(1);
-	}
+	// if semaphore cannot be obtained then return error
+    flash_err_t flash_error_code = FLASH_ERR_BUSY;
+    rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
 
-	if (update_data_flash_control_block.status == DATA_FLASH_UPDATE_STATE_ERROR)
-	{
-		return LFS_ERR_IO;
-	}
+    // Flash access protect
+    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
 
+    update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE;
 
+    R_BSP_InterruptsDisable();
+    flash_error_code = R_FLASH_Write( (uint32_t)buffer,
+            (rm_littlefs_flash_data_start +
+             (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block) + off), size );
+    R_BSP_InterruptsEnable();
+
+    //wait for the semaphore to be released by callback
+    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+
+    if( (FLASH_SUCCESS != flash_error_code) ) {
+    	xSemaphoreGive(xSemaphoreFlashSync);
+    	return LFS_ERR_IO;
+    }
+
+	xSemaphoreGive(xSemaphoreFlashSync);
     return LFS_ERR_OK;
 }
 
@@ -227,25 +254,29 @@ int rm_littlefs_flash_write (const struct lfs_config * c,
  **********************************************************************************************************************/
 int rm_littlefs_flash_erase (const struct lfs_config * c, lfs_block_t block)
 {
+	// if semaphore cannot be obtained then return error
+    flash_err_t flash_error_code = FLASH_ERR_BUSY;
+    rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
 
-	lfs_off_t off = 0;
-	void * buffer = NULL;
-	lfs_size_t size = 0;
+    // Flash access protect
+    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
 
-    data_flash_update_status_initialize();
+	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE;
 
-	while ( update_data_flash_control_block.status < DATA_FLASH_UPDATE_STATE_FINALIZE_COMPLETED )
-	{
-		update_dataflash_data(c,block,off,buffer,size,0);
-		vTaskDelay(1);
-	}
+    R_BSP_InterruptsDisable();
+    flash_error_code = R_FLASH_Erase((flash_block_address_t)(rm_littlefs_flash_data_start + (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block)),
+			p_instance_ctrl->p_cfg->p_lfs_cfg->block_size / RM_LITTLEFS_FLASH_DATA_BLOCK_SIZE);
+    R_BSP_InterruptsEnable();
 
-	if (update_data_flash_control_block.status == DATA_FLASH_UPDATE_STATE_ERROR)
-	{
+    //wait for the semaphore to be released by callback
+    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
 
-		return LFS_ERR_IO;
-	}
+    if( (FLASH_SUCCESS != flash_error_code) ) {
+    	xSemaphoreGive(xSemaphoreFlashSync);
+    	return LFS_ERR_IO;
+    }
 
+	xSemaphoreGive(xSemaphoreFlashSync);
     return LFS_ERR_OK;
 }
 
@@ -310,7 +341,9 @@ int rm_littlefs_flash_sync (const struct lfs_config * c)
 static void flashing_callback( void * event )
 {
 	uint32_t event_code;
-		event_code = *((uint32_t*)event);
+	event_code = *((uint32_t*)event);
+
+	static portBASE_TYPE xHigherPriorityTaskWoken;
 
 	switch(event_code)
 	{
@@ -318,6 +351,8 @@ static void flashing_callback( void * event )
 			if(DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE == update_data_flash_control_block.status)
 			{
 				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_FINALIZE;
+				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
+			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 			}
 			else
 			{
@@ -327,8 +362,9 @@ static void flashing_callback( void * event )
 		case FLASH_INT_EVENT_WRITE_COMPLETE:
 			if(DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE == update_data_flash_control_block.status)
 			{
-
 				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_FINALIZE;
+				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
+			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 			}
 			else
 			{
@@ -346,77 +382,11 @@ void task_init(void)
 
 void data_flash_update_status_initialize(void)
 {
-	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_INITIALIZE;
-}
-
-static void update_dataflash_data(const struct lfs_config * c,
-        lfs_block_t               block,
-        lfs_off_t                 off,
-        const void              * buffer,
-        lfs_size_t                size,
-		uint32_t				  update_state)
-{
 	flash_interrupt_config_t cb_func_info;
-    flash_err_t flash_error_code = FLASH_SUCCESS;
-    rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
 
-    switch(update_data_flash_control_block.status)
-    {
-        case DATA_FLASH_UPDATE_STATE_INITIALIZE: /* initialize */
-        	cb_func_info.pcallback = flashing_callback;
-        	cb_func_info.int_priority = 3;
-        	R_FLASH_Control(FLASH_CMD_SET_BGO_CALLBACK, (void *)&cb_func_info);
-        	if (update_state == 0)
-        	{
-        		update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERASE;
-        	}
-        	else if (update_state == 1)
-        	{
-        		update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_WRITE;
-        	}
-            break;
-        case DATA_FLASH_UPDATE_STATE_ERASE:
-            R_BSP_InterruptsDisable();
-            flash_error_code = R_FLASH_Erase((flash_block_address_t)(rm_littlefs_flash_data_start + (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block)),
-        			p_instance_ctrl->p_cfg->p_lfs_cfg->block_size / RM_LITTLEFS_FLASH_DATA_BLOCK_SIZE);
-            R_BSP_InterruptsEnable();
-            if(FLASH_SUCCESS == flash_error_code)
-            {
-            	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE;
-            }
-            else
-            {
-            	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
-            }
+	cb_func_info.pcallback = flashing_callback;
+	cb_func_info.int_priority = 3;
+	R_FLASH_Control(FLASH_CMD_SET_BGO_CALLBACK, (void *)&cb_func_info);
 
-            break;
-        case DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE:
-            /* this state will be changed by callback routine */
-            break;
-        case DATA_FLASH_UPDATE_STATE_WRITE:
-            R_BSP_InterruptsDisable();
-            flash_error_code = R_FLASH_Write( (uint32_t)buffer,
-                    (rm_littlefs_flash_data_start +
-                     (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block) + off), size );
-            R_BSP_InterruptsEnable();
-            if(FLASH_SUCCESS == flash_error_code)
-            {
-            	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE;
-            }
-            else
-            {
-            	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
-            }
-
-            break;
-        case DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE:
-            /* this state will be changed by callback routine */
-            break;
-        case DATA_FLASH_UPDATE_STATE_FINALIZE: /* finalize */
-            update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_FINALIZE_COMPLETED;
-            break;
-        default:
-            break;
-    }
-    return;
+	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_INITIALIZE;
 }
