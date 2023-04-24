@@ -81,6 +81,7 @@
 #include "mqtt_pkcs11_demo_helpers.h"
 #include "pkcs11_operations.h"
 #include "tinycbor_serializer.h"
+#include "store.h"
 
 #include "unique_id.h"
 
@@ -261,6 +262,17 @@ static MQTTFixedBuffer_t xBuffer =
     democonfigNETWORK_BUFFER_SIZE
 };
 
+/**
+ * @brief Accept topic/reject topic/publish topic
+ */
+static char * pcPublishTopic = NULL;
+static uint16_t xPublishTopicLength;
+
+static char * pcAcceptTopic = NULL;
+static uint16_t xAcceptTopicLength;
+
+static char * pcRejectTopic = NULL;
+static uint16_t xRejectTopicLength;
 /*-----------------------------------------------------------*/
 
 /**
@@ -475,27 +487,27 @@ static bool prvSubscribeToRegisterThingResponseTopics( void )
     bool xStatus;
 
     xStatus = xSubscribeToTopic( &xMqttContext,
-                                 FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
-                                 FP_CBOR_REGISTER_ACCEPTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) );
+                                 pcAcceptTopic,
+                                 xAcceptTopicLength );
 
     if( xStatus == false )
     {
         LogError( ( "Failed to subscribe to fleet provisioning topic: %.*s.",
-                    FP_CBOR_REGISTER_ACCEPTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
-                    FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
+                    xAcceptTopicLength,
+                    pcAcceptTopic ) );
     }
 
     if( xStatus == true )
     {
         xStatus = xSubscribeToTopic( &xMqttContext,
-                                     FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
-                                     FP_CBOR_REGISTER_REJECTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) );
+                                     pcRejectTopic,
+                                     xRejectTopicLength );
 
         if( xStatus == false )
         {
             LogError( ( "Failed to subscribe to fleet provisioning topic: %.*s.",
-                        FP_CBOR_REGISTER_REJECTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
-                        FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
+                        xRejectTopicLength,
+                        pcRejectTopic ) );
         }
     }
 
@@ -508,27 +520,27 @@ static bool prvUnsubscribeFromRegisterThingResponseTopics( void )
     bool xStatus;
 
     xStatus = xUnsubscribeFromTopic( &xMqttContext,
-                                     FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
-                                     FP_CBOR_REGISTER_ACCEPTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) );
+                                     pcAcceptTopic,
+                                     xAcceptTopicLength );
 
     if( xStatus == false )
     {
         LogError( ( "Failed to unsubscribe from fleet provisioning topic: %.*s.",
-                    FP_CBOR_REGISTER_ACCEPTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
-                    FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
+                    xAcceptTopicLength,
+                    pcAcceptTopic ) );
     }
 
     if( xStatus == true )
     {
         xStatus = xUnsubscribeFromTopic( &xMqttContext,
-                                         FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
-                                         FP_CBOR_REGISTER_REJECTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) );
+                                         pcRejectTopic,
+                                         xRejectTopicLength );
 
         if( xStatus == false )
         {
             LogError( ( "Failed to unsubscribe from fleet provisioning topic: %.*s.",
-                        FP_CBOR_REGISTER_REJECTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
-                        FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
+                        xRejectTopicLength,
+                        pcRejectTopic ) );
         }
     }
 
@@ -578,6 +590,32 @@ int prvFleetProvisioningTask( void * pvParameters )
     CK_OBJECT_HANDLE xClientCertificate;
     CK_OBJECT_HANDLE xPrivateKey;
     uuid_param_t uuid;
+    extern KeyValueStore_t gKeyValueStore;
+#if defined(__TEST__)
+    pcPublishTopic = FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME );
+    xPublishTopicLength = FP_CBOR_REGISTER_PUBLISH_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH );
+    pcAcceptTopic = FP_CBOR_REGISTER_ACCEPTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME );
+    xAcceptTopicLength = FP_CBOR_REGISTER_ACCEPTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH );
+    pcRejectTopic = FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME );
+    xRejectTopicLength = FP_CBOR_REGISTER_REJECTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) ;
+#else
+    if (gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength > 0)
+    {
+    	xPublishTopicLength = FP_CBOR_REGISTER_PUBLISH_LENGTH(gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength);
+    	pcPublishTopic = malloc(xPublishTopicLength + 1);
+		snprintf( pcPublishTopic, xPublishTopicLength + 1, "%s%s%s%s", FP_REGISTER_API_PREFIX, gKeyValueStore.table[KVS_TEMPLATE_NAME].value, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT);
+
+        xAcceptTopicLength = FP_CBOR_REGISTER_ACCEPTED_LENGTH(gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength);
+        pcAcceptTopic = malloc(xAcceptTopicLength + 1);
+        snprintf( pcAcceptTopic, xAcceptTopicLength + 1, "%s%s%s%s%s", FP_REGISTER_API_PREFIX, gKeyValueStore.table[KVS_TEMPLATE_NAME].value, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT,FP_API_ACCEPTED_SUFFIX);
+
+        xRejectTopicLength = FP_CBOR_REGISTER_REJECTED_LENGTH(gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength);
+        pcRejectTopic = malloc(xRejectTopicLength + 1);
+        snprintf( pcRejectTopic, xRejectTopicLength + 1, "%s%s%s%s%s", FP_REGISTER_API_PREFIX, gKeyValueStore.table[KVS_TEMPLATE_NAME].value, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT,FP_API_REJECTED_SUFFIX);
+    }
+
+#endif
+
 
     /* Silence compiler warnings about unused variables. */
     ( void ) pvParameters;
@@ -617,32 +655,20 @@ int prvFleetProvisioningTask( void * pvParameters )
             }
         }
 
-        if ( (xPkcs11Ret == CKR_OK) && (xClientCertificate == CK_INVALID_HANDLE) && (xPrivateKey == CK_INVALID_HANDLE) )
+        if ( (xPkcs11Ret == CKR_OK) && ((xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE)) )
         {
-        	xStatus = xLoadClaimCredentials(xP11Session,
-        	                      democonfigCLAIM_CERT_PEM,
-        	                      sizeof( democonfigCLAIM_CERT_PEM ),
-        	                      democonfigCLAIM_PRIVATE_KEY_PEM,
-        	                      sizeof ( democonfigCLAIM_PRIVATE_KEY_PEM ) );
-        	if( xStatus != true)
-        	{
-        	    LogError( ( "Failed to load claim certificate and claim private key." ) );
-        	}
-        	else
-        	{
-                xStatus = xGenerateKeyAndCsr( xP11Session,
-                                              pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
-                                              pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
-                                              pcCsr,
-                                              fpdemoCSR_BUFFER_LENGTH,
-                                              &xCsrLength,
-                                              pcCSRSubjectName );
+			xStatus = xGenerateKeyAndCsr( xP11Session,
+										  pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+										  pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
+										  pcCsr,
+										  fpdemoCSR_BUFFER_LENGTH,
+										  &xCsrLength,
+										  pcCSRSubjectName );
 
-                if( xStatus == false )
-                {
-                    LogError( ( "Failed to generate Key and Certificate Signing Request." ) );
-                }
-        	}
+			if( xStatus == false )
+			{
+				LogError( ( "Failed to generate Key and Certificate Signing Request." ) );
+			}
         }
         else if ( (xPkcs11Ret == CKR_OK) && (xClientCertificate != CK_INVALID_HANDLE) && (xPrivateKey != CK_INVALID_HANDLE) )
         {
@@ -657,7 +683,7 @@ int prvFleetProvisioningTask( void * pvParameters )
         }
 
         /* Skip fleet provisioning if you already have a device certificate and private key. */
-        if ( (xClientCertificate == CK_INVALID_HANDLE) && (xPrivateKey == CK_INVALID_HANDLE) )
+        if ( (xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) )
         {
             /**** Connect to AWS IoT Core with provisioning claim credentials *****/
 
@@ -792,16 +818,16 @@ int prvFleetProvisioningTask( void * pvParameters )
             {
                 /* Publish the RegisterThing request. */
                 xPublishToTopic( &xMqttContext,
-                                 FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ),
-                                 FP_CBOR_REGISTER_PUBLISH_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
+                				 pcPublishTopic,
+								 xPublishTopicLength,
                                  ( char * ) pucPayloadBuffer,
                                  xPayloadLength );
 
                 if( xStatus == false )
                 {
                     LogError( ( "Failed to publish to fleet provisioning topic: %.*s.",
-                                FP_CBOR_REGISTER_PUBLISH_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ),
-                                FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME ) ) );
+                    			xPublishTopicLength,
+								pcPublishTopic ) );
                 }
             }
 

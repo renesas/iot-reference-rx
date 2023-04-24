@@ -143,33 +143,6 @@ static CK_RV provisionPrivateRSAKey( CK_SESSION_HANDLE session,
                                      const char * label,
                                      mbedtls_pk_context * mbedPkContext );
 
-
-/**
- * @brief Import the specified private key into storage.
- *
- * @param[in] session The PKCS #11 session.
- * @param[in] privateKey The private key to store, in PEM format.
- * @param[in] privateKeyLength The length of the key, including null terminator.
- * @param[in] label The label to store the key.
- */
-static CK_RV provisionPrivateKey( CK_SESSION_HANDLE session,
-                                  const char * privateKey,
-                                  size_t privateKeyLength,
-                                  const char * label );
-
-/**
- * @brief Import the specified X.509 client certificate into storage.
- *
- * @param[in] session The PKCS #11 session.
- * @param[in] certificate The certificate to store, in PEM format.
- * @param[in] certificateLength The length of the certificate, including the null terminator.
- * @param[in] label The label to store the certificate.
- */
-static CK_RV provisionCertificate( CK_SESSION_HANDLE session,
-                                   const char * certificate,
-                                   size_t certificateLength,
-                                   const char * label );
-
 /*-----------------------------------------------------------*/
 
 static CK_RV prvDestroyProvidedObjects( CK_SESSION_HANDLE xSession,
@@ -683,7 +656,7 @@ static CK_RV provisionPrivateRSAKey( CK_SESSION_HANDLE session,
 
 /*-----------------------------------------------------------*/
 
-static CK_RV provisionPrivateKey( CK_SESSION_HANDLE session,
+CK_RV provisionPrivateKey( CK_SESSION_HANDLE session,
                                   const char * privateKey,
                                   size_t privateKeyLength,
                                   const char * label )
@@ -751,7 +724,7 @@ static CK_RV provisionPrivateKey( CK_SESSION_HANDLE session,
 
 /*-----------------------------------------------------------*/
 
-static CK_RV provisionCertificate( CK_SESSION_HANDLE session,
+CK_RV provisionCertificate( CK_SESSION_HANDLE session,
                                    const char * certificate,
                                    size_t certificateLength,
                                    const char * label )
@@ -841,7 +814,7 @@ static CK_RV provisionCertificate( CK_SESSION_HANDLE session,
         prvDestroyProvidedObjects( session, ( CK_BYTE_PTR * ) &label, &certificateClass, 1 );
 
         /* Create an object using the encoded client certificate. */
-        LogInfo( ( "Writing certificate into label \"%s\".", label ) );
+        //LogInfo( ( "Writing certificate into label \"%s\".", label ) );
 
         result = functionList->C_CreateObject( session,
                                                ( CK_ATTRIBUTE_PTR ) &certificateTemplate,

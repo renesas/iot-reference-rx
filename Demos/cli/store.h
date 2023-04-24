@@ -33,6 +33,10 @@ typedef enum KVStoreKey
     KVS_DEVICE_CERT_ID,
     KVS_DEVICE_PRIVKEY_ID,
 	KVS_DEVICE_PUBKEY_ID,
+	KVS_ROOT_CA_ID,
+	KVS_TEMPLATE_NAME,
+	KVS_CLAIM_CERT_ID,
+	KVS_CLAIM_PRIVKEY_ID,
     KVS_NUM_KEYS
 } KVStoreKey_t;
 
@@ -59,6 +63,10 @@ typedef struct KeyValueStore
         [ KVS_DEVICE_CERT_ID ] = "cert_id",                \
 		[ KVS_DEVICE_PRIVKEY_ID ] = "priv_key_id",         \
 		[ KVS_DEVICE_PUBKEY_ID ] = "pub_key_id",         \
+		[ KVS_ROOT_CA_ID ] = "root_ca_id",         \
+		[ KVS_TEMPLATE_NAME ] = "template_name",         \
+		[ KVS_CLAIM_CERT_ID ] = "claim_cert_id",         \
+		[ KVS_CLAIM_PRIVKEY_ID ] = "claim_priv_key_id",         \
     }
 #define CLICMDKEYS                                       \
     {                                                      \
@@ -67,6 +75,10 @@ typedef struct KeyValueStore
         [ KVS_DEVICE_CERT_ID ] = "cert",                \
 		[ KVS_DEVICE_PRIVKEY_ID ] = "key",         \
 		[ KVS_DEVICE_PUBKEY_ID ] = "pub",         \
+		[ KVS_ROOT_CA_ID ] = "rootca",                \
+		[ KVS_TEMPLATE_NAME ] = "template",         \
+		[ KVS_CLAIM_CERT_ID ] = "claimcert",                \
+		[ KVS_CLAIM_PRIVKEY_ID ] = "claimkey",         \
     }
 typedef enum KVStoreKeytype
 {
