@@ -55,7 +55,6 @@
 /* mbedTLS includes. */
 #include "mbedtls_config.h"
 #include "mbedtls/compat-2.x.h"
-//#define RM_STDIO_LITTLEFS_CFG_LFS g_rm_littlefs0_lfs
 extern lfs_t RM_STDIO_LITTLEFS_CFG_LFS;
 volatile uint32_t pvwrite = 0;
 enum eObjectHandles
@@ -64,11 +63,13 @@ enum eObjectHandles
     eAwsDevicePrivateKey = 1,
     eAwsDevicePublicKey,
     eAwsDeviceCertificate,
-    eAwsCodeSigningKey,
-#if pkcs11configMAX_NUM_OBJECTS >= 6
-    eAwsRootCertificate,
+	eAwsCodeSigningKey,
+	eAwsClaimCertificate,
+	eAwsClaimPrivateKey,
+#if pkcs11configMAX_NUM_OBJECTS >= 8
+	eAwsRootCertificate,
 #endif
-#if pkcs11configMAX_NUM_OBJECTS >= 7
+#if pkcs11configMAX_NUM_OBJECTS >= 9
     eAwsJitpCertificate,
 #endif
 };
@@ -80,10 +81,12 @@ uint8_t g_object_handle_dictionary[pkcs11configMAX_NUM_OBJECTS][pkcs11configMAX_
     pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
     pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
     pkcs11configLABEL_CODE_VERIFICATION_KEY,
-#if pkcs11configMAX_NUM_OBJECTS >= 6
+	pkcs11configLABEL_CLAIM_CERTIFICATE,
+	pkcs11configLABEL_CLAIM_PRIVATE_KEY,
+#if pkcs11configMAX_NUM_OBJECTS >= 8
     pkcs11configLABEL_ROOT_CERTIFICATE,
 #endif
-#if pkcs11configMAX_NUM_OBJECTS >= 7
+#if pkcs11configMAX_NUM_OBJECTS >= 9
     pkcs11configLABEL_JITP_CERTIFICATE,
 #endif
 };
@@ -273,7 +276,7 @@ CK_RV PKCS11_PAL_GetObjectValue (CK_OBJECT_HANDLE xHandle,
                 xReturn = CKR_OK;
             }
 
-            if (xHandle == eAwsDevicePrivateKey)
+            if (xHandle == eAwsDevicePrivateKey || xHandle == eAwsClaimPrivateKey)
             {
                 *pIsPrivate = CK_TRUE;
             }

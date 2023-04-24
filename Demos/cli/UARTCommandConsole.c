@@ -43,8 +43,11 @@
 /* Demo application includes. */
 #include "serial.h"
 
+/* Demo Config */
+#include "demo_config.h"
+
 /* Dimensions the buffer into which input characters are placed. */
-#define cmdMAX_INPUT_SIZE		2048
+#define cmdMAX_INPUT_SIZE		4096
 
 /* Dimentions a buffer to be used by the UART driver, if the UART driver uses a
 buffer at all. */
@@ -72,12 +75,21 @@ void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 /*-----------------------------------------------------------*/
 
 /* Const messages output by the command console. */
+#if defined(CONFIG_FLEET_PROVISIONING_DEMO)
+static const char * const pcWelcomeMessage = "FreeRTOS command server.\r\n"\
+        "Type Help to view a list of registered commands.\r\n\r\n"\
+        "\tStandard procedure:\r\n"\
+        "\t\t1. Set value for root CA (optional)/IoT endpoint/claim certificate/claim private key/template name.\r\n"\
+        "\t\t2. Write the key value to DF with 'conf commit' command.\r\n"\
+        "\t\t3. Reset the program to start the demo.\r\n\r\n>";
+#else
 static const char * const pcWelcomeMessage = "FreeRTOS command server.\r\n"\
 		"Type Help to view a list of registered commands.\r\n\r\n"\
 		"\tStandard procedure:\r\n"\
 		"\t\t1. Set value for IoT endpoint/thing name/certificate/private key.\r\n"\
 		"\t\t2. Write the key value to Internal Data Flash Memory with 'commit' command.\r\n"\
 		"\t\t3. Reset the program to start the demo.\r\n\r\n>";
+#endif
 static const char * const pcWaitMessage = "Press CLI and enter to switch to CLI mode or wait 10secs to run demo! \r\n";
 static const char * const pcEndOfOutputMessage = "\r\n>";
 static const char * const pcNewLine = "\r\n";
@@ -145,7 +157,6 @@ xComPortHandle xPort;
 			xSerialPutChar( xPort, cRxedChar, portMAX_DELAY );
 
 			/* Was it the end of the line? */
-			//if( cRxedChar == '\n' || cRxedChar == '\r' )
 			if( cRxedChar == '\n' && cPrevChar == '\r')
 			{
 				/* Just to space the output from the input. */
@@ -205,15 +216,12 @@ xComPortHandle xPort;
 					/* A character was entered.  Add it to the string entered so
 					far.  When a \n is entered the complete	string will be
 					passed to the command interpreter. */
-					//if( ( cRxedChar >= ' ' ) && ( cRxedChar <= '~' ) )
-					//{
 						if( ucInputIndex < cmdMAX_INPUT_SIZE )
 						{
 							cInputString[ ucInputIndex ] = cRxedChar;
 							ucInputIndex++;
 						}
-					//}
-				}
+				}	
 			}
 
 			/* Must ensure to give the mutex back. */
@@ -226,10 +234,8 @@ xComPortHandle xPort;
 
 void vOutputString( const char * pcMessage )
 {
-//	if( xSemaphoreTake( xTxMutex, cmdMAX_MUTEX_WAIT ) == pdPASS )
 	{
 		vSerialPutString( ( signed char * ) pcMessage, ( unsigned short ) strlen( pcMessage ) );
-//		xSemaphoreGive( xTxMutex );
 	}
 }
 /*-----------------------------------------------------------*/

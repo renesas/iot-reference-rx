@@ -5,6 +5,7 @@
  *      Author: MyPC
  */
 #include "store.h"
+#include "pkcs11_operations.h"
 /* Key provisioning includes. */
 #ifdef __TEST__
 #include "dev_mode_key_provisioning.h"
@@ -127,17 +128,22 @@ int32_t xprvWriteCacheEntry(size_t KeyLength,
 {
 	KVStoreKey_t xKey;
 	xKey = (KVStoreKey_t)Filename2Handle( Key,KeyLength);
+
 	if (xKey < 0)
 	{
 		return xKey;
 	}
+
+	if((xKey == KVS_CLAIM_CERT_ID) || (xKey == KVS_CLAIM_PRIVKEY_ID) || (xKey == KVS_ROOT_CA_ID))
+    {
+        ValueLength++; //add 1 more byte to store string ending \0
+    }
+
 	strcpy( gKeyValueStore.table[xKey ].key, keys[ xKey ] );
 	if (gKeyValueStore.table[xKey ].type == KV_TYPE_NONE)
 	{
 
 		vAllocateDataBuffer(xKey,ValueLength);
-//		memcpy(gKeyValueStore.table[ xKey ].value, pvNewValue,ValueLength);
-//		gKeyValueStore.table[xKey].value[ValueLength] = '\0';
 		gKeyValueStore.table[xKey ].type = KV_TYPE_STRING;
 		gKeyValueStore.table[xKey ].xChangePending = pdTRUE;
 	}
@@ -145,8 +151,6 @@ int32_t xprvWriteCacheEntry(size_t KeyLength,
 	{
 
 		vReallocDataBuffer( xKey, ValueLength );
-//		memcpy(gKeyValueStore.table[ xKey ].value, pvNewValue,ValueLength);
-//		gKeyValueStore.table[xKey].value[ValueLength] = '\0';
 		gKeyValueStore.table[xKey ].type = KV_TYPE_STRING;
 		gKeyValueStore.table[xKey ].xChangePending = pdTRUE;
 	}
@@ -167,6 +171,12 @@ int32_t xprvWriteCacheEntry(size_t KeyLength,
 		if( pvDataWrite != NULL )
 		{
 			( void ) memcpy( pvGetDataWritePtr( xKey ), pvNewValue, ValueLength );
+			if((xKey == KVS_CLAIM_CERT_ID) || (xKey == KVS_CLAIM_PRIVKEY_ID) || (xKey == KVS_ROOT_CA_ID))
+            {
+                //Set string ending \0
+                gKeyValueStore.table[xKey].value[ValueLength-1] = '\0';
+            }
+
 		}
 	}
 	return xKey;
@@ -243,6 +253,16 @@ int32_t Filename2Handle( char * pcFileName,size_t KeyLength)
 BaseType_t KVStore_xCommitChanges( void )
 {
     BaseType_t xSuccess = pdFALSE;
+    CK_SESSION_HANDLE xP11Session;
+    CK_RV xResult = CKR_OK;
+
+    /* Initialize the PKCS Module */
+	xResult = xInitializePkcs11Token();
+
+	if( xResult == CKR_OK )
+	{
+		xResult = xInitializePkcs11Session( &xP11Session );
+	}
 
     for( size_t i = 0; i < KVS_NUM_KEYS ; i++ )
     {
@@ -260,12 +280,37 @@ BaseType_t KVStore_xCommitChanges( void )
 				}
 				gKeyValueStore.table[ i ].xChangePending = pdFALSE;
 			}
+        	else if ((i  == KVS_CLAIM_CERT_ID ))
+			{
+        		xResult = provisionCertificate(xP11Session,
+												(char*) gKeyValueStore.table[i].value,
+												gKeyValueStore.table[i].valueLength,
+												pkcs11configLABEL_CLAIM_CERTIFICATE);
+
+				if (xResult != CKR_OK)
+				{
+					LogError( ( "Failed to store claim certificate." ) );
+					return pdFALSE;
+				}
+			}
+        	else if ((i  == KVS_CLAIM_PRIVKEY_ID ))
+			{
+        		xResult = provisionPrivateKey(xP11Session,
+												(char*) gKeyValueStore.table[i].value,
+												gKeyValueStore.table[i].valueLength,
+												pkcs11configLABEL_CLAIM_PRIVATE_KEY);
+
+				if (xResult != CKR_OK)
+				{
+					LogError( ( "Failed to store claim private key." ) );
+					return pdFALSE;
+				}
+			}
         	/*
         	 * Check if others
         	 */
         	else
         	{
-//        		gKeyValueStore.table[ i ].value = GetStringValue(i,gKeyValueStore.table[ i ].valueLength);
         		xSuccess = xprvWriteValueToImpl((KVStoreKey_t)i,(char *)gKeyValueStore.table[ i ].value,
         		    											gKeyValueStore.table[ i ].valueLength);
 				if (xSuccess == pdFALSE)
@@ -277,6 +322,7 @@ BaseType_t KVStore_xCommitChanges( void )
 
         }
     }
+    xPkcs11CloseSession( xP11Session );
     return xSuccess;
 }
 
@@ -392,7 +438,7 @@ int32_t vprvCacheInit( void )
     {
         /* pvData pointer should be NULL on startup */
 
-    	if ((i  == KVS_DEVICE_CERT_ID ) || (i  == KVS_DEVICE_PRIVKEY_ID )|| (i  == KVS_DEVICE_PUBKEY_ID ))
+    	if ((i  == KVS_DEVICE_CERT_ID ) || (i  == KVS_DEVICE_PRIVKEY_ID ) || (i  == KVS_DEVICE_PUBKEY_ID ) || (i  == KVS_CLAIM_CERT_ID )|| (i  == KVS_CLAIM_PRIVKEY_ID ))
     	{
     		continue;
     	}
@@ -410,10 +456,6 @@ int32_t vprvCacheInit( void )
 				strcpy( gKeyValueStore.table[i ].key, keys[ i ] );
 				( void ) xprvReadValueFromImpl( (KVStoreKey_t)i,  &xValue, pxLength, *pxLength );
 				gKeyValueStore.table[ i ].value = xValue;
-			}
-			else
-			{
-				return xNvLength;
 			}
     	}
 
@@ -506,12 +548,6 @@ char *GetStringValue( KVStoreKey_t key, size_t  pxLength )
 			pcBuffer[ xSizeWritten] = '\0';
 		}
 	}
-
-//	if( pxLength != NULL )
-//	{
-//		*pxLength = xSizeWritten;
-//	}
-
 	return pcBuffer;
 }
 
