@@ -396,7 +396,7 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 
 	if( result != pdPASS )
 	{
-		sprintf(pcWriteBuffer, "Error.\r\n" );
+		sprintf(pcWriteBuffer, "Error.\r\n\r\n" );
 	}
 
 	return pdFALSE;
