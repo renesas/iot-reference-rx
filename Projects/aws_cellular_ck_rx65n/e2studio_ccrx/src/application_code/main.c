@@ -202,6 +202,7 @@ void main( void )
 void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
+	extern void CLI_Support_Settings(void);
 	CLI_Support_Settings();
 
     /* Start logging task. */
@@ -386,7 +387,7 @@ static bool _wifiEnable( void )
 	if(CELLULAR_SUCCESS == ret )
 	{
 		/* Set SIM Operator */
-		ret = R_CELLULAR_SetOperator(&cellular_ctrl, “standard”);
+		ret = R_CELLULAR_SetOperator(&cellular_ctrl, "standard");
 	}
 #endif /* This is enable from R_Cellular Driver rev1.10 */
 
@@ -396,14 +397,14 @@ static bool _wifiEnable( void )
 		/* !! Please must set your cellular band not to connect band that not support your region  !!  */
 		/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 		/* Show band setting for cellular */
-		configPRINTF(("Set the band of Cellular. Set bands:" CELLULAR_BAND_CONFIG ));
+		configPRINTF(("Set the band of Cellular. Set bands %s:" CELLULAR_BAND_CONFIG ));
 		/* Set cellular bands */
 		ret = R_CELLULAR_SetBand(&cellular_ctrl, CELLULAR_BAND_CONFIG);
 	}
 
 	if(CELLULAR_SUCCESS == ret )
 	{
-		configPRINTF(("Connect to AccessPoint. \n\r"));
+		configPRINTF(("Connect to AccessPoint. \r\n"));
 		configPRINTF(("It takes around 3 or 5 minute when you connect to it first time. \r\n "));
 		result = _wifiConnectAccessPoint();
 	}
