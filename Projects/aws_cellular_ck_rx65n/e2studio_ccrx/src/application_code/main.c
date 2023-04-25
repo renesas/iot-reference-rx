@@ -383,7 +383,7 @@ static bool _wifiEnable( void )
 	e_cellular_err_t ret = R_CELLULAR_Open(&cellular_ctrl, NULL);
 
 
-#if 0 /* This is enable from R_Cellular Driver rev1.10 */
+#if 1 /* This is enable from R_Cellular Driver rev1.10 */
 	if(CELLULAR_SUCCESS == ret )
 	{
 		/* Set SIM Operator */
