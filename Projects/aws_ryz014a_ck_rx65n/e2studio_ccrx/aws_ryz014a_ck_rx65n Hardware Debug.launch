@@ -3,7 +3,7 @@
     <booleanAttribute key=".setStepMode" value="false"/>
     <stringAttribute key="com.renesas.cdt.core.additionalServerArgs" value=""/>
     <intAttribute key="com.renesas.cdt.core.connectionTimeout" value="30"/>
-    <stringAttribute key="com.renesas.cdt.core.imageFileName" value="${workspace_loc:\test_aws_cellular_ck_rx65n\HardwareDebug/test_aws_cellular_ck_rx65n.x}"/>
+    <stringAttribute key="com.renesas.cdt.core.imageFileName" value="${workspace_loc:\aws_ryz014a_ck_rx65n\HardwareDebug/aws_ryz014a_ck_rx65n.x}"/>
     <stringAttribute key="com.renesas.cdt.core.initCommands" value=""/>
     <stringAttribute key="com.renesas.cdt.core.ipAddress" value="localhost"/>
     <stringAttribute key="com.renesas.cdt.core.jtagDevice" value="E2 Lite (RX)"/>
@@ -24,7 +24,7 @@
     <stringAttribute key="com.renesas.cdt.core.secondGDBExe" value="green_dsp-elf-gdb"/>
     <booleanAttribute key="com.renesas.cdt.core.secondGDBSupport" value="false"/>
     <intAttribute key="com.renesas.cdt.core.secondGdbPortNumber" value="61237"/>
-    <stringAttribute key="com.renesas.cdt.core.serverParam" value="-g E2LITE  -t R5F565NE_DUAL -uConnectionTimeout= 30 -uClockSrcHoco= 1 -uAllowClockSourceInternal= 1 -uUseFine= 1 -uFineBaudRate= &quot;1.50&quot; -w 0 -z &quot;0&quot; -uRegisterSetting= &quot;0&quot; -uModePin= &quot;0&quot; -uChangeStartupBank= 0 -uStartupBank= &quot;0&quot; -uDebugMode= &quot;0&quot; -uExecuteProgram= 0 -uIdCode= &quot;FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF&quot; -uresetOnReload= 1 -n 0 -uWorkRamAddress= &quot;1000&quot; -uverifyOnWritingMemory= 0 -uProgReWriteIRom= 0 -uProgReWriteDFlash= 0 -uhookWorkRamAddr= &quot;0x3fdd0&quot; -uhookWorkRamSize= &quot;0x230&quot; -uOSRestriction= 0"/>
+    <stringAttribute key="com.renesas.cdt.core.serverParam" value="-g E2LITE  -t R5F565NE_DUAL -uConnectionTimeout= 30 -uClockSrcHoco= 0 -uInputClock= &quot;24&quot; -uPTimerClock= &quot;120000000&quot; -uAllowClockSourceInternal= 1 -uUseFine= 1 -uFineBaudRate= &quot;1.50&quot; -w 0 -z &quot;0&quot; -uRegisterSetting= &quot;0&quot; -uModePin= &quot;0&quot; -uChangeStartupBank= 0 -uStartupBank= &quot;0&quot; -uDebugMode= &quot;0&quot; -uExecuteProgram= 0 -uIdCode= &quot;FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF&quot; -uresetOnReload= 1 -n 0 -uWorkRamAddress= &quot;1000&quot; -uverifyOnWritingMemory= 0 -uProgReWriteIRom= 0 -uProgReWriteDFlash= 0 -uhookWorkRamAddr= &quot;0x3fdd0&quot; -uhookWorkRamSize= &quot;0x230&quot; -uOSRestriction= 0"/>
     <booleanAttribute key="com.renesas.cdt.core.setResume" value="true"/>
     <booleanAttribute key="com.renesas.cdt.core.setStopAt" value="true"/>
     <booleanAttribute key="com.renesas.cdt.core.startServer" value="true"/>
@@ -82,7 +82,7 @@
     <intAttribute key="org.eclipse.cdt.debug.gdbjtag.core.delay" value="0"/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.doHalt" value="false"/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.doReset" value="false"/>
-    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageFileName" value="C:\downloads\iot-reference-rx-fork\Projects\test_aws_cellular_ck_rx65n\e2studio_ccrx\HardwareDebug\test_aws_cellular_ck_rx65n.x"/>
+    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageFileName" value="C:\work\non-blocking-littleFS\Projects\aws_ryz014a_ck_rx65n\e2studio_ccrx\HardwareDebug\aws_ryz014a_ck_rx65n.x"/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageOffset" value=""/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.initCommands" value=""/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.loadImage" value="true"/>
@@ -91,9 +91,9 @@
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.runCommands" value=""/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.setPcRegister" value="false"/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.setResume" value="false"/>
-    <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.setStopAt" value="true"/>
+    <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.setStopAt" value="false"/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.stopAt" value="main"/>
-    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.symbolsFileName" value="C:\downloads\iot-reference-rx-fork\Projects\test_aws_cellular_ck_rx65n\e2studio_ccrx\HardwareDebug\test_aws_cellular_ck_rx65n.x"/>
+    <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.symbolsFileName" value="C:\work\non-blocking-littleFS\Projects\aws_ryz014a_ck_rx65n\e2studio_ccrx\HardwareDebug\aws_ryz014a_ck_rx65n.x"/>
     <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.symbolsOffset" value=""/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.useFileForImage" value="false"/>
     <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.useFileForSymbols" value="false"/>
@@ -102,14 +102,14 @@
     <stringAttribute key="org.eclipse.cdt.dsf.gdb.DEBUG_NAME" value="rx-elf-gdb -rx-force-v2"/>
     <booleanAttribute key="org.eclipse.cdt.dsf.gdb.NON_STOP" value="true"/>
     <intAttribute key="org.eclipse.cdt.launch.ATTR_BUILD_BEFORE_LAUNCH_ATTR" value="2"/>
-    <booleanAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN" value="true"/>
+    <booleanAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN" value="false"/>
     <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN_SYMBOL" value="main"/>
-    <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="HardwareDebug/test_aws_cellular_ck_rx65n.x"/>
-    <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="test_aws_cellular_ck_rx65n"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="HardwareDebug/aws_ryz014a_ck_rx65n.x"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="aws_ryz014a_ck_rx65n"/>
     <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="false"/>
     <stringAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_ID_ATTR" value=""/>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-        <listEntry value="/test_aws_cellular_ck_rx65n"/>
+        <listEntry value="/aws_ryz014a_ck_rx65n"/>
     </listAttribute>
     <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
         <listEntry value="4"/>
