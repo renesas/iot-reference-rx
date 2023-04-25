@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+/***********************************************************************************************************************
+  Purpose: Module Description File (MDF) Example (Schema Version 2.0)
+           This is a description of a sample FIT module configuration file
+***********************************************************************************************************************/
+-->
+<module xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="2.0" xs:noNamespaceSchemaLocation="schema_mdf_2.00.xsd">
+    <fileVersion>1.00</fileVersion>
+    <formatVersion>2.00</formatVersion>
+    <fileTemplate></fileTemplate>
+    <configuration>
+        <property id="configENABLE_BACKWARD_COMPATIBILITY" display="Backward Compatibility" default="1" type="checkbox">
+            <option id="configENABLE_BACKWARD_COMPATIBILITY.0" display="Disable" value="0"/>
+            <option id="configENABLE_BACKWARD_COMPATIBILITY.1" display="Enable" value="1"/>
+            <description>Enable: enable backward compatibility.
+Disable: disable backward compatibility.</description>
+        </property>
+        <property id="configUSE_PREEMPTION" display="RTOS scheduler" default="1" type="combobox">
+            <option id="configUSE_PREEMPTION.0" display="Cooperative" value="0"/>
+            <option id="configUSE_PREEMPTION.1" display="Preemptive" value="1"/>
+            <description>Enable: use the preemptive RTOS scheduler.
+Disable: use the cooperative RTOS scheduler.</description>
+        </property>
+        <property id="configUSE_PORT_OPTIMISED_TASK_SELECTION" display="Port optimised task selection" default="0" type="checkbox">
+            <option id="configUSE_PORT_OPTIMISED_TASK_SELECTION.0" display="Disable" value="0"/>
+            <option id="configUSE_PORT_OPTIMISED_TASK_SELECTION.1" display="Enable" value="1"/>
+            <description>Enable: enable port optimised task selection
+Disable: disable port optimised task selection </description>
+        </property>
+        <property id="configMAX_PRIORITIES" display="Maximum number of priorities to the application task" default="7" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configMAX_PRIORITIES}")</constraint>
+            <constraint display="Value must be in the range 1 ~ 32">("${configMAX_PRIORITIES}" &gt;= 1) &amp;&amp; ("${configMAX_PRIORITIES}" &lt;= 32)</constraint>
+            <description>The number of priorities available to the application tasks. Any number of tasks can share the same priority. Co-routines are prioritised separately - see configMAX_CO_ROUTINE_PRIORITIES. 
+Each available priority consumes RAM within the RTOS kernel so this value should not be set any higher than actually required by your application. </description>
+        </property>
+        <property id="configTICK_RATE_HZ" display="The frequency of the RTOS tick interrupt" default="1000" type="textbox">
+            <description>The tick interrupt is used to measure time. The RTOS demo applications all use a tick rate of 1000Hz.
+This is used to test the RTOS kernel and is higher than would normally be  required.
+A high tick rate frequency will have the effect of reducing the 'time slice' given to each task.</description>
+        </property>
+        <property id="configMINIMAL_STACK_SIZE" display="The size of the stack used by the idle task" default="( unsigned short ) 512" type="textbox">
+            <description>Generally this should not be reduced from the value set in the FreeRTOSConfig.h file provided with the demo application for the port you are using.
+The stack size is specified in words, not bytes.</description>
+        </property>
+        <property id="configTOTAL_HEAP_SIZE" display="The total amount of RAM available in the FreeRTOS heap" default="( size_t ) ( 128U * 1024U )" type="textbox">
+            <description>This value will only be used if configSUPPORT_DYNAMIC_ALLOCATION is set to 1 and the application makes use of one of the sample memory allocation schemes provided in the FreeRTOS source code download.</description>
+        </property>
+        <property id="configMAX_TASK_NAME_LEN" display="The maximum permissible length of name" default="12" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configMAX_TASK_NAME_LEN}")</constraint>
+            <constraint display="Value must be in the range 1 ~ 255">("${configMAX_TASK_NAME_LEN}" &gt;= 1) &amp;&amp; ("${configMAX_TASK_NAME_LEN}" &lt;= 255)</constraint>
+            <description>The maximum permissible of the descriptive name given to a task when the task is created.
+The length is specified in the number of characters including the NULL termination byte.</description>
+        </property>
+        <property id="configUSE_TRACE_FACILITY" display="Use trace facility" default="1" type="checkbox">
+            <option id="configUSE_TRACE_FACILITY.0" display="Disable" value="0"/>
+            <option id="configUSE_TRACE_FACILITY.1" display="Enable" value="1"/>
+            <description>Enable: include additional structure members and functions to assist with execution visualisation and tracing. 
+Disable: omit.</description>
+        </property>
+        <property id="configUSE_16_BIT_TICKS" display="Use 16bit ticks" default="0" type="checkbox">
+            <option id="configUSE_16_BIT_TICKS.0" display="Disable" value="0"/>
+            <option id="configUSE_16_BIT_TICKS.1" display="Enable" value="1"/>
+            <description>Time is measured in 'ticks' - which is the number of times the tick interrupt has executed since the RTOS kernel was started. The tick count is held in a variable of type TickType_t. 
+Enable: use 16bit_ticks
+Disable: use 32bit_ticks</description>
+        </property>
+        <property id="configIDLE_SHOULD_YIELD" display="Idle should yield" default="1" type="checkbox">
+            <option id="configIDLE_SHOULD_YIELD.0" display="Disable" value="0"/>
+            <option id="configIDLE_SHOULD_YIELD.1" display="Enable" value="1"/>
+            <description>Enable: Idle task will yield immediately if any other task at the idle priority is ready to run. That task will share the same time slice with idle task.
+Disable: prevents the idle task from yielding processing time until the end of time slice. This ensure all tasks at the idle priority are allocated an equal amount of processing time.</description>
+        </property>
+        <property id="configUSE_MUTEXES" display="Mutex functionality" default="1" type="checkbox">
+            <option id="configUSE_MUTEXES.0" display="Disable" value="0"/>
+            <option id="configUSE_MUTEXES.1" display="Enable" value="1"/>
+            <description>Enable: include mutex functionality in the build.
+Disable: omit mutex functionality from the build.
+Readers should familiarise themselves with the differences between mutexes and binary semaphores in relation to the FreeRTOS functionality. </description>
+        </property>
+        <property id="configUSE_RECURSIVE_MUTEXES" display="Recursive mutex functionality" default="1" type="checkbox">
+            <option id="configUSE_RECURSIVE_MUTEXES.0" display="Disable" value="0"/>
+            <option id="configUSE_RECURSIVE_MUTEXES.1" display="Enable" value="1"/>
+            <description>Enable: include recursive mutex functionality in the build.
+Disable: omit recursive mutex functionality from the build.</description>
+        </property>
+        <property id="configQUEUE_REGISTRY_SIZE" display="Queue registry size" default="0" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configQUEUE_REGISTRY_SIZE}")</constraint>
+            <constraint display="Value must be equal or greater than 0">("${configQUEUE_REGISTRY_SIZE}" &gt;= 0) </constraint>
+            <description>The queue registry has two purposes, both of which are associated with RTOS kernel aware debugging:
+1.It allows a textual name to be associated with a queue for easy queue identification within a debugging GUI
+2.It contains the information required by a debugger to locate each registered queue and semaphore.
+The queue registry has no purpose unless you are using a RTOS kernel aware debugger.
+configQUEUE_REGISTRY_SIZE defines the maximum number of queues and semaphores that can be registered. Only those queues and semaphores that you want to view using a RTOS kernel aware debugger need be registered.</description>
+        </property>
+        <property id="configUSE_APPLICATION_TASK_TAG" display="Use application task tag" default="0" type="checkbox">
+            <option id="configUSE_APPLICATION_TASK_TAG.0" display="Disable" value="0"/>
+            <option id="configUSE_APPLICATION_TASK_TAG.1" display="Enable" value="1"/>
+            <description>Enable: vTaskSetApplicationTaskTag to be available.
+Disable: vTaskSetApplicationTaskTag to be unavailable.</description>
+        </property>
+        <property id="configUSE_COUNTING_SEMAPHORES" display="Counting semaphore functionality" default="1" type="checkbox">
+            <option id="configUSE_COUNTING_SEMAPHORES.0" display="Disable" value="0"/>
+            <option id="configUSE_COUNTING_SEMAPHORES.1" display="Enable" value="1"/>
+            <description>Enable: include counting semaphore functionality in the build.
+Disable: omit counting semaphore functionality from the build.</description>
+        </property>
+        <property id="configUSE_ALTERNATIVE_API" display="Using Alternative API" default="0" type="checkbox">
+            <option id="configUSE_ALTERNATIVE_API.0" display="Disable" value="0"/>
+            <option id="configUSE_ALTERNATIVE_API.1" display="Enable" value="1"/>
+            <description>Enable: alternative API is enable.
+Disable: alternative API is disable.</description>
+        </property>
+        <property id="configNUM_THREAD_LOCAL_STORAGE_POINTERS" display="Thread local storage pointers" default="3" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configNUM_THREAD_LOCAL_STORAGE_POINTERS}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configNUM_THREAD_LOCAL_STORAGE_POINTERS}" &gt;= 0) &amp;&amp; ("${configNUM_THREAD_LOCAL_STORAGE_POINTERS}" &lt;= 255)</constraint>
+            <description>FreeRTOS+FAT requires 2 pointers if a CWD is supported.</description>
+        </property>
+        <property id="configRECORD_STACK_HIGH_ADDRESS" display="Record stack high address" default="1" type="checkbox">
+            <option id="configRECORD_STACK_HIGH_ADDRESS.0" display="Disable" value="0"/>
+            <option id="configRECORD_STACK_HIGH_ADDRESS.1" display="Enable" value="1"/>
+            <description>Enable: enable record stack high address
+Disable: disable record stack high address</description>
+        </property>
+        <property id="configUSE_DAEMON_TASK_STARTUP_HOOK" display="Daemon task startup hook" default="1" type="checkbox">
+            <option id="configUSE_DAEMON_TASK_STARTUP_HOOK.0" display="Disable" value="0"/>
+            <option id="configUSE_DAEMON_TASK_STARTUP_HOOK.1" display="Enable" value="1"/>
+            <description>Enable: use a daemon task startup hook.
+Disable: omit a a daemon task startup hook.</description>
+        </property>
+        <property id="configCPU_CLOCK_HZ" display="The frequency of the CPU clock" default="BSP_ICLK_HZ" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${configCPU_CLOCK_HZ}" == BSP_ICLK_HZ)</constraint>
+            <description>Enter the frequency in Hz at which the internal clock that driver the peripheral used to generate the tick interrupt will be executing - this is normally the same clock that drives the internal CPU clock. This value is required in order to correctly configure timer peripherals.</description>
+        </property>
+        <property id="configPERIPHERAL_CLOCK_HZ" display="The frequency of the PERIPHERAL clock" default="BSP_PCLKB_HZ" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${configPERIPHERAL_CLOCK_HZ}" == BSP_PCLK_HZ)</constraint>
+            <description>Enter the frequency of the PERIPHERAL clock.</description>
+        </property>
+        <property id="configUSE_QUEUE_SETS" display="Queue set functionality" default="1" type="checkbox">
+            <option id="configUSE_QUEUE_SETS.0" display="Disable" value="0"/>
+            <option id="configUSE_QUEUE_SETS.1" display="Enable" value="1"/>
+            <description>Enable: include queue set functionality (the ability to block, or pend, on multiple queues and semaphores).
+Disable: omit queue set functionality. </description>
+        </property>
+        <property id="configUSE_TICK_HOOK" display="Tick hook" default="0" type="checkbox">
+            <option id="configUSE_TICK_HOOK.0" display="Disable" value="0"/>
+            <option id="configUSE_TICK_HOOK.1" display="Enable" value="1"/>
+            <description>Enable: use a tick hook.
+Disable: omit a tick hook.</description>
+        </property>
+        <property id="configUSE_IDLE_HOOK" display="Idle hook" default="0" type="checkbox">
+            <option id="configUSE_IDLE_HOOK.0" display="Disable" value="0"/>
+            <option id="configUSE_IDLE_HOOK.1" display="Enable" value="1"/>
+            <description>Enable: use an idle hook.
+Disable: omit an idle hook.</description>
+        </property>
+        <property id="configUSE_MALLOC_FAILED_HOOK" display="The malloc() failed function" default="1" type="checkbox">
+            <option id="configUSE_MALLOC_FAILED_HOOK.0" display="Disable" value="0"/>
+            <option id="configUSE_MALLOC_FAILED_HOOK.1" display="Enable" value="1"/>
+            <description>Enable: Application must define a malloc() failed hook function.
+Disable: The malloc() failed function will not be called, even if one is defined.
+Malloc() failed hook functions must have the name and prototype shown below.
+Void vApplicationMallocFailedHook(void);</description>
+        </property>
+        <property id="configCHECK_FOR_STACK_OVERFLOW" display="Check for stack overflow" default="0" type="combobox">
+            <option id="configCHECK_FOR_STACK_OVERFLOW.0" display="Not Check" value="0"/>
+            <option id="configCHECK_FOR_STACK_OVERFLOW.1" display="Check by stack pointer" value="1"/>
+            <option id="configCHECK_FOR_STACK_OVERFLOW.2" display="Check by tick value and stack pointer." value="2"/>
+            <description>Not Check: Not check for stack overflow
+Check by stack pointer: Check for stack overflow. The stack overflow hook function is called if the stack pointer contain a value that is outside of the valid stack range.
+Check by stack pointer and tick value: Check for stack overflow. The stack overflow hook function is called if the stack pointer contain a value that is outside of the valid stack range or any of the last 16 bytes not remain at their initial value.</description>
+        </property>
+        <property id="configUSE_TIMERS" display="Software timer functionality" default="1" type="checkbox">
+            <option id="configUSE_TIMERS.0" display="Disable" value="0"/>
+            <option id="configUSE_TIMERS.1" display="Enable" value="1"/>
+            <description>Enable: include software timer functionality.
+Disable: omit software timer functionality.</description>
+        </property>
+        <property id="configTIMER_TASK_PRIORITY" display="The priority of the software timer task" default="6" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configTIMER_TASK_PRIORITY}")</constraint>
+            <constraint display="Value must be in the range 1 ~ 32">("${configTIMER_TASK_PRIORITY}" &gt;= 1) &amp;&amp; ("${configTIMER_TASK_PRIORITY}" &lt;= 32)</constraint>
+            <constraint display="Value must be less than the maximum number of priorities to the application task">("${configTIMER_TASK_PRIORITY}" &lt; ${configMAX_PRIORITIES}) </constraint>
+            <description>Sets the priority of the software timer service/daemon task. See the FreeRTOS software timers page for a full description. </description>
+        </property>
+        <property id="configTIMER_QUEUE_LENGTH" display="The length of the software timer command queue" default="5" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configTIMER_QUEUE_LENGTH}")</constraint>
+            <constraint display="Value must be equal or greater than 0">("${configTIMER_QUEUE_LENGTH}" &gt;= 0) </constraint>
+            <description>Sets the length of the software timer command queue. See the FreeRTOS software timers page for a full description. </description>
+        </property>
+        <property id="configTIMER_TASK_STACK_DEPTH" display="The stack depth allocated to the software timer task" default="configMINIMAL_STACK_SIZE * 6" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${configTIMER_TASK_STACK_DEPTH}" == configMINIMAL_STACK_SIZE) </constraint>
+            <description>Sets the stack depth allocated to the software timer service/daemon task. See the FreeRTOS software timers page for a full description. </description>
+        </property>
+        <property id="configKERNEL_INTERRUPT_PRIORITY" display="Kernel interrupt priority" default="1" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configKERNEL_INTERRUPT_PRIORITY}")</constraint>
+            <constraint display="Value must be in range 0 ~ configMAX_SYSCALL_INTERRUPT_PRIORITY - 1">("${configKERNEL_INTERRUPT_PRIORITY}" &gt;= 0) &amp;&amp; ("${configKERNEL_INTERRUPT_PRIORITY}" &lt;= ${configMAX_SYSCALL_INTERRUPT_PRIORITY} - 1)</constraint>
+            <description>The interrupt priority used by the kernel itself for the tick interrupt and the pended interrupt.  This would normally be the lowest priority.</description>
+        </property>
+        <property id="configMAX_SYSCALL_INTERRUPT_PRIORITY" display="Maximum syscall interrupt priority" default="4" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configMAX_SYSCALL_INTERRUPT_PRIORITY}")</constraint>
+            <constraint display="Value must be in range configKERNEL_INTERRUPT_PRIORITY + 1 ~ configMAX_PRIORITIES - 1">("${configMAX_SYSCALL_INTERRUPT_PRIORITY}" &gt;= ${configKERNEL_INTERRUPT_PRIORITY} + 1) &amp;&amp; ("${configMAX_SYSCALL_INTERRUPT_PRIORITY}" &lt;= ${configMAX_PRIORITIES} - 1)</constraint>
+            <description>The maximum interrupt priority from which FreeRTOS API calls can be made.
+Interrupts that use a priority above this will not be effected by anything the kernel is doing.</description>
+        </property>
+        <property id="configTICK_VECTOR" display="Tick vector" default="_CMT0_CMI0" type="combobox">
+            <option id="configTICK_VECTOR._CMT0_CMI0" display="_CMT0_CMI0" value="_CMT0_CMI0"/>
+            <option id="configTICK_VECTOR._CMT1_CMI1" display="_CMT1_CMI1" value="_CMT1_CMI1"/>
+            <option id="configTICK_VECTOR._CMT2_CMI2" display="_CMT2_CMI2" value="_CMT2_CMI2"/>
+            <option id="configTICK_VECTOR._CMT3_CMI3" display="_CMT3_CMI3" value="_CMT3_CMI3"/>
+            <description>The peripheral used to generate the tick interrupt is configured as part of the application code. 
+This constant should be set to the vector number of the peripheral chosen. 
+As supplied this is CMT0.</description>
+        </property>
+        <property id="configUSE_EVENT_GROUPS" display="Event groups" default="1" type="checkbox">
+            <option id="configUSE_EVENT_GROUPS.0" display="Disable" value="0"/>
+            <option id="configUSE_EVENT_GROUPS.1" display="Enable" value="1"/>
+            <description>Enable: enable use of event groups
+Disable: disable use of event groups</description>
+        </property>
+        <property id="configGENERATE_RUN_TIME_STATS" display="Run time statistics" default="0" type="checkbox">
+            <option id="configGENERATE_RUN_TIME_STATS.0" display="Disable" value="0"/>
+            <option id="configGENERATE_RUN_TIME_STATS.1" display="Enable" value="1"/>
+            <description>Enable: Run time statistics. Once this has been set, the other two macros must also be defined to achieve a successful compilation.
+portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()
+portGET_RUN_TIME_COUNTER_VALUE()
+Disable: Omit time statistics.</description>
+        </property>
+        <property id="configUSE_CO_ROUTINES" display="Co-routine" default="0" type="checkbox">
+            <option id="configUSE_CO_ROUTINES.0" display="Disable" value="0"/>
+            <option id="configUSE_CO_ROUTINES.1" display="Enable" value="1"/>
+            <description>Enable:  include co-routine functionality in the build.
+To include co-routines croutine.c must be included in the project. 
+Disable:  omit co-routine functionality from the build. </description>
+        </property>
+        <property id="configMAX_CO_ROUTINE_PRIORITIES" display="Maximum number of priorities to the application co-routines" default="2" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configMAX_CO_ROUTINE_PRIORITIES}")</constraint>
+            <constraint display="Value must be in the range 1 ~ 32">("${configMAX_CO_ROUTINE_PRIORITIES}" &gt;= 1) &amp;&amp; ("${configMAX_CO_ROUTINE_PRIORITIES}" &lt;= 32)</constraint>
+            <description>The number of priorities available to the application co-routines. Any number of co-routines can share the same priority. Tasks are prioritised separately -see configMAX_PRIORITIES. </description>
+        </property>
+        <property id="configSUPPORT_DYNAMIC_ALLOCATION" display="Dynamic allocation" default="1" type="checkbox">
+            <option id="configSUPPORT_DYNAMIC_ALLOCATION.0" display="Disable" value="0"/>
+            <option id="configSUPPORT_DYNAMIC_ALLOCATION.1" display="Enable" value="1"/>
+            <description>Enable: enable dynamic allocation
+Disable: disable dynamic allocation</description>
+        </property>
+        <property id="configSUPPORT_STATIC_ALLOCATION" display="Static allocation" default="1" type="checkbox">
+            <option id="configSUPPORT_STATIC_ALLOCATION.0" display="Disable" value="0"/>
+            <option id="configSUPPORT_STATIC_ALLOCATION.1" display="Enable" value="1"/>
+            <description>Enable: enable static allocation
+Disable: disable static allocation</description>
+        </property>
+        <property id="INCLUDE_vTaskPrioritySet" display="vTaskPrioritySet" default="1" type="checkbox">
+            <option id="INCLUDE_vTaskPrioritySet.0" display="Disable" value="0"/>
+            <option id="INCLUDE_vTaskPrioritySet.1" display="Enable" value="1"/>
+            <description>Enable: include the  vTaskPrioritySet() API function
+Disable: exclude the vTaskPrioritySet() from your build</description>
+        </property>
+        <property id="INCLUDE_uxTaskPriorityGet" display="uxTaskPriorityGet" default="1" type="checkbox">
+            <option id="INCLUDE_uxTaskPriorityGet.0" display="Disable" value="0"/>
+            <option id="INCLUDE_uxTaskPriorityGet.1" display="Enable" value="1"/>
+            <description>Enable: include the  uxTaskPriorityGet() API function
+Disable: exclude the uxTaskPriorityGet() from your build</description>
+        </property>
+        <property id="INCLUDE_vTaskDelete" display="vTaskDelete" default="1" type="checkbox">
+            <option id="INCLUDE_vTaskDelete.0" display="Disable" value="0"/>
+            <option id="INCLUDE_vTaskDelete.1" display="Enable" value="1"/>
+            <description>Enable: include the vTaskDelete() API function
+Disable: exclude the vTaskDelete() from your build</description>
+        </property>
+        <property id="INCLUDE_vTaskCleanUpResources" display="vTaskCleanUpResources" default="0" type="checkbox">
+            <option id="INCLUDE_vTaskCleanUpResources.0" display="Disable" value="0"/>
+            <option id="INCLUDE_vTaskCleanUpResources.1" display="Enable" value="1"/>
+            <description>Enable: include the  vTaskCleanUpResources() API function
+Disable: exclude the vTaskCleanUpResources() from your build</description>
+        </property>
+        <property id="INCLUDE_vTaskSuspend" display="vTaskSuspend" default="1" type="checkbox">
+            <option id="INCLUDE_vTaskSuspend.0" display="Disable" value="0"/>
+            <option id="INCLUDE_vTaskSuspend.1" display="Enable" value="1"/>
+            <description>Enable: include the vTaskSuspend() API function
+Disable: exclude the vTaskSuspend() from your build</description>
+        </property>
+        <property id="INCLUDE_vTaskDelayUntil" display="vTaskDelayUntil" default="1" type="checkbox">
+            <option id="INCLUDE_vTaskDelayUntil.0" display="Disable" value="0"/>
+            <option id="INCLUDE_vTaskDelayUntil.1" display="Enable" value="1"/>
+            <description>Enable: include the vTaskDelayUntil() API function
+Disable: exclude the vTaskDelayUntil() from your build</description>
+        </property>
+        <property id="INCLUDE_vTaskDelay" display="vTaskDelay" default="1" type="checkbox">
+            <option id="INCLUDE_vTaskDelay.0" display="Disable" value="0"/>
+            <option id="INCLUDE_vTaskDelay.1" display="Enable" value="1"/>
+            <description>Enable: include the vTaskDelay() API function
+Disable: exclude the vTaskDelay() from your build</description>
+        </property>
+        <property id="INCLUDE_uxTaskGetStackHighWaterMark" display="uxTaskGetStackHighWaterMark" default="1" type="checkbox">
+            <option id="INCLUDE_uxTaskGetStackHighWaterMark.0" display="Disable" value="0"/>
+            <option id="INCLUDE_uxTaskGetStackHighWaterMark.1" display="Enable" value="1"/>
+            <description>Enable: include the uxTaskGetStackHighWaterMark() API function
+Disable: exclude the uxTaskGetStackHighWaterMark() from your build</description>
+        </property>
+        <property id="INCLUDE_xTaskGetSchedulerState" display="xTaskGetSchedulerState" default="1" type="checkbox">
+            <option id="INCLUDE_xTaskGetSchedulerState.0" display="Disable" value="0"/>
+            <option id="INCLUDE_xTaskGetSchedulerState.1" display="Enable" value="1"/>
+            <description>Enable: include the xTaskGetSchedulerState() API function
+Disable: exclude the xTaskGetSchedulerState() from your build</description>
+        </property>
+        <property id="INCLUDE_xTimerGetTimerTaskHandle" display="xTimerGetTimerTaskHandle" default="0" type="checkbox">
+            <option id="INCLUDE_xTimerGetTimerTaskHandle.0" display="Disable" value="0"/>
+            <option id="INCLUDE_xTimerGetTimerTaskHandle.1" display="Enable" value="1"/>
+            <description>Enable: include the xTimerGetTimerTaskHandle() API function
+Disable: exclude the xTimerGetTimerTaskHandle() from your build</description>
+        </property>
+        <property id="INCLUDE_xTaskGetIdleTaskHandle" display="xTaskGetIdleTaskHandle" default="0" type="checkbox">
+            <option id="INCLUDE_xTaskGetIdleTaskHandle.0" display="Disable" value="0"/>
+            <option id="INCLUDE_xTaskGetIdleTaskHandle.1" display="Enable" value="1"/>
+            <description>Enable: include the xTaskGetIdleTaskHandle() API function
+Disable: exclude the xTaskGetIdleTaskHandle() from your build</description>
+        </property>
+        <property id="INCLUDE_xQueueGetMutexHolder" display="xQueueGetMutexHolder" default="1" type="checkbox">
+            <option id="INCLUDE_xQueueGetMutexHolder.0" display="Disable" value="0"/>
+            <option id="INCLUDE_xQueueGetMutexHolder.1" display="Enable" value="1"/>
+            <description>Enable: include the xQueueGetMutexHolder() API function
+Disable: exclude the xQueueGetMutexHolder() from your build</description>
+        </property>
+        <property id="INCLUDE_eTaskGetState" display="eTaskGetState" default="1" type="checkbox">
+            <option id="INCLUDE_eTaskGetState.0" display="Disable" value="0"/>
+            <option id="INCLUDE_eTaskGetState.1" display="Enable" value="1"/>
+            <description>Enable: include the eTaskGetState() API function
+Disable: exclude the eTaskGetState() from your build</description>
+        </property>
+        <property id="INCLUDE_xEventGroupSetBitsFromISR" display="xEventGroupSetBitsFromISR" default="1" type="checkbox">
+            <option id="INCLUDE_xEventGroupSetBitsFromISR.0" display="Disable" value="0"/>
+            <option id="INCLUDE_xEventGroupSetBitsFromISR.1" display="Enable" value="1"/>
+            <description>Enable: include the xEventGroupSetBitsFromISR() API function
+Disable: exclude the xEventGroupSetBitsFromISR() from your build</description>
+        </property>
+        <property id="INCLUDE_xTimerPendFunctionCall" display="xTimerPendFunctionCall" default="1" type="checkbox">
+            <option id="INCLUDE_xTimerPendFunctionCall.0" display="Disable" value="0"/>
+            <option id="INCLUDE_xTimerPendFunctionCall.1" display="Enable" value="1"/>
+            <description>Enable: include the xTimerPendFunctionCall() API function
+Disable: exclude the xTimerPendFunctionCall() from your build</description>
+        </property>
+        <property id="INCLUDE_xTaskGetCurrentTaskHandle" display="xTaskGetCurrentTaskHandle" default="1" type="checkbox">
+            <option id="INCLUDE_xTaskGetCurrentTaskHandle.0" display="Disable" value="0"/>
+            <option id="INCLUDE_xTaskGetCurrentTaskHandle.1" display="Enable" value="1"/>
+            <description>Enable: include the xTaskGetCurrentTaskHandle() API function
+Disable: exclude the xTaskGetCurrentTaskHandle() from your build</description>
+        </property>
+        <property id="INCLUDE_xTaskAbortDelay" display="xTaskAbortDelay" default="1" type="checkbox">
+            <option id="INCLUDE_xTaskAbortDelay.0" display="Disable" value="0"/>
+            <option id="INCLUDE_xTaskAbortDelay.1" display="Enable" value="1"/>
+            <description>Enable: include the xTaskAbortDelay() API function
+Disable: exclude the xTaskAbortDelay() from your build</description>
+        </property>
+        <property id="configUSE_STATS_FORMATTING_FUNCTIONS" display="Stats formatting function" default="1" type="checkbox">
+            <option id="configUSE_STATS_FORMATTING_FUNCTIONS.0" display="Disable" value="0"/>
+            <option id="configUSE_STATS_FORMATTING_FUNCTIONS.1" display="Enable" value="1"/>
+            <description>Enable: enable stats formatting function
+Disable: disable stats formatting function</description>
+        </property>
+        <property id="configPRINTF ( X )" display="configPRINTF ( X )" default="vLoggingPrintf X" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${configPRINTF ( X )}" == vLoggingPrintf X)</constraint>
+            <description>The function that implements FreeRTOS printf style output, and the macro that maps the configPRINTF() macros to that function.</description>
+        </property>
+        <property id="configPRINT( X )" display="configPRINT( X )" default="vLoggingPrint( X )" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${configPRINT( X )}" == vLoggingPrint( X ))</constraint>
+            <description>Non-format version thread-safe print</description>
+        </property>
+        <property id="configPRINT_STRING( x )" display="configPRINT_STRING( x )" default="uart_string_printf( x )" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${configPRINT_STRING( x )}" == uart_string_printf( x ))</constraint>
+            <description>Map the logging task's printf to the board specific output function.</description>
+        </property>
+        <property id="configLOGGING_MAX_MESSAGE_LENGTH" display="Max message length" default="192" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configLOGGING_MAX_MESSAGE_LENGTH}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configLOGGING_MAX_MESSAGE_LENGTH}" &gt;= 0) &amp;&amp; ("${configLOGGING_MAX_MESSAGE_LENGTH}" &lt;= 255)</constraint>
+            <description> Sets the length of the buffers into which logging messages are written - so also defines the maximum length of each log message. </description>
+        </property>
+        <property id="configLOGGING_INCLUDE_TIME_AND_TASK_NAME" display="Include time and task name" default="1" type="checkbox">
+            <option id="configLOGGING_INCLUDE_TIME_AND_TASK_NAME.0" display="Disable" value="0"/>
+            <option id="configLOGGING_INCLUDE_TIME_AND_TASK_NAME.1" display="Enable" value="1"/>
+            <description>Enable: include time and task name.
+Disable: omit  time and task name.</description>
+        </property>
+        <property id="configINCLUDE_DEMO_DEBUG_STATS" display="Include demo debug stats" default="1" type="checkbox">
+            <option id="configINCLUDE_DEMO_DEBUG_STATS.0" display="Disable" value="0"/>
+            <option id="configINCLUDE_DEMO_DEBUG_STATS.1" display="Enable" value="1"/>
+            <description>Enable: include demo debug stats.
+Disable: omit demo debug stats.</description>
+        </property>
+        <property id="configCOMMAND_INT_MAX_OUTPUT_SIZE" display="Max output size" default="1" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configCOMMAND_INT_MAX_OUTPUT_SIZE}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configCOMMAND_INT_MAX_OUTPUT_SIZE}" &gt;= 0) &amp;&amp; ("${configCOMMAND_INT_MAX_OUTPUT_SIZE}" &lt;= 255)</constraint>
+            <description>The size of the global output buffer that is available for use when there are multiple command interpreters running at once (for example, one on a UART and one on TCP/IP).  This is done to prevent an output buffer being defined by each implementation - which would waste RAM.  In this case, there is only one command interpreter running, and it has its own local output buffer, so the global buffer is just set to be one byte long as it is not used and should not take up unnecessary RAM.</description>
+        </property>
+        <property id="configMAC_ISR_SIMULATOR_PRIORITY" display="ISR simulator priority" default="configMAX_PRIORITIES - 1" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${configMAC_ISR_SIMULATOR_PRIORITY}" == (configMAX_PRIORITIES - 1))</constraint>
+            <description>Only used when running in the FreeRTOS Windows simulator.  Defines the priority of the task used to simulate Ethernet interrupts.</description>
+        </property>
+        <property id="configNETWORK_INTERFACE_TO_USE" display="Network interface" default="2L" type="textbox">
+            <description></description>
+        </property>
+        <property id="configECHO_SERVER_ADDR0" display="Echo server address 0" default="192" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configECHO_SERVER_ADDR0}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configECHO_SERVER_ADDR0}" &gt;= 0)  &amp;&amp; ("${configECHO_SERVER_ADDR0}" &lt;= 255)</constraint>
+            <description>Echo server address</description>
+        </property>
+        <property id="configECHO_SERVER_ADDR1" display="Echo server address 1" default="168" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configECHO_SERVER_ADDR1}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configECHO_SERVER_ADDR1}" &gt;= 0)  &amp;&amp; ("${configECHO_SERVER_ADDR1}" &lt;= 255)</constraint>
+            <description>Echo server address</description>
+        </property>
+        <property id="configECHO_SERVER_ADDR2" display="Echo server address 2" default="1" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configECHO_SERVER_ADDR2}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configECHO_SERVER_ADDR2}" &gt;= 0)  &amp;&amp; ("${configECHO_SERVER_ADDR2}" &lt;= 255)</constraint>
+            <description>Echo server address</description>
+        </property>
+        <property id="configECHO_SERVER_ADDR3" display="Echo server address 3" default="200" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configECHO_SERVER_ADDR3}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configECHO_SERVER_ADDR3}" &gt;= 0)  &amp;&amp; ("${configECHO_SERVER_ADDR3}" &lt;= 255)</constraint>
+            <description>Echo server address</description>
+        </property>
+        <property id="configTCP_ECHO_CLIENT_PORT" display="TCP echo client port" default="9999" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configECHO_SERVER_ADDR3}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 65535">("${configECHO_SERVER_ADDR3}" &gt;= 0)  &amp;&amp; ("${configECHO_SERVER_ADDR3}" &lt;= 65535)</constraint>
+            <description></description>
+        </property>
+        <property id="configMAC_ADDR0" display="MAC address 0" default="0x74" type="textbox">
+            <constraint display="Value must be an hexadecimal value">testHexInteger("${configMAC_ADDR0}")</constraint>
+            <constraint display="Value must be in the range 0x00 ~ 0xFF">("${configMAC_ADDR0}" &gt;= 0) &amp;&amp; ("${configMAC_ADDR0}"  &lt;= 255)</constraint>
+            <description>Mac address
+</description>
+        </property>
+        <property id="configMAC_ADDR1" display="MAC address 1" default="0x90" type="textbox">
+            <constraint display="Value must be an hexadecimal value">testHexInteger("${configMAC_ADDR1}")</constraint>
+            <constraint display="Value must be in the range 0x00 ~ 0xFF">("${configMAC_ADDR1}" &gt;= 0) &amp;&amp; ("${configMAC_ADDR1}"  &lt;= 255)</constraint>
+            <description>Mac address</description>
+        </property>
+        <property id="configMAC_ADDR2" display="MAC address 2" default="0x50" type="textbox">
+            <constraint display="Value must be an hexadecimal value">testHexInteger("${configMAC_ADDR2}")</constraint>
+            <constraint display="Value must be in the range 0x00 ~ 0xFF">("${configMAC_ADDR2}" &gt;= 0) &amp;&amp; ("${configMAC_ADDR2}"  &lt;= 255)</constraint>
+            <description>Mac address</description>
+        </property>
+        <property id="configMAC_ADDR3" display="MAC address 3" default="0x00" type="textbox">
+            <constraint display="Value must be an hexadecimal value">testHexInteger("${configMAC_ADDR3}")</constraint>
+            <constraint display="Value must be in the range 0x00 ~ 0xFF">("${configMAC_ADDR3}" &gt;= 0) &amp;&amp; ("${configMAC_ADDR3}"  &lt;= 255)</constraint>
+            <description>Mac address</description>
+        </property>
+        <property id="configMAC_ADDR4" display="MAC address 4" default="0x79" type="textbox">
+            <constraint display="Value must be an hexadecimal value">testHexInteger("${configMAC_ADDR4}")</constraint>
+            <constraint display="Value must be in the range 0x0 ~ 0xFF ">("${configMAC_ADDR4}" &gt;= 0) &amp;&amp; ("${configMAC_ADDR4}"  &lt;= 255)</constraint>
+            <description>Mac address</description>
+        </property>
+        <property id="configMAC_ADDR5" display="MAC address 5" default="0x03" type="textbox">
+            <constraint display="Value must be an hexadecimal value">testHexInteger("${configMAC_ADDR5}")</constraint>
+            <constraint display="Value must be in the range 0x00 ~ 0xFF">("${configMAC_ADDR5}" &gt;= 0) &amp;&amp; ("${configMAC_ADDR5}"  &lt;= 255)</constraint>
+            <description>Mac address</description>
+        </property>
+        <property id="configIP_ADDR0" display="IP addresss configuration 0" default="172" type="textbox">
+            <constraint display="Invalid input">/^\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test("${configIP_ADDR0}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configIP_ADDR0}" &gt;= 0)  &amp;&amp; ("${configIP_ADDR0}" &lt;= 255)</constraint>
+            <description>default IP addresss configuration</description>
+        </property>
+        <property id="configIP_ADDR1" display="IP addresss configuration 1" default="27" type="textbox">
+            <constraint display="Invalid input">/^\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test("${configIP_ADDR1}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configIP_ADDR1}" &gt;= 0)  &amp;&amp; ("${configIP_ADDR1}" &lt;= 255)</constraint>
+            <description>default IP addresss configuration</description>
+        </property>
+        <property id="configIP_ADDR2" display="IP addresss configuration 2" default="49" type="textbox">
+            <constraint display="Invalid input">/^\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test("${configIP_ADDR2}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configIP_ADDR2}" &gt;= 0)  &amp;&amp; ("${configIP_ADDR2}" &lt;= 255)</constraint>
+            <description>default IP addresss configuration</description>
+        </property>
+        <property id="configIP_ADDR3" display="IP addresss configuration 3" default="127" type="textbox">
+            <constraint display="Invalid input">/^\b(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test("${configIP_ADDR3}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configIP_ADDR3}" &gt;= 0)  &amp;&amp; ("${configIP_ADDR3}" &lt;= 255)</constraint>
+            <description>default IP addresss configuration</description>
+        </property>
+        <property id="configGATEWAY_ADDR0" display="Gateway address 0" default="172" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configGATEWAY_ADDR0}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configGATEWAY_ADDR0}" &gt;= 0)  &amp;&amp; ("${configGATEWAY_ADDR0}" &lt;= 255)</constraint>
+            <description>Gateway address</description>
+        </property>
+        <property id="configGATEWAY_ADDR1" display="Gateway address 1" default="27" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configGATEWAY_ADDR1}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configGATEWAY_ADDR1}" &gt;= 0)  &amp;&amp; ("${configGATEWAY_ADDR1}" &lt;= 255)</constraint>
+            <description>Gateway address</description>
+        </property>
+        <property id="configGATEWAY_ADDR2" display="Gateway address 2" default="49" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configGATEWAY_ADDR2}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configGATEWAY_ADDR2}" &gt;= 0)  &amp;&amp; ("${configGATEWAY_ADDR2}" &lt;= 255)</constraint>
+            <description>Gateway address</description>
+        </property>
+        <property id="configGATEWAY_ADDR3" display="Gateway address 3" default="1" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configGATEWAY_ADDR3}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configGATEWAY_ADDR3}" &gt;= 0)  &amp;&amp; ("${configGATEWAY_ADDR3}" &lt;= 255)</constraint>
+            <description>Gateway address</description>
+        </property>
+        <property id="configDNS_SERVER_ADDR0" display="DNS server address  0" default="143" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configDNS_SERVER_ADDR0}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configDNS_SERVER_ADDR0}" &gt;= 0)  &amp;&amp; ("${configDNS_SERVER_ADDR0}" &lt;= 255)</constraint>
+            <description>DNS server address</description>
+        </property>
+        <property id="configDNS_SERVER_ADDR1" display="DNS server address 1" default="103" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configDNS_SERVER_ADDR1}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configDNS_SERVER_ADDR1}" &gt;= 0)  &amp;&amp; ("${configDNS_SERVER_ADDR1}" &lt;= 255)</constraint>
+            <description>DNS server address</description>
+        </property>
+        <property id="configDNS_SERVER_ADDR2" display="DNS server address 2" default="47" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configDNS_SERVER_ADDR2}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configDNS_SERVER_ADDR2}" &gt;= 0)  &amp;&amp; ("${configDNS_SERVER_ADDR2}" &lt;= 255)</constraint>
+            <description>DNS server address</description>
+        </property>
+        <property id="configDNS_SERVER_ADDR3" display="DNS server address 3" default="193" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${configDNS_SERVER_ADDR3}")</constraint>
+            <constraint display="Value must be in the range 0 ~ 255">("${configDNS_SERVER_ADDR3}" &gt;= 0)  &amp;&amp; ("${configDNS_SERVER_ADDR3}" &lt;= 255)</constraint>
+            <description>DNS server address</description>
+        </property>
+        <property id="configNET_MASK0" display="netmask configuration 0" default="255" type="combobox">
+            <option id="configNET_MASK0.0" display="0" value="0"/>
+            <option id="configNET_MASK0.128" display="128" value="128"/>
+            <option id="configNET_MASK0.192" display="192" value="192"/>
+            <option id="configNET_MASK0.224" display="224" value="224"/>
+            <option id="configNET_MASK0.240" display="240" value="240"/>
+            <option id="configNET_MASK0.248" display="248" value="248"/>
+            <option id="configNET_MASK0.252" display="252" value="252"/>
+            <option id="configNET_MASK0.254" display="254" value="254"/>
+            <option id="configNET_MASK0.255" display="255" value="255"/>
+            <description>default netmask configuration</description>
+        </property>
+        <property id="configNET_MASK1" display="netmask configuration 1" default="255" type="combobox">
+            <option id="configNET_MASK1.0" display="0" value="0"/>
+            <option id="configNET_MASK1.128" display="128" value="128"/>
+            <option id="configNET_MASK1.192" display="192" value="192"/>
+            <option id="configNET_MASK1.224" display="224" value="224"/>
+            <option id="configNET_MASK1.240" display="240" value="240"/>
+            <option id="configNET_MASK1.248" display="248" value="248"/>
+            <option id="configNET_MASK1.252" display="252" value="252"/>
+            <option id="configNET_MASK1.254" display="254" value="254"/>
+            <option id="configNET_MASK1.255" display="255" value="255"/>
+            <description>default netmask configuration</description>
+        </property>
+        <property id="configNET_MASK2" display="netmask configuration 2" default="255" type="combobox">
+            <option id="configNET_MASK2.0" display="0" value="0"/>
+            <option id="configNET_MASK2.128" display="128" value="128"/>
+            <option id="configNET_MASK2.192" display="192" value="192"/>
+            <option id="configNET_MASK2.224" display="224" value="224"/>
+            <option id="configNET_MASK2.240" display="240" value="240"/>
+            <option id="configNET_MASK2.248" display="248" value="248"/>
+            <option id="configNET_MASK2.252" display="252" value="252"/>
+            <option id="configNET_MASK2.254" display="254" value="254"/>
+            <option id="configNET_MASK2.255" display="255" value="255"/>
+            <description>default netmask configuration</description>
+        </property>
+        <property id="configNET_MASK3" display="netmask configuration 3" default="0" type="combobox">
+            <option id="configNET_MASK3.0" display="0" value="0"/>
+            <option id="configNET_MASK3.128" display="128" value="128"/>
+            <option id="configNET_MASK3.192" display="192" value="192"/>
+            <option id="configNET_MASK3.224" display="224" value="224"/>
+            <option id="configNET_MASK3.240" display="240" value="240"/>
+            <option id="configNET_MASK3.248" display="248" value="248"/>
+            <option id="configNET_MASK3.252" display="252" value="252"/>
+            <option id="configNET_MASK3.254" display="254" value="254"/>
+            <option id="configNET_MASK3.255" display="255" value="255"/>
+            <description>default netmask configuration</description>
+        </property>
+        <property id="configPRINT_PORT" display="UDP port" default="15000" type="textbox">
+            <description>The UDP port to which print messages are sent.</description>
+        </property>
+        <property id="configPROFILING" display="PROFILING" default="0" type="textbox">
+            <description></description>
+        </property>
+        <property id="configRAND32()" display="RAND32" default="ulRand()" type="textbox">
+            <description></description>
+        </property>
+        <property id="configPLATFORM_NAME" display="Platform name" default="&quot;RenesasRX65N&quot;" type="textbox">
+            <description>The platform FreeRTOS is running on.</description>
+        </property>
+        <property id="configINCLUDE_PLATFORM_H_INSTEAD_OF_IODEFINE_H" display="Include platform.h instead of iodefine.h" default="1" type="checkbox">
+            <option id="configINCLUDE_PLATFORM_H_INSTEAD_OF_IODEFINE_H.0" display="Disable" value="0"/>
+            <option id="configINCLUDE_PLATFORM_H_INSTEAD_OF_IODEFINE_H.1" display="Enable" value="1"/>
+            <description>Enable: include platform.h
+Disable: omit platform.h</description>
+        </property>
+        <property id="configUSE_TIME_SLICING" display="Enable time-slicing for equal priority tasks" default="1" type="checkbox">
+            <option id="configUSE_TIME_SLICING.0" display="Disable" value="0"/>
+            <option id="configUSE_TIME_SLICING.1" display="Enable" value="1"/>
+            <description>Enable: Enable time-slicing
+Disable: Disable time-slicing</description>
+        </property>
+    </configuration>
+</module>
