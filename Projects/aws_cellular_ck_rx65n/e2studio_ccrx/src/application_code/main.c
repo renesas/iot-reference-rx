@@ -108,6 +108,19 @@ signed char vISR_Routine( void );
 #define mainTEST_RUNNER_TASK_STACK_SIZE    ( configMINIMAL_STACK_SIZE * 8 )
 #define UNSIGNED_SHORT_RANDOM_NUMBER_MASK         (0xFFFFUL)
 
+/**
+ * @brief Band Select for Cellular connecting.
+ * This is used for setting the band for cellular.
+ * You can select below bands. Bands is related on Cellular carrier,
+ * please must set bands your region and SIM acceptable.
+ * ------------------------------------------------------
+ * North America 2,4,5,12,13,25
+ * EMEA 1,3,8,20,28
+ * Japan 1,8,18,19,26
+ * Australia 1,3,8,28
+ * ------------------------------------------------------
+ */
+#define CELLULAR_BAND_CONFIG	"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"
 
 /**
  * @brief Application task startup hook.
@@ -353,6 +366,12 @@ static bool _wifiConnectAccessPoint( void )
 {
 	configPRINTF(("Connect to AccessPoint \r\n "));
 	e_cellular_err_t ret = R_CELLULAR_APConnect(&cellular_ctrl, NULL);
+
+	if(CELLULAR_SUCCESS != ret)
+	{
+		LogError(("Error: AccessPoint connect time out. Please set more long period for waiting Connection."));
+	}
+
 	return (ret == CELLULAR_SUCCESS);
 }
 
@@ -361,8 +380,31 @@ static bool _wifiEnable( void )
 {
 	bool result = pdFALSE;
 	e_cellular_err_t ret = R_CELLULAR_Open(&cellular_ctrl, NULL);
+
+
+#if 0 /* This is enable from R_Cellular Driver rev1.10 */
 	if(CELLULAR_SUCCESS == ret )
 	{
+		/* Set SIM Operator */
+		ret = R_CELLULAR_SetOperator(&cellular_ctrl, “standard”);
+	}
+#endif /* This is enable from R_Cellular Driver rev1.10 */
+
+	if(CELLULAR_SUCCESS == ret )
+	{
+		/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+		/* !! Please must set your cellular band not to connect band that not support your region  !!  */
+		/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+		/* Show band setting for cellular */
+		configPRINTF(("Set the band of Cellular. Set bands:" CELLULAR_BAND_CONFIG ));
+		/* Set cellular bands */
+		ret = R_CELLULAR_SetBand(&cellular_ctrl, CELLULAR_BAND_CONFIG);
+	}
+
+	if(CELLULAR_SUCCESS == ret )
+	{
+		configPRINTF(("Connect to AccessPoint. \n\r"));
+		configPRINTF(("It takes around 3 or 5 minute when you connect to it first time. \r\n "));
 		result = _wifiConnectAccessPoint();
 	}
 
