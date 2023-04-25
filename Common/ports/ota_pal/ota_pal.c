@@ -372,6 +372,7 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
                            uint8_t * const pData,
                            uint32_t ulBlockSize )
 {
+	(void) pFileContext;
     int16_t sNumBytesWritten = R_OTA_ERR_QUEUE_SEND_FAIL;
     FLASH_BLOCK flash_block;
     static uint8_t flash_block_array[ FLASH_CF_MIN_PGM_SIZE ];
