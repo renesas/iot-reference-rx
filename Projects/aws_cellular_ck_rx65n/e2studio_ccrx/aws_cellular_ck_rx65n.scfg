@@ -579,11 +579,11 @@
         <option id="com.renesas.smc.code.type" value="Normal Folder"/>
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
-        <configuration enable="true" exclude="false" id="ea0de0e0-6d55-406e-9d83-da0bf3113b50" inuse="true" name="FreeRTOS_Kernel">
+        <configuration enable="true" exclude="false" id="0d661327-205d-4d5d-a10f-28346ef6bf96" inuse="true" name="FreeRTOS_Kernel">
             <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="0f51c070-137a-4845-a0d4-b6e514909f32" inuse="true" name="FreeRTOS_Object">
+        <configuration enable="true" exclude="false" id="2c0d1844-cd18-4156-aff9-3598811b8225" inuse="true" name="FreeRTOS_Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
                     <option defaultValue="0" id="LinkNum" value=""/>
@@ -1080,7 +1080,7 @@
                 <gridItem id="CELLULAR_CFG_UPGRADE_TIME" selectedIndex="60"/>
                 <gridItem id="CELLULAR_CFG_URC_CHARGET_ENABLED" selectedIndex="0"/>
                 <gridItem id="CELLULAR_CFG_URC_CHARGET_FUNCTION" selectedIndex="my_sw_urc_charget_function"/>
-                <gridItem id="CELLULAR_CFG_DEBUGLOG" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_DEBUGLOG" selectedIndex="4"/>
                 <gridItem id="CELLULAR_CFG_RESET_SIGNAL_LOGIC" selectedIndex="1"/>
                 <gridItem id="CELLULAR_CFG_UART_SCI_CH" selectedIndex="6"/>
                 <gridItem id="CELLULAR_CFG_CTS_SW_CTRL" selectedIndex="0"/>
