@@ -33,10 +33,10 @@
 /***********************************************************************************************************************
  * Configuration Options
  **********************************************************************************************************************/
-#define CELLULAR_CFG_AP_NAME        plus.4g      /* Access point name */
-#define CELLULAR_CFG_AP_USERID      plus    /* Login ID */
-#define CELLULAR_CFG_AP_PASSWORD    4g  /* Access point password */
-#define CELLULAR_CFG_PIN_CODE		9999/* SIM card PIN code */
+#define CELLULAR_CFG_AP_NAME        ibasis.iot      /* Access point name */
+#define CELLULAR_CFG_AP_USERID          /* Login ID */
+#define CELLULAR_CFG_AP_PASSWORD      /* Access point password */
+#define CELLULAR_CFG_PIN_CODE		/* SIM card PIN code */
 #define CELLULAR_CFG_AUTH_TYPE      (2)          /* Authentication protocol type (0=None,1=PAP,2=CHAP)*/
 
 #define CELLULAR_CFG_NETWORK_NOTIFY_LEVEL   (2)         /* Network status notification level */
@@ -52,7 +52,7 @@
 #define CELLULAR_CFG_URC_CHARGET_ENABLED    (0)         /* Whether the callback function is invoked when a URC is received(0: No, 1: Yes)*/
 #define CELLULAR_CFG_URC_CHARGET_FUNCTION   my_sw_urc_charget_function  /* Name of the callback function to be invoked during ringline operation.*/
 
-#define CELLULAR_CFG_DEBUGLOG               (0) /* 0: OFF, 1: ERROR, 2: +WARN, 3: +INFO, 4: +DEBUG(AT command data) */
+#define CELLULAR_CFG_DEBUGLOG               (4) /* 0: OFF, 1: ERROR, 2: +WARN, 3: +INFO, 4: +DEBUG(AT command data) */
                                                 /* This macro can be used with FreeRTOS logging task. https://www.freertos.org/logging.html */
 
 #define CELLULAR_CFG_RESET_SIGNAL_LOGIC     (1) /* 1: active high (in this case when user would use PMOD RYZ014A) 0: active low */
