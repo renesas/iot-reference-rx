@@ -791,10 +791,10 @@
             <Path>src\smc_gen\r_cellular\r_cellular_if.h</Path>
             <Category Name="doc">
               <Category Name="en">
-                <Path>src\smc_gen\r_cellular\doc\en\r01an6324ej0109-rx-ryz014a-cellular.pdf</Path>
+                <Path>src\smc_gen\r_cellular\doc\en\r01an6324ej0110-rx-ryz014a-cellular.pdf</Path>
               </Category>
               <Category Name="ja">
-                <Path>src\smc_gen\r_cellular\doc\ja\r01an6324jj0109-rx-ryz014a-cellular.pdf</Path>
+                <Path>src\smc_gen\r_cellular\doc\ja\r01an6324jj0110-rx-ryz014a-cellular.pdf</Path>
               </Category>
             </Category>
             <Category Name="src">
@@ -835,16 +835,22 @@
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_dnsquery.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_erasecertificate.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_factoryreset.c</Path>
+                <Path>src\smc_gen\r_cellular\src\api\r_cellular_firmupgrade.c</Path>
+                <Path>src\smc_gen\r_cellular\src\api\r_cellular_firmupgradeblocking.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_getapconnectstate.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_getcellinfo.c</Path>
+                <Path>src\smc_gen\r_cellular\src\api\r_cellular_getcertificate.c</Path>
+                <Path>src\smc_gen\r_cellular\src\api\r_cellular_getedrx.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_geticcid.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_getimei.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_getimsi.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_getpdpaddress.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_getphonenum.c</Path>
+                <Path>src\smc_gen\r_cellular\src\api\r_cellular_getpsm.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_getrssi.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_getsvn.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_gettime.c</Path>
+                <Path>src\smc_gen\r_cellular\src\api\r_cellular_getupgradestate.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_hardwarereset.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_isconnected.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_listeningsocket.c</Path>
@@ -855,17 +861,21 @@
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_sendsocket.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_setband.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_setedrx.c</Path>
+                <Path>src\smc_gen\r_cellular\src\api\r_cellular_setoperator.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_setpsm.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_settime.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_shutdownsocket.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_softwarereset.c</Path>
+                <Path>src\smc_gen\r_cellular\src\api\r_cellular_unlocksim.c</Path>
                 <Path>src\smc_gen\r_cellular\src\api\r_cellular_writecertificate.c</Path>
               </Category>
               <Category Name="at_command">
                 <Category Name="ryz014">
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\at_command.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\ate0.c</Path>
+                  <Path>src\smc_gen\r_cellular\src\at_command\ryz014\ati1.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cclk.c</Path>
+                  <Path>src\smc_gen\r_cellular\src\at_command\ryz014\ceer.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cereg.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cfun.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\cgact.c</Path>
@@ -907,12 +917,14 @@
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnsh.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnsimst.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnsl.c</Path>
+                  <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnsnvr.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnsnvw.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnspcfg.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnsrecv.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnsscfg.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnssendext.c</Path>
                   <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnsshdn.c</Path>
+                  <Path>src\smc_gen\r_cellular\src\at_command\ryz014\sqnsupgrade.c</Path>
                   <Category Name="include">
                     <Path>src\smc_gen\r_cellular\src\at_command\ryz014\include\at_command.h</Path>
                   </Category>
@@ -938,6 +950,7 @@
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_irq_ctrl.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_module_reset.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_power_down.c</Path>
+                  <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_psm_config.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_rts_ctrl.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_sci_ctrl.c</Path>
                   <Path>src\smc_gen\r_cellular\src\private\private_api\cellular_semaphore_ctrl.c</Path>
@@ -1097,392 +1110,389 @@
         </Category>
       </Category>
       <Category Name="trash">
-        <Category Name="2023-04-11-16-27-28">
+        <Category Name="2023-04-25-15-27-14">
           <Category Name="src">
             <Category Name="frtos_config">
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\FreeRTOSConfig.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\FreeRTOSIPConfig.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\core_http_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\core_mqtt_agent_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\core_mqtt_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\core_pkcs11_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\defender_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\demo_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\fleet_provisioning_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\mbedtls_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\mbedtls_user_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\ota_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\ota_demo_config.h</Path>
-              <Path>trash\2023-04-11-16-27-28\src\frtos_config\shadow_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\FreeRTOSConfig.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\FreeRTOSIPConfig.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\core_http_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\core_mqtt_agent_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\core_mqtt_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\core_pkcs11_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\defender_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\demo_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\fleet_provisioning_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\mbedtls_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\mbedtls_user_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\ota_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\ota_demo_config.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_config\shadow_config.h</Path>
             </Category>
             <Category Name="frtos_skeleton">
-              <Path>trash\2023-04-11-16-27-28\src\frtos_skeleton\task_function.h</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_skeleton\task_function.h</Path>
             </Category>
             <Category Name="frtos_startup">
-              <Path>trash\2023-04-11-16-27-28\src\frtos_startup\freertos_object_init.c</Path>
+              <Path>trash\2023-04-25-15-27-14\src\frtos_startup\freertos_object_init.c</Path>
             </Category>
             <Category Name="smc_gen">
               <Category Name="general">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\general\r_cg_hardware_setup.c</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\general\r_cg_macrodriver.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\general\r_cg_userdefine.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\general\r_smc_cgc.c</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\general\r_smc_cgc.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\general\r_smc_cgc_user.c</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\general\r_smc_entry.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\general\r_smc_interrupt.c</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\general\r_smc_interrupt.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\general\r_cg_hardware_setup.c</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\general\r_cg_macrodriver.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\general\r_cg_userdefine.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\general\r_smc_cgc.c</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\general\r_smc_cgc.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\general\r_smc_cgc_user.c</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\general\r_smc_entry.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\general\r_smc_interrupt.c</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\general\r_smc_interrupt.h</Path>
               </Category>
               <Category Name="r_bsp">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\platform.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\readme.txt</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\platform.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\readme.txt</Path>
                 <Category Name="board">
                   <Category Name="generic_rx65n">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\board\generic_rx65n\hwsetup.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\board\generic_rx65n\hwsetup.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\board\generic_rx65n\r_bsp.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\board\generic_rx65n\r_bsp_config_reference.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\board\generic_rx65n\r_bsp_interrupt_config_reference.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\board\generic_rx65n\hwsetup.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\board\generic_rx65n\hwsetup.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\board\generic_rx65n\r_bsp.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\board\generic_rx65n\r_bsp_config_reference.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\board\generic_rx65n\r_bsp_interrupt_config_reference.h</Path>
                   </Category>
                   <Category Name="user">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\board\user\r_bsp.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\board\user\r_bsp.h</Path>
                   </Category>
                 </Category>
                 <Category Name="mcu">
                   <Category Name="all">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\dbsct.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\fsp_common_api.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\lowlvl.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\lowlvl.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\lowsrc.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\lowsrc.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\mcu_locks.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_fsp_error.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_rtos.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_rx_compiler.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_typedefs.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\resetprg.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\sbrk.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\sbrk.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\dbsct.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\fsp_common_api.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\lowlvl.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\lowlvl.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\lowsrc.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\lowsrc.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\mcu_locks.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_fsp_error.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_rtos.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_rx_compiler.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_typedefs.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\resetprg.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\sbrk.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\sbrk.h</Path>
                   </Category>
                   <Category Name="rx65n">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_clocks.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_clocks.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_info.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_init.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_init.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_interrupts.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_interrupts.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_locks.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts_private.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\r_bsp_cpu.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\r_bsp_locking.h</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\vecttbl.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\vecttbl.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_clocks.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_clocks.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_info.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_init.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_init.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_interrupts.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_interrupts.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_locks.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts_private.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\r_bsp_cpu.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\r_bsp_locking.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\vecttbl.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\vecttbl.h</Path>
                     <Category Name="register_access">
                       <Category Name="ccrx">
-                        <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\register_access\ccrx\iodefine.h</Path>
+                        <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\register_access\ccrx\iodefine.h</Path>
                       </Category>
                     </Category>
                   </Category>
                 </Category>
               </Category>
               <Category Name="r_byteq">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_byteq\r_byteq_if.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_byteq\readme.txt</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_byteq\r_byteq_if.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_byteq\readme.txt</Path>
                 <Category Name="src">
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_byteq\src\r_byteq.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_byteq\src\r_byteq_private.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_byteq\src\r_byteq.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_byteq\src\r_byteq_private.h</Path>
                 </Category>
               </Category>
               <Category Name="r_cellular">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\r_cellular_if.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\r_cellular_if.h</Path>
                 <Category Name="src">
                   <Category Name="RTOS">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_create_event_group.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_create_semaphore.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_create_task.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_delay_task.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_delete_event_group.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_delete_semaphore.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_delete_task.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_free.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_get_event_flg.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_get_tickcount.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_give_semaphore.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_interrupt_ctrl.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_malloc.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_set_event_flg.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_synchro_event_group.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_take_semaphore.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_create_event_group.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_create_semaphore.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_create_task.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_delay_task.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_delete_event_group.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_delete_semaphore.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_delete_task.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_free.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_get_event_flg.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_get_tickcount.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_give_semaphore.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_interrupt_ctrl.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_malloc.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_set_event_flg.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_synchro_event_group.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_take_semaphore.c</Path>
                     <Category Name="AzureRTOS">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\AzureRTOS\cellular_block_pool_control.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\AzureRTOS\cellular_block_pool_control.c</Path>
                     </Category>
                     <Category Name="include">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\include\cellular_freertos.h</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\include\cellular_freertos.h</Path>
                     </Category>
                   </Category>
                   <Category Name="api">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_apconnect.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_autoconnectconfig.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_close.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_closesocket.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_configsslprofile.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_configsslsocket.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_connectsocket.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_createsocket.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_disconnect.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_dnsquery.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_erasecertificate.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_factoryreset.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getapconnectstate.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getcellinfo.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_geticcid.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getimei.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getimsi.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getpdpaddress.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getphonenum.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getrssi.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getsvn.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_gettime.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_hardwarereset.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_isconnected.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_listeningsocket.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_open.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_ping.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_receivesocket.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_rts_ctrl.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_sendsocket.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_setband.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_setedrx.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_setpsm.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_settime.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_shutdownsocket.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_softwarereset.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_writecertificate.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_apconnect.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_autoconnectconfig.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_close.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_closesocket.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_configsslprofile.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_configsslsocket.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_connectsocket.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_createsocket.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_disconnect.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_dnsquery.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_erasecertificate.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_factoryreset.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_firmupgrade.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_firmupgradeblocking.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getapconnectstate.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getcellinfo.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getcertificate.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getedrx.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_geticcid.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getimei.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getimsi.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getpdpaddress.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getphonenum.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getpsm.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getrssi.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getsvn.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_gettime.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getupgradestate.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_hardwarereset.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_isconnected.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_listeningsocket.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_open.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_ping.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_receivesocket.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_rts_ctrl.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_sendsocket.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_setband.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_setedrx.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_setoperator.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_setpsm.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_settime.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_shutdownsocket.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_softwarereset.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_unlocksim.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_writecertificate.c</Path>
                   </Category>
                   <Category Name="at_command">
                     <Category Name="ryz014">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\at_command.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\ate0.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cclk.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cereg.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cfun.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgact.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgatt.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgauth.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgdcont.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgmi.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgmm.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgmr.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgpaddr.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgpiaf.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgsn.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cimi.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cmer.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cnum.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cops.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cpin.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cpsms.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\crsm.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\csq.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\ping.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\reset.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\smcwrx.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\smcwtx.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnautoconnect.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnbandsel.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnccid.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnctm.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqndnslkup.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnedrx.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnipscfg.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnmoni.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnpscfg.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnricfg.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnscfg.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnscfgext.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsd.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsfactoryreset.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsh.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsimst.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsl.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsnvw.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnspcfg.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsrecv.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsscfg.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnssendext.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsshdn.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\at_command.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\ate0.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\ati1.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cclk.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\ceer.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cereg.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cfun.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgact.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgatt.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgauth.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgdcont.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgmi.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgmm.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgmr.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgpaddr.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgpiaf.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgsn.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cimi.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cmer.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cnum.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cops.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cpin.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cpsms.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\crsm.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\csq.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\ping.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\reset.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\smcwrx.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\smcwtx.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnautoconnect.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnbandsel.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnccid.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnctm.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqndnslkup.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnedrx.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnipscfg.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnmoni.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnpscfg.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnricfg.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnscfg.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnscfgext.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsd.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsfactoryreset.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsh.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsimst.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsl.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsnvr.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsnvw.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnspcfg.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsrecv.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsscfg.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnssendext.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsshdn.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsupgrade.c</Path>
                       <Category Name="include">
-                        <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\include\at_command.h</Path>
+                        <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\include\at_command.h</Path>
                       </Category>
                     </Category>
                   </Category>
                   <Category Name="include">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\include\r_cellular_private.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\include\r_cellular_private.h</Path>
                     <Category Name="ryz014">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\include\ryz014\ryz014_private.h</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\include\ryz014\ryz014_private.h</Path>
                     </Category>
                   </Category>
                   <Category Name="private">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\r_cellular_receive_task.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\r_cellular_receive_task.c</Path>
                     <Category Name="include">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\include\cellular_receive_task.h</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\include\cellular_receive_task.h</Path>
                     </Category>
                     <Category Name="private_api">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_at_cmd_res_ctrl.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_closesocket.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_disconnect.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_execute_at_cmd.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_getpdpaddr.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_irq_ctrl.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_module_reset.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_power_down.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_rts_ctrl.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_sci_ctrl.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_semaphore_ctrl.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_shutdownsocket.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_smcwrx.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_smcwtx.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_task_ctrl.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_timeout_ctrl.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_at_cmd_res_ctrl.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_closesocket.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_disconnect.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_execute_at_cmd.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_getpdpaddr.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_irq_ctrl.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_module_reset.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_power_down.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_psm_config.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_rts_ctrl.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_sci_ctrl.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_semaphore_ctrl.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_shutdownsocket.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_smcwrx.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_smcwtx.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_task_ctrl.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_timeout_ctrl.c</Path>
                       <Category Name="include">
-                        <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\include\cellular_private_api.h</Path>
+                        <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\include\cellular_private_api.h</Path>
                       </Category>
                     </Category>
                   </Category>
                 </Category>
               </Category>
               <Category Name="r_config">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_bsp_config.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_bsp_interrupt_config.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_byteq_config.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_cellular_config.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_dtc_rx_config.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_flash_rx_config.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_irq_rx_config.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_s12ad_rx_config.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_sci_rx_config.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_config\r_tsip_rx_config.h</Path>
-              </Category>
-              <Category Name="r_dtc_rx">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_dtc_rx\r_dtc_rx_if.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_dtc_rx\readme.txt</Path>
-                <Category Name="src">
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_dtc_rx\src\r_dtc_rx.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_dtc_rx\src\r_dtc_rx_private.h</Path>
-                  <Category Name="targets">
-                    <Category Name="rx65n">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_dtc_rx\src\targets\rx65n\r_dtc_rx_target.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_dtc_rx\src\targets\rx65n\r_dtc_rx_target.h</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_dtc_rx\src\targets\rx65n\r_dtc_rx_target_if.h</Path>
-                    </Category>
-                  </Category>
-                </Category>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_bsp_config.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_bsp_interrupt_config.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_byteq_config.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_cellular_config.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_flash_rx_config.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_irq_rx_config.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_s12ad_rx_config.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_sci_rx_config.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_config\r_tsip_rx_config.h</Path>
               </Category>
               <Category Name="r_flash_rx">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\r_flash_rx_if.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\readme.txt</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\r_flash_rx_if.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\readme.txt</Path>
                 <Category Name="src">
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_fcu.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_fcu.h</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_group.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_group.h</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_nofcu.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_nofcu.h</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_rx.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_rx.h</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_targets.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_fcu.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_fcu.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_group.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_group.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_nofcu.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_nofcu.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_rx.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_rx.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_targets.h</Path>
                   <Category Name="flash_type_1">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\flash_type_1\r_flash_type1.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\flash_type_1\r_flash_type1_if.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\flash_type_1\r_flash_type1.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\flash_type_1\r_flash_type1_if.h</Path>
                   </Category>
                   <Category Name="flash_type_3">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\flash_type_3\r_flash_type3.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\flash_type_3\r_flash_type3_if.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\flash_type_3\r_flash_type3.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\flash_type_3\r_flash_type3_if.h</Path>
                   </Category>
                   <Category Name="flash_type_4">
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4.c</Path>
-                    <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4_if.h</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4.c</Path>
+                    <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4_if.h</Path>
                   </Category>
                   <Category Name="targets">
                     <Category Name="rx65n">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\targets\rx65n\r_flash_rx65n.h</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\targets\rx65n\r_flash_rx65n.h</Path>
                     </Category>
                   </Category>
                 </Category>
               </Category>
               <Category Name="r_irq_rx">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_irq_rx\r_irq_rx_if.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_irq_rx\readme.txt</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_irq_rx\r_irq_rx_if.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_irq_rx\readme.txt</Path>
                 <Category Name="src">
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_irq_rx\src\r_irq_rx.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_irq_rx\src\r_irq_rx_private.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_irq_rx\src\r_irq_rx.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_irq_rx\src\r_irq_rx_private.h</Path>
                 </Category>
               </Category>
               <Category Name="r_pincfg">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\Pin.c</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\Pin.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_irq_rx_pinset.c</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_irq_rx_pinset.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_pinset.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_s12ad_rx_pinset.c</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_s12ad_rx_pinset.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_sci_rx_pinset.c</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_sci_rx_pinset.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\Pin.c</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\Pin.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_irq_rx_pinset.c</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_irq_rx_pinset.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_pinset.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_s12ad_rx_pinset.c</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_s12ad_rx_pinset.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_sci_rx_pinset.c</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_sci_rx_pinset.h</Path>
               </Category>
               <Category Name="r_s12ad_rx">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_s12ad_rx\r_s12ad_rx_if.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_s12ad_rx\readme.txt</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_s12ad_rx\r_s12ad_rx_if.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_s12ad_rx\readme.txt</Path>
                 <Category Name="src">
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_s12ad_rx\src\r_s12ad_rx.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_s12ad_rx\src\r_s12ad_rx_private.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_s12ad_rx\src\r_s12ad_rx.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_s12ad_rx\src\r_s12ad_rx_private.h</Path>
                   <Category Name="targets">
                     <Category Name="rx65n">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_s12ad_rx\src\targets\rx65n\r_s12ad_rx65n.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_s12ad_rx\src\targets\rx65n\r_s12ad_rx65n_if.h</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_s12ad_rx\src\targets\rx65n\r_s12ad_rx65n.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_s12ad_rx\src\targets\rx65n\r_s12ad_rx65n_if.h</Path>
                     </Category>
                   </Category>
                 </Category>
               </Category>
               <Category Name="r_sci_rx">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\r_sci_rx_if.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\readme.txt</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\r_sci_rx_if.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\readme.txt</Path>
                 <Category Name="src">
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx_dmaca.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx_dmaca.h</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx_dtc.c</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx_dtc.h</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx_platform.h</Path>
-                  <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx_private.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx_dmaca.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx_dmaca.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx_dtc.c</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx_dtc.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx_platform.h</Path>
+                  <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx_private.h</Path>
                   <Category Name="targets">
                     <Category Name="rx65n">
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n_data.c</Path>
-                      <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n_private.h</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n_data.c</Path>
+                      <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n_private.h</Path>
                     </Category>
                   </Category>
                 </Category>
               </Category>
               <Category Name="r_tsip_rx">
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_tsip_rx\r_tsip_rx_if.h</Path>
-                <Path>trash\2023-04-11-16-27-28\src\smc_gen\r_tsip_rx\readme.txt</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_tsip_rx\r_tsip_rx_if.h</Path>
+                <Path>trash\2023-04-25-15-27-14\src\smc_gen\r_tsip_rx\readme.txt</Path>
               </Category>
             </Category>
           </Category>
@@ -1497,86 +1507,87 @@
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
           <Option>-branch=32</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_irq_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_tsip_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\frtos_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\frtos_startup"</Option>
-          <Option>-include="C:\work\main_git\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
-          <Option>-include="C:\work\main_git\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
-          <Option>-include="C:\work\main_git\Middleware\FreeRTOS-Plus-CLI"</Option>
-          <Option>-include="C:\work\main_git\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
-          <Option>-include="C:\work\main_git\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
-          <Option>-include="C:\work\main_git\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
-          <Option>-include="C:\work\main_git\Middleware\FreeRTOS\coreJSON\source\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\freertos_plus\standard\crypto\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\logging\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\pkcs11\published\2-40-errata-1"</Option>
-          <Option>-include="C:\work\main_git\Middleware\3rdparty\mbedtls\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
-          <Option>-include="C:\work\main_git\Middleware\3rdparty\mbedtls_utils"</Option>
-          <Option>-include="C:\work\main_git\Middleware\3rdparty\mbedtls_config"</Option>
-          <Option>-include="C:\work\main_git\Middleware\3rdparty\littlefs"</Option>
-          <Option>-include="C:\work\main_git\Common\FreeRTOS_common"</Option>
-          <Option>-include="C:\work\main_git\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
-          <Option>-include="C:\work\main_git\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
-          <Option>-include="C:\work\main_git\Demos\common\pkcs11_helpers"</Option>
-          <Option>-include="C:\work\main_git\Demos\cli"</Option>
-          <Option>-include="C:\work\main_git\Common\littlefs_common"</Option>
-          <Option>-include="C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</Option>
-          <Option>-include="C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src"</Option>
-          <Option>-include="C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</Option>
-          <Option>-include="C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</Option>
-          <Option>-include="C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</Option>
-          <Option>-include="C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</Option>
-          <Option>-include="C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</Option>
-          <Option>-include="C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</Option>
-          <Option>-include="C:\work\main_git\Test\Unity\extras\fixture\src"</Option>
-          <Option>-include="C:\work\main_git\Test\Unity\extras\memory\src"</Option>
-          <Option>-include="C:\work\main_git\Test\Unity\src"</Option>
-          <Option>-include="C:\work\main_git\Common\ports\ota_pal"</Option>
-          <Option>-include="C:\work\main_git\Middleware\3rdparty\tinycbor\src"</Option>
-          <Option>-include="C:\work\main_git\Test\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
-          <Option>-include="C:\work\main_git\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
-          <Option>-include="C:\work\main_git\Middleware\3rdparty\mbedtls\library"</Option>
-          <Option>-include="C:\work\main_git\Demos\mqtt_agent"</Option>
-          <Option>-include="C:\work\main_git\Demos\common\mqtt-agent-interface\include"</Option>
-          <Option>-include="C:\work\main_git\Demos\common\mqtt-agent-interface"</Option>
-          <Option>-include="C:\work\main_git\Demos\OtaOverMqtt"</Option>
-          <Option>-include="C:\work\main_git\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</Option>
-          <Option>-include="C:\work\main_git\Demos\common\Mqtt_Demo_Helpers"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Demos\Fleet_Provisioning_With_CSR_Demo"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_irq_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_tsip_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\frtos_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\frtos_startup"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\FreeRTOS-Plus-CLI"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\FreeRTOS\coreJSON\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\freertos_plus\standard\crypto\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\logging\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\pkcs11\published\2-40-errata-1"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls_utils"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls_config"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\3rdparty\littlefs"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Common\FreeRTOS_common"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Demos\common\pkcs11_helpers"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Demos\cli"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Common\littlefs_common"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\Unity\extras\fixture\src"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\Unity\extras\memory\src"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\Unity\src"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Common\ports\ota_pal"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\3rdparty\tinycbor\src"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Test\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls\library"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Demos\mqtt_agent"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Demos\common\mqtt-agent-interface\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Demos\common\mqtt-agent-interface"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Demos\OtaOverMqtt"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\work\nam-gitlab-main\Demos\common\Mqtt_Demo_Helpers"</Option>
           <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,MBEDTLS_ALLOW_PRIVATE_ACCESS,_COMPLEX,__RX=1,__RENESAS__,__LITTLE_ENDIAN__,UNITY_INCLUDE_CONFIG_H,__FUNCTION__=__func__,__TEST__</Option>
           <Option>-utf8</Option>
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
@@ -1592,32 +1603,32 @@
         <AssembleOptions>
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_irq_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_tsip_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_s12ad_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_s12ad_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_irq_rx"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_irq_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\private\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</Option>
+          <Option>-include="${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_tsip_rx"</Option>
           <Option>-utf8</Option>
           <Option>-debug</Option>
           <Option>-goptimize</Option>
@@ -1634,7 +1645,7 @@
           <Option>-rom=D=R,D_1=R_1,D_2=R_2,PFRAM2=RPFRAM2</Option>
           <Option>-cpu=RAM=00000000-0003ffff,FIX=00080000-00083fff,FIX=00086000-00087fff,FIX=00088000-0009ffff,FIX=000a0000-000a3fff,RAM=000a4000-000a5fff,FIX=000a6000-000bffff,FIX=000c0000-000dffff,FIX=000e0000-000fffff,ROM=00100000-00107fff,FIX=007fc000-007fcfff,FIX=007fe000-007fffff,RAM=00800000-0085ffff,RAM=fe7f5d00-fe7f5d7f,RAM=fe7f7d70-fe7f7d9f,ROM=ffe00000-ffffffff</Option>
           <Option>-nologo</Option>
-          <Option>-library="${ProjDirPath}/../../../../../nam3/${ProjName}/src/smc_gen/r_tsip_rx/lib/ccrx/r_tsip_rx65n_little.lib"</Option>
+          <Option>-library="${ProjDirPath}/../../../../../nam1/${ProjName}/src/smc_gen/r_tsip_rx/lib/ccrx/r_tsip_rx65n_little.lib"</Option>
           <Option>-start=SU,SI,R_1,B_2,R,RPFRAM2/04,B,B_1,R_2/0800000,PResetPRG,C_1,C_2,C,C$*,D*,W*,L,P,PFRAM,PFRAM2/0FFF00300,EXCEPTVECT/0FFFBFF80,RESETVECT/0FFFBFFFC,C_FIRMWARE_UPDATE_CONTROL_BLOCK,C_FIRMWARE_UPDATE_CONTROL_BLOCK_MIRROR/00100000</Option>
           <Option>-end</Option>
           <Option>-output="${ProjName}.mot"</Option>
@@ -1905,16 +1916,22 @@
           <Path>HardwareDebug\r_cellular_dnsquery.obj</Path>
           <Path>HardwareDebug\r_cellular_erasecertificate.obj</Path>
           <Path>HardwareDebug\r_cellular_factoryreset.obj</Path>
+          <Path>HardwareDebug\r_cellular_firmupgrade.obj</Path>
+          <Path>HardwareDebug\r_cellular_firmupgradeblocking.obj</Path>
           <Path>HardwareDebug\r_cellular_getapconnectstate.obj</Path>
           <Path>HardwareDebug\r_cellular_getcellinfo.obj</Path>
+          <Path>HardwareDebug\r_cellular_getcertificate.obj</Path>
+          <Path>HardwareDebug\r_cellular_getedrx.obj</Path>
           <Path>HardwareDebug\r_cellular_geticcid.obj</Path>
           <Path>HardwareDebug\r_cellular_getimei.obj</Path>
           <Path>HardwareDebug\r_cellular_getimsi.obj</Path>
           <Path>HardwareDebug\r_cellular_getpdpaddress.obj</Path>
           <Path>HardwareDebug\r_cellular_getphonenum.obj</Path>
+          <Path>HardwareDebug\r_cellular_getpsm.obj</Path>
           <Path>HardwareDebug\r_cellular_getrssi.obj</Path>
           <Path>HardwareDebug\r_cellular_getsvn.obj</Path>
           <Path>HardwareDebug\r_cellular_gettime.obj</Path>
+          <Path>HardwareDebug\r_cellular_getupgradestate.obj</Path>
           <Path>HardwareDebug\r_cellular_hardwarereset.obj</Path>
           <Path>HardwareDebug\r_cellular_isconnected.obj</Path>
           <Path>HardwareDebug\r_cellular_listeningsocket.obj</Path>
@@ -1925,14 +1942,18 @@
           <Path>HardwareDebug\r_cellular_sendsocket.obj</Path>
           <Path>HardwareDebug\r_cellular_setband.obj</Path>
           <Path>HardwareDebug\r_cellular_setedrx.obj</Path>
+          <Path>HardwareDebug\r_cellular_setoperator.obj</Path>
           <Path>HardwareDebug\r_cellular_setpsm.obj</Path>
           <Path>HardwareDebug\r_cellular_settime.obj</Path>
           <Path>HardwareDebug\r_cellular_shutdownsocket.obj</Path>
           <Path>HardwareDebug\r_cellular_softwarereset.obj</Path>
+          <Path>HardwareDebug\r_cellular_unlocksim.obj</Path>
           <Path>HardwareDebug\r_cellular_writecertificate.obj</Path>
           <Path>HardwareDebug\at_command.obj</Path>
           <Path>HardwareDebug\ate0.obj</Path>
+          <Path>HardwareDebug\ati1.obj</Path>
           <Path>HardwareDebug\cclk.obj</Path>
+          <Path>HardwareDebug\ceer.obj</Path>
           <Path>HardwareDebug\cereg.obj</Path>
           <Path>HardwareDebug\cfun.obj</Path>
           <Path>HardwareDebug\cgact.obj</Path>
@@ -1974,12 +1995,14 @@
           <Path>HardwareDebug\sqnsh.obj</Path>
           <Path>HardwareDebug\sqnsimst.obj</Path>
           <Path>HardwareDebug\sqnsl.obj</Path>
+          <Path>HardwareDebug\sqnsnvr.obj</Path>
           <Path>HardwareDebug\sqnsnvw.obj</Path>
           <Path>HardwareDebug\sqnspcfg.obj</Path>
           <Path>HardwareDebug\sqnsrecv.obj</Path>
           <Path>HardwareDebug\sqnsscfg.obj</Path>
           <Path>HardwareDebug\sqnssendext.obj</Path>
           <Path>HardwareDebug\sqnsshdn.obj</Path>
+          <Path>HardwareDebug\sqnsupgrade.obj</Path>
           <Path>HardwareDebug\cellular_at_cmd_res_ctrl.obj</Path>
           <Path>HardwareDebug\cellular_closesocket.obj</Path>
           <Path>HardwareDebug\cellular_disconnect.obj</Path>
@@ -1988,6 +2011,7 @@
           <Path>HardwareDebug\cellular_irq_ctrl.obj</Path>
           <Path>HardwareDebug\cellular_module_reset.obj</Path>
           <Path>HardwareDebug\cellular_power_down.obj</Path>
+          <Path>HardwareDebug\cellular_psm_config.obj</Path>
           <Path>HardwareDebug\cellular_rts_ctrl.obj</Path>
           <Path>HardwareDebug\cellular_sci_ctrl.obj</Path>
           <Path>HardwareDebug\cellular_semaphore_ctrl.obj</Path>
@@ -2002,280 +2026,292 @@
           <Path>HardwareDebug\test_aws_cellular_ck_rx65n.lib</Path>
           <Path>HardwareDebug\r_tsip_rx65n_little.lib}</Path>
         </LinkOrder>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\frtos_startup\freertos_object_init.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\general\r_cg_hardware_setup.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\general\r_smc_cgc.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\general\r_smc_cgc_user.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\general\r_smc_interrupt.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\board\generic_rx65n\hwsetup.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\dbsct.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\lowlvl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\lowsrc.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\mcu_locks.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\resetprg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\all\sbrk.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_clocks.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_init.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_interrupts.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_bsp\mcu\rx65n\vecttbl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_byteq\src\r_byteq.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\AzureRTOS\cellular_block_pool_control.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_create_event_group.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_create_semaphore.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_create_task.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_delay_task.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_delete_event_group.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_delete_semaphore.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_delete_task.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_free.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_get_event_flg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_get_tickcount.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_give_semaphore.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_interrupt_ctrl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_malloc.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_set_event_flg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_synchro_event_group.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\RTOS\cellular_take_semaphore.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_apconnect.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_autoconnectconfig.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_close.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_closesocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_configsslprofile.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_configsslsocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_connectsocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_createsocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_disconnect.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_dnsquery.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_erasecertificate.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_factoryreset.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getapconnectstate.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getcellinfo.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_geticcid.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getimei.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getimsi.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getpdpaddress.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getphonenum.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getrssi.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_getsvn.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_gettime.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_hardwarereset.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_isconnected.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_listeningsocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_open.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_ping.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_receivesocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_rts_ctrl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_sendsocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_setband.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_setedrx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_setpsm.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_settime.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_shutdownsocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_softwarereset.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\api\r_cellular_writecertificate.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\at_command.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\ate0.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cclk.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cereg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cfun.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgact.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgatt.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgauth.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgdcont.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgmi.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgmm.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgmr.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgpaddr.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgpiaf.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cgsn.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cimi.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cmer.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cnum.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cops.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cpin.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\cpsms.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\crsm.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\csq.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\ping.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\reset.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\smcwrx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\smcwtx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnautoconnect.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnbandsel.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnccid.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnctm.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqndnslkup.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnedrx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnipscfg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnmoni.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnpscfg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnricfg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnscfg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnscfgext.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsd.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsfactoryreset.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsh.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsimst.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsnvw.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnspcfg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsrecv.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsscfg.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnssendext.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsshdn.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_at_cmd_res_ctrl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_closesocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_disconnect.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_execute_at_cmd.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_getpdpaddr.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_irq_ctrl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_module_reset.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_power_down.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_rts_ctrl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_sci_ctrl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_semaphore_ctrl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_shutdownsocket.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_smcwrx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_smcwtx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_task_ctrl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\private_api\cellular_timeout_ctrl.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_cellular\src\private\r_cellular_receive_task.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_dtc_rx\src\r_dtc_rx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_dtc_rx\src\targets\rx65n\r_dtc_rx_target.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\flash_type_1\r_flash_type1.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\flash_type_3\r_flash_type3.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_fcu.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_group.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_nofcu.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_flash_rx\src\r_flash_rx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_irq_rx\src\r_irq_rx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\Pin.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_irq_rx_pinset.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_s12ad_rx_pinset.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_pincfg\r_sci_rx_pinset.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_s12ad_rx\src\r_s12ad_rx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_s12ad_rx\src\targets\rx65n\r_s12ad_rx65n.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx_dmaca.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\r_sci_rx_dtc.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n.c"/>
-        <NoTargetFile Target="trash\2023-04-11-16-27-28\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n_data.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\frtos_startup\freertos_object_init.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\general\r_cg_hardware_setup.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\general\r_smc_cgc.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\general\r_smc_cgc_user.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\general\r_smc_interrupt.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\board\generic_rx65n\hwsetup.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\dbsct.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\lowlvl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\lowsrc.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\mcu_locks.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_common.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_interrupts.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\resetprg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\all\sbrk.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_clocks.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_init.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_interrupts.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\mcu_mapped_interrupts.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_bsp\mcu\rx65n\vecttbl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_byteq\src\r_byteq.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\AzureRTOS\cellular_block_pool_control.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_create_event_group.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_create_semaphore.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_create_task.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_delay_task.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_delete_event_group.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_delete_semaphore.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_delete_task.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_free.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_get_event_flg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_get_tickcount.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_give_semaphore.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_interrupt_ctrl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_malloc.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_set_event_flg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_synchro_event_group.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\RTOS\cellular_take_semaphore.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_apconnect.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_autoconnectconfig.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_close.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_closesocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_configsslprofile.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_configsslsocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_connectsocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_createsocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_disconnect.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_dnsquery.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_erasecertificate.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_factoryreset.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_firmupgrade.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_firmupgradeblocking.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getapconnectstate.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getcellinfo.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getcertificate.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getedrx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_geticcid.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getimei.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getimsi.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getpdpaddress.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getphonenum.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getpsm.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getrssi.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getsvn.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_gettime.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_getupgradestate.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_hardwarereset.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_isconnected.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_listeningsocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_open.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_ping.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_receivesocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_rts_ctrl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_sendsocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_setband.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_setedrx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_setoperator.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_setpsm.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_settime.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_shutdownsocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_softwarereset.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_unlocksim.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\api\r_cellular_writecertificate.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\at_command.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\ate0.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\ati1.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cclk.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\ceer.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cereg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cfun.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgact.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgatt.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgauth.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgdcont.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgmi.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgmm.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgmr.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgpaddr.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgpiaf.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cgsn.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cimi.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cmer.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cnum.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cops.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cpin.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\cpsms.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\crsm.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\csq.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\ping.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\reset.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\smcwrx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\smcwtx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnautoconnect.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnbandsel.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnccid.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnctm.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqndnslkup.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnedrx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnipscfg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnmoni.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnpscfg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnricfg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnscfg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnscfgext.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsd.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsfactoryreset.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsh.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsimst.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsnvr.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsnvw.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnspcfg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsrecv.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsscfg.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnssendext.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsshdn.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\at_command\ryz014\sqnsupgrade.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_at_cmd_res_ctrl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_closesocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_disconnect.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_execute_at_cmd.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_getpdpaddr.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_irq_ctrl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_module_reset.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_power_down.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_psm_config.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_rts_ctrl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_sci_ctrl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_semaphore_ctrl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_shutdownsocket.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_smcwrx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_smcwtx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_task_ctrl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\private_api\cellular_timeout_ctrl.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_cellular\src\private\r_cellular_receive_task.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\flash_type_1\r_flash_type1.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\flash_type_3\r_flash_type3.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_fcu.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_group.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_nofcu.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_flash_rx\src\r_flash_rx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_irq_rx\src\r_irq_rx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\Pin.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_irq_rx_pinset.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_s12ad_rx_pinset.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_pincfg\r_sci_rx_pinset.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_s12ad_rx\src\r_s12ad_rx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_s12ad_rx\src\targets\rx65n\r_s12ad_rx65n.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx_dmaca.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\r_sci_rx_dtc.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n.c"/>
+        <NoTargetFile Target="trash\2023-04-25-15-27-14\src\smc_gen\r_sci_rx\src\targets\rx65n\r_sci_rx65n_data.c"/>
         <CommonOptions>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\general"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_tsip_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\frtos_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\frtos_startup"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\FreeRTOS-Plus-CLI"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\logging\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\3rdparty\littlefs"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Common\FreeRTOS_common"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Demos\common\pkcs11_helpers"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Demos\cli"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Common\littlefs_common"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\Unity\extras\fixture\src"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\Unity\extras\memory\src"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\Unity\src"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Common\ports\ota_pal"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Test\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Demos\mqtt_agent"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Demos\common\mqtt-agent-interface"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Demos\OtaOverMqtt"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\work\main_git\Demos\common\Mqtt_Demo_Helpers"</IncludePathForC>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam3\${ProjName}\src\smc_gen\r_tsip_rx"</IncludePathForAsm>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Demos\Fleet_Provisioning_With_CSR_Demo"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\general"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_byteq"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_tsip_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\frtos_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\frtos_startup"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\Middleware\FreeRTOS\FreeRTOS-Plus-TCP\source\portable\Compiler\Renesas"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\FreeRTOS-Plus-CLI"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\logging\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\3rdparty\littlefs"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Common\FreeRTOS_common"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Demos\common\pkcs11_helpers"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Demos\cli"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Common\littlefs_common"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\Unity\extras\fixture\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\Unity\extras\memory\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\Unity\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Common\ports\ota_pal"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Test\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Demos\mqtt_agent"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Demos\common\mqtt-agent-interface"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Demos\OtaOverMqtt"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\work\nam-gitlab-main\Demos\common\Mqtt_Demo_Helpers"</IncludePathForC>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_config"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_s12ad_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_s12ad_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_byteq"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_irq_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_irq_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\at_command\ryz014\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\include\ryz014"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\private\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\private\private_api\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_cellular\src\RTOS\include"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\nam1\${ProjName}\src\smc_gen\r_tsip_rx"</IncludePathForAsm>
           <MacroForC>MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;"</MacroForC>
           <MacroForC>CONFIG_MEDTLS_USE_AFR_MEMORY</MacroForC>
           <MacroForC>MBEDTLS_CMAC_C</MacroForC>
