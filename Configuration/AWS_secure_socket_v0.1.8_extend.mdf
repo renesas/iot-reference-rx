@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+/***********************************************************************************************************************
+  Purpose: Module Description File (MDF) Example (Schema Version 2.0)
+           This is a description of a sample FIT module configuration file
+***********************************************************************************************************************/
+-->
+<module xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="2.0" xs:noNamespaceSchemaLocation="schema_mdf_2.00.xsd">
+    <fileVersion>1.00</fileVersion>
+    <formatVersion>2.00</formatVersion>
+    <fileTemplate></fileTemplate>
+    <configuration>
+        <property id="socketsconfigBYTE_ORDER" display="Byte order of the target MCU" default="pdLITTLE_ENDIAN" type="combobox">
+            <option id="socketsconfigBYTE_ORDER.pdLITTLE_ENDIAN" display="pdLITTLE_ENDIAN" value="pdLITTLE_ENDIAN"/>
+            <option id="socketsconfigBYTE_ORDER.pdBIG_ENDIAN" display="pdBIG_ENDIAN" value="pdBIG_ENDIAN"/>
+            <description>Byte order of the target MCU</description>
+        </property>
+        <property id="socketsconfigDEFAULT_SEND_TIMEOUT" display="Default socket send timeout" default="10000" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${socketsconfigDEFAULT_SEND_TIMEOUT}")</constraint>
+            <constraint display="Value must be greater than 1">("${socketsconfigDEFAULT_SEND_TIMEOUT}" &gt;= 1) </constraint>
+            <description>Default socket send timeout</description>
+        </property>
+        <property id="socketsconfigDEFAULT_RECV_TIMEOUT" display="Default socket receive timeout" default="10000" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${socketsconfigDEFAULT_RECV_TIMEOUT}")</constraint>
+            <constraint display="Value must be greater than 1">("${socketsconfigDEFAULT_RECV_TIMEOUT}" &gt;= 1) </constraint>
+            <description>Default socket receive timeout</description>
+        </property>
+    </configuration>
+</module>
