@@ -173,28 +173,6 @@ extern void vRegisterSampleCLICommands( void );
  */
 void main( void )
 {
-    while(1)
-    {
-        vTaskDelay(10000);
-    }
-}
-/*-----------------------------------------------------------*/
-
-void prvMiscInitialization( void )
-{
-    /* Initialize UART for serial terminal. */
-	CLI_Support_Settings();
-
-    /* Start logging task. */
-    xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
-                            tskIDLE_PRIORITY + 2,
-                            mainLOGGING_MESSAGE_QUEUE_LENGTH );
-
-}
-/*-----------------------------------------------------------*/
-
-void vApplicationDaemonTaskStartupHook( void )
-{
 	int32_t xResults, Time2Wait = 10000;
 
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
@@ -265,6 +243,30 @@ void vApplicationDaemonTaskStartupHook( void )
 				vStartFleetProvisioningDemo();
 		#endif
 	}
+
+	while( 1 )
+	{
+		vTaskSuspend( NULL );
+	}
+}
+/*-----------------------------------------------------------*/
+
+void prvMiscInitialization( void )
+{
+    /* Initialize UART for serial terminal. */
+	CLI_Support_Settings();
+
+    /* Start logging task. */
+    xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
+                            tskIDLE_PRIORITY + 2,
+                            mainLOGGING_MESSAGE_QUEUE_LENGTH );
+
+}
+/*-----------------------------------------------------------*/
+
+void vApplicationDaemonTaskStartupHook( void )
+{
+
 }
 
 /*-----------------------------------------------------------*/
