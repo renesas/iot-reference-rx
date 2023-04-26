@@ -684,6 +684,7 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
     }
     else
     {
+        LogInfo( ( "Using default rootCA cert." ) );
         pcRootCA = tlsSTARFIELD_ROOT_CERTIFICATE_PEM;
     }
 #endif

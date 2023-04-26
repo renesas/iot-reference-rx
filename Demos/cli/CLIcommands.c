@@ -145,7 +145,7 @@ static CLI_Command_Definition_t xCommandConfig =
                                    "           [commit]   : to write the set value to Internal Data Flash Memory\r\n"
 			                       "           [cert]     : to get/set the certificate\r\n"
 			                       "           [key]      : to get/set the private key\r\n"
-                                   "           [thingname]: to get/set the thing name\r\n"
+                                   "           [thingname]: to get/set the AWS thing name\r\n"
                                    "           [endpoint] : to get/set the AWS MQTT endpoint\r\n",
 	.pxCommandInterpreter        = prvConfigCommandHandler,
 	.cExpectedNumberOfParameters = -1
@@ -165,7 +165,7 @@ static CLI_Command_Definition_t xFormat =
 {
 		.pcCommand                   = "format",
 		.pcHelpString                = "\r\n"
-									   "reset:\r\n"
+									   "format:\r\n"
 									   "    Command to format the device.\r\n"
 									   "    Usage: format\r\n",
 		.pxCommandInterpreter        = prvFormat,
@@ -176,9 +176,9 @@ static CLI_Command_Definition_t xWait =
 {
 		.pcCommand                   = "CLI",
 		.pcHelpString                = "\r\n"
-									   "reset:\r\n"
-									   "    Command to format the device.\r\n"
-									   "    Usage: format\r\n",
+									   "CLI:\r\n"
+									   "    Command to enter CLI mode and wait for user input.\r\n"
+									   "    Usage: wait for input\r\n",
 		.pxCommandInterpreter        = prvWaitMessage,
 		.cExpectedNumberOfParameters = -1
 };
