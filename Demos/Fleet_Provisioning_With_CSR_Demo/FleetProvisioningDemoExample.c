@@ -602,15 +602,15 @@ int prvFleetProvisioningTask( void * pvParameters )
     if (gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength > 0)
     {
     	xPublishTopicLength = FP_CBOR_REGISTER_PUBLISH_LENGTH(gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength);
-    	pcPublishTopic = malloc(xPublishTopicLength + 1);
+    	pcPublishTopic = pvPortMalloc(xPublishTopicLength + 1);
 		snprintf( pcPublishTopic, xPublishTopicLength + 1, "%s%s%s%s", FP_REGISTER_API_PREFIX, gKeyValueStore.table[KVS_TEMPLATE_NAME].value, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT);
 
         xAcceptTopicLength = FP_CBOR_REGISTER_ACCEPTED_LENGTH(gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength);
-        pcAcceptTopic = malloc(xAcceptTopicLength + 1);
+        pcAcceptTopic = pvPortMalloc(xAcceptTopicLength + 1);
         snprintf( pcAcceptTopic, xAcceptTopicLength + 1, "%s%s%s%s%s", FP_REGISTER_API_PREFIX, gKeyValueStore.table[KVS_TEMPLATE_NAME].value, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT,FP_API_ACCEPTED_SUFFIX);
 
         xRejectTopicLength = FP_CBOR_REGISTER_REJECTED_LENGTH(gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength);
-        pcRejectTopic = malloc(xRejectTopicLength + 1);
+        pcRejectTopic = pvPortMalloc(xRejectTopicLength + 1);
         snprintf( pcRejectTopic, xRejectTopicLength + 1, "%s%s%s%s%s", FP_REGISTER_API_PREFIX, gKeyValueStore.table[KVS_TEMPLATE_NAME].value, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT,FP_API_REJECTED_SUFFIX);
     }
 
@@ -622,8 +622,8 @@ int prvFleetProvisioningTask( void * pvParameters )
 
     /* Generate unique fleet provisioning demo ID. */
     get_unique_id(&uuid);
-    snprintf( pcDemoID, fpdemoMAX_THING_NAME_LENGTH, "%s_%d_%d_%d_%d", democonfigFP_DEMO_ID, uuid.uuid0, uuid.uuid1, uuid.uuid2, uuid.uuid3);
-    snprintf( pcCSRSubjectName, fpdemoMAX_CSR_SUBJECT_NAME_LENGTH, "CN=%s_%d_%d_%d_%d", democonfigFP_DEMO_ID, uuid.uuid0, uuid.uuid1, uuid.uuid2, uuid.uuid3);
+    snprintf( pcDemoID, fpdemoMAX_THING_NAME_LENGTH, "%s_%08X_%08X_%08X_%08X", democonfigFP_DEMO_ID, uuid.uuid0, uuid.uuid1, uuid.uuid2, uuid.uuid3);
+    snprintf( pcCSRSubjectName, fpdemoMAX_CSR_SUBJECT_NAME_LENGTH, "CN=%s", pcDemoID);
 
     /* Set the pParams member of the network context with desired transport. */
     xNetworkContext.pxParams = &xTlsTransportParams;
@@ -672,8 +672,8 @@ int prvFleetProvisioningTask( void * pvParameters )
         }
         else if ( (xPkcs11Ret == CKR_OK) && (xClientCertificate != CK_INVALID_HANDLE) && (xPrivateKey != CK_INVALID_HANDLE) )
         {
-            LogInfo( ( "It uses the device certificate and private key already stored." ) );
-            snprintf( pcThingName, fpdemoMAX_THING_NAME_LENGTH, "fp_demo_%s_%d_%d_%d_%d", democonfigFP_DEMO_ID, uuid.uuid0, uuid.uuid1, uuid.uuid2, uuid.uuid3);
+            LogInfo( ( "It uses the device certificate, private key, thing name already stored." ) );
+            snprintf( pcThingName, fpdemoMAX_THING_NAME_LENGTH, "%s", gKeyValueStore.table[KVS_CORE_THING_NAME].value);
             xStatus = true;
         }
         else
@@ -843,6 +843,11 @@ int prvFleetProvisioningTask( void * pvParameters )
                 if( xStatus == true )
                 {
                     LogInfo( ( "Received AWS IoT Thing name: %.*s", ( int ) xThingNameLength, pcThingName ) );
+                    BaseType_t xSuccess = xprvWriteValueToImpl (KVS_CORE_THING_NAME, pcThingName, xThingNameLength);
+                    if (xSuccess == pdTRUE)
+                    {
+                        LogInfo( ( "AWS IoT Thing name is saved to Data Flash") );
+                    }
                 }
             }
 
@@ -928,6 +933,26 @@ int prvFleetProvisioningTask( void * pvParameters )
     if( xStatus == true )
     {
     	xPkcs11CloseSession( xP11Session );
+
+#if !defined(__TEST__)
+        if (pcPublishTopic != NULL)
+        {
+            vPortFree (pcPublishTopic);
+            pcPublishTopic = NULL;
+        }
+
+        if (pcAcceptTopic != NULL)
+        {
+            vPortFree (pcAcceptTopic);
+            pcAcceptTopic = NULL;
+        }
+        if (pcRejectTopic != NULL)
+        {
+            vPortFree (pcRejectTopic);
+            pcRejectTopic = NULL;
+        }
+#endif
+
         LogInfo( ( "Demo completed successfully." ) );
         LogInfo( ( "-------DEMO FINISHED-------\r\n" ) );
     }
