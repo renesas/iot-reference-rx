@@ -292,6 +292,10 @@ BaseType_t KVStore_xCommitChanges( void )
 					LogError( ( "Failed to store claim certificate." ) );
 					return pdFALSE;
 				}
+				else
+				{
+					xSuccess = pdTRUE;
+				}
 			}
         	else if ((i  == KVS_CLAIM_PRIVKEY_ID ))
 			{
@@ -304,6 +308,10 @@ BaseType_t KVStore_xCommitChanges( void )
 				{
 					LogError( ( "Failed to store claim private key." ) );
 					return pdFALSE;
+				}
+				else
+				{
+					xSuccess = pdTRUE;
 				}
 			}
         	/*
