@@ -134,7 +134,7 @@
  *!!! be read by software, such as a production serial number, instead of a
  *!!! hard coded constant.
  */
-#define democonfigFP_DEMO_ID    "FPDemoID"__TIME__
+#define democonfigFP_DEMO_ID    "FPDemoID"
 
 /**
  * @brief The MQTT client identifier used in this example.  Each client identifier
