@@ -21,9 +21,9 @@
 /* FSP includes. */
 #include "string.h"
 #include "rm_littlefs_flash.h"
+#include "rm_littlefs_flash_config.h"
 
 /* Get the data flash block size defined in bsp_feature.h for this MCU. */
-#define BSP_FEATURE_FLASH_HP_DF_BLOCK_SIZE	64
 #define RM_LITTLEFS_FLASH_DATA_BLOCK_SIZE      FLASH_DF_BLOCK_SIZE
 
 
@@ -33,11 +33,6 @@
  #define RM_LITTLEFS_FLASH_SEMAPHORE_TIMEOUT    UINT32_MAX
 #endif
 
-#ifdef RM_LITTLEFS_FLASH_DATA_START
-static const uint32_t rm_littlefs_flash_data_start = RM_LITTLEFS_FLASH_DATA_START;
-#else
- #define rm_littlefs_flash_data_start    FLASH_DF_BLOCK_32
-#endif
 
 /** "RLFS" in ASCII, used to determine if channel is open. */
 #define RM_LITTLEFS_FLASH_OPEN           (0x524C4653ULL)
@@ -120,7 +115,7 @@ fsp_err_t RM_LITTLEFS_FLASH_Open (rm_littlefs_ctrl_t * const p_ctrl, rm_littlefs
     /* This module is now open. */
     p_instance_ctrl->open = RM_LITTLEFS_FLASH_OPEN;
 
-    xSemaphoreFlashSync = xSemaphoreCreateMutex();
+    xSemaphoreFlashSync = xSemaphoreCreateBinary();
     xSemaphoreGive( xSemaphoreFlashSync );
 
     data_flash_update_status_initialize();
@@ -356,6 +351,7 @@ static void flashing_callback( void * event )
 			else
 			{
 				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
+				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
 			}
 			break;
 		case FLASH_INT_EVENT_WRITE_COMPLETE:
@@ -368,6 +364,7 @@ static void flashing_callback( void * event )
 			else
 			{
 				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
+				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
 			}
 			break;
 		default:
