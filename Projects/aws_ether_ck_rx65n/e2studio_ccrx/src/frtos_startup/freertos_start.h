@@ -1,4 +1,6 @@
 /*******************************************************************************
+* Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
+*
 * DISCLAIMER
 * This software is supplied by Renesas Electronics Corporation and is only
 * intended for use with Renesas products. No other uses are authorized. This
@@ -18,7 +20,6 @@
 * you agree to the additional terms and conditions found by accessing the
 * following link:
 * http://www.renesas.com/disclaimer
-* Copyright (C) 2016 Renesas Electronics Corporation. All rights reserved.
 *******************************************************************************/
 /*******************************************************************************
 * File Name    : freertos_usr_func.h

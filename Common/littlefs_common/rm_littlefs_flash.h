@@ -45,6 +45,11 @@ FSP_HEADER
 /***********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
+#ifdef RM_LITTLEFS_FLASH_DATA_START
+static const uint32_t rm_littlefs_flash_data_start = RM_LITTLEFS_FLASH_DATA_START;
+#else
+#define rm_littlefs_flash_data_start    FLASH_DF_BLOCK_32
+#endif
 
 /***********************************************************************************************************************
  * Typedef definitions

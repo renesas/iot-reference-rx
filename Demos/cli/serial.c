@@ -1,5 +1,4 @@
 /*
- * FreeRTOS V202211.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -37,13 +36,52 @@
 #include "r_sci_rx_if.h"
 #include "r_byteq_if.h"
 
-
-
 /* FreeRTOS CLI Command Console */
-#define U_SCI_UART_CLI_PINSET()	R_SCI_PinSet_SCI5()
-#define U_SCI_UART_CLI_SCI_CH	(SCI_CH5)
-#define U_DTC_UART_CLI_TX_ACT	((dtc_activation_source_t)VECT(SCI5,TXI5))
-#define U_DTC_UART_CLI_TX_DR	(SCI5.TDR)
+#if !defined(BSP_CFG_SCI_UART_TERMINAL_ENABLE)
+#error "Error! Need to define MY_BSP_CFG_SERIAL_TERM_SCI in r_bsp_config.h"
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (0)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI0()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH0
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (1)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI1()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH1
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (2)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI2()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH2
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (3)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI3()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH3
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (4)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI4()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH4
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (5)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI5()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH5
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (6)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI6()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH6
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (7)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI7()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH7
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (8)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI8()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH8
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (9)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI9()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH9
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (10)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI10()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH10
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (11)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI11()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH11
+#elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (12)
+#define U_SCI_UART_CLI_PINSET()  R_SCI_PinSet_SCI12()
+#define U_SCI_UART_CLI_SCI_CH          SCI_CH12
+#else
+#error "Error! Invalid setting for MY_BSP_CFG_SERIAL_TERM_SCI in r_bsp_config.h"
+#endif
+
 /* Characters received from the UART are stored in this queue, ready to be
 received by the application.  ***NOTE*** Using a queue in this way is very
 convenient, but also very inefficient.  It can be used here because characters
@@ -69,7 +107,7 @@ void CLI_Support_Settings(void)
     /* FreeRTOS CLI Command Console */
     U_SCI_UART_CLI_PINSET();
     sci_cfg_t xSerialSciConfig;
-    xSerialSciConfig.async.baud_rate    = 115200;
+    xSerialSciConfig.async.baud_rate    = BSP_CFG_SCI_UART_TERMINAL_BITRATE;
     xSerialSciConfig.async.clk_src      = SCI_CLK_INT;
     xSerialSciConfig.async.data_size    = SCI_DATA_8BIT;
     xSerialSciConfig.async.parity_en    = SCI_PARITY_OFF;
