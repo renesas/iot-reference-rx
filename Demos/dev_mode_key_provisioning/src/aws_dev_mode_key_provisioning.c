@@ -109,14 +109,6 @@ extern KeyValueStore_t gKeyValueStore;
  * a new default key pair, regardless of whether an existing key pair is present. */
 #define keyprovisioningFORCE_GENERATE_NEW_KEY_PAIR    0
 
-/* Delay before generating new key-pair, if keyprovisioningFORCE_GENERATE_NEW_KEY_PAIR
- * is enabled. This is to avoid possible race-condition (due to devce reset) between
- * execution of an existing image on device generates key-pair on device and flashing of
- * new image on device. */
-#ifndef keyprovisioningDELAY_BEFORE_KEY_PAIR_GENERATION_SECS
-    #define keyprovisioningDELAY_BEFORE_KEY_PAIR_GENERATION_SECS    180
-#endif
-
 /* Internal structure for parsing RSA keys. */
 
 /* Length parameters for importing RSA-2048 private keys. */
