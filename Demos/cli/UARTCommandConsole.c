@@ -73,23 +73,33 @@ static void prvUARTCommandConsoleTask( void *pvParameters );
 void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 
 /*-----------------------------------------------------------*/
-
 /* Const messages output by the command console. */
-#if defined(CONFIG_FLEET_PROVISIONING_DEMO)
-static const char * const pcWelcomeMessage = "FreeRTOS command server.\r\n"\
+static const char * const pcWelcomeMessage1 = "FreeRTOS command server.\r\n"\
         "Type Help to view a list of registered commands.\r\n\r\n"\
-        "\tStandard procedure:\r\n"\
-        "\t\t1. Set value for root CA (optional)/IoT endpoint/claim certificate/claim private key/template name.\r\n"\
-        "\t\t2. Write the key value to DF with 'conf commit' command.\r\n"\
-        "\t\t3. Reset the program to start the demo.\r\n\r\n>";
+        "\tStandard procedure:\r\n";
+
+#if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
+#if (ENABLE_OTA_UPDATE_DEMO == 1)
+static const char * const pcWelcomeMessage2 =
+        "\t\t1. Set value for rootca(optional)/endpoint/claimcert/claimkey/template/codesigncert.\r\n";;
+
 #else
-static const char * const pcWelcomeMessage = "FreeRTOS command server.\r\n"\
-		"Type Help to view a list of registered commands.\r\n\r\n"\
-		"\tStandard procedure:\r\n"\
-		"\t\t1. Set value for IoT endpoint/thing name/certificate/private key.\r\n"\
-		"\t\t2. Write the key value to Internal Data Flash Memory with 'commit' command.\r\n"\
-		"\t\t3. Reset the program to start the demo.\r\n\r\n>";
+static const char * const pcWelcomeMessage2 =
+        "\t\t1. Set value for rootca(optional)/endpoint/claimcert/claimkey/template.\r\n";;
 #endif
+#else
+#if (ENABLE_OTA_UPDATE_DEMO == 1)
+static const char * const pcWelcomeMessage2 =
+		"\t\t1. Set value for endpoint/thingname/certificate/key/codesigncert.\r\n";
+#else
+static const char * const pcWelcomeMessage2 =
+        "\t\t1. Set value for endpoint/thingname/certificate/key.\r\n";
+#endif
+#endif
+
+static const char *const pcWelcomeMessage3 =
+        "\t\t2. Write the key value to Internal Data Flash Memory with 'commit' command.\r\n"
+        "\t\t3. Reset the program to start the demo.\r\n\r\n>";
 static const char * const pcWaitMessage = "Press CLI and enter to switch to CLI mode or wait 10secs to run demo! \r\n";
 static const char * const pcEndOfOutputMessage = "\r\n>";
 static const char * const pcNewLine = "\r\n";
@@ -140,7 +150,9 @@ xComPortHandle xPort;
 	xPort = xSerialPortInitMinimal( configCLI_BAUD_RATE, cmdQUEUE_LENGTH );
 
 	/* Send the welcome message. */
-	vSerialPutString( ( signed char * ) pcWelcomeMessage, ( unsigned short ) strlen( pcWelcomeMessage ) );
+	vSerialPutString( ( signed char * ) pcWelcomeMessage1, ( unsigned short ) strlen( pcWelcomeMessage1 ) );
+	vSerialPutString( ( signed char * ) pcWelcomeMessage2, ( unsigned short ) strlen( pcWelcomeMessage2 ) );
+	vSerialPutString( ( signed char * ) pcWelcomeMessage3, ( unsigned short ) strlen( pcWelcomeMessage3 ) );
 	vSerialPutString( ( signed char * ) pcWaitMessage, ( unsigned short ) strlen( pcWaitMessage ) );
 	vSerialPutString( ( signed char * ) pcEndOfOutputMessage, ( unsigned short ) strlen( pcEndOfOutputMessage ) );
 	for( ;; )
