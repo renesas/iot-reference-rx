@@ -767,6 +767,16 @@ static void prvIncomingPublishCallback( MQTTAgentContext_t * pMqttAgentContext,
 }
 
 /*-----------------------------------------------------------*/
+void vStartMQTTAgent( configSTACK_DEPTH_TYPE uxStackSize,
+        UBaseType_t uxPriority  )
+{
+    xTaskCreate( prvMQTTAgentTask,
+                  "MQTT",
+                  uxStackSize,
+                  NULL,
+                  uxPriority,
+                  NULL );
+}
 
 
 void prvMQTTAgentTask( void * pvParameters )
@@ -776,6 +786,9 @@ void prvMQTTAgentTask( void * pvParameters )
     MQTTContext_t * pMqttContext = &( xGlobalMqttAgentContext.mqttContext );
     extern KeyValueStore_t gKeyValueStore ;
     ( void ) pvParameters;
+
+    ( void ) xWaitForMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED, portMAX_DELAY );
+    LogInfo( ( "---------Start MQTT Agent Task---------\r\n" ) );
 
     /* Initialization of timestamp for MQTT. */
     ulGlobalEntryTimeMs = prvGetTimeMs();
@@ -865,7 +878,8 @@ void prvMQTTAgentTask( void * pvParameters )
 	   pcBrokerEndpoint = NULL;
    }
 
-    vTaskDelete( NULL );
+   LogInfo( ( "---------MQTT Agent Task Finished---------\r\n" ) );
+   vTaskDelete( NULL );
 }
 
 /*-----------------------------------------------------------*/
@@ -1003,8 +1017,7 @@ static void prvSetMQTTAgentState( MQTTAgentState_t xAgentState )
 
 /*-----------------------------------------------------------*/
 
-BaseType_t xMQTTAgentInit( configSTACK_DEPTH_TYPE uxStackSize,
-                           UBaseType_t uxPriority )
+BaseType_t xMQTTAgentInit( void )
 {
     BaseType_t xResult = pdFAIL;
 
@@ -1026,17 +1039,6 @@ BaseType_t xMQTTAgentInit( configSTACK_DEPTH_TYPE uxStackSize,
                 xResult = pdFAIL;
             }
         }
-
-        if( xResult == pdPASS )
-        {
-            prvSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
-            xResult = xTaskCreate( prvMQTTAgentTask,
-                                   "MQTT",
-                                   uxStackSize,
-                                   NULL,
-                                   uxPriority,
-                                   NULL );
-        }
     }
 
     return xResult;
@@ -1047,6 +1049,11 @@ BaseType_t xMQTTAgentInit( configSTACK_DEPTH_TYPE uxStackSize,
 MQTTAgentState_t xGetMQTTAgentState( void )
 {
     return xState;
+}
+
+void xSetMQTTAgentState( MQTTAgentState_t xAgentState )
+{
+    prvSetMQTTAgentState(xAgentState);
 }
 
 /*-----------------------------------------------------------*/

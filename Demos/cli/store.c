@@ -464,6 +464,7 @@ int32_t vprvCacheInit( void )
 				strcpy( gKeyValueStore.table[i ].key, keys[ i ] );
 				( void ) xprvReadValueFromImpl( (KVStoreKey_t)i,  &xValue, pxLength, *pxLength );
 				gKeyValueStore.table[ i ].value = xValue;
+				gKeyValueStore.table[ i ].type = KV_TYPE_STRING;
 			}
     	}
 

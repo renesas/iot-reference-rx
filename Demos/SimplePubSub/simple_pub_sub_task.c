@@ -71,7 +71,7 @@
 /**
  * @brief Number of publishes done by each task in this demo.
  */
-#define mqttexamplePUBLISH_COUNT                          UINT32_MAX
+#define mqttexamplePUBLISH_COUNT                          10
 
 /**
  * @brief Number of times a publish has to be retried if agent cannot send a QoS0 packet
@@ -520,6 +520,7 @@ void vSimpleSubscribePublishTask( void * pvParameters )
             ( void ) xWaitForMQTTAgentState( MQTT_AGENT_STATE_CONNECTED, portMAX_DELAY );
         }
     }
+    LogInfo(( "---------Start PubSub Demo Task  %u---------\r\n", ulTaskNumber ));
 
     if( xStatus == pdPASS )
     {
@@ -624,6 +625,7 @@ void vSimpleSubscribePublishTask( void * pvParameters )
         /* Delete the task if it is complete. */
         LogInfo( ( "Task %u completed.", ulTaskNumber ) );
     }
+    LogInfo(( "---------Finish PubSub Demo Task %u---------\r\n", ulTaskNumber ));
     vTaskDelete( NULL );
 }
 
@@ -654,17 +656,7 @@ BaseType_t xStartSimplePubSubTasks( uint32_t ulNumPubsubTasks,
 
 void vStartSimplePubSubDemo( void  )
 {
-	BaseType_t xResult = pdPASS;
-	if( xResult == pdPASS )
-	{
-		xResult = xMQTTAgentInit( appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY );
-	}
-	if( xResult == pdPASS )
-	{
-	    xStartSimplePubSubTasks( appmainMQTT_NUM_PUBSUB_TASKS,
-	                                       appmainMQTT_PUBSUB_TASK_STACK_SIZE,
-	                                       appmainMQTT_PUBSUB_TASK_PRIORITY );
-
-	}
-
+    xStartSimplePubSubTasks( appmainMQTT_NUM_PUBSUB_TASKS,
+                                       appmainMQTT_PUBSUB_TASK_STACK_SIZE,
+                                       appmainMQTT_PUBSUB_TASK_PRIORITY );
 }
