@@ -14,11 +14,19 @@ static uint8_t g_rm_littlefs0_lookahead[16];
 struct lfs g_rm_littlefs0_lfs;
 
 const struct lfs_config g_rm_littlefs0_lfs_cfg =
-{ .context = &g_rm_littlefs0_ctrl, .read = &rm_littlefs_flash_read, .prog = &rm_littlefs_flash_write, .erase =
-          &rm_littlefs_flash_erase,
-  .sync = &rm_littlefs_flash_sync, .read_size = 1, .prog_size = 4, .block_size = 128, .block_count =
-          ((BSP_DATA_FLASH_SIZE_BYTES - (rm_littlefs_flash_data_start - FLASH_DF_BLOCK_0)) / 128),
-  .block_cycles = 1024, .cache_size = 64, .lookahead_size = 16,
+{
+  .context = &g_rm_littlefs0_ctrl,
+  .read = &rm_littlefs_flash_read,
+  .prog = &rm_littlefs_flash_write,
+  .erase = &rm_littlefs_flash_erase,
+  .sync = &rm_littlefs_flash_sync,
+  .read_size = LFS_FLASH_READ_SIZE,
+  .prog_size = LFS_FLASH_PROGRAM_SIZE,
+  .block_size = LFS_FLASH_BLOCK_SIZE,
+  .block_count = LFS_FLASH_BLOCK_COUNT,
+  .block_cycles = 1024,
+  .cache_size = 64,
+  .lookahead_size = 16,
 #ifdef LFS_NO_MALLOC
     .read_buffer = (void *) g_rm_littlefs0_read,
     .prog_buffer = (void *) g_rm_littlefs0_prog,
