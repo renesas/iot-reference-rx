@@ -255,16 +255,26 @@ const char *pcReturn = NULL;
 			{
 				/* How long is the parameter? */
 				pcReturn = pcCommandString;
-				while( ((( *pcCommandString ) != 0x00 ) && ( ( *pcCommandString ) != ' ' ))
-						|| (strncmp(pcCommandString, " C", 2) == 0)
-						|| (strncmp(pcCommandString, " R", 2) == 0)
-						|| (strncmp(pcCommandString, " P", 2) == 0)
-						|| (strncmp(pcCommandString, " K", 2) == 0)
-						|| (strncmp(pcCommandString, " E", 2) == 0))
+				if(uxWantedParameter == 3)
 				{
-					( *pxParameterStringLength )++;
-					pcCommandString++;
-				}
+                    while ((((*pcCommandString) != 0x00) && ((*pcCommandString) != ' '))
+                            || (strncmp(pcCommandString, " C", 2) == 0) || (strncmp(pcCommandString, " R", 2) == 0)
+                            || (strncmp(pcCommandString, " P", 2) == 0) || (strncmp(pcCommandString, " K", 2) == 0)
+                            || (strncmp(pcCommandString, " E", 2) == 0))
+                    {
+                        (*pxParameterStringLength)++;
+                        pcCommandString++;
+                    }
+                }
+				else
+                {
+                    while (((*pcCommandString) != 0x00) && ((*pcCommandString) != ' '))
+                    {
+                        (*pxParameterStringLength)++;
+                        pcCommandString++;
+                    }
+                }
+
 
 				if( *pxParameterStringLength == 0 )
 				{
