@@ -31,17 +31,18 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Logging includes. */
 #include "iot_logging_task.h"
 
+/* Key provisioning includes. */
+#include "aws_dev_mode_key_provisioning.h"
+
 /* FreeRTOS+TCP includes. */
 #include "FreeRTOSIPConfig.h"
 
 /* Demo includes */
 #include "aws_clientcredential.h"
 #include "r_cellular_if.h"
-
-/* Key provisioning includes. */
-#include "aws_dev_mode_key_provisioning.h"
-
 #include "demo_config.h"
+#include "store.h"
+#include "mqtt_agent_task.h"
 
 st_cellular_ctrl_t cellular_ctrl;
 static bool _wifiEnable( void );
@@ -51,16 +52,13 @@ extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
 
+extern void vStartSimplePubSubDemo( void  );
 
-#if defined(CONFIG_SIMPLE_PUBSUB_DEMO)
-    extern void vStartSimplePubSubDemo( void  );
-#endif
-
-#if defined(CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED)
+#if (ENABLE_OTA_UPDATE_DEMO == 1)
     extern void vStartOtaDemo( void );
 #endif
 
-#if defined(CONFIG_FLEET_PROVISIONING_DEMO)
+#if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
     extern void vStartFleetProvisioningDemo(void);
 #endif
 
@@ -133,6 +131,10 @@ void vApplicationDaemonTaskStartupHook( void );
  */
 void prvMiscInitialization( void );
 
+extern void CLI_Support_Settings(void);
+extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
+extern void vRegisterSampleCLICommands( void );
+
 /*-----------------------------------------------------------*/
 
 /**
@@ -142,6 +144,7 @@ void prvMiscInitialization( void );
 void main( void )
 {
 	int32_t xResults, Time2Wait = 10000;
+
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
 	/* The priority used by the UART command console task. */
 	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
@@ -149,12 +152,16 @@ void main( void )
 	extern void vRegisterSampleCLICommands( void );
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 	extern TaskHandle_t xCLIHandle;
+
 	prvMiscInitialization();
+
 	/* Register the standard CLI commands. */
 	vRegisterSampleCLICommands();
 	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
 
 	xResults = littlFs_init();
+
+	xMQTTAgentInit();
 
 	if (xResults == LFS_ERR_OK)
 	{
@@ -168,31 +175,28 @@ void main( void )
 
 		if(_wifiEnable())
 		{
-			FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
-
-			#if !defined(FLEET_PROVISIONING_DEMO)
-			#if ( appmainPROVISIONING_MODE == 0 )
-					/* Provision the device with AWS certificate and private key. */
-					littlFs_init(NULL);
-					vDevModeKeyPreProvisioning();
-			#endif
-
-			#endif
-					/* Run all demos. */
-			#if defined(CONFIG_SIMPLE_PUBSUB_DEMO)
-					vStartSimplePubSubDemo();
-			#endif
-
-			#if defined(CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED)
-					vStartOtaDemo();
-			#endif
-
-			#if defined(CONFIG_FLEET_PROVISIONING_DEMO)
-					vStartFleetProvisioningDemo();
-			#endif
+			vTaskDelay(300);
 		}
 
+		FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+
+		FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
+
+        #if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
+           vStartFleetProvisioningDemo();
+        #else
+           xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+        #endif
+
+        vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
+
+        vStartSimplePubSubDemo ();
+
+        #if (ENABLE_OTA_UPDATE_DEMO == 1)
+                  vStartOtaDemo();
+        #endif
 	}
+
 	while( 1 )
 	{
 		vTaskSuspend( NULL );
@@ -203,7 +207,6 @@ void main( void )
 void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
-	extern void CLI_Support_Settings(void);
 	CLI_Support_Settings();
 
     /* Start logging task. */
@@ -318,7 +321,7 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
     void vApplicationStackOverflowHook( TaskHandle_t xTask,
                                         char * pcTaskName )
     {
-    	FreeRTOS_printf( ( "ERROR: stack overflow\r\n" ) );
+        configPRINT_STRING( ( "ERROR: stack overflow\r\n" ) );
         portDISABLE_INTERRUPTS();
 
         /* Unused Parameters */
@@ -333,6 +336,16 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 #endif /* iotconfigUSE_PORT_SPECIFIC_HOOKS */
 /*-----------------------------------------------------------*/
 
+#if ( ipconfigUSE_LLMNR != 0 ) || ( ipconfigUSE_NBNS != 0 ) || ( ipconfigDHCP_REGISTER_HOSTNAME == 1 )
+
+    const char * pcApplicationHostnameHook( void )
+    {
+        /* This function will be called during the DHCP: the machine will be registered
+         * with an IP address plus this name. */
+        return clientcredentialIOT_THING_NAME;
+    }
+
+#endif
 
 bool ApplicationCounter(uint32_t xWaitTime)
 {

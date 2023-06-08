@@ -51,7 +51,7 @@
 #endif
 
 #ifndef LIBRARY_LOG_LEVEL
-    #define LIBRARY_LOG_LEVEL    LOG_INFO
+    #define LIBRARY_LOG_LEVEL    LOG_ERROR
 #endif
 
 #include "logging_stack.h"
@@ -106,7 +106,7 @@
  *  Please note that this must be set larger than zero.
  *
  */
-#define otaconfigMAX_NUM_BLOCKS_REQUEST         1U
+#define otaconfigMAX_NUM_BLOCKS_REQUEST         5U
 
 /**
  * @brief The maximum number of requests allowed to send without a response before we abort.
