@@ -234,19 +234,19 @@ extern void vOutputString( const char * pcMessage );
  * to and from a real network connection on the host PC.  See the
  * configNETWORK_INTERFACE_TO_USE definition above for information on how to
  * configure the real network connection to use. */
-#define configMAC_ADDR0                      0x01
-#define configMAC_ADDR1                      0x12
-#define configMAC_ADDR2                      0x13
-#define configMAC_ADDR3                      0x10
-#define configMAC_ADDR4                      0x15
-#define configMAC_ADDR5                      0x11
+#define configMAC_ADDR0                      0x74
+#define configMAC_ADDR1                      0x90
+#define configMAC_ADDR2                      0x50
+#define configMAC_ADDR3                      0x00
+#define configMAC_ADDR4                      0x79
+#define configMAC_ADDR5                      0x03
 
 /* Default IP address configuration.  Used in ipconfigUSE_DHCP is set to 0, or
  * ipconfigUSE_DHCP is set to 1 but a DNS server cannot be contacted. */
 #define configIP_ADDR0                       192
 #define configIP_ADDR1                       168
-#define configIP_ADDR2                       0
-#define configIP_ADDR3                       200
+#define configIP_ADDR2                       11
+#define configIP_ADDR3                       12
 
 /* Default gateway IP address configuration.  Used in ipconfigUSE_DHCP is set to
  * 0, or ipconfigUSE_DHCP is set to 1 but a DNS server cannot be contacted. */
