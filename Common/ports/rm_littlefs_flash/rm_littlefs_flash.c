@@ -368,6 +368,8 @@ static void flashing_callback( void * event )
 			}
 			break;
 		default:
+			update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
+			xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
 			break;
 	}
 }

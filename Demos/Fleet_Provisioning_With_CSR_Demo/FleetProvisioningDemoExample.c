@@ -78,6 +78,9 @@
 /* AWS IoT Fleet Provisioning Library. */
 #include "fleet_provisioning.h"
 
+/* MQTT agent task API. */
+#include "mqtt_agent_task.h"
+
 /* Demo includes. */
 #include "mqtt_pkcs11_demo_helpers.h"
 #include "pkcs11_operations.h"
@@ -592,6 +595,9 @@ int prvFleetProvisioningTask( void * pvParameters )
     CK_OBJECT_HANDLE xPrivateKey;
     uuid_param_t uuid;
     extern KeyValueStore_t gKeyValueStore;
+
+    LogInfo( ( "---------Start Fleet Provisioning Task---------\r\n" ) );
+
 #if defined(__TEST__)
     pcPublishTopic = FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME );
     xPublishTopicLength = FP_CBOR_REGISTER_PUBLISH_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH );
@@ -844,6 +850,7 @@ int prvFleetProvisioningTask( void * pvParameters )
                 if( xStatus == true )
                 {
                     LogInfo( ( "Received AWS IoT Thing name: %.*s", ( int ) xThingNameLength, pcThingName ) );
+                    xprvWriteCacheEntry (strlen("thingname"), "thingname", xThingNameLength, pcThingName);
                     BaseType_t xSuccess = xprvWriteValueToImpl (KVS_CORE_THING_NAME, pcThingName, xThingNameLength);
                     if (xSuccess == pdTRUE)
                     {
@@ -955,8 +962,10 @@ int prvFleetProvisioningTask( void * pvParameters )
 #endif
 
         LogInfo( ( "Demo completed successfully." ) );
-        LogInfo( ( "-------DEMO FINISHED-------\r\n" ) );
+        LogInfo( ( "-------Fleet Provisioning Task Finished-------\r\n" ) );
     }
+
+    xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
 
     /* Delete this task. */
     LogInfo( ( "Deleting Fleet Provisioning Demo task." ) );

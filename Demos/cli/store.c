@@ -484,6 +484,7 @@ int32_t vprvCacheInit( void )
 				strcpy( gKeyValueStore.table[i ].key, keys[ i ] );
 				( void ) xprvReadValueFromImpl( (KVStoreKey_t)i,  &xValue, pxLength, *pxLength );
 				gKeyValueStore.table[ i ].value = xValue;
+				gKeyValueStore.table[ i ].type = KV_TYPE_STRING;
 			}
     	}
 
@@ -597,6 +598,8 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
 	const char pxCertLabel[] =  pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS ;
 	const char pxPrivKeyLabel[] =  pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS ;
 	const char pxPubKeyLabel[] =  pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS ;
+	const char pxClaimCert[] =  pkcs11configLABEL_CLAIM_CERTIFICATE ;
+    const char pxClaimKey[] =  pkcs11configLABEL_CLAIM_PRIVATE_KEY ;
 	CK_FUNCTION_LIST_PTR pxFunctionList = NULL;
 	CK_SESSION_HANDLE xSession = 0;
     char *client_private_key, *client_certificate;
@@ -611,84 +614,105 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
 	{
 		return NULL;
 	}
-	if ((xKey  == KVS_DEVICE_CERT_ID ) || (xKey  == KVS_DEVICE_PRIVKEY_ID )|| (xKey  == KVS_DEVICE_PUBKEY_ID ))
-	{
-		xResult = C_GetFunctionList( &pxFunctionList );
+    if ((xKey == KVS_DEVICE_CERT_ID) || (xKey == KVS_DEVICE_PRIVKEY_ID) || (xKey == KVS_DEVICE_PUBKEY_ID)
+            || (xKey == KVS_CLAIM_CERT_ID) || (xKey == KVS_CLAIM_PRIVKEY_ID))
+    {
+        xResult = C_GetFunctionList (&pxFunctionList);
 
-						/* Initialize the PKCS Module */
-		if( xResult == CKR_OK )
-		{
-			xResult = xInitializePkcs11Token();
-		}
+        /* Initialize the PKCS Module */
+        if (xResult == CKR_OK)
+        {
+            xResult = xInitializePkcs11Token ();
+        }
 
-		if( xResult == CKR_OK )
-		{
-			xResult = xInitializePkcs11Session( &xSession );
-		}
-	}
+        if (xResult == CKR_OK)
+        {
+            xResult = xInitializePkcs11Session (&xSession);
+        }
+    }
 
-	gKeyValueStore.table[ xKey ].type = KV_TYPE_STRING;
-	gKeyValueStore.table[ xKey ].xChangePending = pdFALSE;
-	if ((xKey  == KVS_DEVICE_CERT_ID ) )
-	{
+    gKeyValueStore.table[xKey].type = KV_TYPE_STRING;
+    gKeyValueStore.table[xKey].xChangePending = pdFALSE;
+    if ((xKey == KVS_DEVICE_CERT_ID))
+    {
 
-		xPalHandle = PKCS11_PAL_FindObject(pxCertLabel,strlen(pxCertLabel));
-		if (xPalHandle != CK_INVALID_HANDLE)
-		{
+        xPalHandle = PKCS11_PAL_FindObject (pxCertLabel, strlen(pxCertLabel));
+        if (xPalHandle != CK_INVALID_HANDLE)
+        {
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            if ((xResult == CKR_OK) && (data_length > 0))
+            {
+                vAllocateDataBuffer (xKey, data_length);
+                strcpy(gKeyValueStore.table[xKey].key, keys[xKey]);
+                gKeyValueStore.table[xKey].value = tmp;
+            }
+        }
+    }
+    else if (xKey == KVS_DEVICE_PRIVKEY_ID)
+    {
+        xIsPrivate = (CK_BBOOL ) CK_TRUE;
+        xPalHandle = PKCS11_PAL_FindObject (pxPrivKeyLabel, strlen(pxPrivKeyLabel));
+        if (xPalHandle != CK_INVALID_HANDLE)
+        {
 
-			xResult = PKCS11_PAL_GetObjectValue( xPalHandle, &tmp, &data_length, &xIsPrivate );
-			if( (xResult == CKR_OK )&&(data_length > 0))
-			{
-				vAllocateDataBuffer( xKey, data_length );
-				strcpy( gKeyValueStore.table[xKey ].key, keys[ xKey ] );
-				gKeyValueStore.table[ xKey ].value = tmp;
-			}
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            if ((xResult == CKR_OK) && (data_length > 0))
+            {
+                vAllocateDataBuffer (xKey, data_length);
+                strcpy(gKeyValueStore.table[xKey].key, keys[xKey]);
+                gKeyValueStore.table[xKey].value = tmp;
 
-		}
+            }
+        }
+    }
+    else if (xKey == KVS_DEVICE_PUBKEY_ID)
+    {
+        xIsPrivate = (CK_BBOOL ) CK_FALSE;
+        xPalHandle = PKCS11_PAL_FindObject (pxPubKeyLabel, strlen(pxPubKeyLabel));
+        if (xPalHandle != CK_INVALID_HANDLE)
+        {
 
-
-	}
-	else if  (xKey  == KVS_DEVICE_PRIVKEY_ID )
-	{
-		xIsPrivate = ( CK_BBOOL ) CK_TRUE;
-		xPalHandle = PKCS11_PAL_FindObject(pxPrivKeyLabel,strlen(pxPrivKeyLabel));
-		if (xPalHandle != CK_INVALID_HANDLE)
-		{
-
-			xResult = PKCS11_PAL_GetObjectValue( xPalHandle, &tmp, &data_length, &xIsPrivate );
-			if( (xResult == CKR_OK )&&(data_length > 0))
-			{
-				vAllocateDataBuffer( xKey, data_length );
-				strcpy( gKeyValueStore.table[xKey ].key, keys[ xKey ] );
-				gKeyValueStore.table[ xKey ].value = tmp;
-
-			}
-		}
-
-	}
-	else if  (xKey  == KVS_DEVICE_PUBKEY_ID )
-	{
-		xIsPrivate = ( CK_BBOOL ) CK_FALSE;
-		xPalHandle = PKCS11_PAL_FindObject(pxPubKeyLabel,strlen(pxPubKeyLabel));
-		if (xPalHandle != CK_INVALID_HANDLE)
-		{
-
-			xResult = PKCS11_PAL_GetObjectValue( xPalHandle, &tmp, &data_length, &xIsPrivate );
-			if( (xResult == CKR_OK )&&(data_length > 0))
-			{
-				vAllocateDataBuffer( xKey, data_length );
-				strcpy( gKeyValueStore.table[xKey ].key, keys[ xKey ] );
-				gKeyValueStore.table[ xKey ].value = tmp;
-
-			}
-		}
-
-	}
-
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            if ((xResult == CKR_OK) && (data_length > 0))
+            {
+                vAllocateDataBuffer (xKey, data_length);
+                strcpy(gKeyValueStore.table[xKey].key, keys[xKey]);
+                gKeyValueStore.table[xKey].value = tmp;
+            }
+        }
+    }
+    else if (xKey == KVS_CLAIM_CERT_ID)
+    {
+        xIsPrivate = (CK_BBOOL ) CK_FALSE;
+        xPalHandle = PKCS11_PAL_FindObject (pxClaimCert, strlen(pxClaimCert));
+        if (xPalHandle != CK_INVALID_HANDLE)
+        {
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            if ((xResult == CKR_OK) && (data_length > 0))
+            {
+                vAllocateDataBuffer (xKey, data_length);
+                strcpy(gKeyValueStore.table[xKey].key, keys[xKey]);
+                gKeyValueStore.table[xKey].value = tmp;
+            }
+        }
+    }
+    else if (xKey == KVS_CLAIM_PRIVKEY_ID)
+    {
+        xIsPrivate = (CK_BBOOL ) CK_TRUE;
+        xPalHandle = PKCS11_PAL_FindObject (pxClaimKey, strlen(pxClaimKey));
+        if (xPalHandle != CK_INVALID_HANDLE)
+        {
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            if ((xResult == CKR_OK) && (data_length > 0))
+            {
+                vAllocateDataBuffer (xKey, data_length);
+                strcpy(gKeyValueStore.table[xKey].key, keys[xKey]);
+                gKeyValueStore.table[xKey].value = tmp;
+            }
+        }
+    }
 	else
 	{
-
-
 		xNvLength = xprvGetValueLengthFromImpl( xKey );
 		char *xValue = NULL;
 		if( xNvLength > 0 )
@@ -699,32 +723,33 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
 			( void ) xprvReadValueFromImpl( xKey,  &xValue, valueLength, *valueLength );
 			gKeyValueStore.table[ xKey ].value = xValue;
 		}
-
 	}
 
 
-	if ((xKey  == KVS_DEVICE_CERT_ID ) || (xKey  == KVS_DEVICE_PRIVKEY_ID )|| (xKey  == KVS_DEVICE_PUBKEY_ID ))
-	{
-		if (data_length > 0)
-		{
-			for(int32_t i = 0; i < strlen(gKeyValueStore.table[ xKey ].value); i++)
-			{
-				if(((gKeyValueStore.table[ xKey ].value)[i] < 0x20) || ((gKeyValueStore.table[ xKey ].value)[i] > 0x7e))
-				{
-					if(((gKeyValueStore.table[ xKey ].value)[i] != 0x0a) && ((gKeyValueStore.table[ xKey ].value)[i] != 0x0d))
-					{
-						buffervalue =  "Could not print: <binary data> is included.";
-						break;
-					}
-				}
-			}
-			if( xResult == CKR_OK )
-				{
-					pxFunctionList->C_CloseSession( xSession );
-				}
-		}
+	if ((xKey == KVS_DEVICE_CERT_ID) || (xKey == KVS_DEVICE_PRIVKEY_ID) || (xKey == KVS_DEVICE_PUBKEY_ID)
+            || (xKey == KVS_CLAIM_CERT_ID) || (xKey == KVS_CLAIM_PRIVKEY_ID))
+    {
+        if (data_length > 0)
+        {
+            for (int32_t i = 0; i < strlen(gKeyValueStore.table[xKey].value); i++)
+            {
+                if (((gKeyValueStore.table[xKey].value)[i] < 0x20) || ((gKeyValueStore.table[xKey].value)[i] > 0x7e))
+                {
+                    if (((gKeyValueStore.table[xKey].value)[i] != 0x0a)
+                            && ((gKeyValueStore.table[xKey].value)[i] != 0x0d))
+                    {
+                        buffervalue = "Could not print: <binary data> is included.";
+                        break;
+                    }
+                }
+            }
+            if (xResult == CKR_OK)
+            {
+                pxFunctionList->C_CloseSession (xSession);
+            }
+        }
 
-	}
+    }
 	else
 	{
 

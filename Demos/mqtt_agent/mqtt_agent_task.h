@@ -40,7 +40,7 @@
 typedef enum MQTTAgentState
 {
     MQTT_AGENT_STATE_NONE = 0,
-    MQTT_AGENT_STATE_INITIALIZED = 1,
+    MQTT_AGENT_STATE_INITIALIZED = 1,   //Set this state when fleet provisioning demo finish and the MQTT task ready to run.
     MQTT_AGENT_STATE_DISCONNECTED = 2,
     MQTT_AGENT_STATE_CONNECTED = 3,
     MQTT_AGENT_STATE_TERMINATED = 4,
@@ -57,6 +57,12 @@ typedef void (* IncomingPubCallback_t )( void * pvIncomingPublishCallbackContext
 					MQTTPublishInfo_t * pxPublishInfo );
 
 /**
+ * @brief Initialize the MQTT Agent.
+ * Create the semaphore and Event group.
+ */
+BaseType_t xMQTTAgentInit( void );
+
+/**
  * @brief Starts the MQTT agent task.
  * MQTT agent task calls MQTTAgent_CommandLoop(), until MQTTAgent_Terminate()
  * is called. If an error occurs in the command loop, then it will reconnect the
@@ -65,8 +71,8 @@ typedef void (* IncomingPubCallback_t )( void * pvIncomingPublishCallbackContext
  * @param[in] uxStackSize Stack size for MQTT agent task.
  * @param[in] uxPriority Priority of MQTT agent task.
  */
-BaseType_t xMQTTAgentInit( configSTACK_DEPTH_TYPE uxStackSize,
-                           UBaseType_t uxPriority );
+void vStartMQTTAgent( configSTACK_DEPTH_TYPE uxStackSize,
+        UBaseType_t uxPriority  );
 
 
 /**
@@ -77,6 +83,15 @@ BaseType_t xMQTTAgentInit( configSTACK_DEPTH_TYPE uxStackSize,
  * @return State of the MQTT agent.
  */
 MQTTAgentState_t xGetMQTTAgentState( void );
+
+/**
+ * @brief Set the current state of MQTT agent.
+ * MQTT agent task can be any of the states as defined by the state enum MQTTAgentState_t. The
+ * function can be used to set the MQTT agent state from other application tasks
+ *
+ * @param[in] xAgentState State of the MQTT agent.
+ */
+void xSetMQTTAgentState( MQTTAgentState_t xAgentState );
 
 /**
  * @brief Wait for MQTT agent to reach the desired state.

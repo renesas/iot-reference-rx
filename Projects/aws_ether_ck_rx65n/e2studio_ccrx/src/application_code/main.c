@@ -41,22 +41,19 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "aws_clientcredential.h"
 #include "demo_config.h"
 #include "store.h"
-
+#include "mqtt_agent_task.h"
 
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
 
+extern void vStartSimplePubSubDemo( void  );
 
-#if defined(CONFIG_SIMPLE_PUBSUB_DEMO)
-    extern void vStartSimplePubSubDemo( void  );
-#endif
-
-#if defined(CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED)
+#if (ENABLE_OTA_UPDATE_DEMO == 1)
     extern void vStartOtaDemo( void );
 #endif
 
-#if defined(CONFIG_FLEET_PROVISIONING_DEMO)
+#if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
     extern void vStartFleetProvisioningDemo(void);
 #endif
 
@@ -192,6 +189,8 @@ void main( void )
 
 	xResults = littlFs_init();
 
+	xMQTTAgentInit();
+
 	if (xResults == LFS_ERR_OK)
 	{
 		xResults = vprvCacheInit();
@@ -223,26 +222,19 @@ void main( void )
 
 		FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
 
-		#if !defined(FLEET_PROVISIONING_DEMO)
-		#if ( appmainPROVISIONING_MODE == 0 )
-				/* Provision the device with AWS certificate and private key. */
-				littlFs_init(NULL);
-				vDevModeKeyPreProvisioning();
-		#endif
+        #if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
+           vStartFleetProvisioningDemo();
+        #else
+           xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+        #endif
 
-		#endif
-				/* Run all demos. */
-		#if defined(CONFIG_SIMPLE_PUBSUB_DEMO)
-				vStartSimplePubSubDemo();
-		#endif
+        vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
 
-		#if defined(CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED)
-				vStartOtaDemo();
-		#endif
+        vStartSimplePubSubDemo ();
 
-		#if defined(CONFIG_FLEET_PROVISIONING_DEMO)
-				vStartFleetProvisioningDemo();
-		#endif
+        #if (ENABLE_OTA_UPDATE_DEMO == 1)
+                  vStartOtaDemo();
+        #endif
 	}
 
 	while( 1 )

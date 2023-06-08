@@ -240,6 +240,10 @@ static char * pcThingName = NULL;
  */
 static char * pcBrokerEndpoint = NULL;
 
+/**
+ * @brief Root CA
+ */
+static char * pcRootCA = NULL;
 /*-----------------------------------------------------------*/
 
 /**
@@ -572,8 +576,8 @@ static BaseType_t prvCreateTLSConnection( NetworkContext_t * pxNetworkContext )
 #endif /* ifdef democonfigUSE_AWS_IOT_CORE_BROKER */
 
     /* Set the credentials for establishing a TLS connection. */
-    xNetworkCredentials.pRootCa = ( unsigned char * ) democonfigROOT_CA_PEM;
-    xNetworkCredentials.rootCaSize = sizeof( democonfigROOT_CA_PEM );
+    xNetworkCredentials.pRootCa = ( const unsigned char * ) pcRootCA;
+    xNetworkCredentials.rootCaSize = strlen( pcRootCA ) + 1;
     xNetworkCredentials.pClientCertLabel = pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS;
     xNetworkCredentials.pPrivateKeyLabel = pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS;
 
@@ -768,6 +772,16 @@ static void prvIncomingPublishCallback( MQTTAgentContext_t * pMqttAgentContext,
 }
 
 /*-----------------------------------------------------------*/
+void vStartMQTTAgent( configSTACK_DEPTH_TYPE uxStackSize,
+        UBaseType_t uxPriority  )
+{
+    xTaskCreate( prvMQTTAgentTask,
+                  "MQTT",
+                  uxStackSize,
+                  NULL,
+                  uxPriority,
+                  NULL );
+}
 
 
 void prvMQTTAgentTask( void * pvParameters )
@@ -778,26 +792,38 @@ void prvMQTTAgentTask( void * pvParameters )
     extern KeyValueStore_t gKeyValueStore ;
     ( void ) pvParameters;
 
+    ( void ) xWaitForMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED, portMAX_DELAY );
+    LogInfo( ( "---------Start MQTT Agent Task---------\r\n" ) );
+
     /* Initialization of timestamp for MQTT. */
     ulGlobalEntryTimeMs = prvGetTimeMs();
 
 #if defined(__TEST__)
     pcThingName = clientcredentialIOT_THING_NAME ;
     pcBrokerEndpoint = clientcredentialMQTT_BROKER_ENDPOINT;
+    pcRootCA = democonfigROOT_CA_PEM;
 #else
     /* Load broker endpoint and thing name for client connection, from the key store. */
     if (gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength > 0)
     {
-    	pcThingName = pvPortMalloc( gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength);
-		pcThingName = gKeyValueStore.table[ KVS_CORE_THING_NAME ].value;
+    	pcThingName = GetStringValue(KVS_CORE_THING_NAME, gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength);
     }
 
     if (gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength > 0)
     {
-        pcBrokerEndpoint = pvPortMalloc( gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength);
-        pcBrokerEndpoint = gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].value;
+        pcBrokerEndpoint = GetStringValue(KVS_CORE_MQTT_ENDPOINT, gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength);
     }
 
+    if (gKeyValueStore.table[KVS_ROOT_CA_ID].valueLength > 0)
+    {
+        LogInfo( ( "Using rootCA cert from key store." ) );
+        pcRootCA = GetStringValue(KVS_ROOT_CA_ID, gKeyValueStore.table[ KVS_ROOT_CA_ID ].valueLength);
+    }
+    else
+    {
+        LogInfo( ( "Using default rootCA cert." ) );
+        pcRootCA = democonfigROOT_CA_PEM;
+    }
 
 #endif
 
@@ -866,7 +892,14 @@ void prvMQTTAgentTask( void * pvParameters )
 	   pcBrokerEndpoint = NULL;
    }
 
-    vTaskDelete( NULL );
+    if (pcRootCA != NULL)
+    {
+        vPortFree( pcRootCA );
+        pcRootCA = NULL;
+    }
+
+   LogInfo( ( "---------MQTT Agent Task Finished---------\r\n" ) );
+   vTaskDelete( NULL );
 }
 
 /*-----------------------------------------------------------*/
@@ -1004,8 +1037,7 @@ static void prvSetMQTTAgentState( MQTTAgentState_t xAgentState )
 
 /*-----------------------------------------------------------*/
 
-BaseType_t xMQTTAgentInit( configSTACK_DEPTH_TYPE uxStackSize,
-                           UBaseType_t uxPriority )
+BaseType_t xMQTTAgentInit( void )
 {
     BaseType_t xResult = pdFAIL;
 
@@ -1027,17 +1059,6 @@ BaseType_t xMQTTAgentInit( configSTACK_DEPTH_TYPE uxStackSize,
                 xResult = pdFAIL;
             }
         }
-
-        if( xResult == pdPASS )
-        {
-            prvSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
-            xResult = xTaskCreate( prvMQTTAgentTask,
-                                   "MQTT",
-                                   uxStackSize,
-                                   NULL,
-                                   uxPriority,
-                                   NULL );
-        }
     }
 
     return xResult;
@@ -1048,6 +1069,11 @@ BaseType_t xMQTTAgentInit( configSTACK_DEPTH_TYPE uxStackSize,
 MQTTAgentState_t xGetMQTTAgentState( void )
 {
     return xState;
+}
+
+void xSetMQTTAgentState( MQTTAgentState_t xAgentState )
+{
+    prvSetMQTTAgentState(xAgentState);
 }
 
 /*-----------------------------------------------------------*/
