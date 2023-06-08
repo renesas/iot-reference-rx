@@ -1,6 +1,7 @@
 /*
  * FreeRTOS V202111.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -57,27 +58,34 @@
 #include "iot_logging_task.h"
 
 
-/* To run a particular demo you need to define one of these.
- * Only one demo can be configured at a time
+/* Select a combination of demos to run
+ * These demo has not been evaluated outside of the combination of demos listed below.
  *
- *          CONFIG_FLEET_PROVISIONING_DEMO
- *          CONFIG_SIMPLE_PUBSUB_DEMO
- *          CONFIG_OTA_MQTT_UPDATE_DEMO_ENABLED
- *
- *  These defines are used in iot_demo_runner.h for demo selection */
+ *          PUBSUB demo only :
+ *             ENABLE_FLEET_PROVISIONING_DEMO (0) + ENABLE_OTA_UPDATE_DEMO (0)
+ *          PUBSUB demo with fleet provisioning :
+ *             ENABLE_FLEET_PROVISIONING_DEMO (1) + ENABLE_OTA_UPDATE_DEMO (0)
+ *          PUBSUB and OTA over MQTT demo :
+ *             ENABLE_FLEET_PROVISIONING_DEMO (0) + ENABLE_OTA_UPDATE_DEMO (1)
+ *          PUBSUB and OTA over MQTT demo with fleet provisioning :
+ *             ENABLE_FLEET_PROVISIONING_DEMO (1) + ENABLE_OTA_UPDATE_DEMO (1)
+ */
+/* demo is configured for PUBSUB */
+/* Select demo combination to run. */
 
-/* demo is configured for MQTT */
+/* Please select a provisioning method
+ * (0) : Pre-provisioning
+ * (1) : Fleet provisioning
+ */
+#define ENABLE_FLEET_PROVISIONING_DEMO      (0)
 
-/* Select only one demo task to run. */
+/* Please select whether to enable or disable the OTA demo
+ * (0) : OTA demo is disabled
+ * (1) : OTA over MQTT demo is enabled
+ */
+#define ENABLE_OTA_UPDATE_DEMO              (0)
 
-#define CONFIG_SIMPLE_PUBSUB_DEMO
-
-
-#if defined(FLEET_PROVISIONING_DEMO)
-#define democonfigROOT_CA_PEM             "...insert here..."
-#else
 #define democonfigROOT_CA_PEM               tlsSTARFIELD_ROOT_CERTIFICATE_PEM
-#endif
 
 /**
  * @brief Path of the file containing the provisioning claim certificate. This
@@ -154,7 +162,7 @@
  * binary is used at the same time to connect to the broker.
  */
 #ifndef democonfigCLIENT_IDENTIFIER
-#if defined(FLEET_PROVISIONING_DEMO)
+#if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
     #define democonfigCLIENT_IDENTIFIER    "client"democonfigFP_DEMO_ID
 #else
     #define democonfigCLIENT_IDENTIFIER    clientcredentialIOT_THING_NAME
