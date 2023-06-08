@@ -42,6 +42,8 @@
 /* OTA PAL test config file include. */
 #include "ota_demo_config.h"
 
+/* Key Value store for fetching configuration info. */
+#include "store.h"
 
 
 /* Amazon FreeRTOS include. */
@@ -641,6 +643,7 @@ static uint8_t * otaPal_ReadAndAssumeCertificate( const uint8_t * const pucCertN
     uint32_t ulCertSize;
     uint8_t * pucSignerCert = NULL;
     CK_RV xResult;
+    extern KeyValueStore_t gKeyValueStore;
 
     xResult = prvGetCertificate( ( const char * ) pucCertName, &pucSignerCert, ulSignerCertSize );
 
@@ -650,13 +653,24 @@ static uint8_t * otaPal_ReadAndAssumeCertificate( const uint8_t * const pucCertN
     }
     else
     {
-        LogWarn( ( "No such certificate file: %s. Using certificate defined by the otapalconfigCODE_SIGNING_CERTIFICATE macro instead",
-                   ( const char * ) pucCertName ) );
+#if defined(__TEST__)
+        LogWarn( ( "No such certificate file: %s. Using user code signing certificate CODE_SIGNING_CERTIFICATE macro instead",
+                           ( const char * ) pucCertName ) );
 
         /* Allocate memory for the signer certificate plus a terminating zero so we can copy it and return to the caller. */
         ulCertSize = sizeof( otapalconfigCODE_SIGNING_CERTIFICATE );
         pucSignerCert = pvPortMalloc( ulCertSize + 1 );                   /*lint !e9029 !e9079 !e838 malloc proto requires void*. */
         pucCertData = ( uint8_t * ) otapalconfigCODE_SIGNING_CERTIFICATE; /*lint !e9005 we don't modify the cert but it could be set by PKCS11 so it's not const. */
+
+#else
+        LogWarn( ( "No such certificate file: %s. Using user code signing certificate input via CLI instead",
+                          ( const char * ) pucCertName ) );
+
+        /* Allocate memory for the signer certificate plus a terminating zero so we can copy it and return to the caller. */
+        ulCertSize = gKeyValueStore.table[KVS_CODE_SIGN_CERT_ID].valueLength;
+        pucSignerCert = pvPortMalloc( ulCertSize + 1 );                   /*lint !e9029 !e9079 !e838 malloc proto requires void*. */
+        pucCertData = ( uint8_t * ) gKeyValueStore.table[KVS_CODE_SIGN_CERT_ID].value; /*lint !e9005 we don't modify the cert but it could be set by PKCS11 so it's not const. */
+#endif
 
         if( pucSignerCert != NULL )
         {

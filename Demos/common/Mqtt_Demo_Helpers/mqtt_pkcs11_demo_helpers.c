@@ -681,6 +681,7 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
 
     if (gKeyValueStore.table[KVS_ROOT_CA_ID].valueLength > 0)
     {
+        LogInfo( ( "Using rootCA cert from key store." ) );
         pcRootCA = gKeyValueStore.table[KVS_ROOT_CA_ID].value;
     }
     else
