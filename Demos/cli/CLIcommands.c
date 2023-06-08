@@ -1,6 +1,7 @@
 /*
  * FreeRTOS V202211.00
  * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -300,10 +301,7 @@ static BaseType_t prvReset( char * pcWriteBuffer,
 	sprintf( pcWriteBuffer, "Resetting !\r\n");
 	set_psw( 0 );
 	R_BSP_InterruptsDisable();
-	R_BSP_RegisterProtectDisable( BSP_REG_PROTECT_LPC_CGC_SWR );
-	SYSTEM.SWRR = 0xa501;
-
-	while( 1 ); /* software reset */
+	R_BSP_SoftwareReset();
 
 	/* There is no more data to return after this single string, so return
 	pdFALSE. */
