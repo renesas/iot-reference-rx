@@ -93,7 +93,7 @@
  * @brief Maximum number of token objects that can be stored
  * by the PKCS #11 module.
  */
-#define pkcs11configMAX_NUM_OBJECTS      6
+#define pkcs11configMAX_NUM_OBJECTS      8
 
 /**
  * @brief Maximum number of sessions that can be stored

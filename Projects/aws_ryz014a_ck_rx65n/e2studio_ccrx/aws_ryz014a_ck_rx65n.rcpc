@@ -25,8 +25,8 @@
           </Category>
         </Category>
         <Category Name="littlefs_common">
-          <Path>..\..\..\Common\littlefs_common\common_data.c</Path>
           <Path>..\..\..\Common\littlefs_common\common_data.h</Path>
+          <Path>..\..\..\Common\littlefs_common\lfs_common_data.c</Path>
           <Path>..\..\..\Common\littlefs_common\lfs_util_config.h</Path>
           <Path>..\..\..\Common\littlefs_common\rm_littlefs_api.h</Path>
           <Path>..\..\..\Common\littlefs_common\rm_littlefs_flash.h</Path>
@@ -43,8 +43,6 @@
         </Category>
         <Category Name="OtaOverMqtt">
           <Path>..\..\..\Demos\OtaOverMqtt\OtaOverMqttDemoExample.c</Path>
-          <Path>..\..\..\Demos\OtaOverMqtt\subscription_manager.c</Path>
-          <Path>..\..\..\Demos\OtaOverMqtt\subscription_manager.h</Path>
         </Category>
         <Category Name="SimplePubSub">
           <Path>..\..\..\Demos\SimplePubSub\simple_pub_sub_task.c</Path>
@@ -394,26 +392,6 @@
             </Category>
           </Category>
         </Category>
-        <Category Name="Application-Protocols">
-          <Category Name="network_transport">
-            <Category Name="sockets_wrapper">
-              <Category Name="include">
-                <Path>..\..\..\Middleware\Application-Protocols\network_transport\sockets_wrapper\include\tcp_sockets_wrapper.h</Path>
-              </Category>
-              <Category Name="ports">
-                <Category Name="cellular_ryz014a">
-                  <Path>..\..\..\Middleware\Application-Protocols\network_transport\sockets_wrapper\ports\cellular_ryz014a\sockets_wrapper.c</Path>
-                </Category>
-              </Category>
-            </Category>
-            <Category Name="using_mbedtls_pkcs11">
-              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.c</Path>
-              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.h</Path>
-              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\transport_mbedtls_pkcs11.c</Path>
-              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\transport_mbedtls_pkcs11.h</Path>
-            </Category>
-          </Category>
-        </Category>
         <Category Name="FreeRTOS">
           <Category Name="FreeRTOS-Kernel">
             <Path>..\..\..\Middleware\FreeRTOS\FreeRTOS-Kernel\CMakeLists.txt</Path>
@@ -562,6 +540,24 @@
             <Path>..\..\..\Middleware\logging\include\logging_stack.h</Path>
           </Category>
         </Category>
+        <Category Name="network_transport">
+          <Category Name="sockets_wrapper">
+            <Category Name="include">
+              <Path>..\..\..\Middleware\network_transport\sockets_wrapper\include\tcp_sockets_wrapper.h</Path>
+            </Category>
+            <Category Name="ports">
+              <Category Name="cellular_ryz014a">
+                <Path>..\..\..\Middleware\network_transport\sockets_wrapper\ports\cellular_ryz014a\sockets_wrapper.c</Path>
+              </Category>
+            </Category>
+          </Category>
+          <Category Name="using_mbedtls_pkcs11">
+            <Path>..\..\..\Middleware\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.c</Path>
+            <Path>..\..\..\Middleware\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.h</Path>
+            <Path>..\..\..\Middleware\network_transport\using_mbedtls_pkcs11\transport_mbedtls_pkcs11.c</Path>
+            <Path>..\..\..\Middleware\network_transport\using_mbedtls_pkcs11\transport_mbedtls_pkcs11.h</Path>
+          </Category>
+        </Category>
         <Category Name="pkcs11">
           <Category Name="published">
             <Category Name="2-40-errata-1">
@@ -575,6 +571,7 @@
       <Category Name="src">
         <Category Name="application_code">
           <Path>src\application_code\main.c</Path>
+          <Path>src\application_code\user_init.c</Path>
           <Category Name="include">
             <Path>..\..\..\Demos\include\aws_clientcredential.h</Path>
             <Path>..\..\..\Demos\include\aws_clientcredential_keys.h</Path>
@@ -607,6 +604,7 @@
           <Path>src\frtos_config\mbedtls_user_config.h</Path>
           <Path>src\frtos_config\ota_config.h</Path>
           <Path>src\frtos_config\ota_demo_config.h</Path>
+          <Path>src\frtos_config\rm_littlefs_flash_config.h</Path>
           <Path>src\frtos_config\shadow_config.h</Path>
         </Category>
         <Category Name="frtos_skeleton">
@@ -917,10 +915,10 @@
             <Path>src\smc_gen\r_flash_rx\readme.txt</Path>
             <Category Name="doc">
               <Category Name="en">
-                <Path>src\smc_gen\r_flash_rx\doc\en\r01an2184ej0490-rx-flash.pdf</Path>
+                <Path>src\smc_gen\r_flash_rx\doc\en\r01an2184ej0500-rx-flash.pdf</Path>
               </Category>
               <Category Name="ja">
-                <Path>src\smc_gen\r_flash_rx\doc\ja\r01an2184jj0490-rx-flash.pdf</Path>
+                <Path>src\smc_gen\r_flash_rx\doc\ja\r01an2184jj0500-rx-flash.pdf</Path>
               </Category>
             </Category>
             <Category Name="src">
@@ -944,6 +942,10 @@
               <Category Name="flash_type_4">
                 <Path>src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4.c</Path>
                 <Path>src\smc_gen\r_flash_rx\src\flash_type_4\r_flash_type4_if.h</Path>
+              </Category>
+              <Category Name="flash_type_5">
+                <Path>src\smc_gen\r_flash_rx\src\flash_type_5\r_flash_type5.c</Path>
+                <Path>src\smc_gen\r_flash_rx\src\flash_type_5\r_flash_type5_if.h</Path>
               </Category>
               <Category Name="targets">
                 <Category Name="rx65n">
@@ -1045,14 +1047,14 @@
       </Category>
     </Files>
     <Device Category="com.renesas.cdt.managedbuild.renesas.ccrx.common.option.cpu.rx600" Series="RX">R5F565NEHxFB</Device>
-    <BuildOptions Name="CC-RX" Version="v3.04.00">
+    <BuildOptions Name="CC-RX" Version="v3.05.00">
       <BuildMode Active="True" Name="HardwareDebug">
         <GeneralOptions/>
         <CompileOptions>
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
           <Option>-branch=32</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\Fleet_Provisioning_With_CSR_Demo"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\Fleet_Provisioning_With_CSR_Demo"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</Option>
@@ -1082,57 +1084,46 @@
           <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_config"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_startup"</Option>
           <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\application_code"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS-Plus-CLI"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\coreJSON\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\freertos_plus\standard\crypto\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\logging\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\pkcs11\published\2-40-errata-1"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls_utils"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls_config"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\3rdparty\littlefs"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Common\FreeRTOS_common"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\common\pkcs11_helpers"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\cli"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\dev_mode_key_provisioning\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Common\littlefs_common"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\Unity\extras\fixture\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\Unity\extras\memory\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\Unity\src"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Common\ports\ota_pal"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\3rdparty\tinycbor\src"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls\library"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\mqtt_agent"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\common\mqtt-agent-interface\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\common\mqtt-agent-interface"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\OtaOverMqtt"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</Option>
-          <Option>-include="C:\downloads\iot-reference-rx-2\Demos\common\Mqtt_Demo_Helpers"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\coreMQTT\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\coreMQTT\source\interface"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS-Plus-CLI"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\coreJSON\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\freertos_plus\standard\crypto\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\corePKCS11\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\logging\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\backoffAlgorithm\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\pkcs11\published\2-40-errata-1"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls\include\mbedtls"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls_utils"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls_config"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\littlefs"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\FreeRTOS_common"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\FreeRTOS_common\compiler_support\ccrx"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\common\pkcs11_helpers"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\cli"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\dev_mode_key_provisioning\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\littlefs_common"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\ports\ota_pal"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\tinycbor\src"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls\library"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\mqtt_agent"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\common\mqtt-agent-interface\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\common\mqtt-agent-interface"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\OtaOverMqtt"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\common\Mqtt_Demo_Helpers"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\network_transport\using_mbedtls_pkcs11"</Option>
+          <Option>-include="C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\network_transport\sockets_wrapper\include"</Option>
           <Option>-define=MBEDTLS_CONFIG_FILE="&lt;aws_mbedtls_config.h&gt;",CONFIG_MEDTLS_USE_AFR_MEMORY,MBEDTLS_CMAC_C,MBEDTLS_ERROR_C,MBEDTLS_THREADING_C,MBEDTLS_ALLOW_PRIVATE_ACCESS</Option>
           <Option>-utf8</Option>
           <Option>-nomessage=11174,21644,20010,23034,23035,20177,23033</Option>
@@ -1260,12 +1251,11 @@
           <Path>HardwareDebug\entropy_hardware_poll.obj</Path>
           <Path>HardwareDebug\serial_term_uart.obj</Path>
           <Path>HardwareDebug\unique_id.obj</Path>
-          <Path>HardwareDebug\common_data.obj</Path>
+          <Path>HardwareDebug\lfs_common_data.obj</Path>
           <Path>HardwareDebug\FleetProvisioningDemoExample.obj</Path>
           <Path>HardwareDebug\pkcs11_operations.obj</Path>
           <Path>HardwareDebug\tinycbor_serializer.obj</Path>
           <Path>HardwareDebug\OtaOverMqttDemoExample.obj</Path>
-          <Path>HardwareDebug\subscription_manager.obj</Path>
           <Path>HardwareDebug\simple_pub_sub_task.obj</Path>
           <Path>HardwareDebug\CLIcommands.obj</Path>
           <Path>HardwareDebug\UARTCommandConsole.obj</Path>
@@ -1391,9 +1381,6 @@
           <Path>HardwareDebug\ota_interface.obj</Path>
           <Path>HardwareDebug\ota_mqtt.obj</Path>
           <Path>HardwareDebug\ota_os_freertos.obj</Path>
-          <Path>HardwareDebug\sockets_wrapper.obj</Path>
-          <Path>HardwareDebug\mbedtls_pk_pkcs11.obj</Path>
-          <Path>HardwareDebug\transport_mbedtls_pkcs11.obj</Path>
           <Path>HardwareDebug\croutine.obj</Path>
           <Path>HardwareDebug\event_groups.obj</Path>
           <Path>HardwareDebug\list.obj</Path>
@@ -1416,10 +1403,14 @@
           <Path>HardwareDebug\FreeRTOS_CLI.obj</Path>
           <Path>HardwareDebug\iot_crypto.obj</Path>
           <Path>HardwareDebug\iot_logging_task_dynamic_buffers.obj</Path>
+          <Path>HardwareDebug\sockets_wrapper.obj</Path>
+          <Path>HardwareDebug\mbedtls_pk_pkcs11.obj</Path>
+          <Path>HardwareDebug\transport_mbedtls_pkcs11.obj</Path>
           <Path>HardwareDebug\main.obj</Path>
           <Path>HardwareDebug\ota_pal.obj</Path>
           <Path>HardwareDebug\rm_aws_pkcs11_pal_littlefs.obj</Path>
           <Path>HardwareDebug\rm_littlefs_flash.obj</Path>
+          <Path>HardwareDebug\user_init.obj</Path>
           <Path>HardwareDebug\cellular_block_pool_control.obj</Path>
           <Path>HardwareDebug\cellular_create_event_group.obj</Path>
           <Path>HardwareDebug\cellular_create_semaphore.obj</Path>
@@ -1554,13 +1545,14 @@
           <Path>HardwareDebug\cellular_task_ctrl.obj</Path>
           <Path>HardwareDebug\cellular_timeout_ctrl.obj</Path>
           <Path>HardwareDebug\r_cellular_receive_task.obj</Path>
+          <Path>HardwareDebug\r_flash_type5.obj</Path>
           <Path>HardwareDebug\r_irq_rx.obj</Path>
           <Path>HardwareDebug\r_irq_rx_pinset.obj</Path>
           <Path>HardwareDebug\aws_ryz014a_ck_rx65n.lib</Path>
           <Path>HardwareDebug\r_tsip_rx65n_little.lib}</Path>
         </LinkOrder>
         <CommonOptions>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\Fleet_Provisioning_With_CSR_Demo"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\Fleet_Provisioning_With_CSR_Demo"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForC>
@@ -1590,57 +1582,46 @@
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_config"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\frtos_startup"</IncludePathForC>
           <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\application_code"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS-Plus-CLI"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\logging\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\3rdparty\littlefs"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Common\FreeRTOS_common"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\common\pkcs11_helpers"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\cli"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\dev_mode_key_provisioning\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Common\littlefs_common"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\config_template"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\common"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\mqtt"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\ota"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\FreeRTOS-Libraries-Integration-Tests\src\transport_interface"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\Unity\extras\fixture\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\Unity\extras\memory\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\Test\Unity\src"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Common\ports\ota_pal"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\Application-Protocols\network_transport\sockets_wrapper\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\mqtt_agent"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\common\mqtt-agent-interface"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\OtaOverMqtt"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</IncludePathForC>
-          <IncludePathForC>"C:\downloads\iot-reference-rx-2\Demos\common\Mqtt_Demo_Helpers"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\FreeRTOS-Kernel\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\FreeRTOS-Kernel\portable\Renesas\RX600v2"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\coreMQTT\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\coreMQTT\source\interface"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS-Plus-CLI"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source\portable\os"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\ota-for-aws-iot-embedded-sdk\source"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\coreJSON\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\coreMQTT-Agent\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\freertos_plus\standard\crypto\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\corePKCS11\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\logging\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\FreeRTOS\backoffAlgorithm\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\pkcs11\published\2-40-errata-1"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls\include\mbedtls"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls_utils"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls_config"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\littlefs"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\FreeRTOS_common"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\FreeRTOS_common\compiler_support\ccrx"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\FreeRTOS_common\compiler_support\ccrx\implicitlyinclude.h"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\common\pkcs11_helpers"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\cli"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\dev_mode_key_provisioning\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\littlefs_common"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Common\ports\ota_pal"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\tinycbor\src"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\3rdparty\mbedtls\library"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\mqtt_agent"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\common\mqtt-agent-interface\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\common\mqtt-agent-interface"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\OtaOverMqtt"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\AWS\Fleet-Provisioning-for-AWS-IoT-embedded-sdk\source\include"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Demos\common\Mqtt_Demo_Helpers"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\network_transport\using_mbedtls_pkcs11"</IncludePathForC>
+          <IncludePathForC>"C:\downloads\iot-reference-rx-dev-202210.01-lts-rx-1.0.0\Middleware\network_transport\sockets_wrapper\include"</IncludePathForC>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\general"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_pincfg"</IncludePathForAsm>
           <IncludePathForAsm>"${ProjDirPath}\..\..\..\..\..\afr_new_structure\${ProjName}\src\smc_gen\r_bsp"</IncludePathForAsm>
