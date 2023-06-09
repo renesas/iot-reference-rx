@@ -343,6 +343,15 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1686275818557</id>
+			<name>Middleware/network_transport/sockets_wrapper/ports</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-cellular_ryz014a</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>1668572677709</id>
 			<name>Test/Unity/extras/fixture</name>
 			<type>9</type>
@@ -385,15 +394,6 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-dependency</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1668756665004</id>
-			<name>Middleware/Application-Protocols/network_transport/sockets_wrapper/ports</name>
-			<type>9</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-cellular_ryz014a</arguments>
 			</matcher>
 		</filter>
 		<filter>
