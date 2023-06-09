@@ -1,0 +1,5 @@
+aws_ether_ck_rx65n
+aws_ryz014a_ck_rx65n
+boot_loader_ck_rx65n
+test_aws_ether_ck_rx65n
+test_aws_ryz014a_ck_rx65n
