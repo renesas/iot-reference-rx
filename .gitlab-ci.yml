@@ -1,0 +1,39 @@
+stages:
+  - config
+  - build
+
+variables:
+  FILE_LIST_BUILD: .\Tools\boards\projects_build_ck_rx65n.txt
+  CIC_DIR_LOG: .\log
+  CIC_DIR_MOT: .\mot
+
+# -----------------------------------------------------------------------------
+# build stage
+# -----------------------------------------------------------------------------
+config_test:
+  stage: config
+  tags:
+    - build-rx-rl78-01
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  before_script:
+    - chcp 65001
+  script:
+    - ./Tools/git/submodule_update.bat
+  interruptible: true
+
+build_rx65n:
+  stage: build
+  tags:
+    - build-rx-rl78-01
+  before_script:
+    - chcp 65001
+  script:
+    - ./Tools/build/e2studio/headless_build.bat
+  interruptible: true
+  artifacts:
+    name: "$CI_JOB_NAME"
+    when: always
+    paths:
+      - ./mot/*.mot
+      - ./log/log*.txt
