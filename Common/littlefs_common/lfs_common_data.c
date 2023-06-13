@@ -18,7 +18,7 @@
  * OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
  **********************************************************************************************************************/
 
-#include "common_data.h"
+#include "lfs_common_data.h"
 #include "rm_littlefs_flash_config.h"
 
 /* Instance structure to use this module. */
