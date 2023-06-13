@@ -48,7 +48,7 @@
 
 #include "platform.h"
 #include "store.h"
-#include "common_data.h"
+#include "lfs_common_data.h"
 /* Key provisioning include. */
 #ifdef __TEST__
 #include "dev_mode_key_provisioning.h"
