@@ -16,7 +16,6 @@ config_test:
     - build-rx-rl78-01
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
-    GIT_CLONE_PATH: $CI_BUILDS_DIR/products/common/rtos/amazon-freertos/lts/fr-test
   before_script:
     - chcp 65001
   script:
@@ -30,6 +29,7 @@ build_rx65n:
   before_script:
     - chcp 65001
   script:
+    - ./Tools/patch/tmp_rename.bat                  # Temporary workaround to the problem that the file path is too long.
     - ./Tools/build/e2studio/headless_build.bat
   interruptible: true
   artifacts:
