@@ -694,7 +694,6 @@
           <Path>src\frtos_config\defender_config.h</Path>
           <Path>src\frtos_config\demo_config.h</Path>
           <Path>src\frtos_config\fleet_provisioning_config.h</Path>
-          <Path>src\frtos_config\mbedtls_config.h</Path>
           <Path>src\frtos_config\mbedtls_user_config.h</Path>
           <Path>src\frtos_config\ota_config.h</Path>
           <Path>src\frtos_config\ota_demo_config.h</Path>
