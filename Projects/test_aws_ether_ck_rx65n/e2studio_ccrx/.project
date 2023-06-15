@@ -325,15 +325,6 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668567142727</id>
-			<name>Middleware/FreeRTOS/corePKCS11/source</name>
-			<type>10</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-dependency</arguments>
-			</matcher>
-		</filter>
-		<filter>
 			<id>1686275064654</id>
 			<name>Middleware/network_transport/sockets_wrapper/ports</name>
 			<type>9</type>
@@ -520,6 +511,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-RX</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1686791203694</id>
+			<name>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-mbedtls_utils</arguments>
 			</matcher>
 		</filter>
 		<filter>
