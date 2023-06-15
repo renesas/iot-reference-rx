@@ -29,6 +29,7 @@ build_rx65n:
   before_script:
     - chcp 65001
   script:
+    - ./Tools/patch/tmp_rename.bat                  # Temporary workaround to the problem that the file path is too long.
     - ./Tools/build/e2studio/headless_build.bat
   interruptible: true
   artifacts:

@@ -1,0 +1,1 @@
+move .\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning\dev_mode_key_provisioning.c .\Test\FreeRTOS-Libraries-Integration-Tests\src\pkcs11\dev_mode_key_provisioning\a.c
