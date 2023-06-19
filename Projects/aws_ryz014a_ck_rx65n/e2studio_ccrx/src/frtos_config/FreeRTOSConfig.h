@@ -27,8 +27,6 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
-#include "serial_term_uart.h"
-
 /* Unity includes. */
 #if defined(FREERTOS_ENABLE_UNIT_TESTS)
 #include "unity_internals.h"
