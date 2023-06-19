@@ -166,8 +166,8 @@ with these intrinsics. */
 #  	define cbor_htonl        cbor_ntohl
 #endif
 #ifndef cbor_ntohll
-#  define cbor_ntohll(x)     ((cbor_ntohl(((uint32_t)(x))) * UINT64_C(0x100000000)) + (cbor_ntohl(((x) >> 32))))
-#  define cbor_htonll       cbor_ntohll
+#  define cbor_ntohll       ntohll
+#  define cbor_htonll       htonll
 /* ntohll isn't usually defined */
 #  ifndef ntohll
 #    if (defined(__BYTE_ORDER__) && defined(__ORDER_BIG_ENDIAN__) && __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__) || \
@@ -188,7 +188,7 @@ with these intrinsics. */
 #      define ntohll(x)       ((cbor_ntohl(((uint32_t)(x))) * UINT64_C(0x100000000)) + (cbor_ntohl(((x) >> 32))))
 #      define htonll          ntohll
 #    else
-//#      error "Unable to determine byte order!"
+#      error "Unable to determine byte order!"
 #    endif
 #  endif
 #endif
