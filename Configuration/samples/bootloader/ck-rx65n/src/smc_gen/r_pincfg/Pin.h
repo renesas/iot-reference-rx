@@ -14,46 +14,36 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
-/***********************************************************************************************************************
-* File Name    : r_s12ad_rx_pinset.c
-* Version      : 1.0.2
-* Device(s)    : R5F565NEHxFB
-* Tool-Chain   : RXC toolchain
-* Description  : Setting of port and mpc registers
+* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-Includes
+* File Name        : Pin.h
+* Version          : 1.0.2
+* Device(s)        : R5F565NEHxFB
+* Description      : This file implements SMC pin code generation.
 ***********************************************************************************************************************/
-#include "r_s12ad_rx_pinset.h"
-#include "platform.h"
+
+#ifndef PIN_H
+#define PIN_H
 
 /***********************************************************************************************************************
-Global variables and functions
+Macro definitions (Register bit)
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* Function Name: R_ADC_PinSet_S12AD0
-* Description  : This function initializes pins for r_s12ad_rx module
-* Arguments    : none
-* Return Value : none
+Macro definitions
 ***********************************************************************************************************************/
-void R_ADC_PinSet_S12AD0()
-{
-    R_BSP_RegisterProtectDisable(BSP_REG_PROTECT_MPC);
 
-    /* Set AN000 pin */
-    PORT4.PCR.BIT.B0 = 0U;
-    PORT4.PDR.BIT.B0 = 0U;
-    PORT4.PMR.BIT.B0 = 0U;
-    MPC.P40PFS.BYTE = 0x80U;
+/***********************************************************************************************************************
+Typedef definitions
+***********************************************************************************************************************/
 
-    /* Set ADTRG0# pin */
-    MPC.P07PFS.BYTE = 0x09U;
-    PORT0.PMR.BIT.B7 = 1U;
-
-    R_BSP_RegisterProtectEnable(BSP_REG_PROTECT_MPC);
-}
+/***********************************************************************************************************************
+Global functions
+***********************************************************************************************************************/
+void R_Pins_Create(void);
+/* Start user code for function. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+#endif
 

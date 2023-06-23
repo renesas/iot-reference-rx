@@ -202,7 +202,7 @@ Configuration Options
       settings and choosing the Standard Library section. After that choose 'Contents' in e2 studio.
       This will present a list of modules that can be included. Uncheck the box for stdio.h.
    NOTE: This setting is available only when using CCRX and GNUC. */
-#define BSP_CFG_HEAP_BYTES              (0x1000)
+#define BSP_CFG_HEAP_BYTES              (0x400)
 
 /* Initializes C input & output library functions.
    0 = Disable I/O library initialization in resetprg.c. If you are not using stdio then use this value.
@@ -212,10 +212,10 @@ Configuration Options
 
 /* If desired the user may redirect the stdio charget() and/or charput() functions to their own respective functions
    by enabling below and providing and replacing the my_sw_... function names with the names of their own functions. */
-#define BSP_CFG_USER_CHARGET_ENABLED    (0)
+#define BSP_CFG_USER_CHARGET_ENABLED    (1)
 #define BSP_CFG_USER_CHARGET_FUNCTION     my_sw_charget_function
 
-#define BSP_CFG_USER_CHARPUT_ENABLED    (0)
+#define BSP_CFG_USER_CHARPUT_ENABLED    (1)
 #define BSP_CFG_USER_CHARPUT_FUNCTION     my_sw_charput_function
 
 /* After reset MCU will operate in Supervisor mode. To switch to User mode, set this macro to '1'. For more information
@@ -554,7 +554,7 @@ Configuration Options
    4 = Renesas ITRON OS (RI600V4 or RI600PX) is used.
    5 = Azure RTOS is used.(This is not available.)
 */
-#define BSP_CFG_RTOS_USED               (1)
+#define BSP_CFG_RTOS_USED               (0)
 
 /* This macro is used to select which Renesas ITRON OS.
    0 = RI600V4 is used.
@@ -677,7 +677,7 @@ Configuration Options
 /* Version number of Smart Configurator.
    This macro definition is updated by Smart Configurator.
 */
-#define BSP_CFG_CONFIGURATOR_VERSION                (2160) /* Generated value. Do not edit this manually */
+#define BSP_CFG_CONFIGURATOR_VERSION                (2140) /* Generated value. Do not edit this manually */
 
 /* For some BSP functions, it is necessary to ensure that, while these functions are executing, interrupts from other 
    FIT modules do not occur. By controlling the IPL, these functions disable interrupts that are at or below the 
@@ -694,8 +694,8 @@ Configuration Options
    1 = Software interrupt is used.
    NOTE: When this macro is set to 1, the software interrupt is initialized in bsp startup routine. 
 */
-#define BSP_CFG_SWINT_UNIT1_ENABLE    (0)
-#define BSP_CFG_SWINT_UNIT2_ENABLE    (0)
+#define BSP_CFG_SWINT_UNIT1_ENABLE    (1)
+#define BSP_CFG_SWINT_UNIT2_ENABLE    (1)
 
 /* Software Interrupt Task Buffer Number.
    For software interrupt, this value is number of buffering user tasks.
@@ -731,7 +731,7 @@ Configuration Options
 /* This macro is interrupt priority for serial terminal.
    0(low) - 15(high)
 */
-#define BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY   (15)
+#define BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY   (3)
 
 /* This macro is used for C++ project and updated by Smart Configurator.
    0 = This project is a C project.(Not a C++ project).
