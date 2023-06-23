@@ -43,7 +43,7 @@ A high tick rate frequency will have the effect of reducing the 'time slice' giv
             <description>Generally this should not be reduced from the value set in the FreeRTOSConfig.h file provided with the demo application for the port you are using.
 The stack size is specified in words, not bytes.</description>
         </property>
-        <property id="configTOTAL_HEAP_SIZE" display="The total amount of RAM available in the FreeRTOS heap" default="256" type="textbox">
+        <property id="configTOTAL_HEAP_SIZE_N" display="The total amount of RAM available in the FreeRTOS heap" default="256" type="textbox">
             <constraint display="Value must be an integer">testInteger("${configTOTAL_HEAP_SIZE_N}")</constraint>
             <constraint display="Heap size must be greater than 0">("${configTOTAL_HEAP_SIZE_N}" &gt; 0)</constraint>
             <constraint display="Heap size must be less than RAM capacity">("${configTOTAL_HEAP_SIZE_N}" &lt;= ${Device.ramSize})</constraint>
