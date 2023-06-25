@@ -147,7 +147,12 @@ static CLI_Command_Definition_t xCommandConfig =
 			                       "           [cert]     : to get/set the certificate\r\n"
 			                       "           [key]      : to get/set the private key\r\n"
                                    "           [thingname]: to get/set the AWS thing name\r\n"
-                                   "           [endpoint] : to get/set the AWS MQTT endpoint\r\n",
+                                   "           [endpoint] : to get/set the AWS MQTT endpoint\r\n"
+                                   "           [claimcert]: to get/set the claim certificate for fleet provisioning demo\r\n"
+                                   "           [claimkey] : to get/set the claim key for fleet provisioning demo\r\n"
+                                   "           [template] : to get/set the template name for fleet provisioning demo\r\n"
+                                   "           [rootca]   : to get/set the root CA certificate\r\n"
+                                   "           [codesigncert] : to get/set the code signer certificate for OTA demo\r\n",
 	.pxCommandInterpreter        = prvConfigCommandHandler,
 	.cExpectedNumberOfParameters = -1
 };
