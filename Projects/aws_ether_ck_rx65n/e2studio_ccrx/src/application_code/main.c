@@ -46,7 +46,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
-
+extern KeyValueStore_t gKeyValueStore;
 extern void vStartSimplePubSubDemo( void  );
 
 #if (ENABLE_OTA_UPDATE_DEMO == 1)
@@ -377,14 +377,23 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 /*-----------------------------------------------------------*/
 
 #if ( ipconfigUSE_LLMNR != 0 ) || ( ipconfigUSE_NBNS != 0 ) || ( ipconfigDHCP_REGISTER_HOSTNAME == 1 )
-
+    /* This function will be called during the DHCP: the machine will be registered
+     * with an IP address plus this name. */
     const char * pcApplicationHostnameHook( void )
     {
-        /* This function will be called during the DHCP: the machine will be registered
-         * with an IP address plus this name. */
+#if defined(__TEST__)
         return clientcredentialIOT_THING_NAME;
+#else
+        if (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0)
+        {
+            return GetStringValue (KVS_CORE_THING_NAME, gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength + 1);
+        }
+        else
+        {
+            return clientcredentialIOT_THING_NAME;
+        }
+#endif
     }
-
 #endif
 
 bool ApplicationCounter(uint32_t xWaitTime)
