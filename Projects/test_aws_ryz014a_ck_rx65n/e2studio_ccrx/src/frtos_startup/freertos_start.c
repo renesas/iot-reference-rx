@@ -344,9 +344,20 @@ void Processing_Before_Start_Kernel(void)
 {
     BaseType_t ret;
 
+#if (RTOS_USB_SUPPORT == 1)
+	usb_rtos_err_t err = usb_rtos_configuration();
+	if (UsbRtos_Success != err)
+	{
+		while(1)
+		{
+			/** Failure of UsbRtos Configuration */
+		}
+	}
+#endif
+
     /************** task creation ****************************/
     /* Main task. */
-    ret = xTaskCreate(main, "MAIN_TASK", 512, NULL, 3, NULL);
+    ret = xTaskCreate(main_task, "MAIN_TASK", 512, NULL, 3, NULL);
     if (pdPASS != ret)
     {
         while(1)
