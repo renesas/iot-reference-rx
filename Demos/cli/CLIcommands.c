@@ -142,7 +142,7 @@ static CLI_Command_Definition_t xCommandConfig =
 	.pcHelpString                = "\r\n"
 								   "conf:\r\n"
 								   "    Command to change or retrieve configuration for the device.\r\n"
-								   "    Usage: conf [get|set|commit] [cert|key|thingname|endpoint] [value]\r\n"
+								   "    Usage: conf [get|set|commit] [cert|key|thingname|endpoint|claimcert|claimkey|template|rootca|codesigncert] [value]\r\n"
                                    "           [commit]   : to write the set value to Internal Data Flash Memory\r\n"
 			                       "           [cert]     : to get/set the certificate\r\n"
 			                       "           [key]      : to get/set the private key\r\n"
