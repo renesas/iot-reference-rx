@@ -91,7 +91,7 @@ void vApplicationTickHook(void);
 void Processing_Before_Start_Kernel(void);
 
 /* Main task. */
-extern void main(void *pvParameters);
+extern void main_task(void *pvParameters);
 
 
 /******************************************************************************
@@ -353,6 +353,8 @@ void Processing_Before_Start_Kernel(void)
 		}
 	}
 #endif
+
+    Kernel_Object_Init();
 
     /************** task creation ****************************/
     /* Main task. */

@@ -51,7 +51,7 @@ static bool _wifiConnectAccessPoint( void );
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
-
+extern KeyValueStore_t gKeyValueStore;
 extern void vStartSimplePubSubDemo( void  );
 
 #if (ENABLE_OTA_UPDATE_DEMO == 1)
@@ -141,7 +141,7 @@ extern void vRegisterSampleCLICommands( void );
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
  */
-void main( void )
+void main_task( void )
 {
 	int32_t xResults, Time2Wait = 10000;
 
