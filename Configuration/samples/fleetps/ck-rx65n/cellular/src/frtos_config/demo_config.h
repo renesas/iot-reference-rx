@@ -77,7 +77,7 @@
  * (0) : Pre-provisioning
  * (1) : Fleet provisioning
  */
-#define ENABLE_FLEET_PROVISIONING_DEMO      (1)
+#define ENABLE_FLEET_PROVISIONING_DEMO      (0)
 
 /* Please select whether to enable or disable the OTA demo
  * (0) : OTA demo is disabled
