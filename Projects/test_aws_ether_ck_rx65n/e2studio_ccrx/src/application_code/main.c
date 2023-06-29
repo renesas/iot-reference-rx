@@ -213,7 +213,7 @@ int RunOtaE2eDemo( void )
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
  */
-void main_task( void )
+void main( void )
 {
 	int32_t xResults, Time2Wait = 10000;
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )

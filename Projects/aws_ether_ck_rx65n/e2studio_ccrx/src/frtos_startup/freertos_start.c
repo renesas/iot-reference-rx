@@ -91,7 +91,7 @@ void vApplicationTickHook(void);
 void Processing_Before_Start_Kernel(void);
 
 /* Main task. */
-extern void main_task(void *pvParameters);
+extern void main(void *pvParameters);
 
 
 /******************************************************************************
@@ -303,6 +303,7 @@ void vAssertCalled(void)
 void vApplicationIdleHook(void)
 {
     /* Implement user-code for user own purpose. */
+
     static TickType_t xLastPrint = 0;
     TickType_t xTimeNow;
     const TickType_t xPrintFrequency = pdMS_TO_TICKS( 5000 );
@@ -359,7 +360,7 @@ void Processing_Before_Start_Kernel(void)
 
     /************** task creation ****************************/
     /* Main task. */
-    ret = xTaskCreate(main_task, "MAIN_TASK", 512, NULL, 1, NULL);
+    ret = xTaskCreate(main, "MAIN_TASK", 512, NULL, 1, NULL);
     if (pdPASS != ret)
     {
         while(1)
