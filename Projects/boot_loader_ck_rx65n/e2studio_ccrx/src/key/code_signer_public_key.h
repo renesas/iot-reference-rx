@@ -36,7 +36,11 @@
  * "...base64 data..."\
  * "-----END CERTIFICATE-----"
  */
-#define CODE_SIGNER_PUBLIC_KEY_PEM    "Paste code signer public key here."
+#define CODE_SIGNER_PUBLIC_KEY_PEM \
+"-----BEGIN PUBLIC KEY-----"\
+"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWiAlaCQGEgIKoP+qk7Uqc/ME/hjw"\
+"amq1v/z/LWx15CKig59Pd3+ar2RFOlMMOhIfkYgS+Ha7tH+w0ggnKDrUug=="\
+"-----END PUBLIC KEY-----"
 
 extern const uint8_t g_code_signer_public_key[];
 extern const uint32_t g_code_signer_public_key_length;
