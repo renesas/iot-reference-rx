@@ -83,7 +83,7 @@
  * (0) : OTA demo is disabled
  * (1) : OTA over MQTT demo is enabled
  */
-#define ENABLE_OTA_UPDATE_DEMO              (0)
+#define ENABLE_OTA_UPDATE_DEMO              (1)
 
 #define democonfigROOT_CA_PEM               tlsSTARFIELD_ROOT_CERTIFICATE_PEM
 
