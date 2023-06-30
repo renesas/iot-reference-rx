@@ -77,13 +77,13 @@
  * (0) : Pre-provisioning
  * (1) : Fleet provisioning
  */
-#define ENABLE_FLEET_PROVISIONING_DEMO      (0)
+#define ENABLE_FLEET_PROVISIONING_DEMO      (1)
 
 /* Please select whether to enable or disable the OTA demo
  * (0) : OTA demo is disabled
  * (1) : OTA over MQTT demo is enabled
  */
-#define ENABLE_OTA_UPDATE_DEMO              (0)
+#define ENABLE_OTA_UPDATE_DEMO              (1)
 
 #define democonfigROOT_CA_PEM               tlsSTARFIELD_ROOT_CERTIFICATE_PEM
 
