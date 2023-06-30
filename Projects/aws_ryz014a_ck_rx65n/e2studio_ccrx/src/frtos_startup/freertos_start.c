@@ -343,6 +343,7 @@ void Processing_Before_Start_Kernel(void)
 {
     BaseType_t ret;
 
+/** Make sure to manually set/clear this macro in freertos_start.h **/
 #if (RTOS_USB_SUPPORT == 1)
 	usb_rtos_err_t err = usb_rtos_configuration();
 	if (UsbRtos_Success != err)
