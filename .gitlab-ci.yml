@@ -3,6 +3,7 @@ stages:
   - build
 
 variables:
+  GIT_CLONE_PATH: $CI_BUILDS_DIR/frtos-test
   FILE_LIST_BUILD: .\Tools\boards\projects_build_ck_rx65n.txt
   CIC_DIR_LOG: .\log
   CIC_DIR_MOT: .\mot
@@ -13,7 +14,7 @@ variables:
 config_test:
   stage: config
   tags:
-    - build-rx-rl78-01
+    - win-common-rtos-01
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   before_script:
@@ -25,11 +26,10 @@ config_test:
 build_rx65n:
   stage: build
   tags:
-    - build-rx-rl78-01
+    - win-common-rtos-01
   before_script:
     - chcp 65001
   script:
-    - ./Tools/patch/tmp_rename.bat                  # Temporary workaround to the problem that the file path is too long.
     - ./Tools/build/e2studio/headless_build.bat
   interruptible: true
   artifacts:
