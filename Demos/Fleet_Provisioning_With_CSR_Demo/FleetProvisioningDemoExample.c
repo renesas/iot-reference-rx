@@ -951,8 +951,6 @@ int prvFleetProvisioningTask( void * pvParameters )
     /* Log demo success. */
     if( xStatus == true )
     {
-    	// xPkcs11CloseSession( xP11Session );
-
 #if !defined(__TEST__)
         if (pcPublishTopic != NULL)
         {
