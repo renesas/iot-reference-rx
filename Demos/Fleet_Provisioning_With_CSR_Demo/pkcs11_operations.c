@@ -902,3 +902,37 @@ CK_RV xGetCertificateAndKeyState( CK_SESSION_HANDLE xP11Session,
     return xResult;
 }
 /*-----------------------------------------------------------*/
+
+CK_RV xDestroyCertificateAndKey( CK_SESSION_HANDLE xP11Session)
+{
+    CK_RV xResult;
+    CK_FUNCTION_LIST_PTR pxFunctionList;
+    CK_OBJECT_CLASS certificateClass = CKO_CERTIFICATE;
+    CK_OBJECT_CLASS privatekeyClass = CKO_PRIVATE_KEY;
+    CK_OBJECT_CLASS publickeyClass = CKO_PUBLIC_KEY;
+
+    xResult = C_GetFunctionList( &pxFunctionList );
+
+    /* Destroy for a private key. */
+    if( CKR_OK == xResult )
+    {
+        prvDestroyProvidedObjects( xP11Session, ( CK_BYTE_PTR * ) pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS, &privatekeyClass, 1 );
+    }
+
+    /* Destroy for a public key. */
+    if( CKR_OK == xResult )
+    {
+        prvDestroyProvidedObjects( xP11Session, ( CK_BYTE_PTR * ) pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS, &publickeyClass, 1 );
+    }
+
+    /* Destroy for the client certificate. */
+    if( CKR_OK == xResult )
+    {
+        prvDestroyProvidedObjects( xP11Session, ( CK_BYTE_PTR * ) pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS, &certificateClass, 1 );
+    }
+
+    return xResult;
+
+}
+
+/*-----------------------------------------------------------*/
