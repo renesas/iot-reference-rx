@@ -698,8 +698,8 @@ int prvFleetProvisioningTask( void * pvParameters )
             xStatus = false;
         }
 
-        /* Skip fleet provisioning if you already have a device certificate and private key. */
-        if ( (xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) )
+        /* Skip fleet provisioning if you already have a device certificate, private key and thingname. */
+        if ( (xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) || (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength <= 0) )
         {
             /**** Connect to AWS IoT Core with provisioning claim credentials *****/
 
