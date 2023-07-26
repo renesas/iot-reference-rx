@@ -1,6 +1,8 @@
 /*
- * FreeRTOS V1.4.8
+ * corePKCS11 v3.5.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ *
+ * SPDX-License-Identifier: MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -18,16 +20,12 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * http://aws.amazon.com/freertos
- * http://www.FreeRTOS.org
  */
 
 /**
  * @file core_pkcs11_config.h
  * @brief PCKS#11 config options.
  */
-
 
 #ifndef _CORE_PKCS11_CONFIG_H_
 #define _CORE_PKCS11_CONFIG_H_
@@ -37,8 +35,6 @@
     extern "C" {
 #endif
 /* *INDENT-ON* */
-
-#include "FreeRTOS.h"
 
 /**************************************************/
 /******* DO NOT CHANGE the following order ********/
@@ -63,8 +59,26 @@
 #endif
 
 #include "logging_stack.h"
+/************ End of logging configuration ****************/
 
-#define pkcs11configPAL_DESTROY_SUPPORTED 1
+/**
+ * @brief Definitions mapping deprecated configuration macro names to their current equivalent
+ * configurations for backwards compatibility of API.
+ */
+#ifndef DOXYGEN
+    #ifdef PKCS11_MALLOC
+        #define pkcs11configPKCS11_MALLOC    PKCS11_MALLOC
+    #endif
+
+    #ifdef PKCS11_FREE
+        #define pkcs11configPKCS11_FREE    PKCS11_FREE
+    #endif
+
+    #ifdef configPKCS11_DEFAULT_USER_PIN
+        #define pkcs11configPKCS11_DEFAULT_USER_PIN    configPKCS11_DEFAULT_USER_PIN
+    #endif
+#endif /* ifndef DOXYGEN */
+
 
 /**
  * @brief Malloc API used by core_pkcs11.h
@@ -105,10 +119,15 @@
  * both of those, the user PIN is assumed to be used herein for interoperability
  * purposes only, and not as a security feature.
  *
- * Note: Do not cast this to a pointer! The library calls sizeof to get the length
+ * @note Do not cast this to a pointer! The library calls sizeof to get the length
  * of this string.
+ *
+ * <b>Possible values:</b> Any four digit code<br>
+ * <b>Default value:</b> `"0000"`
  */
-#define configPKCS11_DEFAULT_USER_PIN    "0000"
+#ifndef pkcs11configPKCS11_DEFAULT_USER_PIN
+    #define pkcs11configPKCS11_DEFAULT_USER_PIN    "0000"
+#endif
 
 /**
  * @brief Maximum length (in characters) for a PKCS #11 CKA_LABEL
@@ -126,7 +145,7 @@
  * by the PKCS #11 module.
  *
  * <br><b>Possible values:</b> Any positive integer.<br>
- * <b>Default value:</b> `8`
+ * <b>Default value:</b> `6`
  */
 #ifndef pkcs11configMAX_NUM_OBJECTS
     #define pkcs11configMAX_NUM_OBJECTS    8
@@ -145,6 +164,7 @@
 #ifndef pkcs11configMAX_SESSIONS
     #define pkcs11configMAX_SESSIONS    10
 #endif
+
 
 /**
  * @brief Set to 1 if a PAL destroy object is implemented.
@@ -280,8 +300,6 @@
 #ifndef pkcs11configLABEL_JITP_CERTIFICATE
     #define pkcs11configLABEL_JITP_CERTIFICATE    "JITP Cert"
 #endif
-
-
 
 /**
  * @brief The PKCS #11 label for AWS IoT Fleet Provisioning claim certificate.

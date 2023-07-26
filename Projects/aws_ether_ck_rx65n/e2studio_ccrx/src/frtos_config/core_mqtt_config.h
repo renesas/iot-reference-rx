@@ -1,5 +1,8 @@
 /*
- * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * coreMQTT v2.1.0
+ * Copyright (C) 2022 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ *
+ * SPDX-License-Identifier: MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -22,10 +25,6 @@
 #ifndef CORE_MQTT_CONFIG_H_
 #define CORE_MQTT_CONFIG_H_
 
-/**************************************************/
-/******* DO NOT CHANGE the following order ********/
-/**************************************************/
-
 /* *INDENT-OFF* */
 #ifdef __cplusplus
     extern "C" {
@@ -46,6 +45,21 @@
  * the logging configuration for MQTT.
  * 3. Include the header file "logging_stack.h", if logging is enabled for MQTT.
  */
+
+#include "logging_levels.h"
+
+/* Logging configuration for the MQTT library. */
+#ifndef LIBRARY_LOG_NAME
+    #define LIBRARY_LOG_NAME    "MQTT"
+#endif
+
+#ifndef LIBRARY_LOG_LEVEL
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
+#endif
+
+#include "logging_stack.h"
+
+/************ End of logging configuration ****************/
 
 /**
  * @brief The number of retries for receiving CONNACK.
@@ -114,63 +128,6 @@
     #define PACKET_RX_TIMEOUT_MS    ( 30000U )
 #endif
 
-#include "logging_levels.h"
-
-/* Logging configuration for the MQTT library. */
-#ifndef LIBRARY_LOG_NAME
-    #define LIBRARY_LOG_NAME    "MQTT"
-#endif
-
-#ifndef LIBRARY_LOG_LEVEL
-    #define LIBRARY_LOG_LEVEL    LOG_INFO
-#endif
-
-#include "logging_stack.h"
-
-/************ End of logging configuration ****************/
-
-/**
- * @brief The maximum number of MQTT PUBLISH messages that may be pending
- * acknowledgement at any time.
- *
- * QoS 1 and 2 MQTT PUBLISHes require acknowledgment from the server before
- * they can be completed. While they are awaiting the acknowledgment, the
- * client must maintain information about their state. The value of this
- * macro sets the limit on how many simultaneous PUBLISH states an MQTT
- * context maintains.
- */
-#define MQTT_STATE_ARRAY_MAX_COUNT                   10U
-
-#define MQTT_AGENT_COMMAND_QUEUE_LENGTH              ( 25 )
-
-#define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 10 )
-
-/**
- * @brief The maximum number of subscriptions to track for a single connection.
- *
- * @note The MQTT agent keeps a record of all existing MQTT subscriptions.
- * MQTT_AGENT_MAX_SIMULTANEOUS_SUBSCRIPTIONS sets the maximum number of
- * subscriptions records that can be maintained at one time.  The higher this
- * number is the greater the agent's RAM consumption will be.
- */
-#define MQTT_AGENT_MAX_SIMULTANEOUS_SUBSCRIPTIONS    ( 10 )
-
-/**
- * @brief Size of statically allocated buffers for holding subscription filters.
- *
- * @note Subscription filters are strings such as "/my/topicname/#".  These
- * strings are limited to a maximum of MQTT_AGENT_MAX_SUBSCRIPTION_FILTER_LENGTH
- * characters. The higher this number is the greater the agent's RAM consumption
- * will be.
- */
-#define MQTT_AGENT_MAX_SUBSCRIPTION_FILTER_LENGTH    ( 100 )
-
-/**
- * @brief Dimensions the buffer used to serialize and deserialize MQTT packets.
- * @note Specified in bytes.  Must be large enough to hold the maximum
- * anticipated MQTT payload.
- */
-#define MQTT_AGENT_NETWORK_BUFFER_SIZE               ( 5000 )
 
 /**
  * @brief The maximum duration between non-empty network reads while
@@ -194,7 +151,7 @@
  *
  */
 #ifndef MQTT_RECV_POLLING_TIMEOUT_MS
-    #define MQTT_RECV_POLLING_TIMEOUT_MS    ( 500 )
+    #define MQTT_RECV_POLLING_TIMEOUT_MS    ( 1000U )
 #endif
 
 /**
@@ -220,18 +177,6 @@
     #define MQTT_SEND_TIMEOUT_MS    ( 20000U )
 #endif
 
-/**
- * @brief Maximum wait time in milliseconds for MQTT agent on the input queue.
- * If there is no events(commands) on the queue for the period, then MQTT agent
- * switches to receive packet from network.
- *
- * Since the transport interface is non blocking, the queue wait time is set to
- * a interval such that agent does not polls busy on the socket.
- *
- */
-#define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME         ( 50 )
-#endif
-
 #ifdef MQTT_SEND_RETRY_TIMEOUT_MS
     #error MQTT_SEND_RETRY_TIMEOUT_MS is deprecated. Instead use MQTT_SEND_TIMEOUT_MS.
 #endif
@@ -241,3 +186,5 @@
     }
 #endif
 /* *INDENT-ON* */
+
+#endif /* ifndef CORE_MQTT_CONFIG_H_ */
