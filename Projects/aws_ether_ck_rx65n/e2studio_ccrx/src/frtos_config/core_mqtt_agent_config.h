@@ -116,4 +116,4 @@
 #endif
 /* *INDENT-ON* */
 
-#endif /* ifndef CORE_MQTT_AGENT_CONFIG_DEFAULTS_H_ */
+#endif /* ifndef CORE_MQTT_AGENT_CONFIG_H_ */

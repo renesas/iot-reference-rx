@@ -90,17 +90,6 @@
 #define democonfigROOT_CA_PEM                   tlsSTARFIELD_ROOT_CERTIFICATE_PEM
 
 /**
- * @brief Timeout for which MQTT library keeps polling the transport interface,
- * when no byte is received.
- *
- * The timeout is honoured only after the first byte is read and while
- * remaining bytes are read from network interface. Keeping this timeout to a
- * sufficiently large value so as to account for delay of receipt of a large
- * block of message.
- */
-#define MQTT_RECV_POLLING_TIMEOUT_MS            ( 1000U )
-
-/**
  * @brief The length of the queue used to hold commands for the agent.
  */
 #define MQTT_AGENT_COMMAND_QUEUE_LENGTH         ( 25 )
@@ -120,6 +109,8 @@
  * MQTT agent while processing  pending MQTT operations as well as receive
  * packets from network.
  */
-#define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 1U )
+#define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 50U )
+
+#define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 10 )
 
 #endif /* OTA_DEMO_CONFIG_H_ */

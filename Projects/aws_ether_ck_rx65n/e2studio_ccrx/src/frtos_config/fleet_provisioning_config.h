@@ -1,6 +1,8 @@
 /*
- * FreeRTOS V202112.00
- * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * AWS IoT Fleet Provisioning v1.1.0
+ * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ *
+ * SPDX-License-Identifier: MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -18,10 +20,11 @@
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * https://www.FreeRTOS.org
- * https://github.com/FreeRTOS
- *
+ */
+
+/**
+ * @file fleet_provisioning_config.h
+ * @brief Config values for the AWS IoT Fleet Provisioning Library.
  */
 
 #ifndef FLEET_PROVISIONING_CONFIG_H_
@@ -48,20 +51,8 @@
     #define LIBRARY_LOG_LEVEL    LOG_INFO
 #endif
 
-/* Prototype for the function used to print to console on Windows simulator
- * of FreeRTOS.
- * The function prints to the console before the network is connected;
- * then a UDP port after the network has connected. */
-extern void vLoggingPrintf( const char * pcFormatString,
-                            ... );
-
-/* Map the SdkLog macro to the logging function to enable logging
- * on Windows simulator. */
-#ifndef SdkLog
-    #define SdkLog( message )    vLoggingPrintf message
-#endif
-
 #include "logging_stack.h"
+/************ End of logging configuration ****************/
 
 /* The macro definition for FLEET_PROVISIONING_DO_NOT_USE_CUSTOM_CONFIG is for
  * Doxygen documentation only. */
@@ -164,7 +155,5 @@ extern void vLoggingPrintf( const char * pcFormatString,
 #ifndef LogDebug
     #define LogDebug( message )
 #endif
-
-/************ End of logging configuration ****************/
 
 #endif /* ifndef FLEET_PROVISIONING_CONFIG_H_ */

@@ -32,8 +32,8 @@
  * preprocessor macro SHOULD NOT be set.
  */
 
-#ifndef CORE_MQTT_AGENT_CONFIG_DEFAULTS_H_
-#define CORE_MQTT_AGENT_CONFIG_DEFAULTS_H_
+#ifndef CORE_MQTT_AGENT_CONFIG_H_
+#define CORE_MQTT_AGENT_CONFIG_H_
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
@@ -116,4 +116,4 @@
 #endif
 /* *INDENT-ON* */
 
-#endif /* ifndef CORE_MQTT_AGENT_CONFIG_DEFAULTS_H_ */
+#endif /* ifndef CORE_MQTT_AGENT_CONFIG_H_ */
