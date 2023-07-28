@@ -51,6 +51,7 @@ bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
 extern void UserInitialization(void);
 extern void vStartOtaDemo( void );
+xSemaphoreHandle xSemaphoreFlashAccess;
 
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.

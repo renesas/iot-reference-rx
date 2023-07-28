@@ -67,7 +67,7 @@
 /**** Start user code ****/
 /**** End user code   ****/
 static void flashing_callback( void * event );
-static xSemaphoreHandle xFWUPSemaphoreFlashAccess;
+
 static uint32_t flash_status = DATA_FLASH_UPDATE_STATE_UNINITIALIZE;
 /*
  * Internal flash
@@ -92,8 +92,8 @@ e_fwup_err_t r_fwup_wrap_flash_open(void)
 
 		LogDebug( ("r_fwup_wrap_flash_open: Create and give semaphore!") );
 
-		xFWUPSemaphoreFlashAccess = xSemaphoreCreateBinary();
-		xSemaphoreGive( xFWUPSemaphoreFlashAccess );
+		xSemaphoreFlashAccess = xSemaphoreCreateBinary();
+		xSemaphoreGive( xSemaphoreFlashAccess );
 
 		flash_interrupt_config_t cb_func_info;
 
@@ -120,10 +120,10 @@ e_fwup_err_t r_fwup_wrap_flash_open(void)
 void r_fwup_wrap_flash_close(void)
 {
     /**** Start user code ****/
-    if( NULL != xFWUPSemaphoreFlashAccess )
+    if( NULL != xSemaphoreFlashAccess )
     {
-        vSemaphoreDelete( xFWUPSemaphoreFlashAccess );
-        xFWUPSemaphoreFlashAccess = NULL;
+        vSemaphoreDelete( xSemaphoreFlashAccess );
+        xSemaphoreFlashAccess = NULL;
     }
 
     flash_status = DATA_FLASH_UPDATE_STATE_UNINITIALIZE;
@@ -158,23 +158,23 @@ e_fwup_err_t r_fwup_wrap_flash_erase(uint32_t addr, uint32_t num_blocks)
     // Flash access protect
     LogDebug( ("r_fwup_wrap_flash_erase: Get semaphore for flash erase...") );
 
-	xSemaphoreTake( xFWUPSemaphoreFlashAccess, portMAX_DELAY );
+	xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 	flash_status = DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE;
 	r_fwup_wrap_disable_interrupt();
 	flash_error_code = R_FLASH_Erase((flash_block_address_t )blk_addr, num_blocks);
     r_fwup_wrap_enable_interrupt();
 
     //wait for the semaphore to be released by callback
-    xSemaphoreTake( xFWUPSemaphoreFlashAccess, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     if (FLASH_SUCCESS != flash_error_code)
     {
     	LogError( ("Flash erase: NG, at address %x, ret = %d\r\n", blk_addr, flash_error_code ) );
-    	xSemaphoreGive(xFWUPSemaphoreFlashAccess);
+    	xSemaphoreGive(xSemaphoreFlashAccess);
         return (FWUP_ERR_FLASH);
     }
 
-    xSemaphoreGive(xFWUPSemaphoreFlashAccess);
+    xSemaphoreGive(xSemaphoreFlashAccess);
 
     return (FWUP_SUCCESS);
     /**** End user code   ****/
@@ -199,7 +199,7 @@ e_fwup_err_t r_fwup_wrap_flash_write(uint32_t src_addr, uint32_t dest_addr, uint
 
 	// Flash access protect
     //LogDebug( ("r_fwup_wrap_flash_write: Get semaphore for flash write...") );
-	xSemaphoreTake( xFWUPSemaphoreFlashAccess, portMAX_DELAY );
+	xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 	//LogDebug( ("r_fwup_wrap_flash_write: Semaphore got, updating status...") );
 	flash_status = DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE;
 
@@ -208,15 +208,15 @@ e_fwup_err_t r_fwup_wrap_flash_write(uint32_t src_addr, uint32_t dest_addr, uint
     r_fwup_wrap_enable_interrupt();
 
     //wait for the semaphore to be released by callback
-    xSemaphoreTake( xFWUPSemaphoreFlashAccess, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     if (FLASH_SUCCESS != flash_error_code)
     {
     	LogError( ("r_fwup_wrap_flash_write: NG, R_FLASH_Write returns %d at %X", flash_error_code, dest_addr) );
-    	xSemaphoreGive(xFWUPSemaphoreFlashAccess);
+    	xSemaphoreGive(xSemaphoreFlashAccess);
         return (FWUP_ERR_FLASH);
     }
-    xSemaphoreGive(xFWUPSemaphoreFlashAccess);
+    xSemaphoreGive(xSemaphoreFlashAccess);
     return (FWUP_SUCCESS);
     /**** End user code   ****/
 }
@@ -236,9 +236,9 @@ e_fwup_err_t r_fwup_wrap_flash_read(uint32_t buf_addr, uint32_t src_addr, uint32
 {
     /**** Start user code ****/
 	//LogDebug( ("r_fwup_wrap_flash_read: Get semaphore for flash reading at %X with size = %d", src_addr, size) );
-	xSemaphoreTake( xFWUPSemaphoreFlashAccess, portMAX_DELAY );
+	xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
     MEMCPY((void FWUP_FAR *)buf_addr, (void FWUP_FAR *)src_addr, size);
-    xSemaphoreGive(xFWUPSemaphoreFlashAccess);
+    xSemaphoreGive(xSemaphoreFlashAccess);
     //LogDebug( ("r_fwup_wrap_flash_read: success!") );
     return (FWUP_SUCCESS);
 
@@ -417,32 +417,32 @@ static void flashing_callback( void * event )
 			if(DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE == flash_status)
 			{
 				flash_status = DATA_FLASH_UPDATE_STATE_FINALIZE;
-				xSemaphoreGiveFromISR( xFWUPSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
+				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 			    LogInfo( ("fwup_wrap_flash: flash erase completed!") );
 			}
 			else
 			{
 				flash_status = DATA_FLASH_UPDATE_STATE_ERROR;
-				xSemaphoreGiveFromISR( xFWUPSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
+				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			}
 			break;
 		case FLASH_INT_EVENT_WRITE_COMPLETE:
 			if(DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE == flash_status)
 			{
 				flash_status = DATA_FLASH_UPDATE_STATE_FINALIZE;
-				xSemaphoreGiveFromISR( xFWUPSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
+				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 			    LogInfo( ("fwup_wrap_flash: flash write completed!") );
 			}
 			else
 			{
 				flash_status = DATA_FLASH_UPDATE_STATE_ERROR;
-				xSemaphoreGiveFromISR( xFWUPSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
+				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			}
 			break;
 		default:
-			xSemaphoreGiveFromISR( xFWUPSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
+			xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			break;
 	}
 }

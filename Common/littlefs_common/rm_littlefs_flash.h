@@ -73,6 +73,8 @@ typedef struct st_rm_littlefs_flash_instance_ctrl
 /** Filled in Interface API structure for this Instance. */
 extern const rm_littlefs_api_t g_rm_littlefs_on_flash;
 
+extern xSemaphoreHandle xSemaphoreFlashAccess;
+
 /** @endcond */
 
 /**********************************************************************************************************************

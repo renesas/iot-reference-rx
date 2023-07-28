@@ -47,6 +47,7 @@ extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
 extern KeyValueStore_t gKeyValueStore;
+xSemaphoreHandle xSemaphoreFlashAccess;
 extern void vStartSimplePubSubDemo( void  );
 
 #if (ENABLE_OTA_UPDATE_DEMO == 1)
@@ -200,7 +201,6 @@ void main( void )
 	{
 		/* Remove CLI task before going to demo. */
 		vTaskDelete(xCLIHandle);
-
 
 		/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
 			are created in the vApplicationIPNetworkEventHook() hook function
