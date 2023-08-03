@@ -348,7 +348,7 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 #else
         if (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0)
         {
-            return GetStringValue (KVS_CORE_THING_NAME, gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength + 1);
+            return gKeyValueStore.table[KVS_CORE_THING_NAME].value;s
         }
         else
         {
