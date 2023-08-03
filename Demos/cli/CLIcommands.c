@@ -157,7 +157,7 @@ static CLI_Command_Definition_t xCommandConfig =
                                    "           {codesigncert} : select code signer certificate as input target element\r\n"
                                    "           VALUE : the value of input target element, this is only required for 'conf set' command\r\n"
 								   "    Usage: conf commit\r\n"
-                                   "           {commit}   : to write the configured value to Internal Data Flash Memory\r\n",
+                                   "           commit   : to write the configured value to Internal Data Flash Memory\r\n",
 	.pxCommandInterpreter        = prvConfigCommandHandler,
 	.cExpectedNumberOfParameters = -1
 };
