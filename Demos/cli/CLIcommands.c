@@ -370,6 +370,8 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 			else
 			{
 				sprintf(pcWriteBuffer,"%s\r\n",getValue);
+				vPortFree( getValue );
+				getValue = NULL;
 			}
 
 		}
