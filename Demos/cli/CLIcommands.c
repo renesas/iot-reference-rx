@@ -142,12 +142,22 @@ static CLI_Command_Definition_t xCommandConfig =
 	.pcHelpString                = "\r\n"
 								   "conf:\r\n"
 								   "    Command to change or retrieve configuration for the device.\r\n"
-								   "    Usage: conf [get|set|commit] [cert|key|thingname|endpoint] [value]\r\n"
-                                   "           [commit]   : to write the set value to Internal Data Flash Memory\r\n"
-			                       "           [cert]     : to get/set the certificate\r\n"
-			                       "           [key]      : to get/set the private key\r\n"
-                                   "           [thingname]: to get/set the AWS thing name\r\n"
-                                   "           [endpoint] : to get/set the AWS MQTT endpoint\r\n",
+								   "    Usage: conf get {cert|key|thingname|endpoint|claimcert|claimkey|template|rootca|codesigncert}\r\n"
+								   "    Usage: conf set {cert|key|thingname|endpoint|claimcert|claimkey|template|rootca|codesigncert} VALUE\r\n"
+			                       "           get     : to retrieve configuration from Data Flash Memory\r\n"
+			                       "           set     : to change configuration for the device\r\n"
+			                       "           {cert}     : select client certificate as input target element\r\n"
+			                       "           {key}      : select client private key as input target element\r\n"
+                                   "           {thingname}: select AWS thing name as input target element\r\n"
+                                   "           {endpoint} : select AWS MQTT endpoint as input target element\r\n"
+                                   "           {claimcert}: select claim certificate as input target element\r\n"
+                                   "           {claimkey} : select claim key as input target element\r\n"
+                                   "           {template} : select template name as input target element\r\n"
+                                   "           {rootca}   : select root CA certificate as input target element\r\n"
+                                   "           {codesigncert} : select code signer certificate as input target element\r\n"
+                                   "           VALUE : the value of input target element, this is only required for 'conf set' command\r\n"
+								   "    Usage: conf commit\r\n"
+                                   "           commit   : to write the configured value to Internal Data Flash Memory\r\n",
 	.pxCommandInterpreter        = prvConfigCommandHandler,
 	.cExpectedNumberOfParameters = -1
 };
@@ -360,6 +370,8 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 			else
 			{
 				sprintf(pcWriteBuffer,"%s\r\n",getValue);
+				vPortFree( getValue );
+				getValue = NULL;
 			}
 
 		}
