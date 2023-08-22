@@ -64,6 +64,7 @@
 
 /* Demo Specific configs. */
 #include "demo_config.h"
+#include "demo_config.h"
 #include "core_pkcs11_config.h"
 
 /* MQTT library includes. */
