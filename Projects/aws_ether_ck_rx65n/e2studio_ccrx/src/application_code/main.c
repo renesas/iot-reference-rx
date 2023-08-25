@@ -169,7 +169,7 @@ extern void vRegisterSampleCLICommands( void );
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
  */
-void main( void )
+void main_task( void )
 {
 	int32_t xResults, Time2Wait = 10000;
 
