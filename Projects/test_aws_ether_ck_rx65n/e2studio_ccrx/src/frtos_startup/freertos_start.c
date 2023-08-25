@@ -91,7 +91,7 @@ void vApplicationTickHook(void);
 void Processing_Before_Start_Kernel(void);
 
 /* Main task. */
-extern void main(void *pvParameters);
+extern void main_task(void *pvParameters);
 
 
 /******************************************************************************
@@ -303,7 +303,6 @@ void vAssertCalled(void)
 void vApplicationIdleHook(void)
 {
     /* Implement user-code for user own purpose. */
-
     static TickType_t xLastPrint = 0;
     TickType_t xTimeNow;
     const TickType_t xPrintFrequency = pdMS_TO_TICKS( 5000 );
@@ -343,9 +342,24 @@ void vApplicationTickHook(void)
 void Processing_Before_Start_Kernel(void)
 {
     BaseType_t ret;
+
+/** Make sure to manually set/clear this macro in freertos_start.h **/
+#if (RTOS_USB_SUPPORT == 1)
+	usb_rtos_err_t err = usb_rtos_configuration();
+	if (UsbRtos_Success != err)
+	{
+		while(1)
+		{
+			/** Failure of UsbRtos Configuration */
+		}
+	}
+#endif
+
+    Kernel_Object_Init();
+
     /************** task creation ****************************/
     /* Main task. */
-    ret = xTaskCreate(main, "MAIN_TASK", 512, NULL, 1, NULL);
+    ret = xTaskCreate(main_task, "MAIN_TASK", 512, NULL, 1, NULL);
     if (pdPASS != ret)
     {
         while(1)
