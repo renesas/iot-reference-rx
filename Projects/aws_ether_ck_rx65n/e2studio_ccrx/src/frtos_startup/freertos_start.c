@@ -38,6 +38,8 @@ Includes   <System Includes> , "Project Includes"
 #include "platform.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "freertos_start.h"
+
 #if defined(FREERTOS_ENABLE_UNIT_TESTS)
 #include "unity_internals.h"
 #elif defined(ENABLE_UNIT_TESTS)
@@ -356,7 +358,7 @@ void Processing_Before_Start_Kernel(void)
 	}
 #endif
 
-    Kernel_Object_Init();
+    Kernel_Object_init();
 
     /************** task creation ****************************/
     /* Main task. */

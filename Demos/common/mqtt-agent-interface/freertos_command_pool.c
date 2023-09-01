@@ -42,7 +42,7 @@
 #include "freertos_agent_message.h"
 
 /* Demo Specific configs. */
-#include "ota_demo_config.h"
+#include "demo_config.h"
 /*-----------------------------------------------------------*/
 
 #define QUEUE_NOT_INITIALIZED    ( 0U )
