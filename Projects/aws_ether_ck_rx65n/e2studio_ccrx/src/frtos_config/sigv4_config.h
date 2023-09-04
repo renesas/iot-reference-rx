@@ -67,4 +67,4 @@
 #endif
 /* *INDENT-ON* */
 
-#endif /* ifndef SIGV4_CONFIG_DEFAULTS_H_ */
+#endif /* ifndef SIGV4_CONFIG_H_ */

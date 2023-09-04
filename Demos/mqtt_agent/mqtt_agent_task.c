@@ -66,6 +66,7 @@
 #include "demo_config.h"
 #include "demo_config.h"
 #include "core_pkcs11_config.h"
+#include "core_pkcs11_config_defaults.h"
 
 /* MQTT library includes. */
 #include "core_mqtt.h"
@@ -74,8 +75,6 @@
 #include "transport_mbedtls_pkcs11.h"
 #include "aws_clientcredential.h"
 #include "iot_default_root_certificates.h"
-
-#include "core_pkcs11_config.h"
 
 /* MQTT library includes. */
 #include "core_mqtt.h"

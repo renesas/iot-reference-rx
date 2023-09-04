@@ -43,10 +43,6 @@
 #include "task.h"
 #include "semphr.h"
 
-/* PKCS#11 includes. */
-#include "core_pkcs11_config.h"
-#include "core_pkcs11.h"
-
 /* Client credential includes. */
 #include "aws_clientcredential.h"
 #include "aws_clientcredential_keys.h"
