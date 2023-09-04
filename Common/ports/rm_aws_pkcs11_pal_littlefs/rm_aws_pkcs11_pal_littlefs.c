@@ -34,6 +34,7 @@
  #pragma GCC diagnostic pop
 #endif
 
+#include "core_pkcs11_config_defaults.h"
 #include "core_pkcs11_config.h"
 #include "portmacro.h"
 #include "core_pkcs11_pal.h"
