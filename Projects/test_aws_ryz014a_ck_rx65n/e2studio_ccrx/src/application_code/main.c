@@ -448,9 +448,3 @@ static bool _wifiEnable( void )
     }
 
 #endif
-
-
-
-
-
-
