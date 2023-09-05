@@ -82,12 +82,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>0</id>
+			<id>1693894031443</id>
 			<name>Demos</name>
 			<type>10</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-include|dev_mode_key_provisioning</arguments>
+				<arguments>1.0-name-matches-false-true-include</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -97,6 +97,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-include</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1693894365340</id>
+			<name>Demos/dev_mode_key_provisioning</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-src</arguments>
 			</matcher>
 		</filter>
 		<filter>

@@ -201,7 +201,7 @@ extern void vOutputString( const char * pcMessage );
  * command interpreter running, and it has its own local output buffer, so the
  * global buffer is just set to be one byte long as it is not used and should not
  * take up unnecessary RAM. */
-#define configCOMMAND_INT_MAX_OUTPUT_SIZE    850
+#define configCOMMAND_INT_MAX_OUTPUT_SIZE    500
 
 /* Only used when running in the FreeRTOS Windows simulator.  Defines the
  * priority of the task used to simulate Ethernet interrupts. */
