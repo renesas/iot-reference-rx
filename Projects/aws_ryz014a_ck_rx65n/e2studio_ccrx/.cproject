@@ -51,6 +51,8 @@
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.fpu.2090753554" name="Use floating point arithmetic instructions (-fpu/-nofpu)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.fpu" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.fpu.yes" valueType="enumerated"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.include.621682861" name="Include file directories (-include)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.include" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="${TCINSTALL}/include"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/compiler/Renesas&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Demos/Fleet_Provisioning_With_CSR_Demo}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/general}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_pincfg}&quot;"/>
@@ -488,18 +490,6 @@
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.outputHexFile.2026575219" name="Output hex file" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.outputHexFile" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 							</tool>
 							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.1826428067" name="RTOS Configurator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig"/>
-						</toolChain>
-					</folderInfo>
-					<folderInfo id="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.configuration.1600053140.1572254586" name="/" resourcePath="Middleware/FreeRTOS/corePKCS11/source">
-						<toolChain id="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.toolChain.1098849105" name="Renesas CCRX Toolchain" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.hardwaredebug.toolChain" unusedChildren="">
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.dsp.133816132" name="DSP Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.dsp.1705134317"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.common.630013853" name="Common" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.common.175900399"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler.826040062" name="Compiler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler.1024579005"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.assembler.883358845" name="Assembler" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.assembler.2084394237"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.linker.1681108427" name="Linker" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.linker.337248596"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian.1844317075" name="Library Generator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian.437532858"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.converter.1341752110" name="Converter" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.converter.1709762947"/>
-							<tool id="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.2091701057" name="RTOS Configurator" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.base.rtosConfig.1826428067"/>
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>

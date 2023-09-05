@@ -1,6 +1,7 @@
 /*
  * coreSNTP v1.2.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -23,122 +24,39 @@
  */
 
 /**
- * @file core_sntp_config_defaults.h
- * @brief This file represents the default values for the configuration macros
+ * @file core_sntp_config.h
+ * @brief This file represents the custom values for the configuration macros
  * of the coreSNTP library.
- *
- * @note This file SHOULD NOT be modified. If custom values are needed for
- * any configuration macro, a core_sntp_config.h file should be provided to
- * the SNTP library to override the default values defined in this file.
- * To build the library with the core_sntp_config.h file, make sure to
- * not set the SNTP_DO_NOT_USE_CUSTOM_CONFIG preprocessor macro.
  */
 
 #ifndef CORE_SNTP_CONFIG_H_
 #define CORE_SNTP_CONFIG_H_
 
-/* The macro definition for SNTP_DO_NOT_USE_CUSTOM_CONFIG is for Doxygen
- * documentation only. */
+/**************************************************/
+/******* DO NOT CHANGE the following order ********/
+/**************************************************/
 
-/**
- * @brief Define this macro to build the SNTP library without the custom config
- * file core_sntp_config.h.
- *
- * Without the custom config, the SNTP library builds with
- * default values of config macros defined in core_sntp_config_defaults.h file.
- *
- * If a custom config is provided, then SNTP_DO_NOT_USE_CUSTOM_CONFIG should not
- * be defined.
+
+/* Include logging header files and define logging macros in the following order:
+ * 1. Include the header file "logging_levels.h".
+ * 2. Define the LIBRARY_LOG_NAME and LIBRARY_LOG_LEVEL macros depending on
+ * the logging configuration for SNTP.
+ * 3. Include the header file "logging_stack.h".
  */
-#ifdef DOXYGEN
-    #define SNTP_DO_NOT_USE_CUSTOM_CONFIG
+
+#include "logging_levels.h"
+
+/* Logging configuration for the Defender library. */
+#ifndef LIBRARY_LOG_NAME
+    #define LIBRARY_LOG_NAME    "SNTP"
 #endif
 
-/* SNTP_DO_NOT_USE_CUSTOM_CONFIG allows building the SNTP library
- * without a custom config. If a custom config is provided, the
- * SNTP_DO_NOT_USE_CUSTOM_CONFIG macro should not be defined. */
-#ifndef SNTP_DO_NOT_USE_CUSTOM_CONFIG
-    #include "core_sntp_config.h"
+#ifndef LIBRARY_LOG_LEVEL
+    #define LIBRARY_LOG_LEVEL    LOG_ERROR
 #endif
 
-/**
- * @brief Macro that is called in the SNTP library for logging "Error" level
- * messages.
- *
- * To enable error level logging in the SNTP library, this macro should be mapped to the
- * application-specific logging implementation that supports error logging.
- *
- * @note This logging macro is called in the SNTP library with parameters wrapped in
- * double parentheses to be ISO C89/C90 standard compliant. For a reference
- * POSIX implementation of the logging macros, refer to core_sntp_config.h files, and the
- * logging-stack in demos folder of the
- * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C).
- *
- * <b>Default value</b>: Error logging is turned off, and no code is generated for calls
- * to the macro in the SNTP library on compilation.
- */
-#ifndef LogError
-    #define LogError( message )
-#endif
+#include "logging_stack.h"
 
-/**
- * @brief Macro that is called in the SNTP library for logging "Warning" level
- * messages.
- *
- * To enable warning level logging in the SNTP library, this macro should be mapped to the
- * application-specific logging implementation that supports warning logging.
- *
- * @note This logging macro is called in the SNTP library with parameters wrapped in
- * double parentheses to be ISO C89/C90 standard compliant. For a reference
- * POSIX implementation of the logging macros, refer to core_sntp_config.h files, and the
- * logging-stack in demos folder of the
- * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/).
- *
- * <b>Default value</b>: Warning logs are turned off, and no code is generated for calls
- * to the macro in the SNTP library on compilation.
- */
-#ifndef LogWarn
-    #define LogWarn( message )
-#endif
+/************ End of logging configuration ****************/
 
-/**
- * @brief Macro that is called in the SNTP library for logging "Info" level
- * messages.
- *
- * To enable info level logging in the SNTP library, this macro should be mapped to the
- * application-specific logging implementation that supports info logging.
- *
- * @note This logging macro is called in the SNTP library with parameters wrapped in
- * double parentheses to be ISO C89/C90 standard compliant. For a reference
- * POSIX implementation of the logging macros, refer to core_sntp_config.h files, and the
- * logging-stack in demos folder of the
- * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/).
- *
- * <b>Default value</b>: Info logging is turned off, and no code is generated for calls
- * to the macro in the SNTP library on compilation.
- */
-#ifndef LogInfo
-    #define LogInfo( message )
-#endif
-
-/**
- * @brief Macro that is called in the SNTP library for logging "Debug" level
- * messages.
- *
- * To enable debug level logging from SNTP library, this macro should be mapped to the
- * application-specific logging implementation that supports debug logging.
- *
- * @note This logging macro is called in the SNTP library with parameters wrapped in
- * double parentheses to be ISO C89/C90 standard compliant. For a reference
- * POSIX implementation of the logging macros, refer to core_sntp_config.h files, and the
- * logging-stack in demos folder of the
- * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/).
- *
- * <b>Default value</b>: Debug logging is turned off, and no code is generated for calls
- * to the macro in the SNTP library on compilation.
- */
-#ifndef LogDebug
-    #define LogDebug( message )
-#endif
-
-#endif /* ifndef CORE_SNTP_CONFIG_DEFAULTS_H_ */
+#endif /* ifndef CORE_SNTP_CONFIG_H_ */
