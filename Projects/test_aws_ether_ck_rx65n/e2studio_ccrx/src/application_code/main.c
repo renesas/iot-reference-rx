@@ -40,7 +40,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Demo includes */
 #include "aws_clientcredential.h"
 #include "mqtt_agent_task.h"
-
 #include "test_execution_config.h"
 #include "store.h"
 
@@ -291,6 +290,7 @@ void prvMiscInitialization( void )
     /* Initialize UART for serial terminal. */
 	extern void CLI_Support_Settings(void);
 	CLI_Support_Settings();
+    /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY + 2,
                             mainLOGGING_MESSAGE_QUEUE_LENGTH );
