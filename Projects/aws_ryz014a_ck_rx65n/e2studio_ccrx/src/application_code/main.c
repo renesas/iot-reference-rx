@@ -35,7 +35,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "aws_dev_mode_key_provisioning.h"
 
 /* FreeRTOS+TCP includes. */
-#include "FreeRTOSIPConfig.h"
+#include "FreeRTOS_IP.h"
 
 /* Demo includes */
 #include "aws_clientcredential.h"
