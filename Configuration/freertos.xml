@@ -17,7 +17,7 @@
 	<package>
 		<type>rtosmodule</type>
 		<name>FreeRTOSLTS</name>
-		<version>202210.01-LTS-rx-1.0.0-rc3</version>
+		<version>202210.01-LTS-rx-1.0.0</version>
 		<!-- define RTOS libraries component -->
 		<component>
 			<name>FreeRTOS_IP</name>
@@ -122,11 +122,14 @@
 					<path>src/smc_gen/r_sci_rx/src</path>
 					<path>src/smc_gen/r_byteq</path>
 					<path>src/smc_gen/r_byteq/src</path>
+					<path>src/smc_gen/r_fwup</path>
+					<path>src/smc_gen/r_fwup/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_3</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
+					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
 				</incdir>
 				<incdir>
@@ -155,6 +158,7 @@
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
+					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT-Agent/source/include</path>
 					<path>Middleware/FreeRTOS/backoffAlgorithm/source/include</path>
@@ -163,6 +167,7 @@
 					<path>Middleware/FreeRTOS/corePKCS11/source/include</path>
 					<path>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/littlefs</path>
+					<path>Middleware/3rdparty/base64_decode</path>
 					<path>Middleware/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/mbedtls/include/mbedtls</path>
 					<path>Middleware/3rdparty/mbedtls/include</path>
@@ -231,6 +236,15 @@
 						<key>name</key>
 						<regularexpression>true</regularexpression>
 						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -607,11 +621,14 @@
 					<path>src/smc_gen/r_sci_rx/src</path>
 					<path>src/smc_gen/r_byteq</path>
 					<path>src/smc_gen/r_byteq/src</path>
+					<path>src/smc_gen/r_fwup</path>
+					<path>src/smc_gen/r_fwup/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_3</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
+					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
 				</incdir>
 				<incdir>
@@ -640,6 +657,7 @@
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
+					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT-Agent/source/include</path>
 					<path>Middleware/FreeRTOS/backoffAlgorithm/source/include</path>
@@ -648,6 +666,7 @@
 					<path>Middleware/FreeRTOS/corePKCS11/source/include</path>
 					<path>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/littlefs</path>
+					<path>Middleware/3rdparty/base64_decode</path>
 					<path>Middleware/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/mbedtls/include/mbedtls</path>
 					<path>Middleware/3rdparty/mbedtls/include</path>
@@ -725,6 +744,15 @@
 						<key>name</key>
 						<regularexpression>true</regularexpression>
 						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -1110,11 +1138,14 @@
 					<path>src/smc_gen/r_sci_rx/src</path>
 					<path>src/smc_gen/r_byteq</path>
 					<path>src/smc_gen/r_byteq/src</path>
+					<path>src/smc_gen/r_fwup</path>
+					<path>src/smc_gen/r_fwup/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_3</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
+					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
 				</incdir>
 				<incdir>
@@ -1143,6 +1174,7 @@
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
+					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT-Agent/source/include</path>
 					<path>Middleware/FreeRTOS/backoffAlgorithm/source/include</path>
@@ -1151,6 +1183,7 @@
 					<path>Middleware/FreeRTOS/corePKCS11/source/include</path>
 					<path>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/littlefs</path>
+					<path>Middleware/3rdparty/base64_decode</path>
 					<path>Middleware/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/mbedtls/include/mbedtls</path>
 					<path>Middleware/3rdparty/mbedtls/include</path>
@@ -1219,6 +1252,15 @@
 						<key>name</key>
 						<regularexpression>true</regularexpression>
 						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -1595,11 +1637,14 @@
 					<path>src/smc_gen/r_sci_rx/src</path>
 					<path>src/smc_gen/r_byteq</path>
 					<path>src/smc_gen/r_byteq/src</path>
+					<path>src/smc_gen/r_fwup</path>
+					<path>src/smc_gen/r_fwup/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_3</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
+					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
 				</incdir>
 				<incdir>
@@ -1628,6 +1673,7 @@
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
+					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT-Agent/source/include</path>
 					<path>Middleware/FreeRTOS/backoffAlgorithm/source/include</path>
@@ -1636,6 +1682,7 @@
 					<path>Middleware/FreeRTOS/corePKCS11/source/include</path>
 					<path>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/littlefs</path>
+					<path>Middleware/3rdparty/base64_decode</path>
 					<path>Middleware/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/mbedtls/include/mbedtls</path>
 					<path>Middleware/3rdparty/mbedtls/include</path>
@@ -1713,6 +1760,15 @@
 						<key>name</key>
 						<regularexpression>true</regularexpression>
 						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -2098,11 +2154,14 @@
 					<path>src/smc_gen/r_sci_rx/src</path>
 					<path>src/smc_gen/r_byteq</path>
 					<path>src/smc_gen/r_byteq/src</path>
+					<path>src/smc_gen/r_fwup</path>
+					<path>src/smc_gen/r_fwup/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_3</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
+					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
 				</incdir>
 				<incdir>
@@ -2131,6 +2190,7 @@
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
+					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT-Agent/source/include</path>
 					<path>Middleware/FreeRTOS/backoffAlgorithm/source/include</path>
@@ -2139,6 +2199,7 @@
 					<path>Middleware/FreeRTOS/corePKCS11/source/include</path>
 					<path>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/littlefs</path>
+					<path>Middleware/3rdparty/base64_decode</path>
 					<path>Middleware/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/mbedtls/include/mbedtls</path>
 					<path>Middleware/3rdparty/mbedtls/include</path>
@@ -2207,6 +2268,15 @@
 						<key>name</key>
 						<regularexpression>true</regularexpression>
 						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -2583,11 +2653,14 @@
 					<path>src/smc_gen/r_sci_rx/src</path>
 					<path>src/smc_gen/r_byteq</path>
 					<path>src/smc_gen/r_byteq/src</path>
+					<path>src/smc_gen/r_fwup</path>
+					<path>src/smc_gen/r_fwup/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_3</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
+					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
 				</incdir>
 				<incdir>
@@ -2616,6 +2689,7 @@
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
+					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT-Agent/source/include</path>
 					<path>Middleware/FreeRTOS/backoffAlgorithm/source/include</path>
@@ -2624,6 +2698,7 @@
 					<path>Middleware/FreeRTOS/corePKCS11/source/include</path>
 					<path>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/littlefs</path>
+					<path>Middleware/3rdparty/base64_decode</path>
 					<path>Middleware/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/mbedtls/include/mbedtls</path>
 					<path>Middleware/3rdparty/mbedtls/include</path>
@@ -2701,6 +2776,15 @@
 						<key>name</key>
 						<regularexpression>true</regularexpression>
 						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -3086,11 +3170,14 @@
 					<path>src/smc_gen/r_sci_rx/src</path>
 					<path>src/smc_gen/r_byteq</path>
 					<path>src/smc_gen/r_byteq/src</path>
+					<path>src/smc_gen/r_fwup</path>
+					<path>src/smc_gen/r_fwup/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_3</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
+					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
 				</incdir>
 				<incdir>
@@ -3119,6 +3206,7 @@
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
+					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT-Agent/source/include</path>
 					<path>Middleware/FreeRTOS/backoffAlgorithm/source/include</path>
@@ -3127,6 +3215,7 @@
 					<path>Middleware/FreeRTOS/corePKCS11/source/include</path>
 					<path>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/littlefs</path>
+					<path>Middleware/3rdparty/base64_decode</path>
 					<path>Middleware/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/mbedtls/include/mbedtls</path>
 					<path>Middleware/3rdparty/mbedtls/include</path>
@@ -3195,6 +3284,15 @@
 						<key>name</key>
 						<regularexpression>true</regularexpression>
 						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -3571,11 +3669,14 @@
 					<path>src/smc_gen/r_sci_rx/src</path>
 					<path>src/smc_gen/r_byteq</path>
 					<path>src/smc_gen/r_byteq/src</path>
+					<path>src/smc_gen/r_fwup</path>
+					<path>src/smc_gen/r_fwup/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_3</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
+					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
 				</incdir>
 				<incdir>
@@ -3604,6 +3705,7 @@
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
 					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
+					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT-Agent/source/include</path>
 					<path>Middleware/FreeRTOS/backoffAlgorithm/source/include</path>
@@ -3612,6 +3714,7 @@
 					<path>Middleware/FreeRTOS/corePKCS11/source/include</path>
 					<path>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/littlefs</path>
+					<path>Middleware/3rdparty/base64_decode</path>
 					<path>Middleware/3rdparty/mbedtls_utils</path>
 					<path>Middleware/3rdparty/mbedtls/include/mbedtls</path>
 					<path>Middleware/3rdparty/mbedtls/include</path>
@@ -3689,6 +3792,15 @@
 						<key>name</key>
 						<regularexpression>true</regularexpression>
 						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -4012,6 +4124,10 @@
 			<app id="application" value="bootloader" name="Secure bootloader sample project" description="This sample is used together with OTA sample project to provide a secure boot">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N</board>
+				<linkdir>
+					<folder linkedfolder="true">src/tinycrypt</folder>
+					<path>Middleware/3rdparty/tinycrypt</path>
+				</linkdir>
 				<!-- impdir section -->
 				<impdir>
 					<folder>Projects/boot_loader_ck_rx65n/e2studio_ccrx/src/key</folder>
@@ -4022,7 +4138,7 @@
 					<path>src/src</path>
 				</impdir>
 				<impdir>
-					<file>Projects/boot_loader_ck_rx65n/e2studio_ccrx/src/boot_loader_ck_rx65n.c</file>
+					<file>Projects/boot_loader_ck_rx65n/e2studio_ccrx/src/boot_loader.c</file>
 					<path>src</path>
 				</impdir>
 				<impdir>
@@ -4048,7 +4164,7 @@
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
-					<name>src/src/tinycrypt/lib/source</name>
+					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
 					<type>5</type>
 					<arguments>
 						<key>name</key>
@@ -4061,7 +4177,7 @@
 					<path>src</path>
 					<path>src/src</path>
 					<path>src/key</path>
-					<path>src/src/tinycrypt/lib/include</path>
+					<path>src/tinycrypt/lib/include</path>
 				</incdir>
 				<incdir>
 					<path>src/smc_gen</path>
@@ -4071,11 +4187,16 @@
 					<path>src/smc_gen/r_sci_rx/src</path>
 					<path>src/smc_gen/r_byteq</path>
 					<path>src/smc_gen/r_byteq/src</path>
+					<path>src/smc_gen/r_fwup</path>
+					<path>src/smc_gen/r_fwup/src</path>
+					<path>src/smc_gen/r_sys_time_rx</path>
+					<path>src/smc_gen/r_sys_time_rx/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_3</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
+					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
 				</incdir>
 				<!-- template section -->

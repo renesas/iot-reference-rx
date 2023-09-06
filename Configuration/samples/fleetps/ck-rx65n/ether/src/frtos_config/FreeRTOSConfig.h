@@ -27,6 +27,7 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
+
 /* Unity includes. */
 #if defined(FREERTOS_ENABLE_UNIT_TESTS)
 #include "unity_internals.h"
@@ -200,7 +201,7 @@ extern void vOutputString( const char * pcMessage );
  * command interpreter running, and it has its own local output buffer, so the
  * global buffer is just set to be one byte long as it is not used and should not
  * take up unnecessary RAM. */
-#define configCOMMAND_INT_MAX_OUTPUT_SIZE    500
+#define configCOMMAND_INT_MAX_OUTPUT_SIZE    850
 
 /* Only used when running in the FreeRTOS Windows simulator.  Defines the
  * priority of the task used to simulate Ethernet interrupts. */
@@ -285,8 +286,5 @@ uint32_t ulRand(void);
 
 /* When the FIT configurator or the Smart Configurator is used, platform.h has to be used. */
 #define configINCLUDE_PLATFORM_H_INSTEAD_OF_IODEFINE_H  1
-
-/* When configUSE_TIME_SLICING is enabled, time-slicing will be applied to all equal priority tasks. */
-#define configUSE_TIME_SLICING  1
 
 #endif /* FREERTOS_CONFIG_H */
