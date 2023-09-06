@@ -391,27 +391,17 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 		}
 		else  if( strncmp( pRequest, "commit", requestLength ) == 0 )
 		{
-
 			BaseType_t xResult = KVStore_xCommitChanges();
 			if( xResult == pdTRUE )
 			{
-				uint32_t ulWroteSize = 0;
-				// Calculate written bytes
-				for (uint8_t i = 0; i < KVS_NUM_KEYS; i++)
-				{
-					if ( (gKeyValueStore.table[ i ].valueLength > 0) && (gKeyValueStore.table[ i ].type != KV_TYPE_NONE) )
-					{
-						ulWroteSize += gKeyValueStore.table[ i ].valueLength;
-					}
-				}
-
-				sprintf(pcWriteBuffer, "Configuration saved to Data Flash and used %d bytes.\r\n",( int )ulWroteSize );
+			    uint32_t totalSize = GetTotalLengthFromImpl();
+				sprintf(pcWriteBuffer, "Configuration save %d bytes to Data Flash. Total used size is %d bytes .\r\n",( int )pvwrite, totalSize );
+				pvwrite = 0;
 			}
 			else
 			{
 				sprintf(pcWriteBuffer, "Error: Could not save configuration to Data Flash or saved before.\r\n" );
 			}
-
 		}
 
 		else
