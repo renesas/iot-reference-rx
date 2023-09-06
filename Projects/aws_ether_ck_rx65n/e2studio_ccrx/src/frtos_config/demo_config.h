@@ -86,6 +86,10 @@
  */
 #define ENABLE_OTA_UPDATE_DEMO              (0)
 
+#if ENABLE_OTA_UPDATE_DEMO
+#error "OTA demo is not support in this release"
+#endif
+
 #define democonfigROOT_CA_PEM               tlsSTARFIELD_ROOT_CERTIFICATE_PEM
 
 /**
@@ -400,7 +404,5 @@
  * packets from network.
  */
 #define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 50U )
-
-#define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 10 )
 
 #endif /* DEMO_CONFIG_H */

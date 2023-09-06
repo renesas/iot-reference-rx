@@ -85,7 +85,7 @@
  */
 #define ENABLE_OTA_UPDATE_DEMO              (0)
 
-#ifdef ENABLE_OTA_UPDATE_DEMO
+#if ENABLE_OTA_UPDATE_DEMO
 #error "OTA demo is not support in this release"
 #endif
 
