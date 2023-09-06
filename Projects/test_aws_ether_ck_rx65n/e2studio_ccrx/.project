@@ -379,7 +379,16 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668567417047</id>
+			<id>1686716432673</id>
+			<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+			<type>5</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-ecc_dsa.c|ecc.c|sha256.c|utils.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1668406054995</id>
 			<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/MemMang</name>
 			<type>5</type>
 			<matcher>

@@ -11,23 +11,17 @@
   <sections name="B"/>
   <sections name="R"/>
   <sections name="RPFRAM2"/>
-  <sections name="C_BOOTLOADER_KEY_STORAGE*">
-    <sectionAddress xsi:type="com.renesas.linkersection.model:FixedAddress" fixedAddress="1048576"/>
+  <sections name="C_1">
+    <sectionAddress xsi:type="com.renesas.linkersection.model:FixedAddress" fixedAddress="4294901760"/>
   </sections>
-  <sections name="PResetPRG">
-    <sectionAddress xsi:type="com.renesas.linkersection.model:FixedAddress" fixedAddress="4294705152"/>
-  </sections>
-  <sections name="C_BOOT_LOADER_MAGIC_CODE_1"/>
-  <sections name="C_1"/>
   <sections name="C_2"/>
   <sections name="C"/>
   <sections name="C$*"/>
   <sections name="D*"/>
   <sections name="W*"/>
   <sections name="L"/>
-  <sections name="P"/>
+  <sections name="P*"/>
   <sections name="PFRAM2"/>
-  <sections name="PFRAM"/>
   <sections name="EXCEPTVECT">
     <sectionAddress xsi:type="com.renesas.linkersection.model:FixedAddress" fixedAddress="4294967168"/>
   </sections>
