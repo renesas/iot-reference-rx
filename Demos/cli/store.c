@@ -341,9 +341,9 @@ BaseType_t KVStore_xCommitChanges( void )
         	{
         		xSuccess = xprvWriteValueToImpl((KVStoreKey_t)i,(char *)gKeyValueStore.table[ i ].value,
         		    											gKeyValueStore.table[ i ].valueLength);
-				if (xSuccess == pdFALSE)
+				if (xSuccess != pdTRUE)
 				{
-					return xSuccess;
+					return pdFALSE;
 				}
 				gKeyValueStore.table[ i ].xChangePending = pdFALSE;
         	}
