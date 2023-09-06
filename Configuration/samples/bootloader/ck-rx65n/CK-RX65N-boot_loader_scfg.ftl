@@ -18,7 +18,7 @@
         </configuration>
         <configuration inuse="true" name="r_bsp">
             <component display="r_bsp" id="r_bsp7.20" version="7.20">
-                <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_USER_CHARPUT_ENABLED" selectedIndex="1"/>
 				<gridItem id="BSP_CFG_SWINT_UNIT1_ENABLE" selectedIndex="1"/>
 				<gridItem id="BSP_CFG_SWINT_UNIT2_ENABLE" selectedIndex="1"/>
@@ -51,5 +51,18 @@
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
+        <configuration inuse="true" name="r_fwup">
+            <component description="Dependency : r_flash_rx version(s) 4.80, 4.91&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.00" version="2.00">
+                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000"/>
+                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000"/>
+                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000"/>
+                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x4000"/>
+                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="32"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+
     </tool>
 </smc>
