@@ -580,7 +580,73 @@
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
         <configuration enable="true" exclude="false" id="0d661327-205d-4d5d-a10f-28346ef6bf96" inuse="true" name="FreeRTOS_Kernel">
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110"/>
+            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.120">
+                <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
+                <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
+                <gridItem id="configUSE_TICK_HOOK" selectedIndex="1"/>
+                <gridItem id="configCPU_CLOCK_HZ" selectedIndex="BSP_ICLK_HZ"/>
+                <gridItem id="configPERIPHERAL_CLOCK_HZ" selectedIndex="BSP_PCLKB_HZ"/>
+                <gridItem id="configTICK_RATE_HZ" selectedIndex="( TickType_t ) 1000"/>
+                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="768"/>
+                <gridItem id="configTOTAL_HEAP_SIZE_N" selectedIndex="256"/>
+                <gridItem id="configTOTAL_HEAP_SIZE" selectedIndex="( size_t ) ( configTOTAL_HEAP_SIZE_N * 1024 )"/>
+                <gridItem id="configMAX_TASK_NAME_LEN" selectedIndex="12"/>
+                <gridItem id="configUSE_TRACE_FACILITY" selectedIndex="1"/>
+                <gridItem id="configUSE_16_BIT_TICKS" selectedIndex="0"/>
+                <gridItem id="configIDLE_SHOULD_YIELD" selectedIndex="1"/>
+                <gridItem id="configUSE_CO_ROUTINES" selectedIndex="0"/>
+                <gridItem id="configUSE_MUTEXES" selectedIndex="1"/>
+                <gridItem id="configGENERATE_RUN_TIME_STATS" selectedIndex="0"/>
+                <gridItem id="configCHECK_FOR_STACK_OVERFLOW" selectedIndex="2"/>
+                <gridItem id="configUSE_RECURSIVE_MUTEXES" selectedIndex="1"/>
+                <gridItem id="configQUEUE_REGISTRY_SIZE" selectedIndex="0"/>
+                <gridItem id="configUSE_MALLOC_FAILED_HOOK" selectedIndex="1"/>
+                <gridItem id="configUSE_APPLICATION_TASK_TAG" selectedIndex="0"/>
+                <gridItem id="configUSE_QUEUE_SETS" selectedIndex="1"/>
+                <gridItem id="configUSE_COUNTING_SEMAPHORES" selectedIndex="1"/>
+                <gridItem id="configMAX_PRIORITIES" selectedIndex="7"/>
+                <gridItem id="configMAX_CO_ROUTINE_PRIORITIES" selectedIndex="2"/>
+                <gridItem id="configUSE_TIMERS" selectedIndex="1"/>
+                <gridItem id="configTIMER_TASK_PRIORITY" selectedIndex="6"/>
+                <gridItem id="configTIMER_QUEUE_LENGTH" selectedIndex="5"/>
+                <gridItem id="configTIMER_TASK_STACK_DEPTH" selectedIndex="configMINIMAL_STACK_SIZE"/>
+                <gridItem id="configKERNEL_INTERRUPT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="configMAX_SYSCALL_INTERRUPT_PRIORITY" selectedIndex="4"/>
+                <gridItem id="configTICK_VECTOR" selectedIndex="0"/>
+                <gridItem id="INCLUDE_vTaskPrioritySet" selectedIndex="1"/>
+                <gridItem id="INCLUDE_uxTaskPriorityGet" selectedIndex="1"/>
+                <gridItem id="INCLUDE_vTaskDelete" selectedIndex="1"/>
+                <gridItem id="INCLUDE_vTaskCleanUpResources" selectedIndex="0"/>
+                <gridItem id="INCLUDE_vTaskSuspend" selectedIndex="1"/>
+                <gridItem id="INCLUDE_vTaskDelayUntil" selectedIndex="1"/>
+                <gridItem id="INCLUDE_vTaskDelay" selectedIndex="1"/>
+                <gridItem id="INCLUDE_uxTaskGetStackHighWaterMark" selectedIndex="1"/>
+                <gridItem id="INCLUDE_xTaskGetSchedulerState" selectedIndex="1"/>
+                <gridItem id="INCLUDE_eTaskGetState" selectedIndex="1"/>
+                <gridItem id="INCLUDE_xTimerPendFunctionCall" selectedIndex="1"/>
+                <gridItem id="bktPRIMARY_PRIORITY" selectedIndex="( configMAX_PRIORITIES - 3 )"/>
+                <gridItem id="bktSECONDARY_PRIORITY" selectedIndex="( configMAX_PRIORITIES - 4 )"/>
+                <gridItem id="intqHIGHER_PRIORITY" selectedIndex="( configMAX_PRIORITIES - 3 )"/>
+                <gridItem id="configMAC_ADDR0" selectedIndex="0x74"/>
+                <gridItem id="configMAC_ADDR1" selectedIndex="0x90"/>
+                <gridItem id="configMAC_ADDR2" selectedIndex="0x50"/>
+                <gridItem id="configMAC_ADDR3" selectedIndex="0x00"/>
+                <gridItem id="configMAC_ADDR4" selectedIndex="0x79"/>
+                <gridItem id="configMAC_ADDR5" selectedIndex="0x03"/>
+                <gridItem id="configIP_ADDR0" selectedIndex="192"/>
+                <gridItem id="configIP_ADDR1" selectedIndex="168"/>
+                <gridItem id="configIP_ADDR2" selectedIndex="11"/>
+                <gridItem id="configIP_ADDR3" selectedIndex="12"/>
+                <gridItem id="configNET_MASK0" selectedIndex="8"/>
+                <gridItem id="configNET_MASK1" selectedIndex="8"/>
+                <gridItem id="configNET_MASK2" selectedIndex="8"/>
+                <gridItem id="configNET_MASK3" selectedIndex="0"/>
+                <gridItem id="configUSE_TASK_NOTIFICATIONS" selectedIndex="1"/>
+                <gridItem id="configRECORD_STACK_HIGH_ADDRESS" selectedIndex="1"/>
+                <gridItem id="configNUM_THREAD_LOCAL_STORAGE_POINTERS" selectedIndex="3"/>
+                <gridItem id="configSUPPORT_DYNAMIC_ALLOCATION" selectedIndex="1"/>
+                <gridItem id="configSUPPORT_STATIC_ALLOCATION" selectedIndex="1"/>
+            </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
         <configuration enable="true" exclude="false" id="2c0d1844-cd18-4156-aff9-3598811b8225" inuse="true" name="FreeRTOS_Object">
@@ -1092,6 +1158,25 @@
                 <gridItem id="CELLULAR_CFG_RESET_PORT" selectedIndex="5"/>
                 <gridItem id="CELLULAR_CFG_RESET_PIN" selectedIndex="5"/>
                 <gridItem id="CELLULAR_CFG_IRQ_NUM" selectedIndex="4"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_fwup">
+            <component description="Dependency : r_flash_rx version(s) 4.80, 4.91&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.00" version="2.00">
+                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_FUNCTION_MODE" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000"/>
+                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000"/>
+                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000"/>
+                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x8000"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_ADDR_L" selectedIndex="0x00000000"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_BLK_SIZE" selectedIndex="4096"/>
+                <gridItem id="FWUP_CFG_DF_ADDR_L" selectedIndex="0x00100000"/>
+                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64"/>
+                <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512"/>
+                <gridItem id="FWUP_CFG_SIGNATURE_VERIFICATION" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_PRINTF_DISABLE" selectedIndex="0"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>

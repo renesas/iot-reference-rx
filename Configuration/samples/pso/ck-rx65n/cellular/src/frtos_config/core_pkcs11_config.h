@@ -24,19 +24,26 @@
  */
 
 /**
- * @file aws_pkcs11_config.h
+ * @file core_pkcs11_config.h
  * @brief PCKS#11 config options.
  */
 
 
-#ifndef _AWS_PKCS11_CONFIG_H_
-#define _AWS_PKCS11_CONFIG_H_
+#ifndef _CORE_PKCS11_CONFIG_H_
+#define _CORE_PKCS11_CONFIG_H_
+
+/* *INDENT-OFF* */
+#ifdef __cplusplus
+    extern "C" {
+#endif
+/* *INDENT-ON* */
 
 #include "FreeRTOS.h"
 
 /**************************************************/
 /******* DO NOT CHANGE the following order ********/
 /**************************************************/
+
 
 /* Include logging header files and define logging macros in the following order:
  * 1. Include the header file "logging_levels.h".
@@ -58,6 +65,7 @@
 #include "logging_stack.h"
 
 #define pkcs11configPAL_DESTROY_SUPPORTED 1
+
 /**
  * @brief Malloc API used by core_pkcs11.h
  */
@@ -67,6 +75,26 @@
  * @brief Free API used by core_pkcs11.h
  */
 #define PKCS11_FREE vPortFree
+
+/**
+ * @brief Malloc API used by iot_pkcs11.h
+ *
+ * <br><b>Possible values:</b> Any platform-specific function for allocating memory.<br>
+ * <b>Default value:</b> The standard C `"malloc"` function
+ */
+#ifndef pkcs11configPKCS11_MALLOC
+    #define pkcs11configPKCS11_MALLOC    malloc
+#endif
+
+/**
+ * @brief Free API used by iot_pkcs11.h
+ *
+ * <br><b>Possible values:</b> Any platform-specific function for freeing memory.<br>
+ * <b>Default value:</b> The standard C `"free"` function
+ */
+#ifndef pkcs11configPKCS11_FREE
+    #define pkcs11configPKCS11_FREE    free
+#endif
 
 /**
  * @brief PKCS #11 default user PIN.
@@ -85,29 +113,64 @@
 /**
  * @brief Maximum length (in characters) for a PKCS #11 CKA_LABEL
  * attribute.
+ *
+ * <br><b>Possible values:</b> Any positive integer.<br>
+ * <b>Default value:</b> `32`
  */
-#define pkcs11configMAX_LABEL_LENGTH     32
+#ifndef pkcs11configMAX_LABEL_LENGTH
+    #define pkcs11configMAX_LABEL_LENGTH    32
+#endif
 
 /**
  * @brief Maximum number of token objects that can be stored
  * by the PKCS #11 module.
+ *
+ * <br><b>Possible values:</b> Any positive integer.<br>
+ * <b>Default value:</b> `8`
  */
-#define pkcs11configMAX_NUM_OBJECTS      8
+#ifndef pkcs11configMAX_NUM_OBJECTS
+    #define pkcs11configMAX_NUM_OBJECTS    8
+#endif
 
 /**
  * @brief Maximum number of sessions that can be stored
  * by the PKCS #11 module.
+ *
+ * @note The windows test port has an abnormally large value in order to have
+ * enough sessions to successfully run all the model based PKCS #11 tests.
+ *
+ * <b>Possible values:</b> Any positive integer.<br>
+ * <b>Default value:</b> 10
  */
-#define pkcs11configMAX_SESSIONS                           10
+#ifndef pkcs11configMAX_SESSIONS
+    #define pkcs11configMAX_SESSIONS    10
+#endif
 
+/**
+ * @brief Set to 1 if a PAL destroy object is implemented.
+ *
+ * If set to 0, no PAL destroy object is implemented, and this functionality
+ * is implemented in the common PKCS #11 layer.
+ *
+ * <b>Possible values:</b> `0` or `1`<br>
+ * <b>Default value:</b> `0`
+ */
+#ifndef pkcs11configPAL_DESTROY_SUPPORTED
+    #define pkcs11configPAL_DESTROY_SUPPORTED    1
+#endif
 
 /**
  * @brief Set to 1 if OTA image verification via PKCS #11 module is supported.
  *
  * If set to 0, OTA code signing certificate is built in via
  * aws_ota_codesigner_certificate.h.
+ *
+ * <b>Possible values:</b> `0` or `1`<br>
+ * <b>Default value:</b> `0`
  */
-#define pkcs11configOTA_SUPPORTED                          1
+#ifndef pkcs11configOTA_SUPPORTED
+    #define pkcs11configOTA_SUPPORTED    1
+#endif
 
 /**
  * @brief Set to 1 if PAL supports storage for JITP certificate,
@@ -115,53 +178,110 @@
  *
  * If set to 0, PAL does not support storage mechanism for these, and
  * they are accessed via headers compiled into the code.
+ *
+ * <b>Possible values:</b> `0` or `1`<br>
+ * <b>Default value:</b> `0`
  */
-#define pkcs11configJITP_CODEVERIFY_ROOT_CERT_SUPPORTED    0
+#ifndef pkcs11configJITP_CODEVERIFY_ROOT_CERT_SUPPORTED
+    #define pkcs11configJITP_CODEVERIFY_ROOT_CERT_SUPPORTED    0
+#endif
 
 /**
  * @brief The PKCS #11 label for device private key.
  *
  * Private key for connection to AWS IoT endpoint.  The corresponding
  * public key should be registered with the AWS IoT endpoint.
+ *
+ * <b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+ * <b>Default value:</b> `Device Priv TLS Key`
  */
-#define pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS       "Device Priv TLS Key"
+#ifndef pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS
+    #define pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS    "Device Priv TLS Key"
+#endif
 
 /**
  * @brief The PKCS #11 label for device public key.
  *
  * The public key corresponding to pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS.
+ *
+ * <b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+ * <b>Default value:</b> `Device Pub TLS Key`
  */
-#define pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS        "Device Pub TLS Key"
+#ifndef pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS
+    #define pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS    "Device Pub TLS Key"
+#endif
 
 /**
  * @brief The PKCS #11 label for the device certificate.
  *
  * Device certificate corresponding to pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS.
- */
-#define pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS       "Device Cert"
-
-/**
- * @brief The PKCS #11 label for the object to be used for code verification.
  *
- * Used by over-the-air update code to verify an incoming signed image.
+ * <b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+ * <b>Default value:</b> `Device Cert`
  */
-#define pkcs11configLABEL_CODE_VERIFICATION_KEY            "Code Verify Key"
-
-/**
- * @brief The PKCS #11 label for Just-In-Time-Provisioning.
- *
- * The certificate corresponding to the issuer of the device certificate
- * (pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS) when using the JITR or
- * JITP flow.
- */
-#define pkcs11configLABEL_JITP_CERTIFICATE                 "JITP Cert"
+#ifndef pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS
+    #define pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS    "Device Cert"
+#endif
 
 /**
  * @brief The PKCS #11 label for the AWS Trusted Root Certificate.
  *
  * @see aws_default_root_certificates.h
+ *
+ * <b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+ * <b>Default value:</b> `Root Cert`
  */
-#define pkcs11configLABEL_ROOT_CERTIFICATE                 "Root Cert"
+#ifndef pkcs11configLABEL_ROOT_CERTIFICATE
+    #define pkcs11configLABEL_ROOT_CERTIFICATE    "Root Cert"
+#endif
+
+/**
+ * @brief The PKCS #11 label for the object to be used for HMAC operations.
+ *
+ * <br><b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+ * <b>Default value:</b> `HMAC Key`
+ */
+#ifndef pkcs11configLABEL_HMAC_KEY
+    #define pkcs11configLABEL_HMAC_KEY    "HMAC Key"
+#endif
+
+/**
+ * @brief The PKCS #11 label for the object to be used for CMAC operations.
+ *
+ * <br><b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+ * <b>Default value:</b> `CMAC Key`
+ */
+#ifndef pkcs11configLABEL_CMAC_KEY
+    #define pkcs11configLABEL_CMAC_KEY    "CMAC Key"
+#endif
+
+/**
+ * @brief The PKCS #11 label for the object to be used for code verification.
+ *
+ * Used by AWS IoT Over-the-Air Update (OTA) code to verify an incoming signed image.
+ *
+ * <b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+ * <b>Default value:</b> `Code Verify Key`
+ */
+#ifndef pkcs11configLABEL_CODE_VERIFICATION_KEY
+    #define pkcs11configLABEL_CODE_VERIFICATION_KEY    "Code Verify Key"
+#endif
+
+/**
+ * @brief The PKCS #11 label for AWS IoT Just-In-Time-Provisioning.
+ *
+ * The certificate corresponding to the issuer of the device certificate
+ * (pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS) when using the JITR or
+ * JITP flow.
+ *
+ * <b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+ * <b>Default value:</b> `Code Verify Key`
+ */
+#ifndef pkcs11configLABEL_JITP_CERTIFICATE
+    #define pkcs11configLABEL_JITP_CERTIFICATE    "JITP Cert"
+#endif
+
+
 
 /**
  * @brief The PKCS #11 label for AWS IoT Fleet Provisioning claim certificate.
@@ -193,4 +313,90 @@
     #define pkcs11configLABEL_CLAIM_PRIVATE_KEY    "Claim Key"
 #endif
 
-#endif /* _AWS_PKCS11_CONFIG_H_ include guard. */
+/**
+ * @brief Macro that is called in the corePKCS11 library for logging "Error" level
+ * messages.
+ *
+ * To enable error level logging in the corePKCS11 library, this macro should be mapped to the
+ * application-specific logging implementation that supports error logging.
+ *
+ * @note This logging macro is called in the corePKCS11 library with parameters wrapped in
+ * double parentheses to be ISO C89/C90 standard compliant.
+ * For a reference implementation of the logging macros in POSIX environment,
+ * refer to core_pkcs11_config.h files, and the logging-stack in demos folder of the
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/main).
+ *
+ * <b>Default value</b>: Error logging is turned off, and no code is generated for calls
+ * to the macro in the corePKCS11 library on compilation.
+ */
+#ifndef LogError
+    #define LogError( message )
+#endif
+
+/**
+ * @brief Macro that is called in the corePKCS11 library for logging "Warning" level
+ * messages.
+ *
+ * To enable warning level logging in the corePKCS11 library, this macro should be mapped to the
+ * application-specific logging implementation that supports warning logging.
+ *
+ * @note This logging macro is called in the corePKCS11 library with parameters wrapped in
+ * double parentheses to be ISO C89/C90 standard compliant.
+ * For a reference implementation of the logging macros in POSIX environment,
+ * refer to core_pkcs11_config.h files, and the logging-stack in demos folder of the
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/main).
+ *
+ * <b>Default value</b>: Warning logs are turned off, and no code is generated for calls
+ * to the macro in the corePKCS11 library on compilation.
+ */
+#ifndef LogWarn
+    #define LogWarn( message )
+#endif
+
+/**
+ * @brief Macro that is called in the corePKCS11 library for logging "Info" level
+ * messages.
+ *
+ * To enable info level logging in the corePKCS11 library, this macro should be mapped to the
+ * application-specific logging implementation that supports info logging.
+ *
+ * @note This logging macro is called in the corePKCS11 library with parameters wrapped in
+ * double parentheses to be ISO C89/C90 standard compliant.
+ * For a reference implementation of the logging macros in POSIX environment,
+ * refer to core_pkcs11_config.h files, and the logging-stack in demos folder of the
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/main).
+ *
+ * <b>Default value</b>: Info logging is turned off, and no code is generated for calls
+ * to the macro in the corePKCS11 library on compilation.
+ */
+#ifndef LogInfo
+    #define LogInfo( message )
+#endif
+
+/**
+ * @brief Macro that is called in the corePKCS11 library for logging "Debug" level
+ * messages.
+ *
+ * To enable debug level logging from corePKCS11 library, this macro should be mapped to the
+ * application-specific logging implementation that supports debug logging.
+ *
+ * @note This logging macro is called in the corePKCS11 library with parameters wrapped in
+ * double parentheses to be ISO C89/C90 standard compliant.
+ * For a reference implementation of the logging macros in POSIX environment,
+ * refer to core_pkcs11_config.h files, and the logging-stack in demos folder of the
+ * [AWS IoT Embedded C SDK repository](https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/main).
+ *
+ * <b>Default value</b>: Debug logging is turned off, and no code is generated for calls
+ * to the macro in the corePKCS11 library on compilation.
+ */
+#ifndef LogDebug
+    #define LogDebug( message )
+#endif
+
+/* *INDENT-OFF* */
+#ifdef __cplusplus
+    }
+#endif
+/* *INDENT-ON* */
+
+#endif /* _CORE_PKCS11_CONFIG_H_ include guard. */

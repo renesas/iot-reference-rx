@@ -184,7 +184,9 @@ int RunDeviceAdvisorDemo( void )
 {
     BaseType_t xResult = pdFAIL;
 
-	xResult = xMQTTAgentInit( appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY );
+	xResult = xMQTTAgentInit();
+	xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+	vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
 
     if( xResult == pdPASS )
     {
@@ -200,6 +202,10 @@ int RunDeviceAdvisorDemo( void )
 }
 int RunOtaE2eDemo( void )
 {
+    xMQTTAgentInit();
+    xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+    vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
+
 	vStartOtaDemo();
 	return 0;
 }
