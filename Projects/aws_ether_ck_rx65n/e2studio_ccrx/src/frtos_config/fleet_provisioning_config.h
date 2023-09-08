@@ -1,7 +1,7 @@
 /*
  * AWS IoT Fleet Provisioning v1.1.0
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
-* Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -22,39 +22,38 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
- 
- /**
-  * @file fleet_provisioning_config.h
-  * @brief Custom config values for the AWS IoT Fleet Provisioning Library.
-  */
- 
-  #ifndef FLEET_PROVISIONING_CONFIG_H_
-  #define FLEET_PROVISIONING_CONFIG_H_
- 
-  /**************************************************/
-  /******* DO NOT CHANGE the following order ********/
-  /**************************************************/
- 
-  /* Include logging header files and define logging macros in the following order:
-   * 1. Include the header file "logging_levels.h".
-   * 2. Define the LIBRARY_LOG_NAME and LIBRARY_LOG_LEVEL macros depending on
-   * the logging configuration for Fleet Provisioning.
-   * 3. Include the header file "logging_stack.h".
-   */
- 
-  #include "logging_levels.h"
- 
-  /* Logging configuration for the Fleet Provisioning library. */
-  #ifndef LIBRARY_LOG_NAME
-      #define LIBRARY_LOG_NAME    "FleetProvisioning"
-  #endif
- 
-  #ifndef LIBRARY_LOG_LEVEL
-      #define LIBRARY_LOG_LEVEL    LOG_ERROR
-  #endif
- 
-  #include "logging_stack.h"
-  /************ End of logging configuration ****************/
- 
-  #endif /* ifndef FLEET_PROVISIONING_CONFIG_H_ */
- 
+
+/**
+ * @file fleet_provisioning_config.h
+ * @brief Custom config values for the AWS IoT Fleet Provisioning Library.
+ */
+
+#ifndef FLEET_PROVISIONING_CONFIG_H_
+#define FLEET_PROVISIONING_CONFIG_H_
+
+/**************************************************/
+/******* DO NOT CHANGE the following order ********/
+/**************************************************/
+
+/* Include logging header files and define logging macros in the following order:
+ * 1. Include the header file "logging_levels.h".
+ * 2. Define the LIBRARY_LOG_NAME and LIBRARY_LOG_LEVEL macros depending on
+ * the logging configuration for Fleet Provisioning.
+ * 3. Include the header file "logging_stack.h".
+ */
+
+#include "logging_levels.h"
+
+/* Logging configuration for the Fleet Provisioning library. */
+#ifndef LIBRARY_LOG_NAME
+    #define LIBRARY_LOG_NAME    "FleetProvisioning"
+#endif
+
+#ifndef LIBRARY_LOG_LEVEL
+    #define LIBRARY_LOG_LEVEL    LOG_ERROR
+#endif
+
+#include "logging_stack.h"
+/************ End of logging configuration ****************/
+
+#endif /* ifndef FLEET_PROVISIONING_CONFIG_H_ */
