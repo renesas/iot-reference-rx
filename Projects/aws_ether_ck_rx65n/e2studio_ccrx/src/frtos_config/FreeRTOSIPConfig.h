@@ -1,7 +1,7 @@
 /*
  * FreeRTOS+TCP V3.1.0
  * Copyright (C) 2022 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
-* Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -25,20 +25,20 @@
  * http://aws.amazon.com/freertos
  * http://www.FreeRTOS.org
  */
- 
- /*****************************************************************************
- *
- * See the following URL for configuration information.
- * http://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/TCP_IP_Configuration.html
- *
- *****************************************************************************/
- #include "r_ether_rx_config.h"
- 
- #ifndef FREERTOS_IP_CONFIG_H
- #define FREERTOS_IP_CONFIG_H
- 
- /* Define the byte order of the target MCU (the MCU FreeRTOS+TCP is executing
-  * on).  Valid options are pdFREERTOS_BIG_ENDIAN and pdFREERTOS_LITTLE_ENDIAN. */
- #define ipconfigBYTE_ORDER                         pdFREERTOS_LITTLE_ENDIAN
- #endif /* FREERTOS_IP_CONFIG_H */
- 
+
+
+/*****************************************************************************
+*
+* See the following URL for configuration information.
+* http://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/TCP_IP_Configuration.html
+*
+*****************************************************************************/
+#include "r_ether_rx_config.h"
+
+#ifndef FREERTOS_IP_CONFIG_H
+#define FREERTOS_IP_CONFIG_H
+
+/* Define the byte order of the target MCU (the MCU FreeRTOS+TCP is executing
+ * on).  Valid options are pdFREERTOS_BIG_ENDIAN and pdFREERTOS_LITTLE_ENDIAN. */
+#define ipconfigBYTE_ORDER                         pdFREERTOS_LITTLE_ENDIAN
+#endif /* FREERTOS_IP_CONFIG_H */
