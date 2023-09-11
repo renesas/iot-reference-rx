@@ -82,7 +82,7 @@ void UserInitialization(void)
     R_Pins_Create();
 
     /* flash access semaphore creation */
-    xSemaphoreFlashAccess = xSemaphoreCreateMutex();
+    xSemaphoreFlashAccess = xSemaphoreCreateBinary();
     xSemaphoreGive(xSemaphoreFlashAccess);
 
     /* flash initialization */
