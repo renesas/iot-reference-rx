@@ -134,6 +134,27 @@ int32_t xprvGetValueLengthFromImpl( KVStoreKey_t keyIndex)
 }
 
 /*
+ * @brief Get the length of a value stored in the Data Flash
+ * @param[in] KVStoreKey_t Key to lookup
+ * @return length of the value stored in the KVStore or 0 if not found.
+ */
+int32_t GetTotalLengthFromImpl()
+{
+    size_t xLength = 0;
+    struct lfs_info xFileInfo = { 0 };
+    lfs_file_t file;
+    for (uint32_t i = 0; i < KVS_NUM_KEYS; i++)
+    {
+        if (lfs_stat (&RM_STDIO_LITTLEFS_CFG_LFS, (char*) keys[i], &xFileInfo) == LFS_ERR_OK)
+        {
+            xLength += xFileInfo.size;
+        }
+    }
+
+    return xLength;
+}
+
+/*
  * @brief Write a given and key / value pair to the cache
  * @param[in] size_t Length of the key to store
  * @param[in] Key Pointer to the key data to be copied into the cache.
@@ -315,6 +336,7 @@ BaseType_t KVStore_xCommitChanges( void )
 				else
 				{
 					xSuccess = pdTRUE;
+					gKeyValueStore.table[ i ].xChangePending = pdFALSE;
 				}
 			}
         	else if ((i  == KVS_CLAIM_PRIVKEY_ID ))
@@ -332,6 +354,7 @@ BaseType_t KVStore_xCommitChanges( void )
 				else
 				{
 					xSuccess = pdTRUE;
+					gKeyValueStore.table[ i ].xChangePending = pdFALSE;
 				}
 			}
         	/*
@@ -341,9 +364,9 @@ BaseType_t KVStore_xCommitChanges( void )
         	{
         		xSuccess = xprvWriteValueToImpl((KVStoreKey_t)i,(char *)gKeyValueStore.table[ i ].value,
         		    											gKeyValueStore.table[ i ].valueLength);
-				if (xSuccess == pdFALSE)
+				if (xSuccess != pdTRUE)
 				{
-					return xSuccess;
+					return pdFALSE;
 				}
 				gKeyValueStore.table[ i ].xChangePending = pdFALSE;
         	}
