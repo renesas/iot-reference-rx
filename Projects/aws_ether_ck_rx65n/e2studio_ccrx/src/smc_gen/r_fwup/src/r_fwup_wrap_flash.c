@@ -92,7 +92,6 @@ e_fwup_err_t r_fwup_wrap_flash_open(void)
 
 		LogDebug( ("r_fwup_wrap_flash_open: Create and give semaphore!") );
 
-		xSemaphoreFlashAccess = xSemaphoreCreateBinary();
 		xSemaphoreGive( xSemaphoreFlashAccess );
 
 		flash_interrupt_config_t cb_func_info;
