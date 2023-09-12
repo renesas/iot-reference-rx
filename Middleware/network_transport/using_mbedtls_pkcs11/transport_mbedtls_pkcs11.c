@@ -631,8 +631,8 @@ static CK_RV initializeClientKeys( SSLContext_t * pxCtx,
     {
         xResult = ( BaseType_t ) pxCtx->pxP11FunctionList->C_Login( pxCtx->xP11Session,
                                                                     CKU_USER,
-                                                                    ( CK_UTF8CHAR_PTR ) configPKCS11_DEFAULT_USER_PIN,
-                                                                    sizeof( configPKCS11_DEFAULT_USER_PIN ) - 1 );
+                                                                    ( CK_UTF8CHAR_PTR ) pkcs11configPKCS11_DEFAULT_USER_PIN,
+                                                                    sizeof( pkcs11configPKCS11_DEFAULT_USER_PIN ) - 1 );
     }
 
     if( CKR_OK == xResult )
