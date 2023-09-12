@@ -160,6 +160,7 @@ void vApplicationDaemonTaskStartupHook( void );
  */
 void prvMiscInitialization( void );
 
+extern void UserInitialization(void);
 extern void CLI_Support_Settings(void);
 extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 extern void vRegisterSampleCLICommands( void );
@@ -183,6 +184,7 @@ void main( void )
 	extern TaskHandle_t xCLIHandle;
 
 	prvMiscInitialization();
+	UserInitialization();
 
 	/* Register the standard CLI commands. */
 	vRegisterSampleCLICommands();
