@@ -51,6 +51,7 @@ bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
 extern void UserInitialization(void);
 extern void vStartOtaDemo( void );
+xSemaphoreHandle xSemaphoreFlashAccess;
 
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.
@@ -169,7 +170,7 @@ int RunOtaE2eDemo( void )
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
  */
-void main_task( void )
+void main( void )
 {
 	int32_t xResults, Time2Wait = 10000;
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )

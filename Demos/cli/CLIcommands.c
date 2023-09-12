@@ -56,6 +56,7 @@
 #include "aws_dev_mode_key_provisioning.h"
 #endif
 extern volatile uint32_t pvwrite;
+extern KeyValueStore_t gKeyValueStore;
 #ifndef  configINCLUDE_TRACE_RELATED_CLI_COMMANDS
 	#define configINCLUDE_TRACE_RELATED_CLI_COMMANDS 0
 #endif
@@ -390,17 +391,17 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 		}
 		else  if( strncmp( pRequest, "commit", requestLength ) == 0 )
 		{
-
 			BaseType_t xResult = KVStore_xCommitChanges();
 			if( xResult == pdTRUE )
 			{
-				sprintf(pcWriteBuffer, "Configuration saved to Data Flash and used %d bytes.\r\n",( int )pvwrite );
+			    uint32_t totalSize = GetTotalLengthFromImpl();
+				sprintf(pcWriteBuffer, "Configuration save %d bytes to Data Flash. Total used size is %d bytes .\r\n",( int )pvwrite, totalSize );
+				pvwrite = 0;
 			}
 			else
 			{
 				sprintf(pcWriteBuffer, "Error: Could not save configuration to Data Flash or saved before.\r\n" );
 			}
-
 		}
 
 		else

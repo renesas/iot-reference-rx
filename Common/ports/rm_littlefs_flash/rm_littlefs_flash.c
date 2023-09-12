@@ -22,6 +22,9 @@
 #include "string.h"
 #include "rm_littlefs_flash.h"
 #include "rm_littlefs_flash_config.h"
+#include "demo_config.h"
+
+flash_res_t g_blank_check_result;
 
 /* Get the data flash block size defined in bsp_feature.h for this MCU. */
 #define RM_LITTLEFS_FLASH_DATA_BLOCK_SIZE      FLASH_DF_BLOCK_SIZE
@@ -54,7 +57,6 @@ static void flashing_callback( void * event );
 
 static void write_callback( void * event );
 static void erase_flashing_callback( void * event );
-static xSemaphoreHandle xSemaphoreFlashSync;
 
 static UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
 static void update_dataflash_data(const struct lfs_config * c,
@@ -65,7 +67,6 @@ static void update_dataflash_data(const struct lfs_config * c,
 		uint32_t				  update_state);
 
 
-void task_init(void);
 void data_flash_update_status_initialize(void);
 /** LittleFS API mapping for LittleFS Port interface */
 const rm_littlefs_api_t g_rm_littlefs_on_flash =
@@ -115,8 +116,8 @@ fsp_err_t RM_LITTLEFS_FLASH_Open (rm_littlefs_ctrl_t * const p_ctrl, rm_littlefs
     /* This module is now open. */
     p_instance_ctrl->open = RM_LITTLEFS_FLASH_OPEN;
 
-    xSemaphoreFlashSync = xSemaphoreCreateBinary();
-    xSemaphoreGive( xSemaphoreFlashSync );
+    xSemaphoreFlashAccess = xSemaphoreCreateBinary();
+    xSemaphoreGive( xSemaphoreFlashAccess );
 
     data_flash_update_status_initialize();
 
@@ -140,12 +141,12 @@ fsp_err_t RM_LITTLEFS_FLASH_Close (rm_littlefs_ctrl_t * const p_ctrl)
 {
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) p_ctrl;
 
-    p_instance_ctrl->open = 0;
+    //p_instance_ctrl->open = 0; // comment out this line to keep littleFs work after closing
 
-    if( NULL != xSemaphoreFlashSync )
+    if( NULL != xSemaphoreFlashAccess )
     {
-        vSemaphoreDelete( xSemaphoreFlashSync );
-        xSemaphoreFlashSync = NULL;
+        vSemaphoreDelete( xSemaphoreFlashAccess );
+        xSemaphoreFlashAccess = NULL;
     }
 
     R_FLASH_Close();
@@ -179,15 +180,49 @@ int rm_littlefs_flash_read (const struct lfs_config * c,
                             void                    * buffer,
                             lfs_size_t                size)
 {
-    rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
+    rm_littlefs_flash_instance_ctrl_t *p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t*) c->context;
 
-    /* No flash access while reading */
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
-    /* Read directly from the flash. */
-    memcpy(buffer,
-               (uint8_t *) (rm_littlefs_flash_data_start + (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block) + off),
-               size);
-    xSemaphoreGive(xSemaphoreFlashSync);
+    flash_err_t err;
+    lfs_size_t round_size = size;
+    uint32_t address = rm_littlefs_flash_data_start + (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block) + off;
+    uint32_t round_address = address;
+
+    //Round down address to a multiple of FLASH_DF_MIN_PGM_SIZE
+    lfs_size_t remainder = address % FLASH_DF_MIN_PGM_SIZE;
+    if (remainder != 0)
+        round_address = round_address - remainder;
+
+    //Round up size to a multiple of FLASH_DF_MIN_PGM_SIZE
+    remainder = size % FLASH_DF_MIN_PGM_SIZE;
+    if (remainder != 0)
+        round_size = size + FLASH_DF_MIN_PGM_SIZE - remainder;
+
+    /* Run the blank check on the target area in data flash memory. */
+    //LogInfo (("blank check area %.8X: %d", address, size));
+    xSemaphoreTake(xSemaphoreFlashAccess, portMAX_DELAY);
+    err = R_FLASH_BlankCheck (round_address, round_size, 0);
+    if (FLASH_SUCCESS != err)
+    {
+        LogError(("Blank check failed on address %.8X size %d error %d", round_address, round_size, err));
+        xSemaphoreGive(xSemaphoreFlashAccess);
+        g_blank_check_result == FLASH_RES_NOT_BLANK;
+    }
+
+    xSemaphoreTake(xSemaphoreFlashAccess, portMAX_DELAY);
+    if (g_blank_check_result == FLASH_RES_BLANK)
+    {
+        memset(buffer, 0xFF, size);
+        xSemaphoreGive(xSemaphoreFlashAccess);
+
+        /* Convert the data in the blank area to 0xFF .*/
+        rm_littlefs_flash_write (c, block, off, buffer, size);
+    }
+    else
+    {
+        /* Read directly from the flash. */
+        memcpy(buffer, (uint8_t* ) address, size);
+        xSemaphoreGive(xSemaphoreFlashAccess);
+    }
 
     return LFS_ERR_OK;
 }
@@ -215,7 +250,7 @@ int rm_littlefs_flash_write (const struct lfs_config * c,
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
 
     // Flash access protect
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE;
 
@@ -226,14 +261,14 @@ int rm_littlefs_flash_write (const struct lfs_config * c,
     R_BSP_InterruptsEnable();
 
     //wait for the semaphore to be released by callback
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     if( (FLASH_SUCCESS != flash_error_code) ) {
-    	xSemaphoreGive(xSemaphoreFlashSync);
+    	xSemaphoreGive(xSemaphoreFlashAccess);
     	return LFS_ERR_IO;
     }
 
-	xSemaphoreGive(xSemaphoreFlashSync);
+	xSemaphoreGive(xSemaphoreFlashAccess);
     return LFS_ERR_OK;
 }
 
@@ -253,7 +288,7 @@ int rm_littlefs_flash_erase (const struct lfs_config * c, lfs_block_t block)
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
 
     // Flash access protect
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
 	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE;
 
@@ -263,14 +298,14 @@ int rm_littlefs_flash_erase (const struct lfs_config * c, lfs_block_t block)
     R_BSP_InterruptsEnable();
 
     //wait for the semaphore to be released by callback
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     if( (FLASH_SUCCESS != flash_error_code) ) {
-    	xSemaphoreGive(xSemaphoreFlashSync);
+    	xSemaphoreGive(xSemaphoreFlashAccess);
     	return LFS_ERR_IO;
     }
 
-	xSemaphoreGive(xSemaphoreFlashSync);
+	xSemaphoreGive(xSemaphoreFlashAccess);
     return LFS_ERR_OK;
 }
 
@@ -345,37 +380,41 @@ static void flashing_callback( void * event )
 			if(DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE == update_data_flash_control_block.status)
 			{
 				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_FINALIZE;
-				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
+				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 			}
 			else
 			{
 				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
-				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
+				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			}
 			break;
 		case FLASH_INT_EVENT_WRITE_COMPLETE:
 			if(DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE == update_data_flash_control_block.status)
 			{
 				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_FINALIZE;
-				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
+				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 			}
 			else
 			{
 				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
-				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
+				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			}
 			break;
+        case FLASH_INT_EVENT_BLANK:
+            g_blank_check_result = FLASH_RES_BLANK;
+            xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
+            break;
+        case FLASH_INT_EVENT_NOT_BLANK:
+            g_blank_check_result = FLASH_RES_NOT_BLANK;
+            xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
+            break;
 		default:
 			update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
-			xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
+			xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			break;
 	}
-}
-void task_init(void)
-{
-
 }
 
 void data_flash_update_status_initialize(void)

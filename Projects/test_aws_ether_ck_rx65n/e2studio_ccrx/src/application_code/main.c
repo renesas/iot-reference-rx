@@ -48,6 +48,8 @@ extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
 
+xSemaphoreHandle xSemaphoreFlashAccess;
+
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.
  * OTA update task polls regularly for firmware update jobs or acts on a new firmware update
@@ -213,7 +215,7 @@ int RunOtaE2eDemo( void )
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
  */
-void main_task( void )
+void main( void )
 {
 	int32_t xResults, Time2Wait = 10000;
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
