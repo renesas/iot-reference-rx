@@ -55,7 +55,7 @@ Typedef definitions
 /******************************************************************************
  External variables
  ******************************************************************************/
-extern xSemaphoreHandle xSemaphoreFlashAccess;
+xSemaphoreHandle xSemaphoreFlashAccess;
 
 /******************************************************************************
  Private global variables
