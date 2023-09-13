@@ -27,11 +27,8 @@
 #include "store.h"
 #include "pkcs11_operations.h"
 /* Key provisioning includes. */
-#ifdef __TEST__
-#include "dev_mode_key_provisioning.h"
-#else
+
 #include "aws_dev_mode_key_provisioning.h"
-#endif
 
 const char * keys[ KVS_NUM_KEYS ] = KVSTORE_KEYS;
 KeyValueStore_t gKeyValueStore = { 0 };

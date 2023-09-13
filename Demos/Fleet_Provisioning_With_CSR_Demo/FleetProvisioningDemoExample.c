@@ -74,6 +74,7 @@
 /* corePKCS11 includes. */
 #include "core_pkcs11.h"
 #include "core_pkcs11_config.h"
+#include "core_pkcs11_config_defaults.h"
 
 /* AWS IoT Fleet Provisioning Library. */
 #include "fleet_provisioning.h"
