@@ -38,6 +38,8 @@ Includes   <System Includes> , "Project Includes"
 #include "platform.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "freertos_start.h"
+
 #if defined(FREERTOS_ENABLE_UNIT_TESTS)
 #include "unity_internals.h"
 #elif defined(ENABLE_UNIT_TESTS)
@@ -91,7 +93,7 @@ void vApplicationTickHook(void);
 void Processing_Before_Start_Kernel(void);
 
 /* Main task. */
-extern void main(void *pvParameters);
+extern void main_task(void *pvParameters);
 
 
 /******************************************************************************
@@ -355,11 +357,11 @@ void Processing_Before_Start_Kernel(void)
 	}
 #endif
 
-    Kernel_Object_Init();
+    Kernel_Object_init();
 
     /************** task creation ****************************/
     /* Main task. */
-    ret = xTaskCreate(main, "MAIN_TASK", 512, NULL, 1, NULL);
+    ret = xTaskCreate(main_task, "MAIN_TASK", 512, NULL, 1, NULL);
     if (pdPASS != ret)
     {
         while(1)

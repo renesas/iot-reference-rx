@@ -56,7 +56,6 @@
 #include "aws_dev_mode_key_provisioning.h"
 #endif
 extern volatile uint32_t pvwrite;
-extern KeyValueStore_t gKeyValueStore;
 #ifndef  configINCLUDE_TRACE_RELATED_CLI_COMMANDS
 	#define configINCLUDE_TRACE_RELATED_CLI_COMMANDS 0
 #endif
@@ -402,6 +401,7 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 			{
 				sprintf(pcWriteBuffer, "Error: Could not save configuration to Data Flash or saved before.\r\n" );
 			}
+
 		}
 
 		else

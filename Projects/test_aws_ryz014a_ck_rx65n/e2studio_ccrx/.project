@@ -87,7 +87,7 @@
 			<type>10</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-include|dev_mode_key_provisioning</arguments>
+				<arguments>1.0-name-matches-false-true-include</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -106,6 +106,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-false-network_support</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1693895744445</id>
+			<name>Demos/dev_mode_key_provisioning</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-src</arguments>
 			</matcher>
 		</filter>
 		<filter>

@@ -42,6 +42,7 @@
 #include "pkcs11_operations.h"
 
 /* PKCS #11 include. */
+#include "core_pkcs11_config_defaults.h"
 #include "core_pkcs11_config.h"
 #include "core_pki_utils.h"
 #include "mbedtls_utils.h"

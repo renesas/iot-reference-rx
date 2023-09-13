@@ -38,6 +38,8 @@ Includes   <System Includes> , "Project Includes"
 #include "platform.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "freertos_start.h"
+
 #if defined(FREERTOS_ENABLE_UNIT_TESTS)
 #include "unity_internals.h"
 #elif defined(ENABLE_UNIT_TESTS)
@@ -91,7 +93,7 @@ void vApplicationTickHook(void);
 void Processing_Before_Start_Kernel(void);
 
 /* Main task. */
-extern void main(void *pvParameters);
+extern void main_task(void *pvParameters);
 
 
 /******************************************************************************
@@ -303,7 +305,6 @@ void vAssertCalled(void)
 void vApplicationIdleHook(void)
 {
     /* Implement user-code for user own purpose. */
-
     static TickType_t xLastPrint = 0;
     TickType_t xTimeNow;
     const TickType_t xPrintFrequency = pdMS_TO_TICKS( 5000 );
@@ -356,11 +357,11 @@ void Processing_Before_Start_Kernel(void)
 	}
 #endif
 
-    Kernel_Object_Init();
+    Kernel_Object_init();
 
     /************** task creation ****************************/
     /* Main task. */
-    ret = xTaskCreate(main, "MAIN_TASK", 512, NULL, 3, NULL);
+    ret = xTaskCreate(main_task, "MAIN_TASK", 512, NULL, 3, NULL);
     if (pdPASS != ret)
     {
         while(1)
@@ -368,6 +369,7 @@ void Processing_Before_Start_Kernel(void)
             /* Failed! Task can not be created. */
         }
     }
+
 } /* End of function Processing_Before_Start_Kernel() */
 
 #endif /* (BSP_CFG_RTOS_USED == 1) */
