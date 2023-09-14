@@ -835,10 +835,10 @@ int prvFleetProvisioningTask( void * pvParameters )
             {
                 /* Publish the RegisterThing request. */
                 xStatus = xPublishToTopic( &xMqttContext,
-                				 pcPublishTopic,
-								 xPublishTopicLength,
-                                 ( char * ) pucPayloadBuffer,
-                                 xPayloadLength );
+                                           pcPublishTopic,
+                                           xPublishTopicLength,
+                                           ( char * ) pucPayloadBuffer,
+                                           xPayloadLength );
 
                 if( xStatus == false )
                 {
