@@ -760,11 +760,11 @@ int prvFleetProvisioningTask( void * pvParameters )
             if( xStatus == true )
             {
                 /* Publish the CSR to the CreateCertificatefromCsr API. */
-                xPublishToTopic( &xMqttContext,
-                                 FP_CBOR_CREATE_CERT_PUBLISH_TOPIC,
-                                 FP_CBOR_CREATE_CERT_PUBLISH_LENGTH,
-                                 ( char * ) pucPayloadBuffer,
-                                 xPayloadLength );
+                xStatus = xPublishToTopic( &xMqttContext,
+                                           FP_CBOR_CREATE_CERT_PUBLISH_TOPIC,
+                                           FP_CBOR_CREATE_CERT_PUBLISH_LENGTH,
+                                           ( char * ) pucPayloadBuffer,
+                                           xPayloadLength );
 
                 if( xStatus == false )
                 {
@@ -834,11 +834,11 @@ int prvFleetProvisioningTask( void * pvParameters )
             if( xStatus == true )
             {
                 /* Publish the RegisterThing request. */
-                xPublishToTopic( &xMqttContext,
-                				 pcPublishTopic,
-								 xPublishTopicLength,
-                                 ( char * ) pucPayloadBuffer,
-                                 xPayloadLength );
+                xStatus = xPublishToTopic( &xMqttContext,
+                                           pcPublishTopic,
+                                           xPublishTopicLength,
+                                           ( char * ) pucPayloadBuffer,
+                                           xPayloadLength );
 
                 if( xStatus == false )
                 {
