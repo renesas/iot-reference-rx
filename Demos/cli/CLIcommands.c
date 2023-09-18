@@ -336,6 +336,9 @@ static BaseType_t prvFormat( char * pcWriteBuffer,
 	{
 		lfs_mount(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
 		sprintf( pcWriteBuffer, "Format OK !\r\n");
+
+		//Format the cache too
+		vprvCacheFormat();
 	}
 	else
 	{
@@ -352,7 +355,7 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 {
 	(void) xWriteBufferLen;
     BaseType_t result = pdPASS;
-    char * pRequest = NULL, * pKey = NULL, * pValue = NULL, * getValue = NULL;
+    const char * pRequest = NULL, * pKey = NULL, * pValue = NULL, * getValue = NULL;
     BaseType_t requestLength = 0, keyLength = 0, valueLength = 0;
 
     pRequest = FreeRTOS_CLIGetParameter( pcCommandString, 1U, &requestLength );
