@@ -215,18 +215,15 @@ int rm_littlefs_flash_read (const struct lfs_config * c,
     xSemaphoreTake(xSemaphoreFlashAccess, portMAX_DELAY);
     if (g_blank_check_result == FLASH_RES_BLANK)
     {
+        // return 0xFF if it is blank
         memset(buffer, 0xFF, size);
-        xSemaphoreGive(xSemaphoreFlashAccess);
-
-        /* Convert the data in the blank area to 0xFF .*/
-        rm_littlefs_flash_write (c, block, off, buffer, size);
     }
     else
     {
         /* Read directly from the flash. */
         memcpy(buffer, (uint8_t* ) address, size);
-        xSemaphoreGive(xSemaphoreFlashAccess);
     }
+    xSemaphoreGive(xSemaphoreFlashAccess);
 
     return LFS_ERR_OK;
 }
