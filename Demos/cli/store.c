@@ -467,6 +467,7 @@ static inline void * pvGetDataWritePtr( KVStoreKey_t key )
     configASSERT( pvData != NULL );
     return pvData;
 }
+
 /*
  * @brief Initialize the Key Value Store Cache by reading each entry from the Data Flash.
  */
@@ -550,6 +551,20 @@ int32_t vprvCacheInit( void )
 	}
 	return xNvLength;
 
+}
+
+/*
+ * @brief Format the Key Value Store Cache.
+ */
+void vprvCacheFormat(void)
+{
+    for (uint32_t i = 0; i < KVS_NUM_KEYS; i++)
+    {
+        gKeyValueStore.table[i].xChangePending = pdFALSE;
+        gKeyValueStore.table[i].type = KV_TYPE_NONE;
+        memset(gKeyValueStore.table[i].key, 0, KVSTORE_KEY_MAX_LEN);
+        vClearDataBuffer ((KVStoreKey_t) i);
+    }
 }
 
 /*
