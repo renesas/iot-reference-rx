@@ -405,6 +405,6 @@
  */
 #define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 50U )
 
-#define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 100 )
+#define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 10 )
 
 #endif /* DEMO_CONFIG_H */
