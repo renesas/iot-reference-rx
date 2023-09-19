@@ -37,7 +37,12 @@
 #include "r_sci_rx_if.h"
 #include "r_byteq_if.h"
 
+/* Include resources defined in commonAPI */
+#include "r_common_api_sci.h"
+
+//Commented out due to common API support, processing moved to commonAPI
 /* FreeRTOS CLI Command Console */
+/*
 #if !defined(BSP_CFG_SCI_UART_TERMINAL_ENABLE)
 #error "Error! Need to define MY_BSP_CFG_SERIAL_TERM_SCI in r_bsp_config.h"
 #elif BSP_CFG_SCI_UART_TERMINAL_CHANNEL == (0)
@@ -82,13 +87,16 @@
 #else
 #error "Error! Invalid setting for MY_BSP_CFG_SERIAL_TERM_SCI in r_bsp_config.h"
 #endif
+*/
 
 /* Characters received from the UART are stored in this queue, ready to be
 received by the application.  ***NOTE*** Using a queue in this way is very
 convenient, but also very inefficient.  It can be used here because characters
 will only arrive slowly.  In a higher bandwidth system a circular RAM buffer or
 DMA should be used in place of this queue. */
-QueueHandle_t xRxQueue = NULL;
+
+//Commented out due to common API support, processing moved to commonAPI
+//QueueHandle_t xRxQueue = NULL;
 
 /* When a task calls vSerialPutString() its handle is stored in xSendingTask,
 before being placed into the Blocked state (so does not use any CPU time) to
@@ -97,15 +105,17 @@ transmit end interrupt to remove the task from the Blocked state. */
 static TaskHandle_t xSendingTask = NULL;
 
 /* Board Support Data Structures. */
-sci_hdl_t xSerialSciHandle;
-void CLI_Support_Settings(void);
-void vSerialSciCallback( void *pvArgs );
-void CLI_Close(void);
+extern sci_hdl_t xSerialSciHandle;
+//Commented out due to common API support, processing moved to commonAPI
+//void CLI_Support_Settings(void);
+//extern void vSerialSciCallback( void *pvArgs );
+//void CLI_Close(void);
 
+//Commented out due to common API support, processing moved to commonAPI
+/*`
 void CLI_Support_Settings(void)
 {
-
-    /* FreeRTOS CLI Command Console */
+    // FreeRTOS CLI Command Console
     U_SCI_UART_CLI_PINSET();
     sci_cfg_t xSerialSciConfig;
     xSerialSciConfig.async.baud_rate    = BSP_CFG_SCI_UART_TERMINAL_BITRATE;
@@ -114,41 +124,42 @@ void CLI_Support_Settings(void)
     xSerialSciConfig.async.parity_en    = SCI_PARITY_OFF;
     xSerialSciConfig.async.parity_type  = SCI_EVEN_PARITY;
     xSerialSciConfig.async.stop_bits    = SCI_STOPBITS_1;
-    xSerialSciConfig.async.int_priority = 1; /* lowest at first. */
+    xSerialSciConfig.async.int_priority = 1; // lowest at first.
     R_SCI_Open(U_SCI_UART_CLI_SCI_CH, SCI_MODE_ASYNC, &xSerialSciConfig, vSerialSciCallback, &xSerialSciHandle);
 }
+*/
+//
+//void CLI_Close(void)
+//{
+//    R_SCI_Close(xSerialSciHandle);
+//}
 
-void CLI_Close(void)
-{
-	R_SCI_Close(xSerialSciHandle);
-}
-
-/* Callback function which is called from Renesas API's interrupt service routine. */
-void vSerialSciCallback( void *pvArgs )
-{
-sci_cb_args_t *pxArgs = (sci_cb_args_t *)pvArgs;
-
-    /* Renesas API has a built-in queue but we will ignore it.  If the queue is not
-    full, a received character is passed with SCI_EVT_RX_CHAR event.  If the queue
-    is full, a received character is passed with SCI_EVT_RXBUF_OVFL event. */
-    if( SCI_EVT_RX_CHAR == pxArgs->event || SCI_EVT_RXBUF_OVFL == pxArgs->event )
-    {
-        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-
-        configASSERT( xRxQueue );
-
-        /* Characters received from the UART are stored in this queue, ready to be
-        received by the application.  ***NOTE*** Using a queue in this way is very
-        convenient, but also very inefficient.  It can be used here because
-        characters will only arrive slowly.  In a higher bandwidth system a circular
-        RAM buffer or DMA should be used in place of this queue. */
-        xQueueSendFromISR( xRxQueue, &pxArgs->byte, &xHigherPriorityTaskWoken );
-
-        /* See http://www.freertos.org/xQueueOverwriteFromISR.html for information
-        on the semantics of this ISR. */
-        portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-    }
-}
+//Commented out due to common API support, processing moved to commonAPI
+//void vSerialSciCallback( void *pvArgs )
+//{
+//sci_cb_args_t *pxArgs = (sci_cb_args_t *)pvArgs;
+//
+//    /* Renesas API has a built-in queue but we will ignore it.  If the queue is not
+//    full, a received character is passed with SCI_EVT_RX_CHAR event.  If the queue
+//    is full, a received character is passed with SCI_EVT_RXBUF_OVFL event. */
+//    if( SCI_EVT_RX_CHAR == pxArgs->event || SCI_EVT_RXBUF_OVFL == pxArgs->event )
+//    {
+//        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+//
+//        configASSERT( xRxQueue );
+//
+//        /* Characters received from the UART are stored in this queue, ready to be
+//        received by the application.  ***NOTE*** Using a queue in this way is very
+//        convenient, but also very inefficient.  It can be used here because
+//        characters will only arrive slowly.  In a higher bandwidth system a circular
+//        RAM buffer or DMA should be used in place of this queue. */
+//        xQueueSendFromISR( xRxQueue, &pxArgs->byte, &xHigherPriorityTaskWoken );
+//
+//        /* See http://www.freertos.org/xQueueOverwriteFromISR.html for information
+//        on the semantics of this ISR. */
+//        portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+//    }
+//}
 
 /* Function required in order to link UARTCommandConsole.c - which is used by
 multiple different demo application. */
@@ -162,8 +173,10 @@ xComPortHandle xSerialPortInitMinimal( unsigned long ulWantedBaud, unsigned port
     convenient, but also very inefficient.  It can be used here because
     characters will only arrive slowly.  In a higher bandwidth system a circular
     RAM buffer or DMA should be used in place of this queue. */
-    xRxQueue = xQueueCreate( uxQueueLength, sizeof( char ) );
-    configASSERT( xRxQueue );
+
+    //Commented out due to common API support, processing moved to commonAPI
+    //xRxQueue = xQueueCreate( uxQueueLength, sizeof( char ) );
+    //configASSERT( xRxQueue );
 
     /* Set interrupt priority. (Other UART settings had been initialized in the
     src/smc_gen/general/r_cg_hardware_setup.c.) */
