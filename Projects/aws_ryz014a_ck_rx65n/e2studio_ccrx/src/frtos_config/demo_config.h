@@ -53,7 +53,7 @@
 #endif
 
 #ifndef LIBRARY_LOG_LEVEL
-#define LIBRARY_LOG_LEVEL    LOG_ERROR
+#define LIBRARY_LOG_LEVEL    LOG_INFO
 #endif
 
 #include "iot_logging_task.h"
@@ -405,6 +405,6 @@
  */
 #define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 50U )
 
-#define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 10 )
+#define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 100 )
 
 #endif /* DEMO_CONFIG_H */
