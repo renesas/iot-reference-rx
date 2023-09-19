@@ -45,8 +45,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "mqtt_agent_task.h"
 
 st_cellular_ctrl_t cellular_ctrl;
-static bool _wifiEnable( void );
-static bool _wifiConnectAccessPoint( void );
+extern bool Connect2AP();
 
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
@@ -175,28 +174,33 @@ void main_task( void )
 		/* Remove CLI task before going to demo. */
 		vTaskDelete(xCLIHandle);
 
-		if(_wifiEnable())
+		if( !Connect2AP())
 		{
-			vTaskDelay(300);
+			FreeRTOS_printf( ( "Cellular init failed" ) );
 		}
+		else
+		{
 
-		FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+			vTaskDelay(300);
 
-		FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
+			FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
 
-        #if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
-           vStartFleetProvisioningDemo();
-        #else
-           xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
-        #endif
+			FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
 
-        vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
+			#if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
+			   vStartFleetProvisioningDemo();
+			#else
+			   xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+			#endif
 
-        vStartSimplePubSubDemo ();
+			vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
 
-        #if (ENABLE_OTA_UPDATE_DEMO == 1)
-                  vStartOtaDemo();
-        #endif
+			vStartSimplePubSubDemo ();
+
+			#if (ENABLE_OTA_UPDATE_DEMO == 1)
+					  vStartOtaDemo();
+			#endif
+		}
 	}
 
 	while( 1 )
@@ -389,54 +393,3 @@ signed char vISR_Routine( void )
 	extern signed char cRxedChar;
     return cRxedChar;
 }
-
-static bool _wifiConnectAccessPoint( void )
-{
-	configPRINTF(("Connect to AccessPoint \r\n "));
-	e_cellular_err_t ret = R_CELLULAR_APConnect(&cellular_ctrl, NULL);
-
-	if(CELLULAR_SUCCESS != ret)
-	{
-		LogError(("Error: AccessPoint connect time out. Please set more long period for waiting Connection."));
-	}
-
-	return (ret == CELLULAR_SUCCESS);
-}
-
-
-static bool _wifiEnable( void )
-{
-	bool result = pdFALSE;
-	e_cellular_err_t ret = R_CELLULAR_Open(&cellular_ctrl, NULL);
-
-
-#if 1 /* This is enable from R_Cellular Driver rev1.10 */
-	if(CELLULAR_SUCCESS == ret )
-	{
-		/* Set SIM Operator */
-		ret = R_CELLULAR_SetOperator(&cellular_ctrl, "standard");
-	}
-#endif /* This is enable from R_Cellular Driver rev1.10 */
-
-	if(CELLULAR_SUCCESS == ret )
-	{
-		/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-		/* !! Please must set your cellular band not to connect band that not support your region  !!  */
-		/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-		/* Show band setting for cellular */
-		configPRINTF(("Set the band of Cellular. Set bands %s:" CELLULAR_BAND_CONFIG ));
-		/* Set cellular bands */
-		ret = R_CELLULAR_SetBand(&cellular_ctrl, CELLULAR_BAND_CONFIG);
-	}
-
-	if(CELLULAR_SUCCESS == ret )
-	{
-		configPRINTF(("Connect to AccessPoint. \r\n"));
-		configPRINTF(("It takes around 3 or 5 minute when you connect to it first time. \r\n "));
-		result = _wifiConnectAccessPoint();
-	}
-
-	return result;
-}
-
-
