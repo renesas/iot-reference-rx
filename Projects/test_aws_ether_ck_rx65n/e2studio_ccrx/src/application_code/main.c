@@ -40,6 +40,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Demo includes */
 #include "aws_clientcredential.h"
 #include "mqtt_agent_task.h"
+/* CommonAPI includes */
+#include "r_common_api_sci.h"
+
 #include "test_execution_config.h"
 #include "store.h"
 
@@ -47,7 +50,7 @@ extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
 
-xSemaphoreHandle xSemaphoreFlashAccess;
+//xSemaphoreHandle xSemaphoreFlashAccess;
 
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.
@@ -217,12 +220,22 @@ int RunOtaE2eDemo( void )
 void main_task( void )
 {
 	int32_t xResults, Time2Wait = 10000;
+	e_commonapi_err_t common_api_err = COMMONAPI_SUCCESS;
+
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
 	/* The priority used by the UART command console task. */
 	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
+
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 	extern void vRegisterSampleCLICommands( void );
 	extern TaskHandle_t xCLIHandle;
+
+    /* Call commonapi open function for sci5 */
+    common_api_err = COMMON_API_SCI_OPEN(USER_SCI_UART_TERMINAL_CHANNEL);
+    if(COMMONAPI_SUCCESS != common_api_err)
+    {
+        while(1);   /* infinite loop due to error */
+    }
 
 	/* Initialize UART for serial terminal. */
 	prvMiscInitialization();
@@ -288,8 +301,8 @@ void main_task( void )
 void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
-	extern void CLI_Support_Settings(void);
-	CLI_Support_Settings();
+//	extern void CLI_Support_Settings(void);
+//	CLI_Support_Settings();
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY + 2,
