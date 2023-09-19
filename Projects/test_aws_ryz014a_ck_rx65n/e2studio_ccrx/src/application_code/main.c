@@ -39,6 +39,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "r_cellular_if.h"
 
 #include "mqtt_agent_task.h"
+/* CommonAPI includes */
+#include "r_common_api_sci.h"
+
 #include "test_execution_config.h"
 #include "store.h"
 
@@ -51,7 +54,7 @@ bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
 extern void UserInitialization(void);
 extern void vStartOtaDemo( void );
-xSemaphoreHandle xSemaphoreFlashAccess;
+//xSemaphoreHandle xSemaphoreFlashAccess;
 
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.
@@ -228,8 +231,8 @@ void main_task( void )
 void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
-	extern void CLI_Support_Settings(void);
-	CLI_Support_Settings();
+//	extern void CLI_Support_Settings(void);
+//	CLI_Support_Settings();
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY + 2,

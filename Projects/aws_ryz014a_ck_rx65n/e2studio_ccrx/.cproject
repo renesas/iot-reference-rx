@@ -111,6 +111,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Demos/common/pkcs11_helpers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Demos/cli}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Demos/dev_mode_key_provisioning/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Common/common_api}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Common/littlefs_common}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/application_code/ports/ota_pal}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/3rdparty/tinycbor/src}&quot;"/>
@@ -192,7 +193,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_tsip_rx}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_fwup/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_fwup}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_flash_rx/src/flash_type_5}&quot;"/>									
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/smc_gen/r_flash_rx/src/flash_type_5}&quot;"/>
 								</option>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.option.goptimize.923238993" name="Outputs additional information for inter-module optimization (-goptimize)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.option.goptimize" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<inputType id="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.inputType.1231905141" name="Assembler InputType" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.assembler.inputType"/>
