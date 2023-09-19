@@ -26,9 +26,6 @@
 #include "string.h"
 #include "rm_littlefs_flash.h"
 #include "rm_littlefs_flash_config.h"
-#include "demo_config.h"
-
-flash_res_t g_blank_check_result;
 
 /* Get the data flash block size defined in bsp_feature.h for this MCU. */
 #define RM_LITTLEFS_FLASH_DATA_BLOCK_SIZE      FLASH_DF_BLOCK_SIZE
@@ -71,6 +68,7 @@ static void update_dataflash_data(const struct lfs_config * c,
 		uint32_t				  update_state);
 
 
+void task_init(void);
 void data_flash_update_status_initialize(void);
 /** LittleFS API mapping for LittleFS Port interface */
 const rm_littlefs_api_t g_rm_littlefs_on_flash =
@@ -175,7 +173,7 @@ fsp_err_t RM_LITTLEFS_FLASH_Close (rm_littlefs_ctrl_t * const p_ctrl)
  * @param[out] buffer      The buffer to copy data into
  * @param[in]  size        The size in bytes
  *
- * @retval     LFS_ERR_OK  Read is complete.
+ * @retval     LFS_ERR_OK  Read is complete. If there is a blank area in the read area, incorrect values may be read
  * @retval     LFS_ERR_IO  Lower level driver is not open.
  **********************************************************************************************************************/
 int rm_littlefs_flash_read (const struct lfs_config * c,
@@ -184,45 +182,14 @@ int rm_littlefs_flash_read (const struct lfs_config * c,
                             void                    * buffer,
                             lfs_size_t                size)
 {
-    rm_littlefs_flash_instance_ctrl_t *p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t*) c->context;
+    rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
 
-    flash_err_t err;
-    lfs_size_t round_size = size;
-    uint32_t address = rm_littlefs_flash_data_start + (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block) + off;
-    uint32_t round_address = address;
-
-    //Round down address to a multiple of FLASH_DF_MIN_PGM_SIZE
-    lfs_size_t remainder = address % FLASH_DF_MIN_PGM_SIZE;
-    if (remainder != 0)
-        round_address = round_address - remainder;
-
-    //Round up size to a multiple of FLASH_DF_MIN_PGM_SIZE
-    remainder = size % FLASH_DF_MIN_PGM_SIZE;
-    if (remainder != 0)
-        round_size = size + FLASH_DF_MIN_PGM_SIZE - remainder;
-
-    /* Run the blank check on the target area in data flash memory. */
-    //LogInfo (("blank check area %.8X: %d", address, size));
-    xSemaphoreTake(xSemaphoreFlashAccess, portMAX_DELAY);
-    err = R_FLASH_BlankCheck (round_address, round_size, 0);
-    if (FLASH_SUCCESS != err)
-    {
-        LogError(("Blank check failed on address %.8X size %d error %d", round_address, round_size, err));
-        xSemaphoreGive(xSemaphoreFlashAccess);
-        g_blank_check_result == FLASH_RES_NOT_BLANK;
-    }
-
-    xSemaphoreTake(xSemaphoreFlashAccess, portMAX_DELAY);
-    if (g_blank_check_result == FLASH_RES_BLANK)
-    {
-        // return 0xFF if it is blank
-        memset(buffer, 0xFF, size);
-    }
-    else
-    {
-        /* Read directly from the flash. */
-        memcpy(buffer, (uint8_t* ) address, size);
-    }
+    /* No flash access while reading */
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
+    /* Read directly from the flash. */
+    memcpy(buffer,
+               (uint8_t *) (rm_littlefs_flash_data_start + (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block) + off),
+               size);
     xSemaphoreGive(xSemaphoreFlashAccess);
 
     return LFS_ERR_OK;
@@ -403,19 +370,15 @@ static void flashing_callback( void * event )
 				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			}
 			break;
-        case FLASH_INT_EVENT_BLANK:
-            g_blank_check_result = FLASH_RES_BLANK;
-            xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
-            break;
-        case FLASH_INT_EVENT_NOT_BLANK:
-            g_blank_check_result = FLASH_RES_NOT_BLANK;
-            xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
-            break;
 		default:
 			update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
 			xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			break;
 	}
+}
+void task_init(void)
+{
+
 }
 
 void data_flash_update_status_initialize(void)
