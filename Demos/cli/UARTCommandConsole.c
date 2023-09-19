@@ -47,12 +47,15 @@
 /* Demo Config */
 #include "demo_config.h"
 
+/* Include resources defined in commonAPI */
+#include "r_common_api_sci.h"
+
 /* Dimensions the buffer into which input characters are placed. */
 #define cmdMAX_INPUT_SIZE		4096
 
 /* Dimentions a buffer to be used by the UART driver, if the UART driver uses a
 buffer at all. */
-#define cmdQUEUE_LENGTH			2048
+//#define cmdQUEUE_LENGTH           2048
 
 /* DEL acts as a backspace. */
 #define cmdASCII_DEL		( 0x7F )
@@ -147,8 +150,12 @@ xComPortHandle xPort;
 	will be used at any one time. */
 	pcOutputString = FreeRTOS_CLIGetOutputBuffer();
 
-	/* Initialise the UART. */
-	xPort = xSerialPortInitMinimal( configCLI_BAUD_RATE, cmdQUEUE_LENGTH );
+    /* Initialise the UART. */
+    xPort = xSerialPortInitMinimal( configCLI_BAUD_RATE, 0 );
+
+    /* 0 is passed to the second argument for CommAPI support.                  */
+    /* It was originally written as follows.                                        */
+    /* xPort = xSerialPortInitMinimal( configCLI_BAUD_RATE, cmdQUEUE_LENGTH );  */
 
 	/* Send the welcome message. */
 	vSerialPutString( ( signed char * ) pcWelcomeMessage1, ( unsigned short ) strlen( pcWelcomeMessage1 ) );

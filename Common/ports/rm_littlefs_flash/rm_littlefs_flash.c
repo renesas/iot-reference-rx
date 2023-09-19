@@ -26,6 +26,7 @@
 #include "string.h"
 #include "rm_littlefs_flash.h"
 #include "rm_littlefs_flash_config.h"
+#include "r_common_api_flash.h"
 
 /* Get the data flash block size defined in bsp_feature.h for this MCU. */
 #define RM_LITTLEFS_FLASH_DATA_BLOCK_SIZE      FLASH_DF_BLOCK_SIZE
@@ -41,25 +42,12 @@
 /** "RLFS" in ASCII, used to determine if channel is open. */
 #define RM_LITTLEFS_FLASH_OPEN           (0x524C4653ULL)
 
-#define DATA_FLASH_UPDATE_STATE_INITIALIZE 0
-#define DATA_FLASH_UPDATE_STATE_ERASE 1
-#define DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE 2
-#define DATA_FLASH_UPDATE_STATE_WRITE 3
-#define DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE 4
-#define DATA_FLASH_UPDATE_STATE_FINALIZE 5
-#define DATA_FLASH_UPDATE_STATE_FINALIZE_COMPLETED 6
-#define DATA_FLASH_UPDATE_STATE_ERROR 103
-
-typedef struct _update_data_flash_control_block {
-	uint32_t status;
-}UPDATA_DATA_FLASH_CONTROL_BLOCK;
-
-static void flashing_callback( void * event );
+extern volatile UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
+extern volatile flash_res_t g_blank_check_result;
 
 static void write_callback( void * event );
 static void erase_flashing_callback( void * event );
 
-static UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
 static void update_dataflash_data(const struct lfs_config * c,
         lfs_block_t               block,
         lfs_off_t                 off,
@@ -68,7 +56,6 @@ static void update_dataflash_data(const struct lfs_config * c,
 		uint32_t				  update_state);
 
 
-void data_flash_update_status_initialize(void);
 /** LittleFS API mapping for LittleFS Port interface */
 const rm_littlefs_api_t g_rm_littlefs_on_flash =
 {
@@ -101,14 +88,20 @@ fsp_err_t RM_LITTLEFS_FLASH_Open (rm_littlefs_ctrl_t * const p_ctrl, rm_littlefs
 {
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) p_ctrl;
     p_instance_ctrl->p_cfg = p_cfg;
-    flash_err_t err = R_FLASH_Open();
+
+    /* Call commonapi open function for Flash */
+    e_commonapi_err_t common_api_err = R_Demo_Common_API_Flash_Open();
+    if (COMMONAPI_SUCCESS != common_api_err)
+    {
+        while (1); /* infinite loop due to error */
+    }
 
 #if LFS_THREAD_SAFE
     p_instance_ctrl->xSemaphore = xSemaphoreCreateMutexStatic(&p_instance_ctrl->xMutexBuffer);
 
     if (NULL == p_instance_ctrl->xSemaphore)
     {
-    	R_FLASH_Close();
+    	//R_FLASH_Close();
 
         return FSP_ERR_INTERNAL;
     }
@@ -116,11 +109,6 @@ fsp_err_t RM_LITTLEFS_FLASH_Open (rm_littlefs_ctrl_t * const p_ctrl, rm_littlefs
 
     /* This module is now open. */
     p_instance_ctrl->open = RM_LITTLEFS_FLASH_OPEN;
-
-    xSemaphoreFlashAccess = xSemaphoreCreateBinary();
-    xSemaphoreGive( xSemaphoreFlashAccess );
-
-    data_flash_update_status_initialize();
 
     return FSP_SUCCESS;
 }
@@ -142,15 +130,15 @@ fsp_err_t RM_LITTLEFS_FLASH_Close (rm_littlefs_ctrl_t * const p_ctrl)
 {
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) p_ctrl;
 
-    //p_instance_ctrl->open = 0; // comment out this line to keep littleFs work after closing
+    p_instance_ctrl->open = 0; // comment out this line to keep littleFs work after closing
 
-    if( NULL != xSemaphoreFlashAccess )
-    {
-        vSemaphoreDelete( xSemaphoreFlashAccess );
-        xSemaphoreFlashAccess = NULL;
-    }
-
-    R_FLASH_Close();
+//    if( NULL != xSemaphoreFlashAccess )
+//    {
+//        vSemaphoreDelete( xSemaphoreFlashAccess );
+//        xSemaphoreFlashAccess = NULL;
+//    }
+//
+//    R_FLASH_Close();
 
 #if LFS_THREAD_SAFE
     vSemaphoreDelete(p_instance_ctrl->xSemaphore);
