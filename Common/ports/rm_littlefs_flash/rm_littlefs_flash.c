@@ -68,7 +68,6 @@ static void update_dataflash_data(const struct lfs_config * c,
 		uint32_t				  update_state);
 
 
-void task_init(void);
 void data_flash_update_status_initialize(void);
 /** LittleFS API mapping for LittleFS Port interface */
 const rm_littlefs_api_t g_rm_littlefs_on_flash =
@@ -375,10 +374,6 @@ static void flashing_callback( void * event )
 			xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
 			break;
 	}
-}
-void task_init(void)
-{
-
 }
 
 void data_flash_update_status_initialize(void)
