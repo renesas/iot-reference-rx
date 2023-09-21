@@ -467,6 +467,7 @@ static inline void * pvGetDataWritePtr( KVStoreKey_t key )
     configASSERT( pvData != NULL );
     return pvData;
 }
+
 /*
  * @brief Initialize the Key Value Store Cache by reading each entry from the Data Flash.
  */
@@ -478,7 +479,6 @@ int32_t vprvCacheInit( void )
 
 	CK_BYTE pxCertLabel[] =  pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS ;
 	CK_BYTE pxPrivKeyLabel[] =  pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS ;
-	CK_FUNCTION_LIST_PTR pxFunctionList = NULL;
 	CK_SESSION_HANDLE xSession = 0;
 
     /* Read from file system into ram */
@@ -499,7 +499,8 @@ int32_t vprvCacheInit( void )
 			char *xValue = NULL;
 			if( xNvLength > 0 )
 			{
-				vAllocateDataBuffer( i, xNvLength );
+				// Redundant malloc
+				//vAllocateDataBuffer( i, xNvLength );
 				size_t * pxLength = &( gKeyValueStore.table[ i ].valueLength );
 				strcpy( gKeyValueStore.table[i ].key, keys[ i ] );
 				( void ) xprvReadValueFromImpl( (KVStoreKey_t)i,  &xValue, pxLength, *pxLength );
@@ -509,47 +510,22 @@ int32_t vprvCacheInit( void )
     	}
 
     }
-    xResult = C_GetFunctionList( &pxFunctionList );
-
-	/* Initialize the PKCS Module */
-	if( xResult == CKR_OK )
-	{
-		xResult = xInitializePkcs11Token();
-	}
-
-	if( xResult == CKR_OK )
-	{
-		xResult = xInitializePkcs11Session( &xSession );
-	}
-
-	//private key
-
-	xNvLength = PKCS11_PAL_FindObject(pxPrivKeyLabel,strlen(pxPrivKeyLabel));
-	if (xNvLength <=0)
-	{
-		if( xResult == CKR_OK )
-		{
-			pxFunctionList->C_CloseSession( xSession );
-		}
-		return xNvLength;
-	}
-	//cert
-	xNvLength = PKCS11_PAL_FindObject(pxCertLabel,strlen(pxCertLabel));
-	if (xNvLength <=0)
-	{
-		if( xResult == CKR_OK )
-		{
-			pxFunctionList->C_CloseSession( xSession );
-		}
-		return xNvLength;
-	}
-
-	if( xResult == CKR_OK )
-	{
-		pxFunctionList->C_CloseSession( xSession );
-	}
 	return xNvLength;
 
+}
+
+/*
+ * @brief Format the Key Value Store Cache.
+ */
+void vprvCacheFormat(void)
+{
+    for (uint32_t i = 0; i < KVS_NUM_KEYS; i++)
+    {
+        gKeyValueStore.table[i].xChangePending = pdFALSE;
+        gKeyValueStore.table[i].type = KV_TYPE_NONE;
+        memset(gKeyValueStore.table[i].key, 0, KVSTORE_KEY_MAX_LEN);
+        vClearDataBuffer ((KVStoreKey_t) i);
+    }
 }
 
 /*
