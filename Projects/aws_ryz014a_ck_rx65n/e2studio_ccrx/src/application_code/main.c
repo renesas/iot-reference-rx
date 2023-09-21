@@ -34,9 +34,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Key provisioning includes. */
 #include "aws_dev_mode_key_provisioning.h"
 
-/* FreeRTOS+TCP includes. */
-#include "FreeRTOS_IP.h"
-
 /* Demo includes */
 #include "aws_clientcredential.h"
 #include "r_cellular_if.h"
@@ -45,7 +42,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "mqtt_agent_task.h"
 
 st_cellular_ctrl_t cellular_ctrl;
-extern bool Connect2AP();
+extern bool Connect2AP( void );
 
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
@@ -107,20 +104,6 @@ extern void vStartSimplePubSubDemo( void  );
 #define UNSIGNED_SHORT_RANDOM_NUMBER_MASK         (0xFFFFUL)
 
 /**
- * @brief Band Select for Cellular connecting.
- * This is used for setting the band for cellular.
- * You can select below bands. Bands is related on Cellular carrier,
- * please must set bands your region and SIM acceptable.
- * ------------------------------------------------------
- * North America 2,4,5,12,13,25
- * EMEA 1,3,8,20,28
- * Japan 1,8,18,19,26
- * Australia 1,3,8,28
- * ------------------------------------------------------
- */
-#define CELLULAR_BAND_CONFIG	"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"
-
-/**
  * @brief Application task startup hook.
  */
 void vApplicationDaemonTaskStartupHook( void );
@@ -176,16 +159,16 @@ void main_task( void )
 
 		if( !Connect2AP())
 		{
-			FreeRTOS_printf( ( "Cellular init failed" ) );
+			configPRINTF( ( "Cellular init failed" ) );
 		}
 		else
 		{
 
 			vTaskDelay(300);
 
-			FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+			configPRINTF( ( "Initialise the RTOS's TCP/IP stack\n" ) );
 
-			FreeRTOS_printf( ( "---------STARTING DEMO---------\r\n" ) );
+			configPRINTF( ( "---------STARTING DEMO---------\r\n" ) );
 
 			#if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
 			   vStartFleetProvisioningDemo();
