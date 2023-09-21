@@ -56,7 +56,7 @@
 #endif
 
 #ifndef LIBRARY_LOG_LEVEL
-    #define LIBRARY_LOG_LEVEL    LOG_ERROR
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
 #endif
 
 #include "logging_stack.h"
@@ -64,14 +64,38 @@
 /************ End of logging configuration ****************/
 
 /**
- * @brief Maximum number of token objects that can be stored
- * by the PKCS #11 module.
- *
- * <br><b>Possible values:</b> Any positive integer.<br>
- * <b>Default value:</b> `6`
- */
-#define pkcs11configMAX_NUM_OBJECTS    7
+* @brief Maximum number of sessions that can be stored
+* by the PKCS #11 module.
+*
+* @note The windows test port has an abnormally large value in order to have
+* enough sessions to successfully run all the model based PKCS #11 tests.
+*
+* <b>Possible values:</b> Any positive integer.<br>
+* <b>Default value:</b> 10
+*/
+#define pkcs11configMAX_NUM_OBJECTS    8
 
+/**
+* @brief Set to 1 if a PAL destroy object is implemented.
+*
+* If set to 0, no PAL destroy object is implemented, and this functionality
+* is implemented in the common PKCS #11 layer.
+*
+* <b>Possible values:</b> `0` or `1`<br>
+* <b>Default value:</b> `0`
+*/
+#define pkcs11configPAL_DESTROY_SUPPORTED    1
+
+/**
+* @brief Set to 1 if OTA image verification via PKCS #11 module is supported.
+*
+* If set to 0, OTA code signing certificate is built in via
+* aws_ota_codesigner_certificate.h.
+*
+* <b>Possible values:</b> `0` or `1`<br>
+* <b>Default value:</b> `0`
+*/
+#define pkcs11configOTA_SUPPORTED    1
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
