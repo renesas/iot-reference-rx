@@ -761,10 +761,10 @@
             <Path>src\smc_gen\r_cellular\r_cellular_if.h</Path>
             <Category Name="doc">
               <Category Name="en">
-                <Path>src\smc_gen\r_cellular\doc\en\r01an6324ej0110-rx-ryz014a-cellular.pdf</Path>
+                <Path>src\smc_gen\r_cellular\doc\en\r01an6324ej0111-rx-ryz014a-cellular.pdf</Path>
               </Category>
               <Category Name="ja">
-                <Path>src\smc_gen\r_cellular\doc\ja\r01an6324jj0110-rx-ryz014a-cellular.pdf</Path>
+                <Path>src\smc_gen\r_cellular\doc\ja\r01an6324jj0111-rx-ryz014a-cellular.pdf</Path>
               </Category>
             </Category>
             <Category Name="src">
