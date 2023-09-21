@@ -110,7 +110,6 @@ typedef enum KVStoreKeytype
     KV_TYPE_STRING
 } KVStoreValueType_t;
 
-BaseType_t prvSaveConfigStore( void );
 int32_t xprvGetValueLengthFromImpl( KVStoreKey_t keyIndex);
 int32_t GetTotalLengthFromImpl();
 BaseType_t xprvWriteValueToImpl (KVStoreKey_t keyIndex, char *pucData, uint32_t ulDataSize);
@@ -118,7 +117,6 @@ int32_t xprvReadValueFromImpl (KVStoreKey_t keyIndex,
         char **ppucData,
 		uint32_t *pulDataSize,
 		size_t xBufferSize);
-void LoadConfigStore(int32_t xHandle);
 int32_t xprvWriteCacheEntry(size_t KeyLength,
 						char * Key,
 						size_t ValueLength,
@@ -133,6 +131,7 @@ static inline void vLfsSSizeToErr( lfs_ssize_t * pxReturnValue,
 static inline const void * pvGetDataReadPtr( KVStoreKey_t key );
 static inline void * pvGetDataWritePtr( KVStoreKey_t key );
 int32_t vprvCacheInit( void );
+void vprvCacheFormat( void );
 BaseType_t xprvCopyValueFromCache( KVStoreKey_t xKey,
                                    KVStoreValueType_t * pxDataType,
                                    size_t * pxDataLength,
