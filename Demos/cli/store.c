@@ -500,7 +500,7 @@ int32_t vprvCacheInit( void )
 			if( xNvLength > 0 )
 			{
 				// Redundant malloc
-				//vAllocateDataBuffer( i, xNvLength );
+				vAllocateDataBuffer( i, xNvLength );
 				size_t * pxLength = &( gKeyValueStore.table[ i ].valueLength );
 				strcpy( gKeyValueStore.table[i ].key, keys[ i ] );
 				( void ) xprvReadValueFromImpl( (KVStoreKey_t)i,  &xValue, pxLength, *pxLength );
