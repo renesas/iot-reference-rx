@@ -3591,12 +3591,6 @@
 
 /** \} name SECTION: Module configuration options */
 
-#if !defined(MBEDTLS_PLATFORM_SNPRINTF_MACRO)
-#define MBEDTLS_PLATFORM_SNPRINTF_MACRO snprintf
-#endif
-
-#endif /* !MBEDTLS_PLATFORM_NO_STD_FUNCTIONS */
-
 /* Workaround for CC-RX's non-standard 2nd argument type of
  * memset function. CC-RX uses long but standard uses int.
  */
