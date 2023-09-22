@@ -65,7 +65,7 @@ static e_commonapi_err_t Flash_COM_init(void)
 {
     flash_err_t err = R_FLASH_Open ();
 
-    if (err != FLASH_SUCCESS)
+    if (FLASH_SUCCESS != err)
     {
         return COMMONAPI_ERR;
     }
@@ -96,7 +96,7 @@ static e_commonapi_err_t Flash_COM_terminate(void)
 {
     flash_err_t err = R_FLASH_Close ();
 
-    if (err != FLASH_SUCCESS)
+    if (FLASH_SUCCESS != err)
     {
         return COMMONAPI_ERR;
     }
@@ -121,7 +121,7 @@ static e_commonapi_err_t Flash_COM_Resource_Create(void)
     configASSERT(xSemaphoreFlashAccess);
 
     /* Return an error if xSemaphoreFlashAccess is NULL */
-    if (xSemaphoreFlashAccess == NULL)
+    if (NULL == xSemaphoreFlashAccess)
     {
         return COMMONAPI_ERR;
     }
@@ -144,7 +144,7 @@ static e_commonapi_err_t Flash_COM_Resource_Create(void)
  *********************************************************************************************************************/
 static e_commonapi_err_t Flash_COM_Resource_Release(void)
 {
-    if (xSemaphoreFlashAccess != NULL)
+    if (NULL != xSemaphoreFlashAccess)
     {
         vSemaphoreDelete(xSemaphoreFlashAccess);
         xSemaphoreFlashAccess = NULL;
@@ -171,7 +171,7 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Open(void)
     /* Enter critical section */
     taskENTER_CRITICAL();
 
-    if (s_Flash_COM_Status == COMAPI_STATE_CLOSE)
+    if (COMAPI_STATE_CLOSE == s_Flash_COM_Status)
     {
         /* Status change */
         s_Flash_COM_Status = COMAPI_STATE_RUNNING;
@@ -181,7 +181,7 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Open(void)
 
         /* Flash init */
         return_err_state = Flash_COM_init ();
-        if (return_err_state == COMMONAPI_ERR)
+        if (COMMONAPI_ERR == return_err_state)
         {
             s_Flash_COM_Status = COMAPI_STATE_CLOSE;
 
@@ -190,7 +190,7 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Open(void)
 
         /* Resource Create */
         return_err_state = Flash_COM_Resource_Create ();
-        if (return_err_state == COMMONAPI_ERR)
+        if (COMMONAPI_ERR == return_err_state)
         {
             s_Flash_COM_Status = COMAPI_STATE_CLOSE;
 
@@ -201,24 +201,24 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Open(void)
         s_Flash_COM_Status = COMAPI_STATE_OPEN;
 
     }
-    else if (s_Flash_COM_Status == COMAPI_STATE_RUNNING)
+    else if (COMAPI_STATE_RUNNING == s_Flash_COM_Status)
     {
         /* Exit critical section */
         taskEXIT_CRITICAL();
 
         /* Execute delay until running state ends */
-        while (s_Flash_COM_Status == COMAPI_STATE_RUNNING)
+        while (COMAPI_STATE_RUNNING == s_Flash_COM_Status)
         {
             vTaskDelay (10);
         }
 
         /* Returns an error if status is not open */
-        if (s_Flash_COM_Status != COMAPI_STATE_OPEN)
+        if (COMAPI_STATE_OPEN != s_Flash_COM_Status)
         {
             return COMMONAPI_ERR;
         }
     }
-    else if (s_Flash_COM_Status == COMAPI_STATE_OPEN)
+    else if (COMAPI_STATE_OPEN == s_Flash_COM_Status)
     {
         /* Exit critical section */
         taskEXIT_CRITICAL();
@@ -253,7 +253,7 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Close(void)
     /* Enter critical section */
     taskENTER_CRITICAL();
 
-    if (s_Flash_COM_Status == COMAPI_STATE_OPEN)
+    if (COMAPI_STATE_OPEN == s_Flash_COM_Status)
     {
         /* Status change */
         s_Flash_COM_Status = COMAPI_STATE_RUNNING;
@@ -263,7 +263,7 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Close(void)
 
         /* Flash terminate */
         return_err_state = Flash_COM_terminate ();
-        if (COMMONAPI_ERR == return_err_state)
+        if (return_err_state == COMMONAPI_ERR)
         {
             s_Flash_COM_Status = COMAPI_STATE_CLOSE;
 
@@ -272,7 +272,7 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Close(void)
 
         /* Resource Release */
         return_err_state = Flash_COM_Resource_Release ();
-        if (return_err_state == COMMONAPI_ERR)
+        if (COMMONAPI_ERR == return_err_state)
         {
             s_Flash_COM_Status = COMAPI_STATE_CLOSE;
 
@@ -283,24 +283,24 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Close(void)
         s_Flash_COM_Status = COMAPI_STATE_CLOSE;
 
     }
-    else if (s_Flash_COM_Status == COMAPI_STATE_RUNNING)
+    else if (COMAPI_STATE_RUNNING == s_Flash_COM_Status)
     {
         /* Exit critical section */
         taskEXIT_CRITICAL();
 
         /* Execute delay until running state ends */
-        while (COMAPI_STATE_RUNNING)
+        while (COMAPI_STATE_RUNNING == s_Flash_COM_Status)
         {
             vTaskDelay (10);
         }
 
         /* Returns an error if status is not close */
-        if (s_Flash_COM_Status != COMAPI_STATE_CLOSE)
+        if (COMAPI_STATE_CLOSE != s_Flash_COM_Status)
         {
             return COMMONAPI_ERR;
         }
     }
-    else if (s_Flash_COM_Status == COMAPI_STATE_CLOSE)
+    else if (COMAPI_STATE_CLOSE == s_Flash_COM_Status)
     {
         /* Exit critical section */
         taskEXIT_CRITICAL();
@@ -320,6 +320,12 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Close(void)
  End of function R_Demo_Common_API_Flash_Close
  *********************************************************************************************************************/
 
+/* Function Name: flashing_callback */
+/******************************************************************************************************************//**
+ * @brief Callback function for Flash. This function is called from Renesas API's interrupt service routine.
+ * @param[in] void* event
+ * @return void
+ *********************************************************************************************************************/
 static void flashing_callback(void *event)
 {
     uint32_t event_code;
@@ -369,3 +375,6 @@ static void flashing_callback(void *event)
         break;
     }
 }
+/**********************************************************************************************************************
+ End of function flashing_callback
+ *********************************************************************************************************************/
