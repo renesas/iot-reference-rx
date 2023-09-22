@@ -217,8 +217,6 @@ int RunOtaE2eDemo( void )
 void main_task( void )
 {
 	int32_t xResults, Time2Wait = 10000;
-	e_commonapi_err_t common_api_err = COMMONAPI_SUCCESS;
-
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
 	/* The priority used by the UART command console task. */
 	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
