@@ -158,14 +158,6 @@ void main_task( void )
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 	extern TaskHandle_t xCLIHandle;
 
-
-    /* Call commonapi open function for sci5 */
-    common_api_err = COMMON_API_SCI_OPEN(USER_SCI_UART_TERMINAL_CHANNEL);
-    if(COMMONAPI_SUCCESS != common_api_err)
-    {
-        while(1);   /* infinite loop due to error */
-    }
-
 	prvMiscInitialization();
 	UserInitialization();
 
@@ -220,9 +212,8 @@ void main_task( void )
 
 void prvMiscInitialization( void )
 {
-    //Commented out due to common API support, processing moved to commonAPI
     /* Initialize UART for serial terminal. */
-    //CLI_Support_Settings();
+	CLI_Support_Settings();
 
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,

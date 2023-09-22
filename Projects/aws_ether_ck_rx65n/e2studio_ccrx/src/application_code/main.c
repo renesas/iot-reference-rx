@@ -43,9 +43,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "store.h"
 #include "mqtt_agent_task.h"
 
-/* CommonAPI includes */
-#include "r_common_api_sci.h"
-
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
@@ -176,7 +173,6 @@ extern void vRegisterSampleCLICommands( void );
 void main_task( void )
 {
 	int32_t xResults, Time2Wait = 10000;
-	e_commonapi_err_t common_api_err = COMMONAPI_SUCCESS;
 
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
 	/* The priority used by the UART command console task. */
@@ -185,14 +181,6 @@ void main_task( void )
 	extern void vRegisterSampleCLICommands( void );
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 	extern TaskHandle_t xCLIHandle;
-
-
-    /* Call commonapi open function for sci5 */
-    common_api_err = COMMON_API_SCI_OPEN(USER_SCI_UART_TERMINAL_CHANNEL);
-    if(COMMONAPI_SUCCESS != common_api_err)
-    {
-        while(1);   /* infinite loop due to error */
-    }
 
 	prvMiscInitialization();
 	UserInitialization();
@@ -259,9 +247,8 @@ void main_task( void )
 
 void prvMiscInitialization( void )
 {
-    //Commented out due to common API support, processing moved to commonAPI
     /* Initialize UART for serial terminal. */
-    //CLI_Support_Settings();
+	CLI_Support_Settings();
 
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
