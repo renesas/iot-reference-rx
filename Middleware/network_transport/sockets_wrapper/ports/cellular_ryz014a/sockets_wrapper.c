@@ -205,6 +205,7 @@ int32_t TCP_Sockets_Recv( Socket_t xSocket,
 #if USER_TCP_HOOK_ENABLED
 		if(CELLULAR_ERR_SOCKET_NOT_READY == receive_byte)
 		{
+			CloseSocket(receive_byte);
 			/* Need a flag to not close socket again in TCP_Sockets_Disconnect*/
 			Is_Closed = pdTRUE;
 		}
@@ -243,6 +244,7 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 #if USER_TCP_HOOK_ENABLED
 		if(CELLULAR_ERR_SOCKET_NOT_READY == send_byte)
 		{
+			CloseSocket(send_byte);
 			/* Need a flag to not close socket again in TCP_Sockets_Disconnect*/
 			Is_Closed = pdTRUE;
 		}
