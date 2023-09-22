@@ -39,7 +39,6 @@
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
-#include "FreeRTOSIPConfig.h"
 #include "list.h"
 #include "semphr.h"
 #include "task.h"
@@ -115,7 +114,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 #if USER_TCP_HOOK_ENABLED
         	CloseSocket(socketStatus);
 #endif
-        	*pTcpSocket = (Socket_t )pxContext;
+        	pTcpSocket = NULL;
         	return MALLOC_SOCKET_CREATION_ERROR;
         }
         else
