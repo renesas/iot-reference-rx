@@ -40,9 +40,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Demo includes */
 #include "aws_clientcredential.h"
 #include "mqtt_agent_task.h"
-/* CommonAPI includes */
-#include "r_common_api_sci.h"
-
 #include "test_execution_config.h"
 #include "store.h"
 
@@ -230,13 +227,6 @@ void main_task( void )
 	extern void vRegisterSampleCLICommands( void );
 	extern TaskHandle_t xCLIHandle;
 
-    /* Call commonapi open function for sci5 */
-    common_api_err = COMMON_API_SCI_OPEN(USER_SCI_UART_TERMINAL_CHANNEL);
-    if(COMMONAPI_SUCCESS != common_api_err)
-    {
-        while(1);   /* infinite loop due to error */
-    }
-
 	/* Initialize UART for serial terminal. */
 	prvMiscInitialization();
 
@@ -301,8 +291,8 @@ void main_task( void )
 void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
-//	extern void CLI_Support_Settings(void);
-//	CLI_Support_Settings();
+	extern void CLI_Support_Settings(void);
+	CLI_Support_Settings();
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY + 2,
