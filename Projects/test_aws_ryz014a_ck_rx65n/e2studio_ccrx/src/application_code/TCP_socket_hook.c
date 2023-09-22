@@ -65,7 +65,6 @@ extern st_cellular_ctrl_t cellular_ctrl;
 bool Connect2AP(void);
 void CloseSocket(uint32_t socket_number);
 e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset );
-extern volatile bool Is_Closed;
 
 /**
  * @brief Band Select for Cellular connecting.
