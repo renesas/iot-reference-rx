@@ -96,7 +96,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 		{
 			socketStatus = NO_SOCKET_CREATION_ERROR;
 		}
-		*pTcpSocket = (Socket_t )pxContext;
+		pTcpSocket = NULL;
 		return socketStatus;
 	}
 
