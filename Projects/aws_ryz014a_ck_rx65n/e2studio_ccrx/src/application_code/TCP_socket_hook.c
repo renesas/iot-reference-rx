@@ -106,7 +106,6 @@ e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset )
 			LogInfo(("Cellular Hardware Reset Done!\r\n"));
 			R_CELLULAR_Close(&cellular_ctrl);
 			Connect2AP();
-			Is_Closed = pdTRUE;
 			return error;
 		}
 		else
@@ -129,8 +128,6 @@ e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset )
 				LogInfo(("Cellular Hardware Reset Done!\r\n"));
 				R_CELLULAR_Close(&cellular_ctrl);
 				Connect2AP();
-				Is_Closed = pdTRUE;
-
 			}
 			return error;
 		}
@@ -264,7 +261,7 @@ void CloseSocket(uint32_t socket_number)
 		(void)R_CELLULAR_HardwareReset(&cellular_ctrl);
 		(void)R_CELLULAR_Close(&cellular_ctrl);
 		vTaskDelay(10);
-		(void)R_CELLULAR_Open(&cellular_ctrl, NULL);
+		Connect2AP();
 		*/
 	}
 }

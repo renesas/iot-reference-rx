@@ -106,7 +106,6 @@ e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset )
 			LogInfo(("Cellular Hardware Reset Done!\r\n"));
 			R_CELLULAR_Close(&cellular_ctrl);
 			Connect2AP();
-			Is_Closed = pdTRUE;
 			return error;
 		}
 		else
@@ -129,8 +128,6 @@ e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset )
 				LogInfo(("Cellular Hardware Reset Done!\r\n"));
 				R_CELLULAR_Close(&cellular_ctrl);
 				Connect2AP();
-				Is_Closed = pdTRUE;
-
 			}
 			return error;
 		}
@@ -245,7 +242,7 @@ void CloseSocket(uint32_t socket_number)
 			break;
 		}
 		count++;
-		LogInfo( ( "Try to close in = %d times.",count ) );
+		LogInfo( ( "Try to close in %d times.",count ) );
 	}
 
 	if (CELLULAR_SUCCESS == ret)
@@ -255,6 +252,17 @@ void CloseSocket(uint32_t socket_number)
 	else
 	{
 		LogInfo( ( "Try to close but failed to close Socket: Socket Number = %d with %d.",socket_number,ret ) );
+
+		/**************************
+		 * Support resetting the cellular module if multiple attempts to close the socket fail.
+		 * Please remove the comment out to enable this feature.
+		 ****************************/
+		/*
+		(void)R_CELLULAR_HardwareReset(&cellular_ctrl);
+		(void)R_CELLULAR_Close(&cellular_ctrl);
+		vTaskDelay(10);
+		Connect2AP();
+		*/
 	}
 }
 
