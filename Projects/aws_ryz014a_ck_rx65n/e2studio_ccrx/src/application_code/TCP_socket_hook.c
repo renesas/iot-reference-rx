@@ -237,7 +237,8 @@ void CloseSocket(uint32_t socket_number)
 	while (USER_CLOSE_SOCKET_TRIES > count)
 	{
 		ret = R_CELLULAR_CloseSocket(&cellular_ctrl,socket_number);
-		if (CELLULAR_SUCCESS == ret)
+
+		if ((CELLULAR_SUCCESS == ret) || (CELLULAR_ERR_NOT_OPEN == ret) || (CELLULAR_ERR_SOCKET_NOT_READY == ret))
 		{
 			break;
 		}
@@ -245,7 +246,7 @@ void CloseSocket(uint32_t socket_number)
 		LogInfo( ( "Try to close in %d times.",count ) );
 	}
 
-	if (CELLULAR_SUCCESS == ret)
+	if ((CELLULAR_SUCCESS == ret) || (CELLULAR_ERR_NOT_OPEN == ret) || (CELLULAR_ERR_SOCKET_NOT_READY == ret))
 	{
 		LogInfo( ( "Closed Socket: Socket Number = %d.",socket_number ) );
 	}

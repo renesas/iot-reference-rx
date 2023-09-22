@@ -53,9 +53,6 @@
 #define NO_SOCKET_CREATION_ERROR -51
 #define FORCE_RESET   1
 #define NO_FORCE_RESET 0
-
-volatile bool Is_Closed = pdFAIL;
-
 typedef struct xSOCKETContext
 {
 	uint32_t receiveTimeout;
@@ -117,8 +114,6 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
         	 */
 #if USER_TCP_HOOK_ENABLED
         	CloseSocket(socketStatus);
-
-			Is_Closed = pdTRUE;
 #endif
         	*pTcpSocket = (Socket_t )pxContext;
         	return MALLOC_SOCKET_CREATION_ERROR;
@@ -206,8 +201,6 @@ int32_t TCP_Sockets_Recv( Socket_t xSocket,
 		if(CELLULAR_ERR_SOCKET_NOT_READY == receive_byte)
 		{
 			CloseSocket(receive_byte);
-			/* Need a flag to not close socket again in TCP_Sockets_Disconnect*/
-			Is_Closed = pdTRUE;
 		}
 #endif
 
@@ -245,8 +238,6 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 		if(CELLULAR_ERR_SOCKET_NOT_READY == send_byte)
 		{
 			CloseSocket(send_byte);
-			/* Need a flag to not close socket again in TCP_Sockets_Disconnect*/
-			Is_Closed = pdTRUE;
 		}
 #endif
 	}
@@ -266,15 +257,7 @@ void TCP_Sockets_Disconnect( Socket_t tcpSocket )
 			/* Check closed socket?*/
 
 #if USER_TCP_HOOK_ENABLED
-			if (pdFAIL == Is_Closed)
-			{
-				CloseSocket(pxContext->socket_no);
-			}
-			else
-			{
-				/* Reset flag*/
-				Is_Closed = pdFAIL;
-			}
+			CloseSocket(pxContext->socket_no);
 #else
 			socketStatus = R_CELLULAR_CloseSocket(&cellular_ctrl, pxContext->socket_no);
 			if (CELLULAR_SUCCESS == socketStatus)
