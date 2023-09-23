@@ -65,7 +65,6 @@ void flashing_callback( void *pvArgs );
 
 /* Resources for FLASH Libraries */
 extern xSemaphoreHandle xSemaphoreFlashAccess;
-extern volatile UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
 //extern volatile flash_res_t g_blank_check_result;
 
 typedef struct _update_data_flash_control_block
