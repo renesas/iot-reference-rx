@@ -712,11 +712,11 @@ static e_fwup_err_t write_image_prog(e_fwup_area_t area, uint8_t *p_buf, uint32_
 #endif /* (FWUP_CFG_UPDATE_MODE == FWUP_DUAL_BANK) */
             }
 
-            LogError( ("write_image_prog: write_area to write userprog at address 0x%X of block %d and size %d", FWUP_BUF_AREA_ADDR_L+area_offset, fw_cnt, dc.fw[fw_cnt].size) );
+            LogInfo( ("write_image_prog: write_area to write userprog at address 0x%X of block %d and size %d", FWUP_BUF_AREA_ADDR_L+area_offset, fw_cnt, dc.fw[fw_cnt].size) );
             ret_val = write_area(area_tmp, &p_buf_tmp, &buf_sz_tmp, area_offset, dc.fw[fw_cnt].size);
             if (FWUP_SUCCESS != ret_val)
             {
-            	LogError( ("write_image_prog: NG, write_area to write userprog returns %d", ret_val) );
+            	LogInfo( ("write_image_prog: NG, write_area to write userprog returns %d", ret_val) );
                 return (ret_val);
             }
 
