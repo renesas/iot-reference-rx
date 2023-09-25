@@ -192,7 +192,7 @@ int32_t TCP_Sockets_Recv( Socket_t xSocket,
 		}
 		else if(CELLULAR_ERR_SOCKET_NOT_READY == receive_byte)
 		{
-			CloseSocket(receive_byte);
+			CloseSocket(pxContext->socket_no);
 		}
 		else
 		{
@@ -229,7 +229,7 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 		}
 		else if(CELLULAR_ERR_SOCKET_NOT_READY == send_byte)
 		{
-			CloseSocket(send_byte);
+			CloseSocket(pxContext->socket_no);
 		}
 		else
 		{
