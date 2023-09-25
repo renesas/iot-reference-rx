@@ -95,7 +95,6 @@ volatile uint32_t count_module_comm = 0;
 /* This function resets cellular hardware when error and closes cellular module to reconnect to AP */
 e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset )
 {
-	e_cellular_err_t connect_status = CELLULAR_SUCCESS;
 	if((CELLULAR_ERR_MODULE_TIMEOUT == error) || (CELLULAR_ERR_MODULE_COM == error))
 	{
 		if (1 == force_reset)
