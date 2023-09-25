@@ -87,18 +87,19 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 	{
 		LogError( ( "Failed to create new socket." ) );
 
-		/*Hardware reset */
-		(void)USER_TCP_HOOK_FUNCTION(socketStatus, FORCE_RESET);
-
 		/* SocketStatus can be 0 in this case. */
 		if (0 == socketStatus)
 		{
 			socketStatus = NO_SOCKET_CREATION_ERROR;
 		}
+		else
+		{
+			/* If CELLULAR_ERR_MODULE_TIMEOUT or CELLULAR_ERR_MODULE_COM, reset cellular module and return these errors*/
+			(void)USER_TCP_HOOK_FUNCTION(socketStatus, FORCE_RESET);
+		}
 		pTcpSocket = NULL;
 		return socketStatus;
 	}
-
     else
 	{
     	/* Create Malloc for pxContext */
@@ -111,9 +112,9 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
         	/* Due to created a socket , need to close it before going to TCP_Socket_Disconnect.
         	 * If not, there is no heap allocation, TCP_Socket_Disconnect can not close the created socket
         	 */
-#if USER_TCP_HOOK_ENABLED
+
         	CloseSocket(socketStatus);
-#endif
+
         	pTcpSocket = NULL;
         	return MALLOC_SOCKET_CREATION_ERROR;
         }
@@ -157,13 +158,11 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
     /* Assign failure to clean up on TCP_Socket_Disconnect. */
 	if( CELLULAR_SUCCESS != socketStatus )
 	{
-		/*Hardware reset and return error */
+		/* If CELLULAR_ERR_MODULE_TIMEOUT or CELLULAR_ERR_MODULE_COM, reset cellular module and return these errors*/
 		(void)USER_TCP_HOOK_FUNCTION(socketStatus, FORCE_RESET);
-
 	}
 	else
 	{
-
 		LogInfo( ( "Established TCP connection with %s.", pHostName ) );
 	}
 	/* Set the socket. */
@@ -189,20 +188,19 @@ int32_t TCP_Sockets_Recv( Socket_t xSocket,
 					|| (CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING  == receive_byte))
 		{
 			/*Assign to 0 */
-#if USER_TCP_HOOK_ENABLED
 			receive_byte = 0;
-#endif
 		}
-		/*Hardware reset and return error */
-		receive_byte =  USER_TCP_HOOK_FUNCTION(receive_byte, NO_FORCE_RESET);
-
-#if USER_TCP_HOOK_ENABLED
-		if(CELLULAR_ERR_SOCKET_NOT_READY == receive_byte)
+		else if(CELLULAR_ERR_SOCKET_NOT_READY == receive_byte)
 		{
 			CloseSocket(receive_byte);
 		}
-#endif
-
+		else
+		{
+			/* If CELLULAR_ERR_MODULE_COM comes continuously or
+			 * CELLULAR_ERR_MODULE_TIMEOUT, reset cellular module
+			 */
+			receive_byte =  USER_TCP_HOOK_FUNCTION(receive_byte, NO_FORCE_RESET);
+		}
 	}
 
 	return receive_byte;
@@ -227,20 +225,20 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 		if ((CELLULAR_ERR_NOT_CONNECT == send_byte) ||(CELLULAR_ERR_OTHER_API_RUNNING  == send_byte)
 				|| (CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING  == send_byte))
 		{
-#if USER_TCP_HOOK_ENABLED
 			send_byte = 0;
-#endif
 		}
-		send_byte = USER_TCP_HOOK_FUNCTION(send_byte, NO_FORCE_RESET);
-
-#if USER_TCP_HOOK_ENABLED
-		if(CELLULAR_ERR_SOCKET_NOT_READY == send_byte)
+		else if(CELLULAR_ERR_SOCKET_NOT_READY == send_byte)
 		{
 			CloseSocket(send_byte);
 		}
-#endif
+		else
+		{
+			/* If CELLULAR_ERR_MODULE_COM comes continuously or
+			 * CELLULAR_ERR_MODULE_TIMEOUT, reset cellular module
+			 */
+			send_byte = USER_TCP_HOOK_FUNCTION(send_byte, NO_FORCE_RESET);
+		}
 	}
-
 	return send_byte;
 }
 
@@ -253,23 +251,8 @@ void TCP_Sockets_Disconnect( Socket_t tcpSocket )
 	{
 		if ( 0 != pxContext->socket_no )
 		{
-			/* Check closed socket?*/
-
-#if USER_TCP_HOOK_ENABLED
 			CloseSocket(pxContext->socket_no);
-#else
-			socketStatus = R_CELLULAR_CloseSocket(&cellular_ctrl, pxContext->socket_no);
-			if (CELLULAR_SUCCESS == socketStatus)
-			{
-				LogInfo( ( "Closed Socket: Socket Number = %d.",pxContext->socket_no) );
-			}
-			else
-			{
-				LogInfo( ( "Try to close but failed to close Socket: Socket Number = %d with %d.",pxContext->socket_no,socketStatus ) );
-			}
-#endif
 		}
-
 		vPortFree( pxContext );
 		pxContext = NULL;
 	}
