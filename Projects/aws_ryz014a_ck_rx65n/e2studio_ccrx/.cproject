@@ -111,6 +111,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Demos/common/pkcs11_helpers}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Demos/cli}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Demos/dev_mode_key_provisioning/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Common/common_api}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Common/littlefs_common}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src/application_code/ports/ota_pal}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/Middleware/3rdparty/tinycbor/src}&quot;"/>
@@ -452,7 +453,7 @@
 									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/r_sci_rx/src/targets/rx65n\r_sci_rx65n.obj&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;.\src/smc_gen/r_sci_rx/src/targets/rx65n\r_sci_rx65n_data.obj&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;.\src\user_init.obj&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;.\freertos_mqtt.lib&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;.\aws_ryz014a_ck_rx65n.lib&quot;"/>
 								</option>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.useCustomLinkageOrder.1214364144" name="Use custom linkage order" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.useCustomLinkageOrder" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.optimize.987935445" name="Optimization type (-nooptimize/-optimize)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.optimize" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.optimize.all" valueType="enumerated"/>
@@ -521,7 +522,7 @@
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="HardwareDebug">
-			<resource resourceType="PROJECT" workspacePath="/freertos_mqtt"/>
+			<resource resourceType="PROJECT" workspacePath="/aws_ryz014a_ck_rx65n"/>
 		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
