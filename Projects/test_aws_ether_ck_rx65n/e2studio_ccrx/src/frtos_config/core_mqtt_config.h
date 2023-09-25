@@ -51,12 +51,35 @@
 #endif
 
 #ifndef LIBRARY_LOG_LEVEL
-    #define LIBRARY_LOG_LEVEL    LOG_ERROR
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
 #endif
 
 #include "logging_stack.h"
 
 /************ End of logging configuration ****************/
+
+/**
+* @brief The maximum duration between non-empty network reads while
+* receiving an MQTT packet via the #MQTT_ProcessLoop or #MQTT_ReceiveLoop
+* API functions.
+*
+* When an incoming MQTT packet is detected, the transport receive function
+* may be called multiple times until all of the expected number of bytes of the
+* packet are received. This timeout represents the maximum polling duration that
+* is allowed without any data reception from the network for the incoming packet.
+*
+* If the timeout expires, the #MQTT_ProcessLoop and #MQTT_ReceiveLoop functions
+* return #MQTTRecvFailed.
+*
+* @note If a dummy implementation of the #MQTTGetCurrentTimeFunc_t timer function,
+* is supplied to the library, then #MQTT_RECV_POLLING_TIMEOUT_MS MUST be set to 0.
+*
+* <b>Possible values:</b> Any positive 32 bit integer. Recommended to use a
+* small timeout value. <br>
+* <b>Default value:</b> `10`
+*
+*/
+#define MQTT_RECV_POLLING_TIMEOUT_MS    ( 1000U )
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
