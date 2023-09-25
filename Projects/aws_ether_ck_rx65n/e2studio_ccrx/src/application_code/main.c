@@ -384,9 +384,8 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 	 * it retrieves thingname value from KeyValue table. */
     const char * pcApplicationHostnameHook( void )
     {
-#if defined(__TEST__)
-        return clientcredentialIOT_THING_NAME;
-#else
+        /* This function will be called during the DHCP: the machine will be registered
+         * with an IP address plus this name. */
         if (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0)
         {
             return gKeyValueStore.table[KVS_CORE_THING_NAME].value;
@@ -395,7 +394,6 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
         {
             return clientcredentialIOT_THING_NAME;
         }
-#endif
     }
 #endif
 
