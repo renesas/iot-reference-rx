@@ -61,6 +61,7 @@ typedef struct xSOCKETContext
 extern st_cellular_ctrl_t cellular_ctrl;
 extern e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset );
 extern void CloseSocket(uint32_t socket_number);
+extern volatile uint32_t count_module_comm;
 /**@} */
 /*-----------------------------------------------------------*/
 
@@ -97,7 +98,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 			/* If CELLULAR_ERR_MODULE_TIMEOUT or CELLULAR_ERR_MODULE_COM, reset cellular module and return these errors*/
 			(void)USER_TCP_HOOK_FUNCTION(socketStatus, FORCE_RESET);
 		}
-		pTcpSocket = NULL;
+		*pTcpSocket = NULL;
 		return socketStatus;
 	}
     else
@@ -115,7 +116,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 
         	CloseSocket(socketStatus);
 
-        	pTcpSocket = NULL;
+        	*pTcpSocket = NULL;
         	return MALLOC_SOCKET_CREATION_ERROR;
         }
         else
@@ -189,9 +190,13 @@ int32_t TCP_Sockets_Recv( Socket_t xSocket,
 		{
 			/*Assign to 0 */
 			receive_byte = 0;
+			/* Reset the counter of CELLULAR_ERR_MODULE_COM */
+			count_module_comm = 0;
 		}
 		else if(CELLULAR_ERR_SOCKET_NOT_READY == receive_byte)
 		{
+			/* Reset the counter of CELLULAR_ERR_MODULE_COM */
+			count_module_comm = 0;
 			CloseSocket(pxContext->socket_no);
 		}
 		else
@@ -201,6 +206,11 @@ int32_t TCP_Sockets_Recv( Socket_t xSocket,
 			 */
 			receive_byte =  USER_TCP_HOOK_FUNCTION(receive_byte, NO_FORCE_RESET);
 		}
+	}
+	else
+	{
+		/* Reset the counter of CELLULAR_ERR_MODULE_COM */
+		count_module_comm = 0;
 	}
 
 	return receive_byte;
@@ -226,9 +236,13 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 				|| (CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING  == send_byte))
 		{
 			send_byte = 0;
+			/* Reset the counter of CELLULAR_ERR_MODULE_COM */
+			count_module_comm = 0;
 		}
 		else if(CELLULAR_ERR_SOCKET_NOT_READY == send_byte)
 		{
+			/* Reset the counter of CELLULAR_ERR_MODULE_COM */
+			count_module_comm = 0;
 			CloseSocket(pxContext->socket_no);
 		}
 		else
@@ -238,6 +252,11 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 			 */
 			send_byte = USER_TCP_HOOK_FUNCTION(send_byte, NO_FORCE_RESET);
 		}
+	}
+	else
+	{
+		/* Reset the counter of CELLULAR_ERR_MODULE_COM */
+		count_module_comm = 0;
 	}
 	return send_byte;
 }
