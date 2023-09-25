@@ -201,7 +201,8 @@ bool Connect2AP( void )
 		{
 			LogInfo(("It has error = %d when connecting \r\n",ret));
 
-#if USER_TCP_HOOK_ENABLED
+/***********************************************************************************************/
+/* If you do not need the reset process, comment out the following */
 			if (CELLULAR_ERR_AP_CONNECT_FAILED == ret)
 			{
 				LogInfo(("Cellular Hardware reseting...\r\n"));
@@ -214,7 +215,8 @@ bool Connect2AP( void )
 			{
 				return  (CELLULAR_SUCCESS == ret);
 			}
-#endif
+/* If you do not need the reset process, comment out the above. */
+/***********************************************************************************************/
 		}
 
 	}
