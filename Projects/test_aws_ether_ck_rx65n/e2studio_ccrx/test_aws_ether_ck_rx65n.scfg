@@ -515,74 +515,74 @@
         <pinItem allocation="81" comments="" direction="None" id="RMII0_TXD_EN" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="86" comments="" direction="None" id="ET0_MDIO" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="58" comments="" direction="None" id="RMII0_CRS_DV" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinnumItem comment="SENSOR-SDA" id="44"/>
-        <pinnumItem comment="LED2_B" id="88"/>
-        <pinnumItem comment="SENSOR-SCL" id="45"/>
-        <pinnumItem comment="SERIAL-CTS" id="89"/>
-        <pinnumItem comment="USB_DM" id="47"/>
-        <pinnumItem comment="USB_DP" id="48"/>
-        <pinnumItem comment="OUTDOOR-AIR-QUALITY-RES_N" id="113"/>
-        <pinnumItem comment="INDOOR-AIR-QUALITY-RES_N" id="114"/>
-        <pinnumItem comment="LED2_G" id="90"/>
-        <pinnumItem comment="LED4" id="94"/>
-        <pinnumItem comment="PMOD1-GPIO1" id="51"/>
-        <pinnumItem comment="ETHERNET-LINKSTA" id="52"/>
-        <pinnumItem comment="PMOD2-GPIO1" id="96"/>
-        <pinnumItem comment="PMOD2-GPIO3" id="54"/>
-        <pinnumItem comment="BIOMETRIC-INT" id="98"/>
-        <pinnumItem comment="PMOD2-GPIO2" id="56"/>
-        <pinnumItem comment="PMOD1-CS" id="13"/>
-        <pinnumItem comment="ETHERNET-CRS_DV" id="58"/>
-        <pinnumItem comment="XCIN" id="17"/>
-        <pinnumItem comment="XCOUT" id="18"/>
-        <pinnumItem comment="S1" id="19"/>
-        <pinnumItem comment="ETHERNET-IRQ" id="124"/>
-        <pinnumItem comment="S2" id="125"/>
-        <pinnumItem comment="PMOD2-GPIO0" id="126"/>
-        <pinnumItem comment="PMOD1-SCK" id="6"/>
-        <pinnumItem comment="MICROPHONES2-OUT" id="127"/>
-        <pinnumItem comment="PMOD1-MISO" id="7"/>
-        <pinnumItem comment="PMOD1-MOSI" id="8"/>
-        <pinnumItem comment="MICROPHONES1-OUT" id="129"/>
-        <pinnumItem comment="ETHERNET-TXD1" id="63"/>
-        <pinnumItem comment="XTAL" id="20"/>
-        <pinnumItem comment="ETHERNET-TXD0" id="64"/>
-        <pinnumItem comment="ETHERNET-RST#" id="65"/>
-        <pinnumItem comment="EXTAL" id="22"/>
-        <pinnumItem comment="SERIAL-TXD" id="67"/>
-        <pinnumItem comment="ETHERNET-RX_ER" id="68"/>
-        <pinnumItem comment="PMOD2-SCK" id="25"/>
-        <pinnumItem comment="ETHERNET-REF-50-CK" id="69"/>
-        <pinnumItem comment="PMOD2-MISO" id="26"/>
-        <pinnumItem comment="PMOD2-MOSI" id="27"/>
-        <pinnumItem comment="INDOOR-AIR-QUALITY-INT" id="134"/>
-        <pinnumItem comment="OUTDOOR-AIR-QUALITY-INT" id="135"/>
-        <pinnumItem comment="SERIAL-RXD" id="70"/>
-        <pinnumItem comment="ETHERNET-RXD0" id="71"/>
-        <pinnumItem comment="ETHERNET-RXD1" id="72"/>
-        <pinnumItem comment="SERIAL-RTS" id="75"/>
-        <pinnumItem comment="LED6" id="32"/>
-        <pinnumItem comment="USB_VBUSEN" id="33"/>
-        <pinnumItem comment="PMOD2-CS" id="34"/>
-        <pinnumItem comment="PMOD1-GPIO2" id="78"/>
-        <pinnumItem comment="LED3" id="35"/>
-        <pinnumItem comment="PMOD1-GPIO3" id="79"/>
-        <pinnumItem comment="LED2_R" id="38"/>
-        <pinnumItem comment="MOTION-TRACKING-INT1" id="101"/>
-        <pinnumItem comment="ETHERNET-TXD_EN" id="81"/>
-        <pinnumItem comment="USBFS_VBUS" id="40"/>
-        <pinnumItem comment="ETHERNET-MDC" id="85"/>
-        <pinnumItem comment="PMOD1-GPIO0" id="42"/>
-        <pinnumItem comment="ETHERNET-MDIO" id="86"/>
-        <pinnumItem comment="USB_OVRCURA" id="43"/>
+        <pinnumItem comment="LED2_B" id="88" symbolicname=""/>
+        <pinnumItem comment="SERIAL-CTS" id="89" symbolicname=""/>
+        <pinnumItem comment="OUTDOOR-AIR-QUALITY-RES_N" id="113" symbolicname=""/>
+        <pinnumItem comment="INDOOR-AIR-QUALITY-RES_N" id="114" symbolicname=""/>
+        <pinnumItem comment="LED2_G" id="90" symbolicname=""/>
+        <pinnumItem comment="LED4" id="94" symbolicname=""/>
+        <pinnumItem comment="PMOD2-GPIO1" id="96" symbolicname=""/>
+        <pinnumItem comment="BIOMETRIC-INT" id="98" symbolicname=""/>
+        <pinnumItem comment="PMOD1-CS" id="13" symbolicname=""/>
+        <pinnumItem comment="XCIN" id="17" symbolicname=""/>
+        <pinnumItem comment="XCOUT" id="18" symbolicname=""/>
+        <pinnumItem comment="S1" id="19" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-IRQ" id="124" symbolicname=""/>
+        <pinnumItem comment="S2" id="125" symbolicname=""/>
+        <pinnumItem comment="PMOD2-GPIO0" id="126" symbolicname=""/>
+        <pinnumItem comment="PMOD1-SCK" id="6" symbolicname=""/>
+        <pinnumItem comment="MICROPHONES2-OUT" id="127" symbolicname=""/>
+        <pinnumItem comment="PMOD1-MISO" id="7" symbolicname=""/>
+        <pinnumItem comment="PMOD1-MOSI" id="8" symbolicname=""/>
+        <pinnumItem comment="MICROPHONES1-OUT" id="129" symbolicname=""/>
+        <pinnumItem comment="XTAL" id="20" symbolicname=""/>
+        <pinnumItem comment="EXTAL" id="22" symbolicname=""/>
+        <pinnumItem comment="PMOD2-SCK" id="25" symbolicname=""/>
+        <pinnumItem comment="PMOD2-MISO" id="26" symbolicname=""/>
+        <pinnumItem comment="PMOD2-MOSI" id="27" symbolicname=""/>
+        <pinnumItem comment="INDOOR-AIR-QUALITY-INT" id="134" symbolicname=""/>
+        <pinnumItem comment="OUTDOOR-AIR-QUALITY-INT" id="135" symbolicname=""/>
+        <pinnumItem comment="LED6" id="32" symbolicname=""/>
+        <pinnumItem comment="USB_VBUSEN" id="33" symbolicname=""/>
+        <pinnumItem comment="PMOD2-CS" id="34" symbolicname=""/>
+        <pinnumItem comment="LED3" id="35" symbolicname=""/>
+        <pinnumItem comment="LED2_R" id="38" symbolicname=""/>
+        <pinnumItem comment="USBFS_VBUS" id="40" symbolicname=""/>
+        <pinnumItem comment="PMOD1-GPIO0" id="42" symbolicname=""/>
+        <pinnumItem comment="USB_OVRCURA" id="43" symbolicname=""/>
+        <pinnumItem comment="SENSOR-SDA" id="44" symbolicname=""/>
+        <pinnumItem comment="SENSOR-SCL" id="45" symbolicname=""/>
+        <pinnumItem comment="USB_DM" id="47" symbolicname=""/>
+        <pinnumItem comment="USB_DP" id="48" symbolicname=""/>
+        <pinnumItem comment="PMOD1-GPIO1" id="51" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-LINKSTA" id="52" symbolicname=""/>
+        <pinnumItem comment="PMOD2-GPIO3" id="54" symbolicname=""/>
+        <pinnumItem comment="PMOD2-GPIO2" id="56" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-CRS_DV" id="58" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-TXD1" id="63" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-TXD0" id="64" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-RST#" id="65" symbolicname=""/>
+        <pinnumItem comment="SERIAL-TXD" id="67" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-RX_ER" id="68" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-REF-50-CK" id="69" symbolicname=""/>
+        <pinnumItem comment="SERIAL-RXD" id="70" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-RXD0" id="71" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-RXD1" id="72" symbolicname=""/>
+        <pinnumItem comment="SERIAL-RTS" id="75" symbolicname=""/>
+        <pinnumItem comment="PMOD1-GPIO2" id="78" symbolicname=""/>
+        <pinnumItem comment="PMOD1-GPIO3" id="79" symbolicname=""/>
+        <pinnumItem comment="MOTION-TRACKING-INT1" id="101" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-TXD_EN" id="81" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-MDC" id="85" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-MDIO" id="86" symbolicname=""/>
     </tool>
     <tool id="Summary" version="1.0.0.0">
         <option id="com.renesas.smc.code.path" value="src\smc_gen"/>
         <option id="com.renesas.smc.code.type" value="Normal Folder"/>
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
-        <configuration enable="true" exclude="false" id="4815ca25-1a36-48f7-beaf-b6c424ffad05" inuse="true" name="FreeRTOS_Kernel">
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110">
+        <configuration enable="true" exclude="false" id="864b0e43-23b4-40df-831e-6b25ed3b5b11" inuse="true" name="FreeRTOS_Kernel">
+            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.120">
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
                 <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
                 <gridItem id="configUSE_TICK_HOOK" selectedIndex="1"/>
@@ -651,7 +651,7 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="9a893001-7901-4b21-9738-34dd4016eda0" inuse="true" name="FreeRTOS_Object">
+        <configuration enable="true" exclude="false" id="070701a1-578d-4916-b9b5-214c26e35fa0" inuse="true" name="FreeRTOS_Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
                     <option defaultValue="0" id="LinkNum" value=""/>
@@ -675,7 +675,7 @@
                     <option defaultValue="0" id="LinkNum" value=""/>
                 </allocatable>
             </allocatable>
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="1.0.112"/>
+            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="1.0.120"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
         <configuration inuse="true" name="r_bsp">
@@ -814,17 +814,6 @@
                 <gridItem id="ADST2" selectedIndex="0"/>
                 <gridItem id="S12AD2" selectedIndex="0"/>
                 <gridItem id="ADC_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
-        <configuration inuse="true" name="r_flash_rx">
-            <component description="依存モジュール: r_bsp バージョン 5.20, 5.30, 5.40, 5.50, 5.52, 6.10, 6.20, 6.21, 7.00, 7.10, 7.20&#10;This module allows the user to program, erase, write and blankcheck the Code and/or Data flash." detailDescription="Flash API for RX100, RX200, RX600. and RX700." display="r_flash_rx" id="r_flash_rx4.90" version="4.90">
-                <gridItem id="FLASH_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_CODE_FLASH_ENABLE" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_DATA_FLASH_BGO" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_CODE_FLASH_BGO" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_CODE_FLASH_RUN_FROM_ROM" selectedIndex="1"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
@@ -1184,6 +1173,7 @@
             <component description="依存モジュール: r_bsp バージョン 7.10&#10;Support functions: AES, GCM, CCM, CMAC, SHA, MD5, Triple-DES, ARC4, RSA, ECC, Random number generate, Key management, secure boot/secure firmware update.&#10;The &quot;.l&quot; in version number means library version." detailDescription="TSIP(Trusted Secure IP) driver." display="r_tsip_rx" id="r_tsip_rx1.17.l" version="1.17.l"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration inuse="true" name="r_fwup">
             <component description="Dependency : r_flash_rx version(s) 4.80, 4.91&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.00" version="2.00">
@@ -1200,6 +1190,18 @@
                 <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512"/>
                 <gridItem id="FWUP_CFG_SIGNATURE_VERIFICATION" selectedIndex="0"/>
                 <gridItem id="FWUP_CFG_PRINTF_DISABLE" selectedIndex="0"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_flash_rx">
+            <component description="依存モジュール: r_bsp バージョン 5.20, 5.30, 5.40, 5.50, 5.52, 6.10, 6.20, 6.21, 7.00, 7.10, 7.20, 7.30&#10;This module allows the user to program, erase, write and blankcheck the Code and/or Data flash." detailDescription="Flash API for RX100, RX200, RX600. and RX700." display="r_flash_rx" id="r_flash_rx5.00" version="5.00">
+                <gridItem id="FLASH_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_CODE_FLASH_ENABLE" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_DATA_FLASH_BGO" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_CODE_FLASH_BGO" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_CODE_FLASH_RUN_FROM_ROM" selectedIndex="1"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
