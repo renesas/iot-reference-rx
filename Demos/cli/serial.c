@@ -195,38 +195,38 @@ const TickType_t xMaxBlockTime = pdMS_TO_TICKS( 5000 );
         the task when the transmission has completed. */
         xSendingTask = xTaskGetCurrentTaskHandle();
         uint32_t str_length = usStringLength;
-		uint32_t transmit_length = 0;
-		sci_err_t sci_err;
-		uint32_t retry = 0xFFFF;
+        uint32_t transmit_length = 0;
+        sci_err_t sci_err;
+        uint32_t retry = 0xFFFF;
 
-		while ((retry > 0) && (str_length > 0))
-		{
+        while ((retry > 0) && (str_length > 0))
+        {
 
-			R_SCI_Control(xSerialSciHandle, SCI_CMD_TX_Q_BYTES_FREE, &transmit_length);
+            R_SCI_Control(xSerialSciHandle, SCI_CMD_TX_Q_BYTES_FREE, &transmit_length);
 
-			if(transmit_length > str_length)
-			{
-				transmit_length = str_length;
-			}
+            if(transmit_length > str_length)
+            {
+                transmit_length = str_length;
+            }
 
-			sci_err = R_SCI_Send(xSerialSciHandle, (uint8_t *) pcString,
-								 transmit_length);
+            sci_err = R_SCI_Send(xSerialSciHandle, (uint8_t *) pcString,
+                                 transmit_length);
 
-			if ((sci_err == SCI_ERR_XCVR_BUSY) || (sci_err == SCI_ERR_INSUFFICIENT_SPACE))
-			{
-				retry--; // retry if previous transmission still in progress or tx buffer is insufficient.
-				continue;
-			}
+            if ((sci_err == SCI_ERR_XCVR_BUSY) || (sci_err == SCI_ERR_INSUFFICIENT_SPACE))
+            {
+                retry--; // retry if previous transmission still in progress or tx buffer is insufficient.
+                continue;
+            }
 
-			str_length -= transmit_length;
-			pcString += transmit_length;
+            str_length -= transmit_length;
+            pcString += transmit_length;
 
-		}
+        }
 
-		if (SCI_SUCCESS != sci_err)
-		{
-			R_BSP_NOP(); //TODO error handling code
-		}
+        if (SCI_SUCCESS != sci_err)
+        {
+            R_BSP_NOP(); //TODO error handling code
+        }
         /* A breakpoint can be set here for debugging. */
         nop();
     }

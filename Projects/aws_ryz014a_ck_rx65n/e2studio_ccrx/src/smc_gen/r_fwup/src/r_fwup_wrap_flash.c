@@ -32,6 +32,7 @@
 /**** Start user code ****/
 #include "r_flash_rx_if.h"
 #include "FreeRTOS.h"
+#include "r_common_api_flash.h"
 /**** End user code   ****/
 
 /**********************************************************************************************************************
@@ -39,15 +40,6 @@
  *********************************************************************************************************************/
 /**** Start user code ****/
 /**** End user code   ****/
-#define DATA_FLASH_UPDATE_STATE_INITIALIZE 0
-#define DATA_FLASH_UPDATE_STATE_ERASE 1
-#define DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE 2
-#define DATA_FLASH_UPDATE_STATE_WRITE 3
-#define DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE 4
-#define DATA_FLASH_UPDATE_STATE_FINALIZE 5
-#define DATA_FLASH_UPDATE_STATE_FINALIZE_COMPLETED 6
-#define DATA_FLASH_UPDATE_STATE_ERROR 103
-#define DATA_FLASH_UPDATE_STATE_UNINITIALIZE 0xFF
 
 /**********************************************************************************************************************
  Local Typedef definitions
@@ -66,9 +58,8 @@
  *********************************************************************************************************************/
 /**** Start user code ****/
 /**** End user code   ****/
-static void flashing_callback( void * event );
+extern volatile UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
 
-static uint32_t flash_status = DATA_FLASH_UPDATE_STATE_UNINITIALIZE;
 /*
  * Internal flash
  */
@@ -82,25 +73,19 @@ static uint32_t flash_status = DATA_FLASH_UPDATE_STATE_UNINITIALIZE;
 e_fwup_err_t r_fwup_wrap_flash_open(void)
 {
     /**** Start user code ****/
-	if( flash_status == DATA_FLASH_UPDATE_STATE_UNINITIALIZE )
+	if(update_data_flash_control_block.status == DATA_FLASH_UPDATE_STATE_UNINITIALIZE )
 	{
-		R_FLASH_Close();
-		if (FLASH_SUCCESS != R_FLASH_Open())
-		{
-			return (FWUP_ERR_FLASH);
-		}
+	    /* Call commonapi open function for Flash */
+	    e_commonapi_err_t common_api_err = R_Demo_Common_API_Flash_Open();
+	    if (COMMONAPI_SUCCESS != common_api_err)
+	    {
+	        return (FWUP_ERR_FLASH);
+	    }
 
 		LogDebug( ("r_fwup_wrap_flash_open: Create and give semaphore!") );
 
 		xSemaphoreGive( xSemaphoreFlashAccess );
 
-		flash_interrupt_config_t cb_func_info;
-
-		cb_func_info.pcallback = flashing_callback;
-		cb_func_info.int_priority = 3;
-		R_FLASH_Control(FLASH_CMD_SET_BGO_CALLBACK, (void *)&cb_func_info);
-
-		flash_status = DATA_FLASH_UPDATE_STATE_INITIALIZE;
 	}
 
     return (FWUP_SUCCESS);
@@ -119,15 +104,10 @@ e_fwup_err_t r_fwup_wrap_flash_open(void)
 void r_fwup_wrap_flash_close(void)
 {
     /**** Start user code ****/
-    if( NULL != xSemaphoreFlashAccess )
-    {
-        vSemaphoreDelete( xSemaphoreFlashAccess );
-        xSemaphoreFlashAccess = NULL;
-    }
 
-    flash_status = DATA_FLASH_UPDATE_STATE_UNINITIALIZE;
+    update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_UNINITIALIZE;
 
-    R_FLASH_Close();
+
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -158,7 +138,7 @@ e_fwup_err_t r_fwup_wrap_flash_erase(uint32_t addr, uint32_t num_blocks)
     LogDebug( ("r_fwup_wrap_flash_erase: Get semaphore for flash erase...") );
 
 	xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
-	flash_status = DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE;
+	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE;
 	r_fwup_wrap_disable_interrupt();
 	flash_error_code = R_FLASH_Erase((flash_block_address_t )blk_addr, num_blocks);
     r_fwup_wrap_enable_interrupt();
@@ -197,10 +177,8 @@ e_fwup_err_t r_fwup_wrap_flash_write(uint32_t src_addr, uint32_t dest_addr, uint
 	flash_err_t flash_error_code = FLASH_ERR_BUSY;
 
 	// Flash access protect
-    //LogDebug( ("r_fwup_wrap_flash_write: Get semaphore for flash write...") );
 	xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
-	//LogDebug( ("r_fwup_wrap_flash_write: Semaphore got, updating status...") );
-	flash_status = DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE;
+	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE;
 
     r_fwup_wrap_disable_interrupt();
     flash_error_code = R_FLASH_Write(src_addr, dest_addr, num_bytes);
@@ -270,8 +248,14 @@ e_fwup_err_t r_fwup_wrap_bank_swap(void)
     R_BSP_SET_PSW(0);
 
     r_fwup_wrap_disable_interrupt();
-    err = R_FLASH_Close();
-    err = R_FLASH_Open();
+
+    /* Call commonapi open function for Flash */
+    e_commonapi_err_t common_api_err = R_Demo_Common_API_Flash_Open();
+    if (COMMONAPI_SUCCESS != common_api_err)
+    {
+        while (1); /* infinite loop due to error */
+    }
+
     err = R_FLASH_Control(FLASH_CMD_BANK_TOGGLE, NULL);
     r_fwup_wrap_enable_interrupt();
 
@@ -403,45 +387,3 @@ e_fwup_err_t r_fwup_wrap_ext_flash_read(uint32_t buf_addr, uint32_t src_addr, ui
  */
 /**** Start user code ****/
 /**** End user code   ****/
-
-static void flashing_callback( void * event )
-{
-	uint32_t event_code;
-	event_code = *((uint32_t*)event);
-	static portBASE_TYPE xHigherPriorityTaskWoken;
-
-	switch(event_code)
-	{
-		case FLASH_INT_EVENT_ERASE_COMPLETE:
-			if(DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE == flash_status)
-			{
-				flash_status = DATA_FLASH_UPDATE_STATE_FINALIZE;
-				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
-			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-			    LogInfo( ("fwup_wrap_flash: flash erase completed!") );
-			}
-			else
-			{
-				flash_status = DATA_FLASH_UPDATE_STATE_ERROR;
-				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
-			}
-			break;
-		case FLASH_INT_EVENT_WRITE_COMPLETE:
-			if(DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE == flash_status)
-			{
-				flash_status = DATA_FLASH_UPDATE_STATE_FINALIZE;
-				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
-			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-			    LogInfo( ("fwup_wrap_flash: flash write completed!") );
-			}
-			else
-			{
-				flash_status = DATA_FLASH_UPDATE_STATE_ERROR;
-				xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
-			}
-			break;
-		default:
-			xSemaphoreGiveFromISR( xSemaphoreFlashAccess, &xHigherPriorityTaskWoken );
-			break;
-	}
-}
