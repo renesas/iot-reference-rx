@@ -40,4 +40,85 @@
 /* Define the byte order of the target MCU (the MCU FreeRTOS+TCP is executing
  * on).  Valid options are pdFREERTOS_BIG_ENDIAN and pdFREERTOS_LITTLE_ENDIAN. */
 #define ipconfigBYTE_ORDER                         pdFREERTOS_LITTLE_ENDIAN
+
+/*
+ * FreeRTOS debug logging routines.
+ * The macro will be called with a printf() format as a parameter.  Users
+ * can define their own logging routine as:
+ *
+ * The FreeRTOS_debug_printf() must be thread-safe but does not have to be
+ * interrupt-safe.
+ */
+#define FreeRTOS_debug_printf( MSG )    configPRINTF( MSG )
+#define ipconfigHAS_PRINTF    1
+#define FreeRTOS_printf( MSG )    configPRINTF( MSG )
+
+/* 'ipconfigUSE_NETWORK_EVENT_HOOK' indicates if an application hook is available
+ * called 'vApplicationIPNetworkEventHook()'.  This function will be called when
+ * the network goes up and when it goes down.  See also FREERTOS_IP.h for further
+ * explanation. */
+#define ipconfigUSE_NETWORK_EVENT_HOOK    1
+
+/* Define the number of entries in the ARP cache table. */
+#define ipconfigARP_CACHE_ENTRIES    6
+
+/* 'ipconfigNUM_NETWORK_BUFFER_DESCRIPTORS' is an important macro: it
+ * determines the number of network buffers that are available in the
+ * entire application.
+ * Note that the default of 45 may be pretty high for smaller
+ * applications.
+ * Also note that when the network interface uses zero-copy reception
+ * ( ipconfigZERO_COPY_RX_DRIVER ), it will reserve a set of network
+ * buffers permanently.
+ * For zero-copy transmission, no network buffers are permanently
+ * "reserved" for transmission.
+ */
+#define ipconfigNUM_NETWORK_BUFFER_DESCRIPTORS    6
+
+/* Related to the macro 'ipconfigEVENT_QUEUE_LENGTH' here above:
+ * when developing a new networking application, it can be helpful
+ * to monitor the length of the message queue of the IP-task.
+ * This code is only enabled when 'ipconfigCHECK_IP_QUEUE_SPACE'
+ * is set to 1.  See also the function 'uxGetMinimumIPQueueSpace()'.
+ */
+#define ipconfigCHECK_IP_QUEUE_SPACE    1
+
+/* DHCP servers have a table with information about each clients.  One
+ * of the fields in this table contains the host name of the DHCP clients.
+ * When 'ipconfigDHCP_REGISTER_HOSTNAME' is defined as non-zero, the DHCP
+ * driver will call 'pcApplicationHostnameHook()' to obtain the name of
+ * the embedded device.
+ */
+#define ipconfigDHCP_REGISTER_HOSTNAME    1
+
+/* The results of DNS lookup's can be stored in a cache table. */
+#define ipconfigUSE_DNS_CACHE    1
+
+/* When ipconfigDRIVER_INCLUDED_RX_IP_CHECKSUM is enabled,
+ * the network interface is responsible for checking the checksums
+ * of the incoming packets.
+ * This can be either done in hardware, or by calling the checksum
+ * functions.
+ */
+#define ipconfigDRIVER_INCLUDED_RX_IP_CHECKSUM    1
+
+/* The macro 'ipconfigSOCKET_HAS_USER_WAKE_CALLBACK' allows to use a call-back
+ * function that will be called at the moment one of the above events occurs.
+ * Use the socket option 'FREERTOS_SO_WAKEUP_CALLBACK' to install a function
+ * of the type 'void callback( Socket_t pxSocket )'.
+ * Note that the call-back function runs in the IP-task, so very little things
+ * can be done.  Better not to call any networking API, because that could
+ * easily lead to a deadlock situation.
+ */
+#define ipconfigSOCKET_HAS_USER_WAKE_CALLBACK    1
+
+/* TCP only: if the 'ipconfigTCP_KEEP_ALIVE' macro is defined as 1,
+ * sockets in state "ESTABLISHED" can be protected using keep-alive packets.
+ * These packets will be sent as soon as there hasn't been any activity
+ * for a while.
+ * The macro 'ipconfigTCP_KEEP_ALIVE_INTERVAL' determines the interval at
+ * which keep-alive packets are sent.
+ */
+#define ipconfigTCP_KEEP_ALIVE    1
+
 #endif /* FREERTOS_IP_CONFIG_H */
