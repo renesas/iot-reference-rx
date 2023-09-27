@@ -33,6 +33,7 @@
 #include "r_flash_rx_if.h"
 #include "lfs.h"
 #include "lfs_util_config.h"
+#include "rm_littlefs_flash_config.h"
 #if LFS_THREAD_SAFE
  #include "FreeRTOS.h"
  #include "semphr.h"
