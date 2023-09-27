@@ -56,11 +56,12 @@
 #endif
 
 #ifndef LIBRARY_LOG_LEVEL
-    #define LIBRARY_LOG_LEVEL    LOG_INFO
+    #define LIBRARY_LOG_LEVEL    LOG_ERROR
 #endif
 
 #include "logging_stack.h"
-
+#include "test_execution_config.h"
+#include "test_param_config.h"
 /************ End of logging configuration ****************/
 
 /**
@@ -96,6 +97,10 @@
 * <b>Default value:</b> `0`
 */
 #define pkcs11configOTA_SUPPORTED    1
+
+#define PKCS11_TEST_LABEL_DEVICE_PRIVATE_KEY_FOR_TLS     pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS
+#define PKCS11_TEST_LABEL_DEVICE_PUBLIC_KEY_FOR_TLS      pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS
+#define PKCS11_TEST_LABEL_DEVICE_CERTIFICATE_FOR_TLS     pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
