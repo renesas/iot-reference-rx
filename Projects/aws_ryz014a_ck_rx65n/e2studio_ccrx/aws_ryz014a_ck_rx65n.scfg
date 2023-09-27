@@ -579,7 +579,7 @@
         <option id="com.renesas.smc.code.type" value="Normal Folder"/>
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
-        <configuration enable="true" exclude="false" id="036744cb-f2fe-4510-8d52-a859dfd5faba" inuse="true" name="FreeRTOS_Kernel">
+        <configuration enable="true" exclude="false" id="034365f6-c4a5-418d-91ec-32a2ab2e5a75" inuse="true" name="FreeRTOS_Kernel">
             <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110">
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
                 <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
@@ -587,7 +587,7 @@
                 <gridItem id="configCPU_CLOCK_HZ" selectedIndex="BSP_ICLK_HZ"/>
                 <gridItem id="configPERIPHERAL_CLOCK_HZ" selectedIndex="BSP_PCLKB_HZ"/>
                 <gridItem id="configTICK_RATE_HZ" selectedIndex="( TickType_t ) 1000"/>
-                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="( unsigned short ) 768"/>
+                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="768"/>
                 <gridItem id="configTOTAL_HEAP_SIZE_N" selectedIndex="256"/>
                 <gridItem id="configTOTAL_HEAP_SIZE" selectedIndex="( size_t ) ( configTOTAL_HEAP_SIZE_N * 1024 )"/>
                 <gridItem id="configMAX_TASK_NAME_LEN" selectedIndex="12"/>
@@ -649,7 +649,7 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="b02ea076-fd94-43e7-a9c7-9cf909da5408" inuse="true" name="FreeRTOS_Object">
+        <configuration enable="true" exclude="false" id="cd2be959-56ec-4322-ae66-53b703e234a3" inuse="true" name="FreeRTOS_Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
                     <option defaultValue="0" id="LinkNum" value=""/>
@@ -1136,6 +1136,17 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
+        <configuration inuse="true" name="r_flash_rx">
+            <component description="Dependency : r_bsp version(s) 5.20, 5.30, 5.40, 5.50, 5.52, 6.10, 6.20, 6.21, 7.00, 7.10, 7.20, 7.30&#10;This module allows the user to program, erase, write and blankcheck the Code and/or Data flash." detailDescription="Flash API for RX100, RX200, RX600. and RX700." display="r_flash_rx" id="r_flash_rx5.00" version="5.00">
+                <gridItem id="FLASH_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_CODE_FLASH_ENABLE" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_DATA_FLASH_BGO" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_CODE_FLASH_BGO" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_CODE_FLASH_RUN_FROM_ROM" selectedIndex="1"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
         <configuration inuse="true" name="r_cellular">
             <component description="Dependency : r_bsp version(s) 7.10&#10;Dependency : r_sci_rx version(s) 4.30&#10;Dependency : r_irq_rx version(s) 4.00&#10;Use UART to control RYZ014A and connect to the Internet." detailDescription="Cellular Module control functions for Renesas MCUs." display="r_cellular" id="r_cellular1.11" version="1.11">
                 <gridItem id="CELLULAR_CFG_AP_NAME" selectedIndex="ibasis.iot"/>
@@ -1166,17 +1177,6 @@
                 <gridItem id="CELLULAR_CFG_RESET_PORT" selectedIndex="5"/>
                 <gridItem id="CELLULAR_CFG_RESET_PIN" selectedIndex="5"/>
                 <gridItem id="CELLULAR_CFG_IRQ_NUM" selectedIndex="4"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
-        <configuration inuse="true" name="r_flash_rx">
-            <component description="Dependency : r_bsp version(s) 5.20, 5.30, 5.40, 5.50, 5.52, 6.10, 6.20, 6.21, 7.00, 7.10, 7.20, 7.30&#10;This module allows the user to program, erase, write and blankcheck the Code and/or Data flash." detailDescription="Flash API for RX100, RX200, RX600. and RX700." display="r_flash_rx" id="r_flash_rx5.00" version="5.00">
-                <gridItem id="FLASH_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_CODE_FLASH_ENABLE" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_DATA_FLASH_BGO" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_CODE_FLASH_BGO" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_CODE_FLASH_RUN_FROM_ROM" selectedIndex="1"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
