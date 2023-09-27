@@ -98,6 +98,95 @@
 */
 #define pkcs11configOTA_SUPPORTED    1
 
+/**
+* @brief The PKCS #11 label for device private key.
+*
+* Private key for connection to AWS IoT endpoint.  The corresponding
+* public key should be registered with the AWS IoT endpoint.
+*/
+#define pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS       "Device Priv TLS Key"
+
+
+
+/**
+* @brief The PKCS #11 label for device public key.
+*
+* The public key corresponding to pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS.
+*/
+#define pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS        "Device Pub TLS Key"
+
+
+
+/**
+* @brief The PKCS #11 label for the device certificate.
+*
+* Device certificate corresponding to pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS.
+*/
+#define pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS       "Device Cert"
+
+
+
+/**
+* @brief The PKCS #11 label for the object to be used for code verification.
+*
+* Used by over-the-air update code to verify an incoming signed image.
+*/
+#define pkcs11configLABEL_CODE_VERIFICATION_KEY            "Code Verify Key"
+
+
+
+/**
+* @brief The PKCS #11 label for Just-In-Time-Provisioning.
+*
+* The certificate corresponding to the issuer of the device certificate
+* (pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS) when using the JITR or
+* JITP flow.
+*/
+#define pkcs11configLABEL_JITP_CERTIFICATE                 "JITP Cert"
+
+
+
+/**
+* @brief The PKCS #11 label for the AWS Trusted Root Certificate.
+*
+* @see aws_default_root_certificates.h
+*/
+#define pkcs11configLABEL_ROOT_CERTIFICATE                 "Root Cert"
+
+
+
+/**
+* @brief The PKCS #11 label for AWS IoT Fleet Provisioning claim certificate.
+*
+* This label is used for the provisioning claim certificate. The provisioning
+* claim certificate is used to connect to AWS IoT Core for provisioning a
+* client device using "Provisioning by Claim" workflow of the Fleet
+* Provisioning Service.
+*
+* <b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+* <b>Default value:</b> `Claim Cert`
+*/
+#ifndef pkcs11configLABEL_CLAIM_CERTIFICATE
+	#define pkcs11configLABEL_CLAIM_CERTIFICATE    "Claim Cert"
+#endif
+
+
+
+/**
+* @brief The PKCS #11 label for AWS IoT Fleet Provisioning claim private key.
+*
+* This label is used for the provisioning claim private key. The provisioning
+* claim private key corresponds to the provisioning claim certificate and is
+* used to to connect to AWS IoT Core for provisioning a client device using
+* "Provisioning by Claim" workflow of the Fleet Provisioning Service.
+*
+* <b>Possible values:</b> Any String smaller then pkcs11configMAX_LABEL_LENGTH.<br>
+* <b>Default value:</b> `Claim Key`
+*/
+#ifndef pkcs11configLABEL_CLAIM_PRIVATE_KEY
+	#define pkcs11configLABEL_CLAIM_PRIVATE_KEY    "Claim Key"
+#endif
+
 #define PKCS11_TEST_LABEL_DEVICE_PRIVATE_KEY_FOR_TLS     pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS
 #define PKCS11_TEST_LABEL_DEVICE_PUBLIC_KEY_FOR_TLS      pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS
 #define PKCS11_TEST_LABEL_DEVICE_CERTIFICATE_FOR_TLS     pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS
