@@ -155,6 +155,8 @@ void main_task( void )
 	if(ApplicationCounter(Time2Wait))
 	{
 		/* Remove CLI task before going to demo. */
+		/* CLI and Log tasks use common resources but are not exclusively controlled. */
+		/* For this reason, the CLI task must be deleted before executing the Demo. */
 		vTaskDelete(xCLIHandle);
 
 		if( !Connect2AP())
