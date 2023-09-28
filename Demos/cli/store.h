@@ -80,13 +80,13 @@ typedef struct KeyValueStore
     {                                                      \
         [ KVS_CORE_THING_NAME ] = "thing_name",            \
         [ KVS_CORE_MQTT_ENDPOINT ] = "mqtt_endpoint",      \
-        [ KVS_DEVICE_CERT_ID ] = "cert_id",                \
-		[ KVS_DEVICE_PRIVKEY_ID ] = "priv_key_id",         \
-		[ KVS_DEVICE_PUBKEY_ID ] = "pub_key_id",         \
+        [ KVS_DEVICE_CERT_ID ] = pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,                \
+		[ KVS_DEVICE_PRIVKEY_ID ] = pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,         \
+		[ KVS_DEVICE_PUBKEY_ID ] = pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,         \
 		[ KVS_ROOT_CA_ID ] = "root_ca_id",         \
 		[ KVS_TEMPLATE_NAME ] = "template_name",         \
-		[ KVS_CLAIM_CERT_ID ] = "claim_cert_id",         \
-		[ KVS_CLAIM_PRIVKEY_ID ] = "claim_priv_key_id",         \
+		[ KVS_CLAIM_CERT_ID ] = pkcs11configLABEL_CLAIM_CERTIFICATE,         \
+		[ KVS_CLAIM_PRIVKEY_ID ] = pkcs11configLABEL_CLAIM_PRIVATE_KEY,         \
 		[ KVS_CODE_SIGN_CERT_ID ] = "code_sign_cert_id",         \
     }
 #define CLICMDKEYS                                       \
@@ -110,14 +110,13 @@ typedef enum KVStoreKeytype
     KV_TYPE_STRING
 } KVStoreValueType_t;
 
-BaseType_t prvSaveConfigStore( void );
 int32_t xprvGetValueLengthFromImpl( KVStoreKey_t keyIndex);
+int32_t GetTotalLengthFromImpl();
 BaseType_t xprvWriteValueToImpl (KVStoreKey_t keyIndex, char *pucData, uint32_t ulDataSize);
 int32_t xprvReadValueFromImpl (KVStoreKey_t keyIndex,
         char **ppucData,
 		uint32_t *pulDataSize,
 		size_t xBufferSize);
-void LoadConfigStore(int32_t xHandle);
 int32_t xprvWriteCacheEntry(size_t KeyLength,
 						char * Key,
 						size_t ValueLength,
@@ -132,6 +131,7 @@ static inline void vLfsSSizeToErr( lfs_ssize_t * pxReturnValue,
 static inline const void * pvGetDataReadPtr( KVStoreKey_t key );
 static inline void * pvGetDataWritePtr( KVStoreKey_t key );
 int32_t vprvCacheInit( void );
+void vprvCacheFormat( void );
 BaseType_t xprvCopyValueFromCache( KVStoreKey_t xKey,
                                    KVStoreValueType_t * pxDataType,
                                    size_t * pxDataLength,
@@ -144,5 +144,4 @@ char *GetStringValue( KVStoreKey_t key,
         size_t  pxLength );
 char *xprvGetCacheEntry(char * Key, size_t pxLength );
 BaseType_t KVStore_xCommitChanges( void );
-
 #endif /* APPLICATION_CODE_STORE_H_ */

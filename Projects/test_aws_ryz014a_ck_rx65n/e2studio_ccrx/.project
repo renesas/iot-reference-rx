@@ -12,12 +12,6 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.renesas.smc.ui.pgsupport.SCContentBuilder</name>
-			<triggers></triggers>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
 			<triggers>clean,full,incremental,</triggers>
 			<arguments>
@@ -87,7 +81,7 @@
 			<type>10</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-include|dev_mode_key_provisioning</arguments>
+				<arguments>1.0-name-matches-false-true-include</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -106,6 +100,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-false-network_support</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1693895744445</id>
+			<name>Demos/dev_mode_key_provisioning</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-src</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -334,12 +337,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668573050215</id>
-			<name>Middleware/FreeRTOS/corePKCS11/source</name>
-			<type>10</type>
+			<id>1686275818557</id>
+			<name>Middleware/network_transport/sockets_wrapper/ports</name>
+			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-dependency</arguments>
+				<arguments>1.0-name-matches-false-false-cellular_ryz014a</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -388,16 +391,16 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668756665004</id>
-			<name>Middleware/Application-Protocols/network_transport/sockets_wrapper/ports</name>
-			<type>9</type>
+			<id>1686716432673</id>
+			<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+			<type>5</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-cellular_ryz014a</arguments>
+				<arguments>1.0-name-matches-false-true-ecc_dsa.c|ecc.c|sha256.c|utils.c</arguments>
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668573166453</id>
+			<id>1668406054995</id>
 			<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/MemMang</name>
 			<type>5</type>
 			<matcher>
@@ -502,6 +505,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-ota_os_freertos.c|ota_os_freertos.h</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1686791319043</id>
+			<name>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-mbedtls_utils</arguments>
 			</matcher>
 		</filter>
 		<filter>

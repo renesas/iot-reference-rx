@@ -46,7 +46,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
-
+extern KeyValueStore_t gKeyValueStore;
 extern void vStartSimplePubSubDemo( void  );
 
 #if (ENABLE_OTA_UPDATE_DEMO == 1)
@@ -159,6 +159,7 @@ void vApplicationDaemonTaskStartupHook( void );
  */
 void prvMiscInitialization( void );
 
+extern void UserInitialization(void);
 extern void CLI_Support_Settings(void);
 extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 extern void vRegisterSampleCLICommands( void );
@@ -169,7 +170,7 @@ extern void vRegisterSampleCLICommands( void );
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
  */
-void main( void )
+void main_task( void )
 {
 	int32_t xResults, Time2Wait = 10000;
 
@@ -182,6 +183,7 @@ void main( void )
 	extern TaskHandle_t xCLIHandle;
 
 	prvMiscInitialization();
+	UserInitialization();
 
 	/* Register the standard CLI commands. */
 	vRegisterSampleCLICommands();
@@ -199,8 +201,9 @@ void main( void )
 	if(ApplicationCounter(Time2Wait))
 	{
 		/* Remove CLI task before going to demo. */
+		/* CLI and Log tasks use common resources but are not exclusively controlled. */
+		/* For this reason, the CLI task must be deleted before executing the Demo. */
 		vTaskDelete(xCLIHandle);
-
 
 		/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
 			are created in the vApplicationIPNetworkEventHook() hook function
@@ -377,14 +380,23 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 /*-----------------------------------------------------------*/
 
 #if ( ipconfigUSE_LLMNR != 0 ) || ( ipconfigUSE_NBNS != 0 ) || ( ipconfigDHCP_REGISTER_HOSTNAME == 1 )
-
+    /* This function will be called during the DHCP: the machine will be registered
+     * with an IP address plus this name. 
+     * Note: Please make sure vprvCacheInit() is called before this function, because
+	 * it retrieves thingname value from KeyValue table. */
     const char * pcApplicationHostnameHook( void )
     {
         /* This function will be called during the DHCP: the machine will be registered
          * with an IP address plus this name. */
-        return clientcredentialIOT_THING_NAME;
+        if (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0)
+        {
+            return gKeyValueStore.table[KVS_CORE_THING_NAME].value;
+        }
+        else
+        {
+            return clientcredentialIOT_THING_NAME;
+        }
     }
-
 #endif
 
 bool ApplicationCounter(uint32_t xWaitTime)

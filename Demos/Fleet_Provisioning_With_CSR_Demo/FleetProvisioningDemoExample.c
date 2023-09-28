@@ -74,6 +74,7 @@
 /* corePKCS11 includes. */
 #include "core_pkcs11.h"
 #include "core_pkcs11_config.h"
+#include "core_pkcs11_config_defaults.h"
 
 /* AWS IoT Fleet Provisioning Library. */
 #include "fleet_provisioning.h"
@@ -662,22 +663,31 @@ int prvFleetProvisioningTask( void * pvParameters )
             }
         }
 
-        if ( (xPkcs11Ret == CKR_OK) && ((xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE)) )
+        if ( (xPkcs11Ret == CKR_OK) && ((xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) || (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength <= 0)) )
         {
-			xStatus = xGenerateKeyAndCsr( xP11Session,
-										  pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
-										  pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
-										  pcCsr,
-										  fpdemoCSR_BUFFER_LENGTH,
-										  &xCsrLength,
-										  pcCSRSubjectName );
+            xPkcs11Ret = xDestroyCertificateAndKey ( xP11Session );
+            if( xPkcs11Ret != CKR_OK )
+            {
+                LogError( ( "Failed to Destroy of device certificate and private key." ) );
+                xStatus = false;
+            }
+            else
+            {
+                xStatus = xGenerateKeyAndCsr( xP11Session,
+                                              pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS,
+                                              pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
+                                              pcCsr,
+                                              fpdemoCSR_BUFFER_LENGTH,
+                                              &xCsrLength,
+                                              pcCSRSubjectName );
 
-			if( xStatus == false )
-			{
-				LogError( ( "Failed to generate Key and Certificate Signing Request." ) );
-			}
+                if( xStatus == false )
+                {
+                    LogError( ( "Failed to generate Key and Certificate Signing Request." ) );
+                }
+            }
         }
-        else if ( (xPkcs11Ret == CKR_OK) && (xClientCertificate != CK_INVALID_HANDLE) && (xPrivateKey != CK_INVALID_HANDLE) )
+        else if ( (xPkcs11Ret == CKR_OK) && (xClientCertificate != CK_INVALID_HANDLE) && (xPrivateKey != CK_INVALID_HANDLE) && (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0) )
         {
             LogInfo( ( "It uses the device certificate, private key, thing name already stored." ) );
             snprintf( pcThingName, fpdemoMAX_THING_NAME_LENGTH, "%s", gKeyValueStore.table[KVS_CORE_THING_NAME].value);
@@ -689,8 +699,8 @@ int prvFleetProvisioningTask( void * pvParameters )
             xStatus = false;
         }
 
-        /* Skip fleet provisioning if you already have a device certificate and private key. */
-        if ( (xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) )
+        /* Skip fleet provisioning if you already have a device certificate, private key and thingname. */
+        if ( (xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) || (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength <= 0) )
         {
             /**** Connect to AWS IoT Core with provisioning claim credentials *****/
 
@@ -750,11 +760,11 @@ int prvFleetProvisioningTask( void * pvParameters )
             if( xStatus == true )
             {
                 /* Publish the CSR to the CreateCertificatefromCsr API. */
-                xPublishToTopic( &xMqttContext,
-                                 FP_CBOR_CREATE_CERT_PUBLISH_TOPIC,
-                                 FP_CBOR_CREATE_CERT_PUBLISH_LENGTH,
-                                 ( char * ) pucPayloadBuffer,
-                                 xPayloadLength );
+                xStatus = xPublishToTopic( &xMqttContext,
+                                           FP_CBOR_CREATE_CERT_PUBLISH_TOPIC,
+                                           FP_CBOR_CREATE_CERT_PUBLISH_LENGTH,
+                                           ( char * ) pucPayloadBuffer,
+                                           xPayloadLength );
 
                 if( xStatus == false )
                 {
@@ -824,11 +834,11 @@ int prvFleetProvisioningTask( void * pvParameters )
             if( xStatus == true )
             {
                 /* Publish the RegisterThing request. */
-                xPublishToTopic( &xMqttContext,
-                				 pcPublishTopic,
-								 xPublishTopicLength,
-                                 ( char * ) pucPayloadBuffer,
-                                 xPayloadLength );
+                xStatus = xPublishToTopic( &xMqttContext,
+                                           pcPublishTopic,
+                                           xPublishTopicLength,
+                                           ( char * ) pucPayloadBuffer,
+                                           xPayloadLength );
 
                 if( xStatus == false )
                 {
@@ -916,6 +926,8 @@ int prvFleetProvisioningTask( void * pvParameters )
 
         /**** Retry in case of failure ****************************************/
 
+        xPkcs11CloseSession( xP11Session );
+
         /* Increment the demo run count. */
         ulDemoRunCount++;
 
@@ -940,8 +952,6 @@ int prvFleetProvisioningTask( void * pvParameters )
     /* Log demo success. */
     if( xStatus == true )
     {
-    	xPkcs11CloseSession( xP11Session );
-
 #if !defined(__TEST__)
         if (pcPublishTopic != NULL)
         {
