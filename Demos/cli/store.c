@@ -27,11 +27,8 @@
 #include "store.h"
 #include "pkcs11_operations.h"
 /* Key provisioning includes. */
-#ifdef __TEST__
-#include "dev_mode_key_provisioning.h"
-#else
+
 #include "aws_dev_mode_key_provisioning.h"
-#endif
 
 const char * keys[ KVS_NUM_KEYS ] = KVSTORE_KEYS;
 KeyValueStore_t gKeyValueStore = { 0 };
@@ -131,6 +128,27 @@ int32_t xprvGetValueLengthFromImpl( KVStoreKey_t keyIndex)
 	}
 	return xLength;
 
+}
+
+/*
+ * @brief Get the length of a value stored in the Data Flash
+ * @param[in] KVStoreKey_t Key to lookup
+ * @return length of the value stored in the KVStore or 0 if not found.
+ */
+int32_t GetTotalLengthFromImpl()
+{
+    size_t xLength = 0;
+    struct lfs_info xFileInfo = { 0 };
+    lfs_file_t file;
+    for (uint32_t i = 0; i < KVS_NUM_KEYS; i++)
+    {
+        if (lfs_stat (&RM_STDIO_LITTLEFS_CFG_LFS, (char*) keys[i], &xFileInfo) == LFS_ERR_OK)
+        {
+            xLength += xFileInfo.size;
+        }
+    }
+
+    return xLength;
 }
 
 /*
@@ -315,6 +333,7 @@ BaseType_t KVStore_xCommitChanges( void )
 				else
 				{
 					xSuccess = pdTRUE;
+					gKeyValueStore.table[ i ].xChangePending = pdFALSE;
 				}
 			}
         	else if ((i  == KVS_CLAIM_PRIVKEY_ID ))
@@ -332,6 +351,7 @@ BaseType_t KVStore_xCommitChanges( void )
 				else
 				{
 					xSuccess = pdTRUE;
+					gKeyValueStore.table[ i ].xChangePending = pdFALSE;
 				}
 			}
         	/*
@@ -341,9 +361,9 @@ BaseType_t KVStore_xCommitChanges( void )
         	{
         		xSuccess = xprvWriteValueToImpl((KVStoreKey_t)i,(char *)gKeyValueStore.table[ i ].value,
         		    											gKeyValueStore.table[ i ].valueLength);
-				if (xSuccess == pdFALSE)
+				if (xSuccess != pdTRUE)
 				{
-					return xSuccess;
+					return pdFALSE;
 				}
 				gKeyValueStore.table[ i ].xChangePending = pdFALSE;
         	}
@@ -447,6 +467,7 @@ static inline void * pvGetDataWritePtr( KVStoreKey_t key )
     configASSERT( pvData != NULL );
     return pvData;
 }
+
 /*
  * @brief Initialize the Key Value Store Cache by reading each entry from the Data Flash.
  */
@@ -458,7 +479,6 @@ int32_t vprvCacheInit( void )
 
 	CK_BYTE pxCertLabel[] =  pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS ;
 	CK_BYTE pxPrivKeyLabel[] =  pkcs11configLABEL_DEVICE_PRIVATE_KEY_FOR_TLS ;
-	CK_FUNCTION_LIST_PTR pxFunctionList = NULL;
 	CK_SESSION_HANDLE xSession = 0;
 
     /* Read from file system into ram */
@@ -489,47 +509,22 @@ int32_t vprvCacheInit( void )
     	}
 
     }
-    xResult = C_GetFunctionList( &pxFunctionList );
-
-	/* Initialize the PKCS Module */
-	if( xResult == CKR_OK )
-	{
-		xResult = xInitializePkcs11Token();
-	}
-
-	if( xResult == CKR_OK )
-	{
-		xResult = xInitializePkcs11Session( &xSession );
-	}
-
-	//private key
-
-	xNvLength = PKCS11_PAL_FindObject(pxPrivKeyLabel,strlen(pxPrivKeyLabel));
-	if (xNvLength <=0)
-	{
-		if( xResult == CKR_OK )
-		{
-			pxFunctionList->C_CloseSession( xSession );
-		}
-		return xNvLength;
-	}
-	//cert
-	xNvLength = PKCS11_PAL_FindObject(pxCertLabel,strlen(pxCertLabel));
-	if (xNvLength <=0)
-	{
-		if( xResult == CKR_OK )
-		{
-			pxFunctionList->C_CloseSession( xSession );
-		}
-		return xNvLength;
-	}
-
-	if( xResult == CKR_OK )
-	{
-		pxFunctionList->C_CloseSession( xSession );
-	}
 	return xNvLength;
 
+}
+
+/*
+ * @brief Format the Key Value Store Cache.
+ */
+void vprvCacheFormat(void)
+{
+    for (uint32_t i = 0; i < KVS_NUM_KEYS; i++)
+    {
+        gKeyValueStore.table[i].xChangePending = pdFALSE;
+        gKeyValueStore.table[i].type = KV_TYPE_NONE;
+        memset(gKeyValueStore.table[i].key, 0, KVSTORE_KEY_MAX_LEN);
+        vClearDataBuffer ((KVStoreKey_t) i);
+    }
 }
 
 /*

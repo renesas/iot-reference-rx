@@ -1,5 +1,9 @@
 /*
+ * AWS IoT Device Defender Client v1.3.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ *
+ * SPDX-License-Identifier: MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -19,6 +23,11 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * @file defender_config.h
+ * @brief Custom config values for the AWS IoT Device Defender Client Library.
+ */
+
 #ifndef DEFENDER_CONFIG_H_
 #define DEFENDER_CONFIG_H_
 
@@ -28,7 +37,8 @@
 
 /* Include logging header files and define logging macros in the following order:
  * 1. Include the header file "logging_levels.h".
- * 2. Define the LIBRARY_LOG_NAME and LIBRARY_LOG_LEVEL macros.
+ * 2. Define the LIBRARY_LOG_NAME and LIBRARY_LOG_LEVEL macros depending on
+ * the logging configuration for Device Defender.
  * 3. Include the header file "logging_stack.h".
  */
 
@@ -40,11 +50,11 @@
 #endif
 
 #ifndef LIBRARY_LOG_LEVEL
-    #define LIBRARY_LOG_LEVEL    LOG_NONE
+    #define LIBRARY_LOG_LEVEL    LOG_INFO
 #endif
 
 #include "logging_stack.h"
 
 /************ End of logging configuration ****************/
 
-#endif /* ifndef DEFENDER_CONFIG_H_ */
+#endif /* DEFENDER_CONFIG_H_ */

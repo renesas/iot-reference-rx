@@ -1,27 +1,32 @@
-/***********************************************************************************************************************
- * Copyright [2020-2022] Renesas Electronics Corporation and/or its affiliates.  All Rights Reserved.
- *
- * This software and documentation are supplied by Renesas Electronics America Inc. and may only be used with products
- * of Renesas Electronics Corp. and its affiliates ("Renesas").  No other uses are authorized.  Renesas products are
- * sold pursuant to Renesas terms and conditions of sale.  Purchasers are solely responsible for the selection and use
- * of Renesas products and Renesas assumes no liability.  No license, express or implied, to any intellectual property
- * right is granted by Renesas. This software is protected under all applicable laws, including copyright laws. Renesas
- * reserves the right to change or discontinue this software and/or this documentation. THE SOFTWARE AND DOCUMENTATION
- * IS DELIVERED TO YOU "AS IS," AND RENESAS MAKES NO REPRESENTATIONS OR WARRANTIES, AND TO THE FULLEST EXTENT
- * PERMISSIBLE UNDER APPLICABLE LAW, DISCLAIMS ALL WARRANTIES, WHETHER EXPLICITLY OR IMPLICITLY, INCLUDING WARRANTIES
- * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT, WITH RESPECT TO THE SOFTWARE OR
- * DOCUMENTATION.  RENESAS SHALL HAVE NO LIABILITY ARISING OUT OF ANY SECURITY VULNERABILITY OR BREACH.  TO THE MAXIMUM
- * EXTENT PERMITTED BY LAW, IN NO EVENT WILL RENESAS BE LIABLE TO YOU IN CONNECTION WITH THE SOFTWARE OR DOCUMENTATION
- * (OR ANY PERSON OR ENTITY CLAIMING RIGHTS DERIVED FROM YOU) FOR ANY LOSS, DAMAGES, OR CLAIMS WHATSOEVER, INCLUDING,
- * WITHOUT LIMITATION, ANY DIRECT, CONSEQUENTIAL, SPECIAL, INDIRECT, PUNITIVE, OR INCIDENTAL DAMAGES; ANY LOST PROFITS,
- * OTHER ECONOMIC DAMAGE, PROPERTY DAMAGE, OR PERSONAL INJURY; AND EVEN IF RENESAS HAS BEEN ADVISED OF THE POSSIBILITY
- * OF SUCH LOSS, DAMAGES, CLAIMS OR COSTS.
- **********************************************************************************************************************/
+/*******************************************************************************
+* Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
+*
+* DISCLAIMER
+* This software is supplied by Renesas Electronics Corporation and is only
+* intended for use with Renesas products. No other uses are authorized. This
+* software is owned by Renesas Electronics Corporation and is protected under
+* all applicable laws, including copyright laws.
+* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
+* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT
+* LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+* AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED.
+* TO THE MAXIMUM EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS
+* ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES SHALL BE LIABLE
+* FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR
+* ANY REASON RELATED TO THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE
+* BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* Renesas reserves the right, without notice, to make changes to this software
+* and to discontinue the availability of this software. By using this software,
+* you agree to the additional terms and conditions found by accessing the
+* following link:
+* http://www.renesas.com/disclaimer
+*******************************************************************************/
 
 /* FSP includes. */
 #include "string.h"
 #include "rm_littlefs_flash.h"
 #include "rm_littlefs_flash_config.h"
+#include "r_common_api_flash.h"
 
 /* Get the data flash block size defined in bsp_feature.h for this MCU. */
 #define RM_LITTLEFS_FLASH_DATA_BLOCK_SIZE      FLASH_DF_BLOCK_SIZE
@@ -37,26 +42,12 @@
 /** "RLFS" in ASCII, used to determine if channel is open. */
 #define RM_LITTLEFS_FLASH_OPEN           (0x524C4653ULL)
 
-#define DATA_FLASH_UPDATE_STATE_INITIALIZE 0
-#define DATA_FLASH_UPDATE_STATE_ERASE 1
-#define DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE 2
-#define DATA_FLASH_UPDATE_STATE_WRITE 3
-#define DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE 4
-#define DATA_FLASH_UPDATE_STATE_FINALIZE 5
-#define DATA_FLASH_UPDATE_STATE_FINALIZE_COMPLETED 6
-#define DATA_FLASH_UPDATE_STATE_ERROR 103
-
-typedef struct _update_data_flash_control_block {
-	uint32_t status;
-}UPDATA_DATA_FLASH_CONTROL_BLOCK;
-
-static void flashing_callback( void * event );
+extern volatile UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
+extern volatile flash_res_t g_blank_check_result;
 
 static void write_callback( void * event );
 static void erase_flashing_callback( void * event );
-static xSemaphoreHandle xSemaphoreFlashSync;
 
-static UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
 static void update_dataflash_data(const struct lfs_config * c,
         lfs_block_t               block,
         lfs_off_t                 off,
@@ -65,8 +56,6 @@ static void update_dataflash_data(const struct lfs_config * c,
 		uint32_t				  update_state);
 
 
-void task_init(void);
-void data_flash_update_status_initialize(void);
 /** LittleFS API mapping for LittleFS Port interface */
 const rm_littlefs_api_t g_rm_littlefs_on_flash =
 {
@@ -99,14 +88,20 @@ fsp_err_t RM_LITTLEFS_FLASH_Open (rm_littlefs_ctrl_t * const p_ctrl, rm_littlefs
 {
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) p_ctrl;
     p_instance_ctrl->p_cfg = p_cfg;
-    flash_err_t err = R_FLASH_Open();
+
+    /* Call commonapi open function for Flash */
+    e_commonapi_err_t common_api_err = R_Demo_Common_API_Flash_Open();
+    if (COMMONAPI_SUCCESS != common_api_err)
+    {
+        while (1); /* infinite loop due to error */
+    }
 
 #if LFS_THREAD_SAFE
     p_instance_ctrl->xSemaphore = xSemaphoreCreateMutexStatic(&p_instance_ctrl->xMutexBuffer);
 
     if (NULL == p_instance_ctrl->xSemaphore)
     {
-    	R_FLASH_Close();
+    	//R_FLASH_Close();
 
         return FSP_ERR_INTERNAL;
     }
@@ -114,11 +109,6 @@ fsp_err_t RM_LITTLEFS_FLASH_Open (rm_littlefs_ctrl_t * const p_ctrl, rm_littlefs
 
     /* This module is now open. */
     p_instance_ctrl->open = RM_LITTLEFS_FLASH_OPEN;
-
-    xSemaphoreFlashSync = xSemaphoreCreateBinary();
-    xSemaphoreGive( xSemaphoreFlashSync );
-
-    data_flash_update_status_initialize();
 
     return FSP_SUCCESS;
 }
@@ -140,15 +130,15 @@ fsp_err_t RM_LITTLEFS_FLASH_Close (rm_littlefs_ctrl_t * const p_ctrl)
 {
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) p_ctrl;
 
-    p_instance_ctrl->open = 0;
+    p_instance_ctrl->open = 0; // comment out this line to keep littleFs work after closing
 
-    if( NULL != xSemaphoreFlashSync )
-    {
-        vSemaphoreDelete( xSemaphoreFlashSync );
-        xSemaphoreFlashSync = NULL;
-    }
-
-    R_FLASH_Close();
+//    if( NULL != xSemaphoreFlashAccess )
+//    {
+//        vSemaphoreDelete( xSemaphoreFlashAccess );
+//        xSemaphoreFlashAccess = NULL;
+//    }
+//
+//    R_FLASH_Close();
 
 #if LFS_THREAD_SAFE
     vSemaphoreDelete(p_instance_ctrl->xSemaphore);
@@ -170,7 +160,7 @@ fsp_err_t RM_LITTLEFS_FLASH_Close (rm_littlefs_ctrl_t * const p_ctrl)
  * @param[out] buffer      The buffer to copy data into
  * @param[in]  size        The size in bytes
  *
- * @retval     LFS_ERR_OK  Read is complete.
+ * @retval     LFS_ERR_OK  Read is complete. If there is a blank area in the read area, incorrect values may be read
  * @retval     LFS_ERR_IO  Lower level driver is not open.
  **********************************************************************************************************************/
 int rm_littlefs_flash_read (const struct lfs_config * c,
@@ -182,12 +172,12 @@ int rm_littlefs_flash_read (const struct lfs_config * c,
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
 
     /* No flash access while reading */
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
     /* Read directly from the flash. */
     memcpy(buffer,
                (uint8_t *) (rm_littlefs_flash_data_start + (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block) + off),
                size);
-    xSemaphoreGive(xSemaphoreFlashSync);
+    xSemaphoreGive(xSemaphoreFlashAccess);
 
     return LFS_ERR_OK;
 }
@@ -215,7 +205,7 @@ int rm_littlefs_flash_write (const struct lfs_config * c,
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
 
     // Flash access protect
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE;
 
@@ -226,14 +216,14 @@ int rm_littlefs_flash_write (const struct lfs_config * c,
     R_BSP_InterruptsEnable();
 
     //wait for the semaphore to be released by callback
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     if( (FLASH_SUCCESS != flash_error_code) ) {
-    	xSemaphoreGive(xSemaphoreFlashSync);
+    	xSemaphoreGive(xSemaphoreFlashAccess);
     	return LFS_ERR_IO;
     }
 
-	xSemaphoreGive(xSemaphoreFlashSync);
+	xSemaphoreGive(xSemaphoreFlashAccess);
     return LFS_ERR_OK;
 }
 
@@ -253,7 +243,7 @@ int rm_littlefs_flash_erase (const struct lfs_config * c, lfs_block_t block)
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) c->context;
 
     // Flash access protect
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
 	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE;
 
@@ -263,14 +253,14 @@ int rm_littlefs_flash_erase (const struct lfs_config * c, lfs_block_t block)
     R_BSP_InterruptsEnable();
 
     //wait for the semaphore to be released by callback
-    xSemaphoreTake( xSemaphoreFlashSync, portMAX_DELAY );
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     if( (FLASH_SUCCESS != flash_error_code) ) {
-    	xSemaphoreGive(xSemaphoreFlashSync);
+    	xSemaphoreGive(xSemaphoreFlashAccess);
     	return LFS_ERR_IO;
     }
 
-	xSemaphoreGive(xSemaphoreFlashSync);
+	xSemaphoreGive(xSemaphoreFlashAccess);
     return LFS_ERR_OK;
 }
 
@@ -332,59 +322,3 @@ int rm_littlefs_flash_sync (const struct lfs_config * c)
     return LFS_ERR_OK;
 }
 
-static void flashing_callback( void * event )
-{
-	uint32_t event_code;
-	event_code = *((uint32_t*)event);
-
-	static portBASE_TYPE xHigherPriorityTaskWoken;
-
-	switch(event_code)
-	{
-		case FLASH_INT_EVENT_ERASE_COMPLETE:
-			if(DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE == update_data_flash_control_block.status)
-			{
-				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_FINALIZE;
-				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
-			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-			}
-			else
-			{
-				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
-				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
-			}
-			break;
-		case FLASH_INT_EVENT_WRITE_COMPLETE:
-			if(DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE == update_data_flash_control_block.status)
-			{
-				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_FINALIZE;
-				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
-			    portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
-			}
-			else
-			{
-				update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
-				xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
-			}
-			break;
-		default:
-			update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
-			xSemaphoreGiveFromISR( xSemaphoreFlashSync, &xHigherPriorityTaskWoken );
-			break;
-	}
-}
-void task_init(void)
-{
-
-}
-
-void data_flash_update_status_initialize(void)
-{
-	flash_interrupt_config_t cb_func_info;
-
-	cb_func_info.pcallback = flashing_callback;
-	cb_func_info.int_priority = 3;
-	R_FLASH_Control(FLASH_CMD_SET_BGO_CALLBACK, (void *)&cb_func_info);
-
-	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_INITIALIZE;
-}

@@ -37,6 +37,7 @@
 /******************************************************************************
 Macro definitions
 ******************************************************************************/
+#define RTOS_USB_SUPPORT 0
 
 /******************************************************************************
 Typedef definitions
@@ -71,5 +72,6 @@ Exported global variables
 Exported global functions (to be accessed by other files)
 ******************************************************************************/
 extern void Processing_Before_Start_Kernel(void);
+extern void Kernel_Object_init(void);
 
 #endif /* RTOS_FREERTOS_FREERTOS_USR_FUNC_H_ */

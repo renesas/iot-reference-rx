@@ -1,5 +1,9 @@
 /*
- * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * coreHTTP v3.0.0
+ * Copyright (C) 2022 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ *
+ * SPDX-License-Identifier: MIT
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -21,6 +25,12 @@
 
 #ifndef CORE_HTTP_CONFIG_H_
 #define CORE_HTTP_CONFIG_H_
+
+/* *INDENT-OFF* */
+#ifdef __cplusplus
+    extern "C" {
+#endif
+/* *INDENT-ON* */
 
 /**************************************************/
 /******* DO NOT CHANGE the following order ********/
@@ -49,4 +59,10 @@
 
 /************ End of logging configuration ****************/
 
-#endif /* ifndef CORE_HTTP_CONFIG_H_ */
+/* *INDENT-OFF* */
+#ifdef __cplusplus
+    }
+#endif
+/* *INDENT-ON* */
+
+#endif /* ifndef CORE_HTTP_CONFIG_ */

@@ -40,13 +40,14 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Demo includes */
 #include "aws_clientcredential.h"
 #include "mqtt_agent_task.h"
-
 #include "test_execution_config.h"
 #include "store.h"
 
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
+
+//xSemaphoreHandle xSemaphoreFlashAccess;
 
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.
@@ -184,7 +185,9 @@ int RunDeviceAdvisorDemo( void )
 {
     BaseType_t xResult = pdFAIL;
 
-	xResult = xMQTTAgentInit( appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY );
+	xResult = xMQTTAgentInit();
+	xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+	vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
 
     if( xResult == pdPASS )
     {
@@ -200,6 +203,10 @@ int RunDeviceAdvisorDemo( void )
 }
 int RunOtaE2eDemo( void )
 {
+    xMQTTAgentInit();
+    xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+    vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
+
 	vStartOtaDemo();
 	return 0;
 }
@@ -207,12 +214,13 @@ int RunOtaE2eDemo( void )
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
  */
-void main( void )
+void main_task( void )
 {
 	int32_t xResults, Time2Wait = 10000;
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
 	/* The priority used by the UART command console task. */
 	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
+
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 	extern void vRegisterSampleCLICommands( void );
 	extern TaskHandle_t xCLIHandle;
@@ -235,6 +243,8 @@ void main( void )
 	if(ApplicationCounter(Time2Wait))
 	{
 		/* Remove CLI task before going to demo. */
+		/* CLI and Log tasks use common resources but are not exclusively controlled. */
+		/* For this reason, the CLI task must be deleted before executing the Demo. */
 		vTaskDelete(xCLIHandle);
 
 		/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
@@ -283,6 +293,7 @@ void prvMiscInitialization( void )
     /* Initialize UART for serial terminal. */
 	extern void CLI_Support_Settings(void);
 	CLI_Support_Settings();
+    /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY + 2,
                             mainLOGGING_MESSAGE_QUEUE_LENGTH );

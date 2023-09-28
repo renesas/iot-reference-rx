@@ -39,9 +39,11 @@
 #ifndef _AWS_DEV_MODE_KEY_PROVISIONING_H_
 #define _AWS_DEV_MODE_KEY_PROVISIONING_H_
 
+/* PKCS#11 includes. */
 #include "core_pkcs11_config.h"
+#include "core_pkcs11_config_defaults.h"
 #include "core_pkcs11.h"
-#include "store.h"
+
 typedef struct ProvisioningParams_t
 {
     uint8_t * pucClientPrivateKey;      /**< Pointer to the device private key in PEM format.

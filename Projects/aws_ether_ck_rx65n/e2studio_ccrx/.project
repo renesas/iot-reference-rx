@@ -12,12 +12,6 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.renesas.smc.ui.pgsupport.SCContentBuilder</name>
-			<triggers></triggers>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
 			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
 			<triggers>clean,full,incremental,</triggers>
 			<arguments>
@@ -284,12 +278,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668406006622</id>
-			<name>Middleware/FreeRTOS/corePKCS11/source</name>
-			<type>10</type>
+			<id>1686274314414</id>
+			<name>Middleware/network_transport/sockets_wrapper/ports</name>
+			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-dependency</arguments>
+				<arguments>1.0-name-matches-false-false-freertos_plus_tcp</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -320,12 +314,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1668750772404</id>
-			<name>Middleware/Application-Protocols/network_transport/sockets_wrapper/ports</name>
-			<type>9</type>
+			<id>1686716432673</id>
+			<name>Middleware/3rdparty/tinycrypt/lib/source</name>
+			<type>5</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-freertos_plus_tcp</arguments>
+				<arguments>1.0-name-matches-false-true-ecc_dsa.c|ecc.c|sha256.c|utils.c</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -461,6 +455,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-RX</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1686790844447</id>
+			<name>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-mbedtls_utils</arguments>
 			</matcher>
 		</filter>
 		<filter>
