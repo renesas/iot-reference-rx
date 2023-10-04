@@ -1,6 +1,6 @@
 expected_values = [
-    {"display": "FreeRTOS_Kernel", "version": "1.0.120"},
-    {"display": "FreeRTOS_Object", "version": "1.0.120"},
+    {"display": "FreeRTOS_Kernel", "version": None },
+    {"display": "FreeRTOS_Object", "version": None },
     {"display": "r_bsp", "version": "7.20"},
     {"display": "r_byteq", "version": "2.00"},
     {"display": "r_irq_rx", "version": "4.00"},

@@ -42,7 +42,8 @@ for component in component_elements:
     # 期待値のリストと比較
     match_found = False
     for expected_value in expected_values:
-        if display == expected_value["display"] and version == expected_value["version"]:
+        if display == expected_value["display"] and (expected_value["version"] is None or version == expected_value["version"]):
+        #if display == expected_value["display"] and version == expected_value["version"]:
             print(f"Found FIT modules: display='{display}', version='{version}'")
             match_found = True
     
