@@ -99,7 +99,8 @@ e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset )
 	{
 		if (1 == force_reset)
 		{
-			LogInfo(("Cellular Hardware reseting...\r\n"));
+			LogInfo(("Start resetting Cellular Hardware due to error = %d \r\n", error));
+			LogInfo(("Resetting Cellular Hardware \r\n"));
 			R_CELLULAR_HardwareReset(&cellular_ctrl);
 			LogInfo(("Cellular Hardware Reset Done!\r\n"));
 			R_CELLULAR_Close(&cellular_ctrl);
@@ -120,8 +121,19 @@ e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset )
 
 			if (( USER_COMM_ERROR_TRIES <= count_module_comm ) || (CELLULAR_ERR_MODULE_COM != error))
 			{
+
+				if ( USER_COMM_ERROR_TRIES <= count_module_comm )
+				{
+					LogInfo(("Start resetting Cellular Hardware due to the continuation of %d error \r\n", error));
+				}
+
+				if ( CELLULAR_ERR_MODULE_COM != error )
+				{
+					LogInfo(("Start resetting Cellular Hardware due to error = %d \r\n", error));
+				}
+				LogInfo(("Resetting Cellular Hardware \r\n"));
+
 				count_module_comm = 0;
-				LogInfo(("Cellular Hardware reseting...\r\n"));
 				R_CELLULAR_HardwareReset(&cellular_ctrl);
 				LogInfo(("Cellular Hardware Reset Done!\r\n"));
 				R_CELLULAR_Close(&cellular_ctrl);
@@ -205,7 +217,8 @@ bool Connect2AP( void )
 /* If you do not need the reset process, comment out the following */
 			if (CELLULAR_ERR_AP_CONNECT_FAILED == ret)
 			{
-				LogInfo(("Cellular Hardware reseting...\r\n"));
+				LogInfo(("Start resetting Cellular Hardware due to error = %d \r\n", ret));
+				LogInfo(("Resetting Cellular Hardware \r\n"));
 				R_CELLULAR_HardwareReset(&cellular_ctrl);
 				R_CELLULAR_Close(&cellular_ctrl);
 				/*Wait 10ms before going to R_CELLULAR_OPEN */
@@ -259,6 +272,7 @@ void CloseSocket(uint32_t socket_number)
 		 * Please remove the comment out to enable this feature.
 		 ****************************/
 		/*
+		LogInfo(("Start resetting Cellular Hardware due to error = %d \r\n", ret));
 		(void)R_CELLULAR_HardwareReset(&cellular_ctrl);
 		(void)R_CELLULAR_Close(&cellular_ctrl);
 		vTaskDelay(10);
