@@ -44,7 +44,7 @@
 #include "core_pkcs11_config.h"
 #include "core_pki_utils.h"
 #include "mbedtls_utils.h"
-#include "mbedtls_pk_pkcs11.h"
+#include "mbedtls_pkcs11.h"
 
 /* MbedTLS include. */
 #include "mbedtls/error.h"
