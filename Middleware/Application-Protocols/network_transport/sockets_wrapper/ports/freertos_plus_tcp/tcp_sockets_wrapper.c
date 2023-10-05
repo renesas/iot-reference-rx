@@ -1,5 +1,5 @@
 /*
- * FreeRTOS V202112.00
+ * FreeRTOS V202212.01
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -50,6 +50,8 @@ extern void vLoggingPrintf( const char * pcFormatString,
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
+#include "core_pkcs11.h"
+#include "iot_crypto.h"
 
 /* FreeRTOS+TCP includes. */
 #include "FreeRTOS_IP.h"
@@ -61,9 +63,6 @@ extern void vLoggingPrintf( const char * pcFormatString,
 #define SOCKET_T_TYPEDEFED
 #include "tcp_sockets_wrapper.h"
 
-/* FreeRTOS includes. */
-#include "core_pkcs11.h"
-#include "iot_crypto.h"
 
 /**
  * @brief Maximum number of times to call FreeRTOS_recv when initiating a graceful shutdown.
@@ -174,6 +173,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
         if( tcpSocket != FREERTOS_INVALID_SOCKET )
         {
             ( void ) FreeRTOS_closesocket( tcpSocket );
+            tcpSocket = FREERTOS_INVALID_SOCKET;
         }
     }
     else
@@ -196,7 +196,7 @@ void TCP_Sockets_Disconnect( Socket_t tcpSocket )
     BaseType_t waitForShutdownLoopCount = 0;
     uint8_t pDummyBuffer[ 2 ];
 
-    if( tcpSocket != FREERTOS_INVALID_SOCKET )
+    if( ( tcpSocket != NULL ) && ( tcpSocket != FREERTOS_INVALID_SOCKET ) )
     {
         /* Initiate graceful shutdown. */
         ( void ) FreeRTOS_shutdown( tcpSocket, FREERTOS_SHUT_RDWR );

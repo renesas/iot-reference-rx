@@ -1,5 +1,5 @@
 /*
- * FreeRTOS V202112.00
+ * FreeRTOS V202212.01
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -25,7 +25,7 @@
  */
 
 /**
- * @file sockets_wrapper.h
+ * @file tcp_sockets_wrapper.h
  * @brief TCP transport functions wrapper.
  */
 
@@ -74,7 +74,7 @@ extern void vLoggingPrintf( const char * pcFormatString,
 #define TCP_SOCKETS_ERRNO_ENOSPC              ( -10 ) /*!< No space left on device */
 #define TCP_SOCKETS_ERRNO_EINTR               ( -11 ) /*!< Interrupted system call */
 
-#define SOCKETS_INVALID_SOCKET      ( ( Socket_t ) ~0U )
+#define SOCKETS_INVALID_SOCKET                ( ( Socket_t ) ~0U )
 
 #ifndef SOCKET_T_TYPEDEFED
     struct xSOCKET;

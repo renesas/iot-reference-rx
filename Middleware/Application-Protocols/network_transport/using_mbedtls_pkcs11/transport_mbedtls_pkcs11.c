@@ -1,5 +1,5 @@
 /*
- * FreeRTOS V202112.00
+ * FreeRTOS V202212.01
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -52,7 +52,7 @@
 
 /* TLS transport header. */
 #include "transport_mbedtls_pkcs11.h"
-#include "mbedtls_pk_pkcs11.h"
+#include "mbedtls_pkcs11.h"
 
 /* PKCS #11 includes. */
 #include "core_pkcs11_config.h"
@@ -61,8 +61,8 @@
 #include "core_pki_utils.h"
 
 /* CC-RX Compiler v3.04.00 and below do not support the strnlen function, so use the strlen function instead. */
-#if !defined(strnlen)
-	#define strnlen( _s1, _s2)	(strlen( _s1))
+#if !defined( strnlen )
+    #define strnlen( _s1, _s2 )    ( strlen( _s1 ) )
 #endif
 
 /*-----------------------------------------------------------*/
@@ -183,13 +183,6 @@ static CK_RV readCertificateIntoContext( SSLContext_t * pSslContext,
  */
 static CK_RV initializeClientKeys( SSLContext_t * pxCtx,
                                    const char * pcLabelName );
-
-/**
- * @brief Stub function to satisfy mbedtls checks before sign operations
- *
- * @return 1.
- */
-int canDoStub( mbedtls_pk_type_t type );
 
 /**
  * @brief Sign a cryptographic hash with the private key.
@@ -659,7 +652,7 @@ static CK_RV initializeClientKeys( SSLContext_t * pxCtx,
     }
 
     /* Free memory. */
-    if( pxSlotIds!= NULL )
+    if( pxSlotIds != NULL )
     {
         vPortFree( pxSlotIds );
     }
@@ -679,6 +672,7 @@ TlsTransportStatus_t TLS_FreeRTOS_Connect( NetworkContext_t * pNetworkContext,
     TlsTransportParams_t * pTlsTransportParams = NULL;
     TlsTransportStatus_t returnStatus = TLS_TRANSPORT_SUCCESS;
     BaseType_t socketStatus = 0;
+    BaseType_t isSocketConnected = pdFALSE;
 
     if( ( pNetworkContext == NULL ) ||
         ( pNetworkContext->pParams == NULL ) ||
@@ -706,6 +700,10 @@ TlsTransportStatus_t TLS_FreeRTOS_Connect( NetworkContext_t * pNetworkContext,
     if( returnStatus == TLS_TRANSPORT_SUCCESS )
     {
         pTlsTransportParams = pNetworkContext->pParams;
+
+        /* Initialize tcpSocket. */
+        pTlsTransportParams->tcpSocket = NULL;
+
         socketStatus = TCP_Sockets_Connect( &( pTlsTransportParams->tcpSocket ),
                                             pHostName,
                                             port,
@@ -724,13 +722,19 @@ TlsTransportStatus_t TLS_FreeRTOS_Connect( NetworkContext_t * pNetworkContext,
     /* Perform TLS handshake. */
     if( returnStatus == TLS_TRANSPORT_SUCCESS )
     {
+        isSocketConnected = pdTRUE;
+
         returnStatus = tlsSetup( pNetworkContext, pHostName, pNetworkCredentials );
     }
 
     /* Clean up on failure. */
     if( returnStatus != TLS_TRANSPORT_SUCCESS )
     {
+        if( isSocketConnected == pdTRUE )
+    {
         TCP_Sockets_Disconnect( pTlsTransportParams->tcpSocket );
+            pTlsTransportParams->tcpSocket = NULL;
+        }
     }
     else
     {

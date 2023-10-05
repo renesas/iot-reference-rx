@@ -1,5 +1,5 @@
 /*
- * FreeRTOS V202112.00
+ * FreeRTOS V202212.01
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -24,8 +24,8 @@
  *
  */
 
-#ifndef MBEDTLS_PK_PKCS11_H
-#define MBEDTLS_PK_PKCS11_H
+#ifndef MBEDTLS_PKCS11_H
+#define MBEDTLS_PKCS11_H
 
 #include <string.h>
 #include "mbedtls/pk.h"
@@ -47,18 +47,16 @@ CK_RV xPKCS11_initMbedtlsPkContext( mbedtls_pk_context * pxMbedtlsPkCtx,
                                     CK_OBJECT_HANDLE xPkHandle );
 
 /**
- * @brief Callback to generate random data with the PKCS11 module.
+ * @brief Callback to generate random data with the PKCS11 API.
  *
- * @param[in] pvCtx void pointer to the
+ * @param[in] pvCtx void pointer to a PKCS11 Session handle.
  * @param[in] pucRandom Byte array to fill with random data.
  * @param[in] xRandomLength Length of byte array.
  *
  * @return 0 on success.
  */
-int lPKCS11RandomCallback( void * pvCtx,
+int lMbedCryptoRngCallbackPKCS11( void * pvCtx,
                            unsigned char * pucOutput,
                            size_t uxLen );
 
-
-
-#endif /* MBEDTLS_PK_PKCS11_H */
+#endif /* MBEDTLS_PKCS11_H */

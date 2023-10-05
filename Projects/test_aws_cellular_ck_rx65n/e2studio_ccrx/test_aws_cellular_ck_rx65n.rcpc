@@ -379,7 +379,7 @@
             </Category>
             <Category Name="using_mbedtls_pkcs11">
               <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.c</Path>
-              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\mbedtls_pk_pkcs11.h</Path>
+              <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\mbedtls_pkcs11.h</Path>
               <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\transport_mbedtls_pkcs11.c</Path>
               <Path>..\..\..\Middleware\Application-Protocols\network_transport\using_mbedtls_pkcs11\transport_mbedtls_pkcs11.h</Path>
             </Category>
