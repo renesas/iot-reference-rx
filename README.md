@@ -86,40 +86,43 @@ The following table indicates name and version of [FIT modules](https://www.rene
 
 ### Data Flash Usage
 
-* The demo project uses a maximum of 8960 bytes of Data Flash from address 0x00100000 to 0x001022FF using LittleFS.
-  * This area cannot be overwritten by user.
-  * If you intend to add more Data Flash allocation to LittleFS, please increase the value of `LFS_FLASH_BLOCK_COUNT`.
-  * If `LFS_FLASH_BLOCK_COUNT` is specified less than 8960 bytes, the demo will not work properly.
-* Therefore, 23808 bytes of Data Flash area at address 0x00102300 or above can be used as user application area.
+| Area | Description | Contents |Start address<br>[Size] | Section name |
+|------|-------------|----------|--------------|--------------|
+|LittleFS management area|It's consist of the filesystem LittleFS,<br>default size is 8960 bytes.<br>You can change size by `LFS_FLASH_BLOCK_COUNT`.|IoT const data<br><ul><li>thingname</li><li>endpoint</li><li>claim credentials</li><li>device credentials</li><li>provisioning template</li><li>codesigncert</li><li>root ca</li></ul>|0x00100000<br><br>[8960 bytes<br>(*Default*)]|C_LITTLEFS_MANAGEMENT_AREA|
+|Free area|It's not used by the demo.<br>Therefore, it's free area for user application.|User application data|0x00102300<br>(*Default*)<br><br>[23808 bytes<br>(*Default*)]|C_USER_APPLICATION_AREA|
 
-#### Data Flash memory map
+* LittleFS management area
+  * The demo project uses a maximum of 8960 bytes of Data Flash from address 0x00100000 to 0x001022FF using LittleFS.
+    * If this area is less than 8960 bytes, the demo will not work properly.
+  * You must **NOT** overwrite IoT const data in this area.
+  * If you intend to read/write user application data in this area, increase the value of `LFS_FLASH_BLOCK_COUNT` in the "Projects\\...\\frtos_config\\rm_littlefs_flash_config.h".
+    * `LFS_FLASH_BLOCK_COUNT` must be specified 71 ( == 9088 bytes) or more and 256 (32768 bytes, it is Data Flash size) or less.
+    * You must use LittleFS's API to read/write this area.
+* Free area
+  * The remaining area on Data Flash, 23808 bytes of Data Flash area at address 0x00102300 or above, can be used as user application area.
+    * you must use FLASH FIT module's API to read/write this area.
 
-The following table indicates how memory in Data Flash in CK-RX65N is used when `LFS_FLASH_BLOCK_COUNT` equals to 8960.
+#### Data Flash Memory Map
 
-<table>
-    <thead>
-        <tr>
-            <th>Description</th>
-            <th>Content</th>
-            <th>Start Address<br>[Area size]</th>
-            <th>Section Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>LittleFS management area</td>
-            <td>IoT const data<br>(Thingname, endpoint, claim credentials, <br>device credentials)</td>
-            <td>0x00100000<br>[8960 Bytes]</td>
-            <td>C_LITTLEFS_MANAGEMENT_AREA</td>
-        </tr>
-        <tr>
-            <td>User application area</td>
-            <td>Free area<br>(Free area for user application)</td>
-            <td>0x00102300<br>[23808 Bytes]</td>
-            <td>C_USER_APPLICATION_AREA</td>
-        </tr>
-    </tbody>
-</table>
+The following figure indicates how memory in Data Flash in CK-RX65N is used for each example of `LFS_FLASH_BLOCK_COUNT` value.
+
+```text
+In case of `LFS_FLASH_BLOCK_COUNT` == 70 (8960 bytes)
+ +----------------------------+-------------------------+ <- 0x00100000
+ |  LittleFS management area  |  IoT const data         |    <8960 bytes>
+ +----------------------------+-------------------------+ <- 0x00102300
+ |  Free area                 |  User application data  |    <23808 bytes>
+ |                            |                         |
+ +----------------------------+-------------------------+ <- 0x00107FFF
+
+In case of `LFS_FLASH_BLOCK_COUNT` == 170 (21760 bytes)
+ +----------------------------+-------------------------+ <- 0x00100000
+ |  LittleFS management area  |  IoT const data         |    <21760 bytes>
+ |                            |  User application data  |
+ +----------------------------+-------------------------+ <- 0x00105500
+ |  Free area                 |  User application data  |    <11008 bytes>
+ +----------------------------+-------------------------+ <- 0x00107FFF
+```
 
 ## Limitation
 
@@ -127,6 +130,52 @@ The following table indicates how memory in Data Flash in CK-RX65N is used when 
 * ROM/RAM size is not optimized.
 * CLI task cannot run after starting the demo to avoid the SCI conflict.
 * The project generation feature on e2 studio can not be supported.
+
+### Fixed configuration values of FIT Modules
+
+* There are some config values of FIT Modules that cannot be changed in order for the program to work properly.
+* The config values of the following FIT Modules of tables cannot be changed.
+* If changed, the program may not work properly.
+
+  #### CK-RX65N Ethernet Projects
+
+  | FIT module | Config name | Default Value | Project value | Reason for change |
+  |------------|-------------|---------------|---------------|-------------------|
+  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x1000 | Because fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
+  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the dual bank feature. |
+  |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE	| 0 | 1 | This project uses SCI UART terminals. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This project uses SCI CH5 as the SCI UART terminal. |
+  | r_ether_rx | ETHER_CFG_MODE_SEL | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_CH0_PHY_ADDRESS | 0 | 5 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_CH0_PHY_ACCESS | 1 | 0 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_LINK_PRESENT | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_USE_PHY_ICS1894_32 | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | OTA library rewrites code flash. |
+  |            | FLASH_CFG_DATA_FLASH_BGO | 0 | 1 | LittleFS is implemented to rewrite data flash using BGO functionality. |
+  |            | FLASH_CFG_CODE_FLASH_BGO | 0 | 1 | OTA library is implemented to rewrite code flash using BGO functionality. |
+  |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
+  | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
+  |            | SCI_CFG_TEI_INCLUDED | 0 | 1 | Transmit end interrupt is used. |
+
+  #### CK-RX65N Cellular-RYZ014A Projects
+
+  | FIT module | Config name | Default Value | Project value | Reason for change |
+  |------------|-------------|---------------|---------------|-------------------|
+  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x1000 | Because fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
+  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the dual bank feature. |
+  |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE	| 0 | 1 | This project uses SCI UART terminals. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This project uses SCI CH5 as the SCI UART terminal. |
+  | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | OTA library rewrites code flash. |
+  |            | FLASH_CFG_DATA_FLASH_BGO | 0 | 1 | LittleFS is implemented to rewrite data flash using BGO functionality. |
+  |            | FLASH_CFG_CODE_FLASH_BGO | 0 | 1 | OTA library is implemented to rewrite code flash using BGO functionality. |
+  |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
+  | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
+  |            | SCI_CFG_CH6_INCLUDED | 0 | 1 | SCI CH6 is used to communicate with the RYZ014A module. |
+  |            | SCI_CFG_CH6_TX_BUFSIZ | 80 | 2180 | The TX buffer size needs to be increased to communicate with RYZ014A. |
+  |            | SCI_CFG_CH6_RX_BUFSIZ | 80 | 8192 | The RX buffer size needs to be increased to communicate with RYZ014A. |
+  |            | SCI_CFG_TEI_INCLUDED | 0 | 1 | Transmit end interrupt is used. |
 
 ## Contribution
 
