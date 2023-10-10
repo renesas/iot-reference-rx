@@ -64,7 +64,7 @@ dependencies:
       url: "https://github.com/aws/Device-Shadow-for-AWS-IoT-embedded-sdk.git"
       path: "/Middleware/AWS/device-shadow-for-aws-iot-embedded-sdk"
   - name: "mbedtls"
-    version: "v2.28.1"
+    version: "v3.2.1"
     repository:
       type: "git"
       url: "https://github.com/Mbed-TLS/mbedtls.git"
@@ -76,7 +76,7 @@ dependencies:
       url: "https://github.com/ThrowTheSwitch/Unity.git"
       path: "/Test/Unity"
   - name: "FreeRTOS-Libraries-Integration-Tests"
-    version: "202210.00"
+    version: "202210.01"
     repository:
       type: "git"
       url: "https://github.com/FreeRTOS/FreeRTOS-Libraries-Integration-Tests"
