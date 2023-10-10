@@ -328,7 +328,7 @@
             <Path>..\..\..\Middleware\3rdparty\mbedtls_config\threading_alt.h</Path>
           </Category>
           <Category Name="mbedtls_utils">
-            <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_bio_freertos_plus_cellular.c</Path>
+            <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_bio_tcp_sockets_wrapper.c</Path>
             <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_bio_tcp_sockets_wrapper.h</Path>
             <Path>..\..\..\Middleware\3rdparty\mbedtls_utils\mbedtls_freertos_port.c</Path>
           </Category>
@@ -1513,7 +1513,7 @@
           <Path>HardwareDebug\x509_csr.obj</Path>
           <Path>HardwareDebug\x509write_crt.obj</Path>
           <Path>HardwareDebug\x509write_csr.obj</Path>
-          <Path>HardwareDebug\mbedtls_bio_freertos_plus_cellular.obj</Path>
+          <Path>HardwareDebug\mbedtls_bio_tcp_sockets_wrapper.obj</Path>
           <Path>HardwareDebug\mbedtls_freertos_port.obj</Path>
           <Path>HardwareDebug\cborencoder.obj</Path>
           <Path>HardwareDebug\cborencoder_close_container_checked.obj</Path>
