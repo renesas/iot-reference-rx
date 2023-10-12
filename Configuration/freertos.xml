@@ -647,11 +647,11 @@
 				<incdir>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
+					<path>Common/common_api</path>
 					<path>Common/FreeRTOS_common/compiler_support/ccrx</path>
 					<path>Common/FreeRTOS_common/compiler_support/ccrx/implicitlyinclude.h</path>
 					<path>Demos/cli</path>
 					<path>Demos/mqtt_agent</path>
-					<path>Demos/OtaOverMqtt</path>
 					<path>Demos/common/pkcs11_helpers</path>
 					<path>Demos/dev_mode_key_provisioning/include</path>
 					<path>Demos/common/mqtt-agent-interface/include</path>
@@ -665,10 +665,6 @@
 					<path>Middleware/FreeRTOS-Plus-CLI</path>
 					<path>Middleware/FreeRTOS/coreMQTT/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT/source/interface</path>
-					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/include</path>
-					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable</path>
-					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
-					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
 					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
@@ -691,7 +687,6 @@
 				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
-					<path>src/application_code/ports/ota_pal</path>
 					<path>src/frtos_config</path>
 					<path>src/frtos_startup</path>
 				</incdir>
@@ -1037,6 +1032,13 @@
 					<mappedramrom>DEXRAM_1=REXRAM_1</mappedramrom>
 					<mappedramrom>DEXRAM_2=REXRAM_2</mappedramrom>
 				</removesections>
+				<excludebuild>
+					<board>CK-RX65N</board>
+					<path>Demos/OtaOverMqtt</path>
+					<path>Demos/OtaOverMqtt</path>
+					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
+					<path>src/application_code/ports/ota_pal</path>
+				</excludebuild>				
 				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.gOptimize</optionid>
@@ -1665,11 +1667,11 @@
 				<incdir>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
+					<path>Common/common_api</path>
 					<path>Common/FreeRTOS_common/compiler_support/ccrx</path>
 					<path>Common/FreeRTOS_common/compiler_support/ccrx/implicitlyinclude.h</path>
 					<path>Demos/cli</path>
 					<path>Demos/mqtt_agent</path>
-					<path>Demos/OtaOverMqtt</path>
 					<path>Demos/common/pkcs11_helpers</path>
 					<path>Demos/dev_mode_key_provisioning/include</path>
 					<path>Demos/common/mqtt-agent-interface/include</path>
@@ -1683,10 +1685,6 @@
 					<path>Middleware/FreeRTOS-Plus-CLI</path>
 					<path>Middleware/FreeRTOS/coreMQTT/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT/source/interface</path>
-					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/include</path>
-					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable</path>
-					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source/portable/os</path>
-					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk/source</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
 					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
@@ -1709,7 +1707,6 @@
 				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
-					<path>src/application_code/ports/ota_pal</path>
 					<path>src/frtos_config</path>
 					<path>src/frtos_startup</path>
 				</incdir>
@@ -2055,6 +2052,13 @@
 					<mappedramrom>DEXRAM_1=REXRAM_1</mappedramrom>
 					<mappedramrom>DEXRAM_2=REXRAM_2</mappedramrom>
 				</removesections>
+				<excludebuild>
+					<board>CK-RX65N</board>
+					<path>Demos/OtaOverMqtt</path>
+					<path>Demos/OtaOverMqtt</path>
+					<path>Middleware/AWS/ota-for-aws-iot-embedded-sdk</path>
+					<path>src/application_code/ports/ota_pal</path>
+				</excludebuild>
 				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.gOptimize</optionid>
