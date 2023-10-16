@@ -17,7 +17,7 @@
 	<package>
 		<type>rtosmodule</type>
 		<name>FreeRTOSLTS</name>
-		<version>202210.01-LTS-rx-1.0.0</version>
+		<version>202210.01-LTS-rx-1.0.1</version>
 		<!-- define RTOS libraries component -->
 		<component>
 			<name>FreeRTOS_IP</name>
