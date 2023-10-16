@@ -36,7 +36,7 @@
 #define CELLULAR_CFG_AP_NAME        ibasis.iot      /* Access point name */
 #define CELLULAR_CFG_AP_USERID          /* Login ID */
 #define CELLULAR_CFG_AP_PASSWORD      /* Access point password */
-#define CELLULAR_CFG_PIN_CODE		/* SIM card PIN code */
+#define CELLULAR_CFG_PIN_CODE                /* SIM card PIN code */
 #define CELLULAR_CFG_AUTH_TYPE      (2)          /* Authentication protocol type (0=None,1=PAP,2=CHAP)*/
 
 #define CELLULAR_CFG_NETWORK_NOTIFY_LEVEL   (2)         /* Network status notification level */
