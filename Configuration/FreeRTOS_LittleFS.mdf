@@ -11,27 +11,27 @@
     <fileTemplate></fileTemplate>
     <configuration>
         <property id="LFS_FLASH_READ_SIZE" display=".read_size" default="1" type="textbox">
-            <constraint display="Value must be an integer">testInteger("${LFS_FLASH_READ_SIZE}")</constraint>
-            <constraint display="Value must be in the range 1 ~ 32">("${LFS_FLASH_READ_SIZE}" &gt;= 1) &amp;&amp; ("${LFS_FLASH_READ_SIZE}" &lt;= 32)</constraint>
+            <constraint display="default disable" actionOnFail="disable">("${LFS_FLASH_BLOCK_COUNT}" == (1)</constraint>
             <description>Minimum size of a block read in bytes. All read operations will be a multiple of this value. </description>
         </property>
         <property id="LFS_FLASH_PROGRAM_SIZE" display=".prog_size" default="4" type="textbox">
-            <constraint display="Value must be an integer">testInteger("${LFS_FLASH_PROGRAM_SIZE}")</constraint>
-            <constraint display="Value must be in the range 1 ~ 32">("${LFS_FLASH_PROGRAM_SIZE}" &gt;= 1) &amp;&amp; ("${LFS_FLASH_PROGRAM_SIZE}" &lt;= 32)</constraint>
+            <constraint display="default disable" actionOnFail="disable">("${LFS_FLASH_BLOCK_COUNT}" == (4)</constraint>
             <description>Minimum size of a block program in bytes. All program operations will be a multiple of this value. </description>
         </property>
         <property id="LFS_FLASH_BLOCK_SIZE" display=".block_size" default="128" type="textbox">
-            <constraint display="Value must be an integer">testInteger("${LFS_FLASH_BLOCK_SIZE}")</constraint>
-            <constraint display="Value must be in the range 1 ~ 2048">("${LFS_FLASH_BLOCK_SIZE}" &gt;= 1) &amp;&amp; ("${LFS_FLASH_BLOCK_SIZE}" &lt;= 2048)</constraint>
-            <description>Size of an erasable block in bytes. This does not impact ram consumption and may be larger than the physical erase size. 
+            <constraint display="default disable" actionOnFail="disable">("${LFS_FLASH_BLOCK_COUNT}" == (128)</constraint>
+            <description>Size of an erasable block in bytes. This does not impact RAM consumption and may be larger than the physical erase size. 
         However, non-inlined files take up at minimum one block. Must be a multiple of the read and program sizes. </description>
         </property>
-        <property id="LFS_FLASH_BLOCK_COUNT" display=".block_count" default="(BSP_DATA_FLASH_SIZE_BYTES - (rm_littlefs_flash_data_start - FLASH_DF_BLOCK_0)) / LFS_FLASH_BLOCK_SIZE" type="textbox">
-            <constraint display="default disable" actionOnFail="disable">("${LFS_FLASH_BLOCK_COUNT}" == (BSP_DATA_FLASH_SIZE_BYTES - (rm_littlefs_flash_data_start - FLASH_DF_BLOCK_0)) / LFS_FLASH_BLOCK_SIZE")</constraint>
+        <property id="LFS_FLASH_BLOCK_COUNT" display=".block_count" default="70" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${LFS_FLASH_BLOCK_COUNT}")</constraint>
+            <constraint display="Value must be in the range 70 ~ 256">("${LFS_FLASH_BLOCK_COUNT}" &gt;= 70) &amp;&amp; ("${LFS_FLASH_BLOCK_COUNT}" &lt;= 256)</constraint>
+            <constraint display="Value must be within Data Flash area">(("${RM_LITTLEFS_FLASH_DATA_START}".replace(/[FLASH_DF_BLOCK_]+/, '')*64) + ("${LFS_FLASH_BLOCK_SIZE}"*"${LFS_FLASH_BLOCK_COUNT}") &lt;= 32768)</constraint>
             <description>Number of erasable blocks on the device. </description>
         </property>
-        <property id="RM_LITTLEFS_FLASH_DATA_START" display="Starting block of Data Flash allocated to litteFS" default="32" type="textbox">
-            <description>Starting block of Data Flash allocated to litteFS </description>
+        <property id="RM_LITTLEFS_FLASH_DATA_START" display="Starting block of Data Flash allocated to litteFS" default="FLASH_DF_BLOCK_0" type="textbox">
+            <constraint display="Value must be in the range FLASH_DF_BLOCK_0 ~ 370">/^(FLASH_DF_BLOCK_)([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-9]{2}|3[0-6][0-9]|37[0])$/.test("${RM_LITTLEFS_FLASH_DATA_START}")</constraint>
+            <description>Starting block of Data Flash allocated to litteFS. </description>
         </property>
     </configuration>
 </module>

@@ -105,7 +105,9 @@
         </configuration>
         <configuration enable="true" exclude="false" inuse="true" name="FreeRTOS_LittleFS">
             <component display="FreeRTOS LittleFS" id="FreeRTOS_LittleFS${packageVersion}" version="${packageVersion}">
-                <gridItem id="RM_LITTLEFS_FLASH_DATA_START" selectedIndex="FLASH_DF_BLOCK_32"/>
+                <gridItem id="LFS_FLASH_READ_SIZE" selectedIndex="1"/>
+                <gridItem id="LFS_FLASH_PROGRAM_SIZE" selectedIndex="4"/>
+                <gridItem id="LFS_FLASH_BLOCK_SIZE" selectedIndex="128"/>
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
