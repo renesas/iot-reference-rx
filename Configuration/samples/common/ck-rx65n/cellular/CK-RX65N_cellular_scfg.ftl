@@ -103,14 +103,6 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" inuse="true" name="FreeRTOS_IP">
-            <component display="FreeRTOS TCP/IP" id="FreeRTOS_IP${packageVersion}" version="${packageVersion}">
-                <gridItem id="ipconfigNUM_NETWORK_BUFFER_DESCRIPTORS" selectedIndex="6"/>
-                <gridItem id="ipconfigINCLUDE_FULL_INET_ADDR" selectedIndex="0"/>
-                <gridItem id="ipconfigUSE_TCP_WIN" selectedIndex="0"/>
-            </component>
-            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
-        </configuration>
         <configuration enable="true" exclude="false" inuse="true" name="FreeRTOS_LittleFS">
             <component display="FreeRTOS LittleFS" id="FreeRTOS_LittleFS${packageVersion}" version="${packageVersion}">
                 <gridItem id="RM_LITTLEFS_FLASH_DATA_START" selectedIndex="FLASH_DF_BLOCK_32"/>
@@ -122,18 +114,5 @@
             <component description="" detailDescription="" display="FreeRTOS Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="1.0.112"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration inuse="true" name="r_fwup">
-            <component description="Dependency : r_flash_rx version(s) 4.80, 4.91&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.00" version="2.00">
-                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
-                <gridItem id="FWUP_CFG_FUNCTION_MODE" selectedIndex="1"/>
-                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000"/>
-                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000"/>
-                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000"/>
-                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x8000"/>
-                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>s
     </tool>
 </smc>
