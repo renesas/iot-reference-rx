@@ -1002,6 +1002,7 @@
 						<name>RESETVECT</name>
 						<address>0xFFFFFFFC</address>
 					</section>
+				</sections>
 				<removesections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N</board>
@@ -1501,6 +1502,7 @@
 						<name>RESETVECT</name>
 						<address>0xFFFFFFFC</address>
 					</section>
+				</sections>
 				<removesections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N</board>
