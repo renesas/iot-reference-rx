@@ -254,6 +254,7 @@ extern void vOutputString( const char * pcMessage );
 #define configGATEWAY_ADDR2                  49
 #define configGATEWAY_ADDR3                  1
 
+
 /* Default DNS server configuration.  OpenDNS addresses are 208.67.222.222 and
  * 208.67.220.220.  Used in ipconfigUSE_DHCP is set to 0, or ipconfigUSE_DHCP is
  * set to 1 but a DNS server cannot be contacted.*/

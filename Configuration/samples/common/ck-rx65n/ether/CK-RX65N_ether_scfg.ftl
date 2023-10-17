@@ -72,8 +72,8 @@
                 <gridItem id="ETHERC0_RMII" selectedIndex="1"/>
                 <gridItem id="ETHER_CFG_MODE_SEL" selectedIndex="1"/>
                 <gridItem id="ETHER_CFG_CH0_PHY_ADDRESS" selectedIndex="5"/>
-                <gridItem id="ETHER_CFG_EMAC_RX_DESCRIPTORS" selectedIndex="1"/>
-                <gridItem id="ETHER_CFG_EMAC_TX_DESCRIPTORS" selectedIndex="1"/>
+                <gridItem id="ETHER_CFG_EMAC_RX_DESCRIPTORS" selectedIndex="6"/>
+                <gridItem id="ETHER_CFG_EMAC_TX_DESCRIPTORS" selectedIndex="3"/>
                 <gridItem id="ETHER_CFG_CH0_PHY_ACCESS" selectedIndex="0"/>
                 <gridItem id="ETHER_CFG_LINK_PRESENT" selectedIndex="1"/>
                 <gridItem id="ETHER_CFG_USE_LINKSTA" selectedIndex="1"/>
@@ -109,7 +109,14 @@
                 <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
                 <gridItem id="configUSE_MALLOC_FAILED_HOOK" selectedIndex="1"/>
                 <gridItem id="configCHECK_FOR_STACK_OVERFLOW" selectedIndex="2"/>
-                <gridItem id="configCOMMAND_INT_MAX_OUTPUT_SIZE" selectedIndex="500"/>
+                <gridItem id="configIP_ADDR0" selectedIndex="192"/>
+                <gridItem id="configIP_ADDR1" selectedIndex="168"/>
+                <gridItem id="configIP_ADDR2" selectedIndex="11"/>
+                <gridItem id="configIP_ADDR3" selectedIndex="12"/>
+                <gridItem id="configGATEWAY_ADDR0" selectedIndex="172"/>
+                <gridItem id="configGATEWAY_ADDR1" selectedIndex="27"/>
+                <gridItem id="configGATEWAY_ADDR2" selectedIndex="49"/>
+                <gridItem id="configGATEWAY_ADDR3" selectedIndex="1"/>
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
