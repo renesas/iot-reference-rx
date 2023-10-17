@@ -97,9 +97,12 @@
                 <gridItem id="configUSE_TICK_HOOK" selectedIndex="1"/>
                 <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
                 <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="768"/>
-                <gridItem id="configCOMMAND_INT_MAX_OUTPUT_SIZE" selectedIndex="500"/>
                 <gridItem id="configUSE_MALLOC_FAILED_HOOK" selectedIndex="1"/>
                 <gridItem id="configCHECK_FOR_STACK_OVERFLOW" selectedIndex="2"/>
+                <gridItem id="configIP_ADDR0" selectedIndex="192"/>
+                <gridItem id="configIP_ADDR1" selectedIndex="168"/>
+                <gridItem id="configIP_ADDR2" selectedIndex="11"/>
+                <gridItem id="configIP_ADDR3" selectedIndex="12"/>
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
