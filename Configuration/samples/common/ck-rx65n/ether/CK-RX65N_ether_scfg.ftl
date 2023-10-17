@@ -98,7 +98,7 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration inuse="true" name="r_tsip_rx">
-            <component display="r_tsip_rx" id="r_tsip_rx1.16.l" version="1.16.l"/>
+            <component display="r_tsip_rx" id="r_tsip_rx1.17.l" version="1.17.l"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration enable="true" exclude="false" inuse="true" name="FreeRTOS_Kernel">
