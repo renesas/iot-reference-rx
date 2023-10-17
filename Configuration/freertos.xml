@@ -152,7 +152,6 @@
 					<path>Middleware/FreeRTOS/coreMQTT/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT/source/interface</path>
 					<path>Middleware/3rdparty/tinycbor/src</path>
-					<path>Middleware/3rdparty/tinycrypt/lib/include</path>
 					<path>Middleware/FreeRTOS/coreJSON/source/include</path>
 					<path>Middleware/FreeRTOS/coreMQTT-Agent/source/include</path>
 					<path>Middleware/FreeRTOS/backoffAlgorithm/source/include</path>
@@ -244,12 +243,12 @@
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
-					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
-					<type>5</type>
+					<name>Middleware/3rdparty</name>
+					<type>10</type>
 					<arguments>
 						<key>name</key>
 						<regularexpression>true</regularexpression>
-						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
+						<folder>tinycrypt</folder>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -462,18 +461,17 @@
 						<address>0x00000004</address>
 					</section>
 					<section>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK</name>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK_MIRROR</name>
+						<name>C_LITTLEFS_MANAGEMENT_AREA</name>
 						<address>0x00100000</address>
 					</section>
 					<section>
-						<name>C_PKCS11_STORAGE*</name>
-						<address>0x00100800</address>
+						<name>C_USER_APPLICATION_AREA</name>
+						<address>0x00102300</address>
 					</section>
 					<section>
-						<name>B_ETHERNET_BUFFERS*</name>
-						<name>B_RX_DESC*</name>
-						<name>B_TX_DESC*</name>
+						<name>B_ETHERNET_BUFFERS_1</name>
+						<name>B_RX_DESC_1</name>
+						<name>B_TX_DESC_1</name>
 						<name>B</name>
 						<name>B_1</name>
 						<name>R_2</name>
@@ -489,17 +487,16 @@
 						<name>W*</name>
 						<name>L</name>
 						<name>P</name>
-						<name>PFRAM</name>
 						<name>PFRAM2</name>
 						<address>0xFFF00300</address>
 					</section>
 					<section>
 						<name>EXCEPTVECT</name>
-						<address>0xFFFEFF80</address>
+						<address>0xFFFFFF80</address>
 					</section>
 					<section>
 						<name>RESETVECT</name>
-						<address>0xFFFEFFFC</address>
+						<address>0xFFFFFFFC</address>
 					</section>
 					<mappedramrom>PFRAM2=RPFRAM2</mappedramrom>
 				</sections>
@@ -740,16 +737,16 @@
 					<arguments>
 						<key>name</key>
 						<regularexpression>true</regularexpression>
-						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+						<file>mbedtls_bio_tcp_sockets_wrapper.c|mbedtls_bio_freertos_plus_tcp.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
-					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
-					<type>5</type>
+					<name>Middleware/3rdparty</name>
+					<type>10</type>
 					<arguments>
 						<key>name</key>
 						<regularexpression>true</regularexpression>
-						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
+						<folder>tinycrypt</folder>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -971,18 +968,14 @@
 						<address>0x00000004</address>
 					</section>
 					<section>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK</name>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK_MIRROR</name>
+						<name>C_LITTLEFS_MANAGEMENT_AREA</name>
 						<address>0x00100000</address>
 					</section>
 					<section>
-						<name>C_PKCS11_STORAGE*</name>
-						<address>0x00100800</address>
+						<name>C_USER_APPLICATION_AREA</name>
+						<address>0x00102300</address>
 					</section>
 					<section>
-						<name>B_ETHERNET_BUFFERS*</name>
-						<name>B_RX_DESC*</name>
-						<name>B_TX_DESC*</name>
 						<name>B</name>
 						<name>B_1</name>
 						<name>R_2</name>
@@ -998,12 +991,17 @@
 						<name>W*</name>
 						<name>L</name>
 						<name>P</name>
-						<name>PFRAM</name>
 						<name>PFRAM2</name>
 						<address>0xFFF00300</address>
 					</section>
-					<mappedramrom>PFRAM2=RPFRAM2</mappedramrom>
-				</sections>
+					<section>
+						<name>EXCEPTVECT</name>
+						<address>0xFFFFFF80</address>
+					</section>
+					<section>
+						<name>RESETVECT</name>
+						<address>0xFFFFFFFC</address>
+					</section>
 				<removesections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N</board>
@@ -1248,12 +1246,12 @@
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
-					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
-					<type>5</type>
+					<name>Middleware/3rdparty</name>
+					<type>10</type>
 					<arguments>
 						<key>name</key>
 						<regularexpression>true</regularexpression>
-						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
+						<folder>tinycrypt</folder>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -1466,18 +1464,17 @@
 						<address>0x00000004</address>
 					</section>
 					<section>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK</name>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK_MIRROR</name>
+						<name>C_LITTLEFS_MANAGEMENT_AREA</name>
 						<address>0x00100000</address>
 					</section>
 					<section>
-						<name>C_PKCS11_STORAGE*</name>
-						<address>0x00100800</address>
+						<name>C_USER_APPLICATION_AREA</name>
+						<address>0x00102300</address>
 					</section>
 					<section>
-						<name>B_ETHERNET_BUFFERS*</name>
-						<name>B_RX_DESC*</name>
-						<name>B_TX_DESC*</name>
+						<name>B_ETHERNET_BUFFERS_1</name>
+						<name>B_RX_DESC_1</name>
+						<name>B_TX_DESC_1</name>
 						<name>B</name>
 						<name>B_1</name>
 						<name>R_2</name>
@@ -1493,20 +1490,17 @@
 						<name>W*</name>
 						<name>L</name>
 						<name>P</name>
-						<name>PFRAM</name>
 						<name>PFRAM2</name>
 						<address>0xFFF00300</address>
 					</section>
 					<section>
 						<name>EXCEPTVECT</name>
-						<address>0xFFFEFF80</address>
+						<address>0xFFFFFF80</address>
 					</section>
 					<section>
 						<name>RESETVECT</name>
-						<address>0xFFFEFFFC</address>
+						<address>0xFFFFFFFC</address>
 					</section>
-					<mappedramrom>PFRAM2=RPFRAM2</mappedramrom>
-				</sections>
 				<removesections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N</board>
@@ -1744,16 +1738,16 @@
 					<arguments>
 						<key>name</key>
 						<regularexpression>true</regularexpression>
-						<file>mbedtls_bio_freertos_plus_cellular.c|mbedtls_bio_freertos_plus_tcp.c</file>
+						<file>mbedtls_bio_tcp_sockets_wrapper.c|mbedtls_bio_freertos_plus_tcp.c</file>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
-					<name>Middleware/3rdparty/tinycrypt/lib/source</name>
-					<type>5</type>
+					<name>Middleware/3rdparty</name>
+					<type>10</type>
 					<arguments>
 						<key>name</key>
 						<regularexpression>true</regularexpression>
-						<file>ecc_dsa.c|ecc.c|sha256.c|utils.c</file>
+						<folder>tinycrypt</folder>
 					</arguments>
 				</resourcefilter>
 				<resourcefilter>
@@ -1975,18 +1969,14 @@
 						<address>0x00000004</address>
 					</section>
 					<section>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK</name>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK_MIRROR</name>
+						<name>C_LITTLEFS_MANAGEMENT_AREA</name>
 						<address>0x00100000</address>
 					</section>
 					<section>
-						<name>C_PKCS11_STORAGE*</name>
-						<address>0x00100800</address>
+						<name>C_USER_APPLICATION_AREA</name>
+						<address>0x00102300</address>
 					</section>
 					<section>
-						<name>B_ETHERNET_BUFFERS*</name>
-						<name>B_RX_DESC*</name>
-						<name>B_TX_DESC*</name>
 						<name>B</name>
 						<name>B_1</name>
 						<name>R_2</name>
@@ -2002,9 +1992,16 @@
 						<name>W*</name>
 						<name>L</name>
 						<name>P</name>
-						<name>PFRAM</name>
 						<name>PFRAM2</name>
 						<address>0xFFF00300</address>
+					</section>
+					<section>
+						<name>EXCEPTVECT</name>
+						<address>0xFFFFFF80</address>
+					</section>
+					<section>
+						<name>RESETVECT</name>
+						<address>0xFFFFFFFC</address>
 					</section>
 					<mappedramrom>PFRAM2=RPFRAM2</mappedramrom>
 				</sections>
