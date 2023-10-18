@@ -51,7 +51,7 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  *  POSSIBILITY OF SUCH DAMAGE.
  */
-//#include "r_fwup_config.h"
+#include "r_fwup_config.h"
 #if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
 
 #include <tinycrypt/ecc.h>
