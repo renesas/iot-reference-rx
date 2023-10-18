@@ -30,8 +30,10 @@
             <description>Number of erasable blocks on the device. </description>
         </property>
         <property id="RM_LITTLEFS_FLASH_DATA_START" display="Starting block of Data Flash allocated to litteFS" default="FLASH_DF_BLOCK_0" type="textbox">
-            <constraint display="Value must be in the range FLASH_DF_BLOCK_0 ~ 370">/^(FLASH_DF_BLOCK_)([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-9]{2}|3[0-6][0-9]|37[0])$/.test("${RM_LITTLEFS_FLASH_DATA_START}")</constraint>
-            <description>Starting block of Data Flash allocated to litteFS. </description>
+            <constraint display="default disable" actionOnFail="disable">("${RM_LITTLEFS_FLASH_DATA_START}" == (FLASH_DF_BLOCK_0)</constraint>
+            <!--constraint display="Value must be in the range FLASH_DF_BLOCK_0 ~ 370">/^(FLASH_DF_BLOCK_)([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-9]{2}|3[0-6][0-9]|37[0])$/.test("${RM_LITTLEFS_FLASH_DATA_START}")</constraint-->
+            <!--constraint display="Value must be within Data Flash area">(("${RM_LITTLEFS_FLASH_DATA_START}".replace(/[FLASH_DF_BLOCK_]+/, '')*64) + ("${LFS_FLASH_BLOCK_SIZE}"*"${LFS_FLASH_BLOCK_COUNT}") &lt;= 32768)</constraint-->
+            <description>Starting block of Data Flash allocated to litteFS. (Fixed at FLASH_DF_BLOCK_0 in this version) </description>
         </property>
     </configuration>
 </module>
