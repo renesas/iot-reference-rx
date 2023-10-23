@@ -37,7 +37,6 @@
 /**** Start user code ****/
 #define FWUP_HASH_BYTES        (TC_SHA256_DIGEST_SIZE)
 #define FWUP_HASH_BITS         (FWUP_HASH_BYTES * 8)
-#define FWUP_CERT_PEM           g_code_signer_public_key
 /**** End user code   ****/
 
 /**********************************************************************************************************************
@@ -52,6 +51,8 @@
 /**** Start user code ****/
 S_C_CH_FAR VERIFICATION_SCHEME_ECDSA[]  = "sig-sha256-ecdsa";
 S_C_CH_FAR VERIFICATION_SCHEME_SHA[]  = "hash-sha256";
+
+extern KeyValueStore_t gKeyValueStore;
 /**** End user code   ****/
 
 /**********************************************************************************************************************
@@ -59,7 +60,7 @@ S_C_CH_FAR VERIFICATION_SCHEME_SHA[]  = "hash-sha256";
  *********************************************************************************************************************/
 /**** Start user code ****/
 #if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
-static uint8_t * get_cert( const char * pucCertName, uint32_t * const ulSignerCertSize );
+static uint8_t * get_cert( uint32_t * ulSignerCertSize );
 
 void* s_ctx_iot;
 
@@ -92,6 +93,8 @@ void * r_fwup_wrap_get_crypt_context(void)
 int32_t r_fwup_wrap_sha256_init(void * vp_ctx)
 {
     /**** Start user code ****/
+	(void) vp_ctx;
+
 	if (pdFALSE == CRYPTO_SignatureVerificationStart( &s_ctx_iot,
 												cryptoASYMMETRIC_ALGORITHM_ECDSA,
 												cryptoHASH_ALGORITHM_SHA256 ) )
@@ -117,6 +120,8 @@ int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t data
 {
     /**** Start user code ****/
 
+	(void) vp_ctx;
+
 	CRYPTO_SignatureVerificationUpdate(s_ctx_iot, ( const uint8_t * ) p_data, datalen);
 
 	return 0;
@@ -126,21 +131,42 @@ int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t data
  End of function r_fwup_wrap_sha256_update
  *********************************************************************************************************************/
 
+/**********************************************************************************************************************
+ * Function Name: r_fwup_wrap_sha256_final (dummy function)
+ * Description  : wrapper function for sha256.
+ * Arguments    : p_hash : hash value storage destination pointer
+ *                vp_ctx : context
+ * Return Value : library processing result
+ *********************************************************************************************************************/
+int32_t r_fwup_wrap_sha256_final(uint8_t *p_hash, void * vp_ctx)
+{
+    /**** Start user code ****/
+	(void) p_hash;
+	(void) vp_ctx;
+	return 0;
+    /**** End user code   ****/
+}
 /**** Start user code ****/
 
 #if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
 
-int32_t r_fwup_wrap_verify_iot_cryto(OtaFileContext_t * const pFileContext, void * pvSigVerifyContext)
+int32_t r_fwup_wrap_verify_ecdsa(uint8_t *p_hash, uint8_t *p_sig_type, uint8_t *p_sig, uint32_t sig_size)
 {
 	uint32_t start_addr;
 	uint32_t ulSignerCertSize;
     uint8_t * pucSignerCert = NULL;
 
+    extern OtaFileContext_t* pOTAFileContext;
 
-	LogInfo( ( "Started %s signature verification, file: %s",
-			VERIFICATION_SCHEME_ECDSA, ( const char * ) pFileContext->pCertFilepath ) );
-	pucSignerCert = get_cert( ( const char * ) pFileContext->pCertFilepath,
-								&ulSignerCertSize );
+    // All these parameters are not used
+    // the signature information is retrieved from OTA file context
+    (void) p_hash;
+    (void) p_sig_type;
+    (void) p_sig;
+    (void) sig_size;
+
+	LogInfo( ( "Started %s signature verification",	VERIFICATION_SCHEME_ECDSA ) );
+	pucSignerCert = get_cert( &ulSignerCertSize );
 
 	if( pucSignerCert == NULL )
 	{
@@ -149,7 +175,7 @@ int32_t r_fwup_wrap_verify_iot_cryto(OtaFileContext_t * const pFileContext, void
 	else
 	{
 		if ( CRYPTO_SignatureVerificationFinal( s_ctx_iot, ( char * ) pucSignerCert, ulSignerCertSize,
-											pFileContext->pSignature->data, pFileContext->pSignature->size ) == pdFALSE )
+				pOTAFileContext->pSignature->data, pOTAFileContext->pSignature->size ) == pdFALSE )
 		{
 			 LogError( ( "Finished %s signature verification, but signature verification failed",
 					 	 VERIFICATION_SCHEME_ECDSA ) );
@@ -165,23 +191,30 @@ int32_t r_fwup_wrap_verify_iot_cryto(OtaFileContext_t * const pFileContext, void
 	return 0;
 }
 
-static uint8_t * get_cert( const char * pucCertName,
-                                    uint32_t * const ulSignerCertSize )
+static uint8_t * get_cert( uint32_t * ulSignerCertSize )
 {
-    uint8_t * pucCertData;
+    uint8_t * pucCertData = NULL;
     uint32_t ulCertSize;
     uint8_t * pucSignerCert = NULL;
 
-    (void) pucCertName;
+    pucCertData = (uint8_t *)GetStringValue(KVS_CODE_SIGN_CERT_ID, gKeyValueStore.table[KVS_CODE_SIGN_CERT_ID].valueLength);
 
-    LogInfo( ( "Using certificate defined by the otapalconfigCODE_SIGNING_CERTIFICATE macro...") );
+    if (pucCertData != NULL)
+    {
+    	LogInfo( ( "Using certificate stored in DF...") );
+    	ulCertSize = gKeyValueStore.table[KVS_CODE_SIGN_CERT_ID].valueLength;
+    }
+    else {
+		LogInfo( ( "Using certificate defined in otapalconfigCODE_SIGNING_CERTIFICATE macro...") );
 
-    /* Allocate memory for the signer certificate plus a terminating zero so we can copy it and return to the caller. */
-    ulCertSize = sizeof( otapalconfigCODE_SIGNING_CERTIFICATE );
-    pucSignerCert = pvPortMalloc( ulCertSize + 1 );
-    pucCertData = ( uint8_t * ) otapalconfigCODE_SIGNING_CERTIFICATE;
+		/* Allocate memory for the signer certificate plus a terminating zero so we can copy it and return to the caller. */
+		ulCertSize = sizeof( otapalconfigCODE_SIGNING_CERTIFICATE );
+		pucCertData = ( uint8_t * ) otapalconfigCODE_SIGNING_CERTIFICATE;
+    }
 
-    if( pucSignerCert != NULL )
+	pucSignerCert = pvPortMalloc( ulCertSize + 1 );
+
+    if ( pucSignerCert != NULL )
     {
     	memcpy( pucSignerCert, pucCertData, ulCertSize );
     	/* The crypto code requires the terminating zero to be part of the length so add 1 to the size. */

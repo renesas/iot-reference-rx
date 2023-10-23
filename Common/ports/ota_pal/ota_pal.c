@@ -47,6 +47,8 @@
 const char OTA_JsonFileSignatureKey[ OTA_FILE_SIG_KEY_STR_MAX_LENGTH ] = "sig-sha256-ecdsa";
 static OtaPalImageState_t OtaPalImageState;
 
+OtaFileContext_t *pOTAFileContext;
+
 OtaPalStatus_t otaPal_CreateFileForRx( OtaFileContext_t * const pFileContext )
 {
     OtaPalMainStatus_t eResult = OtaPalUninitialized;
