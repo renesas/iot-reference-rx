@@ -84,6 +84,8 @@ static e_fwup_err_t copy_to_main_area (void);
 static int32_t sha256_update (e_fwup_area_t area, void * vp_ctx, uint32_t area_offset, uint32_t datalen);
 static uint8_t * hash_sha256 (e_fwup_area_t area);
 
+extern int32_t r_fwup_wrap_verify_iot_cryto(OtaFileContext_t * const pFileContext, void * pvSigVerifyContext);
+
 /*
  * variables
  */
@@ -108,6 +110,8 @@ static uint8_t s_prg_list_write_flg = 0;
 static uint8_t s_img_prog_write_flg = 0;
 
 static uint32_t s_wrote_counter = 0;
+// Crypto context
+void * x_ctx;
 
 /*
  * API
@@ -344,9 +348,8 @@ e_fwup_err_t R_FWUP_WriteImage(e_fwup_area_t area, uint8_t *p_buf, uint32_t buf_
  * Return Value : FWUP_SUCCESS
  *                FWUP_ERR_VERIFY
  *********************************************************************************************************************/
-e_fwup_err_t R_FWUP_VerifyImage(e_fwup_area_t area)
+e_fwup_err_t R_FWUP_VerifyImage(e_fwup_area_t area, OtaFileContext_t * const pFileContext)
 {
-    uint8_t *p_hash;
     uint32_t buf[FWUP_VERI_BUF_SIZE / sizeof(uint32_t)];
     st_fw_header_t *p_hdr = (st_fw_header_t *)buf;
 
@@ -354,8 +357,8 @@ e_fwup_err_t R_FWUP_VerifyImage(e_fwup_area_t area)
     read_area(area, buf, 0, FWUP_VERI_BUF_SIZE);
     FWUP_LOG_DBG(MSG_VERIFY_INSTALL_AREA, area, p_hdr->sig_type);
 
-    p_hash = hash_sha256(area);
-    if (0 != r_fwup_wrap_verify_ecdsa(p_hash, p_hdr->sig_type, p_hdr->sig, p_hdr->sig_size))
+    hash_sha256(area);
+    if (0 != r_fwup_wrap_verify_iot_cryto(pFileContext, (void*) x_ctx) )
     {
         FWUP_LOG_DBG(MSG_NG);
         return (FWUP_ERR_VERIFY);
@@ -988,19 +991,23 @@ static uint8_t * hash_sha256(e_fwup_area_t area)
 
     /**** Start user code ****/
 
-    /* Add using crypt librarie's context */
-    struct tc_sha256_state_struct x_ctx;
+    /* Get crypt library's context */
+    x_ctx = (void*)r_fwup_wrap_get_crypt_context();
 
     /**** End user code   ****/
 
-    r_fwup_wrap_sha256_init(&x_ctx);
+    if ( r_fwup_wrap_sha256_init( (void*) x_ctx ) == -1 )
+    {
+    	LogError( ("Cannot initialize crypto library!") );
+    	return NULL;
+    }
 
     /* Read N, addr, size from update list */
     area_offset = sizeof(st_fw_header_t);
     read_area(area, (uint32_t *)&dc, area_offset, sizeof(st_fw_desc_t));
 
     /* update list */
-    sha256_update(area, &x_ctx, area_offset, sizeof(st_fw_desc_t));
+    sha256_update(area, (void*) x_ctx, area_offset, sizeof(st_fw_desc_t));
 
     /* program code */
     for (uint8_t cnt = 0; cnt < dc.n; cnt++)
@@ -1008,17 +1015,17 @@ static uint8_t * hash_sha256(e_fwup_area_t area)
         if ((FWUP_CFG_DF_ADDR_L <= dc.fw[cnt].addr) && (dc.fw[cnt].addr < (FWUP_CFG_DF_ADDR_L + FWUP_DF_NUM_BYTES)))
         {
             /* Data flash */
-            sha256_update(FWUP_AREA_DATA_FLASH, &x_ctx, dc.fw[cnt].addr, dc.fw[cnt].size);
+            sha256_update(FWUP_AREA_DATA_FLASH, (void*) x_ctx, dc.fw[cnt].addr, dc.fw[cnt].size);
         }
         else
         {
             /* Code flash */
             area_offset =  get_offset_from_install_area(dc.fw[cnt].addr);
-            sha256_update(area, &x_ctx, area_offset, dc.fw[cnt].size);
+            sha256_update(area, (void*) x_ctx, area_offset, dc.fw[cnt].size);
         }
     }
 
-    r_fwup_wrap_sha256_final(puc_hash, &x_ctx);
+    //r_fwup_wrap_sha256_final(puc_hash, x_ctx);
 
     return puc_hash;
 }
