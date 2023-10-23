@@ -42,7 +42,7 @@
 /* Renesas RX Driver Package include */
 #include "platform.h"
 #include "r_fwup_if.h"
-
+#include "r_fwup_private.h"
 
 const char OTA_JsonFileSignatureKey[ OTA_FILE_SIG_KEY_STR_MAX_LENGTH ] = "sig-sha256-ecdsa";
 static OtaPalImageState_t OtaPalImageState;
@@ -95,10 +95,12 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 
 static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileContext )
 {
+	OtaPalMainStatus_t eResult = OtaPalUninitialized;
+	e_fwup_err_t eRet = FWUP_SUCCESS;
+
+	// extract the signature for verification by bootloader
     uint8_t sig[64];
-    OtaPalMainStatus_t eResult = OtaPalUninitialized;
     uint8_t size, size1, size2, r_first_byte, s_first_byte;
-    e_fwup_err_t eRet = FWUP_SUCCESS;
 
     /*
      * C->pxSignature->ucData includes some ASN1 tags.
@@ -182,7 +184,8 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
         return OTA_PAL_COMBINE_ERR( eResult, 0 );
     }
 
-    eRet = R_FWUP_VerifyImage(FWUP_AREA_BUFFER);
+    // Verify the signature
+	eRet = R_FWUP_VerifyImage(FWUP_AREA_BUFFER, pFileContext);
 
     if (FWUP_SUCCESS != eRet)
     {
@@ -195,8 +198,7 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
     	eResult = OtaPalSuccess;
     }
 
-    return OTA_PAL_COMBINE_ERR( eResult, 0 );
-
+	return OTA_PAL_COMBINE_ERR( eResult, 0 );
 }
 
 OtaPalStatus_t otaPal_CloseFile( OtaFileContext_t * const pFileContext )
