@@ -158,6 +158,7 @@ uint32_t r_fwup_wrap_software_delay(uint32_t delay, e_fwup_delay_units_t units)
         time_units = BSP_DELAY_SECS;
     }
     return ((uint32_t)R_BSP_SoftwareDelay(delay, (bsp_delay_units_t)time_units));
+#endif
     /**** End user code   ****/
 }
 /**********************************************************************************************************************

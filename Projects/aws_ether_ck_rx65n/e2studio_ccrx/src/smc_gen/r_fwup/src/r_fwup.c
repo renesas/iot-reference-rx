@@ -1093,7 +1093,6 @@ static e_fwup_err_t write_area(e_fwup_area_t area, uint8_t **p_buf,
 {
     uint32_t start_addr = FWUP_CFG_MAIN_AREA_ADDR_L + offset;
     e_fwup_err_t (*pfunc)(uint32_t, uint32_t, uint32_t) = r_fwup_wrap_flash_write;
-    static uint32_t s_wrote_counter = 0;
     uint32_t write_size_tmp;
 
     if (FWUP_AREA_BUFFER == area)

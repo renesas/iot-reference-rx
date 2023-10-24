@@ -153,7 +153,7 @@ e_fwup_err_t R_FWUP_WriteImageHeader (e_fwup_area_t area,
                                       uint32_t sig_size);
 e_fwup_err_t R_FWUP_WriteImageProgram (e_fwup_area_t area, uint8_t *p_buf, uint32_t offset, uint32_t buf_size);
 e_fwup_err_t R_FWUP_WriteImage (e_fwup_area_t area, uint8_t *p_buf, uint32_t buf_size);
-e_fwup_err_t R_FWUP_VerifyImage (e_fwup_area_t area, OtaFileContext_t * const pFileContext);
+e_fwup_err_t R_FWUP_VerifyImage (e_fwup_area_t area);
 e_fwup_err_t R_FWUP_ActivateImage (void);
 void         R_FWUP_ExecImage (void);
 void         R_FWUP_SoftwareReset (void);
