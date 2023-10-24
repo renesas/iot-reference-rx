@@ -45,7 +45,10 @@
 #include "r_fwup_private.h"
 
 const char OTA_JsonFileSignatureKey[ OTA_FILE_SIG_KEY_STR_MAX_LENGTH ] = "sig-sha256-ecdsa";
-static OtaPalImageState_t OtaPalImageState;
+static OtaImageState_t OtaImageState;
+uint32_t s_receiving_count = 0;
+BaseType_t s_first_block_received = pdFALSE;
+uint8_t *s_first_ota_blocks[otaconfigMAX_NUM_BLOCKS_REQUEST];
 
 OtaFileContext_t *pOTAFileContext;
 
@@ -55,15 +58,26 @@ OtaPalStatus_t otaPal_CreateFileForRx( OtaFileContext_t * const pFileContext )
 
     static uint8_t hdl;
     pFileContext->pFile = &hdl;
+
+    s_receiving_count = 0;
+    s_first_block_received = pdFALSE;
+
+    for (uint8_t i = 0; i < otaconfigMAX_NUM_BLOCKS_REQUEST; i++)
+    {
+    	s_first_ota_blocks[i] = NULL;
+    }
+
     if (FWUP_SUCCESS != R_FWUP_Open())
     {
         eResult = OtaPalRxFileCreateFailed;
-        OtaPalImageState = OtaPalImageStateUnknown;
     }
     else
     {
+        OtaImageState = OtaImageStateUnknown;
     	eResult = OtaPalSuccess;
     }
+
+    LogDebug( ("otaPal_CreateFileForRx: receives %d data blocks at the same time", otaconfigMAX_NUM_BLOCKS_REQUEST) );
 
     return OTA_PAL_COMBINE_ERR( eResult, 0 );
 }
@@ -74,24 +88,72 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
                            uint32_t ulBlockSize )
 {
     ( void ) pFileContext;
-    ( void ) ulOffset;
 
-    LogInfo( ("otaPal_WriteBlock: write OTA block at offset 0x%X!", ulOffset) );
+    e_fwup_err_t eResult = FWUP_SUCCESS;
+
+    uint16_t usBlockIndx = ulOffset/ulBlockSize;
+
+    LogDebug( ("otaPal_WriteBlock: receives OTA block #%d with size = %d!", usBlockIndx, ulBlockSize) );
 
     if ( 0 == ulOffset )
     {
     	R_FWUP_Close();
     	R_FWUP_Open();
+
+    	s_first_block_received = pdTRUE;
     }
 
-    e_fwup_err_t eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER, pData, ulBlockSize);
+#if (otaconfigMAX_NUM_BLOCKS_REQUEST > 1)
+    // first received blocks is not block #0
+    if ( (pdTRUE != s_first_block_received ) && (s_receiving_count < otaconfigMAX_NUM_BLOCKS_REQUEST) )
+    {
+		LogDebug( ("otaPal_WriteBlock: block #%d is received before block #0!", usBlockIndx) );
+
+		// Store the blocks in order to write them later
+		s_first_ota_blocks[usBlockIndx] = pvPortMalloc( ulBlockSize );
+				(void)memcpy( s_first_ota_blocks[usBlockIndx], pData, ulBlockSize );
+
+		s_receiving_count++;
+		return ulBlockSize;
+    }
+
+	if (ulOffset == 0)
+	{
+    	eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER, pData,
+    				sizeof(st_fw_header_t), ulBlockSize);
+		LogDebug( ("otaPal_WriteBlock: write block #0 returns %d!", eResult) );
+
+    	if (s_receiving_count > 0) // there are stored blocks
+    	{
+        	for (uint8_t i = 1; i < otaconfigMAX_NUM_BLOCKS_REQUEST; i++)
+        	{
+        		if ( NULL != s_first_ota_blocks[i] )
+        		{
+    				eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER,
+    										s_first_ota_blocks[i],
+    										sizeof(st_fw_header_t) + i*OTA_FILE_BLOCK_SIZE,
+    										OTA_FILE_BLOCK_SIZE);
+    				LogDebug( ("otaPal_WriteBlock: R_FWUP_WriteImageProgram() write block #%d returns %d!", i, eResult) );
+        		}
+        	}
+    	}
+
+    	return ulBlockSize;
+	}
+#endif
+
+    // Calculate the offset from top of RSU file
+    uint32_t rsu_offset = ulOffset + sizeof(st_fw_header_t);
+
+    eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER,
+    						pData, rsu_offset, ulBlockSize);
 
     if ( ( FWUP_SUCCESS != eResult ) && ( FWUP_PROGRESS != eResult ) )
     {
-    	LogError( ("otaPal_WriteBlock: index = %d, NG, error = %d\r\n", ulOffset/OTA_FILE_BLOCK_SIZE, eResult) );
+    	LogDebug( ("otaPal_WriteBlock: index = %d, NG, error = %d\r\n", usBlockIndx, eResult) );
         return 0;
     }
-    LogDebug ( ("otaPal_WriteBlock: index = %d, OK, %d bytes\r\n", ulOffset/OTA_FILE_BLOCK_SIZE, ulBlockSize) );
+    LogDebug ( ("otaPal_WriteBlock: index = %d, OK, %d bytes\r\n", usBlockIndx, ulBlockSize) );
     return ulBlockSize;
 }
 
@@ -99,6 +161,8 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
 {
 	OtaPalMainStatus_t eResult = OtaPalUninitialized;
 	e_fwup_err_t eRet = FWUP_SUCCESS;
+
+	pOTAFileContext = pFileContext; // store the OTA file context to be used by FWUP verify wrapper
 
 	// extract the signature for verification by bootloader
     uint8_t sig[64];
