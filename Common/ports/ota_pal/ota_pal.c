@@ -166,7 +166,7 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
 
 	// extract the signature for verification by bootloader
     uint8_t sig[64];
-    uint8_t size, size1, size2, r_first_byte, s_first_byte;
+    uint16_t idx;
 
     /*
      * C->pxSignature->ucData includes some ASN1 tags.
@@ -195,50 +195,24 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
     	return OTA_PAL_COMBINE_ERR( OtaPalSignatureCheckFailed, 0 );
     }
 
-    size = *( pFileContext->pSignature->data + 1 );
-    LogDebug( ("otaPal_CheckFileSignature: signature length from the byte sequence = %d", size) );
-
-    if ( size <= 0 )
-	{
-    	LogError( ("otaPal_CheckFileSignature: Invalid byte sequence, length = %d", size) );
-    	return OTA_PAL_COMBINE_ERR( OtaPalSignatureCheckFailed, 0 );
-	}
-
-    size1 = *( pFileContext->pSignature->data + 3 );
-    size2 = *( pFileContext->pSignature->data + 4 + size1 + 1);
-
-    if ( ( 0 >= size1 ) || ( 0 >= size2 ) )
+    // Extract signature ASN1
+    // SIG(R)
+    idx = 3;
+    if (0x21 == pFileContext->pSignature->data[idx++])
     {
-    	LogError( ("otaPal_CheckFileSignature: Invalid byte sequence") );
-    	return OTA_PAL_COMBINE_ERR( OtaPalSignatureCheckFailed, 0 );
+        idx++; /* Skip 0x00 */
     }
+    memcpy(sig, &pFileContext->pSignature->data[idx], 32);
 
-    // first by of 'r'
-    r_first_byte = *( pFileContext->pSignature->data + 4 );
-
-    // First by of 's'
-    s_first_byte = *( pFileContext->pSignature->data + 3 + size1 + 2 + 1);
-
-    LogDebug( ("otaPal_CheckFileSignature: size1=%d, first byte is %d", size1, r_first_byte) );
-    if ( r_first_byte == 0x00 ) {
-    	// remove first 0x00 padding byte
-    	memcpy(sig, pFileContext->pSignature->data + 3 + 1 + 1, size1 - 1);
-    }
-    else { //no padding
-    	memcpy(sig, pFileContext->pSignature->data + 3 + 1, size1);
-    }
-
-    LogDebug( ("otaPal_CheckFileSignature: size2=%d, first byte is %d", size2, s_first_byte) );
-    if ( s_first_byte == 0x00 ) {
-        // remove first 0x00 padding byte
-    	memcpy(sig+32, pFileContext->pSignature->data + 3 + 1 + size1 + 2 + 1, size2 - 1);
-    }
-    else // no padding
+    /* SIG(S) */
+    idx += 32;
+    idx++;
+    if (0x21 == pFileContext->pSignature->data[idx++])
     {
-    	memcpy(sig+32, pFileContext->pSignature->data + 3 + 1 + size1 + 2, size2);
+        idx++; /* Skip 0x00 */
     }
+    memcpy(sig+32, &pFileContext->pSignature->data[idx], 32);
 
-    LogDebug( ("otaPal_CheckFileSignature: signature size=%d", size2+size1) );
     eRet = R_FWUP_WriteImageHeader( FWUP_AREA_BUFFER,
                                 (uint8_t FWUP_FAR *)OTA_JsonFileSignatureKey, sig, 64);
 
