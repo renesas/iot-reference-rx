@@ -19,6 +19,12 @@
 /**********************************************************************************************************************
 * File Name    : r_fwup_if.h
 * Description  : Functions for using Firmware update.
+***********************************************************************************************************************
+* History : DD.MM.YYYY Version Description
+*         : 20.07.2023 2.00    First Release
+*         : 29.09.2023 2.01    Fixed log messages.
+*                              Add parameter checking.
+*                              Added arguments to R_FWUP_WriteImageProgram API.
 **********************************************************************************************************************/
 
 /**********************************************************************************************************************
@@ -38,7 +44,7 @@ Macro definitions
 **********************************************************************************************************************/
 /* Version Number of API. */
 #define FWUP_VERSION_MAJOR                  (2)
-#define FWUP_VERSION_MINOR                  (00)
+#define FWUP_VERSION_MINOR                  (01)
 
 /* for FWUP_CFG_FUNCTION_MODE */
 #define FWUP_FUNC_BOOTLOADER                (0)
@@ -145,9 +151,9 @@ e_fwup_err_t R_FWUP_WriteImageHeader (e_fwup_area_t area,
                                       uint8_t FWUP_FAR *p_sig_type,
                                       uint8_t FWUP_FAR *p_sig,
                                       uint32_t sig_size);
-e_fwup_err_t R_FWUP_WriteImageProgram (e_fwup_area_t area, uint8_t *p_buf, uint32_t buf_size);
+e_fwup_err_t R_FWUP_WriteImageProgram (e_fwup_area_t area, uint8_t *p_buf, uint32_t offset, uint32_t buf_size);
 e_fwup_err_t R_FWUP_WriteImage (e_fwup_area_t area, uint8_t *p_buf, uint32_t buf_size);
-e_fwup_err_t R_FWUP_VerifyImage (e_fwup_area_t area);
+e_fwup_err_t R_FWUP_VerifyImage (e_fwup_area_t area, OtaFileContext_t * const pFileContext);
 e_fwup_err_t R_FWUP_ActivateImage (void);
 void         R_FWUP_ExecImage (void);
 void         R_FWUP_SoftwareReset (void);
