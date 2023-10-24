@@ -20,21 +20,14 @@
 /***********************************************************************************************************************
 * File Name     : r_fwup_config.h
 * Description   : Configures the Firmware update module.
+************************************************************************************************************************
+* History : DD.MM.YYYY Version Description
+*         : 20.07.2023 2.00    First Release
+*         : 29.09.2023 2.01    Fixed log messages.
+*                              Add parameter checking.
+*                              Added arguments to R_FWUP_WriteImageProgram API.
 ***********************************************************************************************************************/
 #include "platform.h"
-
-#include "logging_levels.h"
-
-/* Logging configuration for the MQTT library. */
-#ifndef LIBRARY_LOG_NAME
-    #define LIBRARY_LOG_NAME    "FWUP"
-#endif
-
-#ifndef LIBRARY_LOG_LEVEL
-    #define LIBRARY_LOG_LEVEL    LOG_INFO
-#endif
-
-#include "logging_stack.h"
 
 #ifndef R_FWUP_CONFIG_H
 #define R_FWUP_CONFIG_H
@@ -57,21 +50,25 @@ Configuration Options
 #define FWUP_CFG_FUNCTION_MODE                      (1)
 
 /* Area configuration */
-#define FWUP_CFG_MAIN_AREA_ADDR_L                   (0xFFF00000)
-#define FWUP_CFG_BUF_AREA_ADDR_L                    (0xFFE00000)
-#define FWUP_CFG_AREA_SIZE                          (0xF0000)
+#define FWUP_CFG_MAIN_AREA_ADDR_L                   (0xFFF00000)      /* Main area start address     */
+#define FWUP_CFG_BUF_AREA_ADDR_L                    (0xFFE00000)      /* Buffer area start address   */
+#define FWUP_CFG_AREA_SIZE                          (0xF0000)         /* Install area size           */
 
 /* Internal flash */
-#define FWUP_CFG_CF_BLK_SIZE                        (0x8000)
+#define FWUP_CFG_CF_BLK_SIZE                        (0x8000U)          /* Code flash block size       */
+#define FWUP_CFG_CF_W_UNIT_SIZE                     (128U)             /* Code flash write unit size  */
 
 /* External flash */
-#define FWUP_CFG_EXT_BUF_AREA_ADDR_L                (0x00000000)
-#define FWUP_CFG_EXT_BUF_AREA_BLK_SIZE              (4096)
+#define FWUP_CFG_EXT_BUF_AREA_ADDR_L                (0x00000U)         /* External Buffer area Start address */
+#define FWUP_CFG_EXT_BUF_AREA_BLK_SIZE              (4096U)            /* Block(Sector) size  */
 
 /* Data flash */
-#define FWUP_CFG_DF_ADDR_L                          (0x00100000)
-#define FWUP_CFG_DF_BLK_SIZE                        (64)
-#define FWUP_CFG_DF_NUM_BLKS                        (512)
+#define FWUP_CFG_DF_ADDR_L                          (0x00100000)       /* DF Start address    */
+#define FWUP_CFG_DF_BLK_SIZE                        (64U)              /* DF Block size       */
+#define FWUP_CFG_DF_NUM_BLKS                        (512U)             /* DF number of blocks */
+
+/* FWUP v1 compatible */
+#define FWUP_CFG_FWUPV1_COMPATIBLE                  (0)                /* 0:Disable, 1:Enable */
 
 /* Select the algorithm of signature verification.
     0 = ECDSA. (default)
