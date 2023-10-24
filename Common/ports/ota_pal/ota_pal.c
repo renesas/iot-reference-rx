@@ -45,7 +45,7 @@
 #include "r_fwup_private.h"
 
 const char OTA_JsonFileSignatureKey[ OTA_FILE_SIG_KEY_STR_MAX_LENGTH ] = "sig-sha256-ecdsa";
-static OtaImageState_t OtaImageState;
+static OtaImageState_t OtaPalImageState;
 uint32_t s_receiving_count = 0;
 BaseType_t s_first_block_received = pdFALSE;
 uint8_t *s_first_ota_blocks[otaconfigMAX_NUM_BLOCKS_REQUEST];
@@ -73,7 +73,7 @@ OtaPalStatus_t otaPal_CreateFileForRx( OtaFileContext_t * const pFileContext )
     }
     else
     {
-        OtaImageState = OtaImageStateUnknown;
+        OtaPalImageState = OtaImageStateUnknown;
     	eResult = OtaPalSuccess;
     }
 

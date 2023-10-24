@@ -69,7 +69,6 @@
 /**********************************************************************************************************************
  Exported global functions
  *********************************************************************************************************************/
-void *  r_fwup_wrap_get_crypt_context (void);
 int32_t r_fwup_wrap_sha256_init   (void *vp_ctx);
 int32_t r_fwup_wrap_sha256_update (void *vp_ctx, C_U8_FAR *p_data, uint32_t datalen);
 int32_t r_fwup_wrap_sha256_final  (uint8_t *p_hash, void *vp_ctx);
