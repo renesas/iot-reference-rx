@@ -357,7 +357,6 @@ e_fwup_err_t R_FWUP_WriteImage(e_fwup_area_t area, uint8_t *p_buf, uint32_t buf_
         {
             return (FWUP_ERR_FLASH);
         }
-        LogDebug( ("R_FWUP_WriteImage: Erase area %d", area_tmp) );
         s_initial_rcv_flg = 1;
     }
 
@@ -367,10 +366,7 @@ e_fwup_err_t R_FWUP_WriteImage(e_fwup_area_t area, uint8_t *p_buf, uint32_t buf_
         return (FWUP_ERR_FLASH);
     }
 
-    LogDebug( ("R_FWUP_WriteImage: write image header") );
-
     /* Write image program */
-    LogDebug( ("R_FWUP_WriteImage: write image program") );
     return (write_image_prog(area, p_buf_tmp, bufsz_tmp));
 }
 /**********************************************************************************************************************
@@ -527,10 +523,8 @@ static e_fwup_err_t check_initial_rcv(e_fwup_area_t area)
         /* area erase */
         if (FWUP_SUCCESS != erase_area(area))
         {
-        	LogError( ("Erase area %d: NG\r\n", area) );
             return (FWUP_ERR_FLASH);
         }
-        LogDebug( ("check_initial_rcv: First receiving") );
         s_initial_rcv_flg = 1;
     }
     return (FWUP_SUCCESS);
@@ -1122,26 +1116,21 @@ static e_fwup_err_t write_area(e_fwup_area_t area, uint8_t **p_buf,
     }
 
     /* Write firmware */
-    LogInfo( ("write_area: write to address %x with size=%d (0x%X)", start_addr + s_wrote_counter, write_size_tmp, write_size_tmp) );
     if (FWUP_SUCCESS != pfunc((uint32_t)*p_buf, start_addr + s_wrote_counter, write_size_tmp))
     {
-    	LogError( ("write_area: flash error") );
         return (FWUP_ERR_FLASH);
     }
     FWUP_LOG_DBG(MSG_WRITE_OK, start_addr + s_wrote_counter, write_size_tmp);
-    LogDebug( (MSG_WRITE_OK, start_addr + s_wrote_counter, write_size_tmp) );
 
     s_wrote_counter += write_size_tmp;
     *p_buf += write_size_tmp;
     *p_bufsz -= write_size_tmp;
     if (size > s_wrote_counter)
     {
-    	LogDebug( ("write_area: remaining buffer size=%d, continue...", *p_bufsz) );
         return (FWUP_PROGRESS);
     }
 
     s_wrote_counter = 0;
-    LogDebug( ("write_area: success!") );
     return (FWUP_SUCCESS);
 }
 /**********************************************************************************************************************
