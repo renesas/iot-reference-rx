@@ -1268,22 +1268,16 @@ static uint8_t * hash_sha256(e_fwup_area_t area)
     static uint8_t puc_hash[FWUP_HASH_BYTES];
     uint32_t area_offset;
     st_fw_desc_t dc;
+    void * vp_ctx = r_fwup_wrap_get_crypt_context();
 
-    /**** Start user code ****/
-
-    /* Add using crypt librarie's context */
-    struct tc_sha256_state_struct x_ctx;
-
-    /**** End user code   ****/
-
-    r_fwup_wrap_sha256_init(&x_ctx);
+    r_fwup_wrap_sha256_init(vp_ctx);
 
     /* Read N, addr, size from update list */
     area_offset = sizeof(st_fw_header_t);
     read_area(area, (uint32_t *)&dc, area_offset, sizeof(st_fw_desc_t));
 
     /* update list */
-    sha256_update(area, &x_ctx, area_offset, sizeof(st_fw_desc_t));
+    sha256_update(area, vp_ctx, area_offset, sizeof(st_fw_desc_t));
 
     /* program code */
     for (uint8_t cnt = 0; cnt < dc.n; cnt++)
@@ -1291,19 +1285,17 @@ static uint8_t * hash_sha256(e_fwup_area_t area)
         if ((FWUP_CFG_DF_ADDR_L <= dc.fw[cnt].addr) && (dc.fw[cnt].addr < (FWUP_CFG_DF_ADDR_L + FWUP_DF_NUM_BYTES)))
         {
             /* Data flash */
-            sha256_update(FWUP_AREA_DATA_FLASH, &x_ctx, dc.fw[cnt].addr, dc.fw[cnt].size);
+            sha256_update(FWUP_AREA_DATA_FLASH, vp_ctx, dc.fw[cnt].addr, dc.fw[cnt].size);
         }
         else
         {
             /* Code flash */
             area_offset =  get_offset_from_install_area(dc.fw[cnt].addr);
-            sha256_update(area, &x_ctx, area_offset, dc.fw[cnt].size);
+            sha256_update(area, vp_ctx, area_offset, dc.fw[cnt].size);
         }
     }
-
-    r_fwup_wrap_sha256_final(puc_hash, &x_ctx);
-
-    return puc_hash;
+    r_fwup_wrap_sha256_final(puc_hash, vp_ctx);
+    return (puc_hash);
 }
 /**********************************************************************************************************************
  End of function hash_sha256

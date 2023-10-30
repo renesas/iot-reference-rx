@@ -56,6 +56,7 @@
  Exported global variables
  *********************************************************************************************************************/
 /**** Start user code ****/
+struct tc_sha256_state_struct st_ctx;
 /**** End user code   ****/
 
 S_C_CH_FAR VERIFICATION_SCHEME_ECDSA[]  = "sig-sha256-ecdsa";
@@ -72,6 +73,19 @@ const uint8_t g_code_signer_public_key[] = CODE_SIGNER_PUBLIC_KEY_PEM;
 #endif /* (FWUP_CFG_SIGNATURE_VERIFICATION == 0) */
 
 /**********************************************************************************************************************
+ * Function Name: r_fwup_wrap_get_crypt_context
+ * Description  : wrapper function for get to the crypt library's context.
+ * Arguments    : none
+ * Return Value : library's static pointer
+ **********************************************************************************************************************/
+void * r_fwup_wrap_get_crypt_context(void)
+{
+    /* library's context. that need to be a static value. */
+    /**** Start user code ****/
+    return ((void *)&st_ctx);
+    /**** End user code   ****/
+}
+/**********************************************************************************************************************
  * Function Name: r_fwup_wrap_sha256_init
  * Description  : wrapper function for sha256.
  * Arguments    : vp_ctx
@@ -80,7 +94,7 @@ const uint8_t g_code_signer_public_key[] = CODE_SIGNER_PUBLIC_KEY_PEM;
 int32_t r_fwup_wrap_sha256_init(void * vp_ctx)
 {
     /**** Start user code ****/
-    return tc_sha256_init((TCSha256State_t)vp_ctx);
+    return tc_sha256_init((TCSha256State_t)&st_ctx);
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -98,7 +112,7 @@ int32_t r_fwup_wrap_sha256_init(void * vp_ctx)
 int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t datalen)
 {
     /**** Start user code ****/
-    return tc_sha256_update((TCSha256State_t)vp_ctx, p_data, datalen);
+    return tc_sha256_update((TCSha256State_t)&st_ctx, p_data, datalen);
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -115,7 +129,7 @@ int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t data
 int32_t r_fwup_wrap_sha256_final(uint8_t *p_hash, void * vp_ctx)
 {
     /**** Start user code ****/
-    return tc_sha256_final(p_hash, (TCSha256State_t)vp_ctx);
+    return tc_sha256_final(p_hash, (TCSha256State_t)&st_ctx);
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
