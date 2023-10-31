@@ -123,9 +123,6 @@ static uint8_t s_img_header_write_flg = 0;
 static uint8_t s_prg_list_write_flg = 0;
 static uint8_t s_img_prog_write_flg = 0;
 
-/* wrote counter */
-static uint32_t s_wrote_counter = 0;
-
 /*
  * API
  */
@@ -143,13 +140,6 @@ e_fwup_err_t R_FWUP_Open(void)
     {
         return (FWUP_ERR_FLASH);
     }
-    s_image_size = 0;
-    s_write_current_size = 0;
-    s_initial_rcv_flg = 0;
-    s_img_header_write_flg = 0;
-    s_prg_list_write_flg = 0;
-    s_img_prog_write_flg = 0;
-    s_wrote_counter = 0;
 
 #if (FWUP_CFG_UPDATE_MODE == FWUP_SINGLE_BANK_W_BUFFER_EXT)
     /* Open external flash */
@@ -1087,6 +1077,7 @@ static e_fwup_err_t write_area(e_fwup_area_t area, uint8_t **p_buf,
 {
     uint32_t start_addr = FWUP_CFG_MAIN_AREA_ADDR_L + offset;
     e_fwup_err_t (*pfunc)(uint32_t, uint32_t, uint32_t) = r_fwup_wrap_flash_write;
+    static uint32_t s_wrote_counter = 0;
     uint32_t write_size_tmp;
 
     if (FWUP_AREA_BUFFER == area)

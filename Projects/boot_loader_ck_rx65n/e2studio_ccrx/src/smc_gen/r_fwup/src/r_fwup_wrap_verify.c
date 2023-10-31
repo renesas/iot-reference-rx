@@ -18,7 +18,6 @@
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup_wrap_verify.c
- * Version      : 2.01
  * Description  : Functions for the Firmware update module.
  **********************************************************************************************************************
  * History : DD.MM.YYYY Version Description
@@ -56,45 +55,50 @@
  Exported global variables
  *********************************************************************************************************************/
 /**** Start user code ****/
-struct tc_sha256_state_struct st_ctx;
 /**** End user code   ****/
-
-S_C_CH_FAR VERIFICATION_SCHEME_ECDSA[]  = "sig-sha256-ecdsa";
-S_C_CH_FAR VERIFICATION_SCHEME_SHA[]  = "hash-sha256";
 
 /**********************************************************************************************************************
  Private (static) variables and functions
  *********************************************************************************************************************/
+/**** Start user code ****/
 #if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
 static int32_t wrap_extract_pubkey (uint8_t *p_buf);
 static C_CH_FAR s_keyheader[] = "-----BEGIN PUBLIC KEY-----";
 static C_CH_FAR s_keyfooter[] = "-----END PUBLIC KEY-----";
-const uint8_t g_code_signer_public_key[] = CODE_SIGNER_PUBLIC_KEY_PEM;
+static C_CH_FAR g_code_signer_public_key[] = CODE_SIGNER_PUBLIC_KEY_PEM;
+S_C_CH_FAR VERIFICATION_SCHEME_ECDSA[]  = "sig-sha256-ecdsa";
 #endif /* (FWUP_CFG_SIGNATURE_VERIFICATION == 0) */
+S_C_CH_FAR VERIFICATION_SCHEME_SHA[]  = "hash-sha256";
+/**** End user code   ****/
 
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_get_crypt_context
  * Description  : wrapper function for get to the crypt library's context.
  * Arguments    : none
  * Return Value : library's static pointer
- **********************************************************************************************************************/
+ *********************************************************************************************************************/
 void * r_fwup_wrap_get_crypt_context(void)
 {
     /* library's context. that need to be a static value. */
     /**** Start user code ****/
-    return ((void *)&st_ctx);
+    static struct tc_sha256_state_struct s_ctx;
+    return ((void *)&s_ctx);
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
+ End of function r_fwup_wrap_get_crypt_context
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
  * Function Name: r_fwup_wrap_sha256_init
  * Description  : wrapper function for sha256.
- * Arguments    : vp_ctx
- * Return Value : result
- **********************************************************************************************************************/
+ * Arguments    : vp_ctx : context
+ * Return Value : library processing result
+ *********************************************************************************************************************/
 int32_t r_fwup_wrap_sha256_init(void * vp_ctx)
 {
     /**** Start user code ****/
-    return tc_sha256_init((TCSha256State_t)&st_ctx);
+    return (tc_sha256_init((TCSha256State_t)vp_ctx));
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -104,15 +108,15 @@ int32_t r_fwup_wrap_sha256_init(void * vp_ctx)
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_sha256_update
  * Description  : wrapper function for sha256.
- * Arguments    : vp_ctx
- *                p_data
- *                data_len
- * Return Value : result
- **********************************************************************************************************************/
+ * Arguments    : vp_ctx   : context
+ *                p_data   : message data
+ *                data_len : data len
+ * Return Value : library processing result
+ *********************************************************************************************************************/
 int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t datalen)
 {
     /**** Start user code ****/
-    return tc_sha256_update((TCSha256State_t)&st_ctx, p_data, datalen);
+    return (tc_sha256_update((TCSha256State_t)vp_ctx, p_data, datalen));
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -122,14 +126,14 @@ int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t data
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_sha256_final
  * Description  : wrapper function for sha256.
- * Arguments    : p_hash
- *                vp_ctx
- * Return Value : result
- **********************************************************************************************************************/
+ * Arguments    : p_hash : hash value storage destination pointer
+ *                vp_ctx : context
+ * Return Value : library processing result
+ *********************************************************************************************************************/
 int32_t r_fwup_wrap_sha256_final(uint8_t *p_hash, void * vp_ctx)
 {
     /**** Start user code ****/
-    return tc_sha256_final(p_hash, (TCSha256State_t)&st_ctx);
+    return (tc_sha256_final(p_hash, (TCSha256State_t)vp_ctx));
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -139,13 +143,13 @@ int32_t r_fwup_wrap_sha256_final(uint8_t *p_hash, void * vp_ctx)
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_verify_ecdsa
  * Description  : wrapper function for ECDSA verification.
- * Arguments    : p_hash
- *                p_sig_type
- *                p_sig
- *                sig_size
- * Return Value : 0       verify OK
- *                other   verify NG
- **********************************************************************************************************************/
+ * Arguments    : p_hash     : hash data
+ *                p_sig_type : signature type
+ *                p_sig      : signature
+ *                sig_size   : signature size
+ * Return Value : 0          : verify OK
+ *                other      : verify NG
+ *********************************************************************************************************************/
 int32_t r_fwup_wrap_verify_ecdsa(uint8_t *p_hash, uint8_t *p_sig_type, uint8_t *p_sig, uint32_t sig_size)
 {
     /**** Start user code ****/
@@ -176,7 +180,7 @@ int32_t r_fwup_wrap_verify_ecdsa(uint8_t *p_hash, uint8_t *p_sig_type, uint8_t *
     }
 #endif /* (FWUP_CFG_SIGNATURE_VERIFICATION == 0) */
 
-    return x_result;
+    return (x_result);
 
     /**** End user code   ****/
 }
@@ -190,9 +194,10 @@ int32_t r_fwup_wrap_verify_ecdsa(uint8_t *p_hash, uint8_t *p_sig_type, uint8_t *
 /**********************************************************************************************************************
  * Function Name: wrap_extract_pubkey
  * Description  : wrapper module for extracting public key.
- * Arguments    : p_buf
- * Return Value : result
- **********************************************************************************************************************/
+ * Arguments    : p_buf : key data
+ * Return Value : 0     : success
+ *                other : error
+ *********************************************************************************************************************/
 static int32_t wrap_extract_pubkey(uint8_t *p_buf)
 {
     int32_t result = -1;
@@ -256,7 +261,7 @@ static int32_t wrap_extract_pubkey(uint8_t *p_buf)
         }
         p_current++;
     }
-    return result;
+    return (result);
 }
 /**********************************************************************************************************************
  End of function wrap_extract_pubkey

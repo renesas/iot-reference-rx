@@ -55,7 +55,7 @@ Configuration Options
 #define FWUP_CFG_AREA_SIZE                          (0xF0000U)         /* Install area size           */
 
 /* Internal flash */
-#define FWUP_CFG_CF_BLK_SIZE                        (0x4000U)          /* Code flash block size       */
+#define FWUP_CFG_CF_BLK_SIZE                        (0x8000U)          /* Code flash block size       */
 #define FWUP_CFG_CF_W_UNIT_SIZE                     (128U)             /* Code flash write unit size  */
 
 /* External flash */
@@ -64,7 +64,7 @@ Configuration Options
 
 /* Data flash */
 #define FWUP_CFG_DF_ADDR_L                          (0x00100000)       /* DF Start address    */
-#define FWUP_CFG_DF_BLK_SIZE                        (32U)              /* DF Block size       */
+#define FWUP_CFG_DF_BLK_SIZE                        (64U)              /* DF Block size       */
 #define FWUP_CFG_DF_NUM_BLKS                        (512U)             /* DF number of blocks */
 
 /* FWUP v1 compatible */

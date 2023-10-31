@@ -18,7 +18,6 @@
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup_wrap_com.c
- * Version      : 2.01
  * Description  : Functions for the Firmware update module.
  **********************************************************************************************************************
  * History : DD.MM.YYYY Version Description
@@ -71,11 +70,7 @@
 void r_fwup_wrap_disable_interrupt(void)
 {
     /**** Start user code ****/
-#if defined(__RX)
     R_BSP_InterruptsDisable();
-#else
-    BSP_DISABLE_INTERRUPT();
-#endif
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -91,11 +86,7 @@ void r_fwup_wrap_disable_interrupt(void)
 void r_fwup_wrap_enable_interrupt(void)
 {
     /**** Start user code ****/
-#if defined(__RX)
     R_BSP_InterruptsEnable();
-#else
-    BSP_ENABLE_INTERRUPT();
-#endif
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -116,14 +107,7 @@ void r_fwup_wrap_software_reset(void)
     r_fwup_wrap_software_delay(1000, FWUP_DELAY_MILLISECS);
 
     /* SW Reset */
-#if defined(__RX)
     R_BSP_SoftwareReset();
-#else
-    IAWCTL=0x80;                        // Unauthorized access detection enabled
-    *(__far volatile char *)0x00=0x00;  // White at address 0x00
-    BSP_NOP();
-    while(1);
-#endif
 
     /**** End user code   ****/
 }
@@ -142,7 +126,6 @@ void r_fwup_wrap_software_reset(void)
 uint32_t r_fwup_wrap_software_delay(uint32_t delay, e_fwup_delay_units_t units)
 {
     /**** Start user code ****/
-#if defined(__RX)
     uint32_t  time_units;
 
     if (FWUP_DELAY_MICROSECS == units)
@@ -158,7 +141,6 @@ uint32_t r_fwup_wrap_software_delay(uint32_t delay, e_fwup_delay_units_t units)
         time_units = BSP_DELAY_SECS;
     }
     return ((uint32_t)R_BSP_SoftwareDelay(delay, (bsp_delay_units_t)time_units));
-#endif
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
