@@ -65,8 +65,6 @@ uint32_t s_receiving_count = 0;
 BaseType_t s_first_block_received = pdFALSE;
 uint8_t *s_first_ota_blocks[otaconfigMAX_NUM_BLOCKS_REQUEST];
 
-static OtaPalStatus_t otaPal_CheckFileSignatureForOTACoreTests( OtaFileContext_t * const pFileContext );
-
 OtaFileContext_t *pOTAFileContext;
 
 OtaPalStatus_t otaPal_CreateFileForRx( OtaFileContext_t * const pFileContext )
@@ -112,7 +110,6 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 
     LogDebug( ("otaPal_WriteBlock: receives OTA block #%d with size = %d!", usBlockIndx, ulBlockSize) );
 
-#if (OTA_PAL_TEST_ENABLED != 1)
     if ( 0 == ulOffset )
     {
     	R_FWUP_Close();
@@ -172,35 +169,6 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
         return 0;
     }
     LogDebug ( ("otaPal_WriteBlock: index = %d, OK, %d bytes\r\n", usBlockIndx, ulBlockSize) );
-
-#else
-    if (ulBlockSize % FLASH_CF_MIN_PGM_SIZE != 0)
-    {
-		uint8_t *pBuffTmp = pvPortMalloc( FLASH_CF_MIN_PGM_SIZE );
-		memset(pBuffTmp, 0xFF, FLASH_CF_MIN_PGM_SIZE);
-		(void)memcpy(pBuffTmp, pData, ulBlockSize);
-
-		eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER, pBuffTmp,
-						sizeof(st_fw_header_t),
-						FLASH_CF_MIN_PGM_SIZE);
-		vPortFree( pBuffTmp );
-    }
-    else
-    {
-    	eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER, pData,
-							sizeof(st_fw_header_t),
-							ulBlockSize);
-    }
-
-	if ( ( FWUP_SUCCESS != eResult ) && ( FWUP_PROGRESS != eResult ) )
-	{
-		LogInfo( ("otaPal_WriteBlock / test: ulOffset = 0x%X, NG, error = %d\r\n", ulOffset, eResult) );
-		return 0;
-	}
-	LogDebug ( ("otaPal_WriteBlock / test: ulOffset = 0x%X, OK, %d bytes\r\n", ulOffset, ulBlockSize) );
-
-#endif // (OTA_PAL_TEST_ENABLED != 1)
-
     return ulBlockSize;
 }
 
@@ -292,23 +260,11 @@ OtaPalStatus_t otaPal_CloseFile( OtaFileContext_t * const pFileContext )
 {
     OtaPalMainStatus_t eResult = OtaPalSuccess;
 
-#if (OTA_PAL_TEST_ENABLED != 1)
-
     eResult = OTA_PAL_MAIN_ERR( otaPal_CheckFileSignature( pFileContext ) );
     if ( eResult != OtaPalSuccess )
     {
-        OtaPalImageState = OtaPalImageStatePendingCommit;
+        OtaImageState = OtaImageStateRejected;
     }
-
-#else
-
-    eResult = OTA_PAL_MAIN_ERR( otaPal_CheckFileSignatureForOTACoreTests( pFileContext ) );
-    if ( eResult != OtaPalSuccess )
-    {
-        OtaPalImageState = OtaImageStateRejected;
-    }
-
-#endif
 
     pFileContext->pFile = NULL;
 
@@ -474,65 +430,4 @@ OtaPalImageState_t otaPal_GetPlatformImageState( OtaFileContext_t * const pFileC
 
     LogDebug( ( "Function called is otaPal_GetPlatformImageState: Platform State is [%d]", ePalState ) );
     return ePalState;
-}
-
-static OtaPalStatus_t otaPal_CheckFileSignatureForOTACoreTests( OtaFileContext_t * const pFileContext )
-{
-	OtaPalMainStatus_t eResult = OtaPalUninitialized;
-	e_fwup_err_t eRet = FWUP_SUCCESS;
-
-#if (OTA_PAL_TEST_ENABLED == 1)
-    uint8_t *pBuffTmp = pvPortMalloc( pFileContext->fileSize );
-    memcpy( pBuffTmp, (const void *)(FWUP_CFG_BUF_AREA_ADDR_L + sizeof(st_fw_header_t)),
-    		pFileContext->fileSize );
-
-    uint8_t * pucCertData;
-	uint32_t ulCertSize;
-	uint8_t * pucSignerCert = NULL;
-	void * pvSigVerifyContext;
-
-    if( CRYPTO_SignatureVerificationStart( &pvSigVerifyContext,
-    		cryptoASYMMETRIC_ALGORITHM_ECDSA,
-            cryptoHASH_ALGORITHM_SHA256 ) == pdFALSE )
-    {
-    	LogError( ( "Initialized the context, but failed" ) );
-    	eResult = OtaPalSignatureCheckFailed;
-    }
-
-	ulCertSize = sizeof( OTA_PAL_CODE_SIGNING_CERTIFICATE );
-	pucSignerCert = pvPortMalloc( ulCertSize + 1 );
-	pucCertData = ( uint8_t * ) OTA_PAL_CODE_SIGNING_CERTIFICATE;
-	memcpy( pucSignerCert, pucCertData, ulCertSize );
-
-	if( pucSignerCert == NULL )
-	{
-		eResult = OtaPalBadSignerCert;
-	}
-	else
-	{
-		pucSignerCert[ ulCertSize ] = 0U;
-		ulCertSize++;
-
-        CRYPTO_SignatureVerificationUpdate( pvSigVerifyContext,
-        		pBuffTmp,
-				pFileContext->fileSize);
-
-        if( CRYPTO_SignatureVerificationFinal( pvSigVerifyContext,
-        		( char * ) pucSignerCert,
-				ulCertSize,
-                pFileContext->pSignature->data,
-				pFileContext->pSignature->size ) == pdFALSE )
-        {
-            LogError( ( "Finished signature verification, but signature verification failed" ) );
-            eResult = OtaPalSignatureCheckFailed;
-        }
-        else
-        {
-            LogInfo( ( "Finished signature verification, signature verification passed" ) );
-            eResult = OtaPalSuccess;
-        }
-	}
-#endif
-
-	return OTA_PAL_COMBINE_ERR( eResult, 0 );
 }
