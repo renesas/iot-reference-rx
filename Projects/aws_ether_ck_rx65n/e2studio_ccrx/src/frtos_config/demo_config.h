@@ -86,9 +86,9 @@
  */
 #define ENABLE_OTA_UPDATE_DEMO              (0)
 
-#if ENABLE_OTA_UPDATE_DEMO
-#error "OTA demo is not support in this release"
-#endif
+//#if ENABLE_OTA_UPDATE_DEMO
+//#error "OTA demo is not support in this release"
+//#endif
 
 #define democonfigROOT_CA_PEM               tlsSTARFIELD_ROOT_CERTIFICATE_PEM
 
