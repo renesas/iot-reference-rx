@@ -44,21 +44,6 @@
 #include "r_fwup_if.h"
 #include "r_fwup_private.h"
 
-#ifdef __TEST__
-/* OTA PAL test config */
-#include "test_execution_config.h"
-
-#if (OTA_PAL_TEST_ENABLED == 1)
-#include "aws_test_ota_pal_ecdsa_sha256_signature.h"
-#include "demo_config.h"
-#include "iot_crypto.h"
-
-#include "./src/targets/rx65n/r_flash_rx65n.h"
-
-#endif
-
-#endif
-
 const char OTA_JsonFileSignatureKey[ OTA_FILE_SIG_KEY_STR_MAX_LENGTH ] = "sig-sha256-ecdsa";
 static OtaImageState_t OtaPalImageState;
 uint32_t s_receiving_count = 0;

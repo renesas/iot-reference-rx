@@ -34,6 +34,10 @@
 #include "r_fwup_if.h"
 #include "r_fwup_wrap_verify.h"
 
+#if (OTA_PAL_TEST_ENABLED == 1)
+#include "aws_test_ota_pal_ecdsa_sha256_signature.h"
+#endif
+
 /**** Start user code ****/
 /**** End user code   ****/
 
@@ -214,8 +218,13 @@ static uint8_t * get_cert( uint32_t * ulSignerCertSize )
 		LogInfo( ( "Using certificate defined in otapalconfigCODE_SIGNING_CERTIFICATE macro...") );
 
 		/* Allocate memory for the signer certificate plus a terminating zero so we can copy it and return to the caller. */
+#if (OTA_PAL_TEST_ENABLED == 1)
+		ulCertSize = sizeof( OTA_PAL_CODE_SIGNING_CERTIFICATE );
+		pucCertData = ( uint8_t * ) OTA_PAL_CODE_SIGNING_CERTIFICATE;
+#else
 		ulCertSize = sizeof( otapalconfigCODE_SIGNING_CERTIFICATE );
 		pucCertData = ( uint8_t * ) otapalconfigCODE_SIGNING_CERTIFICATE;
+#endif
     }
 
 	pucSignerCert = pvPortMalloc( ulCertSize + 1 );
