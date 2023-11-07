@@ -19,6 +19,12 @@
 /**********************************************************************************************************************
  * File Name    : r_fwup_private.h
  * Description  : Functions for using Firmware update.
+ **********************************************************************************************************************
+ * History : DD.MM.YYYY Version Description
+ *         : 20.07.2023 2.00    First Release
+ *         : 29.09.2023 2.01    Fixed log messages.
+ *                              Add parameter checking.
+ *                              Added arguments to R_FWUP_WriteImageProgram API.
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
@@ -35,64 +41,6 @@
 /**********************************************************************************************************************
  Macro definitions
  *********************************************************************************************************************/
-/* Stdlib*/
-#if defined(__RX)
-  #define STRCMP(s1, s2)                  ( strcmp((s1), (s2)) )
-  #if !defined(STRSTR)
-    #define STRSTR(s1, s2)                ( strstr((s1), (s2)) )
-  #endif
-  #define STRLEN(s)                       ( strlen((s)) )
-  #define MEMCMP(s1, s2, n)               ( memcmp((s1), (s2), (n)) )
-  #define MEMCPY(s1, s2, n)               ( memcpy((s1), (s2), (n)) )
-#else
-  #if defined(__ICCRL78__)
-    #define STRCMP(s1, s2)                ( strcmp((s1), (s2)) )
-    #if !defined(STRSTR)
-      #define STRSTR(s1, s2)              ( strstr((s1), (s2)) )
-    #endif
-    #define STRLEN(s)                     ( strlen((s)) )
-    #define MEMCMP(s1, s2, n)             ( memcmp((s1), (s2), (n)) )
-    #define MEMCPY(s1, s2, n)             ( memcpy((s1), (s2), (n)) )
-  #elif defined (__CCRL__)
-    #define STRCMP(s1, s2)                ( _COM_strcmp_ff((s1), (s2)) )
-    #if !defined(STRSTR)
-      #define STRSTR(s1, s2)              ( _COM_strstr_ff((s1), (s2)) )
-    #endif
-    #define STRLEN(s)                     ( _COM_strlen_f((s)) )
-    #define MEMCMP(s1, s2, n)             ( _COM_memcmp_ff((s1), (s2), (n)) )
-    #define MEMCPY(s1, s2, n)             ( _COM_memcpy_ff((s1), (s2), (n)) )
-  #elif defined (__llvm__)
-    #define STRCMP(s1, s2)                ( _COM_strcmp_ff((s1), (s2)) )
-    #if !defined(STRSTR)
-      #define STRSTR(s1, s2)              ( _COM_strstr_ff((s1), (s2)) )
-    #endif
-    #define STRLEN(s)                     ( _COM_strlen_f((s)) )
-    #define MEMCMP(s1, s2, n)             ( _COM_memcmp_ff((s1), (s2), (n)) )
-    #define MEMCPY(s1, s2, n)             ( _COM_memcpy_ff((s1), (s2), (n)) )
-  #endif /* defined(__ICCRL78__) */
-#endif /* defined(__RX) */
-
-/* __far */
-#if defined(__RX)
-  #define FWUP_FAR
-  #define FWUP_FAR_FUNC
-#else
-  #if (__ICCRL78__)
-    #define FWUP_FAR                __far
-    #define FWUP_FAR_FUNC           __far_func
-  #else
-    #define FWUP_FAR                __far
-    #define FWUP_FAR_FUNC           __far
-  #endif /* defined(__ICCRL78__) */
-#endif /* defined(__RX) */
-
-#define CH_FAR                      char FWUP_FAR
-#define C_CH_FAR                    const char FWUP_FAR
-#define C_U8_FAR                    const uint8_t FWUP_FAR
-#define S_C_CH_FAR                  static C_CH_FAR
-#define S_C_U8_FAR                  static C_U8_FAR
-
-
 #if (FWUP_CFG_PRINTF_DISABLE == 1)
 #define FWUP_LOG_ERR(...)
 #define FWUP_LOG_INFO(...)
