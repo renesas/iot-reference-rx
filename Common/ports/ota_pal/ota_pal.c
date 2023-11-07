@@ -246,9 +246,13 @@ OtaPalStatus_t otaPal_CloseFile( OtaFileContext_t * const pFileContext )
     OtaPalMainStatus_t eResult = OtaPalSuccess;
 
     eResult = OTA_PAL_MAIN_ERR( otaPal_CheckFileSignature( pFileContext ) );
-    if ( eResult != OtaPalSuccess )
+    if ( eResult == OtaPalSuccess )
     {
-        OtaImageState = OtaImageStateRejected;
+        OtaPalImageState = OtaPalImageStatePendingCommit;
+    }
+    else
+    {
+        OtaPalImageState = OtaImageStateRejected;
     }
 
     pFileContext->pFile = NULL;
