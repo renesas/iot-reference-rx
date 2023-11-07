@@ -69,4 +69,58 @@
 #endif
 /* *INDENT-ON* */
 
+/**
+ * @brief Log base 2 of the size of the file data block message (excluding the header).
+ *
+ * 10 bits yields a data block size of 1KB.
+ */
+#define otaconfigLOG2_FILE_BLOCK_SIZE           10UL
+
+/**
+ * @brief Size of the file data block message (excluding the header).
+ *
+ */
+#define otaconfigFILE_BLOCK_SIZE                ( 1UL << otaconfigLOG2_FILE_BLOCK_SIZE )
+
+/**
+ * @brief The maximum allowed length of the thing name used by the OTA agent.
+ *
+ * AWS IoT requires Thing names to be unique for each device that connects to the broker.
+ * Likewise, the OTA agent requires the developer to construct and pass in the Thing name when
+ * initializing the OTA agent. The agent uses this size to allocate static storage for the
+ * Thing name used in all OTA base topics. Namely $aws/things/<thingName>
+ */
+#define otaconfigMAX_THINGNAME_LEN              128U
+
+/**
+ * @brief The maximum number of data blocks requested from OTA streaming service.
+ *
+ *  This configuration parameter is sent with data requests and represents the maximum number of
+ *  data blocks the service will send in response. The maximum limit for this must be calculated
+ *  from the maximum data response limit (128 KB from service) divided by the block size.
+ *  For example if block size is set as 1 KB then the maximum number of data blocks that we can
+ *  request is 128/1 = 128 blocks. Configure this parameter to this maximum limit or lower based on
+ *  how many data blocks response is expected for each data requests.
+ *  Please note that this must be set larger than zero.
+ *
+ */
+#define otaconfigMAX_NUM_BLOCKS_REQUEST         4U
+
+/**
+ * @brief The number of data buffers reserved by the OTA agent.
+ *
+ * This configurations parameter sets the maximum number of static data buffers used by
+ * the OTA agent for job and file data blocks received.
+ */
+#define otaconfigMAX_NUM_OTA_DATA_BUFFERS       otaconfigMAX_NUM_BLOCKS_REQUEST + 2U
+
+/**
+ * @brief How frequently the device will report its OTA progress to the cloud.
+ *
+ * Device will update the job status with the number of blocks it has received every certain
+ * number of blocks it receives. For example, 25 means device will update job status every 25 blocks
+ * it receives.
+ */
+#define otaconfigOTA_UPDATE_STATUS_FREQUENCY    25U
+
 #endif /* ifndef OTA_CONFIG_H */
