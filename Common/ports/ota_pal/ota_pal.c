@@ -43,21 +43,7 @@
 #include "platform.h"
 #include "r_fwup_if.h"
 #include "r_fwup_private.h"
-
-#ifdef __TEST__
-/* OTA PAL test config */
-#include "test_execution_config.h"
-
-#if (OTA_PAL_TEST_ENABLED == 1)
-#include "aws_test_ota_pal_ecdsa_sha256_signature.h"
-#include "demo_config.h"
-#include "iot_crypto.h"
-
 #include "./src/targets/rx65n/r_flash_rx65n.h"
-
-#endif
-
-#endif
 
 const char OTA_JsonFileSignatureKey[ OTA_FILE_SIG_KEY_STR_MAX_LENGTH ] = "sig-sha256-ecdsa";
 static OtaImageState_t OtaPalImageState;
@@ -110,7 +96,6 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 
     LogDebug( ("otaPal_WriteBlock: receives OTA block #%d with size = %d!", usBlockIndx, ulBlockSize) );
 
-#if (OTA_PAL_TEST_ENABLED != 1)
     if ( 0 == ulOffset )
     {
     	R_FWUP_Close();
@@ -118,6 +103,21 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 
     	s_first_block_received = pdTRUE;
     }
+
+    if (ulBlockSize % FLASH_CF_MIN_PGM_SIZE != 0)
+    {
+		uint8_t *pBuffTmp = pvPortMalloc( FLASH_CF_MIN_PGM_SIZE );
+		memset(pBuffTmp, 0xFF, FLASH_CF_MIN_PGM_SIZE);
+		(void)memcpy(pBuffTmp, pData, ulBlockSize);
+
+		eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER, pBuffTmp,
+				ulOffset+sizeof(st_fw_header_t),
+						FLASH_CF_MIN_PGM_SIZE);
+		vPortFree( pBuffTmp );
+
+    }
+    else
+    {
 
 #if (otaconfigMAX_NUM_BLOCKS_REQUEST > 1)
     // first received blocks is not block #0
@@ -130,6 +130,7 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 				(void)memcpy( s_first_ota_blocks[usBlockIndx], pData, ulBlockSize );
 
 		s_receiving_count++;
+		vPortFree( s_first_ota_blocks[usBlockIndx] );
 		return ulBlockSize;
     }
 
@@ -163,42 +164,13 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 
     eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER,
     						pData, rsu_offset, ulBlockSize);
-
-    if ( ( FWUP_SUCCESS != eResult ) && ( FWUP_PROGRESS != eResult ) )
+    }
+    if ( ( FWUP_ERR_FLASH == eResult ) )
     {
     	LogDebug( ("otaPal_WriteBlock: index = %d, NG, error = %d\r\n", usBlockIndx, eResult) );
         return 0;
     }
     LogDebug ( ("otaPal_WriteBlock: index = %d, OK, %d bytes\r\n", usBlockIndx, ulBlockSize) );
-
-#else
-    if (ulBlockSize % FLASH_CF_MIN_PGM_SIZE != 0)
-    {
-		uint8_t *pBuffTmp = pvPortMalloc( FLASH_CF_MIN_PGM_SIZE );
-		memset(pBuffTmp, 0xFF, FLASH_CF_MIN_PGM_SIZE);
-		(void)memcpy(pBuffTmp, pData, ulBlockSize);
-
-		eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER, pBuffTmp,
-						sizeof(st_fw_header_t),
-						FLASH_CF_MIN_PGM_SIZE);
-		vPortFree( pBuffTmp );
-    }
-    else
-    {
-    	eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER, pData,
-							sizeof(st_fw_header_t),
-							ulBlockSize);
-    }
-
-	if ( ( FWUP_SUCCESS != eResult ) && ( FWUP_PROGRESS != eResult ) )
-	{
-		LogInfo( ("otaPal_WriteBlock / test: ulOffset = 0x%X, NG, error = %d\r\n", ulOffset, eResult) );
-		return 0;
-	}
-	LogDebug ( ("otaPal_WriteBlock / test: ulOffset = 0x%X, OK, %d bytes\r\n", ulOffset, ulBlockSize) );
-
-#endif // (OTA_PAL_TEST_ENABLED != 1)
-
     return ulBlockSize;
 }
 
@@ -290,23 +262,15 @@ OtaPalStatus_t otaPal_CloseFile( OtaFileContext_t * const pFileContext )
 {
     OtaPalMainStatus_t eResult = OtaPalSuccess;
 
-#if (OTA_PAL_TEST_ENABLED != 1)
-
     eResult = OTA_PAL_MAIN_ERR( otaPal_CheckFileSignature( pFileContext ) );
-    if ( eResult != OtaPalSuccess )
+    if ( eResult == OtaPalSuccess )
     {
         OtaPalImageState = OtaPalImageStatePendingCommit;
     }
-
-#else
-
-    eResult = OTA_PAL_MAIN_ERR( otaPal_CheckFileSignature( pFileContext ) );
-    if ( eResult != OtaPalSuccess )
+    else
     {
         OtaPalImageState = OtaImageStateRejected;
     }
-
-#endif
 
     pFileContext->pFile = NULL;
 
@@ -473,4 +437,3 @@ OtaPalImageState_t otaPal_GetPlatformImageState( OtaFileContext_t * const pFileC
     LogDebug( ( "Function called is otaPal_GetPlatformImageState: Platform State is [%d]", ePalState ) );
     return ePalState;
 }
-

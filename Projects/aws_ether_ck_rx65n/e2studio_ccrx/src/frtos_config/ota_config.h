@@ -83,6 +83,19 @@
 #define otaconfigFILE_BLOCK_SIZE                ( 1UL << otaconfigLOG2_FILE_BLOCK_SIZE )
 
 /**
+ * @brief Milliseconds to wait for the self test phase to succeed before we force reset.
+ */
+#define otaconfigSELF_TEST_RESPONSE_WAIT_MS     16000U
+
+/**
+ * @brief Milliseconds to wait before requesting data blocks from the OTA service if nothing is happening.
+ *
+ * The wait timer is reset whenever a data block is received from the OTA service so we will only send
+ * the request message after being idle for this amount of time.
+ */
+#define otaconfigFILE_REQUEST_WAIT_MS           360000U
+
+/**
  * @brief The maximum allowed length of the thing name used by the OTA agent.
  *
  * AWS IoT requires Thing names to be unique for each device that connects to the broker.
@@ -107,6 +120,15 @@
 #define otaconfigMAX_NUM_BLOCKS_REQUEST         4U
 
 /**
+ * @brief The maximum number of requests allowed to send without a response before we abort.
+ *
+ * This configuration parameter sets the maximum number of times the requests are made over
+ * the selected communication channel before aborting and returning error.
+ *
+ */
+#define otaconfigMAX_NUM_REQUEST_MOMENTUM       1U
+
+/**
  * @brief The number of data buffers reserved by the OTA agent.
  *
  * This configurations parameter sets the maximum number of static data buffers used by
@@ -122,5 +144,59 @@
  * it receives.
  */
 #define otaconfigOTA_UPDATE_STATUS_FREQUENCY    25U
+
+/**
+ * @brief Transport timeout in milliseconds for transport send and receive.
+ */
+#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 150 )
+
+/**
+ * @brief Allow update to same or lower version.
+ *
+ * Set this to 1 to allow downgrade or same version update.This configurations parameter
+ * disables version check and allows update to a same or lower version.This is provided for
+ * testing purpose and it is recommended to always update to higher version and keep this
+ * configuration disabled.
+ */
+#define otaconfigAllowDowngrade           0U
+
+/**
+ * @brief The protocol selected for OTA control operations.
+ *
+ * This configurations parameter sets the default protocol for all the OTA control
+ * operations like requesting OTA job, updating the job status etc.
+ *
+ * Note - Only MQTT is supported at this time for control operations.
+ */
+#define configENABLED_CONTROL_PROTOCOL    ( OTA_CONTROL_OVER_MQTT )
+
+/**
+ * @brief The protocol selected for OTA data operations.
+ *
+ * This configurations parameter sets the protocols selected for the data operations
+ * like requesting file blocks from the service.
+ *
+ * Note - Both MQTT and HTTP is supported for data transfer from service. This configuration parameter
+ * can be set to following -
+ * Enable data over MQTT - ( OTA_DATA_OVER_MQTT )
+ * Enable data over HTTP - ( OTA_DATA_OVER_HTTP)
+ *
+ * Note - Please check the OTA over HTTP demo which has the HTTP data transfer functionality and
+ * and this configuration is set to OTA_DATA_OVER_HTTP.
+ */
+#define configENABLED_DATA_PROTOCOLS      ( OTA_DATA_OVER_MQTT )
+
+/**
+ * @brief The preferred protocol selected for OTA data operations.
+ *
+ * Primary data protocol will be the protocol used for downloading file if more than
+ * one protocol is selected while creating OTA job. Default primary data protocol is MQTT
+ * and following update here to switch to HTTP as primary.
+ *
+ * Note - use OTA_DATA_OVER_HTTP for HTTP as primary data protocol.
+ */
+
+#define configOTA_PRIMARY_DATA_PROTOCOL    ( OTA_DATA_OVER_MQTT )
+
 
 #endif /* ifndef OTA_CONFIG_H */
