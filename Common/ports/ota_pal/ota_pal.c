@@ -43,6 +43,7 @@
 #include "platform.h"
 #include "r_fwup_if.h"
 #include "r_fwup_private.h"
+#include "./src/targets/rx65n/r_flash_rx65n.h"
 
 const char OTA_JsonFileSignatureKey[ OTA_FILE_SIG_KEY_STR_MAX_LENGTH ] = "sig-sha256-ecdsa";
 static OtaImageState_t OtaPalImageState;
@@ -103,6 +104,21 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
     	s_first_block_received = pdTRUE;
     }
 
+    if (ulBlockSize % FLASH_CF_MIN_PGM_SIZE != 0)
+    {
+		uint8_t *pBuffTmp = pvPortMalloc( FLASH_CF_MIN_PGM_SIZE );
+		memset(pBuffTmp, 0xFF, FLASH_CF_MIN_PGM_SIZE);
+		(void)memcpy(pBuffTmp, pData, ulBlockSize);
+
+		eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER, pBuffTmp,
+				ulOffset+sizeof(st_fw_header_t),
+						FLASH_CF_MIN_PGM_SIZE);
+		vPortFree( pBuffTmp );
+
+    }
+    else
+    {
+
 #if (otaconfigMAX_NUM_BLOCKS_REQUEST > 1)
     // first received blocks is not block #0
     if ( (pdTRUE != s_first_block_received ) && (s_receiving_count < otaconfigMAX_NUM_BLOCKS_REQUEST) )
@@ -147,8 +163,8 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 
     eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER,
     						pData, rsu_offset, ulBlockSize);
-
-    if ( ( FWUP_SUCCESS != eResult ) && ( FWUP_PROGRESS != eResult ) )
+    }
+    if ( ( FWUP_ERR_FLASH == eResult ) )
     {
     	LogDebug( ("otaPal_WriteBlock: index = %d, NG, error = %d\r\n", usBlockIndx, eResult) );
         return 0;
