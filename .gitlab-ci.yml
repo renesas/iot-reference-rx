@@ -1,6 +1,7 @@
 stages:
   - config
   - build
+  - module-check
 
 variables:
   GIT_CLONE_PATH: $CI_BUILDS_DIR/frtos-test
@@ -38,3 +39,11 @@ build_rx65n:
     paths:
       - ./mot/*.mot
       - ./log/log*.txt
+
+module-ver-check:
+  stage: module-check
+  tags:
+    - win-common-rtos-01
+  script:
+    - ./Tools/module_check/module_check.bat
+  interruptible: true
