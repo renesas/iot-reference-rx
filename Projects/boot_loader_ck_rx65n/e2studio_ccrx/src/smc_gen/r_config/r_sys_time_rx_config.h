@@ -14,31 +14,24 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2019 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2013-2016 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
-* File Name    : code_signer_public_key.h
-* Description  : Define public key information for code signer.
-***********************************************************************************************************************/
-/**********************************************************************************************************************
+* File Name     : r_sys_time_rx_config.h
+* Description   : Configures the SYSTEM TIME module
+************************************************************************************************************************
 * History : DD.MM.YYYY Version Description
-*         : 11.10.2019 0.01    First Release
+*           30.11.2016 1.00    Initial Release
+***********************************************************************************************************************/
+#ifndef SYS_TIME_CONFIG_H
+#define SYS_TIME_CONFIG_H
+
+#include "platform.h"
+
+/***********************************************************************************************************************
+Configuration Options
 ***********************************************************************************************************************/
 
-#ifndef CODE_SIGNER_PUBLIC_KEY_H_
-#define CODE_SIGNER_PUBLIC_KEY_H_
+/* no configuration is exist for this module */
 
-/*
- * PEM-encoded code signer public key.
- *
- * Must include the PEM header and footer:
- * "-----BEGIN CERTIFICATE-----\n"\
- * "...base64 data...\n"\
- * "-----END CERTIFICATE-----"
- */
-#define CODE_SIGNER_PUBLIC_KEY_PEM                    NULL
-
-extern const uint8_t g_code_signer_public_key[];
-extern const uint32_t g_code_signer_public_key_length;
-
-#endif /* CODE_SIGNER_PUBLIC_KEY_H_ */
+#endif /* SYS_TIME_CONFIG_H */

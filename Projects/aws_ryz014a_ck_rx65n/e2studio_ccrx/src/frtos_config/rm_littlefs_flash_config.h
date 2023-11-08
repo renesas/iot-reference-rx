@@ -27,4 +27,10 @@
 #define LFS_FLASH_BLOCK_COUNT			(70)
 #define RM_LITTLEFS_FLASH_DATA_START	FLASH_DF_BLOCK_0
 
+#if (LFS_FLASH_BLOCK_COUNT * LFS_FLASH_BLOCK_SIZE) > BSP_DATA_FLASH_SIZE_BYTES
+#error "Entered block count is too big!"
+#elif ( LFS_FLASH_BLOCK_COUNT < 70 )
+#error "Entered block count is too small!"
+#endif
+
 #endif /* FRTOS_CONFIG_RM_LITTLEFS_FLASH_CONFIG_H_ */

@@ -18,8 +18,14 @@
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup_wrap_flash.c
- * Version      : 2.0
+ * Version      : 2.01
  * Description  : Functions for the Firmware update module.
+ **********************************************************************************************************************
+ * History : DD.MM.YYYY Version Description
+ *         : 20.07.2023 2.00    First Release
+ *         : 29.09.2023 2.01    Fixed log messages.
+ *                              Add parameter checking.
+ *                              Added arguments to R_FWUP_WriteImageProgram API.
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
@@ -67,8 +73,8 @@ extern volatile UPDATA_DATA_FLASH_CONTROL_BLOCK update_data_flash_control_block;
  * Function Name: r_fwup_wrap_flash_open
  * Description  : wrapper function for initializing Flash module.
  * Arguments    : None
- * Return Value : FWUP_SUCCESS
- *                FWUP_ERR_FLASH
+ * Return Value : FWUP_SUCCESS   : success
+ *                FWUP_ERR_FLASH : flash open error
  *********************************************************************************************************************/
 e_fwup_err_t r_fwup_wrap_flash_open(void)
 {
@@ -117,10 +123,10 @@ void r_fwup_wrap_flash_close(void)
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_flash_erase
  * Description  : wrapper function for erasing Flash.
- * Arguments    : addr
- *                num_blocks
- * Return Value : FWUP_SUCCESS
- *                FWUP_ERR_FLASH
+ * Arguments    : addr           : erasure destination address
+ *                num_blocks     : number of blocks to erase
+ * Return Value : FWUP_SUCCESS   : success
+ *                FWUP_ERR_FLASH : flash erase error
  *********************************************************************************************************************/
 e_fwup_err_t r_fwup_wrap_flash_erase(uint32_t addr, uint32_t num_blocks)
 {
@@ -131,7 +137,14 @@ e_fwup_err_t r_fwup_wrap_flash_erase(uint32_t addr, uint32_t num_blocks)
 #if (FLASH_TYPE == FLASH_TYPE_1)
     blk_addr = addr;
 #else
-    blk_addr = addr + (FWUP_CFG_CF_BLK_SIZE * (num_blocks - 1));
+    if((FLASH_DF_BLOCK_0 <= addr) && (addr < FLASH_DF_BLOCK_INVALID ))
+    {
+        blk_addr = addr;
+    }
+    else
+    {
+        blk_addr = addr + (FWUP_CFG_CF_BLK_SIZE * (num_blocks - 1));
+    }
 #endif
 
     // Flash access protect
@@ -165,11 +178,11 @@ e_fwup_err_t r_fwup_wrap_flash_erase(uint32_t addr, uint32_t num_blocks)
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_flash_write
  * Description  : wrapper function for writing Flash.
- * Arguments    : src_addr
- *                dest_addr
- *                num_bytes
- * Return Value : FWUP_SUCCESS
- *                FWUP_ERR_FLASH
+ * Arguments    : src_addr       : write source address
+ *                dest_addr      : write destination address
+ *                num_bytes      : number of bytes to write
+ * Return Value : FWUP_SUCCESS   : success
+ *                FWUP_ERR_FLASH : flash write error
  *********************************************************************************************************************/
 e_fwup_err_t r_fwup_wrap_flash_write(uint32_t src_addr, uint32_t dest_addr, uint32_t num_bytes)
 {
@@ -204,10 +217,10 @@ e_fwup_err_t r_fwup_wrap_flash_write(uint32_t src_addr, uint32_t dest_addr, uint
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_flash_read
  * Description  : wrapper function for reading Flash.
- * Arguments    : buf_addr
- *                src_addr
- *                size
- * Return Value : FWUP_SUCCESS
+ * Arguments    : buf_addr     : storage destination address
+ *                src_addr     : read source address
+ *                size         : number of bytes to read
+ * Return Value : FWUP_SUCCESS : success
  *********************************************************************************************************************/
 e_fwup_err_t r_fwup_wrap_flash_read(uint32_t buf_addr, uint32_t src_addr, uint32_t size)
 {
@@ -230,8 +243,8 @@ e_fwup_err_t r_fwup_wrap_flash_read(uint32_t buf_addr, uint32_t src_addr, uint32
  * Function Name: r_fwup_wrap_bank_swap
  * Description  : wrapper function for bank swap.
  * Arguments    : none
- * Return Value : FWUP_SUCCESS
- *                FWUP_ERR_FLASH
+ * Return Value : FWUP_SUCCESS   : success
+ *                FWUP_ERR_FLASH : flash control error
  *********************************************************************************************************************/
 e_fwup_err_t r_fwup_wrap_bank_swap(void)
 {
@@ -297,8 +310,8 @@ e_fwup_err_t r_fwup_wrap_bank_swap(void)
  * Function Name: r_fwup_wrap_ext_flash_open
  * Description  : wrapper function for opening external Flash.
  * Arguments    : None
- * Return Value : FWUP_SUCCESS
- *                FWUP_ERR_FLASH
+ * Return Value : FWUP_SUCCESS   : success
+ *                FWUP_ERR_FLASH : flash open error
  *********************************************************************************************************************/
 e_fwup_err_t r_fwup_wrap_ext_flash_open(void)
 {
@@ -328,10 +341,10 @@ void r_fwup_wrap_ext_flash_close(void)
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_ext_flash_erase
  * Description  : wrapper function for erasing external Flash.
- * Arguments    : addr
- *              : num_sectors
- * Return Value : FWUP_SUCCESS
- *                FWUP_ERR_FLASH
+ * Arguments    : addr           : erasure destination address
+ *              : num_sectors    : number of sectors to erase
+ * Return Value : FWUP_SUCCESS   : success
+ *                FWUP_ERR_FLASH : flash erase error
  *********************************************************************************************************************/
 e_fwup_err_t r_fwup_wrap_ext_flash_erase(uint32_t addr, uint32_t num_sectors)
 {
@@ -346,11 +359,11 @@ e_fwup_err_t r_fwup_wrap_ext_flash_erase(uint32_t addr, uint32_t num_sectors)
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_ext_flash_write
  * Description  : wrapper function for writing external Flash.
- * Arguments    : src_addr
- *              : dest_addr
- *              : num_bytes
- * Return Value : FWUP_SUCCESS
- *                FWUP_ERR_FLASH
+ * Arguments    : src_addr       : write source address
+ *              : dest_addr      : write destination address
+ *              : num_bytes      : number of bytes to write
+ * Return Value : FWUP_SUCCESS   : success
+ *                FWUP_ERR_FLASH : flash write error
  *********************************************************************************************************************/
 e_fwup_err_t r_fwup_wrap_ext_flash_write(uint32_t src_addr, uint32_t dest_addr, uint32_t num_bytes)
 {
@@ -365,11 +378,11 @@ e_fwup_err_t r_fwup_wrap_ext_flash_write(uint32_t src_addr, uint32_t dest_addr, 
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_ext_flash_read
  * Description  : wrapper function for reading external Flash.
- * Arguments    : buf_addr
- *              : src_addr
- *              : size
- * Return Value : FWUP_SUCCESS
- *                FWUP_ERR_FLASH
+ * Arguments    : buf_addr       : storage destination address
+ *              : src_addr       : read source address
+ *              : size           : number of bytes to read
+ * Return Value : FWUP_SUCCESS   : success
+ *                FWUP_ERR_FLASH : flash read error
  *********************************************************************************************************************/
 e_fwup_err_t r_fwup_wrap_ext_flash_read(uint32_t buf_addr, uint32_t src_addr, uint32_t size)
 {
@@ -387,3 +400,4 @@ e_fwup_err_t r_fwup_wrap_ext_flash_read(uint32_t buf_addr, uint32_t src_addr, ui
  */
 /**** Start user code ****/
 /**** End user code   ****/
+
