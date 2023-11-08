@@ -130,6 +130,7 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 				(void)memcpy( s_first_ota_blocks[usBlockIndx], pData, ulBlockSize );
 
 		s_receiving_count++;
+		vPortFree( ulBlockSize );
 		return ulBlockSize;
     }
 
