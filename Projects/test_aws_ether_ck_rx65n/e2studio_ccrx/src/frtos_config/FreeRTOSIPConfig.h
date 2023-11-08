@@ -84,6 +84,12 @@
  */
 #define ipconfigCHECK_IP_QUEUE_SPACE    1
 
+/* Set ipconfigUSE_LLMNR to 1 to include LLMNR. */
+#define ipconfigUSE_LLMNR    0
+
+/* Set ipconfigUSE_NBNS to 1 to include NBNS. */
+#define ipconfigUSE_NBNS    0
+
 /* DHCP servers have a table with information about each clients.  One
  * of the fields in this table contains the host name of the DHCP clients.
  * When 'ipconfigDHCP_REGISTER_HOSTNAME' is defined as non-zero, the DHCP
