@@ -322,10 +322,8 @@ OtaPalStatus_t otaPal_Abort( OtaFileContext_t * const pFileContext )
     }
 
     if ( eResult == OtaPalSuccess ) {
-        eResult = OtaPalSuccess; // stub
+        pFileContext->pFile = NULL;
     }
-
-    pFileContext->pFile = NULL;
 
     return OTA_PAL_COMBINE_ERR( eResult, 0 );
 
