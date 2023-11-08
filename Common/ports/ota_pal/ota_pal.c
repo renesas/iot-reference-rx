@@ -106,15 +106,16 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 
     if (ulBlockSize % FLASH_CF_MIN_PGM_SIZE != 0)
     {
-		uint8_t *pBuffTmp = pvPortMalloc( FLASH_CF_MIN_PGM_SIZE );
-		memset(pBuffTmp, 0xFF, FLASH_CF_MIN_PGM_SIZE);
+    	paddingsize = FLASH_CF_MIN_PGM_SIZE*((int32_t)(ulBlockSize/FLASH_CF_MIN_PGM_SIZE) + 1);
+		uint8_t *pBuffTmp = pvPortMalloc( paddingsize );
+		memset(pBuffTmp, 0xFF, paddingsize);
 		(void)memcpy(pBuffTmp, pData, ulBlockSize);
-
+ 
 		eResult = R_FWUP_WriteImageProgram(FWUP_AREA_BUFFER, pBuffTmp,
 				ulOffset+sizeof(st_fw_header_t),
-						FLASH_CF_MIN_PGM_SIZE);
+				paddingsize);
 		vPortFree( pBuffTmp );
-
+ 
     }
     else
     {
