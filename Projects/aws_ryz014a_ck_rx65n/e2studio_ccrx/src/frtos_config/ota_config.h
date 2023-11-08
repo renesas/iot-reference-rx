@@ -118,6 +118,9 @@
  *
  */
 #define otaconfigMAX_NUM_BLOCKS_REQUEST         1U
+#if otaconfigMAX_NUM_BLOCKS_REQUEST > 1U
+#error "otaconfigMAX_NUM_BLOCKS_REQUEST > 1U is not supported in this release "
+#endif
 
 /**
  * @brief The maximum number of requests allowed to send without a response before we abort.
