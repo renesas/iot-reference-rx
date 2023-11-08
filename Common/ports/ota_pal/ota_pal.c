@@ -283,19 +283,7 @@ OtaPalStatus_t otaPal_ResetDevice( OtaFileContext_t * const pFileContext )
 {
     ( void ) pFileContext;
 
-    if ( ( OtaImageStateAccepted == OtaImageState ) ||
-		( OtaImageStateTesting == OtaImageState ) )
-	{
-    	R_FWUP_SoftwareReset();
-	}
-    else
-    {
-    	// If the status is rejected, aborted, or error, swap bank and return to the previous image
-    	// R_FWUP_ActivateImage();
-    	R_FWUP_SoftwareReset();
-    }
-
-
+    R_FWUP_SoftwareReset();
     return OTA_PAL_COMBINE_ERR( OtaPalSuccess, 0 );
 }
 
