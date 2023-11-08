@@ -46,7 +46,7 @@
 #include "./src/targets/rx65n/r_flash_rx65n.h"
 
 const char OTA_JsonFileSignatureKey[ OTA_FILE_SIG_KEY_STR_MAX_LENGTH ] = "sig-sha256-ecdsa";
-static OtaImageState_t OtaPalImageState;
+static OtaImageState_t OtaImageState;
 uint32_t s_receiving_count = 0;
 BaseType_t s_first_block_received = pdFALSE;
 uint8_t *s_first_ota_blocks[otaconfigMAX_NUM_BLOCKS_REQUEST];
@@ -74,7 +74,7 @@ OtaPalStatus_t otaPal_CreateFileForRx( OtaFileContext_t * const pFileContext )
     }
     else
     {
-        OtaPalImageState = OtaImageStateUnknown;
+        OtaImageState = OtaImageStateUnknown;
     	eResult = OtaPalSuccess;
     }
 
@@ -269,7 +269,7 @@ OtaPalStatus_t otaPal_CloseFile( OtaFileContext_t * const pFileContext )
     }
     else
     {
-        OtaPalImageState = OtaImageStateRejected;
+        OtaImageState = OtaImageStateRejected;
     }
 
     pFileContext->pFile = NULL;
@@ -283,8 +283,8 @@ OtaPalStatus_t otaPal_ResetDevice( OtaFileContext_t * const pFileContext )
 {
     ( void ) pFileContext;
 
-    if ( ( OtaImageStateAccepted == OtaPalImageState ) ||
-		( OtaImageStateTesting == OtaPalImageState ) )
+    if ( ( OtaImageStateAccepted == OtaImageState ) ||
+		( OtaImageStateTesting == OtaImageState ) )
 	{
     	R_FWUP_SoftwareReset();
 	}
@@ -338,7 +338,7 @@ OtaPalStatus_t otaPal_SetPlatformImageState( OtaFileContext_t * const pFileConte
 
     OtaPalMainStatus_t eResult = OtaPalUninitialized;
 
-    if (OtaImageStateTesting == OtaPalImageState )
+    if (OtaImageStateTesting == OtaImageState )
     {
     	switch( eState )
     	{
@@ -401,7 +401,7 @@ OtaPalStatus_t otaPal_SetPlatformImageState( OtaFileContext_t * const pFileConte
 		}
     }
 
-    OtaPalImageState = eState;
+    OtaImageState = eState;
 
     return OTA_PAL_COMBINE_ERR( eResult, 0 );
 
@@ -413,7 +413,7 @@ OtaPalImageState_t otaPal_GetPlatformImageState( OtaFileContext_t * const pFileC
 
     OtaPalImageState_t ePalState = OtaPalImageStateUnknown;
 
-    switch( OtaPalImageState )
+    switch( OtaImageState )
     {
         case OtaImageStateTesting:
             ePalState = OtaPalImageStatePendingCommit;
