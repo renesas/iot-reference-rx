@@ -97,8 +97,6 @@ fsp_err_t RM_LITTLEFS_FLASH_Open (rm_littlefs_ctrl_t * const p_ctrl, rm_littlefs
 
     if (NULL == p_instance_ctrl->xSemaphore)
     {
-    	//R_FLASH_Close();
-
         return FSP_ERR_INTERNAL;
     }
 #endif
@@ -126,15 +124,7 @@ fsp_err_t RM_LITTLEFS_FLASH_Close (rm_littlefs_ctrl_t * const p_ctrl)
 {
     rm_littlefs_flash_instance_ctrl_t * p_instance_ctrl = (rm_littlefs_flash_instance_ctrl_t *) p_ctrl;
 
-    p_instance_ctrl->open = 0; // comment out this line to keep littleFs work after closing
-
-//    if( NULL != xSemaphoreFlashAccess )
-//    {
-//        vSemaphoreDelete( xSemaphoreFlashAccess );
-//        xSemaphoreFlashAccess = NULL;
-//    }
-//
-//    R_FLASH_Close();
+    p_instance_ctrl->open = 0;
 
 #if LFS_THREAD_SAFE
     vSemaphoreDelete(p_instance_ctrl->xSemaphore);
