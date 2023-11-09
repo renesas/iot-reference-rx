@@ -89,9 +89,6 @@ e_fwup_err_t r_fwup_wrap_flash_open(void)
 	    }
 
 		LogDebug( ("r_fwup_wrap_flash_open: Create and give semaphore!") );
-
-		xSemaphoreGive( xSemaphoreFlashAccess );
-
 	}
 
     return (FWUP_SUCCESS);
@@ -152,9 +149,7 @@ e_fwup_err_t r_fwup_wrap_flash_erase(uint32_t addr, uint32_t num_blocks)
 
 	xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE;
-	r_fwup_wrap_disable_interrupt();
 	flash_error_code = R_FLASH_Erase((flash_block_address_t )blk_addr, num_blocks);
-    r_fwup_wrap_enable_interrupt();
 
     if (FLASH_SUCCESS == flash_error_code)
     {
@@ -193,9 +188,7 @@ e_fwup_err_t r_fwup_wrap_flash_write(uint32_t src_addr, uint32_t dest_addr, uint
 	xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE;
 
-    r_fwup_wrap_disable_interrupt();
     flash_error_code = R_FLASH_Write(src_addr, dest_addr, num_bytes);
-    r_fwup_wrap_enable_interrupt();
 
     if (FLASH_SUCCESS == flash_error_code)
     {
@@ -227,11 +220,9 @@ e_fwup_err_t r_fwup_wrap_flash_write(uint32_t src_addr, uint32_t dest_addr, uint
 e_fwup_err_t r_fwup_wrap_flash_read(uint32_t buf_addr, uint32_t src_addr, uint32_t size)
 {
     /**** Start user code ****/
-	//LogDebug( ("r_fwup_wrap_flash_read: Get semaphore for flash reading at %X with size = %d", src_addr, size) );
 	xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
     MEMCPY((void FWUP_FAR *)buf_addr, (void FWUP_FAR *)src_addr, size);
     xSemaphoreGive(xSemaphoreFlashAccess);
-    //LogDebug( ("r_fwup_wrap_flash_read: success!") );
     return (FWUP_SUCCESS);
 
     /**** End user code   ****/
@@ -263,14 +254,6 @@ e_fwup_err_t r_fwup_wrap_bank_swap(void)
     R_BSP_SET_PSW(0);
 
     r_fwup_wrap_disable_interrupt();
-
-    /* Call commonapi open function for Flash */
-    e_commonapi_err_t common_api_err = R_Demo_Common_API_Flash_Open();
-    if (COMMONAPI_SUCCESS != common_api_err)
-    {
-        LogInfo( ("R_Demo_Common_API_Flash_Open: NG, returns %d", common_api_err) );
-        return (FWUP_ERR_FLASH);
-    }
 
     err = R_FLASH_Control(FLASH_CMD_BANK_TOGGLE, NULL);
     r_fwup_wrap_enable_interrupt();
