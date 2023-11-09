@@ -156,19 +156,19 @@ e_fwup_err_t r_fwup_wrap_flash_erase(uint32_t addr, uint32_t num_blocks)
 	flash_error_code = R_FLASH_Erase((flash_block_address_t )blk_addr, num_blocks);
     r_fwup_wrap_enable_interrupt();
 
-    //wait for the semaphore to be released by callback
-    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
-
-    if (FLASH_SUCCESS != flash_error_code)
+    if (FLASH_SUCCESS == flash_error_code)
+    {
+		//wait for the semaphore to be released by callback
+        xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
+        xSemaphoreGive(xSemaphoreFlashAccess);
+        return (FWUP_SUCCESS);
+    }
+    else
     {
     	LogError( ("Flash erase: NG, at address %x, ret = %d\r\n", blk_addr, flash_error_code ) );
     	xSemaphoreGive(xSemaphoreFlashAccess);
         return (FWUP_ERR_FLASH);
     }
-
-    xSemaphoreGive(xSemaphoreFlashAccess);
-
-    return (FWUP_SUCCESS);
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -197,17 +197,19 @@ e_fwup_err_t r_fwup_wrap_flash_write(uint32_t src_addr, uint32_t dest_addr, uint
     flash_error_code = R_FLASH_Write(src_addr, dest_addr, num_bytes);
     r_fwup_wrap_enable_interrupt();
 
-    //wait for the semaphore to be released by callback
-    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
-
-    if (FLASH_SUCCESS != flash_error_code)
+    if (FLASH_SUCCESS == flash_error_code)
+    {
+        //wait for the semaphore to be released by callback
+    	xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
+		xSemaphoreGive( xSemaphoreFlashAccess );
+		return (FWUP_SUCCESS);
+    }
+    else
     {
     	LogError( ("r_fwup_wrap_flash_write: NG, R_FLASH_Write returns %d at %X", flash_error_code, dest_addr) );
-    	xSemaphoreGive(xSemaphoreFlashAccess);
+		xSemaphoreGive(xSemaphoreFlashAccess);
         return (FWUP_ERR_FLASH);
     }
-    xSemaphoreGive(xSemaphoreFlashAccess);
-    return (FWUP_SUCCESS);
     /**** End user code   ****/
 }
 /**********************************************************************************************************************
@@ -266,7 +268,8 @@ e_fwup_err_t r_fwup_wrap_bank_swap(void)
     e_commonapi_err_t common_api_err = R_Demo_Common_API_Flash_Open();
     if (COMMONAPI_SUCCESS != common_api_err)
     {
-        while (1); /* infinite loop due to error */
+        LogInfo( ("R_Demo_Common_API_Flash_Open: NG, returns %d", common_api_err) );
+        return (FWUP_ERR_FLASH);
     }
 
     err = R_FLASH_Control(FLASH_CMD_BANK_TOGGLE, NULL);
