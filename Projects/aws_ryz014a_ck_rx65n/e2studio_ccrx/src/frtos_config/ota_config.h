@@ -149,11 +149,6 @@
 #define otaconfigOTA_UPDATE_STATUS_FREQUENCY    25U
 
 /**
- * @brief Transport timeout in milliseconds for transport send and receive.
- */
-#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 150 )
-
-/**
  * @brief Allow update to same or lower version.
  *
  * Set this to 1 to allow downgrade or same version update.This configurations parameter
