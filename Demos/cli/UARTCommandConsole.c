@@ -236,12 +236,11 @@ xComPortHandle xPort;
                         }
                 }
             }
-
-            /* Must ensure to give the mutex back. */
-            xSemaphoreGive( xTxMutex );
         }
         cPrevChar = cRxedChar;
     }
+    /* Must ensure to give the mutex back. */
+    xSemaphoreGive( xTxMutex );
 }
 /*-----------------------------------------------------------*/
 
