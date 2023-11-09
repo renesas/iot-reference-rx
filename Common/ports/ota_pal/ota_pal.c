@@ -106,7 +106,7 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 
     if (ulBlockSize % FLASH_CF_MIN_PGM_SIZE != 0)
     {
-    	paddingsize = FLASH_CF_MIN_PGM_SIZE*((int32_t)(ulBlockSize/FLASH_CF_MIN_PGM_SIZE) + 1);
+    	uint32_t paddingsize = FLASH_CF_MIN_PGM_SIZE*((int32_t)(ulBlockSize/FLASH_CF_MIN_PGM_SIZE) + 1);
 		uint8_t *pBuffTmp = pvPortMalloc( paddingsize );
 		memset(pBuffTmp, 0xFF, paddingsize);
 		(void)memcpy(pBuffTmp, pData, ulBlockSize);
@@ -264,11 +264,7 @@ OtaPalStatus_t otaPal_CloseFile( OtaFileContext_t * const pFileContext )
     OtaPalMainStatus_t eResult = OtaPalSuccess;
 
     eResult = OTA_PAL_MAIN_ERR( otaPal_CheckFileSignature( pFileContext ) );
-    if ( eResult == OtaPalSuccess )
-    {
-        OtaPalImageState = OtaPalImageStatePendingCommit;
-    }
-    else
+    if ( eResult != OtaPalSuccess )
     {
         OtaImageState = OtaImageStateRejected;
     }
@@ -297,7 +293,6 @@ OtaPalStatus_t otaPal_ActivateNewImage( OtaFileContext_t * const pFileContext )
         return OTA_PAL_COMBINE_ERR( OtaPalActivateFailed, 0 );
     }
 
-    OtaPalImageState = OtaPalImageStateValid;
     R_FWUP_SoftwareReset();
     return OTA_PAL_COMBINE_ERR( OtaPalSuccess, 0 );
 }
