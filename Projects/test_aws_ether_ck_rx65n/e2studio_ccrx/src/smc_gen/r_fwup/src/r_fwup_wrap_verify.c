@@ -219,12 +219,10 @@ static uint8_t * get_cert( uint32_t * ulSignerCertSize )
     	ulCertSize = gKeyValueStore.table[KVS_CODE_SIGN_CERT_ID].valueLength;
     }
     else {
-		LogInfo( ( "Using certificate defined in otapalconfigCODE_SIGNING_CERTIFICATE macro...") );
-
 		/* Allocate memory for the signer certificate plus a terminating zero so we can copy it and return to the caller. */
+		LogError( ( "No certificate stored in DF! Please commit using CLI mode.") );
+		return pucSignerCert;
 
-		ulCertSize = sizeof( otapalconfigCODE_SIGNING_CERTIFICATE );
-		pucCertData = ( uint8_t * ) otapalconfigCODE_SIGNING_CERTIFICATE;
     }
 #endif
 	pucSignerCert = pvPortMalloc( ulCertSize + 1 );
