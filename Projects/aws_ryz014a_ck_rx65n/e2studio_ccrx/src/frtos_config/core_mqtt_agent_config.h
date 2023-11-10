@@ -62,6 +62,16 @@
 
 /************ End of logging configuration ****************/
 
+/**
+ * @brief Maximum time MQTT agent waits in the queue for any pending MQTT
+ * operations.
+ *
+ * The wait time is kept smallest possible to increase the responsiveness of
+ * MQTT agent while processing  pending MQTT operations as well as receive
+ * packets from network.
+ */
+#define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 50U )
+
 /* *INDENT-OFF* */
 #ifdef __cplusplus
     }
