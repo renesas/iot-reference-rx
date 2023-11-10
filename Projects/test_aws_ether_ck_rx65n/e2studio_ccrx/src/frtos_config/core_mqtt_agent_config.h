@@ -70,7 +70,7 @@
  * MQTT agent while processing  pending MQTT operations as well as receive
  * packets from network.
  */
-#define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 1U )
+#define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 50U )
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
