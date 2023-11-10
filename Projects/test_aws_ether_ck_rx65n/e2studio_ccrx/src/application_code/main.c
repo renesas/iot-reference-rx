@@ -224,7 +224,6 @@ void main_task( void )
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 	extern void vRegisterSampleCLICommands( void );
 	extern TaskHandle_t xCLIHandle;
-    extern QueueHandle_t xRxQueue;
 
 	/* Initialize UART for serial terminal. */
 	prvMiscInitialization();
@@ -247,9 +246,6 @@ void main_task( void )
 		/* CLI and Log tasks use common resources but are not exclusively controlled. */
 		/* For this reason, the CLI task must be deleted before executing the Demo. */
 		vTaskDelete(xCLIHandle);
-
-        /* Delete queue after CLI task killed */
-        vQueueDelete( xRxQueue );
 
 		/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
 		are created in the vApplicationIPNetworkEventHook() hook function
