@@ -184,7 +184,7 @@ See [CONTRIBUTING](CONTRIBUTING.md) for more information.
 ## License
 
 * Source code located in the *Projects*, *Common*, *Middleware/AWS*, and *Middleware/FreeRTOS* directories are available under the terms of the MIT License. See the LICENSE file for more details.
-* Other libraries located in the *Middleware*, *Common/littlefs_common* and *Common/ports/rm_littlefs_flash* directories are available under the terms specified in each source file.
+* Other libraries located in the *Middleware*, directories are available under the terms specified in each source file.
 * Each Renesas FIT Modules in RX driver package located in the *Projects/xxx/xxx/src/smc_gen* are available under the terms of the basically MIT License. See the doc/license of following URL for more details.
 [https://github.com/renesas/rx-driver-package](https://github.com/renesas/rx-driver-package)
 
