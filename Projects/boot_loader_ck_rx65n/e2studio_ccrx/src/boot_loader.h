@@ -40,8 +40,11 @@ Macro definitions
 **********************************************************************************************************************/
 #define BL_MCU_NAME                 "RX65N"
 
-#define BL_UART_RTS                 (PORT9.PODR.BIT.B3)
-#define BL_USER_SW_PORT             (PORTD.PIDR.BIT.B0)
+/* The RL78 that performs USB-serial conversion is used to write firmware and output log information.
+ * However, the RL78 firmware does not support RTS flow control,
+ * so the bootloader's flow control processing will not work properly. */
+#define BL_UART_RTS                 (PORTC.PODR.BIT.B0)
+#define BL_USER_SW_PORT             (PORTD.PIDR.BIT.B1)
 #define BL_USER_SW_ON               (0)
 #define BL_FLASH_BUF_SIZE           (128*5)
 
@@ -50,6 +53,15 @@ Macro definitions
 #define BL_SCI_CH                   (SCI_CH5)
 #define BL_SCI_PIN_FUNC             (R_SCI_PinSet_SCI5)
 #define BL_SCI_TX_BUFSIZ            (SCI_CFG_CH5_TX_BUFSIZ)
+
+/* Initial image program mode? */
+#define BL_UPDATE_MODE 						(0)	/* 0:Disable 1:Enable */
+
+/* Does an image exist on the main side? */
+#define BL_INITIAL_IMAGE_INSTALL 			(0)	/* 0:Disable 1:Enable */
+
+/* Verify main area */
+#define BL_ERASE_BUFFER_AREA_AFTER_VERIFIED (1)	/* 0:Disable 1:Enable */
 
 /**********************************************************************************************************************
 Typedef definitions
