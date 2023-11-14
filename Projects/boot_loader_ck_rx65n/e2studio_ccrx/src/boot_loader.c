@@ -28,6 +28,7 @@
 /**********************************************************************************************************************
  Macro definitions
  *********************************************************************************************************************/
+
 #define BL_MSG_SEND_VIA_UART        "send image(*.rsu) via UART.\r\n"
 #define BL_MSG_SW_RESET             "software reset...\r\n"
 #define BL_MSG_ERROR                "error occurred. please reset your board.\r\n"
@@ -35,8 +36,10 @@
 #define BL_MSG_BOOTLOADER           "\r\n==== %s : BootLoader [%s] ====\r\n"
 #define BL_MSG_ACTIVATE_IMG         "activating image ... "
 #define BL_EXEC_IMG                 "execute image ...\r\n"
+#define BL_ERASE_BUFFER_AREA_FAILED "erase buffer area failed.\r\n"
 #define BL_MSG_OK                   "OK\r\n"
 #define BL_MSG_NG                   "NG\r\n"
+#define BL_ERASE_RETRY_MAX_BUFFER_AREA         (3)
 
 #define BL_LOG_ENABLE          (1)
 #if (BL_LOG_ENABLE == 0)
@@ -253,10 +256,14 @@ static e_fwup_err_t open_boot_loader(void)
     sample_sci_open();
     R_FWUP_SoftwareDelay(50, FWUP_DELAY_MILLISECS);
 
+#if (BL_UPDATE_MODE==1) || (BL_INITIAL_IMAGE_INSTALL==1)
     BL_UART_RTS = 0;
-    s_err_flg = 0;
-    sample_buf_init();
+#endif
 
+    s_err_flg = 0;
+#if (BL_UPDATE_MODE==1) || (BL_INITIAL_IMAGE_INSTALL==1)
+    sample_buf_init();
+#endif
     if (FWUP_SUCCESS != R_FWUP_Open())
     {
         return (FWUP_ERR_FAILURE);
@@ -373,6 +380,26 @@ void main(void)
         goto ERROR_END;
     }
 
+#if (BL_UPDATE_MODE == 1)
+    /* Initial image program mode? */
+    if (BL_USER_SW_ON == BL_USER_SW_PORT)
+    {
+        /* Program and verify update image on the buffer side */
+        BL_LOG(BL_MSG_UPDATER, BL_MCU_NAME, MSG_UPDATE_MODE_STR[FWUP_CFG_UPDATE_MODE]);
+        if (FWUP_SUCCESS != sample_write_image(FWUP_AREA_BUFFER))
+        {
+            goto ERROR_END;
+        }
+
+        /*Activate image and  Software reset */
+        if (FWUP_SUCCESS != sample_activate_img())
+        {
+            goto ERROR_END;
+        }
+    }
+#endif
+
+#if (BL_INITIAL_IMAGE_INSTALL == 1)
     /* Does an image exist on the main side? */
     BL_LOG(BL_MSG_BOOTLOADER, BL_MCU_NAME, MSG_UPDATE_MODE_STR[FWUP_CFG_UPDATE_MODE]);
     if (true != R_FWUP_IsExistImage(FWUP_AREA_MAIN))
@@ -389,6 +416,7 @@ void main(void)
             goto ERROR_END;
         }
     }
+#endif
 
 #if defined(BSP_MCU_RX65N)
     /* Reset Generation Source is Deep standby? */
@@ -402,13 +430,34 @@ void main(void)
     /* Verify main area */
     if (FWUP_SUCCESS == R_FWUP_VerifyImage(FWUP_AREA_MAIN))
     {
+#if (BL_ERASE_BUFFER_AREA_AFTER_VERIFIED == 1)
+    	/* Erase buffer area shifted here from ota_pal */
+        if (true == R_FWUP_IsExistImage(FWUP_AREA_BUFFER))
+        {
+        	uint8_t retry_cnt;
+        	for (retry_cnt = 0; retry_cnt < BL_ERASE_RETRY_MAX_BUFFER_AREA; retry_cnt++)
+        	{
+        		 if (FWUP_SUCCESS == R_FWUP_EraseArea(FWUP_AREA_BUFFER))
+        		 {
+        			 break;
+        		 }
+        	}
+        	if (BL_ERASE_RETRY_MAX_BUFFER_AREA <= retry_cnt)
+        	{
+        		BL_LOG(BL_ERASE_BUFFER_AREA_FAILED);
+        	}
+        }
+#endif
         sample_exec_img();
     }
+
 
 ERROR_END:
     BL_LOG(BL_MSG_ERROR);
     s_err_flg = 1;
+#if (BL_UPDATE_MODE==1) || (BL_INITIAL_IMAGE_INSTALL==1)
     BL_UART_RTS = 0;
+#endif
     while (1);
 }
 #elif (FWUP_CFG_UPDATE_MODE != FWUP_SINGLE_BANK_WO_BUFFER) /* with buffer */
