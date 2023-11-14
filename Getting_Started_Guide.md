@@ -79,7 +79,9 @@ Connect a RYZ014A with LTE antenna and SIM card to device board.
 
 **Note:**
 
-* Depending on the country you live in or provider of SIM card, you may not use RYZ014A due to the supported bands. Refer to manual of RYZ014A about supported bands for details.
+* Depending on the country you live in or provider of SIM card, you may not use RYZ014A due to the supported bands. Refer to manual of RYZ014A about supported bands for details.  
+Also see [Settings of Bands](#settings-of-bands-in-case-of-using-cellular) for band settings.
+
 
 ##### Hardware setup in case of Ethernet
 
@@ -162,10 +164,10 @@ In our current implementation, cellular module is reset in this hook when the fo
   * When `CELLULAR_ERR_MODULE_COM` occurs continuously 3 times.
     * You can change retry numbers by configuring `USER_COMM_ERROR_TRIES`.
 
-###### Settings of RX Smart configrater
+###### Settings of RX Smart Configurator
 
-Configure the Renesas code generator (RX Smart Configrater*).  
-Please open RX smart Configrater* and configure settings according to the image below.  
+Configure the Renesas code generator (RX Smart Configurator*).  
+Please open RX Smart Configurator* and configure settings according to the image below.  
 Select **aws_ryz014a_ck_rx65n.scfg** --> **Components** --> **Icon for adding components**　--> **Configure general settings...** --> **Component** --> **code generation behavior column** --> **Update configuration files**.
 
 ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_sc_genetate_setting.PNG?raw=true)
@@ -177,7 +179,7 @@ Select **aws_ryz014a_ck_rx65n.scfg** --> **Components** --> **Icon for adding co
 ###### Download the FreeRTOS kernel
 
 Download the FreeRTOS kernel to run the sample project.  
-Free RTOS kernels can be downloaded using RX Smart Configrater.  
+FreeRTOS kernels can be downloaded using RX Smart Configurator.  
 Right-click FreeRTOS_Kernel and select "Change version...".  
  ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1download_freertos1.png?raw=true)  
 
@@ -202,7 +204,7 @@ If you are using the truephone SIM that comes with CK-RX65N v2, it will work if 
 ###### Settings of bands (In case of using Cellular)
 
 Configure settings related to the bands supported by your cellular module.
-In case of RYZ014A, configure the following macro in "Projects\\aws_ryz014a_ck_rx65n\\e2studio_ccrx\\src\\application_code\\main.c"
+In case of RYZ014A, configure the following macro in "Middleware\\network_transport\\sockets_wrapper\\ports\\cellular_ryz014a\\TCP_socket_hook.c"
 
 * `CELLULAR_BAND_CONFIG`: Set `"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"`
 
@@ -277,7 +279,10 @@ The summarized flow of the command input is as follows:
 
 CLI automatically runs just after starting demo.
 First, Switch to CLI mode by inputting the following command:
-
+```text
+> CLI
+Going to FreeRTOS-CLI !
+```
  ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_1.PNG?raw=true) 
 
 **Note:** CLI will timeout after some seconds. If timeout occurs, core process of demo runs.
@@ -286,14 +291,25 @@ First, Switch to CLI mode by inputting the following command:
 
 Next, format the Data Flash:
 
+```text
+> format
+Format OK !
+```
+
  ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_2.PNG?raw=true) 
 
 Next, configure the desired thing name / mqtt device identifier:
-
+```text
+> conf set thingname github_thing_en
+OK
+```
  ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_3thingname.PNG?raw=true) 
 
 Next, set the mqtt endpoint to the endpoint for your account:
-
+```text
+> conf set endpoint xxxxxxxxxxxxxx-ats.iot.us-west-2.amazonaws.com
+OK
+```
  ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_4endpoint.PNG?raw=true) 
 
 **Note:** You can determine the endpoint for your AWS account with the ```aws iot describe-endpoint``` command or on the *Settings* page of the AWS IoT Core console.
@@ -305,7 +321,7 @@ Drag and drop "xxxx-certificate.pem.crt" generated in [Step 4-1-2 Create RSA key
 
  ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_5cert.PNG?raw=true) 
 
-**Note:** About \<device certificate\>, if you use TeraTerm, drag and drop the certificate file onto the Terminal screen, then select `Send File (Paste content of file)` on the screen that appears, and press `OK`. The contents of the certificate file will be entered.
+**Note:** About \<device certificate\>, if you use TeraTerm, drag and drop the certificate file onto the Terminal screen after entered `conf set cert` , then select `Send File (Paste content of file)` on the screen that appears, and press `OK`. The contents of the certificate file will be entered.
 
 Next, set the device private key:  
 Drag and drop "xxxx-private.pem.key" generated in [Step 4-1-2 Create RSA key pair and device certificate for PubSub demo](#step-4-1-2-create-rsa-key-pair-and-device-certificate-for-pubsub-demo) to teraterm.
@@ -313,7 +329,7 @@ Drag and drop "xxxx-private.pem.key" generated in [Step 4-1-2 Create RSA key pai
 
  ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_6.PNG?raw=true) 
 
-**Note:** About \<private key\>, if you use TeraTerm, drag and drop the private key file onto the Terminal screen, then select `Send File (Paste content of file)` on the screen that appears, and press `OK`. The contents of the private key file will be entered.
+**Note:** About \<private key\>, if you use TeraTerm, drag and drop the certificate file onto the Terminal screen after entered `conf set key` , then select `Send File (Paste content of file)` on the screen that appears, and press `OK`. The contents of the certificate file will be entered.
 
 ###### Commit configuration changes
 
@@ -324,7 +340,9 @@ Next, commit the staged configuration changes to Data Flash:
 ###### Reset the target device and restart demo
 
 Finally, reset the target device once by the following command to restart demo:
-
+```text
+> reset
+```
 ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_8.png?raw=true) 
 
 ##### Step 4-1-7: Expected output for PubSub demo
@@ -349,7 +367,7 @@ Details for PubSub demo with Fleet Provisioning are provided in the special appl
 
 About how to run this demo, see the chapter *4. Running the Fleet Provisioning Demo* in preceding application note.
 
-When running this demo, please enable [Settings of RX Smart configrater](#settings-of-rx-smart-configrater) before generating code with RX Smart configrater.
+When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 
 ##### Precaution for PubSub demo with Fleet Provisioning
 
@@ -367,7 +385,7 @@ When running this demo, please enable [Settings of RX Smart configrater](#settin
 * Currently the maximum response latency between AWS and the device is set at 5000 ms.    
 The latency is set to be long enough to allow for a margin of error.  
 If you want to shorten the latency, please adjust it according to your environment.    
-aws_ryz014a_ck_rx65n\Demos\common\Mqtt_Demo_Helpers\mqtt_pkcs11_demo_helper.c  
+Demos\common\Mqtt_Demo_Helpers\mqtt_pkcs11_demo_helper.c  
 `mqttexamplePROCESS_LOOP_TIMEOUT_MS　(5000U)`
 
 
@@ -378,7 +396,9 @@ Details for OTA demo are provided in the special application note (document numb
 
 * <https://www.renesas.com/search?keywords=r20an7037>  
 
-When running this demo, please enable [Settings of RX Smart configrater](#settings-of-rx-smart-configrater) before generating code with RX Smart configrater.
+About how to run this demo, see the chapter *2. Prerequisites* in preceding application note.
+
+When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 
 ---
 
@@ -387,8 +407,8 @@ If an error occurs during cellular communication due to the communication enviro
 
 |Definition Name|Description|defalt value|correction value|path|
 | ---- | ---- | ---- | ---- | ---- |
-|mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS|Transport timeout in milliseconds for transport send and receive.|150U|`750U`|aws_ryz014a_ck_rx65n\Demos\mqtt_agent\mqtt_agent_task.c|
-|MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME|Time in milliseconds that the MQTT agent task will wait in the Blocked state (so not using any CPU time) for a command to arrive in its command queue before exiting the blocked state so it can call MQTT_ProcessLoop().|50U|`1000U`|aws_ryz014a_ck_rx65n\Middleware\FreeRTOS\coreMQTT-AGent\source\include\core_mqtt_agent.c|
+|mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS|Transport timeout in milliseconds for transport send and receive. You try to change the value to more big when you met TLS session error. Please be careful the value is effected the total time of OTA process. So you should adjust the value of time as your module.|450|`750`|Demos\mqtt_agent\mqtt_agent_task.c|
+|MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME|Time in milliseconds that the MQTT agent task will wait in the Blocked state (so not using any CPU time) for a command to arrive in its command queue before exiting the blocked state so it can call MQTT_ProcessLoop().|50U|`1000U`|src\frtos_config\core_mqtt_agent_config.h|
 
 
 However, each definition affects the execution time of the demo.  
