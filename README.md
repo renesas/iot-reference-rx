@@ -147,7 +147,7 @@ In case of `LFS_FLASH_BLOCK_COUNT` == 170 (21760 bytes)
   When monitoring the communication status using the xGetMQTTAgentState() function, the disconnection with AWS cannot be detected in the following cases.  
   Case where disconnection cannot be detected: An error occurs in the TCP_Sockets API*2 and disconnection with AWS occurs --> The Hook function is called and the MQTT connection with AWS is restored to the state where it was established.  
   The disconnection that occurred in the above case cannot be detected by the xGetMQTTAgentState() function.
-  The function returns the state in which the MQTT connection with AWS is established (MQTT_AGENT_STATE_CONNECTED).  
+  The function returns the state in which the MQTT connection with AWS is established (`MQTT_AGENT_STATE_CONNECTED`).  
   *2 TCP_Sockets API is a function defined in TCP_Sockets_xxxx  
 * Notes on bootloader to application transition.  
   When transitioning from the bootloader sample program to the application, the settings of the bootloader's peripheral functions are taken over by the application.  
