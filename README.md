@@ -100,7 +100,7 @@ The following table indicates name and version of [FIT modules](https://www.rene
   * If you intend to read/write user application data in this area, increase the value of `LFS_FLASH_BLOCK_COUNT` in the "Projects\\...\\frtos_config\\rm_littlefs_flash_config.h".
     * `LFS_FLASH_BLOCK_COUNT` must be specified 71 ( == 9088 bytes) or more and 256 (32768 bytes, it is Data Flash size) or less.
     * You must use LittleFS's API to read/write this area.
-  * When increasing LFS_FLASH_BLOCK_COUNT, you must also set the address of the section for user applications (C_USER_APPLICATION_AREA).  
+  * When increasing `LFS_FLASH_BLOCK_COUNT`, you must also set the address of the section for user applications (C_USER_APPLICATION_AREA).  
     **Right-click on the project** --> **properties** --> **C/C++ Build** --> **Settings** --> **Section**  
     * If you do not set up a section, the demo may not work properly.
 * Free area
