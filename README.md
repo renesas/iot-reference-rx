@@ -140,9 +140,10 @@ In case of `LFS_FLASH_BLOCK_COUNT` == 170 (21760 bytes)
   `LFS_THREADSAFE`
 * Limitations on the xGetMQTTAgentState() function  
   In the following case, the xGetMQTTAgentState() function for monitoring the communication status returns the state of established MQTT connection with AWS (`MQTT_AGENT_STATE_CONNECTED`) without detecting the disconnection:
-The hook function*2 is called by occuring an error of a TCP_Sockets API*1 (disconnection with AWS) inner the xGetMQTTAgentState(), then this hook restores the connection to established state.  
-  *1 TCP_Sockets API is a function defined in TCP_Sockets_xxxx  
-  *2hook function defined in USER_TCP_HOOK_FUNCTION macro in src/frtos_config/user_tcp_hook_config.h  
+The hook function *1 is called by occuring an error of a TCP_Sockets API *2 (disconnection with AWS) inner the xGetMQTTAgentState(), then this hook restores the connection to established state.  
+  *1 The hook function defined in USER_TCP_HOOK_FUNCTION macro in src/frtos_config/user_tcp_hook_config.h  
+  *2 TCP_Sockets API is a function defined in TCP_Sockets_xxxx  
+  
 * Notes on bootloader to application transition.  
   When transitioning from the bootloader sample program to the application, the settings of the bootloader's peripheral functions are taken over by the application.  
   For more information, check chapter 6.4 of the following document.   
