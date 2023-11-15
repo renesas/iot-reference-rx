@@ -162,7 +162,7 @@ In "Projects\\<project_name>\\e2 studio_ccrx\\src\\frtos_config\\demo_config.h",
 * `ENABLE_OTA_UPDATE_DEMO`: (0)  
 ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1config.PNG?raw=true)
 
-###### Settings of reset hook (Only using Cellular)
+###### Settings of the hook function (Only using Cellular)
 
 The socket wrapper layer provides a hook function to reset the cellular module when an error occurs.
 It is recommended to reset the cellular module if the cellular FIT module API "R_Cellular_xxx" returns errors `CELLULAR_ERR_MODULE_TIMEOUT` or `CELLULAR_ERR_MODULE_COM`. Otherwise, cellular module may not communicate.
