@@ -17,11 +17,11 @@ Summary of specifications explains in the following chapters.
 
 ### Demos
 
-* PubSub
+* PubSub demo
   * Simple MQTT communication with [AWS Management Console](https://aws.amazon.com/console)
-* Fleet Provisioning
+* PubSub demo with Fleet Provisioning
   * Generating and securely delivering device certificates and private keys to your devices by AWS when they connect to AWS IoT for the first time
-* OTA demo
+* PubSub demo with OTA
   * Update device firmware using AWS
 
 The preceding demos use the following technical elements of the AWS IoT:
@@ -88,7 +88,7 @@ The following table indicates name and version of [FIT modules](https://www.rene
 |r_fwup|2.01|--|
 
 ### Data Flash Usage
-
+RX family of MCU has internal Data Flash Memory, and this references are using the Data Flash to store the data for connecting to the Cloud service.  
 | Area | Description | Contents |Start address<br>[Size] | Section name |
 |------|-------------|----------|--------------|--------------|
 |LittleFS management area|It's consist of the filesystem LittleFS,<br>default size is 8960 bytes.<br>You can change size by `LFS_FLASH_BLOCK_COUNT`.|IoT const data<br><ul><li>thingname</li><li>endpoint</li><li>claim credentials</li><li>device credentials</li><li>provisioning template</li><li>codesigncert</li><li>root ca</li></ul>|0x00100000<br><br>[8960 bytes<br>(*Default*)]|C_LITTLEFS_MANAGEMENT_AREA|
@@ -97,16 +97,16 @@ The following table indicates name and version of [FIT modules](https://www.rene
 * LittleFS management area
   * The demo project uses a maximum of 8960 bytes of Data Flash from address 0x00100000 to 0x001022FF using LittleFS.
     * If this area is less than 8960 bytes, the demo will not work properly.
-  * You must **NOT** overwrite IoT const data in this area.
+  * You must **NOT** overwrite other data against IoT const data in this area.
   * If you intend to read/write user application data in this area, increase the value of `LFS_FLASH_BLOCK_COUNT` in the "Projects\\...\\frtos_config\\rm_littlefs_flash_config.h".
     * `LFS_FLASH_BLOCK_COUNT` must be specified 71 ( == 9088 bytes) or more and 256 (32768 bytes, it is Data Flash size) or less.
     * You must use LittleFS's API to read/write this area.
-  * When increasing `LFS_FLASH_BLOCK_COUNT`, you must also set the address of the section for user applications (C_USER_APPLICATION_AREA).  
-    **Right-click on the project** --> **properties** --> **C/C++ Build** --> **Settings** --> **Section**  
+  * When increasing `LFS_FLASH_BLOCK_COUNT`, you must also reset the address of the section for free area(C_USER_APPLICATION_AREA) considering the increased LittleFS management area.  
+    **Open the project by e2 studio of IDE** --> **Right-click on the project at the project explore** --> **properties** --> **C/C++ Build** --> **Settings** --> **Section**
     * If you do not set up a section, the demo may not work properly.
 * Free area
   * The remaining area on Data Flash, 23808 bytes of Data Flash area at address 0x00102300 or above, can be used as user application area.
-    * You must use FLASH FIT module's API to read/write this area.
+    * You must use FLASH FIT module's API to write this area.
 
 #### Data Flash Memory Map
 
@@ -131,25 +131,18 @@ In case of `LFS_FLASH_BLOCK_COUNT` == 170 (21760 bytes)
 ```
 
 ## Limitation
-
-* ROM/RAM size is not optimized.
 * CLI task cannot run after starting the demo to avoid the SCI conflict.
-* The project generation for OTA demo feature on e2 studio can not be supported.*1  
-  *1 For PubSub and Fleet Provisioning demo, it is possible to generate a new demo from e2studio. Please refer to the following for details on how to generate them.  
-  https://en-support.renesas.com/knowledgeBase/21115016
-* In the Cellular-RYZ014A project, OTA will not work properly unless "otaconfigMAX_NUM_BLOCKS_REQUEST" is set to "1".
+* OTA demo will not work properly unless `otaconfigMAX_NUM_BLOCKS_REQUEST` is set to "1".  
+  If `otaconfigMAX_NUM_BLOCKS_REQUEST` is set to anything other than 1, a build error will occur.  
 * The following macros are not supported by this source code.  
   If you build the above macros, a build error will occur.  
   `LFS_NO_MALLOC`  
-* The following macros are not supported in this project.  
-  `LFS_NO_INTRINSICS`  
-  This project is designed for RX65N. The RX65N is an RXv2 core and does not implement the CTZ or CLZ instructions.
+  `LFS_THREADSAFE`
 * Limitations on the xGetMQTTAgentState() function  
-  When monitoring the communication status using the xGetMQTTAgentState() function, the disconnection with AWS cannot be detected in the following cases.  
-  Case where disconnection cannot be detected: An error occurs in the TCP_Sockets API*2 and disconnection with AWS occurs --> The Hook function is called and the MQTT connection with AWS is restored to the state where it was established.  
-  The disconnection that occurred in the above case cannot be detected by the xGetMQTTAgentState() function.
-  The function returns the state in which the MQTT connection with AWS is established (`MQTT_AGENT_STATE_CONNECTED`).  
-  *2 TCP_Sockets API is a function defined in TCP_Sockets_xxxx  
+  In the following case, the xGetMQTTAgentState() function for monitoring the communication status returns the state of established MQTT connection with AWS (`MQTT_AGENT_STATE_CONNECTED`) without detecting the disconnection:
+The hook function*2 is called by occuring an error of a TCP_Sockets API*1 (disconnection with AWS) inner the xGetMQTTAgentState(), then this hook restores the connection to established state.  
+  *1 TCP_Sockets API is a function defined in TCP_Sockets_xxxx  
+  *2hook function defined in USER_TCP_HOOK_FUNCTION macro in src/frtos_config/user_tcp_hook_config.h  
 * Notes on bootloader to application transition.  
   When transitioning from the bootloader sample program to the application, the settings of the bootloader's peripheral functions are taken over by the application.  
   For more information, check chapter 6.4 of the following document.   
