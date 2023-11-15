@@ -123,8 +123,8 @@ Import demo projects into IDE; e2 studio.
 1. Click **Browse...** and choose **aws_ryz014a_ck_rx65n** (for Cellular) or **aws_ether_ck_rx65n** (for Ethernet) demo.  
 ![3-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step3_4_project_import.PNG?raw=true)
 
-    **Note:** Ensure that **copy projects into workspace** is not selected.
-![3-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step3_4_project_import2.PNG?raw=true)
+    **Note:** Ensure that **copy projects into workspace** is not selected.  
+![3-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step3_4_project_import2.PNG?raw=true)  
 1. Click **Finish** to import the projects.
 
 ### Step 4: Run demos
