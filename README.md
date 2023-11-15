@@ -17,11 +17,11 @@ Summary of specifications explains in the following chapters.
 
 ### Demos
 
-* PubSub demo
+* PubSub
   * Simple MQTT communication with [AWS Management Console](https://aws.amazon.com/console)
-* PubSub demo with Fleet Provisioning
+* Fleet Provisioning
   * Generating and securely delivering device certificates and private keys to your devices by AWS when they connect to AWS IoT for the first time
-* PubSub demo with OTA
+* OTA
   * Update device firmware using AWS
 
 The preceding demos use the following technical elements of the AWS IoT:
@@ -72,7 +72,7 @@ The following table indicates name and version of OSS which are used in this ref
 
 ### FIT Modules and RX Driver Package
 
-The following table indicates name and version of [FIT modules](https://www.renesas.com/software-tool/fit) which are used in this reference and version of [RX Driver Package](https://www.renesas.com/software-tool/rx-driver-package) which each FIT modules are included in.
+The following table indicates name and version of [FIT modules](https://www.renesas.com/software-tool/fit) which are used in this reference and version of [RX Driver Package](https://www.renesas.com/software-tool/rx-driver-package) in which each FIT module is packaged.
 
 | FIT module | Revision of FIT module | Version of RX Driver Package |
 |------------|---------|-------------------|
@@ -139,7 +139,7 @@ In case of `LFS_FLASH_BLOCK_COUNT` == 170 (21760 bytes)
   `LFS_NO_MALLOC`  
   `LFS_THREADSAFE`
 * Limitations on the xGetMQTTAgentState() function  
-  In the following case, the xGetMQTTAgentState() function for monitoring the communication status returns the state of established MQTT connection with AWS (`MQTT_AGENT_STATE_CONNECTED`) without detecting the disconnection:
+  In the following case, the xGetMQTTAgentState() function for monitoring the communication status returns the state of established MQTT connection with AWS (`MQTT_AGENT_STATE_CONNECTED`) without detecting the disconnection:  
 The hook function *1 is called by occuring an error of a TCP_Sockets API *2 (disconnection with AWS) inner the xGetMQTTAgentState(), then this hook restores the connection to established state.  
   *1 The hook function defined in USER_TCP_HOOK_FUNCTION macro in src/frtos_config/user_tcp_hook_config.h  
   *2 TCP_Sockets API is a function defined in TCP_Sockets_xxxx  
@@ -161,7 +161,7 @@ A summary of the macros is shown below.
 | ---------- | ----------- | ------------- |
 | `BL_UPDATE_MODE` | If only the bootloader is written to the device, pressing the switch will install the initial firmware. | 0 (0:Disable,1:Enable) |
 | `BL_INITIAL_IMAGE_INSTALL` | If the execution plane is empty, initial FW is installed. | 0 (0:Disable,1:Enable)|
-| `BL_ERASE_BUFFER_AREA_AFTER_VERIFIED` | After the firmware update is completed, the old firmware written on the Buffer side is deleted after the first code verification. | 1 (0:Disable,1:Enable)|
+| `BL_ERASE_BUFFER_AREA_AFTER_VERIFIED` | After the firmware update is completed, the old firmware written on the Buffer side is deleted after the verification of new firmware. | 1 (0:Disable,1:Enable)|
 
   
 Also, if both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` above are disabled (Disable), the definition `BL_UART_RTS` for UART flow control is disabled.
