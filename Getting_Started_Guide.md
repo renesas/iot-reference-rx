@@ -7,9 +7,9 @@ This document explains demo and how to run them.
 The following table indicates the character of demos.
 |Demo Name|Based AWS IoT contents|Description|
 | ---- | ---- | ---- |
-|PubSub|[coreMQTT demos](https://docs.aws.amazon.com/freertos/latest/userguide/mqtt-demo.html)|It demonstrates simple MQTT communication between device and AWS server.|
-|Fleet Provisioning|[AWS IoT fleet provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html)|It provides the some secure provisioning operation to device at first connection to AWS server.|
-| OTA | [OTA tutorial](https://docs.aws.amazon.com/freertos/latest/userguide/dev-guide-ota-workflow.html) | It provides the steps to update the firmware on your device.|
+|PubSub demo|[coreMQTT demos](https://docs.aws.amazon.com/freertos/latest/userguide/mqtt-demo.html)|It demonstrates simple MQTT communication between device and AWS server.|
+|PubSub demo with Fleet Provisioning|[AWS IoT fleet provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html)|It provides the some secure provisioning operation to device at first connection to AWS server.|
+| PubSub demo with OTA | [OTA tutorial](https://docs.aws.amazon.com/freertos/latest/userguide/dev-guide-ota-workflow.html) | It provides the steps to update the firmware on your device.|
 
 Each demo is independent as a FreeRTOS's task. It means multiple demos can be run at the same time.
 
@@ -135,19 +135,19 @@ The <project_name> term means one of the following folder name according to used
 
 * When using Ethernet: aws_ether_ck_rx65n
 * When using Cellular: aws_cellular_ck_rx65n
-  
-  
-Each demo supports the following functions.
-|-|Pubsub|Fleet Provisioning|ota|
-|---|---|---|---|
-|[PubSub demo without Fleet Provisioning](#step-4-1-run-pubsub-demo-without-fleet-provisioning)|✓|-|-|
-|[PubSub demo with Fleet Provisioning](#step-4-2-run-pubsub-demo-with-fleet-provisioning)|✓|✓|-|
-|[OTA demo](#step-4-3-run-ota-demo)|✓|-|✓|
+
+The correspondence between each demo and explanation is shown below.
+|demo|operating procedure|
+|---|---|
+|Pubsub demo| [Step 4-1: Run Pubsub demo](#step-4-1-run-pubsub-demo)  |
+|Pubsub demo with Fleet Provisioning|[Step 4-2: Run Pubsub demo with Fleet provisioning](#step-4-2-run-pubsub-demo-with-fleet-provisioning)|
+|Pubsub demo with OTA|[Step 4-3: Run Pubsub demo with OTA](#step-4-3-run-pubsub-demo-with-ota)|
+
 ---
 
-#### Step 4-1: Run PubSub demo without Fleet Provisioning
+#### Step 4-1: Run PubSub demo
 
-See this chapter when running PubSub demo without Fleet Provisioning.
+See this chapter when running PubSub demo.
 
 ##### Step 4-1-1: Software setup for PubSub demo
 
@@ -203,8 +203,7 @@ Click **Manage RTOS Versions...** and download the latest version of FreeRTOS Ke
 ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_download_freertos2.PNG?raw=true)
 
 To install the FIT module, click **downlowding it** as shown in the image below to install the latest version.  
-However, if you only want to run the demo, you do not need to install the r_tsip and r_fwup modules.  
-If you want to change r_tsip and r_fwup settings using RX Smart Configurator, please install it.  
+If you have also installed FIT, please skip this step.  
 ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_download_FIT.PNG?raw=true)
 
 ###### Settings of access point (Only using Cellular)
@@ -412,8 +411,8 @@ Demos\common\Mqtt_Demo_Helpers\mqtt_pkcs11_demo_helper.c
 
 ---
 
-#### Step 4-3: Run OTA demo
-Details for OTA demo are provided in the special application note (document number: R20AN7037). You can search it by visiting the following webpage:
+#### Step 4-3: Run Pubsub demo with OTA
+Details for Pubsub demo with OTA are provided in the special application note (document number: R20AN7037). You can search it by visiting the following webpage:
 
 * <https://www.renesas.com/search?keywords=r20an7037>  
 
