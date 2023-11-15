@@ -85,6 +85,7 @@ The following table indicates name and version of [FIT modules](https://www.rene
 |r_sci_rx|4.40|1.36|
 |r_tsip_rx|1.17.l|--|
 |r_irq_rx|4.00|1.34|
+|r_fwup|2.01|--|
 
 ### Data Flash Usage
 
@@ -172,18 +173,18 @@ A summary of the macros is shown below.
 Also, if both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` above are disabled (Disable), the definition `BL_UART_RTS` for UART flow control is disabled.
 In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to Disable, so the default `BL_UART_RTS` is disabled.
 
-### Fixed configuration values of FIT Modules
+### Configuration values changed from the default in the FIT Modules
 
-* There are some config values of FIT Modules that cannot be changed in order for the program to work properly.
-* The config values of the following FIT Modules of tables cannot be changed.
+* The configuration values of the FIT modules that have been changed from the default values are listed in the table below.
+* However, each projects is evaluated only with preset values, including configuration values that have not been changed from the default values.
 * If changed, the program may not work properly.
 
   #### CK-RX65N Ethernet Projects
 
   | FIT module | Config name | Default Value | Project value | Reason for change |
   |------------|-------------|---------------|---------------|-------------------|
-  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x1000 | Because fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
-  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the dual bank feature. |
+  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x1000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
+  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
   |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
   |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE	| 0 | 1 | This project uses SCI UART terminals. |
   |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This project uses SCI CH5 as the SCI UART terminal. |
@@ -198,13 +199,18 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
   | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
   |            | SCI_CFG_TEI_INCLUDED | 0 | 1 | Transmit end interrupt is used. |
+  | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses Dual bank function. |
+  |            | FWUP_CFG_FUNCTION_MODE | 0 | 1 | This project is user program. |
+  |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
 
   #### CK-RX65N Cellular-RYZ014A Projects
 
   | FIT module | Config name | Default Value | Project value | Reason for change |
   |------------|-------------|---------------|---------------|-------------------|
-  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x1000 | Because fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
-  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the dual bank feature. |
+  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x1000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
+  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
   |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
   |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE	| 0 | 1 | This project uses SCI UART terminals. |
   |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This project uses SCI CH5 as the SCI UART terminal. |
@@ -217,6 +223,25 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |            | SCI_CFG_CH6_TX_BUFSIZ | 80 | 2180 | The TX buffer size needs to be increased to communicate with RYZ014A. |
   |            | SCI_CFG_CH6_RX_BUFSIZ | 80 | 8192 | The RX buffer size needs to be increased to communicate with RYZ014A. |
   |            | SCI_CFG_TEI_INCLUDED | 0 | 1 | Transmit end interrupt is used. |
+  | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses Dual bank function. |
+  |            | FWUP_CFG_FUNCTION_MODE | 0 | 1 | This project is user program. |
+  |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
+
+  #### CK-RX65N Bootloader Projects
+
+  | FIT module | Config name | Default Value | Project value | Reason for change |
+  |------------|-------------|---------------|---------------|-------------------|
+  | r_bsp      | BSP_CFG_USER_CHARPUT_ENABLED | 0 | 1 | Use with log output function. |
+  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
+  | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | Bootloader rewrites the code flash. |
+  |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | Bootloader is implemented to execute code that rewrites the code flash from another bank. |
+  | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used to write firmware and output log information. |
+  | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses the Dual bank function. |
+  |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
 
 ## Contribution
 
