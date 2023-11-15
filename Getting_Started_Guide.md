@@ -8,8 +8,8 @@ The following table indicates the character of demos.
 |Demo Name|Based AWS IoT contents|Description|
 | ---- | ---- | ---- |
 |PubSub|[coreMQTT demos](https://docs.aws.amazon.com/freertos/latest/userguide/mqtt-demo.html)|It demonstrates simple MQTT communication between device and AWS server.|
-|Fleet Provisioning|[AWS IoT fleet provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html)|It provide the some secure provisioning operation to device at first connection to AWS server.|
-| OTA | [OTA tutorial](https://docs.aws.amazon.com/freertos/latest/userguide/dev-guide-ota-workflow.html) | It provide the steps to update the firmware on your device.|
+|Fleet Provisioning|[AWS IoT fleet provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html)|It provides the some secure provisioning operation to device at first connection to AWS server.|
+| OTA | [OTA tutorial](https://docs.aws.amazon.com/freertos/latest/userguide/dev-guide-ota-workflow.html) | It provides the steps to update the firmware on your device.|
 
 Each demo is independent as a FreeRTOS's task. It means multiple demos can be run at the same time.
 
@@ -17,7 +17,9 @@ The demos connect to AWS IoT core via the Ethernet or Cellular with MQTT protoco
 
 ## How to run demos
 
-This chapter explains step by step instructions for running demos.
+This chapter explains step by step instructions for running demos by importing projects into e2 studio.  
+When you create as a new projects according to the FAQ below, you can skip step1 and step3.  
+https://en-support.renesas.com/knowledgeBase/21115016  
 
 ### Prerequisites
 
@@ -101,23 +103,28 @@ For more details, refer to the [manual of CK-RX65N](https://www.renesas.com/us/e
 
 2. For power supply and debugging, connect an USB cable between the debug connector (J14) on the CK-RX65N and your PC with installed e2 studio.
     This connector has a role of both of power supply and debugging.
-3. For receiving debug logs, connect an USB cable between the USB-serial connector (J20) on the CK-RX65N and your PC with serial terminal application to receive logs.
+3. For receiving debug logs, connect an USB cable between the USB-serial connector (J10) on the CK-RX65N and your PC with serial terminal application to receive logs.
     Note that debug logs mean serial output data which is coded in the demo program and Renesas driver software.
     It is not directly related to debugging on e2 studio.
 
-![2](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/Step2_board_config.png?raw=true)
+Board settings image for cellular :  
+![2](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step2_cell.png?raw=true)  
+
+Board settings image for ether :  
+![2](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step2_ether.png?raw=true)  
 
 ### Step 3: Import projects into e2 studio
 
 Import demo projects into IDE; e2 studio.
 
 1. Open e2 studio.
-1. Choose workspace abd click **Launch**.
+1. Choose workspace and click **Launch**.
 1. **File** -> **Import...** -> **Existing Projects into WorkSpace**.
 1. Click **Browse...** and choose **aws_ryz014a_ck_rx65n** (for Cellular) or **aws_ether_ck_rx65n** (for Ethernet) demo.  
 ![3-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step3_4_project_import.PNG?raw=true)
 
     **Note:** Ensure that **copy projects into workspace** is not selected.
+![3-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step3_4_project_import2.PNG?raw=true)
 1. Click **Finish** to import the projects.
 
 ### Step 4: Run demos
@@ -128,7 +135,14 @@ The <project_name> term means one of the following folder name according to used
 
 * When using Ethernet: aws_ether_ck_rx65n
 * When using Cellular: aws_cellular_ck_rx65n
-
+  
+  
+Each demo supports the following functions.
+|-|Pubsub|Fleet Provisioning|ota|
+|---|---|---|---|
+|[PubSub demo without Fleet Provisioning](#step-4-1-run-pubsub-demo-without-fleet-provisioning)|✓|-|-|
+|[PubSub demo with Fleet Provisioning](#step-4-2-run-pubsub-demo-with-fleet-provisioning)|✓|✓|-|
+|[OTA demo](#step-4-3-run-ota-demo)|✓|-|✓|
 ---
 
 #### Step 4-1: Run PubSub demo without Fleet Provisioning
@@ -148,7 +162,7 @@ In "Projects\\<project_name>\\e2 studio_ccrx\\src\\frtos_config\\demo_config.h",
 * `ENABLE_OTA_UPDATE_DEMO`: (0)  
 ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1config.PNG?raw=true)
 
-###### Settings of reset hook (In case of using Cellular)
+###### Settings of reset hook (Only using Cellular)
 
 The socket wrapper layer provides a hook function to reset the cellular module when an error occurs.
 It is recommended to reset the cellular module if the cellular FIT module API "R_Cellular_xxx" returns errors `CELLULAR_ERR_MODULE_TIMEOUT` or `CELLULAR_ERR_MODULE_COM`. Otherwise, cellular module may not communicate.
@@ -176,17 +190,24 @@ Select **aws_ryz014a_ck_rx65n.scfg** --> **Components** --> **Icon for adding co
 
 * "Projects\\<project_name>\\e2 studio_ccrx\\src\\smc_gen"
 
-###### Download the FreeRTOS kernel
+###### Download the FreeRTOS kernel and FIT module
 
 Download the FreeRTOS kernel to run the sample project.  
+If FreeRTOS kernel is not installed, the icon will be displayed as a gray square as shown in the image below.  
+If you have already installed the FreeRTOS kernel, please skip the download step.  
 FreeRTOS kernels can be downloaded using RX Smart Configurator.  
-Right-click FreeRTOS_Kernel and select "Change version...".  
- ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1download_freertos1.png?raw=true)  
+Right-click FreeRTOS_Kernel and select **Change version...**.  
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1download_freertos1.png?raw=true)  
 
-Click "Manage RTOS Versions..." and download the latest version of FreeRTOS Kernel.  
+Click **Manage RTOS Versions...** and download the latest version of FreeRTOS Kernel.  
 ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_download_freertos2.PNG?raw=true)
 
-###### Settings of access point (In case of using Cellular)
+To install the FIT module, click **downlowding it** as shown in the image below to install the latest version.  
+However, if you only want to run the demo, you do not need to install the r_tsip and r_fwup modules.  
+If you want to change r_tsip and r_fwup settings using RX Smart Configurator, please install it.  
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_download_FIT.PNG?raw=true)
+
+###### Settings of access point (Only using Cellular)
 
 Use the RX Smart Configurator to configure the SIM card settings.  
 Open the RX Smart Configurator as shown in the image below and set the four parameters `"Access point name"`, `"Access point login ID"`, `"Access point password"`, and `"SIM card PIN card PIN code"`.  
@@ -201,14 +222,14 @@ If you are using the truephone SIM that comes with CK-RX65N v2, it will work if 
 
 ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_Input_APN.PNG?raw=true)
 
-###### Settings of bands (In case of using Cellular)
+###### Settings of bands (Only using Cellular)
 
 Configure settings related to the bands supported by your cellular module.
 In case of RYZ014A, configure the following macro in "Middleware\\network_transport\\sockets_wrapper\\ports\\cellular_ryz014a\\TCP_socket_hook.c"
 
 * `CELLULAR_BAND_CONFIG`: Set `"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"`
 
-##### Step 4-1-3: Building for PubSub demo
+##### Step 4-1-2: Building for PubSub demo
 
 Build firmware image by the builder with e2 studio.  
 In the **Project Explorer** pane of e2 studio, Right click on the project and select **Build Project**. Wait for completing building.
@@ -217,7 +238,7 @@ In the **Project Explorer** pane of e2 studio, Right click on the project and se
 
 ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/4_1_3_build.png?raw=true)
 
-##### Step 4-1-2: Create RSA key pair and device certificate for PubSub demo
+##### Step 4-1-3: Create RSA key pair and device certificate for PubSub demo
 
 RSA key pair and device certificate can be generated with AWS Console when creating new iot-thing.
 For more information about create iot-thing with **Auto-generate a new certificate**, please refer to the following webpage:
@@ -402,12 +423,12 @@ When running this demo, please enable [Settings of RX Smart Configurator](#setti
 
 ---
 
-#### Troubleshooting
+## Troubleshooting
 If an error occurs during cellular communication due to the communication environment, changing each definition to the following "correction value" may improve the problem.    
 
 |Definition Name|Description|defalt value|correction value|path|
 | ---- | ---- | ---- | ---- | ---- |
-|mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS|Transport timeout in milliseconds for transport send and receive. You try to change the value to more big when you met TLS session error. Please be careful the value is effected the total time of OTA process. So you should adjust the value of time as your module.|450|`750`|Demos\mqtt_agent\mqtt_agent_task.c|
+|mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS|Transport timeout in milliseconds for transport send and receive. You try to change the value to more big when you met TLS handshake error. Please be careful the value is effected the total time of OTA process. So you should adjust the value of time as your module.|450|`750`|Demos\mqtt_agent\mqtt_agent_task.c|
 |MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME|Time in milliseconds that the MQTT agent task will wait in the Blocked state (so not using any CPU time) for a command to arrive in its command queue before exiting the blocked state so it can call MQTT_ProcessLoop().|50U|`1000U`|src\frtos_config\core_mqtt_agent_config.h|
 
 
