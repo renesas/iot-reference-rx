@@ -274,8 +274,8 @@
         <Item currentVect="18" id="RAM_RAMERR" priority="15" usedState="Not Use"/>
         <Item currentVect="21" id="FCU_FIFERR" priority="15" usedState="Not Use"/>
         <Item currentVect="23" id="FCU_FRDYI" priority="15" usedState="Not Use"/>
-        <Item currentVect="26" id="ICU_SWINT2" priority="1" usedState="Used"/>
-        <Item currentVect="27" id="ICU_SWINT" priority="1" usedState="Used"/>
+        <Item currentVect="26" id="ICU_SWINT2" priority="1" usedState="Not Use"/>
+        <Item currentVect="27" id="ICU_SWINT" priority="1" usedState="Not Use"/>
         <Item currentVect="28" id="CMT0_CMI0" priority="15" usedState="Not Use"/>
         <Item currentVect="29" id="CMT1_CMI1" priority="15" usedState="Not Use"/>
         <Item currentVect="30" id="CMTW0_CMWI0" priority="15" usedState="Not Use"/>
@@ -556,8 +556,8 @@
                 <gridItem id="BSP_CFG_EBMAPCR_4TH_PRIORITY" selectedIndex="2"/>
                 <gridItem id="BSP_CFG_EBMAPCR_5TH_PRIORITY" selectedIndex="4"/>
                 <gridItem id="BSP_CFG_FIT_IPL_MAX" selectedIndex="15"/>
-                <gridItem id="BSP_CFG_SWINT_UNIT1_ENABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_SWINT_UNIT2_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_SWINT_UNIT1_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_SWINT_UNIT2_ENABLE" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_SWINT_TASK_BUFFER_NUMBER" selectedIndex="8"/>
                 <gridItem id="BSP_CFG_SWINT_IPR_INITIAL_VALUE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_SCI_UART_TERMINAL_ENABLE" selectedIndex="1"/>
