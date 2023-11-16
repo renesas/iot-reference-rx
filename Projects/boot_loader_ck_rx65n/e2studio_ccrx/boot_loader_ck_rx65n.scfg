@@ -549,7 +549,7 @@
                 <gridItem id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" selectedIndex="my_sw_warmstart_prec_function"/>
                 <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_USER_WARM_START_POST_C_FUNCTION" selectedIndex="my_sw_warmstart_postc_function"/>
-                <gridItem id="BSP_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_EBMAPCR_1ST_PRIORITY" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_EBMAPCR_2ND_PRIORITY" selectedIndex="3"/>
                 <gridItem id="BSP_CFG_EBMAPCR_3RD_PRIORITY" selectedIndex="1"/>
