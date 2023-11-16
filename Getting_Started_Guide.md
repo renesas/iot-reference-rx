@@ -8,7 +8,8 @@ The following table indicates the character of demos.
 |Demo Name|Based AWS IoT contents|Description|
 | ---- | ---- | ---- |
 |PubSub|[coreMQTT demos](https://docs.aws.amazon.com/freertos/latest/userguide/mqtt-demo.html)|It demonstrates simple MQTT communication between device and AWS server.|
-|Fleet Provisioning|[AWS IoT fleet provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html)|It provide the some secure provisioning operation to device at first connection to AWS server.|
+|Fleet Provisioning|[AWS IoT fleet provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html)|It provides the some secure provisioning operation to device at first connection to AWS server.|
+|OTA| [OTA tutorial](https://docs.aws.amazon.com/freertos/latest/userguide/dev-guide-ota-workflow.html) | It provides the steps to update the firmware on your device.|
 
 Each demo is independent as a FreeRTOS's task. It means multiple demos can be run at the same time.
 
@@ -16,7 +17,9 @@ The demos connect to AWS IoT core via the Ethernet or Cellular with MQTT protoco
 
 ## How to run demos
 
-This chapter explains step by step instructions for running demos.
+This chapter explains step by step instructions for running demos by importing projects into e2 studio.  
+When you create as a new projects according to the FAQ below, you can skip step1 and step3.  
+https://en-support.renesas.com/knowledgeBase/21115016  
 
 ### Prerequisites
 
@@ -32,8 +35,6 @@ This chapter explains step by step instructions for running demos.
 * Compiler: [CC-RX](https://www.renesas.com/software-tool/cc-compiler-package-rx-family) V3.05.00 or later
 * Code generator: [RX Smart Configurator](https://www.renesas.com/software-tool/rx-smart-configurator)
   * It is installed with e2 studio.
-* Flash tool: [Renesas Flash Programmer](https://www.renesas.com/software-tool/renesas-flash-programmer-programming-gui)
-  * It is optional usage when not using emulator
 * Serial terminal application: such as [Tera Term](https://ttssh2.osdn.jp/index.html.en).
 
 ### Step 1: Downloading this product
@@ -80,7 +81,9 @@ Connect a RYZ014A with LTE antenna and SIM card to device board.
 
 **Note:**
 
-* Depending on the country you live in or provider of SIM card, you may not use RYZ014A due to the supported bands. Refer to manual of RYZ014A about supported bands for details.
+* Depending on the country you live in or provider of SIM card, you may not use RYZ014A due to the supported bands. Refer to manual of RYZ014A about supported bands for details.  
+Also see [Settings of Bands](#settings-of-bands-in-case-of-using-cellular) for band settings.
+
 
 ##### Hardware setup in case of Ethernet
 
@@ -100,20 +103,28 @@ For more details, refer to the [manual of CK-RX65N](https://www.renesas.com/us/e
 
 2. For power supply and debugging, connect an USB cable between the debug connector (J14) on the CK-RX65N and your PC with installed e2 studio.
     This connector has a role of both of power supply and debugging.
-3. For receiving debug logs, connect an USB cable between the USB-serial connector (J20) on the CK-RX65N and your PC with serial terminal application to receive logs.
+3. For receiving debug logs, connect an USB cable between the USB-serial connector (J10) on the CK-RX65N and your PC with serial terminal application to receive logs.
     Note that debug logs mean serial output data which is coded in the demo program and Renesas driver software.
     It is not directly related to debugging on e2 studio.
+
+Board settings image for cellular :  
+![2](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step2_cell.png?raw=true)  
+
+Board settings image for ether :  
+![2](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step2_ether.png?raw=true)  
 
 ### Step 3: Import projects into e2 studio
 
 Import demo projects into IDE; e2 studio.
 
 1. Open e2 studio.
-1. Choose workspace abd click **Launch**.
+1. Choose workspace and click **Launch**.
 1. **File** -> **Import...** -> **Existing Projects into WorkSpace**.
-1. Click **Browse...** and choose **aws_cellular_ck_rx65n** (for Cellular) or **aws_ether_ck_rx65n** (for Ethernet) demo.
+1. Click **Browse...** and choose **aws_ryz014a_ck_rx65n** (for Cellular) or **aws_ether_ck_rx65n** (for Ethernet) demo.  
+![3-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step3_4_project_import.PNG?raw=true)
 
-    **Note:** Ensure that **copy projects into workspace** is not selected.
+    **Note:** Ensure that **copy projects into workspace** is not selected.  
+![3-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step3_4_project_import2.PNG?raw=true)  
 1. Click **Finish** to import the projects.
 
 ### Step 4: Run demos
@@ -122,14 +133,21 @@ Import demo projects into IDE; e2 studio.
 
 The <project_name> term means one of the following folder name according to used communication way:
 
-* When using Ethernet: aws_ether_ck_rx65n
-* When using Cellular: aws_cellular_ck_rx65n
+* When using Ethernet: aws_ether_ck_rx65n  
+* When using Cellular: aws_cellular_ck_rx65n  
+
+The following are combinations of demos that can be tried for each procedure.
+|Operating Procedure|PubSub|Fleet Provisioning|OTA|
+|---|---|---|---|
+|[Step 4-1: Run PubSub demo](#step-4-1-run-pubsub-demo)|✓|-|-|
+|[Step 4-2: Run PubSub demo with Fleet Provisioning](#step-4-2-run-pubsub-demo-with-fleet-provisioning)|✓|✓|-|
+|[Step 4-3: Run Pubsub demo with OTA](#step-4-3-run-pubsub-demo-with-ota)|✓|-|✓|  
 
 ---
 
-#### Step 4-1: Run PubSub demo without Fleet Provisioning
+#### Step 4-1: Run PubSub demo
 
-See this chapter when running PubSub demo without Fleet Provisioning.
+See this chapter when running PubSub demo.
 
 ##### Step 4-1-1: Software setup for PubSub demo
 
@@ -141,11 +159,10 @@ Configure settings to select combination of demos.
 In "Projects\\<project_name>\\e2 studio_ccrx\\src\\frtos_config\\demo_config.h", configure both of `ENABLE_FLEET_PROVISIONING_DEMO` and `ENABLE_OTA_UPDATE_DEMO`, which allow to select the different supported demo combinations:
 
 * `ENABLE_FLEET_PROVISIONING_DEMO`: (0)
-* `ENABLE_OTA_UPDATE_DEMO`: (0)
+* `ENABLE_OTA_UPDATE_DEMO`: (0)  
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1config.PNG?raw=true)
 
-**Note:** This version does not support OTA Update demo. When `ENABLE_OTA_UPDATE_DEMO` is set to (1), compilation will fail.
-
-###### Settings of reset hook (In case of using Cellular)
+###### Settings of the hook function (Only using Cellular)
 
 The socket wrapper layer provides a hook function to reset the cellular module when an error occurs.
 It is recommended to reset the cellular module if the cellular FIT module API "R_Cellular_xxx" returns errors `CELLULAR_ERR_MODULE_TIMEOUT` or `CELLULAR_ERR_MODULE_COM`. Otherwise, cellular module may not communicate.
@@ -161,84 +178,106 @@ In our current implementation, cellular module is reset in this hook when the fo
   * When `CELLULAR_ERR_MODULE_COM` occurs continuously 3 times.
     * You can change retry numbers by configuring `USER_COMM_ERROR_TRIES`.
 
-###### Settings of access point (In case of using Cellular)
+###### Settings of RX Smart Configurator
 
-Configure 4 macros related to access point in "Projects\\aws_cellular_ck_rx65n\\src\\smc_gen\\r_config\\r_cellular_config.h".
-The settings will vary depending on the SIM card that you are using, so please check the SIM information.
+Configure the Renesas code generator (RX Smart Configurator*).  
+Please open RX Smart Configurator* and configure settings according to the image below.  
+Select **aws_ryz014a_ck_rx65n.scfg** --> **Components** --> **Icon for adding components**　--> **Configure general settings...** --> **Component** --> **code generation behavior column** --> **Update configuration files**.
 
-* `CELLULAR_CFG_AP_NAME`: Set the access point name of the SIM
-* `CELLULAR_CFG_AP_USERID`: Set the user name of the SIM
-* `CELLULAR_CFG_AP_PASSWORD`: Set SIM card password
-* `CELLULAR_CFG_AP_PIN_CODE`: Set SIM card PIN code
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_sc_genetate_setting.PNG?raw=true)
 
-**Note:** You can also set them by RX Smart Configurator on e2 studio. See the chapter [Configure FIT modules in RX Driver Package](#configure-fit-modules-in-rx-driver-package) for more details.
-
-###### Settings of bands (In case of using Cellular)
-
-Configure settings related to the bands supported by your cellular module.
-In case of RYZ014A, configure the following macro in "Projects\\aws_ryz014a_ck_rx65n\\e2studio_ccrx\\src\\application_code\\main.c"
-
-* `CELLULAR_BAND_CONFIG`: Set `"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"`
-
-###### Configure middleware
-
-Configure settings of middleware.
-Although that, you can use these settings as-is if you only run the demos. Change them if you want to do.
-Config files are exist in the following folder:
-
-* "Projects\\<project_name>\\e2 studio_ccrx\\src\\frtos_config"
-
-###### Configure FIT modules in RX Driver Package
-
-Configure some settings of [FIT modules](https://www.renesas.com/software-tool/fit), which is middleware or drivers provided by Renesas via [RX Driver Package](https://www.renesas.com/software-tool/rx-driver-package), by using RX Smart Configurator.
-Although that, you can use these settings as-is if you only run the demos. Change them if you want to do.
-
-See the [manual of RX Smart Configurator](https://www.renesas.com/document/mat/rx-smart-configurator-users-guide-e-studio) for details on how to use it. The Config files generated after code generation by RX Smart Configurator are exist in the following folder:
+*See the [manual of RX Smart Configurator](https://www.renesas.com/document/mat/rx-smart-configurator-users-guide-e-studio) for details on how to use it. The Config files generated after code generation by RX Smart Configurator are exist in the following folder:
 
 * "Projects\\<project_name>\\e2 studio_ccrx\\src\\smc_gen"
 
-##### Step 4-1-2: Create RSA key pair and device certificate for PubSub demo
+###### Download the FreeRTOS kernel, FreeRTOS LittleFS and FIT module
 
-RSA key pair and device certificate can be generated with AWS Console when creating new iot-thing.
-For more information about create iot-thing with **Auto-generate a new certificate**, please refer to the following webpage:
-<https://docs.aws.amazon.com/iot/latest/developerguide/create-iot-resources.html>
+Download FreeRTOS Kernel and FreeRTOS LittleFS.  
+If FreeRTOS kernel and FreeRTOS LittleFS is not installed, the icon will be displayed as a gray square as shown in the image below.  
+If you have already installed the FreeRTOS kernel and FreeRTOS LittleFS, please skip the download step.  
+FreeRTOS kernels can be downloaded using RX Smart Configurator.  
+Click on **FreeRTOS_Kernel** and then select **downloading it**.  
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/Step4_1_1_kernel_littlefs.png?raw=true)    
 
-##### Step 4-1-3: Building for PubSub demo
+FIT modules can be downloaded in the same way.  
+Select the FIT module you wish to download, and then download it from **downloading it**.  
+If you have also installed FIT, please skip this step.  
 
-Build firmware image by the builder with e2 studio.
+###### Settings of access point (Only using Cellular)
 
+Use the RX Smart Configurator to configure the SIM card settings.  
+Open the RX Smart Configurator as shown in the image below and set the four parameters `"Access point name"`, `"Access point login ID"`, `"Access point password"`, and `"SIM card PIN card PIN code"`.  
+The settings will vary depending on the SIM card that you are using, so please check the SIM information.
+
+* `"Access point name"` : Set the access point name of the SIM
+* `"Access point login ID"` : Set the user name of the SIM
+* `"Access point password"` : Set SIM card password
+* `"SIM  card PIN code"` : Set SIM card PIN code
+
+If you are using the truephone SIM that comes with CK-RX65N v2, it will work if you only enter the Access point name.
+
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_Input_APN.PNG?raw=true)
+
+###### Settings of bands (Only using Cellular)
+
+Configure settings related to the bands supported by your cellular module.
+In case of RYZ014A, configure the following macro in "Middleware\\network_transport\\sockets_wrapper\\ports\\cellular_ryz014a\\TCP_socket_hook.c"
+
+* `CELLULAR_BAND_CONFIG`: Set `"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"`
+
+##### Step 4-1-2: Building for PubSub demo
+
+Build firmware image by the builder with e2 studio.  
 In the **Project Explorer** pane of e2 studio, Right click on the project and select **Build Project**. Wait for completing building.
 
 **Note:** Or choose **Project**->**Build Project** menu to build.
 
-##### Step 4-1-4: Flashing for PubSub demo
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/4_1_3_build.png?raw=true)
 
-Flash firmware image to your target device by the either of following ways.
+##### Step 4-1-3: Create RSA key pair and device certificate for PubSub demo
 
-###### Flashing in case of using e2 studio
+RSA key pair and device certificate can be generated with AWS Console when creating new iot-thing.
+For more information about create iot-thing with **Auto-generate a new certificate**, please refer to the following webpage:
+<https://github.com/renesas/iot-reference-rx/wiki/Register-device-to-AWS-IoT>  
 
-In the **Project Explorer** pane of e2 studio, right click on the project and select **Debug As** --> **Renesas GDB Hardware Debugging**.
+If you follow the steps in the URL, the following three files will be generated.
+* xxxx-certificate.pem.crt
+* xxxx-public.pem.key
+* xxxx-private.pem.key
 
-###### Flashing in case of using Renesas Flash Programmer
-
-Go to **Projects** -> **aws_cellular_ck_rx65n** or **aws_ether_ck_rx65n** -> **flash_project** -> **flash_project.rpj** and set the location of mot file.
-
-**Note:** When using **Renesas Flash Programmer** method, please remember enabling "Motorola S format file" in **Properties**->**Settings**->**Converter**->**Output** to generate MOT file after compilation
-
-##### Step 4-1-5: Set up serial terminal application for PubSub demo
+##### Step 4-1-4: Set up serial terminal application for PubSub demo
 
 Configure Tera Term settings as following if you use it:
 
 * New line configuration: Setup->Terminal->New-line
   * Receive : AUTO
-  * Transmit: CR+LF
+  * Transmit: CR+LF  
+
+  ![4-1-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_5teraterm_setting1.PNG?raw=true)
 * Serial port settings: Setup->Serial port
   * Port : Your COM
 * Baudrate : 115200
 * Data : 8 bit
 * Parity : none
 * Stop: 1 bit
-* Flow control : none
+* Flow control : none  
+  ![4-1-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_5teraterm_setting2.PNG?raw=true)
+
+
+##### Step 4-1-5: Flashing for PubSub demo
+
+Flash firmware image to your target device by the either of following ways.
+
+In the **Project Explorer** panel of e2 studio, right click on the project and select **Debug As** --> **Renesas GDB Hardware Debugging**.
+ ![4-1-5](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_5debug_start.png?raw=true)  
+
+If the window below appears, press "Switch".  
+ ![4-1-5](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_5debug_message.PNG?raw=true) 
+
+Press the following button to start debugging.  
+The first command of step 4-1-6 must be entered on teraterm within 10 seconds after the start of debugging.
+It is recommended that you have teraterm ready for easy input.
+ ![4-1-5](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_5_press_start.PNG?raw=true) 
 
 ##### Step 4-1-6: Input via CLI for PubSub demo
 
@@ -257,11 +296,11 @@ The summarized flow of the command input is as follows:
 
 CLI automatically runs just after starting demo.
 First, Switch to CLI mode by inputting the following command:
-
 ```text
 > CLI
 Going to FreeRTOS-CLI !
 ```
+ ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_1.PNG?raw=true) 
 
 **Note:** CLI will timeout after some seconds. If timeout occurs, core process of demo runs.
 
@@ -274,66 +313,66 @@ Next, format the Data Flash:
 Format OK !
 ```
 
-Next, configure the desired thing name / mqtt device identifier:
+ ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_2.PNG?raw=true) 
 
+Next, configure the desired thing name / mqtt device identifier:
 ```text
-> conf set thingname thing_name
+> conf set thingname github_thing_en
 OK
 ```
+ ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_3thingname.PNG?raw=true) 
 
 Next, set the mqtt endpoint to the endpoint for your account:
-
 ```text
 > conf set endpoint xxxxxxxxxxxxxx-ats.iot.us-west-2.amazonaws.com
 OK
 ```
+ ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_4endpoint.PNG?raw=true) 
 
 **Note:** You can determine the endpoint for your AWS account with the ```aws iot describe-endpoint``` command or on the *Settings* page of the AWS IoT Core console.
 
 ###### Set security information of target device
 
-Next, set the device certificate:
+Next, set the device certificate:  
+Drag and drop "xxxx-certificate.pem.crt" generated in [Step 4-1-3: Create RSA key pair and device certificate for PubSub demo](#step-4-1-3-create-rsa-key-pair-and-device-certificate-for-pubsub-demo) to teraterm.
 
-```text
-> conf set cert <device certificate>
-OK
-```
+ ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_5cert.PNG?raw=true) 
 
-**Note:** About \<device certificate\>, if you use TeraTerm, drag and drop the certificate file onto the Terminal screen, then select `Send File (Paste content of file)` on the screen that appears, and press `OK`. The contents of the certificate file will be entered.
+**Note:** About \<device certificate\>, if you use TeraTerm, drag and drop the certificate file onto the Terminal screen after entered `conf set cert` , then select `Send File (Paste content of file)` on the screen that appears, and press `OK`. The contents of the certificate file will be entered.
 
-Next, set the device private key:
+Next, set the device private key:  
+Drag and drop "xxxx-private.pem.key" generated in [Step 4-1-3: Create RSA key pair and device certificate for PubSub demo](#step-4-1-3-create-rsa-key-pair-and-device-certificate-for-pubsub-demo) to teraterm.
 
-```text
-> conf set key <private key>
-OK
-```
 
-**Note:** About \<private key\>, if you use TeraTerm, drag and drop the private key file onto the Terminal screen, then select `Send File (Paste content of file)` on the screen that appears, and press `OK`. The contents of the private key file will be entered.
+ ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_6.PNG?raw=true) 
+
+**Note:** About \<private key\>, if you use TeraTerm, drag and drop the certificate file onto the Terminal screen after entered `conf set key` , then select `Send File (Paste content of file)` on the screen that appears, and press `OK`. The contents of the certificate file will be entered.
 
 ###### Commit configuration changes
 
 Next, commit the staged configuration changes to Data Flash:
 
-```text
-> conf commit
-Configuration saved to Data Flash.
-```
+![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_7.PNG?raw=true) 
 
 ###### Reset the target device and restart demo
 
 Finally, reset the target device once by the following command to restart demo:
-
 ```text
 > reset
-OK
 ```
+![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_8.png?raw=true) 
 
 ##### Step 4-1-7: Expected output for PubSub demo
 
 After restart demo, wait a seconds with input nothing via CLI. Then demo is performed with the following output.
 
-* **PubSub Demo Task 0** and **PubSub Demo Task 1** can complete successfully.
-* You can get message "*Hello World*" published to **MQTT test client** console (<https://us-east-2.console.aws.amazon.com/iot/home?region=us-east-2#/test>).
+* **PubSub Demo Task 0** and **PubSub Demo Task 1** can complete successfully.  
+![4-1-7](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_7_1.PNG?raw=true) 
+
+
+* You can get message "*Hello World*" published to **MQTT test client** console  (<https://us-east-2.console.aws.amazon.com/iot/home?region=us-east-2#/test>).  
+Enter "#" on the AWS console and press "Subscribe".![4-1-7](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_7_2.PNG?raw=true) 
+If successful, it will be displayed on AWS conclose as shown below.![4-1-7](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_7_3.PNG?raw=true) 
 
 ---
 
@@ -341,9 +380,11 @@ After restart demo, wait a seconds with input nothing via CLI. Then demo is perf
 
 Details for PubSub demo with Fleet Provisioning are provided in the special application note (document number: R20AN0674). You can search it by visiting the following webpage:
 
-* <https://www.renesas.com/jp/ja/search?keywords=r20an0674>
+* <https://www.renesas.com/search?keywords=r20an0674>
 
 About how to run this demo, see the chapter *4. Running the Fleet Provisioning Demo* in preceding application note.
+
+When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 
 ##### Precaution for PubSub demo with Fleet Provisioning
 
@@ -358,3 +399,34 @@ About how to run this demo, see the chapter *4. Running the Fleet Provisioning D
 * With the *normal flow*, Data Flash usage is ~7808 bytes after Fleet Provisioning.
 * With the *abnormal flow*, new device credentials will overwrite existing credentials provisioned by Fleet Provisioning.
   * In this case, an additional 1408 bytes will be used.
+* Currently the maximum response latency between AWS and the device is set at 5000 ms.    
+The latency is set to be long enough to allow for a margin of error.  
+If you want to shorten the latency, please adjust it according to your environment.    
+Demos\common\Mqtt_Demo_Helpers\mqtt_pkcs11_demo_helper.c  
+`mqttexamplePROCESS_LOOP_TIMEOUT_MS　(5000U)`
+
+
+---
+
+#### Step 4-3: Run Pubsub demo with OTA
+Details for Pubsub demo with OTA are provided in the special application note (document number: R20AN7037). You can search it by visiting the following webpage:
+
+* <https://www.renesas.com/search?keywords=r20an7037>  
+
+About how to run this demo, see the chapter *2. Prerequisites* in preceding application note.
+
+When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
+
+---
+
+## Troubleshooting
+If an error occurs during cellular communication due to the communication environment, changing each definition to the following "correction value" may improve the problem.    
+
+|Definition Name|Description|defalt value|correction value|path|
+| ---- | ---- | ---- | ---- | ---- |
+|mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS| Timeout in milliseconds to send and receive in the transport layer. You try to change the value to more big when you met TLS handshake error. Changes in this value affect the time of MQTT communication. A change in the MQTT communication time may increase or decrease the OTA process time. So you should adjust the value of time according to your communication environment. |450|`750`|Demos\mqtt_agent\mqtt_agent_task.c|
+|MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME|Time in milliseconds that the MQTT agent task will wait in the Blocked state (so not using any CPU time) for a command to arrive in its command queue before exiting the blocked state so it can call MQTT_ProcessLoop().|50U|`1000U`|src\frtos_config\core_mqtt_agent_config.h|
+
+
+However, each definition affects the execution time of the demo.  
+If the above values are set, the execution time of the demo may increase.  
