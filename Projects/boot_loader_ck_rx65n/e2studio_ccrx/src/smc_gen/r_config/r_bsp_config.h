@@ -637,7 +637,7 @@ Configuration Options
    0 = Global setting for parameter checking is disabled.
    1 = Global setting for parameter checking is enabled (Default).
 */
-#define BSP_CFG_PARAM_CHECKING_ENABLE               (1)
+#define BSP_CFG_PARAM_CHECKING_ENABLE               (0)
 
 /* The extended bus master has five transfer sources: EDMAC, GLCDC-GRA1 (GLCDC graphics 1 data read), GLCDCGRA2 (GLCDC
    graphics 2 data read), DRW2D-TX (DRW2D texture data read), and DRW2D-FB (DRW2D frame buffer data read write and
@@ -694,8 +694,8 @@ Configuration Options
    1 = Software interrupt is used.
    NOTE: When this macro is set to 1, the software interrupt is initialized in bsp startup routine. 
 */
-#define BSP_CFG_SWINT_UNIT1_ENABLE    (1)
-#define BSP_CFG_SWINT_UNIT2_ENABLE    (1)
+#define BSP_CFG_SWINT_UNIT1_ENABLE    (0)
+#define BSP_CFG_SWINT_UNIT2_ENABLE    (0)
 
 /* Software Interrupt Task Buffer Number.
    For software interrupt, this value is number of buffering user tasks.
@@ -731,7 +731,7 @@ Configuration Options
 /* This macro is interrupt priority for serial terminal.
    0(low) - 15(high)
 */
-#define BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY   (3)
+#define BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY   (15)
 
 /* This macro is used for C++ project and updated by Smart Configurator.
    0 = This project is a C project.(Not a C++ project).
