@@ -7,9 +7,9 @@ This document explains demo and how to run them.
 The following table indicates the character of demos.
 |Demo Name|Based AWS IoT contents|Description|
 | ---- | ---- | ---- |
-|PubSub demo|[coreMQTT demos](https://docs.aws.amazon.com/freertos/latest/userguide/mqtt-demo.html)|It demonstrates simple MQTT communication between device and AWS server.|
-|PubSub demo with Fleet Provisioning|[AWS IoT fleet provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html)|It provides the some secure provisioning operation to device at first connection to AWS server.|
-| PubSub demo with OTA | [OTA tutorial](https://docs.aws.amazon.com/freertos/latest/userguide/dev-guide-ota-workflow.html) | It provides the steps to update the firmware on your device.|
+|PubSub|[coreMQTT demos](https://docs.aws.amazon.com/freertos/latest/userguide/mqtt-demo.html)|It demonstrates simple MQTT communication between device and AWS server.|
+|Fleet Provisioning|[AWS IoT fleet provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/provision-wo-cert.html)|It provides the some secure provisioning operation to device at first connection to AWS server.|
+|OTA| [OTA tutorial](https://docs.aws.amazon.com/freertos/latest/userguide/dev-guide-ota-workflow.html) | It provides the steps to update the firmware on your device.|
 
 Each demo is independent as a FreeRTOS's task. It means multiple demos can be run at the same time.
 
@@ -133,15 +133,15 @@ Import demo projects into IDE; e2 studio.
 
 The <project_name> term means one of the following folder name according to used communication way:
 
-* When using Ethernet: aws_ether_ck_rx65n
-* When using Cellular: aws_cellular_ck_rx65n
+* When using Ethernet: aws_ether_ck_rx65n  
+* When using Cellular: aws_cellular_ck_rx65n  
 
-The correspondence between each demo and explanation is shown below.
-|demo|operating procedure|
-|---|---|
-|Pubsub demo| [Step 4-1: Run Pubsub demo](#step-4-1-run-pubsub-demo)  |
-|Pubsub demo with Fleet Provisioning|[Step 4-2: Run Pubsub demo with Fleet provisioning](#step-4-2-run-pubsub-demo-with-fleet-provisioning)|
-|Pubsub demo with OTA|[Step 4-3: Run Pubsub demo with OTA](#step-4-3-run-pubsub-demo-with-ota)|
+The following are combinations of demos that can be tried for each procedure.
+|Operating Procedure|PubSub|Fleet Provisioning|OTA|
+|---|---|---|---|
+|[Step 4-1: Run PubSub demo](#step-4-1-run-pubsub-demo)|✓|-|-|
+|[Step 4-2: Run PubSub demo with Fleet Provisioning](#step-4-2-run-pubsub-demo-with-fleet-provisioning)|✓|✓|-|
+|[Step 4-3: Run Pubsub demo with OTA](#step-4-3-run-pubsub-demo-with-ota)|✓|-|✓|  
 
 ---
 
@@ -190,21 +190,18 @@ Select **aws_ryz014a_ck_rx65n.scfg** --> **Components** --> **Icon for adding co
 
 * "Projects\\<project_name>\\e2 studio_ccrx\\src\\smc_gen"
 
-###### Download the FreeRTOS kernel and FIT module
+###### Download the FreeRTOS kernel, FreeRTOS LittleFS and FIT module
 
-Download the FreeRTOS kernel to run the sample project.  
-If FreeRTOS kernel is not installed, the icon will be displayed as a gray square as shown in the image below.  
-If you have already installed the FreeRTOS kernel, please skip the download step.  
+Download FreeRTOS Kernel and FreeRTOS LittleFS.  
+If FreeRTOS kernel and FreeRTOS LittleFS is not installed, the icon will be displayed as a gray square as shown in the image below.  
+If you have already installed the FreeRTOS kernel and FreeRTOS LittleFS, please skip the download step.  
 FreeRTOS kernels can be downloaded using RX Smart Configurator.  
-Right-click FreeRTOS_Kernel and select **Change version...**.  
-![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1download_freertos1.png?raw=true)  
+Click on **FreeRTOS_Kernel** and then select **downloading it**.  
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/Step4_1_1_kernel_littlefs.png?raw=true)    
 
-Click **Manage RTOS Versions...** and download the latest version of FreeRTOS Kernel.  
-![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_download_freertos2.PNG?raw=true)
-
-To install the FIT module, click **downlowding it** as shown in the image below to install the latest version.  
+FIT modules can be downloaded in the same way.  
+Select the FIT module you wish to download, and then download it from **downloading it**.  
 If you have also installed FIT, please skip this step.  
-![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_download_FIT.PNG?raw=true)
 
 ###### Settings of access point (Only using Cellular)
 
@@ -337,14 +334,14 @@ OK
 ###### Set security information of target device
 
 Next, set the device certificate:  
-Drag and drop "xxxx-certificate.pem.crt" generated in [Step 4-1-2 Create RSA key pair and device certificate for PubSub demo](#step-4-1-2-create-rsa-key-pair-and-device-certificate-for-pubsub-demo) to teraterm.
+Drag and drop "xxxx-certificate.pem.crt" generated in [Step 4-1-3: Create RSA key pair and device certificate for PubSub demo](#step-4-1-3-create-rsa-key-pair-and-device-certificate-for-pubsub-demo) to teraterm.
 
  ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_5cert.PNG?raw=true) 
 
 **Note:** About \<device certificate\>, if you use TeraTerm, drag and drop the certificate file onto the Terminal screen after entered `conf set cert` , then select `Send File (Paste content of file)` on the screen that appears, and press `OK`. The contents of the certificate file will be entered.
 
 Next, set the device private key:  
-Drag and drop "xxxx-private.pem.key" generated in [Step 4-1-2 Create RSA key pair and device certificate for PubSub demo](#step-4-1-2-create-rsa-key-pair-and-device-certificate-for-pubsub-demo) to teraterm.
+Drag and drop "xxxx-private.pem.key" generated in [Step 4-1-3: Create RSA key pair and device certificate for PubSub demo](#step-4-1-3-create-rsa-key-pair-and-device-certificate-for-pubsub-demo) to teraterm.
 
 
  ![4-1-6](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_6_6.PNG?raw=true) 
@@ -427,7 +424,7 @@ If an error occurs during cellular communication due to the communication enviro
 
 |Definition Name|Description|defalt value|correction value|path|
 | ---- | ---- | ---- | ---- | ---- |
-|mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS|Transport timeout in milliseconds for transport send and receive. You try to change the value to more big when you met TLS handshake error. Please be careful the value is effected the total time of OTA process. So you should adjust the value of time as your module.|450|`750`|Demos\mqtt_agent\mqtt_agent_task.c|
+|mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS| Timeout in milliseconds to send and receive in the transport layer. You try to change the value to more big when you met TLS handshake error. Changes in this value affect the time of MQTT communication. A change in the MQTT communication time may increase or decrease the OTA process time. So you should adjust the value of time according to your communication environment. |450|`750`|Demos\mqtt_agent\mqtt_agent_task.c|
 |MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME|Time in milliseconds that the MQTT agent task will wait in the Blocked state (so not using any CPU time) for a command to arrive in its command queue before exiting the blocked state so it can call MQTT_ProcessLoop().|50U|`1000U`|src\frtos_config\core_mqtt_agent_config.h|
 
 
