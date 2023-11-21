@@ -6,10 +6,10 @@
             <toolchain id="com.renesas.smc.toolchain.rxc.toolchain.rxc">
                 <option id="com.renesas.smc.toolchain.option.language" key="com.renesas.smc.toolchain.option.language.c"/>
                 <option id="com.renesas.smc.toolchain.option.buildArtefactType" key="com.renesas.smc.toolchain.option.buildArtefactType.exe"/>
-                <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.freertos.kernel">
-                    <item id="com.renesas.smc.toolchain.option.rtos.freertos.kernel" value="10.4.3-rx-1.0.1"/>
+                <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.freertoslts">
+                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202210.01-LTS-rx-1.0.1"/>
                 </option>
-                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.true"/>
+                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.false"/>
             </toolchain>
         </configuration>
         <platform id="R5F565NEHxFB"/>
