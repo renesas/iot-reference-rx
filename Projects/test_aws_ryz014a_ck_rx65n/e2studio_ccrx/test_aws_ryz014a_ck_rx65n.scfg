@@ -580,7 +580,7 @@
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
         <configuration enable="true" exclude="false" id="8c467799-eb20-4fb3-aee6-7a58ad3994a3" inuse="true" name="FreeRTOS_Kernel">
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110">
+            <component description="FreeRTOS Kernel component detail" detailDescription="FreeRTOS Kernel component detail" display="FreeRTOS Kernel component" id="FreeRTOS_Kernel202210.01-LTS-rx-1.0.1" version="202210.01-LTS-rx-1.0.1">
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
                 <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
                 <gridItem id="configUSE_TICK_HOOK" selectedIndex="1"/>
