@@ -31,6 +31,7 @@
  Includes   <System Includes> , "Project Includes"
  *********************************************************************************************************************/
 #include "r_fwup_if.h"
+#include "ota_private.h"
 #include "r_fwup_wrap_com.h"
 #include "r_fwup_wrap_flash.h"
 

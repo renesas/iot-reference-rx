@@ -32,6 +32,7 @@
  *********************************************************************************************************************/
 #include "r_fwup_if.h"
 #include "r_fwup_wrap_verify.h"
+#include "ota_private.h"
 
 /**** Start user code ****/
 /**** End user code   ****/
