@@ -18,7 +18,6 @@
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup_wrap_verify.h
- * Version      : 2.01
  * Description  : Functions for the Firmware update module.
  **********************************************************************************************************************
  * History : DD.MM.YYYY Version Description
@@ -71,7 +70,7 @@
 void *  r_fwup_wrap_get_crypt_context (void);
 int32_t r_fwup_wrap_sha256_init   (void *vp_ctx);
 int32_t r_fwup_wrap_sha256_update (void *vp_ctx, C_U8_FAR *p_data, uint32_t datalen);
-int32_t r_fwup_wrap_sha256_final(uint8_t *p_hash, void * vp_ctx);
+int32_t r_fwup_wrap_sha256_final  (uint8_t *p_hash, void *vp_ctx);
 int32_t r_fwup_wrap_verify_ecdsa  (uint8_t *p_hash, uint8_t *p_sig_type, uint8_t *p_sig, uint32_t sig_size);
 
 #endif /* R_FWUP_WRAP_VERIFY_H_ */
