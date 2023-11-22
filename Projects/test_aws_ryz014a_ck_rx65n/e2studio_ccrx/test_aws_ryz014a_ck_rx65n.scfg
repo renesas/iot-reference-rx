@@ -6,10 +6,10 @@
             <toolchain id="com.renesas.smc.toolchain.rxc.toolchain.rxc">
                 <option id="com.renesas.smc.toolchain.option.language" key="com.renesas.smc.toolchain.option.language.c"/>
                 <option id="com.renesas.smc.toolchain.option.buildArtefactType" key="com.renesas.smc.toolchain.option.buildArtefactType.exe"/>
-                <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.freertos.kernel">
-                    <item id="com.renesas.smc.toolchain.option.rtos.freertos.kernel" value="10.4.3-rx-1.0.1"/>
+                <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.freertoslts">
+                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202210.01-LTS-rx-1.0.1"/>
                 </option>
-                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.true"/>
+                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.false"/>
             </toolchain>
         </configuration>
         <platform id="R5F565NEHxFB"/>
@@ -580,7 +580,7 @@
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
         <configuration enable="true" exclude="false" id="8c467799-eb20-4fb3-aee6-7a58ad3994a3" inuse="true" name="FreeRTOS_Kernel">
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to configure kernel setting of FreeRTOS." detailDescription="" display="FreeRTOS_Kernel" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.kernel" version="1.0.110">
+            <component description="FreeRTOS Kernel component detail" detailDescription="FreeRTOS Kernel component detail" display="FreeRTOS Kernel component" id="FreeRTOS_Kernel202210.01-LTS-rx-1.0.1" version="202210.01-LTS-rx-1.0.1">
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
                 <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
                 <gridItem id="configUSE_TICK_HOOK" selectedIndex="1"/>
@@ -602,6 +602,7 @@
                 <gridItem id="configQUEUE_REGISTRY_SIZE" selectedIndex="0"/>
                 <gridItem id="configUSE_MALLOC_FAILED_HOOK" selectedIndex="1"/>
                 <gridItem id="configUSE_APPLICATION_TASK_TAG" selectedIndex="0"/>
+                <gridItem id="configCOMMAND_INT_MAX_OUTPUT_SIZE" selectedIndex="850"/>
                 <gridItem id="configUSE_QUEUE_SETS" selectedIndex="1"/>
                 <gridItem id="configUSE_COUNTING_SEMAPHORES" selectedIndex="1"/>
                 <gridItem id="configMAX_PRIORITIES" selectedIndex="7"/>
@@ -1118,18 +1119,20 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration inuse="true" name="r_fwup">
-            <component description="Dependency : r_flash_rx version(s) 4.80, 4.91&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.00" version="2.00">
+            <component description="Dependency : r_flash_rx version(s) 4.80, 4.91&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.01" version="2.01">
                 <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
                 <gridItem id="FWUP_CFG_FUNCTION_MODE" selectedIndex="1"/>
-                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000"/>
-                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000"/>
-                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000"/>
-                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x8000"/>
-                <gridItem id="FWUP_CFG_EXT_BUF_AREA_ADDR_L" selectedIndex="0x00000000"/>
-                <gridItem id="FWUP_CFG_EXT_BUF_AREA_BLK_SIZE" selectedIndex="4096"/>
+                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000U"/>
+                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000U"/>
+                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000U"/>
+                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x8000U"/>
+                <gridItem id="FWUP_CFG_CF_W_UNIT_SIZE" selectedIndex="128U"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_ADDR_L" selectedIndex="0x00000U"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_BLK_SIZE" selectedIndex="4096U"/>
                 <gridItem id="FWUP_CFG_DF_ADDR_L" selectedIndex="0x00100000"/>
-                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64"/>
-                <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512"/>
+                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64U"/>
+                <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512U"/>
+                <gridItem id="FWUP_CFG_FWUPV1_COMPATIBLE" selectedIndex="0"/>
                 <gridItem id="FWUP_CFG_SIGNATURE_VERIFICATION" selectedIndex="0"/>
                 <gridItem id="FWUP_CFG_PRINTF_DISABLE" selectedIndex="0"/>
             </component>
