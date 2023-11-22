@@ -18,7 +18,6 @@
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup.c
- * Version      : 2.01
  * Description  : Functions for the Firmware update module.
  **********************************************************************************************************************
  * History : DD.MM.YYYY Version Description
@@ -478,7 +477,7 @@ void R_FWUP_SoftwareReset(void)
  * Description  : Software delay timer
  * Arguments    : delay : delay count
  *                units : FWUP_DELAY_MICROSECS/FWUP_DELAY_MILLISECS/FWUP_DELAY_SECS
- * Return Value : 0     : success
+ * Return Value : 1     : success
  *                other : error
  *********************************************************************************************************************/
 uint32_t R_FWUP_SoftwareDelay(uint32_t delay, e_fwup_delay_units_t units)
