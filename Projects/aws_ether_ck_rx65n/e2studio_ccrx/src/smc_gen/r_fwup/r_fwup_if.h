@@ -34,7 +34,6 @@ Includes   <System Includes> , "Project Includes"
 #include <string.h>
 #include "platform.h"
 #include "r_fwup_config.h"
-#include "ota_private.h"
 
 #ifndef R_FWUP_IF_H
 #define R_FWUP_IF_H

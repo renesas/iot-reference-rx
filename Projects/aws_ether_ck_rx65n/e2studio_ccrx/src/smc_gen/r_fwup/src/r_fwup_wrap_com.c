@@ -135,7 +135,7 @@ void r_fwup_wrap_software_reset(void)
  * Description  : wrapper function for execute software delay.
  * Arguments    : delay : delay count
  *                units : FWUP_DELAY_MICROSECS/FWUP_DELAY_MILLISECS/FWUP_DELAY_SECS
- * Return Value : 0     : success
+ * Return Value : 1     : success
  *                other : error
  *********************************************************************************************************************/
 uint32_t r_fwup_wrap_software_delay(uint32_t delay, e_fwup_delay_units_t units)
