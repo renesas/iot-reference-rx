@@ -32,7 +32,6 @@
  *********************************************************************************************************************/
 #include "r_fwup_if.h"
 #include "r_fwup_wrap_verify.h"
-#include "ota_private.h"
 
 #if (OTA_PAL_TEST_ENABLED == 1)
 #include "aws_test_ota_pal_ecdsa_sha256_signature.h"
