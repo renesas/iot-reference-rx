@@ -42,7 +42,6 @@
 /* Renesas RX Driver Package include */
 #include "platform.h"
 #include "r_fwup_if.h"
-#include "ota_private.h"
 #include "r_fwup_private.h"
 #include "./src/targets/rx65n/r_flash_rx65n.h"
 
