@@ -172,19 +172,19 @@ void main_task( void )
 
 			configPRINTF( ( "---------STARTING DEMO---------\r\n" ) );
 
-			#if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
-			   vStartFleetProvisioningDemo();
-			#else
-			   xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
-			#endif
+        #if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
+           vStartFleetProvisioningDemo();
+        #else
+           xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+        #endif
 
-			vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
+        vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
 
-			vStartSimplePubSubDemo ();
+        vStartSimplePubSubDemo ();
 
-			#if (ENABLE_OTA_UPDATE_DEMO == 1)
-					  vStartOtaDemo();
-			#endif
+        #if (ENABLE_OTA_UPDATE_DEMO == 1)
+                  vStartOtaDemo();
+        #endif
 		}
 	}
 

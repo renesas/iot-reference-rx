@@ -39,7 +39,6 @@
 #include "rm_littlefs_api.h"
 #include "rm_littlefs_flash.h"
 #include "lfs_util.h"
-#include "lfs_util.h"
 #include "mbedtls_pk_pkcs11.h"
 #include "core_mqtt.h"
 FSP_HEADER

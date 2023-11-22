@@ -37,14 +37,12 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Demo includes */
 #include "aws_clientcredential.h"
 #include "r_cellular_if.h"
-
 #include "mqtt_agent_task.h"
 #include "test_execution_config.h"
 #include "store.h"
 
 st_cellular_ctrl_t cellular_ctrl;
 extern bool Connect2AP( void );
-
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
@@ -119,7 +117,6 @@ extern void vSubscribePublishTestTask( void * pvParameters );
 
 extern void vStartOtaDemo( void );
 
-
 int RunDeviceAdvisorDemo( void )
 {
     BaseType_t xResult = pdFAIL;
@@ -140,7 +137,6 @@ int RunDeviceAdvisorDemo( void )
     }
     return ( xResult == pdPASS ) ? 0 : -1;
 }
-
 int RunOtaE2eDemo( void )
 {
     xMQTTAgentInit();
@@ -150,7 +146,6 @@ int RunOtaE2eDemo( void )
 	vStartOtaDemo();
 	return 0;
 }
-
 /**
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
@@ -165,6 +160,7 @@ void main_task( void )
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 	extern TaskHandle_t xCLIHandle;
 
+	/* Initialize UART for serial terminal. */
 	prvMiscInitialization();
 
 	/* Register the standard CLI commands. */
@@ -175,8 +171,9 @@ void main_task( void )
 
 	if (xResults == LFS_ERR_OK)
 	{
-		xResults = vprvCacheInit();
+	xResults = vprvCacheInit();
 	}
+
 
 	if(ApplicationCounter(Time2Wait))
 	{
@@ -194,16 +191,15 @@ void main_task( void )
 
 		#if OTA_E2E_TEST_ENABLED
 
-			RunOtaE2eDemo();
+		RunOtaE2eDemo();
 
 		#else
-
-			xResults = xTaskCreate( prvQualificationTestTask,
-								   "TEST",
-								   appmainTEST_TASK_STACK_SIZE,
-								   NULL,
-								   appmainTEST_TASK_PRIORITY,
-									   NULL );
+		xResults = xTaskCreate( prvQualificationTestTask,
+							   "TEST",
+							   appmainTEST_TASK_STACK_SIZE,
+							   NULL,
+							   appmainTEST_TASK_PRIORITY,
+							   NULL );
 
 		#endif
 		(void) xResults;
@@ -234,6 +230,35 @@ void vApplicationDaemonTaskStartupHook( void )
 
 }
 
+bool ApplicationCounter(uint32_t xWaitTime)
+{
+    TickType_t xCurrent;
+    bool DEMO_TEST = pdTRUE;
+    const TickType_t xPrintFrequency = pdMS_TO_TICKS( xWaitTime );
+    xCurrent = xTaskGetTickCount();
+    signed char cRxChar;
+    while( xCurrent < xPrintFrequency )
+    {
+    	vTaskDelay(1);
+    	xCurrent = xTaskGetTickCount();
+
+    	cRxChar = vISR_Routine();
+    	if ((cRxChar != 0) )
+    	{
+
+    		DEMO_TEST = pdFALSE;
+    		break;
+    	}
+    }
+    return DEMO_TEST;
+}
+
+signed char vISR_Routine( void )
+{
+	BaseType_t xTaskWokenByReceive = pdFALSE;
+	extern signed char cRxedChar;
+    return cRxedChar;
+}
 
 /*-----------------------------------------------------------*/
 
@@ -295,39 +320,6 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 }
 /*-----------------------------------------------------------*/
 
-bool ApplicationCounter(uint32_t xWaitTime)
-{
-    TickType_t xCurrent;
-    bool DEMO_TEST = pdTRUE;
-    const TickType_t xPrintFrequency = pdMS_TO_TICKS( xWaitTime );
-    xCurrent = xTaskGetTickCount();
-    signed char cRxChar;
-    while( xCurrent < xPrintFrequency )
-    {
-    	vTaskDelay(1);
-    	xCurrent = xTaskGetTickCount();
-
-    	cRxChar = vISR_Routine();
-    	if ((cRxChar != 0) )
-    	{
-
-    		DEMO_TEST = pdFALSE;
-    		break;
-    	}
-    }
-    return DEMO_TEST;
-}
-
-signed char vISR_Routine( void )
-{
-	BaseType_t xTaskWokenByReceive = pdFALSE;
-	extern signed char cRxedChar;
-    return cRxedChar;
-}
-
-
-
-
 #ifndef iotconfigUSE_PORT_SPECIFIC_HOOKS
 
 /**
@@ -383,12 +375,25 @@ signed char vISR_Routine( void )
 /*-----------------------------------------------------------*/
 
 #if ( ipconfigUSE_LLMNR != 0 ) || ( ipconfigUSE_NBNS != 0 ) || ( ipconfigDHCP_REGISTER_HOSTNAME == 1 )
-
+    /* This function will be called during the DHCP: the machine will be registered
+     * with an IP address plus this name. 
+     * Note: Please make sure vprvCacheInit() is called before this function, because
+	 * it retrieves thingname value from KeyValue table. */
     const char * pcApplicationHostnameHook( void )
     {
         /* This function will be called during the DHCP: the machine will be registered
          * with an IP address plus this name. */
+#if defined(__TEST__)
         return clientcredentialIOT_THING_NAME;
+#else
+        if (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0)
+        {
+            return gKeyValueStore.table[KVS_CORE_THING_NAME].value;
+        }
+        else
+        {
+            return clientcredentialIOT_THING_NAME;
+        }
+#endif
     }
-
 #endif
