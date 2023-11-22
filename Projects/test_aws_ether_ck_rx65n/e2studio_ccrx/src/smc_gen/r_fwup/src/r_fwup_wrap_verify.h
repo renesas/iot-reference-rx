@@ -18,23 +18,27 @@
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup_wrap_verify.h
- * Version      : 2.0
  * Description  : Functions for the Firmware update module.
+ **********************************************************************************************************************
+ * History : DD.MM.YYYY Version Description
+ *         : 20.07.2023 2.00    First Release
+ *         : 29.09.2023 2.01    Fixed log messages.
+ *                              Add parameter checking.
+ *                              Added arguments to R_FWUP_WriteImageProgram API.
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
  Includes   <System Includes> , "Project Includes"
  *********************************************************************************************************************/
 #include "r_fwup_private.h"
+#include "store.h"
 
 /**** Start user code ****/
-#include "base64_decode.h"
-#include "tinycrypt/constants.h"
-#include "tinycrypt/sha256.h"
 #if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
-#include "tinycrypt/ecc.h"
-#include "tinycrypt/ecc_dsa.h"
-#include "code_signer_public_key.h"
+#include "iot_crypto.h"
+
+/* OTA PAL test config file include. */
+#include "demo_config.h"
 #endif /* (FWUP_CFG_SIGNATURE_VERIFICATION == 0) */
 
 /**** End user code   ****/

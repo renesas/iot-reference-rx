@@ -86,9 +86,9 @@
  */
 #define ENABLE_OTA_UPDATE_DEMO              (0)
 
-#if ENABLE_OTA_UPDATE_DEMO
-#error "OTA demo is not support in this release"
-#endif
+//#if ENABLE_OTA_UPDATE_DEMO
+//#error "OTA demo is not support in this release"
+//#endif
 
 #define democonfigROOT_CA_PEM               tlsSTARFIELD_ROOT_CERTIFICATE_PEM
 
@@ -394,16 +394,6 @@
  * anticipated MQTT payload.
  */
 #define MQTT_AGENT_NETWORK_BUFFER_SIZE          ( 5000 )
-
-/**
- * @brief Maximum time MQTT agent waits in the queue for any pending MQTT
- * operations.
- *
- * The wait time is kept smallest possible to increase the responsiveness of
- * MQTT agent while processing  pending MQTT operations as well as receive
- * packets from network.
- */
-#define MQTT_AGENT_MAX_EVENT_QUEUE_WAIT_TIME    ( 50U )
 
 #define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 10 )
 

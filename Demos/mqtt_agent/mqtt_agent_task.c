@@ -191,7 +191,7 @@
 /**
  * @brief Socket send and receive timeouts to use.  Specified in milliseconds.
  */
-#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 750 )
+#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 450 )
 
 /**
  * @brief Configuration is used to turn on or off persistent sessions with MQTT broker.
