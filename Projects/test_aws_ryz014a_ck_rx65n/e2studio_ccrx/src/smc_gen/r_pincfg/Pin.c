@@ -56,14 +56,14 @@ void R_Pins_Create(void)
     R_BSP_RegisterProtectDisable(BSP_REG_PROTECT_MPC);
 
     /* Set AN115 pin */
-    MPC.P91PFS.BYTE = 0x80U;
     PORT9.PMR.BYTE &= 0xFDU;
     PORT9.PDR.BYTE &= 0xFDU;
+    MPC.P91PFS.BYTE = 0x80U;
 
     /* Set AN117 pin */
-    MPC.P93PFS.BYTE = 0x80U;
     PORT9.PMR.BYTE &= 0xF7U;
     PORT9.PDR.BYTE &= 0xF7U;
+    MPC.P93PFS.BYTE = 0x80U;
 
     /* Set CTS6# pin */
     MPC.PJ3PFS.BYTE = 0x0AU;
