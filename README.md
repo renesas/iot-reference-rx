@@ -146,8 +146,8 @@ The hook function *1 is called by occuring an error of a TCP_Sockets API *2 (dis
   
 * Notes on bootloader to application transition.  
   When transitioning from the bootloader sample program to the application, the settings of the bootloader's peripheral functions are taken over by the application.  
-  For more information, check chapter 6.4 of the following document.   
-  [RX Family Firmware Update module Using Firmware Integration Technology Application Notes](https://www.renesas.com/search?keywords=R01AN6850)
+  For more information, check chapter 7 of the following document.   
+  [RX Family Firmware Update module Using Firmware Integration Technology Application Notes Rev.2.01 - Sample Code](https://www.renesas.com/search?keywords=R01AN6850)
 
 
 ### About bootloader macros

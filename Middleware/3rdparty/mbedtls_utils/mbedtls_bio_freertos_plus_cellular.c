@@ -25,22 +25,13 @@
  */
 
 /**
- * @file mbedtls_bio_freertos_plus_tcp.c
- * @brief Implements mbed TLS platform send/receive functions for freertos plus tcp.
+ * @file mbedtls_bio_tcp_sockets_wrapper.c
+ * @brief Implements mbed TLS platform send/receive functions for the TCP sockets wrapper.
  */
 
-/* FreeRTOS includes. */
-#include "FreeRTOS.h"
-
-/* TCP Sockets Wrapper include.*/
-#include "tcp_sockets_wrapper.h"
-
-/* MbedTLS Bio TCP sockets wrapper include. */
-#include "mbedtls_bio_tcp_sockets_wrapper.h"
-
-/* mbed TLS includes. */
+/* MbedTLS includes. */
 #if !defined( MBEDTLS_CONFIG_FILE )
-    #include "config.h"
+    #include "mbedtls/mbedtls_config.h"
 #else
     #include MBEDTLS_CONFIG_FILE
 #endif
@@ -48,10 +39,16 @@
 #include "mbedtls/entropy.h"
 #include "mbedtls/ssl.h"
 
-/*-----------------------------------------------------------*/
+/* TCP Sockets Wrapper include.*/
+#include "tcp_sockets_wrapper.h"
 
+/* MbedTLS Bio TCP sockets wrapper include. */
+#include "mbedtls_bio_tcp_sockets_wrapper.h"
+
+/* Cellular include. */
+#include "r_cellular_if.h"
 /**
- * @brief Sends data over FreeRTOS+TCP sockets.
+ * @brief Sends data over TCP socket.
  *
  * @param[in] ctx The network context containing the socket handle.
  * @param[in] buf Buffer containing the bytes to send.
@@ -60,19 +57,30 @@
  * @return Number of bytes sent on success; else a negative value.
  */
 int xMbedTLSBioTCPSocketsWrapperSend( void * ctx,
-                           const unsigned char * buf,
-                           size_t len )
+                                      const unsigned char * buf,
+                                      size_t len )
 {
+    int32_t xReturnStatus;
+
     configASSERT( ctx != NULL );
     configASSERT( buf != NULL );
 
-    return TCP_Sockets_Send( ( Socket_t ) ctx, buf, len );
+    xReturnStatus = TCP_Sockets_Send( ( Socket_t ) ctx, buf, len );
+
+    switch( xReturnStatus )
+    {
+        case 0:
+            xReturnStatus = MBEDTLS_ERR_SSL_WANT_WRITE;
+            break;
+        default:
+            break;
+    }
+
+    return ( int ) xReturnStatus;
 }
 
-/*-----------------------------------------------------------*/
-
 /**
- * @brief Receives data from FreeRTOS+TCP socket.
+ * @brief Receives data from TCP socket.
  *
  * @param[in] ctx The network context containing the socket handle.
  * @param[out] buf Buffer to receive bytes into.
@@ -81,25 +89,28 @@ int xMbedTLSBioTCPSocketsWrapperSend( void * ctx,
  * @return Number of bytes received if successful; Negative value on error.
  */
 int xMbedTLSBioTCPSocketsWrapperRecv( void * ctx,
-                           unsigned char * buf,
-                           size_t len )
+                                      unsigned char * buf,
+                                      size_t len )
 {
-	 int recvStatus = 0;
-	    int returnStatus = -1;
+    int32_t xReturnStatus;
 
-	    configASSERT( ctx != NULL );
-	    configASSERT( buf != NULL );
+    configASSERT( ctx != NULL );
+    configASSERT( buf != NULL );
 
-	    recvStatus = TCP_Sockets_Recv( ( Socket_t ) ctx, buf, len );
+    xReturnStatus = TCP_Sockets_Recv( ( Socket_t ) ctx, buf, len );
 
-	    if( recvStatus < 0 )
-	    {
-	        returnStatus = MBEDTLS_ERR_SSL_INTERNAL_ERROR;
-	    }
-	    else
-	    {
-	        returnStatus = recvStatus;
-	    }
 
-	    return returnStatus;
+
+    switch( xReturnStatus )
+    {
+        /* A timeout occurred before any data could be received. */
+        case 0:
+            xReturnStatus = MBEDTLS_ERR_SSL_WANT_READ;
+            break;
+
+        default:
+            break;
+    }
+
+    return ( int ) xReturnStatus;
 }
