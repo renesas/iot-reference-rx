@@ -44,6 +44,13 @@
 #include "r_fwup_if.h"
 #include "r_fwup_private.h"
 #include "./src/targets/rx65n/r_flash_rx65n.h"
+#include "mbedtls/ecdsa.h"
+#include "mbedtls/asn1.h"
+#include "mbedtls/error.h"
+
+#define MAX_LENGTH 32
+#define MAX_SIG_LENGTH 64
+#define HALF_SIG_LENGTH MAX_SIG_LENGTH/2
 
 const char OTA_JsonFileSignatureKey[ OTA_FILE_SIG_KEY_STR_MAX_LENGTH ] = "sig-sha256-ecdsa";
 static OtaImageState_t OtaImageState;
@@ -52,6 +59,7 @@ BaseType_t s_first_block_received = pdFALSE;
 uint8_t *s_first_ota_blocks[otaconfigMAX_NUM_BLOCKS_REQUEST];
 
 OtaFileContext_t *pOTAFileContext;
+int ExtractECDSASignature(const unsigned char *derSignature, size_t derSignatureLength, unsigned char *rawSignature);
 
 OtaPalStatus_t otaPal_CreateFileForRx( OtaFileContext_t * const pFileContext )
 {
@@ -179,12 +187,12 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
 {
 	OtaPalMainStatus_t eResult = OtaPalUninitialized;
 	e_fwup_err_t eRet = FWUP_SUCCESS;
+	int ret;
+
+	// Buffer to hold the raw ECDSA signature
+	unsigned char rawSignature[MAX_SIG_LENGTH];
 
 	pOTAFileContext = pFileContext; // store the OTA file context to be used by FWUP verify wrapper
-
-	// extract the signature for verification by bootloader
-    uint8_t sig[64];
-    uint16_t idx;
 
     /*
      * C->pxSignature->ucData includes some ASN1 tags.
@@ -213,26 +221,16 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
     	return OTA_PAL_COMBINE_ERR( OtaPalSignatureCheckFailed, 0 );
     }
 
-    // Extract signature ASN1
-    // SIG(R)
-    idx = 3;
-    if (0x21 == pFileContext->pSignature->data[idx++])
-    {
-        idx++; /* Skip 0x00 */
-    }
-    memcpy(sig, &pFileContext->pSignature->data[idx], 32);
 
-    /* SIG(S) */
-    idx += 32;
-    idx++;
-    if (0x21 == pFileContext->pSignature->data[idx++])
-    {
-        idx++; /* Skip 0x00 */
-    }
-    memcpy(sig+32, &pFileContext->pSignature->data[idx], 32);
+	if (0 != ExtractECDSASignature(pFileContext->pSignature->data, pFileContext->pSignature->size, rawSignature))
+	{
+		eResult = OtaPalBadSignerCert;
+		LogError( ("Error ECDSASignature extraction\r\n") );
+		return OTA_PAL_COMBINE_ERR( eResult, 0 );
+	}
 
     eRet = R_FWUP_WriteImageHeader( FWUP_AREA_BUFFER,
-                                (uint8_t FWUP_FAR *)OTA_JsonFileSignatureKey, sig, 64);
+                                (uint8_t FWUP_FAR *)OTA_JsonFileSignatureKey, rawSignature, MAX_SIG_LENGTH);
 
     if ( FWUP_SUCCESS != eRet )
     {
@@ -241,6 +239,7 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
 
         return OTA_PAL_COMBINE_ERR( eResult, 0 );
     }
+
 
     // Verify the signature
 	eRet = R_FWUP_VerifyImage(FWUP_AREA_BUFFER);
@@ -252,7 +251,8 @@ static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileC
 
         return OTA_PAL_COMBINE_ERR( eResult, 0 );
     }
-    else {
+    else
+    {
     	eResult = OtaPalSuccess;
     }
 
@@ -418,4 +418,65 @@ OtaPalImageState_t otaPal_GetPlatformImageState( OtaFileContext_t * const pFileC
 
     LogDebug( ( "Function called is otaPal_GetPlatformImageState: Platform State is [%d]", ePalState ) );
     return ePalState;
+}
+
+int ExtractECDSASignature(const unsigned char *derSignature, size_t derSignatureLength, unsigned char *rawSignature)
+{
+    unsigned char *p = (unsigned char*) derSignature;
+    const unsigned char *end = derSignature + derSignatureLength;
+    int ret = MBEDTLS_ERR_ERROR_CORRUPTION_DETECTED;
+    size_t len;
+    mbedtls_mpi r, s;
+
+    /* Refer mbedtls library to use mbedtls_asn1_get_tag, mbedtls_asn1_get_mpi */
+    /* Check the parameters. */
+    configASSERT(derSignature != NULL);
+    mbedtls_mpi_init(&r);
+    mbedtls_mpi_init(&s);
+
+    if ( (ret = mbedtls_asn1_get_tag(&p, end, &len,
+                                     MBEDTLS_ASN1_CONSTRUCTED | MBEDTLS_ASN1_SEQUENCE)) != 0)
+    {
+    ret += MBEDTLS_ERR_ECP_BAD_INPUT_DATA;
+        goto cleanup;
+    }
+
+    if (p + len != end)
+    {
+        ret = MBEDTLS_ERROR_ADD(MBEDTLS_ERR_ECP_BAD_INPUT_DATA,
+                                MBEDTLS_ERR_ASN1_LENGTH_MISMATCH);
+    goto cleanup;
+    }
+
+    // Get R,S component
+    if ((ret = mbedtls_asn1_get_mpi(&p, end, &r)) != 0 ||
+            (ret = mbedtls_asn1_get_mpi(&p, end, &s)) != 0)
+    {
+        ret += MBEDTLS_ERR_ECP_BAD_INPUT_DATA;
+        goto cleanup;
+    }
+
+    // Convert MPIs to raw byte strings
+    // The raw ECDSA signature in rawSignature
+    ret = mbedtls_mpi_write_binary(&r, &rawSignature[0], HALF_SIG_LENGTH);
+    if (0 != ret)
+    {
+        goto cleanup;
+    }
+    ret = mbedtls_mpi_write_binary(&s, &rawSignature[HALF_SIG_LENGTH], HALF_SIG_LENGTH);
+    if (0 != ret)
+    {
+        goto cleanup;
+    }
+
+    /* At this point we know that the buffer starts with a valid signature.
+    * Return 0 if the buffer just contains the signature, and a specific
+    * error code if the valid signature is followed by more data. */
+    if (p != end)
+        ret = MBEDTLS_ERR_ECP_SIG_LEN_MISMATCH;
+cleanup:
+    mbedtls_mpi_free(&r);
+    mbedtls_mpi_free(&s);
+
+    return ret;
 }
