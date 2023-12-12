@@ -428,7 +428,8 @@ int ExtractECDSASignature(const unsigned char *derSignature, size_t derSignature
     size_t len;
     mbedtls_mpi r, s;
 
-    /* Refer mbedtls library to use mbedtls_asn1_get_tag, mbedtls_asn1_get_mpi */
+    /* Start reusing the process of mbedtls_ecdsa_read_signature_restartable function */
+
     /* Check the parameters. */
     configASSERT(derSignature != NULL);
     mbedtls_mpi_init(&r);
@@ -456,6 +457,8 @@ int ExtractECDSASignature(const unsigned char *derSignature, size_t derSignature
         goto cleanup;
     }
 
+    /* Finished reusing the process of mbedtls_ecdsa_read_signature_restartable function */
+
     // Convert MPIs to raw byte strings
     // The raw ECDSA signature in rawSignature
     ret = mbedtls_mpi_write_binary(&r, &rawSignature[0], HALF_SIG_LENGTH);
@@ -469,6 +472,8 @@ int ExtractECDSASignature(const unsigned char *derSignature, size_t derSignature
         goto cleanup;
     }
 
+    /* Start reusing the process of mbedtls_ecdsa_read_signature_restartable function */
+
     /* At this point we know that the buffer starts with a valid signature.
     * Return 0 if the buffer just contains the signature, and a specific
     * error code if the valid signature is followed by more data. */
@@ -477,6 +482,8 @@ int ExtractECDSASignature(const unsigned char *derSignature, size_t derSignature
 cleanup:
     mbedtls_mpi_free(&r);
     mbedtls_mpi_free(&s);
+
+    /* Finished reusing the process of mbedtls_ecdsa_read_signature_restartable function */
 
     return ret;
 }
