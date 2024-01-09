@@ -660,7 +660,7 @@
                         <option defaultValue="512" id="StackSize" value="512"/>
                         <option defaultValue="NULL" id="TaskHandler" value="NULL"/>
                         <option defaultValue="NULL" id="Parameter" value="NULL"/>
-                        <option defaultValue="1" id="Priority" value="1"/>
+                        <option defaultValue="1" id="Priority" value="3"/>
                     </allocatable>
                     <option defaultValue="0" id="LinkNum" value="1"/>
                 </allocatable>
