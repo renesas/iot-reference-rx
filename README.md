@@ -142,8 +142,13 @@ In case of `LFS_FLASH_BLOCK_COUNT` == 170 (21760 bytes)
   In the following case, the xGetMQTTAgentState() function for monitoring the communication status returns the state of established MQTT connection with AWS (`MQTT_AGENT_STATE_CONNECTED`) without detecting the disconnection:  
 The hook function *1 is called by occuring an error of a TCP_Sockets API *2 (disconnection with AWS) inner the xGetMQTTAgentState(), then this hook restores the connection to established state.  
   *1 The hook function defined in USER_TCP_HOOK_FUNCTION macro in src/frtos_config/user_tcp_hook_config.h  
-  *2 TCP_Sockets API is a function defined in TCP_Sockets_xxxx  
-  
+  *2 TCP_Sockets API is a function defined in TCP_Sockets_xxxx
+
+* Notes on redundant linker section after generating code with Smart Configurator.  
+  After generating code with Smart Configurator, sections 'C_FIRMWARE_UPDATE_CONTROL_BLOCK' and 'C_FIRMWARE_UPDATE_CONTROL_BLOCK_MIRROR' will be created at address 0x00100000.  
+  These sections are redundant, it does not impact memory usage of the project.    
+  This behavior is according to the specification of r_tsip_rx FIT module (from version 1.17.l).  
+
 * Notes on bootloader to application transition.  
   When transitioning from the bootloader sample program to the application, the settings of the bootloader's peripheral functions are taken over by the application.  
   For more information, check chapter 7 of the following document.   
