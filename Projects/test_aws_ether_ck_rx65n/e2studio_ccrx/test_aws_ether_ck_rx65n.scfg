@@ -655,7 +655,16 @@
         <configuration enable="true" exclude="false" id="070701a1-578d-4916-b9b5-214c26e35fa0" inuse="true" name="FreeRTOS_Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
+                    <allocatable id="TASKOBJECTLINK1" name="TASK" type="" readonly="true">
+                        <option defaultValue="1" id="Initialize" value="0"/>
+                        <option defaultValue="task_[X]" id="TaskCode" value="main_task"/>
+                        <option defaultValue="task_[X]" id="TaskName" value="MAIN_TASK"/>
+                        <option defaultValue="512" id="StackSize" value="512"/>
+                        <option defaultValue="NULL" id="TaskHandler" value="NULL"/>
+                        <option defaultValue="NULL" id="Parameter" value="NULL"/>
+                        <option defaultValue="1" id="Priority" value="1"/>
+                    </allocatable>
+                    <option defaultValue="0" id="LinkNum" value="1"/>
                 </allocatable>
                 <allocatable id="QUEUE" name="QUEUE" type="">
                     <option defaultValue="0" id="LinkNum" value=""/>
