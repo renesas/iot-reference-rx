@@ -23,7 +23,7 @@
             <description>Size of an erasable block in bytes. This does not impact RAM consumption and may be larger than the physical erase size. 
         However, non-inlined files take up at minimum one block. Must be a multiple of the read and program sizes. </description>
         </property>
-        <property id="LFS_FLASH_BLOCK_COUNT" display=".block_count" default="7" type="textbox">
+        <property id="LFS_FLASH_BLOCK_COUNT" display=".block_count" default="70" type="textbox">
             <constraint display="Value must be an integer">testInteger("${LFS_FLASH_BLOCK_COUNT}")</constraint>
             <constraint display="Value must be in the range 70 ~ 256">("${LFS_FLASH_BLOCK_COUNT}" &gt;= 70) &amp;&amp; ("${LFS_FLASH_BLOCK_COUNT}" &lt;= 256)</constraint>
             <constraint display="Value must be within Data Flash area">(("${RM_LITTLEFS_FLASH_DATA_START}".replace(/\D/g, '')*64) + ("${LFS_FLASH_BLOCK_SIZE}"*"${LFS_FLASH_BLOCK_COUNT}") &lt;= 32768)</constraint>
