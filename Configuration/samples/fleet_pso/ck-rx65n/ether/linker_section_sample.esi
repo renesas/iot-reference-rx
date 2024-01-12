@@ -14,11 +14,11 @@
   <sections name="C_USER_APPLICATION_AREA">
     <sectionAddress xsi:type="com.renesas.linkersection.model:FixedAddress" fixedAddress="1057536"/>
   </sections>
-  <sections name="B_ETHERNET_BUFFERS_1">
+  <sections name="B_ETHERNET_BUFFERS*">
     <sectionAddress xsi:type="com.renesas.linkersection.model:FixedAddress" fixedAddress="8388608"/>
   </sections>
-  <sections name="B_RX_DESC_1"/>
-  <sections name="B_TX_DESC_1"/>
+  <sections name="B_RX_DESC*"/>
+  <sections name="B_TX_DESC*"/>
   <sections name="B"/>
   <sections name="B_1"/>
   <sections name="R_2"/>
