@@ -605,9 +605,9 @@
 						<address>0x00102300</address>
 					</section>
 					<section>
-						<name>B_ETHERNET_BUFFERS_*</name>
-						<name>B_RX_DESC_*</name>
-						<name>B_TX_DESC_*</name>
+						<name>B_ETHERNET_BUFFERS*</name>
+						<name>B_RX_DESC*</name>
+						<name>B_TX_DESC*</name>
 						<name>B</name>
 						<name>B_1</name>
 						<name>R_2</name>
@@ -1159,6 +1159,7 @@
 						<name>RESETVECT</name>
 						<address>0xFFFFFFFC</address>
 					</section>
+					<mappedramrom>PFRAM2=RPFRAM2</mappedramrom>
 				</sections>
 				<removesections>
 					<toolchain>RXC</toolchain>
@@ -1166,7 +1167,7 @@
 					<mappedramrom>DEXRAM=REXRAM</mappedramrom>
 					<mappedramrom>DEXRAM_1=REXRAM_1</mappedramrom>
 					<mappedramrom>DEXRAM_2=REXRAM_2</mappedramrom>
-				</removesections>		
+				</removesections>
 				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.gOptimize</optionid>
@@ -1649,9 +1650,9 @@
 						<address>0x00102300</address>
 					</section>
 					<section>
-						<name>B_ETHERNET_BUFFERS_*</name>
-						<name>B_RX_DESC_*</name>
-						<name>B_TX_DESC_*</name>
+						<name>B_ETHERNET_BUFFERS*</name>
+						<name>B_RX_DESC*</name>
+						<name>B_TX_DESC*</name>
 						<name>B</name>
 						<name>B_1</name>
 						<name>R_2</name>
@@ -1678,6 +1679,7 @@
 						<name>RESETVECT</name>
 						<address>0xFFFFFFFC</address>
 					</section>
+					<mappedramrom>PFRAM2=RPFRAM2</mappedramrom>
 				</sections>
 				<removesections>
 					<toolchain>RXC</toolchain>
@@ -3254,18 +3256,14 @@
 						<address>0x00000004</address>
 					</section>
 					<section>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK</name>
-						<name>C_FIRMWARE_UPDATE_CONTROL_BLOCK_MIRROR</name>
+						<name>C_LITTLEFS_MANAGEMENT_AREA</name>
 						<address>0x00100000</address>
 					</section>
 					<section>
-						<name>C_PKCS11_STORAGE*</name>
-						<address>0x00100800</address>
+						<name>C_USER_APPLICATION_AREA</name>
+						<address>0x00102300</address>
 					</section>
 					<section>
-						<name>B_ETHERNET_BUFFERS*</name>
-						<name>B_RX_DESC*</name>
-						<name>B_TX_DESC*</name>
 						<name>B</name>
 						<name>B_1</name>
 						<name>R_2</name>
@@ -3281,7 +3279,6 @@
 						<name>W*</name>
 						<name>L</name>
 						<name>P</name>
-						<name>PFRAM</name>
 						<name>PFRAM2</name>
 						<address>0xFFF00300</address>
 					</section>
