@@ -3932,6 +3932,10 @@
 					<path>src/frtos_startup</path>
 				</impdir>
 				<impdir>
+					<folder>Projects/aws_ryz014a_ck_rx65n/e2studio_ccrx/src/smc_gen/r_fwup</folder>
+					<path>src/smc_gen/r_fwup</path>
+				</impdir>
+				<impdir>
 					<file>configuration/samples/fleet_pso/ck-rx65n/cellular/linker_section_sample.esi</file>
 					<path>src</path>
 				</impdir>
