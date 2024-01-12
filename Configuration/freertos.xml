@@ -126,8 +126,6 @@
 					<path>src/src</path>
 					<path>src/key</path>
 					<path>src/tinycrypt/lib/include</path>
-				</incdir>
-				<incdir>
 					<path>src/smc_gen</path>
 					<path>src/smc_gen/r_bsp</path>
 					<path>src/smc_gen/general</path>
@@ -255,7 +253,6 @@
 				</linkdir>
 				<!-- incdir section -->
 				<incdir>
-					<path>src/smc_gen</path>
 					<path>src/smc_gen/r_bsp</path>
 					<path>src/smc_gen/general</path>
 					<path>src/smc_gen/r_config</path>
@@ -274,8 +271,6 @@
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
-				</incdir>
-				<incdir>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
 					<path>Common/littlefs_common/rm_littlefs_df/targets/rx65n</path>
@@ -314,13 +309,8 @@
 					<path>Middleware/3rdparty/mbedtls_config</path>
 					<path>Middleware/network_transport/sockets_wrapper/include</path>
 					<path>Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk/source/include</path>
-				</incdir>
-				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
-					<path>src/application_code/ports/rm_aws_pkcs11_pal_littlefs</path>
-					<path>src/application_code/ports/rm_littlefs_flash</path>
-					<path>src/frtos_skeleton</path>
 					<path>src/frtos_config</path>
 					<path>src/frtos_startup</path>
 				</incdir>
@@ -781,7 +771,6 @@
 				</linkdir>
 				<!-- incdir section -->
 				<incdir>
-					<path>src/smc_gen</path>
 					<path>src/smc_gen/r_bsp</path>
 					<path>src/smc_gen/general</path>
 					<path>src/smc_gen/r_config</path>
@@ -800,8 +789,6 @@
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
-				</incdir>
-				<incdir>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
 					<path>Common/littlefs_common/rm_littlefs_df/targets/rx65n</path>
@@ -841,8 +828,6 @@
 					<path>Middleware/3rdparty/mbedtls_config</path>
 					<path>Middleware/network_transport/sockets_wrapper/include</path>
 					<path>Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk/source/include</path>
-				</incdir>
-				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
 					<path>src/frtos_config</path>
@@ -1310,7 +1295,6 @@
 				</linkdir>
 				<!-- incdir section -->
 				<incdir>
-					<path>src/smc_gen</path>
 					<path>src/smc_gen/r_bsp</path>
 					<path>src/smc_gen/general</path>
 					<path>src/smc_gen/r_config</path>
@@ -1329,8 +1313,7 @@
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
-				</incdir>
-				<incdir>
+					<path>src/smc_gen/r_tsip_rx</path>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
 					<path>Common/littlefs_common/rm_littlefs_df/targets/rx65n</path>
@@ -1370,13 +1353,8 @@
 					<path>Middleware/3rdparty/mbedtls_config</path>
 					<path>Middleware/network_transport/sockets_wrapper/include</path>
 					<path>Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk/source/include</path>
-				</incdir>
-				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
-					<path>src/application_code/ports/rm_aws_pkcs11_pal_littlefs</path>
-					<path>src/application_code/ports/rm_littlefs_flash</path>
-					<path>src/frtos_skeleton</path>
 					<path>src/frtos_config</path>
 					<path>src/frtos_startup</path>
 				</incdir>
@@ -1836,7 +1814,6 @@
 				</linkdir>
 				<!-- incdir section -->
 				<incdir>
-					<path>src/smc_gen</path>
 					<path>src/smc_gen/r_bsp</path>
 					<path>src/smc_gen/general</path>
 					<path>src/smc_gen/r_config</path>
@@ -1855,8 +1832,6 @@
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
-				</incdir>
-				<incdir>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
 					<path>Common/littlefs_common/rm_littlefs_df/targets/rx65n</path>
@@ -1896,8 +1871,6 @@
 					<path>Middleware/3rdparty/mbedtls_config</path>
 					<path>Middleware/network_transport/sockets_wrapper/include</path>
 					<path>Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk/source/include</path>
-				</incdir>
-				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
 					<path>src/frtos_config</path>
@@ -2374,7 +2347,6 @@
 				</linkdir>
 				<!-- incdir section -->
 				<incdir>
-					<path>src/smc_gen</path>
 					<path>src/smc_gen/r_bsp</path>
 					<path>src/smc_gen/general</path>
 					<path>src/smc_gen/r_config</path>
@@ -2395,8 +2367,6 @@
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
-				</incdir>
-				<incdir>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
 					<path>Common/littlefs_common/rm_littlefs_df/targets/rx65n</path>
@@ -2440,8 +2410,6 @@
 					<path>Middleware/3rdparty/mbedtls/library</path>
 					<path>Middleware/3rdparty/mbedtls_config</path>
 					<path>Middleware/network_transport/sockets_wrapper/include</path>
-				</incdir>
-				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
 					<path>src/application_code/ports/ota_pal</path>
@@ -2915,7 +2883,6 @@
 				</linkdir>
 				<!-- incdir section -->
 				<incdir>
-					<path>src/smc_gen</path>
 					<path>src/smc_gen/r_bsp</path>
 					<path>src/smc_gen/general</path>
 					<path>src/smc_gen/r_config</path>
@@ -2936,8 +2903,6 @@
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
-				</incdir>
-				<incdir>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
 					<path>Common/littlefs_common/rm_littlefs_df/targets/rx65n</path>
@@ -2981,8 +2946,6 @@
 					<path>Middleware/3rdparty/mbedtls/library</path>
 					<path>Middleware/3rdparty/mbedtls_config</path>
 					<path>Middleware/network_transport/sockets_wrapper/include</path>
-				</incdir>
-				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
 					<path>src/application_code/ports/ota_pal</path>
@@ -3474,7 +3437,6 @@
 				</linkdir>
 				<!-- incdir section -->
 				<incdir>
-					<path>src/smc_gen</path>
 					<path>src/smc_gen/r_bsp</path>
 					<path>src/smc_gen/general</path>
 					<path>src/smc_gen/r_config</path>
@@ -3495,8 +3457,6 @@
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
-				</incdir>
-				<incdir>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
 					<path>Common/littlefs_common/rm_littlefs_df/targets/rx65n</path>
@@ -3541,8 +3501,6 @@
 					<path>Middleware/3rdparty/mbedtls_config</path>
 					<path>Middleware/network_transport/sockets_wrapper/include</path>
 					<path>Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk/source/include</path>
-				</incdir>
-				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
 					<path>src/application_code/ports/ota_pal</path>
@@ -4012,7 +3970,6 @@
 				</linkdir>
 				<!-- incdir section -->
 				<incdir>
-					<path>src/smc_gen</path>
 					<path>src/smc_gen/r_bsp</path>
 					<path>src/smc_gen/general</path>
 					<path>src/smc_gen/r_config</path>
@@ -4026,6 +3983,8 @@
 					<path>src/smc_gen/r_byteq/src</path>
 					<path>src/smc_gen/r_fwup</path>
 					<path>src/smc_gen/r_fwup/src</path>
+					<path>src/smc_gen/r_irq_rx</path>
+					<path>src/smc_gen/r_irq_rx/src</path>
 					<path>src/smc_gen/r_flash_rx</path>
 					<path>src/smc_gen/r_flash_rx/src</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_1</path>
@@ -4033,8 +3992,13 @@
 					<path>src/smc_gen/r_flash_rx/src/flash_type_4</path>
 					<path>src/smc_gen/r_flash_rx/src/flash_type_5</path>
 					<path>src/smc_gen/r_flash_rx/src/targets</path>
-				</incdir>
-				<incdir>
+					<path>src/smc_gen/r_cellular/src/RTOS/include</path>
+					<path>src/smc_gen/r_cellular/src/private/include</path>
+					<path>src/smc_gen/r_cellular/src/private/private_api/include</path>
+					<path>src/smc_gen/r_cellular/src/include</path>
+					<path>src/smc_gen/r_cellular/src/include/ryz014</path>
+					<path>src/smc_gen/r_cellular/src/include/ryz014/include</path>
+					<path>src/smc_gen/r_tsip_rx</path>
 					<path>Common/FreeRTOS_common</path>
 					<path>Common/littlefs_common</path>
 					<path>Common/littlefs_common/rm_littlefs_df/targets/rx65n</path>
@@ -4079,8 +4043,6 @@
 					<path>Middleware/3rdparty/mbedtls_config</path>
 					<path>Middleware/network_transport/sockets_wrapper/include</path>
 					<path>Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk/source/include</path>
-				</incdir>
-				<incdir>
 					<path>src/application_code</path>
 					<path>src/application_code/include</path>
 					<path>src/application_code/ports/ota_pal</path>
