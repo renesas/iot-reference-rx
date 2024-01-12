@@ -25,3 +25,8 @@ For example, if you create project with C++ option and CC-RX compiler, you will 
 in e2studio Windows > Preferences > Renesas > Smart Configurator > Component.
 This is because the FWUP module uses custom wrapper code for RTOS-specific operations, 
 this Smart Configurator setting ensures that wrapper code is not overwritten.
+
+1.5 Issue with added sections when generating code.
+In the process of generating code, sections (C_FIRMWARE_UPDATE_CONTROL_BLOCK and C_FIRMWARE_UPDATE_CONTROL_BLOCK_MIRROR) 
+are added at address 0x00100000 due to the TSIP module from version 1.17.l:
+Can not fix this issue with AFR package only. Can only modify xml file.
