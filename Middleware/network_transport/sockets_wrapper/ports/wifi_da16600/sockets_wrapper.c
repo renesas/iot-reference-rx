@@ -272,26 +272,21 @@ int32_t TCP_Sockets_Recv(Socket_t xSocket,
     receive_byte = R_WIFI_DA16XXX_ReceiveSocket(pxContext->socket_no, pvBuffer, xBufferLength, pxContext->ulRecvTimeout);
     if (receive_byte < 0)
     {
-        if (receive_byte == WIFI_ERR_MODULE_COM)
+        if (receive_byte == WIFI_ERR_TAKE_MUTEX)
         {
-            receive_byte = SocketErrorHook(receive_byte, NO_FORCE_RESET);
+            receive_byte = 0;
+            /* reset the counter of WIFI_ERR_MODULE_COM */
+            count_module_comm = 0;
         }
-        else if (receive_byte == WIFI_ERR_NOT_CONNECT)
+        else if (receive_byte == WIFI_ERR_SOCKET_NUM)
         {
             /* reset the counter of WIFI_ERR_MODULE_COM */
             count_module_comm = 0;
-            if (WIFI_SUCCESS == SocketErrorHook(receive_byte, NO_FORCE_RESET))
-            {
-                receive_byte = R_WIFI_DA16XXX_ReceiveSocket(pxContext->socket_no,
-                                                            pvBuffer,
-                                                            xBufferLength,
-                                                            pxContext->ulRecvTimeout);
-            }
+            R_WIFI_DA16XXX_CloseSocket(pxContext->socket_no);
         }
         else
         {
-            /* reset the counter of WIFI_ERR_MODULE_COM */
-            count_module_comm = 0;
+            receive_byte = SocketErrorHook(receive_byte, NO_FORCE_RESET);
         }
     }
     else
@@ -312,26 +307,21 @@ int32_t TCP_Sockets_Send(Socket_t xSocket,
     send_byte = R_WIFI_DA16XXX_SendSocket(pxContext->socket_no, (uint8_t *)pvBuffer, xDataLength, pxContext->ulSendTimeout);
     if (send_byte < 0)
     {
-        if (send_byte == WIFI_ERR_MODULE_COM)
+        if ((send_byte == WIFI_ERR_NOT_CONNECT) || (send_byte == WIFI_ERR_TAKE_MUTEX))
         {
-            send_byte = SocketErrorHook(send_byte, NO_FORCE_RESET);
+            send_byte = 0;
+            /* reset the counter of WIFI_ERR_MODULE_COM */
+            count_module_comm = 0;
         }
-        else if (send_byte == WIFI_ERR_NOT_CONNECT)
+        else if (send_byte == WIFI_ERR_SOCKET_NUM)
         {
             /* reset the counter of WIFI_ERR_MODULE_COM */
             count_module_comm = 0;
-            if (WIFI_SUCCESS == SocketErrorHook(send_byte, NO_FORCE_RESET))
-            {
-                send_byte = R_WIFI_DA16XXX_SendSocket(pxContext->socket_no,
-                                                      (uint8_t *)pvBuffer,
-                                                      xDataLength,
-                                                      pxContext->ulSendTimeout);
-            }
+            R_WIFI_DA16XXX_CloseSocket(pxContext->socket_no);
         }
         else
         {
-            /* reset the counter of WIFI_ERR_MODULE_COM */
-            count_module_comm = 0;
+            send_byte = SocketErrorHook(send_byte, NO_FORCE_RESET);
         }
     }
     else
