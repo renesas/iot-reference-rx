@@ -37,16 +37,15 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* Demo includes */
 #include "aws_clientcredential.h"
 #include "iot_wifi.h"
-#include "mqtt_agent_task.h"
 #include "demo_config.h"
 #include "store.h"
+#include "mqtt_agent_task.h"
 
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
-
+extern KeyValueStore_t gKeyValueStore;
 extern void vStartSimplePubSubDemo( void  );
-
 
 #define _NM_WIFI_CONNECTION_RETRIES              ( 5 )
 #define _NM_WIFI_CONNECTION_RETRY_INTERVAL_MS    ( 1000 )
@@ -169,6 +168,7 @@ void main_task( void )
 		}
 		else
 		{
+
 			vTaskDelay(300);
 
 			configPRINTF( ( "Initialise the RTOS's TCP/IP stack\n" ) );
@@ -331,16 +331,25 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 /*-----------------------------------------------------------*/
 
 #if ( ipconfigUSE_LLMNR != 0 ) || ( ipconfigUSE_NBNS != 0 ) || ( ipconfigDHCP_REGISTER_HOSTNAME == 1 )
-
+    /* This function will be called during the DHCP: the machine will be registered
+     * with an IP address plus this name. 
+     * Note: Please make sure vprvCacheInit() is called before this function, because
+	 * it retrieves thingname value from KeyValue table. */
     const char * pcApplicationHostnameHook( void )
     {
-        /* This function will be called during the DHCP: the machine will be registered
-         * with an IP address plus this name. 
-         * Note: Please make sure vprvCacheInit() is called before this function, because
-         * it retrieves thingname value from KeyValue table. */
+#if defined(__TEST__)
         return clientcredentialIOT_THING_NAME;
+#else
+        if (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0)
+        {
+            return gKeyValueStore.table[KVS_CORE_THING_NAME].value;
+        }
+        else
+        {
+            return clientcredentialIOT_THING_NAME;
+        }
+#endif
     }
-
 #endif
 
 bool ApplicationCounter(uint32_t xWaitTime)

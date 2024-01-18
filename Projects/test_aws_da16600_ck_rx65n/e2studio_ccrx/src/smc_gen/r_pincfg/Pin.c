@@ -65,27 +65,59 @@ void R_Pins_Create(void)
     PORT9.PMR.BYTE &= 0xF7U;
     PORT9.PDR.BYTE &= 0xF7U;
 
-    /* Set CTS0# pin */
-    MPC.P23PFS.BYTE = 0x0BU;
-    PORT2.PMR.BYTE |= 0x08U;
+    /* Set CTS6# pin */
+    MPC.PJ3PFS.BYTE = 0x0AU;
+    PORTJ.PMR.BYTE |= 0x08U;
+
+    /* Set IRQ1 pin */
+    MPC.PD1PFS.BYTE = 0x40U;
+    PORTD.PMR.BYTE &= 0xFDU;
+    PORTD.PDR.BYTE &= 0xFDU;
+
+    /* Set IRQ2 pin */
+    MPC.PD2PFS.BYTE = 0x40U;
+    PORTD.PMR.BYTE &= 0xFBU;
+    PORTD.PDR.BYTE &= 0xFBU;
+
+    /* Set IRQ7 pin */
+    MPC.PE7PFS.BYTE = 0x40U;
+    PORTE.PMR.BYTE &= 0x7FU;
+    PORTE.PDR.BYTE &= 0x7FU;
+
+    /* Set IRQ13 pin */
+    MPC.P45PFS.BYTE = 0x40U;
+    PORT4.PMR.BYTE &= 0xDFU;
+    PORT4.PDR.BYTE &= 0xDFU;
+
+    /* Set IRQ14 pin */
+    MPC.P46PFS.BYTE = 0x40U;
+    PORT4.PMR.BYTE &= 0xBFU;
+    PORT4.PDR.BYTE &= 0xBFU;
+
+    /* Set IRQ15 pin */
+    MPC.P67PFS.BYTE = 0x40U;
+    PORT6.PMR.BYTE &= 0x7FU;
+    PORT6.PDR.BYTE &= 0x7FU;
 
     /* Set RXD5 pin */
     MPC.PC2PFS.BYTE = 0x0AU;
     PORTC.PMR.BYTE |= 0x04U;
 
-    /* Set SMISO0 pin */
-    MPC.P33PFS.BYTE = 0x0BU;
-    PORT3.PMR.BYTE |= 0x08U;
-
-    /* Set SMOSI0 pin */
-    MPC.P32PFS.BYTE = 0x0BU;
-    PORT3.PMR.BYTE |= 0x04U;
+    /* Set RXD6 pin */
+    MPC.P01PFS.BYTE = 0x0AU;
+    PORT0.PMR.BYTE |= 0x02U;
 
     /* Set TXD5 pin */
     PORTC.PODR.BYTE |= 0x08U;
     MPC.PC3PFS.BYTE = 0x0AU;
     PORTC.PDR.BYTE |= 0x08U;
     // PORTC.PMR.BIT.B3 = 1U; // Please set the PMR bit after TE bit is set to 1.
+
+    /* Set TXD6 pin */
+    PORT0.PODR.BYTE |= 0x01U;
+    MPC.P00PFS.BYTE = 0x0AU;
+    PORT0.PDR.BYTE |= 0x01U;
+    // PORT0.PMR.BIT.B0 = 1U; // Please set the PMR bit after TE bit is set to 1.
 
     R_BSP_RegisterProtectEnable(BSP_REG_PROTECT_MPC);
 }

@@ -66,9 +66,6 @@
 *                              for all channels.
 *                              Fixed issue of consecutively calling R_SCI_Receive() function in using DTC/DMAC.
 *                              Added support for RX660.
-*           27.12.2022 4.60    Fixed the issue that rx_idle is not changed to true when reception is complete 
-*                              in DMAC mode.
-*           16.02.2023 4.70    Fixed a bug in sci_send_sync_data() function with DTC mode.
 ***********************************************************************************************************************/
 
 /*****************************************************************************
@@ -1355,6 +1352,7 @@ static sci_err_t sci_send_sync_data(sci_hdl_t const hdl,
                 {
                     err = sci_send_sync_data_dma_dtc(hdl, p_src, NULL, length);
                 }
+                hdl->tx_idle = false;
                 return err;
             }
             else
@@ -1363,6 +1361,7 @@ static sci_err_t sci_send_sync_data(sci_hdl_t const hdl,
 #if (TX_DTC_DMACA_ENABLE & 0x02)
                 if (SCI_DMACA_ENABLE == hdl->rom->dtc_dmaca_tx_enable)
                 {
+                    hdl->tx_idle = false;
                     if(true == hdl->save_rx_data)
                     {
                         err = sci_send_sync_data_dma_dtc(hdl, p_src, p_dst, length);
@@ -2778,17 +2777,6 @@ static void sci_error(sci_hdl_t const hdl)
             }
         }
 
-#if ((RX_DTC_DMACA_ENABLE & 0x01) || (RX_DTC_DMACA_ENABLE & 0x02) && SCI_CFG_ASYNC_INCLUDED)
-    /* Clear rx_idle flag when using Async mode with DTC/DMAC */
-    if ((SCI_DTC_ENABLE == hdl->rom->dtc_dmaca_rx_enable) || (SCI_DMACA_ENABLE == hdl->rom->dtc_dmaca_rx_enable))
-    {
-        if (SCI_MODE_ASYNC == hdl->mode)
-        {
-            hdl->rx_idle = true;
-        }
-    }
-#endif
-
         /* Do callback for error */
         if ((NULL != hdl->callback) && (FIT_NO_FUNC != hdl->callback))
         {
@@ -2838,17 +2826,6 @@ static void sci_fifo_error(sci_hdl_t const hdl)
         {
             /* Do Nothing */
         }
-
-#if ((RX_DTC_DMACA_ENABLE & 0x01) || (RX_DTC_DMACA_ENABLE & 0x02) && SCI_CFG_ASYNC_INCLUDED)
-    /* Clear rx_idle flag when using Async mode with DTC/DMAC */
-    if ((SCI_DTC_ENABLE == hdl->rom->dtc_dmaca_rx_enable) || (SCI_DMACA_ENABLE == hdl->rom->dtc_dmaca_rx_enable))
-    {
-        if (SCI_MODE_ASYNC == hdl->mode)
-        {
-            hdl->rx_idle = true;
-        }
-    }
-#endif
 
         /* Do callback for error */
         if ((NULL != hdl->callback) && (FIT_NO_FUNC != hdl->callback))

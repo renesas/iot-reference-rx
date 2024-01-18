@@ -18,7 +18,6 @@
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup_wrap_com.c
- * Version      : 2.01
  * Description  : Functions for the Firmware update module.
  **********************************************************************************************************************
  * History : DD.MM.YYYY Version Description
@@ -63,11 +62,11 @@
  * Common functions
  */
 /**********************************************************************************************************************
-* Function Name: r_fwup_wrap_disable_interrupt
-* Description  : wrapper function for disable interrupts
-* Arguments    : none
-* Return Value : none
-**********************************************************************************************************************/
+ * Function Name: r_fwup_wrap_disable_interrupt
+ * Description  : wrapper function for disable interrupts
+ * Arguments    : none
+ * Return Value : none
+ *********************************************************************************************************************/
 void r_fwup_wrap_disable_interrupt(void)
 {
     /**** Start user code ****/
@@ -83,11 +82,11 @@ void r_fwup_wrap_disable_interrupt(void)
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
-* Function Name: r_fwup_wrap_enable_interrupt
-* Description  : wrapper function for enable interrupts
-* Arguments    : none
-* Return Value : none
-**********************************************************************************************************************/
+ * Function Name: r_fwup_wrap_enable_interrupt
+ * Description  : wrapper function for enable interrupts
+ * Arguments    : none
+ * Return Value : none
+ *********************************************************************************************************************/
 void r_fwup_wrap_enable_interrupt(void)
 {
     /**** Start user code ****/
@@ -103,11 +102,11 @@ void r_fwup_wrap_enable_interrupt(void)
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
-* Function Name: r_fwup_wrap_software_reset
-* Description  : wrapper function for execute software reset.
-* Arguments    : none
-* Return Value : none
-**********************************************************************************************************************/
+ * Function Name: r_fwup_wrap_software_reset
+ * Description  : wrapper function for execute software reset.
+ * Arguments    : none
+ * Return Value : none
+ *********************************************************************************************************************/
 void r_fwup_wrap_software_reset(void)
 {
     /**** Start user code ****/
@@ -132,13 +131,13 @@ void r_fwup_wrap_software_reset(void)
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
-* Function Name: r_fwup_wrap_software_delay
-* Description  : wrapper function for execute software delay.
-* Arguments    : delay
-*                units
-* Return Value : 0 : success
-*                other :error
-**********************************************************************************************************************/
+ * Function Name: r_fwup_wrap_software_delay
+ * Description  : wrapper function for execute software delay.
+ * Arguments    : delay : delay count
+ *                units : FWUP_DELAY_MICROSECS/FWUP_DELAY_MILLISECS/FWUP_DELAY_SECS
+ * Return Value : 1     : success
+ *                other : error
+ *********************************************************************************************************************/
 uint32_t r_fwup_wrap_software_delay(uint32_t delay, e_fwup_delay_units_t units)
 {
     /**** Start user code ****/

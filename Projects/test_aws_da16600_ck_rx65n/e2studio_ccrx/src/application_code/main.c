@@ -44,9 +44,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
-
-extern void vStartSimplePubSubDemo( void  );
-
+extern void UserInitialization(void);
+extern void vStartOtaDemo( void );
+//xSemaphoreHandle xSemaphoreFlashAccess;
 
 #define _NM_WIFI_CONNECTION_RETRIES              ( 5 )
 #define _NM_WIFI_CONNECTION_RETRY_INTERVAL_MS    ( 1000 )
@@ -54,21 +54,12 @@ extern void vStartSimplePubSubDemo( void  );
 static bool _wifiEnable( void );
 static bool _wifiConnectAccessPoint( void );
 
-#if (ENABLE_OTA_UPDATE_DEMO == 1)
-    extern void vStartOtaDemo( void );
-#endif
-
-#if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
-    extern void vStartFleetProvisioningDemo(void);
-#endif
-
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.
  * OTA update task polls regularly for firmware update jobs or acts on a new firmware update
  * available notification from OTA service.
  */
 #define appmainINCLUDE_OTA_UPDATE_TASK            ( 1 )
-
 
 /**
  * @brief Subscribe Publish demo tasks configuration.
@@ -96,26 +87,7 @@ static bool _wifiConnectAccessPoint( void );
 #define appmainMQTT_AGENT_TASK_STACK_SIZE         ( 6144 )
 #define appmainMQTT_AGENT_TASK_PRIORITY           ( tskIDLE_PRIORITY + 2 )
 
-/**
- * @brief Stack size and priority for CLI task.
- */
-#define appmainCLI_TASK_STACK_SIZE                ( 6144 )
-#define appmainCLI_TASK_PRIORITY                  ( tskIDLE_PRIORITY + 1 )
-
-
-
-extern void prvQualificationTestTask( void * pvParameters );
-
-extern void vSubscribePublishTestTask( void * pvParameters );
-
-
-#define appmainRUN_QUALIFICATION_TEST_SUITE       ( 1 )
-
-#define appmainRUN_DEVICE_ADVISOR_TEST_SUITE      ( 0 )
-
-#define appmainMQTT_OTA_UPDATE_TASK_STACK_SIZE    ( 4096 )
-
-#define appmainTEST_TASK_STACK_SIZE               ( 4096 )
+#define appmainTEST_TASK_STACK_SIZE               ( 6144 )
 #define appmainTEST_TASK_PRIORITY                 ( tskIDLE_PRIORITY + 1 )
 
 /**
@@ -148,10 +120,6 @@ extern void prvQualificationTestTask( void * pvParameters );
 extern void vSubscribePublishTestTask( void * pvParameters );
 
 extern void vStartOtaDemo( void );
-
-extern void CLI_Support_Settings(void);
-extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
-extern void vRegisterSampleCLICommands( void );
 
 int RunDeviceAdvisorDemo( void )
 {
@@ -189,15 +157,14 @@ int RunOtaE2eDemo( void )
 void main_task( void )
 {
 	int32_t xResults, Time2Wait = 10000;
-
 	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
 	/* The priority used by the UART command console task. */
 	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
-
 	extern void vRegisterSampleCLICommands( void );
 	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
 	extern TaskHandle_t xCLIHandle;
 
+	/* Initialize UART for serial terminal. */
 	prvMiscInitialization();
 
 	/* Register the standard CLI commands. */
@@ -205,8 +172,6 @@ void main_task( void )
 	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
 
 	xResults = littlFs_init();
-
-	// xMQTTAgentInit();
 
 	if (xResults == LFS_ERR_OK)
 	{
@@ -240,9 +205,9 @@ void main_task( void )
 							   NULL );
 
 		#endif
+		(void) xResults;
 		}
 	}
-
 	while( 1 )
 	{
 		vTaskSuspend( NULL );
@@ -255,7 +220,6 @@ void prvMiscInitialization( void )
     /* Initialize UART for serial terminal. */
 	extern void CLI_Support_Settings(void);
 	CLI_Support_Settings();
-
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY + 2,
@@ -267,6 +231,36 @@ void prvMiscInitialization( void )
 void vApplicationDaemonTaskStartupHook( void )
 {
 
+}
+
+bool ApplicationCounter(uint32_t xWaitTime)
+{
+    TickType_t xCurrent;
+    bool DEMO_TEST = pdTRUE;
+    const TickType_t xPrintFrequency = pdMS_TO_TICKS( xWaitTime );
+    xCurrent = xTaskGetTickCount();
+    signed char cRxChar;
+    while( xCurrent < xPrintFrequency )
+    {
+    	vTaskDelay(1);
+    	xCurrent = xTaskGetTickCount();
+
+    	cRxChar = vISR_Routine();
+    	if ((cRxChar != 0) )
+    	{
+
+    		DEMO_TEST = pdFALSE;
+    		break;
+    	}
+    }
+    return DEMO_TEST;
+}
+
+signed char vISR_Routine( void )
+{
+	BaseType_t xTaskWokenByReceive = pdFALSE;
+	extern signed char cRxedChar;
+    return cRxedChar;
 }
 
 /*-----------------------------------------------------------*/
@@ -384,47 +378,28 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 /*-----------------------------------------------------------*/
 
 #if ( ipconfigUSE_LLMNR != 0 ) || ( ipconfigUSE_NBNS != 0 ) || ( ipconfigDHCP_REGISTER_HOSTNAME == 1 )
-
+    /* This function will be called during the DHCP: the machine will be registered
+     * with an IP address plus this name. 
+     * Note: Please make sure vprvCacheInit() is called before this function, because
+	 * it retrieves thingname value from KeyValue table. */
     const char * pcApplicationHostnameHook( void )
     {
         /* This function will be called during the DHCP: the machine will be registered
-         * with an IP address plus this name. 
-         * Note: Please make sure vprvCacheInit() is called before this function, because
-         * it retrieves thingname value from KeyValue table. */
+         * with an IP address plus this name. */
+#if defined(__TEST__)
         return clientcredentialIOT_THING_NAME;
-    }
-
+#else
+        if (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0)
+        {
+            return gKeyValueStore.table[KVS_CORE_THING_NAME].value;
+        }
+        else
+        {
+            return clientcredentialIOT_THING_NAME;
+        }
 #endif
-
-bool ApplicationCounter(uint32_t xWaitTime)
-{
-    TickType_t xCurrent;
-    bool DEMO_TEST = pdTRUE;
-    const TickType_t xPrintFrequency = pdMS_TO_TICKS( xWaitTime );
-    xCurrent = xTaskGetTickCount();
-    signed char cRxChar;
-    while( xCurrent < xPrintFrequency )
-    {
-    	vTaskDelay(1);
-    	xCurrent = xTaskGetTickCount();
-
-    	cRxChar = vISR_Routine();
-    	if ((cRxChar != 0) )
-    	{
-
-    		DEMO_TEST = pdFALSE;
-    		break;
-    	}
     }
-    return DEMO_TEST;
-}
-
-signed char vISR_Routine( void )
-{
-	BaseType_t xTaskWokenByReceive = pdFALSE;
-	extern signed char cRxedChar;
-    return cRxedChar;
-}
+#endif
 
 static bool _wifiEnable( void )
 {

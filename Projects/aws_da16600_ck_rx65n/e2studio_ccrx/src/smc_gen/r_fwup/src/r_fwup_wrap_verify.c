@@ -18,7 +18,6 @@
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup_wrap_verify.c
- * Version      : 2.0
  * Description  : Functions for the Firmware update module.
  **********************************************************************************************************************
  * History : DD.MM.YYYY Version Description
@@ -33,10 +32,6 @@
  *********************************************************************************************************************/
 #include "r_fwup_if.h"
 #include "r_fwup_wrap_verify.h"
-
-#if (OTA_PAL_TEST_ENABLED == 1)
-#include "aws_test_ota_pal_ecdsa_sha256_signature.h"
-#endif
 
 /**** Start user code ****/
 /**** End user code   ****/
@@ -82,7 +77,7 @@ void* s_ctx_iot;
  * Description  : wrapper function for get to the crypt library's context.
  * Arguments    : none
  * Return Value : library's static pointer
- **********************************************************************************************************************/
+ *********************************************************************************************************************/
 void * r_fwup_wrap_get_crypt_context(void)
 {
     /* library's context. that need to be a static value. */
@@ -97,9 +92,9 @@ void * r_fwup_wrap_get_crypt_context(void)
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_sha256_init
  * Description  : wrapper function for sha256.
- * Arguments    : vp_ctx
- * Return Value : result
- **********************************************************************************************************************/
+ * Arguments    : vp_ctx : context
+ * Return Value : library processing result
+ *********************************************************************************************************************/
 int32_t r_fwup_wrap_sha256_init(void * vp_ctx)
 {
     /**** Start user code ****/
@@ -121,11 +116,11 @@ int32_t r_fwup_wrap_sha256_init(void * vp_ctx)
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_sha256_update
  * Description  : wrapper function for sha256.
- * Arguments    : vp_ctx
- *                p_data
- *                data_len
- * Return Value : result
- **********************************************************************************************************************/
+ * Arguments    : vp_ctx   : context
+ *                p_data   : message data
+ *                data_len : data len
+ * Return Value : library processing result
+ *********************************************************************************************************************/
 int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t datalen)
 {
     /**** Start user code ****/
@@ -142,7 +137,7 @@ int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t data
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
- * Function Name: r_fwup_wrap_sha256_final (dummy function)
+ * Function Name: r_fwup_wrap_sha256_final
  * Description  : wrapper function for sha256.
  * Arguments    : p_hash : hash value storage destination pointer
  *                vp_ctx : context
@@ -207,10 +202,6 @@ static uint8_t * get_cert( uint32_t * ulSignerCertSize )
     uint32_t ulCertSize;
     uint8_t * pucSignerCert = NULL;
 
-#if (OTA_PAL_TEST_ENABLED == 1)
-		ulCertSize = sizeof( OTA_PAL_CODE_SIGNING_CERTIFICATE );
-		pucCertData = ( uint8_t * ) OTA_PAL_CODE_SIGNING_CERTIFICATE;
-#else
     pucCertData = (uint8_t *)GetStringValue(KVS_CODE_SIGN_CERT_ID, gKeyValueStore.table[KVS_CODE_SIGN_CERT_ID].valueLength);
 
     if (pucCertData != NULL)
@@ -222,9 +213,8 @@ static uint8_t * get_cert( uint32_t * ulSignerCertSize )
 		/* Allocate memory for the signer certificate plus a terminating zero so we can copy it and return to the caller. */
 		LogError( ( "No certificate stored in DF! Please commit using CLI mode.") );
 		return pucSignerCert;
-
     }
-#endif
+
 	pucSignerCert = pvPortMalloc( ulCertSize + 1 );
 
     if ( pucSignerCert != NULL )
