@@ -47,6 +47,9 @@
 #include "r_wifi_da16xxx_if.h"
 #include "user_tcp_hook_config.h"
 
+#define MALLOC_SOCKET_CREATION_ERROR -50
+#define NO_SOCKET_CREATION_ERROR -51
+
 /* Cast uint32_t -> uint8_t */
 typedef union
 {
@@ -180,11 +183,11 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
     if( NULL == ( pxContext = pvPortMalloc( sizeof( SSOCKETContext_t ) ) ) )
     {
         configPRINTF(("create malloc error\r\n"));
-        socketStatus = TCP_SOCKETS_ERRNO_ENOMEM;
+        socketStatus = MALLOC_SOCKET_CREATION_ERROR;
         return socketStatus;
     }
 
-    if( TCP_SOCKETS_ERRNO_NONE == socketStatus )
+    if( 0 == socketStatus )
     {
         /* Create the wrapped socket. */
         memset( pxContext, 0, sizeof( SSOCKETContext_t ) );
@@ -194,17 +197,17 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
 
         if((s_sockets_num_allocated > WIFI_CFG_CREATABLE_SOCKETS) || (socketId == UINT8_MAX))
         {
-            socketStatus = TCP_SOCKETS_ERRNO_ERROR;
+            socketStatus = NO_SOCKET_CREATION_ERROR;
         }
 
-        if( TCP_SOCKETS_ERRNO_NONE == socketStatus )
+        if( 0 == socketStatus )
         {
             ret = R_WIFI_DA16XXX_CreateSocket(socketId, DA16XXX_SOCKET_TYPE_TCP_CLIENT, 4);
             if(WIFI_SUCCESS != ret)
             {
                 configPRINTF(("Failed to create WiFi sockets. %d\r\n", ret));
                 SocketErrorHook(ret, FORCE_RESET);
-                socketStatus = TCP_SOCKETS_ERRNO_ERROR;
+                socketStatus = NO_SOCKET_CREATION_ERROR;
             }
             else
             {
@@ -221,7 +224,7 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
         }
     }
 
-    if( TCP_SOCKETS_ERRNO_NONE != socketStatus )
+    if( WIFI_SUCCESS != socketStatus )
     {
         if(NULL != pxContext)
         {
@@ -233,21 +236,24 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
 
     configPRINTF(( "Created new TCP socket." ));
 
-    if(TCP_SOCKETS_ERRNO_NONE != R_WIFI_DA16XXX_DnsQuery((uint8_t *)pHostName, ipAddress))
+    ret = R_WIFI_DA16XXX_DnsQuery((uint8_t *)pHostName, ipAddress);
+    if(WIFI_SUCCESS != ret)
     {
         configPRINTF( ( "Failed to connect to server: DNS resolution failed: Hostname=%s.",
                                 pHostName ) );
         R_WIFI_DA16XXX_CloseSocket(pxContext->socket_no);
         SocketErrorHook(ret, FORCE_RESET);
-        return TCP_SOCKETS_ERRNO_ERROR;
+        socketStatus = (BaseType_t) ret;
+        return socketStatus;
     }
 
     ret = R_WIFI_DA16XXX_TcpConnect(pxContext->socket_no, ipAddress, port);
-    if( TCP_SOCKETS_ERRNO_NONE != ret )
+    if( WIFI_SUCCESS != ret )
     {
         R_WIFI_DA16XXX_CloseSocket(pxContext->socket_no);
         SocketErrorHook(ret, FORCE_RESET);
-        return TCP_SOCKETS_ERRNO_ERROR;
+        socketStatus = (BaseType_t) ret;
+        return socketStatus;
     }
 
     /* Set the socket. */
