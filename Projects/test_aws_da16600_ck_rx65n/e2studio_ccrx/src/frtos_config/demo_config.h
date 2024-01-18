@@ -299,6 +299,8 @@
 #define CLIENT_USERNAME_WITH_METRICS    democonfigCLIENT_USERNAME AWS_IOT_METRICS_STRING
 #endif
 
+//#define democonfigUSE_TLS                   0
+
 /**
  * @brief Flag to enable or disable provisioning mode for the demo.
  * Enabling the flags starts a CLI task, so that user can perform provisioning of the device through

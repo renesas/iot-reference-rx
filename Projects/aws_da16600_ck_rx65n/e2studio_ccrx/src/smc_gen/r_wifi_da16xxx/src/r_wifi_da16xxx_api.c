@@ -2154,19 +2154,19 @@ static void cb_sci_err(sci_cb_evt_t event)
     if (SCI_EVT_RXBUF_OVFL == event)
     {
         /* From RXI interrupt; rx queue is full */
-        WIFI_LOG_ERROR(("cb_sci_err: SCI_EVT_RXBUF_OVFL"));
+        // WIFI_LOG_ERROR(("cb_sci_err: SCI_EVT_RXBUF_OVFL"));
         post_err_event(WIFI_EVENT_SERIAL_RXQ_OVF_ERR, 0);
     }
     else if (SCI_EVT_OVFL_ERR == event)
     {
         /* From receiver overflow error interrupt */
-        WIFI_LOG_ERROR(("cb_sci_err: SCI_EVT_OVFL_ERR"));
+        // WIFI_LOG_ERROR(("cb_sci_err: SCI_EVT_OVFL_ERR"));
         post_err_event(WIFI_EVENT_SERIAL_OVF_ERR, 0);
     }
     else if (SCI_EVT_FRAMING_ERR == event)
     {
         /* From receiver framing error interrupt */
-        WIFI_LOG_ERROR(("cb_sci_err: SCI_EVT_FRAMING_ERR"));
+        // WIFI_LOG_ERROR(("cb_sci_err: SCI_EVT_FRAMING_ERR"));
         post_err_event(WIFI_EVENT_SERIAL_FLM_ERR, 0);
     }
     else

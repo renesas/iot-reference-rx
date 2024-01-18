@@ -55,7 +55,7 @@ Typedef definitions
 /******************************************************************************
  External variables
  ******************************************************************************/
-// xSemaphoreHandle xSemaphoreFlashAccess;
+//xSemaphoreHandle xSemaphoreFlashAccess;
 
 /******************************************************************************
  Private global variables
@@ -82,8 +82,8 @@ void UserInitialization(void)
     R_Pins_Create();
 
     /* flash access semaphore creation */
-    // xSemaphoreFlashAccess = xSemaphoreCreateMutex();
-    // xSemaphoreGive(xSemaphoreFlashAccess);
+//    xSemaphoreFlashAccess = xSemaphoreCreateBinary();
+//    xSemaphoreGive(xSemaphoreFlashAccess);
 
     /* flash initialization */
 //    R_FLASH_Open();

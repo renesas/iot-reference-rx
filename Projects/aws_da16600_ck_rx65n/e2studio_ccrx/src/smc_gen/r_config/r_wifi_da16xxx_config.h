@@ -34,7 +34,7 @@
 
 #define WIFI_CFG_DA16600_SUPPORT              1
 
-#define WIFI_CFG_SCI_CHANNEL                  (0)
+#define WIFI_CFG_SCI_CHANNEL                  (6)
 
 #define WIFI_CFG_SCI_INTERRUPT_LEVEL          (4)
 
@@ -44,15 +44,15 @@
 
 #define WIFI_CFG_CTS_SW_CTRL                  (1)
 
-#define WIFI_CFG_CTS_PORT                     2
+#define WIFI_CFG_CTS_PORT                     J
 #define WIFI_CFG_CTS_PIN                      3
 
-#define WIFI_CFG_RTS_PORT                     2
+#define WIFI_CFG_RTS_PORT                     J
 #define WIFI_CFG_RTS_PIN                      3
-#define WIFI_CFG_PFS_SET_VALUE                0x0BU
+#define WIFI_CFG_PFS_SET_VALUE                0x0AU
 
-#define WIFI_CFG_RESET_PORT                   A
-#define WIFI_CFG_RESET_PIN                    1
+#define WIFI_CFG_RESET_PORT                   5
+#define WIFI_CFG_RESET_PIN                    5
 
 /* Board dependent settings; please use the value for each setting listed below depending on the board you use.
 
