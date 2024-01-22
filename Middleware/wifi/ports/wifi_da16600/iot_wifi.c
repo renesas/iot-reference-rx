@@ -44,7 +44,6 @@
 /**
  * @brief Wi-Fi initialization status.
  */
-static BaseType_t xWIFIInitDone;
 static uint32_t prvConvertSecurityFromDaAT( WIFISecurity_t xSecurity );
 static uint32_t prvConvertEncryptionFromDaAT( WIFIEncryption_t xEncryption );
 
@@ -111,26 +110,6 @@ WIFIReturnCode_t WIFI_On( void )
     /* FIX ME. */
     WIFIReturnCode_t xRetVal = eWiFiFailure;
 
-    /* One time Wi-Fi initialization */
-    if( xWIFIInitDone == pdFALSE )
-    {
-#if 0
-    	/* This buffer is used to store the semaphore's data structure
-         * and therefore must be static. */
-        static StaticSemaphore_t xSemaphoreBuffer;
-
-        /* Start with all the zero. */
-        memset( &( xWiFiModule ), 0, sizeof( xWiFiModule ) );
-
-        /* Create the semaphore used to serialize Wi-Fi module operations. */
-        xWiFiModule.xSemaphoreHandle = xSemaphoreCreateMutexStatic( &( xSemaphoreBuffer ) );
-
-        /* Initialize semaphore. */
-        xSemaphoreGive( xWiFiModule.xSemaphoreHandle );
-#endif
-        /* Wi-Fi init done*/
-        xWIFIInitDone = pdTRUE;
-    }
     if(WIFI_SUCCESS == R_WIFI_DA16XXX_Open())
     {
     	xRetVal = eWiFiSuccess;
