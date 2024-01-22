@@ -103,7 +103,7 @@ static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
 {
     uint32_t reconnect_tries = 0;
 
-    if (error != WIFI_ERR_MODULE_COM)
+    if (WIFI_ERR_MODULE_COM != error)
     {
         count_module_comm = 0;
         return error;
