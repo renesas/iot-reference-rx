@@ -289,7 +289,7 @@ int32_t TCP_Sockets_Recv(Socket_t xSocket,
         }
         else
         {
-            receive_byte = SocketErrorHook(receive_byte, NO_FORCE_RESET);
+            receive_byte = SocketErrorHook(receive_byte, FORCE_RESET);
         }
     }
     else
@@ -324,7 +324,7 @@ int32_t TCP_Sockets_Send(Socket_t xSocket,
         }
         else
         {
-            send_byte = SocketErrorHook(send_byte, NO_FORCE_RESET);
+            send_byte = SocketErrorHook(send_byte, FORCE_RESET);
         }
     }
     else
