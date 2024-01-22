@@ -275,7 +275,7 @@ int32_t TCP_Sockets_Recv(Socket_t xSocket,
     receive_byte = R_WIFI_DA16XXX_ReceiveSocket(pxContext->socket_no, pvBuffer, xBufferLength, pxContext->ulRecvTimeout);
     if (receive_byte < 0)
     {
-        if (receive_byte == WIFI_ERR_TAKE_MUTEX)
+        if ((receive_byte == WIFI_ERR_NOT_CONNECT) || (receive_byte == WIFI_ERR_TAKE_MUTEX))
         {
             receive_byte = 0;
             /* reset the counter of WIFI_ERR_MODULE_COM */
