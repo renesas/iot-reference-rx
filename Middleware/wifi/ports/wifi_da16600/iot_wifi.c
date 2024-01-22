@@ -40,6 +40,10 @@
 #include "platform.h"
 #include "r_sci_rx_if.h"
 #include "r_wifi_da16xxx_if.h"
+#include "user_tcp_hook_config.h"
+
+#define _NM_WIFI_CONNECTION_RETRIES              ( USER_RECONNECT_TRIES )
+#define _NM_WIFI_CONNECTION_RETRY_INTERVAL_MS    ( 1000 )
 
 /**
  * @brief Wi-Fi initialization status.
@@ -135,8 +139,9 @@ WIFIReturnCode_t WIFI_ConnectAP( const WIFINetworkParams_t * const pxNetworkPara
 	uint8_t dhcp_enable;
 	wifi_security_t convert_security;
 	uint32_t convert_encryption;
-
 	WIFIScanResult_t * pxBuffer_scan;
+    uint32_t numRetries = _NM_WIFI_CONNECTION_RETRIES;
+    uint32_t delayMilliseconds = _NM_WIFI_CONNECTION_RETRY_INTERVAL_MS;
 
 	convert_security = (wifi_security_t) prvConvertSecurityFromDaAT(pxNetworkParams->xSecurity);
 
@@ -185,12 +190,21 @@ WIFIReturnCode_t WIFI_ConnectAP( const WIFINetworkParams_t * const pxNetworkPara
 	memcpy( password, pxNetworkParams->xPassword.xWPA.cPassphrase, pxNetworkParams->xPassword.xWPA.ucLength );
 
 	/* FIX ME. */
-	ret = R_WIFI_DA16XXX_Connect (
-			ssid,
-			password,
-			convert_security,
-			WIFI_ENCRYPTION_AES
-	);
+    do
+    {
+        ret = R_WIFI_DA16XXX_Connect(ssid, password, convert_security, WIFI_ENCRYPTION_AES);
+        if ( (WIFI_ERR_NOT_CONNECT == ret) || (WIFI_ERR_MODULE_COM == ret) )
+        {
+            /* Start resetting due to error */
+            configPRINTF(("Start resetting due to error = %d\r\n", ret));
+            R_WIFI_DA16XXX_HardwareReset();
+            vTaskDelay(pdMS_TO_TICKS(delayMilliseconds));
+        }
+        else
+        {
+            break;
+        }
+    } while( 0 < numRetries-- );
 
 	if(WIFI_SUCCESS != ret)
 	{

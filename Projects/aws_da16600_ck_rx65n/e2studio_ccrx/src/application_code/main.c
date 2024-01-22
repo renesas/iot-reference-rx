@@ -47,9 +47,6 @@ signed char vISR_Routine( void );
 extern KeyValueStore_t gKeyValueStore;
 extern void vStartSimplePubSubDemo( void  );
 
-#define _NM_WIFI_CONNECTION_RETRIES              ( 5 )
-#define _NM_WIFI_CONNECTION_RETRY_INTERVAL_MS    ( 1000 )
-
 static bool _wifiEnable( void );
 static bool _wifiConnectAccessPoint( void );
 
@@ -404,14 +401,12 @@ static bool _wifiConnectAccessPoint( void )
     const char * pcSSID = clientcredentialWIFI_SSID;
     const char * pcPassword = clientcredentialWIFI_PASSWORD;
     WIFISecurity_t xSecurity = clientcredentialWIFI_SECURITY;
-    uint32_t numRetries = _NM_WIFI_CONNECTION_RETRIES;
-    uint32_t delayMilliseconds = _NM_WIFI_CONNECTION_RETRY_INTERVAL_MS;
 
-    if( pcSSID != NULL )
+    if( NULL != pcSSID )
     {
         xSSIDLength = strlen( pcSSID );
 
-        if( ( xSSIDLength > 0 ) && ( xSSIDLength < wificonfigMAX_SSID_LEN ) )
+        if( ( 0 < xSSIDLength ) && ( wificonfigMAX_SSID_LEN > xSSIDLength ) )
         {
             xConnectParams.ucSSIDLength = xSSIDLength;
             memcpy( xConnectParams.ucSSID, clientcredentialWIFI_SSID, xSSIDLength );
@@ -431,11 +426,11 @@ static bool _wifiConnectAccessPoint( void )
     {
         case eWiFiSecurityWPA:
         case eWiFiSecurityWPA2:
-            if( pcPassword != NULL )
+            if( NULL != pcPassword )
             {
                 xPasswordLength = strlen( clientcredentialWIFI_PASSWORD );
 
-                if( ( xPasswordLength > 0 ) && ( xPasswordLength < wificonfigMAX_PASSPHRASE_LEN ) )
+                if( ( 0 < xPasswordLength ) && ( wificonfigMAX_PASSPHRASE_LEN > xPasswordLength ) )
                 {
                     xConnectParams.xPassword.xWPA.ucLength = xPasswordLength;
                     memcpy( xConnectParams.xPassword.xWPA.cPassphrase, clientcredentialWIFI_PASSWORD, xPasswordLength );
@@ -464,26 +459,10 @@ static bool _wifiConnectAccessPoint( void )
 
     if( status == true )
     {
-        /* Try to connect to wifi access point with retry and exponential delay */
-        do
+        if( eWiFiSuccess != WIFI_ConnectAP( &( xConnectParams ) ) )
         {
-            if( WIFI_ConnectAP( &( xConnectParams ) ) == eWiFiSuccess )
-            {
-                break;
-            }
-            else
-            {
-                if( numRetries > 0 )
-                {
-                    vTaskDelay( pdMS_TO_TICKS( delayMilliseconds ) );
-                    delayMilliseconds = delayMilliseconds * 2;
-                }
-                else
-                {
-                    status = false;
-                }
-            }
-        } while( numRetries-- > 0 );
+            status = false;
+        }
     }
 
     return status;
