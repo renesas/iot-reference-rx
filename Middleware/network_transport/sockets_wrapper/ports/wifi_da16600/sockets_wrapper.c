@@ -197,6 +197,7 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
     {
         LogError(("There is no available socket.\r\n"));
         socketStatus = NO_SOCKET_CREATION_ERROR;
+        *pTcpSocket = NULL;
         return socketStatus;
     }
 
@@ -212,6 +213,9 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
         if( NULL == ( pxContext = pvPortMalloc( sizeof( SSOCKETContext_t ) ) ) )
         {
             LogError(("Create malloc error\r\n"));
+            /* Closing created socket */
+            CloseSocket(socketId);
+            *pTcpSocket = NULL;
             socketStatus = MALLOC_SOCKET_CREATION_ERROR;
         }
         else
@@ -252,15 +256,16 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
 
     if( WIFI_SUCCESS != socketStatus )
     {
-        CloseSocket(pxContext->socket_no);
         SocketErrorHook(socketStatus, FORCE_RESET);
         LogError(( "Failed to create new socket." ));
-        return socketStatus;
+    }
+    else
+    {
+        LogInfo( ( "Established TCP connection with %s.", pHostName ) );
     }
 
     /* Set the socket. */
     *pTcpSocket = (Socket_t )pxContext;
-    LogInfo( ( "Established TCP connection with %s.", pHostName ) );
 
     return socketStatus;
 }
@@ -357,6 +362,7 @@ void TCP_Sockets_Disconnect(Socket_t tcpSocket)
     }
 
     vPortFree(pxContext);
+    pxContext = NULL;
 
     s_sockets_num_allocated--;
 }
