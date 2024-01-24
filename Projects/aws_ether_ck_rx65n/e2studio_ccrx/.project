@@ -80,6 +80,15 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1700577099949</id>
+			<name>Middleware</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-wifi</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>1669864398185</id>
 			<name>Middleware/AWS</name>
 			<type>9</type>
@@ -125,12 +134,21 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1699518017828</id>
+			<id>1689567496651</id>
 			<name>Middleware/3rdparty/mbedtls_utils</name>
 			<type>6</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-false-mbedtls_bio_freertos_plus_cellular.c</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1689567496665</id>
+			<name>Middleware/3rdparty/mbedtls_utils</name>
+			<type>6</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-mbedtls_bio_freertos_plus_wifi_da16600.c</arguments>
 			</matcher>
 		</filter>
 		<filter>
