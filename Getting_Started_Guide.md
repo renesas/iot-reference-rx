@@ -421,6 +421,8 @@ About how to run this demo, see the chapter *4. Running the Fleet Provisioning D
 
 * <https://www.renesas.com/us/en/video/amazon-freertos-fleet-provisioning-tutorial-ck-rx65n-12-iot-devices-cloud-operation>
 
+Though this application note is for both Ethernet and Cellular projects, Wi-Fi project will also work as described in application note.
+
 When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 
 ##### Precaution for PubSub demo with Fleet Provisioning
@@ -451,6 +453,8 @@ Details for Pubsub demo with OTA are provided in the special application note (d
 * <https://www.renesas.com/search?keywords=r20an7037>  
 
 About how to run this demo, see the chapter *2. Prerequisites* in preceding application note.
+
+Though this application note is for both Ethernet and Cellular projects, Wi-Fi project will also work as described in application note.
 
 When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 
