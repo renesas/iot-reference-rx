@@ -238,6 +238,28 @@ In case of RYZ014A, configure the following macro in "Middleware\\network_transp
 
 * `CELLULAR_BAND_CONFIG`: Set `"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"`
 
+###### Settings of Wi-Fi network (Only using Wi-Fi)
+
+Configure settings of Wi-Fi network for Wi-Fi DA16600 module. Configure the following macro in "src\\application_code\\include\\aws_clientcredential.h"
+
+* `clientcredentialWIFI_SSID` : Set the access point name of Wi-Fi network
+* `clientcredentialWIFI_PASSWORD` : Set the Wi-Fi network password
+
+```c
+/*
+ * @brief Wi-Fi network to join.
+ *
+ * @todo If you are using Wi-Fi, set this to your network name.
+ */
+#define clientcredentialWIFI_SSID                    ""
+
+/*
+ * @brief Password needed to join Wi-Fi network.
+ * @todo If you are using WPA, set this to your network password.
+ */
+#define clientcredentialWIFI_PASSWORD                ""
+```
+
 ##### Step 4-1-2: Building for PubSub demo
 
 Build firmware image by the builder with e2 studio.  
