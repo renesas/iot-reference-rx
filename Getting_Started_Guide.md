@@ -417,7 +417,9 @@ Details for PubSub demo with Fleet Provisioning are provided in the special appl
 
 * <https://www.renesas.com/search?keywords=r20an0674>
 
-About how to run this demo, see the chapter *4. Running the Fleet Provisioning Demo* in preceding application note.
+About how to run this demo, see the chapter *4. Running the Fleet Provisioning Demo* in preceding application note. Or watching the following video:
+
+* <https://www.renesas.com/us/en/video/amazon-freertos-fleet-provisioning-tutorial-ck-rx65n-12-iot-devices-cloud-operation>
 
 When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 
