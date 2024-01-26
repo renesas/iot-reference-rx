@@ -13,7 +13,7 @@ The following table indicates the character of demos.
 
 Each demo is independent as a FreeRTOS's task. It means multiple demos can be run at the same time.
 
-The demos connect to AWS IoT core via the Ethernet or Cellular with MQTT protocol by using the [CoreMQTT-Agent](https://github.com/FreeRTOS/coreMQTT-Agent) library to share a single MQTT connection among multiple tasks.These tasks establish a server and client-authenticated TLS connection, and demonstrates the subscribe-publish workflow of MQTT.
+The demos connect to AWS IoT core via the Ethernet, Cellular, or Wi-Fi with MQTT protocol by using the [CoreMQTT-Agent](https://github.com/FreeRTOS/coreMQTT-Agent) library to share a single MQTT connection among multiple tasks.These tasks establish a server and client-authenticated TLS connection, and demonstrates the subscribe-publish workflow of MQTT.
 
 ## How to run demos
 
@@ -27,6 +27,7 @@ https://en-support.renesas.com/knowledgeBase/21115016
 
 * [CK-RX65N](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/ck-rx65n-cloud-kit-based-rx65n-mcu-group)
 * [RYZ014A](https://www.renesas.com/br/en/products/wireless-connectivity/cellular-iot-modules/ryz014a-lte-cat-m1-cellular-iot-module) as Cellular (CAT M1) module if you use Cellular communication
+* [DA16600](https://www.renesas.com/us/en/products/wireless-connectivity/wi-fi/low-power-wi-fi/da16600mod-ultra-low-power-wi-fi-bluetooth-low-energy-combo-modules-battery-powered-iot-devices) as Wi-Fi module if you use Wi-Fi communication
 
 #### Software requirements
 
@@ -84,6 +85,11 @@ Connect a RYZ014A with LTE antenna and SIM card to device board.
 * Depending on the country you live in or provider of SIM card, you may not use RYZ014A due to the supported bands. Refer to manual of RYZ014A about supported bands for details.  
 Also see [Settings of Bands](#settings-of-bands-in-case-of-using-cellular) for band settings.
 
+##### Hardware setup in case of Wi-Fi
+
+Connect a DA16600 to device board.
+
+1. Connect the DA16600 to device board. In case of CK-RX65N, connected to the PMOD1 of it.
 
 ##### Hardware setup in case of Ethernet
 
@@ -110,6 +116,9 @@ For more details, refer to the [manual of CK-RX65N](https://www.renesas.com/us/e
 Board settings image for cellular :  
 ![2](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step2_cell.png?raw=true)  
 
+Board settings image for Wi-Fi :  
+![2](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step2_wifi.png?raw=true)  
+
 Board settings image for ether :  
 ![2](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step2_ether.png?raw=true)  
 
@@ -120,7 +129,7 @@ Import demo projects into IDE; e2 studio.
 1. Open e2 studio.
 1. Choose workspace and click **Launch**.
 1. **File** -> **Import...** -> **Existing Projects into WorkSpace**.
-1. Click **Browse...** and choose **aws_ryz014a_ck_rx65n** (for Cellular) or **aws_ether_ck_rx65n** (for Ethernet) demo.  
+1. Click **Browse...** and choose **aws_ryz014a_ck_rx65n** (for Cellular), **aws_da16600_ck_rx65n** (for Wi-Fi) or **aws_ether_ck_rx65n** (for Ethernet) demo.  
 ![3-4](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step3_4_project_import.PNG?raw=true)
 
     **Note:** Ensure that **copy projects into workspace** is not selected.  
@@ -134,7 +143,8 @@ Import demo projects into IDE; e2 studio.
 The <project_name> term means one of the following folder name according to used communication way:
 
 * When using Ethernet: aws_ether_ck_rx65n  
-* When using Cellular: aws_cellular_ck_rx65n  
+* When using Cellular: aws_ryz014a_ck_rx65n  
+* When using Wi-Fi: aws_da16600_ck_rx65n  
 
 The following are combinations of demos that can be tried for each procedure.
 |Operating Procedure|PubSub|Fleet Provisioning|OTA|
@@ -162,21 +172,24 @@ In "Projects\\<project_name>\\e2 studio_ccrx\\src\\frtos_config\\demo_config.h",
 * `ENABLE_OTA_UPDATE_DEMO`: (0)  
 ![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1config.PNG?raw=true)
 
-###### Settings of the hook function (Only using Cellular)
+###### Settings of the hook function (Only using Cellular or Wi-Fi)
 
-The socket wrapper layer provides a hook function to reset the cellular module when an error occurs.
-It is recommended to reset the cellular module if the cellular FIT module API "R_Cellular_xxx" returns errors `CELLULAR_ERR_MODULE_TIMEOUT` or `CELLULAR_ERR_MODULE_COM`. Otherwise, cellular module may not communicate.
+The socket wrapper layer provides a hook function to reset the cellular or wi-fi module when an error occurs.
+It is recommended to reset the module if the FIT module API "R_Cellular_xxx"/"R_WIFI_xxx" returns errors `CELLULAR_ERR_MODULE_TIMEOUT`, `CELLULAR_ERR_MODULE_COM` in case of Cellular or `WIFI_ERR_MODULE_COM` in case of Wi-Fi. Otherwise, the module may not communicate.
 You can change `USER_TCP_HOOK_ENABLED` in "Projects\\<project_name>\\e2 studio_ccrx\\src\\frtos_config\\user_tcp_hook_config.h" to enable or disable this hook.
 
 You can use hook as-is if you only run the demos.
-In our current implementation, cellular module is reset in this hook when the following conditions:
+In our current implementation, cellular or wi-fi module is reset in this hook when the following conditions:
 
 * On TCP_Sockets_Connect,
   * When both errors occur 1 time.
 * On TCP_Sockets_Recv and TCP_Sockets_Send,
-  * When `CELLULAR_ERR_MODULE_TIMEOUT` occurs 1 time.
-  * When `CELLULAR_ERR_MODULE_COM` occurs continuously 3 times.
-    * You can change retry numbers by configuring `USER_COMM_ERROR_TRIES`.
+  * In case of Cellular:
+    * When `CELLULAR_ERR_MODULE_TIMEOUT` occurs 1 time.
+    * When `CELLULAR_ERR_MODULE_COM` occurs continuously 3 times.
+      * You can change retry numbers by configuring `USER_COMM_ERROR_TRIES`.
+  * In case of Wi-Fi:
+    * When `WIFI_ERR_MODULE_COM` occurs 1 time.
 
 ###### Settings of RX Smart Configurator
 
@@ -224,6 +237,28 @@ Configure settings related to the bands supported by your cellular module.
 In case of RYZ014A, configure the following macro in "Middleware\\network_transport\\sockets_wrapper\\ports\\cellular_ryz014a\\TCP_socket_hook.c"
 
 * `CELLULAR_BAND_CONFIG`: Set `"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"`
+
+###### Settings of Wi-Fi network (Only using Wi-Fi)
+
+Configure settings of Wi-Fi network for Wi-Fi DA16600 module. Configure the following macro in "src\\application_code\\include\\aws_clientcredential.h"
+
+* `clientcredentialWIFI_SSID` : Set the access point name of Wi-Fi network
+* `clientcredentialWIFI_PASSWORD` : Set the Wi-Fi network password
+
+```c
+/*
+ * @brief Wi-Fi network to join.
+ *
+ * @todo If you are using Wi-Fi, set this to your network name.
+ */
+#define clientcredentialWIFI_SSID                    ""
+
+/*
+ * @brief Password needed to join Wi-Fi network.
+ * @todo If you are using WPA, set this to your network password.
+ */
+#define clientcredentialWIFI_PASSWORD                ""
+```
 
 ##### Step 4-1-2: Building for PubSub demo
 
@@ -382,7 +417,11 @@ Details for PubSub demo with Fleet Provisioning are provided in the special appl
 
 * <https://www.renesas.com/search?keywords=r20an0674>
 
-About how to run this demo, see the chapter *4. Running the Fleet Provisioning Demo* in preceding application note.
+About how to run this demo, see the chapter *4. Running the Fleet Provisioning Demo* in preceding application note. Or watching the following video:
+
+* <https://www.renesas.com/us/en/video/amazon-freertos-fleet-provisioning-tutorial-ck-rx65n-12-iot-devices-cloud-operation>
+
+Though this application note is for both Ethernet and Cellular projects, Wi-Fi project will also work as described in application note.
 
 When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 
@@ -415,12 +454,14 @@ Details for Pubsub demo with OTA are provided in the special application note (d
 
 About how to run this demo, see the chapter *2. Prerequisites* in preceding application note.
 
+Though this application note is for both Ethernet and Cellular projects, Wi-Fi project will also work as described in application note.
+
 When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 
 ---
 
 ## Troubleshooting
-If an error occurs during cellular communication due to the communication environment, changing each definition to the following "correction value" may improve the problem.    
+If an error occurs during cellular or wi-fi communication due to the communication environment, changing each definition to the following "correction value" may improve the problem.    
 
 |Definition Name|Description|defalt value|correction value|path|
 | ---- | ---- | ---- | ---- | ---- |
