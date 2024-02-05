@@ -18,8 +18,8 @@
 				<option id="toolchain.enable" value="true"/>
 			</storageModule>
 			<storageModule moduleId="com.renesas.cdt.managedbuild.core.boardInfo">
-				<option id="board.id" value="CK-RX65N"/>
-				<option id="board.name" value="CK-RX65N"/>
+				<option id="board.id" value="CK-RX65N-V2"/>
+				<option id="board.name" value="CK-RX65N-V2"/>
 				<option id="board.device" value="R5F565NEHxFB"/>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -225,7 +225,7 @@
 								</option>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.lang.353115547" name="Library configuration (-lang)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.lang" useByScannerDiscovery="false" value="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.lang.c99" valueType="enumerated"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headCtype.1579936169" name="ctype.h (C89/C99): Character classification routines (-head=ctype)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headCtype" useByScannerDiscovery="false" value="true" valueType="boolean"/>
-								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headMath.145334225" name="math.h (C89/C99): Numerical calculation library (-head=math)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headMath" value="true" useByScannerDiscovery="false" valueType="boolean"/>
+								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headMath.145334225" name="math.h (C89/C99): Numerical calculation library (-head=math)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headMath" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headMathf.499198719" name="mathf.h (C89/C99): Numerical calculation library (float type function) (-head=mathf)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headMathf" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headCppString.1747579150" name="string (EC++): String manipulation operations (-head=cppstring)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headCppString" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 								<option id="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headFenv.138007150" name="fenv.h (C99): Floating point operations (-head=fenv)" superClass="com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headFenv" useByScannerDiscovery="false" value="true" valueType="boolean"/>
