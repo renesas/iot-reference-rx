@@ -828,7 +828,7 @@
                 <gridItem id="WIFI_CFG_SCI_CHANNEL" selectedIndex="6"/>
                 <gridItem id="WIFI_CFG_SCI_INTERRUPT_LEVEL" selectedIndex="4"/>
                 <gridItem id="WIFI_CFG_SCI_PCLK_HZ" selectedIndex="60000000"/>
-                <gridItem id="WIFI_CFG_SCI_BAUDRATE" selectedIndex="921600"/>
+                <gridItem id="WIFI_CFG_SCI_BAUDRATE" selectedIndex="115200"/>
                 <gridItem id="WIFI_CFG_CTS_SW_CTRL" selectedIndex="1"/>
                 <gridItem id="WIFI_CFG_CTS_PORT" selectedIndex="18"/>
                 <gridItem id="WIFI_CFG_CTS_PIN" selectedIndex="3"/>
