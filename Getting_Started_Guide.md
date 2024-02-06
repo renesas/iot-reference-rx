@@ -142,9 +142,11 @@ Import demo projects into IDE; e2 studio.
 
 The <project_name> term means one of the following folder name according to used communication way:
 
-* When using Ethernet: aws_ether_ck_rx65n  
-* When using Cellular: aws_ryz014a_ck_rx65n  
-* When using Wi-Fi: aws_da16600_ck_rx65n  
+| Connectivity | CK-RX65N v1 | CK-RX65N v2 |
+|:------------:|:-----------:|:-----------:|
+| Ethernet | aws_ether_ck_rx65n   | -                    |
+| Cellular(CAT M1) [RYZ014A](https://www.renesas.com/br/en/products/wireless-connectivity/cellular-iot-modules/ryz014a-lte-cat-m1-cellular-iot-module) | aws_ryz014a_ck_rx65n | -                    |
+| Wi-Fi [DA16600](https://www.renesas.com/us/en/products/wireless-connectivity/wi-fi/low-power-wi-fi/da16600mod-ultra-low-power-wi-fi-bluetooth-low-energy-combo-modules-battery-powered-iot-devices) | -                    | aws_da16600_ck_rx65n |
 
 The following are combinations of demos that can be tried for each procedure.
 |Operating Procedure|PubSub|Fleet Provisioning|OTA|
@@ -455,6 +457,8 @@ Details for Pubsub demo with OTA are provided in the special application note (d
 About how to run this demo, see the chapter *2. Prerequisites* in preceding application note.
 
 Though this application note is for both Ethernet and Cellular projects, Wi-Fi project will also work as described in application note.
+
+The "boot_loader_ck_rx65n_v2" project should be used when running this demo on CK-RX65N v2.
 
 When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 

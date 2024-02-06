@@ -40,7 +40,7 @@
 
 #define WIFI_CFG_SCI_PCLK_HZ                  (60000000)  // peripheral clock speed in Clocks tab of Smart Configuration
 
-#define WIFI_CFG_SCI_BAUDRATE                 (921600)
+#define WIFI_CFG_SCI_BAUDRATE                 (115200)
 
 #define WIFI_CFG_CTS_SW_CTRL                  (1)
 
