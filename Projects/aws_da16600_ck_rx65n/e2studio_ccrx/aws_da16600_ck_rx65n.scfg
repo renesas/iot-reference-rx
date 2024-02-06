@@ -13,7 +13,7 @@
             </toolchain>
         </configuration>
         <platform id="R5F565NEHxFB"/>
-        <option id="board" value="CK-RX65N (V1.02)"/>
+        <option id="board" value="CK-RX65N-V2 (V1.00)"/>
     </general>
     <tool id="Clock">
         <option enabled="true" id="vccinput" selection="textinputitem">
@@ -33,18 +33,18 @@
         <option enabled="true" id="mainwaittime" selection="textinputitem">
             <item enabled="true" id="textinputitem" input="9980" value="9980"/>
         </option>
-        <option enabled="true" id="subclockenable" selection="check">
+        <option enabled="true" id="subclockenable" selection="uncheck">
             <item enabled="true" id="check"/>
             <item enabled="true" id="uncheck"/>
         </option>
-        <option enabled="true" id="subfrequency" selection="textinputitem">
+        <option enabled="false" id="subfrequency" selection="textinputitem">
             <item enabled="true" id="textinputitem" input="" value="32.768"/>
         </option>
-        <option enabled="true" id="subdrivecap" selection="standardCL">
+        <option enabled="false" id="subdrivecap" selection="standardCL">
             <item enabled="true" id="standardCL"/>
             <item enabled="true" id="lowCL"/>
         </option>
-        <option enabled="true" id="subwaittime" selection="textinputitem">
+        <option enabled="false" id="subwaittime" selection="textinputitem">
             <item enabled="true" id="textinputitem" input="2000" value="2000"/>
         </option>
         <option enabled="true" id="hococlockenable" selection="uncheck">
@@ -129,7 +129,7 @@
         <option enabled="true" id="sckswitcher" selection="pll">
             <item enabled="true" id="pll" input="" value="2.4E8"/>
             <item enabled="true" id="main" input="" value="24000000"/>
-            <item enabled="true" id="sub" input="" value="32768.0"/>
+            <item enabled="false" id="sub" input="" value="32768.0"/>
             <item enabled="false" id="hoco" input="" value="16000000"/>
             <item enabled="false" id="loco" input="" value="240000"/>
         </option>
@@ -204,11 +204,11 @@
             <item enabled="false" id="comboBox1-1"/>
             <item enabled="true" id="comboBox1-2"/>
         </option>
-        <option enabled="true" id="uckenable" selection="check">
+        <option enabled="true" id="uckenable" selection="uncheck">
             <item enabled="true" id="check"/>
             <item enabled="true" id="uncheck"/>
         </option>
-        <option enabled="true" id="uckdivider" selection="comboBox1-5">
+        <option enabled="false" id="uckdivider" selection="comboBox1-5">
             <item enabled="false" id="comboBox1-2"/>
             <item enabled="false" id="comboBox1-3"/>
             <item enabled="false" id="comboBox1-4"/>
@@ -245,7 +245,7 @@
         <option enabled="false" id="sdclk" selection="textoutputitem">
             <item enabled="true" id="textoutputitem" input="" value="120.0"/>
         </option>
-        <option enabled="true" id="uclk" selection="textoutputitem">
+        <option enabled="false" id="uclk" selection="textoutputitem">
             <item enabled="true" id="textoutputitem" input="" value="48.0"/>
         </option>
         <option enabled="false" id="caclclk" selection="textoutputitem">
@@ -254,10 +254,10 @@
         <option enabled="false" id="cachclk" selection="textoutputitem">
             <item enabled="true" id="textoutputitem" input="" value="16"/>
         </option>
-        <option enabled="true" id="cacsclk" selection="textoutputitem">
+        <option enabled="false" id="cacsclk" selection="textoutputitem">
             <item enabled="true" id="textoutputitem" input="" value="32.768"/>
         </option>
-        <option enabled="true" id="rtcsclkenable" selection="uncheck">
+        <option enabled="false" id="rtcsclkenable" selection="uncheck">
             <item enabled="true" id="check"/>
             <item enabled="true" id="uncheck"/>
         </option>
@@ -324,10 +324,10 @@
         <Item currentVect="81" id="SCI3_TXI3" priority="15" usedState="Not Use"/>
         <Item currentVect="82" id="SCI4_RXI4" priority="15" usedState="Not Use"/>
         <Item currentVect="83" id="SCI4_TXI4" priority="15" usedState="Not Use"/>
-        <Item currentVect="84" id="SCI5_RXI5" priority="15" usedState="Not Use"/>
-        <Item currentVect="85" id="SCI5_TXI5" priority="15" usedState="Not Use"/>
-        <Item currentVect="86" id="SCI6_RXI6" priority="15" usedState="Not Use"/>
-        <Item currentVect="87" id="SCI6_TXI6" priority="15" usedState="Not Use"/>
+        <Item currentVect="84" id="SCI5_RXI5" priority="3" usedState="Used"/>
+        <Item currentVect="85" id="SCI5_TXI5" priority="3" usedState="Used"/>
+        <Item currentVect="86" id="SCI6_RXI6" priority="3" usedState="Used"/>
+        <Item currentVect="87" id="SCI6_TXI6" priority="3" usedState="Used"/>
         <Item currentVect="88" id="LVD1_LVD1" priority="15" usedState="Not Use"/>
         <Item currentVect="89" id="LVD2_LVD2" priority="15" usedState="Not Use"/>
         <Item currentVect="90" id="USB0_USBR0" priority="15" usedState="Not Use"/>
@@ -344,14 +344,14 @@
         <Item currentVect="103" id="SCI9_TXI9" priority="15" usedState="Not Use"/>
         <Item currentVect="104" id="SCI10_RXI10" priority="15" usedState="Not Use"/>
         <Item currentVect="105" id="SCI10_TXI10" priority="15" usedState="Not Use"/>
-        <Item currentVect="106" groupchild="&lt;br&gt;1-ERS0&lt;br&gt;2-ERS1" id="BE0" priority="15" usedState="Not Use"/>
-        <Item currentVect="107" groupchild="&lt;br&gt;1-SDIOI" id="BL2" priority="15" usedState="Not Use"/>
+        <Item currentVect="106" groupchild="&lt;br&gt;0-ERS0&lt;br&gt;1-ERS1" id="BE0" priority="15" usedState="Not Use"/>
+        <Item currentVect="107" groupchild="&lt;br&gt;0-SDIOI" id="BL2" priority="15" usedState="Not Use"/>
         <Item currentVect="108" id="RSPI2_SPRI2" priority="15" usedState="Not Use"/>
         <Item currentVect="109" id="RSPI2_SPTI2" priority="15" usedState="Not Use"/>
-        <Item currentVect="110" groupchild="&lt;br&gt;1-TEI0&lt;br&gt;2-ERI0&lt;br&gt;3-TEI1&lt;br&gt;4-ERI1&lt;br&gt;5-TEI2&lt;br&gt;6-ERI2&lt;br&gt;7-TEI3&lt;br&gt;8-ERI3&lt;br&gt;9-TEI4&lt;br&gt;10-ERI4&lt;br&gt;11-TEI5&lt;br&gt;12-ERI5&lt;br&gt;13-TEI6&lt;br&gt;14-ERI6&lt;br&gt;15-TEI7&lt;br&gt;16-ERI7&lt;br&gt;17-TEI12&lt;br&gt;18-ERI12&lt;br&gt;19-SCIX0&lt;br&gt;20-SCIX1&lt;br&gt;21-SCIX2&lt;br&gt;22-SCIX3&lt;br&gt;23-QSPSSLI&lt;br&gt;24-FERRI&lt;br&gt;25-MENDI&lt;br&gt;26-OVFI&lt;br&gt;27-DOPCI&lt;br&gt;28-PCFEI&lt;br&gt;29-PCERI" id="BL0" priority="3" usedState="Used"/>
-        <Item currentVect="111" groupchild="&lt;br&gt;1-CDETI&lt;br&gt;2-CACI&lt;br&gt;3-SDACI&lt;br&gt;4-CDETIO&lt;br&gt;5-ERRIO&lt;br&gt;6-ACCIO&lt;br&gt;7-OEI1&lt;br&gt;8-OEI2&lt;br&gt;9-OEI3&lt;br&gt;10-OEI4&lt;br&gt;11-TEI0&lt;br&gt;12-EEI0&lt;br&gt;13-TEI2&lt;br&gt;14-EEI2&lt;br&gt;15-S12CMPAI&lt;br&gt;16-S12CMPBI&lt;br&gt;17-S12CMPAI1&lt;br&gt;18-S12CMPBI1&lt;br&gt;19-TEI8&lt;br&gt;20-ERI8&lt;br&gt;21-TEI9&lt;br&gt;22-ERI9&lt;br&gt;23-TEI1&lt;br&gt;24-EEI1" id="BL1" priority="15" usedState="Not Use"/>
-        <Item currentVect="112" groupchild="&lt;br&gt;1-TEI10&lt;br&gt;2-ERI10&lt;br&gt;3-TEI11&lt;br&gt;4-ERI11&lt;br&gt;5-SPII0&lt;br&gt;6-SPEI0&lt;br&gt;7-SPII1&lt;br&gt;8-SPEI1&lt;br&gt;9-SPII2&lt;br&gt;10-SPEI2" id="AL0" priority="15" usedState="Not Use"/>
-        <Item currentVect="113" groupchild="&lt;br&gt;1-EINT0&lt;br&gt;2-VPOS&lt;br&gt;3-GR1UF&lt;br&gt;4-GR2UF&lt;br&gt;5-DRW_IRQ" id="AL1" priority="15" usedState="Not Use"/>
+        <Item currentVect="110" groupchild="&lt;br&gt;0-TEI0&lt;br&gt;1-ERI0&lt;br&gt;2-TEI1&lt;br&gt;3-ERI1&lt;br&gt;4-TEI2&lt;br&gt;5-ERI2&lt;br&gt;6-TEI3&lt;br&gt;7-ERI3&lt;br&gt;8-TEI4&lt;br&gt;9-ERI4&lt;br&gt;10-TEI5&lt;br&gt;11-ERI5&lt;br&gt;12-TEI6&lt;br&gt;13-ERI6&lt;br&gt;14-TEI7&lt;br&gt;15-ERI7&lt;br&gt;16-TEI12&lt;br&gt;17-ERI12&lt;br&gt;18-SCIX0&lt;br&gt;19-SCIX1&lt;br&gt;20-SCIX2&lt;br&gt;21-SCIX3&lt;br&gt;24-QSPSSLI&lt;br&gt;26-FERRI&lt;br&gt;27-MENDI&lt;br&gt;28-OVFI&lt;br&gt;29-DOPCI&lt;br&gt;30-PCFEI&lt;br&gt;31-PCERI" id="BL0" priority="3" usedState="Used"/>
+        <Item currentVect="111" groupchild="&lt;br&gt;3-CDETI&lt;br&gt;4-CACI&lt;br&gt;5-SDACI&lt;br&gt;6-CDETIO&lt;br&gt;7-ERRIO&lt;br&gt;8-ACCIO&lt;br&gt;9-OEI1&lt;br&gt;10-OEI2&lt;br&gt;11-OEI3&lt;br&gt;12-OEI4&lt;br&gt;13-TEI0&lt;br&gt;14-EEI0&lt;br&gt;15-TEI2&lt;br&gt;16-EEI2&lt;br&gt;20-S12CMPAI&lt;br&gt;21-S12CMPBI&lt;br&gt;22-S12CMPAI1&lt;br&gt;23-S12CMPBI1&lt;br&gt;24-TEI8&lt;br&gt;25-ERI8&lt;br&gt;26-TEI9&lt;br&gt;27-ERI9&lt;br&gt;28-TEI1&lt;br&gt;29-EEI1" id="BL1" priority="15" usedState="Not Use"/>
+        <Item currentVect="112" groupchild="&lt;br&gt;8-TEI10&lt;br&gt;9-ERI10&lt;br&gt;12-TEI11&lt;br&gt;13-ERI11&lt;br&gt;16-SPII0&lt;br&gt;17-SPEI0&lt;br&gt;18-SPII1&lt;br&gt;19-SPEI1&lt;br&gt;20-SPII2&lt;br&gt;21-SPEI2" id="AL0" priority="15" usedState="Not Use"/>
+        <Item currentVect="113" groupchild="&lt;br&gt;4-EINT0&lt;br&gt;8-VPOS&lt;br&gt;9-GR1UF&lt;br&gt;10-GR2UF&lt;br&gt;11-DRW_IRQ" id="AL1" priority="15" usedState="Not Use"/>
         <Item currentVect="114" id="SCI11_RXI11" priority="15" usedState="Not Use"/>
         <Item currentVect="115" id="SCI11_TXI11" priority="15" usedState="Not Use"/>
         <Item currentVect="116" id="SCI12_RXI12" priority="15" usedState="Not Use"/>
@@ -499,7 +499,6 @@
         <pinItem allocation="134" comments="" direction="None" id="IRQ14" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="135" comments="" direction="None" id="IRQ13" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="98" comments="" direction="None" id="IRQ15" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="18" comments="" direction="None" id="XCOUT" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="124" comments="" direction="None" id="IRQ2" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="125" comments="" direction="None" id="IRQ1" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="101" comments="" direction="None" id="IRQ7" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
@@ -507,72 +506,109 @@
         <pinItem allocation="7" comments="" direction="None" id="RXD6" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="129" comments="" direction="None" id="AN115" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="127" comments="" direction="None" id="AN117" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
-        <pinItem allocation="17" comments="" direction="None" id="XCIN" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="8" comments="" direction="None" id="TXD6" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="67" comments="" direction="None" id="TXD5" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="22" comments="" direction="None" id="EXTAL" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="16" comments="" direction="None" id="FINED" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinItem allocation="13" comments="" direction="None" id="CTS6#" isUsedBySoftware="true" locked="false" operationMode="" status="0"/>
         <pinnumItem comment="LED2_B" id="88" symbolicname=""/>
-        <pinnumItem comment="SENSOR-SDA" id="44" symbolicname=""/>
-        <pinnumItem comment="SERIAL-CTS" id="89" symbolicname=""/>
-        <pinnumItem comment="SENSOR-SCL" id="45" symbolicname=""/>
-        <pinnumItem comment="USB_DM" id="47" symbolicname=""/>
-        <pinnumItem comment="USB_DP" id="48" symbolicname=""/>
+        <pinnumItem comment="USBC-CTS" id="89" symbolicname=""/>
+        <pinnumItem comment="Biometric-SDA" id="110" symbolicname=""/>
         <pinnumItem comment="OUTDOOR-AIR-QUALITY-RES_N" id="113" symbolicname=""/>
-        <pinnumItem comment="INDOOR-AIR-QUALITY-RES_N" id="114" symbolicname=""/>
-        <pinnumItem comment="LED2_G" id="90" symbolicname=""/>
+        <pinnumItem comment="INDOOR-AIR-CUALITY-RES_N" id="114" symbolicname=""/>
+        <pinnumItem comment="VSS" id="116" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-LINKSTA" id="90" symbolicname=""/>
+        <pinnumItem comment="VCC" id="91" symbolicname=""/>
+        <pinnumItem comment="VCC" id="118" symbolicname=""/>
+        <pinnumItem comment="PMOD1-GPIO0" id="92" symbolicname=""/>
+        <pinnumItem comment="VSS" id="93" symbolicname=""/>
         <pinnumItem comment="LED4" id="94" symbolicname=""/>
-        <pinnumItem comment="PMOD1-GPIO1" id="51" symbolicname=""/>
         <pinnumItem comment="PMOD2-GPIO1" id="96" symbolicname=""/>
-        <pinnumItem comment="ETHERNET-LINKSTA" id="52" symbolicname=""/>
-        <pinnumItem comment="BIOMETRIC-INT" id="98" symbolicname=""/>
-        <pinnumItem comment="PMOD2-GPIO3" id="54" symbolicname=""/>
-        <pinnumItem comment="PMOD2-GPIO2" id="56" symbolicname=""/>
-        <pinnumItem comment="PMOD1-CS" id="13" symbolicname=""/>
-        <pinnumItem comment="ETHERNET-CRS_DV" id="58" symbolicname=""/>
+        <pinnumItem comment="EMLE" id="10" symbolicname=""/>
+        <pinnumItem comment="Biometric-INT" id="98" symbolicname=""/>
+        <pinnumItem comment="PMOD2-CTS" id="11" symbolicname=""/>
+        <pinnumItem comment="VSS" id="12" symbolicname=""/>
+        <pinnumItem comment="PMOD1-CTS" id="13" symbolicname=""/>
+        <pinnumItem comment="VCL" id="14" symbolicname=""/>
+        <pinnumItem comment="VBATT" id="15" symbolicname=""/>
+        <pinnumItem comment="MD_FINED" id="16" symbolicname=""/>
         <pinnumItem comment="XCIN" id="17" symbolicname=""/>
         <pinnumItem comment="XCOUT" id="18" symbolicname=""/>
-        <pinnumItem comment="S1" id="19" symbolicname=""/>
+        <pinnumItem comment="S1(Reset)" id="19" symbolicname=""/>
+        <pinnumItem comment="PowerHMI-PG" id="121" symbolicname=""/>
+        <pinnumItem comment="AVSS0" id="1" symbolicname=""/>
         <pinnumItem comment="ETHERNET-IRQ" id="124" symbolicname=""/>
-        <pinnumItem comment="S2" id="125" symbolicname=""/>
-        <pinnumItem comment="PMOD2-GPIO0" id="126" symbolicname=""/>
-        <pinnumItem comment="PMOD1-SCK" id="6" symbolicname=""/>
+        <pinnumItem comment="AVCC1" id="3" symbolicname=""/>
+        <pinnumItem comment="Barometric-Pressure-Sensor-INT" id="4" symbolicname=""/>
+        <pinnumItem comment="AVSS1" id="5" symbolicname=""/>
+        <pinnumItem comment="S2(UserSwitch)" id="126" symbolicname=""/>
         <pinnumItem comment="MICROPHONES2-OUT" id="127" symbolicname=""/>
-        <pinnumItem comment="PMOD1-MISO" id="7" symbolicname=""/>
-        <pinnumItem comment="PMOD1-MOSI" id="8" symbolicname=""/>
+        <pinnumItem comment="PMOD1-RXD" id="7" symbolicname=""/>
         <pinnumItem comment="MICROPHONES1-OUT" id="129" symbolicname=""/>
-        <pinnumItem comment="ETHERNET-TXD1" id="63" symbolicname=""/>
+        <pinnumItem comment="PMOD1-TXD" id="8" symbolicname=""/>
         <pinnumItem comment="XTAL" id="20" symbolicname=""/>
-        <pinnumItem comment="ETHERNET-TXD0" id="64" symbolicname=""/>
-        <pinnumItem comment="ETHERNET-RST#" id="65" symbolicname=""/>
+        <pinnumItem comment="VSS" id="21" symbolicname=""/>
         <pinnumItem comment="EXTAL" id="22" symbolicname=""/>
-        <pinnumItem comment="SERIAL-TXD" id="67" symbolicname=""/>
-        <pinnumItem comment="ETHERNET-RX_ER" id="68" symbolicname=""/>
-        <pinnumItem comment="PMOD2-SCK" id="25" symbolicname=""/>
-        <pinnumItem comment="ETHERNET-REF-50-CK" id="69" symbolicname=""/>
-        <pinnumItem comment="PMOD2-MISO" id="26" symbolicname=""/>
-        <pinnumItem comment="PMOD2-MOSI" id="27" symbolicname=""/>
+        <pinnumItem comment="VCC" id="23" symbolicname=""/>
+        <pinnumItem comment="UPSEL" id="24" symbolicname=""/>
+        <pinnumItem comment="PMOD2-GPIO3" id="26" symbolicname=""/>
+        <pinnumItem comment="PMOD2-GPIO2" id="27" symbolicname=""/>
+        <pinnumItem comment="PMOD2-GPIO0" id="28" symbolicname=""/>
+        <pinnumItem comment="SERIAL-RXD" id="29" symbolicname=""/>
+        <pinnumItem comment="VSS" id="130" symbolicname=""/>
+        <pinnumItem comment="VCC" id="132" symbolicname=""/>
         <pinnumItem comment="INDOOR-AIR-QUALITY-INT" id="134" symbolicname=""/>
         <pinnumItem comment="OUTDOOR-AIR-QUALITY-INT" id="135" symbolicname=""/>
-        <pinnumItem comment="SERIAL-RXD" id="70" symbolicname=""/>
+        <pinnumItem comment="SERIAL-TXD" id="31" symbolicname=""/>
+        <pinnumItem comment="LED6" id="32" symbolicname=""/>
+        <pinnumItem comment="USB0_VBUSEN" id="33" symbolicname=""/>
+        <pinnumItem comment="LED3" id="35" symbolicname=""/>
+        <pinnumItem comment="Outdoor-Air-Quality-Sensor-SCL" id="36" symbolicname=""/>
+        <pinnumItem comment="Outdoor-Air-Quality-Sensor-SDA" id="37" symbolicname=""/>
+        <pinnumItem comment="LED2_R" id="38" symbolicname=""/>
+        <pinnumItem comment="LED2_G" id="39" symbolicname=""/>
+        <pinnumItem comment="VREFL0" id="140" symbolicname=""/>
+        <pinnumItem comment="VREFH0" id="142" symbolicname=""/>
+        <pinnumItem comment="AVCC0" id="143" symbolicname=""/>
+        <pinnumItem comment="USB0_VBUS" id="40" symbolicname=""/>
+        <pinnumItem comment="USB0_OVRCURA" id="43" symbolicname=""/>
+        <pinnumItem comment="Temperature-Motion-Pressure-SDA" id="44" symbolicname=""/>
+        <pinnumItem comment="Temperature-Motion-Pressure-SCL" id="45" symbolicname=""/>
+        <pinnumItem comment="VCC_USB" id="46" symbolicname=""/>
+        <pinnumItem comment="USBFS_DM" id="47" symbolicname=""/>
+        <pinnumItem comment="USBFS_DP" id="48" symbolicname=""/>
+        <pinnumItem comment="VSS_USB" id="49" symbolicname=""/>
+        <pinnumItem comment="PMOD1-GPIO1" id="51" symbolicname=""/>
+        <pinnumItem comment="PMOD2-RTS" id="52" symbolicname=""/>
+        <pinnumItem comment="PMOD2-RXD" id="54" symbolicname=""/>
+        <pinnumItem comment="PMOD2-TXD" id="56" symbolicname=""/>
+        <pinnumItem comment="VSS" id="57" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-CRS_DV" id="58" symbolicname=""/>
+        <pinnumItem comment="VCC" id="59" symbolicname=""/>
+        <pinnumItem comment="UB" id="60" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-TXD1" id="63" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-TXD0" id="64" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-RST" id="65" symbolicname=""/>
+        <pinnumItem comment="USBC-TXD" id="67" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-RX-ER" id="68" symbolicname=""/>
+        <pinnumItem comment="ETHERNET-REF-50-CK" id="69" symbolicname=""/>
+        <pinnumItem comment="USBC-RXD" id="70" symbolicname=""/>
         <pinnumItem comment="ETHERNET-RXD0" id="71" symbolicname=""/>
         <pinnumItem comment="ETHERNET-RXD1" id="72" symbolicname=""/>
-        <pinnumItem comment="SERIAL-RTS" id="75" symbolicname=""/>
-        <pinnumItem comment="LED6" id="32" symbolicname=""/>
-        <pinnumItem comment="USB_VBUSEN" id="33" symbolicname=""/>
-        <pinnumItem comment="PMOD2-CS" id="34" symbolicname=""/>
+        <pinnumItem comment="VCC" id="74" symbolicname=""/>
+        <pinnumItem comment="USBC-RTS" id="75" symbolicname=""/>
+        <pinnumItem comment="VSS" id="76" symbolicname=""/>
         <pinnumItem comment="PMOD1-GPIO2" id="78" symbolicname=""/>
-        <pinnumItem comment="LED3" id="35" symbolicname=""/>
         <pinnumItem comment="PMOD1-GPIO3" id="79" symbolicname=""/>
-        <pinnumItem comment="LED2_R" id="38" symbolicname=""/>
-        <pinnumItem comment="MOTION-TRACKING-INT1" id="101" symbolicname=""/>
+        <pinnumItem comment="Motion-INT" id="101" symbolicname=""/>
+        <pinnumItem comment="Motion-INT" id="102" symbolicname=""/>
+        <pinnumItem comment="VCC" id="103" symbolicname=""/>
+        <pinnumItem comment="VSS" id="105" symbolicname=""/>
         <pinnumItem comment="ETHERNET-TXD_EN" id="81" symbolicname=""/>
-        <pinnumItem comment="USBFS_VBUS" id="40" symbolicname=""/>
+        <pinnumItem comment="Biometric-SCL" id="109" symbolicname=""/>
+        <pinnumItem comment="PMOD1-RTS" id="83" symbolicname=""/>
         <pinnumItem comment="ETHERNET-MDC" id="85" symbolicname=""/>
-        <pinnumItem comment="PMOD1-GPIO0" id="42" symbolicname=""/>
         <pinnumItem comment="ETHERNET-MDIO" id="86" symbolicname=""/>
-        <pinnumItem comment="USB_OVRCURA" id="43" symbolicname=""/>
     </tool>
     <tool id="Summary" version="1.0.0.0">
         <option id="com.renesas.smc.code.path" value="src\smc_gen"/>
@@ -792,7 +828,7 @@
                 <gridItem id="WIFI_CFG_SCI_CHANNEL" selectedIndex="6"/>
                 <gridItem id="WIFI_CFG_SCI_INTERRUPT_LEVEL" selectedIndex="4"/>
                 <gridItem id="WIFI_CFG_SCI_PCLK_HZ" selectedIndex="60000000"/>
-                <gridItem id="WIFI_CFG_SCI_BAUDRATE" selectedIndex="921600"/>
+                <gridItem id="WIFI_CFG_SCI_BAUDRATE" selectedIndex="115200"/>
                 <gridItem id="WIFI_CFG_CTS_SW_CTRL" selectedIndex="1"/>
                 <gridItem id="WIFI_CFG_CTS_PORT" selectedIndex="18"/>
                 <gridItem id="WIFI_CFG_CTS_PIN" selectedIndex="3"/>
@@ -1085,7 +1121,7 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="855d049e-f1f8-45c2-ae39-ee5946692720" inuse="true" name="FreeRTOS_Kernel">
+        <configuration enable="true" exclude="false" id="a6ce166d-1128-490f-8cb1-970de1752b20" inuse="true" name="FreeRTOS_Kernel">
             <component description="FreeRTOS Kernel component detail" detailDescription="FreeRTOS Kernel component detail" display="FreeRTOS Kernel component" id="FreeRTOS_Kernel202210.01-LTS-rx-1.0.1" version="202210.01-LTS-rx-1.0.1">
                 <gridItem id="configENABLE_BACKWARD_COMPATIBILITY" selectedIndex="1"/>
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
@@ -1190,7 +1226,7 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="930ac371-ab33-4c0b-8fd9-dff7af4177dd" inuse="true" name="FreeRTOS_LittleFS">
+        <configuration enable="true" exclude="false" id="c9174201-c4c8-4a39-8643-8a3bec23bd07" inuse="true" name="FreeRTOS_LittleFS">
             <component description="FreeRTOS LittleFS component detail" detailDescription="FreeRTOS LittleFS component detail" display="FreeRTOS LittleFS component" id="FreeRTOS_LittleFS202210.01-LTS-rx-1.0.1" version="202210.01-LTS-rx-1.0.1">
                 <gridItem id="LFS_FLASH_READ_SIZE" selectedIndex="1"/>
                 <gridItem id="LFS_FLASH_PROGRAM_SIZE" selectedIndex="4"/>
@@ -1200,7 +1236,7 @@
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="cd2be959-56ec-4322-ae66-53b703e234a3" inuse="true" name="FreeRTOS_Object">
+        <configuration enable="true" exclude="false" id="6fbec3aa-6f02-446d-bc70-94ab389caead" inuse="true" name="FreeRTOS_Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
                     <option defaultValue="0" id="LinkNum" value=""/>
@@ -1224,7 +1260,7 @@
                     <option defaultValue="0" id="LinkNum" value=""/>
                 </allocatable>
             </allocatable>
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="1.0.113"/>
+            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="1.0.121"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
     </tool>
