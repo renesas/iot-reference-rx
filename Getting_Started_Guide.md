@@ -458,6 +458,8 @@ About how to run this demo, see the chapter *2. Prerequisites* in preceding appl
 
 Though this application note is for both Ethernet and Cellular projects, Wi-Fi project will also work as described in application note.
 
+The "boot_loader_ck_rx65n_v2" project should be used when running this demo on CK-RX65N v2.
+
 When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
 
 ---
