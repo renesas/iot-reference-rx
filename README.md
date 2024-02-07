@@ -246,6 +246,7 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
   | r_wifi_da16xxx | WIFI_CFG_DA16600_SUPPORT | 0 | 1 | Enable support for DA16600 |
   |                | WIFI_CFG_SCI_CHANNEL | 0 | 1| PMOD1 using SCI6 channel |
+  |                | WIFI_CFG_CTS_SW_CTRL | 0 | 1 | Enable CTS hardware flow control |
   |                | WIFI_CFG_CTS_PORT | 2 | J | PMOD1_1 is PJ3 |
   |                | WIFI_CFG_CTS_PIN | 3 | 3 | PMOD1_1 is PJ3 |
   |                | WIFI_CFG_RTS_PORT | 2 | J | PMOD1_1 is PJ3 |
@@ -253,6 +254,7 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |                | WIFI_CFG_PFS_SET_VALUE | 0x0BU | 0x0AU | PFS for Jx is 0x0AU |
   |                | WIFI_CFG_RESET_PORT | A | 5 | PMOD1_8 is P55 |
   |                | WIFI_CFG_RESET_PIN | 1 | 5 | PMOD1_8 is P55 |
+  |                | WIFI_CFG_SNTP_ENABLE | 0 | 1 | Enable SNTP client service |
   | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
   |            | SCI_CFG_CH6_INCLUDED | 0 | 1 | SCI CH6 is used to communicate with the DA16600 module. |
   |            | SCI_CFG_CH6_TX_BUFSIZ | 80 | 2180 | The TX buffer size needs to be increased to communicate with DA16600. |
