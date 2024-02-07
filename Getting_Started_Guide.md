@@ -240,6 +240,16 @@ In case of RYZ014A, configure the following macro in "Middleware\\network_transp
 
 * `CELLULAR_BAND_CONFIG`: Set `"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"`
 
+###### Settings of Country code and GMT timezone (Only using Wi-Fi)
+
+Use the RX Smart Configurator to configure the Country code and GMT timezone.  
+Open the RX Smart Configurator as shown in the image below and set the 2 parameters `"WIFI_CFG_COUNTRY_CODE"` and `"WIFI_CFG_SNTP_UTC_OFFSET"`.
+
+* `"WIFI_CFG_COUNTRY_CODE"` : Country code defined in ISO 3166-1 alpha-2 standard. Such as KR, US, JP, and CH.
+* `"WIFI_CFG_SNTP_UTC_OFFSET"` : GMT timezone offset in hours (-12 ~ 12).
+
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_Input_WFCC_TZONE.PNG?raw=true)
+
 ###### Settings of Wi-Fi network (Only using Wi-Fi)
 
 Configure settings of Wi-Fi network for Wi-Fi DA16600 module. Configure the following macro in "src\\application_code\\include\\aws_clientcredential.h"
