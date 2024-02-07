@@ -91,6 +91,11 @@ Connect a DA16600 to device board.
 
 1. Connect the DA16600 to device board. In case of CK-RX65N, connected to the PMOD1 of it.
 
+**Note:**
+
+* Depending on the country you live in, you may not use DA16600 due to wrong country code or timezone.  
+Refer to [Settings of Country code and GMT timezone](#settings-of-country-code-and-gmt-timezone-only-using-wi-fi) for settings.
+
 ##### Hardware setup in case of Ethernet
 
 Connect between device board and router/switch.
