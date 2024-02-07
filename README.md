@@ -88,7 +88,7 @@ The following table indicates name and version of [FIT modules](https://www.rene
 |r_tsip_rx|1.17.l|--|
 |r_irq_rx|4.00|1.34|
 |r_fwup|2.01|--|
-|r_wifi_da16xxx|1.10|1.10|
+|r_wifi_da16xxx|1.10|1.42|
 
 ### Data Flash Usage
 RX family of MCU has internal Data Flash Memory, and this references are using the Data Flash to store the data for connecting to the Cloud service.  
