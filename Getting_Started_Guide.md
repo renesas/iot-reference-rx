@@ -83,7 +83,7 @@ Connect a RYZ014A with LTE antenna and SIM card to device board.
 **Note:**
 
 * Depending on the country you live in or provider of SIM card, you may not use RYZ014A due to the supported bands. Refer to manual of RYZ014A about supported bands for details.  
-Also see [Settings of Bands](#settings-of-bands-in-case-of-using-cellular) for band settings.
+Also see [Settings of Bands](#settings-of-bands-only-using-cellular) for band settings.
 
 ##### Hardware setup in case of Wi-Fi
 
@@ -158,7 +158,7 @@ The following are combinations of demos that can be tried for each procedure.
 |---|---|---|---|
 |[Step 4-1: Run PubSub demo](#step-4-1-run-pubsub-demo)|✓|-|-|
 |[Step 4-2: Run PubSub demo with Fleet Provisioning](#step-4-2-run-pubsub-demo-with-fleet-provisioning)|✓|✓|-|
-|[Step 4-3: Run Pubsub demo with OTA](#step-4-3-run-pubsub-demo-with-ota)|✓|-|✓|  
+|[Step 4-3: Run Pubsub demo with OTA](#step-4-3-run-pubsub-demo-with-ota)|✓|-|✓|
 
 ---
 
@@ -440,7 +440,7 @@ About how to run this demo, see the chapter *4. Running the Fleet Provisioning D
 
 Though this application note is for both Ethernet and Cellular projects, Wi-Fi project will also work as described in application note.
 
-When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
+When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configurator) before generating code with RX Smart Configurator.
 
 ##### Precaution for PubSub demo with Fleet Provisioning
 
@@ -475,7 +475,7 @@ Though this application note is for both Ethernet and Cellular projects, Wi-Fi p
 
 The "boot_loader_ck_rx65n_v2" project should be used when running this demo on CK-RX65N v2.
 
-When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
+When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configurator) before generating code with RX Smart Configurator.
 
 ---
 
