@@ -142,11 +142,11 @@ Import demo projects into IDE; e2 studio.
 
 The <project_name> term means one of the following folder name according to used communication way:
 
-| Connectivity | CK-RX65N v1 | CK-RX65N v2 |
-|:------------:|:-----------:|:-----------:|
-| Ethernet | aws_ether_ck_rx65n   | -                    |
-| Cellular(CAT M1) [RYZ014A](https://www.renesas.com/br/en/products/wireless-connectivity/cellular-iot-modules/ryz014a-lte-cat-m1-cellular-iot-module) | aws_ryz014a_ck_rx65n | -                    |
-| Wi-Fi [DA16600](https://www.renesas.com/us/en/products/wireless-connectivity/wi-fi/low-power-wi-fi/da16600mod-ultra-low-power-wi-fi-bluetooth-low-energy-combo-modules-battery-powered-iot-devices) | -                    | aws_da16600_ck_rx65n |
+| RX MCU and Board | Connectivity | Project name | Boot loader |
+|:----------------:|:------------:|:------------:|:-----------:|
+| [CK-RX65N v1](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/ck-rx65n-cloud-kit-based-rx65n-mcu-group) | Ethernet | aws_ether_ck_rx65n | boot_loader_ck_rx65n |
+| [CK-RX65N v1](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/ck-rx65n-cloud-kit-based-rx65n-mcu-group) | Cellular(CAT M1) [RYZ014A](https://www.renesas.com/br/en/products/wireless-connectivity/cellular-iot-modules/ryz014a-lte-cat-m1-cellular-iot-module) | aws_ryz014a_ck_rx65n | boot_loader_ck_rx65n |
+| [CK-RX65N v2](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/ck-rx65n-cloud-kit-based-rx65n-mcu-group) | Wi-Fi [DA16600](https://www.renesas.com/us/en/products/wireless-connectivity/wi-fi/low-power-wi-fi/da16600mod-ultra-low-power-wi-fi-bluetooth-low-energy-combo-modules-battery-powered-iot-devices) | aws_da16600_ck_rx65n | boot_loader_ck_rx65n_v2 |
 
 The following are combinations of demos that can be tried for each procedure.
 |Operating Procedure|PubSub|Fleet Provisioning|OTA|
