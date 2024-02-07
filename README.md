@@ -88,7 +88,7 @@ The following table indicates name and version of [FIT modules](https://www.rene
 |r_tsip_rx|1.17.l|--|
 |r_irq_rx|4.00|1.34|
 |r_fwup|2.01|--|
-|r_wifi_da16xxx|1.10|1.10|
+|r_wifi_da16xxx|1.10|1.42|
 
 ### Data Flash Usage
 RX family of MCU has internal Data Flash Memory, and this references are using the Data Flash to store the data for connecting to the Cloud service.  
@@ -246,6 +246,7 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
   | r_wifi_da16xxx | WIFI_CFG_DA16600_SUPPORT | 0 | 1 | Enable support for DA16600 |
   |                | WIFI_CFG_SCI_CHANNEL | 0 | 1| PMOD1 using SCI6 channel |
+  |                | WIFI_CFG_CTS_SW_CTRL | 0 | 1 | Enable CTS hardware flow control |
   |                | WIFI_CFG_CTS_PORT | 2 | J | PMOD1_1 is PJ3 |
   |                | WIFI_CFG_CTS_PIN | 3 | 3 | PMOD1_1 is PJ3 |
   |                | WIFI_CFG_RTS_PORT | 2 | J | PMOD1_1 is PJ3 |
@@ -253,6 +254,7 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |                | WIFI_CFG_PFS_SET_VALUE | 0x0BU | 0x0AU | PFS for Jx is 0x0AU |
   |                | WIFI_CFG_RESET_PORT | A | 5 | PMOD1_8 is P55 |
   |                | WIFI_CFG_RESET_PIN | 1 | 5 | PMOD1_8 is P55 |
+  |                | WIFI_CFG_SNTP_ENABLE | 0 | 1 | Enable SNTP client service |
   | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
   |            | SCI_CFG_CH6_INCLUDED | 0 | 1 | SCI CH6 is used to communicate with the DA16600 module. |
   |            | SCI_CFG_CH6_TX_BUFSIZ | 80 | 2180 | The TX buffer size needs to be increased to communicate with DA16600. |
@@ -264,7 +266,21 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
 
-  #### CK-RX65N Bootloader Projects
+  #### CK-RX65N v1 Bootloader Project
+
+  | FIT module | Config name | Default Value | Project value | Reason for change |
+  |------------|-------------|---------------|---------------|-------------------|
+  | r_bsp      | BSP_CFG_USER_CHARPUT_ENABLED | 0 | 1 | Use with log output function. |
+  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
+  | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | Bootloader rewrites the code flash. |
+  |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | Bootloader is implemented to execute code that rewrites the code flash from another bank. |
+  | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used to write firmware and output log information. |
+  | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses the Dual bank function. |
+  |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
+
+  #### CK-RX65N v2 Bootloader Project
 
   | FIT module | Config name | Default Value | Project value | Reason for change |
   |------------|-------------|---------------|---------------|-------------------|
