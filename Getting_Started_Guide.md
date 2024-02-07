@@ -83,13 +83,18 @@ Connect a RYZ014A with LTE antenna and SIM card to device board.
 **Note:**
 
 * Depending on the country you live in or provider of SIM card, you may not use RYZ014A due to the supported bands. Refer to manual of RYZ014A about supported bands for details.  
-Also see [Settings of Bands](#settings-of-bands-in-case-of-using-cellular) for band settings.
+Also see [Settings of Bands](#settings-of-bands-only-using-cellular) for band settings.
 
 ##### Hardware setup in case of Wi-Fi
 
 Connect a DA16600 to device board.
 
 1. Connect the DA16600 to device board. In case of CK-RX65N, connected to the PMOD1 of it.
+
+**Note:**
+
+* Depending on the country you live in, you may not use DA16600 due to wrong country code or timezone.  
+Refer to [Settings of Country code and GMT timezone](#settings-of-country-code-and-gmt-timezone-only-using-wi-fi) for settings.
 
 ##### Hardware setup in case of Ethernet
 
@@ -142,18 +147,18 @@ Import demo projects into IDE; e2 studio.
 
 The <project_name> term means one of the following folder name according to used communication way:
 
-| Connectivity | CK-RX65N v1 | CK-RX65N v2 |
-|:------------:|:-----------:|:-----------:|
-| Ethernet | aws_ether_ck_rx65n   | -                    |
-| Cellular(CAT M1) [RYZ014A](https://www.renesas.com/br/en/products/wireless-connectivity/cellular-iot-modules/ryz014a-lte-cat-m1-cellular-iot-module) | aws_ryz014a_ck_rx65n | -                    |
-| Wi-Fi [DA16600](https://www.renesas.com/us/en/products/wireless-connectivity/wi-fi/low-power-wi-fi/da16600mod-ultra-low-power-wi-fi-bluetooth-low-energy-combo-modules-battery-powered-iot-devices) | -                    | aws_da16600_ck_rx65n |
+| RX MCU and Board | Connectivity | Project name | Boot loader |
+|:----------------:|:------------:|:------------:|:-----------:|
+| [CK-RX65N v1](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/ck-rx65n-cloud-kit-based-rx65n-mcu-group) | Ethernet | aws_ether_ck_rx65n | boot_loader_ck_rx65n |
+| [CK-RX65N v1](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/ck-rx65n-cloud-kit-based-rx65n-mcu-group) | Cellular(CAT M1) [RYZ014A](https://www.renesas.com/br/en/products/wireless-connectivity/cellular-iot-modules/ryz014a-lte-cat-m1-cellular-iot-module) | aws_ryz014a_ck_rx65n | boot_loader_ck_rx65n |
+| [CK-RX65N v2](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/ck-rx65n-cloud-kit-based-rx65n-mcu-group) | Wi-Fi [DA16600](https://www.renesas.com/us/en/products/wireless-connectivity/wi-fi/low-power-wi-fi/da16600mod-ultra-low-power-wi-fi-bluetooth-low-energy-combo-modules-battery-powered-iot-devices) | aws_da16600_ck_rx65n | boot_loader_ck_rx65n_v2 |
 
 The following are combinations of demos that can be tried for each procedure.
 |Operating Procedure|PubSub|Fleet Provisioning|OTA|
 |---|---|---|---|
 |[Step 4-1: Run PubSub demo](#step-4-1-run-pubsub-demo)|✓|-|-|
 |[Step 4-2: Run PubSub demo with Fleet Provisioning](#step-4-2-run-pubsub-demo-with-fleet-provisioning)|✓|✓|-|
-|[Step 4-3: Run Pubsub demo with OTA](#step-4-3-run-pubsub-demo-with-ota)|✓|-|✓|  
+|[Step 4-3: Run Pubsub demo with OTA](#step-4-3-run-pubsub-demo-with-ota)|✓|-|✓|
 
 ---
 
@@ -239,6 +244,16 @@ Configure settings related to the bands supported by your cellular module.
 In case of RYZ014A, configure the following macro in "Middleware\\network_transport\\sockets_wrapper\\ports\\cellular_ryz014a\\TCP_socket_hook.c"
 
 * `CELLULAR_BAND_CONFIG`: Set `"1,2,4,5,8,12,13,14,17,18,19,20,25,26,28,66"`
+
+###### Settings of Country code and GMT timezone (Only using Wi-Fi)
+
+Use the RX Smart Configurator to configure the Country code and GMT timezone.  
+Open the RX Smart Configurator as shown in the image below and set the 2 parameters `"WIFI_CFG_COUNTRY_CODE"` and `"WIFI_CFG_SNTP_UTC_OFFSET"`.
+
+* `"WIFI_CFG_COUNTRY_CODE"` : Country code defined in ISO 3166-1 alpha-2 standard. Such as KR, US, JP, and CH.
+* `"WIFI_CFG_SNTP_UTC_OFFSET"` : GMT timezone offset in hours (-12 ~ 12).
+
+![4-1-1](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/step4_1_1_Input_WFCC_TZONE.PNG?raw=true)
 
 ###### Settings of Wi-Fi network (Only using Wi-Fi)
 
@@ -425,7 +440,7 @@ About how to run this demo, see the chapter *4. Running the Fleet Provisioning D
 
 Though this application note is for both Ethernet and Cellular projects, Wi-Fi project will also work as described in application note.
 
-When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
+When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configurator) before generating code with RX Smart Configurator.
 
 ##### Precaution for PubSub demo with Fleet Provisioning
 
@@ -460,7 +475,7 @@ Though this application note is for both Ethernet and Cellular projects, Wi-Fi p
 
 The "boot_loader_ck_rx65n_v2" project should be used when running this demo on CK-RX65N v2.
 
-When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configrater) before generating code with RX Smart Configurator.
+When running this demo, please enable [Settings of RX Smart Configurator](#settings-of-rx-smart-configurator) before generating code with RX Smart Configurator.
 
 ---
 
