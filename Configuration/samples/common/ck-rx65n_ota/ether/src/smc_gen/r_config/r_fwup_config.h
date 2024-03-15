@@ -40,18 +40,18 @@ Configuration Options
     2 = Single bank without buffer.
     3 = Single bank with ext-buffer.
 */
-#define FWUP_CFG_UPDATE_MODE                        (1)
+#define FWUP_CFG_UPDATE_MODE                        (0)
 
 /* Select the function mode.
     0 = use for Boot loader
     1 = use for User program
 */
-#define FWUP_CFG_FUNCTION_MODE                      (0)
+#define FWUP_CFG_FUNCTION_MODE                      (1)
 
 /* Area configuration */
-#define FWUP_CFG_MAIN_AREA_ADDR_L                   (0xFFE00000U)      /* Main area start address     */
-#define FWUP_CFG_BUF_AREA_ADDR_L                    (0xFFEF8000U)      /* Buffer area start address   */
-#define FWUP_CFG_AREA_SIZE                          (0xF8000U)         /* Install area size           */
+#define FWUP_CFG_MAIN_AREA_ADDR_L                   (0xFFF00000U)      /* Main area start address     */
+#define FWUP_CFG_BUF_AREA_ADDR_L                    (0xFFE00000U)      /* Buffer area start address   */
+#define FWUP_CFG_AREA_SIZE                          (0xF0000U)         /* Install area size           */
 
 /* Internal flash */
 #define FWUP_CFG_CF_BLK_SIZE                        (0x8000U)          /* Code flash block size       */

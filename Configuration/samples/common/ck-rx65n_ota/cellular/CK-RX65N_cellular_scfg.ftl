@@ -52,13 +52,11 @@
         </configuration>
         <configuration inuse="true" name="r_cellular">
             <component display="r_cellular" id="r_cellular1.11" version="1.11">
-                <gridItem id="CELLULAR_CFG_DEBUGLOG" selectedIndex="4"/>
                 <gridItem id="CELLULAR_CFG_AP_NAME" selectedIndex="ibasis.iot"/>
                 <gridItem id="CELLULAR_CFG_AUTH_TYPE" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_DEBUGLOG" selectedIndex="4"/>
                 <gridItem id="CELLULAR_CFG_UART_SCI_CH" selectedIndex="6"/>
-                <gridItem id="CELLULAR_CFG_CTS_SW_CTRL" selectedIndex="0"/>
                 <gridItem id="CELLULAR_CFG_RTS_PORT" selectedIndex="0"/>
-                <gridItem id="CELLULAR_CFG_RTS_PIN" selectedIndex="2"/>
                 <gridItem id="CELLULAR_CFG_RESET_PORT" selectedIndex="5"/>
                 <gridItem id="CELLULAR_CFG_RESET_PIN" selectedIndex="5"/>
             </component>
@@ -84,6 +82,11 @@
         </configuration>
         <configuration inuse="true" name="r_byteq">
             <component display="r_byteq" id="r_byteq2.00" version="2.00">
+                <gridItem id="BYTEQ_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
+                <gridItem id="BYTEQ_CFG_USE_HEAP_FOR_CTRL_BLKS" selectedIndex="0"/>
+                <gridItem id="BYTEQ_CFG_MAX_CTRL_BLKS" selectedIndex="32"/>
+                <gridItem id="BYTEQ_CFG_PROTECT_QUEUE" selectedIndex="0"/>
+                <gridItem id="BYTEQ_CFG_CRITICAL_SECTION" selectedIndex="0"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
@@ -93,12 +96,12 @@
         </configuration>
         <configuration enable="true" exclude="false" inuse="true" name="FreeRTOS_Kernel">
             <component display="FreeRTOS Kernel" id="FreeRTOS_Kernel${packageVersion}" version="${packageVersion}">
-                <gridItem id="configCOMMAND_INT_MAX_OUTPUT_SIZE" selectedIndex="850"/>
+                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="768"/>
                 <gridItem id="configUSE_TICK_HOOK" selectedIndex="1"/>
                 <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
-                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="768"/>
                 <gridItem id="configUSE_MALLOC_FAILED_HOOK" selectedIndex="1"/>
                 <gridItem id="configCHECK_FOR_STACK_OVERFLOW" selectedIndex="2"/>
+                <gridItem id="configCOMMAND_INT_MAX_OUTPUT_SIZE" selectedIndex="850"/>
                 <gridItem id="configIP_ADDR0" selectedIndex="192"/>
                 <gridItem id="configIP_ADDR1" selectedIndex="168"/>
                 <gridItem id="configIP_ADDR2" selectedIndex="11"/>
@@ -108,11 +111,25 @@
         </configuration>
         <configuration enable="true" exclude="false" inuse="true" name="LittleFS">
             <component display="LittleFS" id="LittleFS${packageVersion}" version="${packageVersion}">
-                <gridItem id="LFS_FLASH_READ_SIZE" selectedIndex="1"/>
-                <gridItem id="LFS_FLASH_PROGRAM_SIZE" selectedIndex="4"/>
-                <gridItem id="LFS_FLASH_BLOCK_SIZE" selectedIndex="128"/>
+                <gridItem id="RM_LITTLEFS_FLASH_DATA_START" selectedIndex="FLASH_DF_BLOCK_0_MACRO"/>
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_fwup">
+            <component display="r_fwup" id="r_fwup2.01" version="2.01">
+                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_FUNCTION_MODE" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000U"/>
+                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000U"/>
+                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000U"/>
+                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x8000U"/>
+                <gridItem id="FWUP_CFG_CF_W_UNIT_SIZE" selectedIndex="128U"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_ADDR_L" selectedIndex="0x00000U"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_BLK_SIZE" selectedIndex="4096U"/>
+                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64U"/>
+                <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512U"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration enable="true" exclude="false" inuse="true" name="FreeRTOS Object">
             <allocatable id="OBJECT" name="OBJECT" type="">
@@ -147,25 +164,18 @@
                     <option defaultValue="0" id="LinkNum" value=""/>
                 </allocatable>
             </allocatable>
-            <component description="" detailDescription="" display="FreeRTOS Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="1.0.112"/>
+            <component description="" detailDescription="" display="FreeRTOS Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="1.0.120"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration inuse="true" name="r_fwup">
-            <component description="Dependency : r_flash_rx version(s) 4.80, 4.91&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.01" version="2.01">
-                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
-                <gridItem id="FWUP_CFG_FUNCTION_MODE" selectedIndex="1"/>
-                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000U"/>
-                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000U"/>
-                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000U"/>
-                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x8000U"/>
-                <gridItem id="FWUP_CFG_CF_W_UNIT_SIZE" selectedIndex="128U"/>
-                <gridItem id="FWUP_CFG_EXT_BUF_AREA_ADDR_L" selectedIndex="0x00000U"/>
-                <gridItem id="FWUP_CFG_EXT_BUF_AREA_BLK_SIZE" selectedIndex="4096U"/>
-                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64U"/>
-                <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512U"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
+    </tool>
+    <tool id="System">
+        <section id="ocd">
+            <option enabled="true" id="debugIF" selection="fine">
+                <item enabled="true" id="unused"/>
+                <item enabled="true" id="fine"/>
+                <item enabled="true" id="jtag"/>
+                <item enabled="true" id="jtagTrace"/>
+            </option>
+        </section>
     </tool>
 </smc>

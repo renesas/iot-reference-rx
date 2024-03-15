@@ -14,19 +14,16 @@
     <tool id="SWComponent" version="1.0.0.0">
         <configuration inuse="true" name="r_byteq">
             <component description="Dependency : r_bsp version(s) 6.20&#10;This module allocates a queue control block in an Open() call to handle indexing for buffers provided by the user application. Additional functions are provided to put and get data from the buffer queue, inspect the number of bytes available or in use, and to flush the queue. There is no limit to the number of queues supported, and queue control blocks can be allocated statically at build time or dynamically at run time." detailDescription="Byte-based circular buffer library." display="r_byteq" id="r_byteq2.00" version="2.00">
-                <gridItem id="BYTEQ_CFG_MAX_CTRL_BLKS" selectedIndex="32"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration inuse="true" name="r_bsp">
             <component display="r_bsp" id="r_bsp7.20" version="7.20">
-                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x400"/>
                 <gridItem id="BSP_CFG_USER_CHARPUT_ENABLED" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_SCI_UART_TERMINAL_ENABLE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_SCI_UART_TERMINAL_CHANNEL" selectedIndex="5"/>
-                <gridItem id="BSP_CFG_CODE_FLASH_BANK_MODE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
@@ -42,6 +39,7 @@
         </configuration>
         <configuration inuse="true" name="r_fwup">
             <component description="Dependency : r_flash_rx version(s) 4.80, 4.91&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.01" version="2.01">
+                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
                 <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000U"/>
                 <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000U"/>
                 <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000U"/>
@@ -51,14 +49,12 @@
                 <gridItem id="FWUP_CFG_EXT_BUF_AREA_BLK_SIZE" selectedIndex="4096U"/>
                 <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64U"/>
                 <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512U"/>
-                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration inuse="true" name="r_flash_rx">
             <component description="Dependency : r_bsp version(s) 5.20, 5.30, 5.40, 5.50, 5.52, 6.10, 6.20, 6.21, 7.00, 7.10, 7.20, 7.30&#10;This module allows the user to program, erase, write and blankcheck the Code and/or Data flash." detailDescription="Flash API for RX100, RX200, RX600. and RX700." display="r_flash_rx" id="r_flash_rx5.00" version="5.00">
-                <gridItem id="FLASH_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
                 <gridItem id="FLASH_CFG_CODE_FLASH_ENABLE" selectedIndex="1"/>
                 <gridItem id="FLASH_CFG_CODE_FLASH_RUN_FROM_ROM" selectedIndex="1"/>
             </component>
