@@ -205,6 +205,43 @@
 					<path>Configuration/samples/bootloader/ck-rx65n-v2/CK-RX65N_boot_loader_scfg.ftl</path>
 				</scfgtemplate>
 				<!-- linker section -->
+				<sections>
+					<toolchain>RXC</toolchain>
+					<section>
+						<name>SU</name>
+						<name>SI</name>
+						<name>B_1</name>
+						<name>R_1</name>
+						<name>B_2</name>
+						<name>R_2</name>
+						<name>B</name>
+						<name>R</name>
+						<name>RPFRAM2</name>
+						<address>0x00000004</address>
+					</section>
+					<section>
+						<name>C_1</name>
+						<name>C_2</name>
+						<name>C</name>
+						<name>C$*</name>
+						<name>D*</name>
+						<name>W*</name>
+						<name>L</name>
+						<name>P</name>
+						<name>PResetPRG</name>
+						<name>PFRAM2</name>
+						<address>0xFFFF0000</address>
+					</section>
+					<section>
+						<name>EXCEPTVECT</name>
+						<address>0xFFFFFF80</address>
+					</section>
+					<section>
+						<name>RESETVECT</name>
+						<address>0xFFFFFFFC</address>
+					</section>
+					<mappedramrom>PFRAM2=RPFRAM2</mappedramrom>
+				</sections>
 				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.converter</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.separated.form.motorolaFile</optionid>
