@@ -1283,7 +1283,7 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="pubsub_wifi" name="(WiFi) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with WiFi(DA16600) connection.">
+			<app id="application" value="pubsub_wifi" name="(Wi-Fi) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Wi-Fi(DA16600) connection.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N-V2(DUAL)</board>
 				<!-- impdir section -->
@@ -2839,7 +2839,7 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="fleetps_wifi" name="(WiFi) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with WiFi(DA16600) connection.">
+			<app id="application" value="fleetps_wifi" name="(Wi-Fi) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Wi-Fi(DA16600) connection.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N-V2(DUAL)</board>
 				<!-- impdir section -->
@@ -4453,7 +4453,7 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="pso_wifi" name="(WiFi) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with WiFi(DA16600) connection. Note: This project requires bootloader project.">
+			<app id="application" value="pso_wifi" name="(Wi-Fi) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Wi-Fi(DA16600) connection. Note: This project requires bootloader project.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N-V2(DUAL)</board>
 				<!-- impdir section -->
@@ -6098,7 +6098,7 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="fleet_pso_wifi" name="(WiFi) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with WiFi(DA16600) connection. Note: This project requires bootloader project.">
+			<app id="application" value="fleet_pso_wifi" name="(Wi-Fi) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Wi-Fi(DA16600) connection. Note: This project requires bootloader project.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N-V2(DUAL)</board>
 				<!-- impdir section -->
