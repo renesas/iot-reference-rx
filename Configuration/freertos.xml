@@ -9,7 +9,9 @@
 	<target>
 		<toolchain>RXC</toolchain>
 		<board>CK-RX65N(DUAL)</board>
+		<board>CK-RX65N</board>
 		<board>CK-RX65N-V2(DUAL)</board>
+		<board>CK-RX65N-V2</board>
 		<family>RX</family>
 		<series>RX600</series>
 		<group>RX65N</group>
@@ -61,7 +63,9 @@
 			<app id="application" value="bootloader" name="Secure bootloader sample project" description="This demonstration is used together with OTA sample project to provide a secure boot.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N</board>
 				<board>CK-RX65N-V2(DUAL)</board>
+				<board>CK-RX65N-V2</board>
 				<linkdir>
 					<folder linkedfolder="true">Middleware/3rdparty/tinycrypt</folder>
 					<path>src/tinycrypt</path>
@@ -69,81 +73,97 @@
 				<!-- impdir section -->
 				<impdir>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<folder>Projects/boot_loader_ck_rx65n/e2studio_ccrx/src/key</folder>
 					<path>src/key</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<folder>Projects/boot_loader_ck_rx65n_v2/e2studio_ccrx/src/key</folder>
 					<path>src/key</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<folder>Projects/boot_loader_ck_rx65n/e2studio_ccrx/src/src</folder>
 					<path>src/src</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<folder>Projects/boot_loader_ck_rx65n_v2/e2studio_ccrx/src/src</folder>
 					<path>src/src</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<file>Projects/boot_loader_ck_rx65n/e2studio_ccrx/src/boot_loader.c</file>
 					<path>src</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<file>Projects/boot_loader_ck_rx65n_v2/e2studio_ccrx/src/boot_loader.c</file>
 					<path>src</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<file>Projects/boot_loader_ck_rx65n/e2studio_ccrx/src/boot_loader.h</file>
 					<path>src</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<file>Projects/boot_loader_ck_rx65n_v2/e2studio_ccrx/src/boot_loader.h</file>
 					<path>src</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<folder>Configuration/samples/bootloader/ck-rx65n/src/smc_gen</folder>
 					<path>src/smc_gen</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<folder>Configuration/samples/bootloader/ck-rx65n-v2/src/smc_gen</folder>
 					<path>src/smc_gen</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<file>Projects/boot_loader_ck_rx65n/e2studio_ccrx/src/smc_gen/r_fwup/src/r_fwup_wrap_verify.c</file>
 					<path>src/smc_gen/r_fwup/src/</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<file>Projects/boot_loader_ck_rx65n_v2/e2studio_ccrx/src/smc_gen/r_fwup/src/r_fwup_wrap_verify.c</file>
 					<path>src/smc_gen/r_fwup/src/</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<file>Projects/boot_loader_ck_rx65n/e2studio_ccrx/src/smc_gen/r_fwup/src/r_fwup_wrap_verify.h</file>
 					<path>src/smc_gen/r_fwup/src/</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<file>Projects/boot_loader_ck_rx65n_v2/e2studio_ccrx/src/smc_gen/r_fwup/src/r_fwup_wrap_verify.h</file>
 					<path>src/smc_gen/r_fwup/src/</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<file>Configuration/samples/bootloader/ck-rx65n/linker_section_sample.esi</file>
 					<path>src</path>
 				</impdir>
 				<impdir>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<file>Configuration/samples/bootloader/ck-rx65n-v2/linker_section_sample.esi</file>
 					<path>src</path>
 				</impdir>
@@ -198,10 +218,12 @@
 				<!-- template section -->
 				<scfgtemplate>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<path>Configuration/samples/bootloader/ck-rx65n/CK-RX65N_boot_loader_scfg.ftl</path>
 				</scfgtemplate>
 				<scfgtemplate>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<path>Configuration/samples/bootloader/ck-rx65n-v2/CK-RX65N_boot_loader_scfg.ftl</path>
 				</scfgtemplate>
 				<!-- linker section -->
@@ -257,6 +279,7 @@
 			<app id="application" value="pubsub_ether" name="(Ethernet) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Ethernet connection.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pubsub/ck-rx65n/ether/src/frtos_config</folder>
@@ -650,6 +673,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -756,6 +780,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -768,6 +793,7 @@
 			<app id="application" value="pubsub_cell" name="(Cellular) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Cellular(RYZ014A) connection.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pubsub/ck-rx65n/cellular/src/frtos_config</folder>
@@ -1171,6 +1197,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -1274,6 +1301,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -1286,6 +1314,7 @@
 			<app id="application" value="pubsub_wifi" name="(Wi-Fi) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Wi-Fi(DA16600) connection.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N-V2(DUAL)</board>
+				<board>CK-RX65N-V2</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pubsub/ck-rx65n/wifi/src/frtos_config</folder>
@@ -1696,6 +1725,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -1799,6 +1829,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -1811,6 +1842,7 @@
 			<app id="application" value="fleetps_ether" name="(Ethernet) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Ethernet connection.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleetps/ck-rx65n/ether/src/frtos_config</folder>
@@ -2206,6 +2238,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -2312,6 +2345,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -2324,6 +2358,7 @@
 			<app id="application" value="fleetps_cell" name="(Cellular) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Cellular(RYZ014A) connection.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleetps/ck-rx65n/cellular/src/frtos_config</folder>
@@ -2727,6 +2762,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -2830,6 +2866,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -2842,6 +2879,7 @@
 			<app id="application" value="fleetps_wifi" name="(Wi-Fi) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Wi-Fi(DA16600) connection.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N-V2(DUAL)</board>
+				<board>CK-RX65N-V2</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleetps/ck-rx65n/wifi/src/frtos_config</folder>
@@ -3256,6 +3294,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -3359,6 +3398,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -3371,6 +3411,7 @@
 			<app id="application" value="pso_ether" name="(Ethernet) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Ethernet connection. Note: This project requires bootloader project.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pso/ck-rx65n/ether/src/frtos_config</folder>
@@ -3781,6 +3822,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -3894,6 +3936,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -3906,6 +3949,7 @@
 			<app id="application" value="pso_cell" name="(Cellular) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Cellular(RYZ014A) connection. Note: This project requires bootloader project.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pso/ck-rx65n/cellular/src/frtos_config</folder>
@@ -4334,6 +4378,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -4444,6 +4489,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -4456,6 +4502,7 @@
 			<app id="application" value="pso_wifi" name="(Wi-Fi) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Wi-Fi(DA16600) connection. Note: This project requires bootloader project.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N-V2(DUAL)</board>
+				<board>CK-RX65N-V2</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pso/ck-rx65n/wifi/src/frtos_config</folder>
@@ -4883,6 +4930,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -4993,6 +5041,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -5005,6 +5054,7 @@
 			<app id="application" value="fleet_pso_ether" name="(Ethernet) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Ethernet connection. Note: This project requires bootloader project.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleet_pso/ck-rx65n/ether/src/frtos_config</folder>
@@ -5416,6 +5466,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -5529,6 +5580,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -5541,6 +5593,7 @@
 			<app id="application" value="fleet_pso_cell" name="(Cellular) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Cellular(RYZ014A) connection. Note: This project requires bootloader project.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleet_pso/ck-rx65n/cellular/src/frtos_config</folder>
@@ -5979,6 +6032,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -6089,6 +6143,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N(DUAL)</board>
+					<board>CK-RX65N</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
@@ -6101,6 +6156,7 @@
 			<app id="application" value="fleet_pso_wifi" name="(Wi-Fi) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Wi-Fi(DA16600) connection. Note: This project requires bootloader project.">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N-V2(DUAL)</board>
+				<board>CK-RX65N-V2</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleet_pso/ck-rx65n/wifi/src/frtos_config</folder>
@@ -6532,6 +6588,7 @@
 				<sections>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<section>
 						<name>SU</name>
 						<name>SI</name>
@@ -6642,6 +6699,7 @@
 				<macrodefinition>
 					<toolchain>RXC</toolchain>
 					<board>CK-RX65N-V2(DUAL)</board>
+					<board>CK-RX65N-V2</board>
 					<compiler>MBEDTLS_CONFIG_FILE=&lt;&quot;aws_mbedtls_config.h&quot;&gt;</compiler>
 					<compiler>CONFIG_MEDTLS_USE_AFR_MEMORY</compiler>
 					<compiler>MBEDTLS_CMAC_C</compiler>
