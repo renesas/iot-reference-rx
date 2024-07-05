@@ -200,20 +200,16 @@ int rm_littlefs_flash_write (const struct lfs_config * c,
 
     update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE;
 
-    R_BSP_InterruptsDisable();
     flash_error_code = R_FLASH_Write( (uint32_t)buffer,
             (rm_littlefs_flash_data_start +
              (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block) + off), size );
-    R_BSP_InterruptsEnable();
-
-    //wait for the semaphore to be released by callback
-    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     if( (FLASH_SUCCESS != flash_error_code) ) {
     	xSemaphoreGive(xSemaphoreFlashAccess);
     	return LFS_ERR_IO;
     }
-
+    //wait for the semaphore to be released by callback
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 	xSemaphoreGive(xSemaphoreFlashAccess);
     return LFS_ERR_OK;
 }
@@ -238,19 +234,16 @@ int rm_littlefs_flash_erase (const struct lfs_config * c, lfs_block_t block)
 
 	update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERASE_WAIT_COMPLETE;
 
-    R_BSP_InterruptsDisable();
     flash_error_code = R_FLASH_Erase((flash_block_address_t)(rm_littlefs_flash_data_start + (p_instance_ctrl->p_cfg->p_lfs_cfg->block_size * block)),
 			p_instance_ctrl->p_cfg->p_lfs_cfg->block_size / RM_LITTLEFS_FLASH_DATA_BLOCK_SIZE);
-    R_BSP_InterruptsEnable();
-
-    //wait for the semaphore to be released by callback
-    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 
     if( (FLASH_SUCCESS != flash_error_code) ) {
     	xSemaphoreGive(xSemaphoreFlashAccess);
     	return LFS_ERR_IO;
     }
 
+    //wait for the semaphore to be released by callback
+    xSemaphoreTake( xSemaphoreFlashAccess, portMAX_DELAY );
 	xSemaphoreGive(xSemaphoreFlashAccess);
     return LFS_ERR_OK;
 }

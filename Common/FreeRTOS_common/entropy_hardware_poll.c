@@ -37,6 +37,7 @@
 #if BSP_CFG_MCU_PART_ENCRYPTION_INCLUDED == true
 #include "r_tsip_rx_if.h"
 #include "r_tsip_rx_config.h"
+#include "r_common_api_tsip.h"
 
 tsip_tls_ca_certification_public_key_index_t s_inst1 =
 {
@@ -70,14 +71,13 @@ int mbedtls_hardware_poll( void *data,
 
 		size_t num_bytes = ( len < sizeof( uint32_t ) ) ? len : sizeof( uint32_t );
 
-		error_code = R_TSIP_Open(&s_inst1, &s_inst2);
+		R_Demo_Common_API_TSIP_Open(&s_inst1, &s_inst2);
 		R_TSIP_GenerateRandomNumber(( uint32_t * ) &gs_random_number_buffer);
 		*olen = 0;
 
 		memcpy( output, &gs_random_number_buffer, num_bytes );
 		*olen = num_bytes;
 
-		error_code = R_TSIP_Close();
 
 		return error_code;
 	#else

@@ -595,9 +595,17 @@ int prvFleetProvisioningTask( void * pvParameters )
     CK_OBJECT_HANDLE xClientCertificate;
     CK_OBJECT_HANDLE xPrivateKey;
     uuid_param_t uuid;
-    extern KeyValueStore_t gKeyValueStore;
+    size_t templateLength;
+    size_t thingnameLength;
+    char *templateData = NULL;
+    char *thingnameData = NULL;
+    char *template_buff = NULL;
+    char *thingname_buff = NULL;
+
 
     LogInfo( ( "---------Start Fleet Provisioning Task---------\r\n" ) );
+
+    templateLength = prvGetCacheEntryLength(KVS_TEMPLATE_NAME);
 
 #if defined(__TEST__)
     pcPublishTopic = FP_CBOR_REGISTER_PUBLISH_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME );
@@ -607,19 +615,25 @@ int prvFleetProvisioningTask( void * pvParameters )
     pcRejectTopic = FP_CBOR_REGISTER_REJECTED_TOPIC( democonfigPROVISIONING_TEMPLATE_NAME );
     xRejectTopicLength = FP_CBOR_REGISTER_REJECTED_LENGTH( fpdemoPROVISIONING_TEMPLATE_NAME_LENGTH ) ;
 #else
-    if (gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength > 0)
+    if (templateLength > 0)
     {
-    	xPublishTopicLength = FP_CBOR_REGISTER_PUBLISH_LENGTH(gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength);
+
+    	template_buff = pvPortMalloc(templateLength + 1);
+    	xReadEntry(KVS_TEMPLATE_NAME, template_buff, templateLength );
+    	template_buff[templateLength] = '\0';
+    	templateData = template_buff;
+
+    	xPublishTopicLength = FP_CBOR_REGISTER_PUBLISH_LENGTH(templateLength);
     	pcPublishTopic = pvPortMalloc(xPublishTopicLength + 1);
-		snprintf( pcPublishTopic, xPublishTopicLength + 1, "%s%s%s%s", FP_REGISTER_API_PREFIX, gKeyValueStore.table[KVS_TEMPLATE_NAME].value, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT);
+		snprintf( pcPublishTopic, xPublishTopicLength + 1, "%s%s%s%s", FP_REGISTER_API_PREFIX, templateData, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT);
 
-        xAcceptTopicLength = FP_CBOR_REGISTER_ACCEPTED_LENGTH(gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength);
+        xAcceptTopicLength = FP_CBOR_REGISTER_ACCEPTED_LENGTH(templateLength);
         pcAcceptTopic = pvPortMalloc(xAcceptTopicLength + 1);
-        snprintf( pcAcceptTopic, xAcceptTopicLength + 1, "%s%s%s%s%s", FP_REGISTER_API_PREFIX, gKeyValueStore.table[KVS_TEMPLATE_NAME].value, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT,FP_API_ACCEPTED_SUFFIX);
+        snprintf( pcAcceptTopic, xAcceptTopicLength + 1, "%s%s%s%s%s", FP_REGISTER_API_PREFIX, templateData, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT,FP_API_ACCEPTED_SUFFIX);
 
-        xRejectTopicLength = FP_CBOR_REGISTER_REJECTED_LENGTH(gKeyValueStore.table[KVS_TEMPLATE_NAME].valueLength);
+        xRejectTopicLength = FP_CBOR_REGISTER_REJECTED_LENGTH(templateLength);
         pcRejectTopic = pvPortMalloc(xRejectTopicLength + 1);
-        snprintf( pcRejectTopic, xRejectTopicLength + 1, "%s%s%s%s%s", FP_REGISTER_API_PREFIX, gKeyValueStore.table[KVS_TEMPLATE_NAME].value, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT,FP_API_REJECTED_SUFFIX);
+        snprintf( pcRejectTopic, xRejectTopicLength + 1, "%s%s%s%s%s", FP_REGISTER_API_PREFIX, templateData, FP_REGISTER_API_BRIDGE, FP_API_CBOR_FORMAT,FP_API_REJECTED_SUFFIX);
     }
 
 #endif
@@ -663,7 +677,9 @@ int prvFleetProvisioningTask( void * pvParameters )
             }
         }
 
-        if ( (xPkcs11Ret == CKR_OK) && ((xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) || (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength <= 0)) )
+        thingnameLength = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
+
+        if ( (xPkcs11Ret == CKR_OK) && ((xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) || thingnameLength == 0) )
         {
             xPkcs11Ret = xDestroyCertificateAndKey ( xP11Session );
             if( xPkcs11Ret != CKR_OK )
@@ -687,10 +703,14 @@ int prvFleetProvisioningTask( void * pvParameters )
                 }
             }
         }
-        else if ( (xPkcs11Ret == CKR_OK) && (xClientCertificate != CK_INVALID_HANDLE) && (xPrivateKey != CK_INVALID_HANDLE) && (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0) )
+
+        else if ( (xPkcs11Ret == CKR_OK) && (xClientCertificate != CK_INVALID_HANDLE) && (xPrivateKey != CK_INVALID_HANDLE) && (thingnameLength > 0) )
         {
             LogInfo( ( "It uses the device certificate, private key, thing name already stored." ) );
-            snprintf( pcThingName, fpdemoMAX_THING_NAME_LENGTH, "%s", gKeyValueStore.table[KVS_CORE_THING_NAME].value);
+            thingname_buff = pvPortMalloc(thingnameLength + 1);
+            xReadEntry(KVS_CORE_THING_NAME, thingname_buff, thingnameLength );
+            thingname_buff[thingnameLength] = '\0';
+            snprintf( pcThingName, fpdemoMAX_THING_NAME_LENGTH, "%s", thingname_buff);
             xStatus = true;
         }
         else
@@ -700,7 +720,7 @@ int prvFleetProvisioningTask( void * pvParameters )
         }
 
         /* Skip fleet provisioning if you already have a device certificate, private key and thingname. */
-        if ( (xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) || (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength <= 0) )
+        if ( (xClientCertificate == CK_INVALID_HANDLE) || (xPrivateKey == CK_INVALID_HANDLE) || thingnameLength == 0 )
         {
             /**** Connect to AWS IoT Core with provisioning claim credentials *****/
 
@@ -970,6 +990,15 @@ int prvFleetProvisioningTask( void * pvParameters )
             pcRejectTopic = NULL;
         }
 #endif
+        if (templateLength > 0)
+        {
+            vPortFree(template_buff);
+        }
+
+        if (thingnameLength > 0)
+        {
+            vPortFree(thingname_buff);
+        }
 
         LogInfo( ( "Demo completed successfully." ) );
         LogInfo( ( "-------Fleet Provisioning Task Finished-------\r\n" ) );

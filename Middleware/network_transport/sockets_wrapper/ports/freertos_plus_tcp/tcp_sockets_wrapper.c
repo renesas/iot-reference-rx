@@ -25,7 +25,7 @@
  */
 
 /**
- * @file sockets_wrapper.c
+ * @file tcp_sockets_wrapper.c
  * @brief FreeRTOS Sockets connect and disconnect wrapper implementation.
  */
 

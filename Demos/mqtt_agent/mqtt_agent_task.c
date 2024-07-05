@@ -789,8 +789,10 @@ void prvMQTTAgentTask( void * pvParameters )
     BaseType_t xStatus = pdPASS;
     MQTTStatus_t xMQTTStatus = MQTTBadParameter;
     MQTTContext_t * pMqttContext = &( xGlobalMqttAgentContext.mqttContext );
-    extern KeyValueStore_t gKeyValueStore ;
     ( void ) pvParameters;
+    size_t thingnameLength;
+    size_t endpointLength;
+    size_t rootCALength;
 
     ( void ) xWaitForMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED, portMAX_DELAY );
     LogInfo( ( "---------Start MQTT Agent Task---------\r\n" ) );
@@ -804,20 +806,24 @@ void prvMQTTAgentTask( void * pvParameters )
     pcRootCA = democonfigROOT_CA_PEM;
 #else
     /* Load broker endpoint and thing name for client connection, from the key store. */
-    if (gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength > 0)
+    thingnameLength = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
+    endpointLength = prvGetCacheEntryLength(KVS_CORE_MQTT_ENDPOINT);
+    rootCALength = prvGetCacheEntryLength(KVS_ROOT_CA_ID);
+
+    if (thingnameLength > 0)
     {
-    	pcThingName = GetStringValue(KVS_CORE_THING_NAME, gKeyValueStore.table[ KVS_CORE_THING_NAME ].valueLength);
+    	pcThingName = GetStringValue(KVS_CORE_THING_NAME, thingnameLength);
     }
 
-    if (gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength > 0)
+    if (endpointLength > 0)
     {
-        pcBrokerEndpoint = GetStringValue(KVS_CORE_MQTT_ENDPOINT, gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength);
+        pcBrokerEndpoint = GetStringValue(KVS_CORE_MQTT_ENDPOINT, endpointLength);
     }
 
-    if (gKeyValueStore.table[KVS_ROOT_CA_ID].valueLength > 0)
+    if (rootCALength > 0)
     {
         LogInfo( ( "Using rootCA cert from key store." ) );
-        pcRootCA = GetStringValue(KVS_ROOT_CA_ID, gKeyValueStore.table[ KVS_ROOT_CA_ID ].valueLength);
+        pcRootCA = GetStringValue(KVS_ROOT_CA_ID, rootCALength);
     }
     else
     {

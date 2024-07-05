@@ -78,7 +78,6 @@ extern void vLoggingPrint( const char * pcFormat );
 #define PEM_BEGIN              "-----BEGIN "
 #define PEM_END                "-----END "
 
-extern KeyValueStore_t gKeyValueStore;
 /* Developer convenience override, for lab testing purposes, for generating
  * a new default key pair, regardless of whether an existing key pair is present. */
 #define keyprovisioningFORCE_GENERATE_NEW_KEY_PAIR    0
@@ -977,18 +976,25 @@ CK_RV xDestroyDefaultObjects( KVStoreKey_t ID, CK_SESSION_HANDLE xSession )
 /* Perform device provisioning using the default TLS client credentials. */
 CK_RV vDevModeKeyPreProvisioning( KeyValueStore_t Keystore, KVStoreKey_t ID, int32_t xvaluelength )
 {
+	size_t valueLength = 0;
+	char * pcBuffer = NULL;
+	char * temp = NULL;
 	PreProvisioningParams_t xParams ;
 
-	xParams.pucClientCredential  =  (uint8_t *)GetStringValue(ID,xvaluelength);
+
+	pcBuffer = pvPortMalloc( xvaluelength + 1 );
+	xReadEntry(ID, pcBuffer, xvaluelength);
+	pcBuffer[xvaluelength] =  '\0';
+	xParams.pucClientCredential  =  (uint8_t *)pcBuffer;
 
 	/* The hard-coded client certificate and private key can be useful for
-	 * first-time lab testing. They are optional after the first run, though, and
-	 * not recommended at all for going into production. */
+	* first-time lab testing. They are optional after the first run, though, and
+	* not recommended at all for going into production. */
 	if( ( NULL != xParams.pucClientCredential ) &&
-		( 0 != strcmp( "", ( const char * ) xParams.pucClientCredential ) ) )
+	( 0 != strcmp( "", ( const char * ) xParams.pucClientCredential ) ) )
 	{
 		/* We want the NULL terminator to be written to storage, so include it
-		 * in the length calculation. */
+		* in the length calculation. */
 		xParams.ulClientCredentialLength = sizeof( char ) + Keystore.table[ ID ].valueLength;
 	}
 	else
@@ -997,7 +1003,7 @@ CK_RV vDevModeKeyPreProvisioning( KeyValueStore_t Keystore, KVStoreKey_t ID, int
 	}
 
 
-    return vAlternateKeyPreProvisioning(ID, &xParams );
+	return vAlternateKeyPreProvisioning(ID, &xParams );
 }
 BaseType_t vAlternateKeyPreProvisioning(KVStoreKey_t ID, PreProvisioningParams_t * xParams )
 {
@@ -1033,6 +1039,10 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 	CK_FUNCTION_LIST_PTR pxFunctionList;
 	ProvisionedState_t xProvisionedState = { 0 };
 	CK_OBJECT_HANDLE xObject = 0;
+	BaseType_t status;
+	extern BaseType_t xPending;
+	char *pcBuffer = NULL;
+	size_t bufferSize;
 
 
 	xResult = C_GetFunctionList( &pxFunctionList );
@@ -1040,7 +1050,11 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 	{
 		if( ( NULL != pxParams->pucClientCredential ))
 		{
-			if(gKeyValueStore.table[ ID ].xChangePending == pdTRUE)
+			bufferSize = prvGetCacheEntryLength(ID);
+            pcBuffer = pvPortMalloc( bufferSize );
+			xReadEntry(ID, pcBuffer, bufferSize);
+			status = xPending;
+			if(status == pdTRUE)
 			{
 				if ( strncmp( PEM_BEGIN,  (const char *)pxParams->pucClientCredential, strlen( PEM_BEGIN ) ) == 0 )
 				{
@@ -1155,5 +1169,8 @@ CK_RV xPreProvisionDevice( CK_SESSION_HANDLE xSession, KVStoreKey_t ID, PreProvi
 	{
 		vPortFree( xProvisionedState.pcIdentifier );
 	}
+
+	vPortFree(pxParams->pucClientCredential);
+
 	return xResult;
 }

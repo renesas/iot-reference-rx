@@ -58,6 +58,11 @@
 #include "mbedtls/ctr_drbg.h"
 #include "mbedtls/entropy.h"
 
+/* strnlen includes for CC-RX compiler. */
+#if defined(__CCRX__)
+#include "strnlen.h"
+#endif
+
 /* Length parameters for importing RSA-2048 private keys. */
 #define MODULUS_LENGTH        pkcs11RSA_2048_MODULUS_BITS / 8
 #define E_LENGTH              3
@@ -85,11 +90,6 @@ typedef struct RsaParams_t
     CK_BYTE exponent2[ EXPONENT_2_LENGTH + 1 ];
     CK_BYTE coefficient[ COEFFICIENT_LENGTH + 1 ];
 } RsaParams_t;
-
-/* CC-RX Compiler v3.04.00 and below do not support the strnlen function, so use the strlen function instead. */
-#if !defined(strnlen)
-	#define strnlen( _s1, _s2)	(strlen( _s1))
-#endif
 
 /*-----------------------------------------------------------*/
 
@@ -276,7 +276,6 @@ bool xGenerateKeyAndCsr( CK_SESSION_HANDLE xP11Session,
     CK_OBJECT_HANDLE xPubKeyHandle;
     CK_RV xPkcs11Ret = CKR_OK;
     mbedtls_pk_context xPrivKey;
-    mbedtls_ecdsa_context xEcdsaContext;
     mbedtls_x509write_csr xReq;
     int32_t ulMbedtlsRet = -1;
     const mbedtls_pk_info_t * pxHeader = mbedtls_pk_info_from_type( MBEDTLS_PK_ECKEY );

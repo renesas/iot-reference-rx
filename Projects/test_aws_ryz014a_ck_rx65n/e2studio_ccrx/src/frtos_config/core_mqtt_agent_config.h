@@ -62,7 +62,7 @@
 
 /************ End of logging configuration ****************/
 
-/**
+ /**
  * @brief Maximum time MQTT agent waits in the queue for any pending MQTT
  * operations.
  *

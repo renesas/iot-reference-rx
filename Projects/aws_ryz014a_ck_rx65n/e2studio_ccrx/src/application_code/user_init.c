@@ -18,8 +18,8 @@
  * http://www.renesas.com/disclaimer
  *********************************************************************************************************************/
 /**********************************************************************************************************************
- * File Name    : main_task.c
- * Description  : main task
+ * File Name    : user_init.c
+ * Description  : User initialization
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * History : DD.MM.YYYY Version Description
@@ -40,13 +40,6 @@
 #include "r_pinset.h"
 #include "r_flash_rx_if.h"
 #include "Pin.h"
-
-
-
-/* for using Amazon FreeRTOS */
-#include "FreeRTOS.h"
-
-
 
 /**********************************************************************************************************************
 Typedef definitions
@@ -71,8 +64,8 @@ Typedef definitions
 void UserInitialization(void);
 
 /******************************************************************************
- Function Name   : main
- Description     : Main task
+ Function Name   : UserInitialization
+ Description     : Initialize Smart Configurator pins
  Arguments       : none
  Return value    : none
  ******************************************************************************/
@@ -80,16 +73,9 @@ void UserInitialization(void)
 {
     /* enable MCU pins */
     R_Pins_Create();
-
-    /* flash access semaphore creation */
-//    xSemaphoreFlashAccess = xSemaphoreCreateBinary();
-//    xSemaphoreGive(xSemaphoreFlashAccess);
-
-    /* flash initialization */
-//    R_FLASH_Open();
 }
 /******************************************************************************
- End of function main_task()
+ End of function UserInitialization()
  ******************************************************************************/
 
 

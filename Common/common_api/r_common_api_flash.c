@@ -326,7 +326,7 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Close(void)
  * @param[in] void* event
  * @return void
  *********************************************************************************************************************/
-static void flashing_callback(void *event)
+void flashing_callback(void *event)
 {
     uint32_t event_code;
     event_code = *((uint32_t*) event);

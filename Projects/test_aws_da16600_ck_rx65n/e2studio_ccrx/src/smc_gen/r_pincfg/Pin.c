@@ -56,48 +56,18 @@ void R_Pins_Create(void)
     R_BSP_RegisterProtectDisable(BSP_REG_PROTECT_MPC);
 
     /* Set AN115 pin */
-    MPC.P91PFS.BYTE = 0x80U;
     PORT9.PMR.BYTE &= 0xFDU;
     PORT9.PDR.BYTE &= 0xFDU;
+    MPC.P91PFS.BYTE = 0x80U;
 
     /* Set AN117 pin */
-    MPC.P93PFS.BYTE = 0x80U;
     PORT9.PMR.BYTE &= 0xF7U;
     PORT9.PDR.BYTE &= 0xF7U;
+    MPC.P93PFS.BYTE = 0x80U;
 
     /* Set CTS6# pin */
     MPC.PJ3PFS.BYTE = 0x0AU;
     PORTJ.PMR.BYTE |= 0x08U;
-
-    /* Set IRQ1 pin */
-    MPC.PD1PFS.BYTE = 0x40U;
-    PORTD.PMR.BYTE &= 0xFDU;
-    PORTD.PDR.BYTE &= 0xFDU;
-
-    /* Set IRQ2 pin */
-    MPC.PD2PFS.BYTE = 0x40U;
-    PORTD.PMR.BYTE &= 0xFBU;
-    PORTD.PDR.BYTE &= 0xFBU;
-
-    /* Set IRQ7 pin */
-    MPC.PE7PFS.BYTE = 0x40U;
-    PORTE.PMR.BYTE &= 0x7FU;
-    PORTE.PDR.BYTE &= 0x7FU;
-
-    /* Set IRQ13 pin */
-    MPC.P45PFS.BYTE = 0x40U;
-    PORT4.PMR.BYTE &= 0xDFU;
-    PORT4.PDR.BYTE &= 0xDFU;
-
-    /* Set IRQ14 pin */
-    MPC.P46PFS.BYTE = 0x40U;
-    PORT4.PMR.BYTE &= 0xBFU;
-    PORT4.PDR.BYTE &= 0xBFU;
-
-    /* Set IRQ15 pin */
-    MPC.P67PFS.BYTE = 0x40U;
-    PORT6.PMR.BYTE &= 0x7FU;
-    PORT6.PDR.BYTE &= 0x7FU;
 
     /* Set RXD5 pin */
     MPC.PC2PFS.BYTE = 0x0AU;

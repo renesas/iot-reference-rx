@@ -55,9 +55,6 @@
 [submodule "Test/FreeRTOS-Libraries-Integration-Tests"]
 	path = Test/FreeRTOS-Libraries-Integration-Tests
 	url = https://github.com/FreeRTOS/FreeRTOS-Libraries-Integration-Tests.git
-[submodule "Middleware/pkcs11"]
-	path = Middleware/pkcs11
-	url = https://github.com/amazon-freertos/pkcs11.git
 [submodule "Middleware/3rdparty/littlefs"]
 	path = Middleware/3rdparty/littlefs
 	url = https://github.com/littlefs-project/littlefs.git

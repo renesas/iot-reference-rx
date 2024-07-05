@@ -22,7 +22,7 @@
 * http://www.renesas.com/disclaimer
 *******************************************************************************/
 /*******************************************************************************
-* File Name    : freertos_usr_func.h
+* File Name    : freertos_start.h
 * Version      : 1.0
 * Description  : FreeRTOS's user-defined functions header file.
 ******************************************************************************/
@@ -31,8 +31,8 @@
 *         : 30.06.2016 1.00     First Release
 ******************************************************************************/
 
-#ifndef RTOS_FREERTOS_FREERTOS_USR_FUNC_H_
-#define RTOS_FREERTOS_FREERTOS_USR_FUNC_H_
+#ifndef FREERTOS_START_H_
+#define FREERTOS_START_H_
 
 /******************************************************************************
 Macro definitions
@@ -74,4 +74,4 @@ Exported global functions (to be accessed by other files)
 extern void Processing_Before_Start_Kernel(void);
 extern void Kernel_Object_init(void);
 
-#endif /* RTOS_FREERTOS_FREERTOS_USR_FUNC_H_ */
+#endif /* FREERTOS_START_H_ */

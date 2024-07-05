@@ -89,6 +89,24 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1713859668435</id>
+			<name>Middleware/3rdparty</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-tinycrypt|base64_decode</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1713859668442</id>
+			<name>Middleware/3rdparty</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-mbedtls_with_TSIP</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>1669864398185</id>
 			<name>Middleware/AWS</name>
 			<type>9</type>
@@ -107,12 +125,30 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1713859686643</id>
+			<name>Middleware/network_transport</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-using_mbedtls_pkcs11_with_tsip</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>1666589064164</id>
 			<name>src/libraries</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-3rdparty|abstractions|c_sdk|coreMQTT-Agent|freertos_plus|FreeRTOS-LTS|logging|tinycbor</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1707110976414</id>
+			<name>Common/FreeRTOS_common/compiler_support</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-gnuc</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -134,7 +170,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1689567496651</id>
+			<id>1699518017828</id>
 			<name>Middleware/3rdparty/mbedtls_utils</name>
 			<type>6</type>
 			<matcher>
@@ -323,15 +359,6 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1686716432673</id>
-			<name>Middleware/3rdparty/tinycrypt/lib/source</name>
-			<type>5</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-ecc_dsa.c|ecc.c|sha256.c|utils.c</arguments>
-			</matcher>
-		</filter>
-		<filter>
 			<id>1668406054995</id>
 			<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/MemMang</name>
 			<type>5</type>
@@ -467,12 +494,12 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1686790844447</id>
+			<id>1713431733703</id>
 			<name>Middleware/FreeRTOS/corePKCS11/source/dependency/3rdparty</name>
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-mbedtls_utils</arguments>
+				<arguments>1.0-name-matches-false-true-mbedtls_utils|pkcs11</arguments>
 			</matcher>
 		</filter>
 		<filter>

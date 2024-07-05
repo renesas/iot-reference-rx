@@ -1,5 +1,5 @@
 /**
- * \file mbedtls_config.h
+ * \file aws_mbedtls_config.h
  *
  * \brief Configuration options (set of defines)
  *

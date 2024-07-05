@@ -140,7 +140,7 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
 
 		s_receiving_count++;
 		vPortFree( s_first_ota_blocks[usBlockIndx] );
-		return ulBlockSize;
+		return (int16_t)ulBlockSize;
     }
 
 	if (ulOffset == 0)
@@ -164,7 +164,7 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
         	}
     	}
 
-    	return ulBlockSize;
+    	return (int16_t)ulBlockSize;
 	}
 #endif // (otaconfigMAX_NUM_BLOCKS_REQUEST > 1)
 
@@ -180,14 +180,13 @@ int16_t otaPal_WriteBlock( OtaFileContext_t * const pFileContext,
         return 0;
     }
     LogDebug ( ("otaPal_WriteBlock: index = %d, OK, %d bytes\r\n", usBlockIndx, ulBlockSize) );
-    return ulBlockSize;
+    return (int16_t)ulBlockSize;
 }
 
 static OtaPalStatus_t otaPal_CheckFileSignature( OtaFileContext_t * const pFileContext )
 {
 	OtaPalMainStatus_t eResult = OtaPalUninitialized;
 	e_fwup_err_t eRet = FWUP_SUCCESS;
-	int ret;
 
 	// Buffer to hold the raw ECDSA signature
 	unsigned char rawSignature[MAX_SIG_LENGTH];

@@ -144,6 +144,8 @@
 *         : 18.05.2021 6.11     Added support for GENERIC_RX671.
 *         : 30.06.2021 6.20     Added support for GENERIC_RX140.
 *         : 22.04.2022 7.20     Added support for GENERIC_RX660.
+*         : 28.02.2023 7.30     Added support for GENERIC_RX26T.
+*         : 10.03.2023 7.40     Added support for GENERIC_RX23E-B.
 ***********************************************************************************************************************/
 
 /* Multiple inclusion prevention macro */
@@ -192,6 +194,9 @@ DEFINE YOUR SYSTEM - UNCOMMENT THE INCLUDE PATH FOR THE PLATFORM YOU ARE USING.
 /* GENERIC_RX23E-A */
 //#include "./board/generic_rx23e-a/r_bsp.h"
 
+/* GENERIC_RX23E-B */
+//#include "./board/generic_rx23e-b/r_bsp.h"
+
 /* GENERIC_RX23T */
 //#include "./board/generic_rx23t/r_bsp.h"
 
@@ -203,6 +208,9 @@ DEFINE YOUR SYSTEM - UNCOMMENT THE INCLUDE PATH FOR THE PLATFORM YOU ARE USING.
 
 /* GENERIC_RX24U */
 //#include "./board/generic_rx24u/r_bsp.h"
+
+/* GENERIC_RX26T */
+//#include "./board/generic_rx26t/r_bsp.h"
 
 /* GENERIC_RX111 */
 //#include "./board/generic_rx111/r_bsp.h"

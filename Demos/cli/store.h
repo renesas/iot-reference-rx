@@ -47,6 +47,7 @@ extern lfs_t RM_STDIO_LITTLEFS_CFG_LFS;
 
 typedef enum KVStoreKey
 {
+    KVS_INVALID_KEY = -1,
     KVS_CORE_THING_NAME = 0,
     KVS_CORE_MQTT_ENDPOINT,
     KVS_DEVICE_CERT_ID,
@@ -57,6 +58,9 @@ typedef enum KVStoreKey
 	KVS_CLAIM_CERT_ID,
 	KVS_CLAIM_PRIVKEY_ID,
     KVS_CODE_SIGN_CERT_ID,
+	KVS_TSIP_ROOTCA_PUBKEY_ID,
+	KVS_TSIP_CLIENT_PUBKEY_ID,
+	KVS_TSIP_CLIENT_PRIKEY_ID,
     KVS_NUM_KEYS
 } KVStoreKey_t;
 
@@ -88,7 +92,10 @@ typedef struct KeyValueStore
 		[ KVS_CLAIM_CERT_ID ] = pkcs11configLABEL_CLAIM_CERTIFICATE,         \
 		[ KVS_CLAIM_PRIVKEY_ID ] = pkcs11configLABEL_CLAIM_PRIVATE_KEY,         \
 		[ KVS_CODE_SIGN_CERT_ID ] = "code_sign_cert_id",         \
-    }
+		[ KVS_TSIP_ROOTCA_PUBKEY_ID ] = "tsip_rootca_pub_id",         \
+		[ KVS_TSIP_CLIENT_PUBKEY_ID ] = "tsip_client_pub_id",         \
+		[ KVS_TSIP_CLIENT_PRIKEY_ID ] = "tsip_client_pri_id",         \
+}
 #define CLICMDKEYS                                       \
     {                                                      \
         [ KVS_CORE_THING_NAME ] = "thingname",            \
@@ -101,6 +108,9 @@ typedef struct KeyValueStore
 		[ KVS_CLAIM_CERT_ID ] = "claimcert",                \
 		[ KVS_CLAIM_PRIVKEY_ID ] = "claimkey",         \
         [ KVS_CODE_SIGN_CERT_ID ] = "codesigncert",         \
+		[ KVS_TSIP_ROOTCA_PUBKEY_ID ] = "tsiprootkey",         \
+		[ KVS_TSIP_CLIENT_PUBKEY_ID ] = "tsippubkey",         \
+		[ KVS_TSIP_CLIENT_PRIKEY_ID ] = "tsipprikey",         \
     }
 typedef enum KVStoreKeytype
 {
@@ -144,4 +154,5 @@ char *GetStringValue( KVStoreKey_t key,
         size_t  pxLength );
 char *xprvGetCacheEntry(char * Key, size_t pxLength );
 BaseType_t KVStore_xCommitChanges( void );
+size_t prvGetCacheEntryLength( KVStoreKey_t xKey );
 #endif /* APPLICATION_CODE_STORE_H_ */

@@ -228,7 +228,7 @@ const TickType_t xMaxBlockTime = pdMS_TO_TICKS( 5000 );
             R_BSP_NOP(); //TODO error handling code
         }
         /* A breakpoint can be set here for debugging. */
-        nop();
+        R_BSP_NOP();
     }
 }
 

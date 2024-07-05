@@ -15,7 +15,7 @@
 * following link:
 * http://www.renesas.com/disclaimer 
 *
-* Copyright (C) 2013-2022 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2013-2023 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name     : r_sci_rx_config.h
@@ -46,6 +46,10 @@
 *                              Added support circular buffer in mode asynchronous.
 *           15.04.2021 3.90    Added support for RX140.
 *           31.03.2022 4.40    Added support for RX660.
+*           27.12.2022 4.60    Updated macro definition enable and disable nested interrupt for TXI, RXI, ERI, TEI.
+*           31.03.2023 4.80    Added support for RX26T.
+*                              Fixed to comply with GSCE Coding Standards Rev.6.5.0.
+*           29.05.2023 4.90    Added support for RX23E-B.
 ***********************************************************************************************************************/
 #ifndef SCI_CONFIG_H
 #define SCI_CONFIG_H
@@ -88,23 +92,23 @@ Configuration Options
  * i = this channel is available in IrDA interface.
  * RX MCU supported channels
  *
- * CH#  110 111 113 130 140 230  231  23T 24T 24U 64M 71M 65N 66T 72T 23W 72M 13T 72N 66N 23E-A 671 660
- * ---  --- --- --- --- --- --- ----- --- --- --- --- --- --- --- --- --- --- --- --- --- ----- --- ---
- * CH0           X   Xa      X    X                X   X   Xn              X       X   X          X   X
- * CH1   X   X*  X*  Xu   X  X    X    Xu  Xu  Xu  X   X   Xs  X   X   X   X   X   X   X    Xu    X   X
- * CH2           X                                 X   X   Xu              X       X   X          X   X
- * CH3                                             X   X   Xs              X       X   X          X   X
- * CH4                                             X   X   Xn              X       X   X          X   X
- * CH5   X   X   Xi  X    X  Xi   Xu,i X   X   X   X   X   X   X   X   Xi  X   X   X   X    X     X   X
- * CH6           X   X    X  X    X        X   X   X   X   Xn  X   X       Xu      X   X    X     X   X
- * CH7                                             Xu  Xu  Xn              X       X   X          X   X
- * CH8           X   Xa   X  X    X            X           X   X   X   Xu  X       X   X          X   X
- * CH9           X   Xa   X  X    X            X           Xs  X   X       X       X   X          X   X
- * CH10                                                    X               X       X   X          X   X
- * CH11                                        X           Xs  X   X       X       X   X          X   X
- * CH12  X   X   X   X    X  X    X                X   X   Xs  X   X   X   X   X   X   X    X     X   X
+ * CH#  110 111 113 130 140 230  231  23T 24T 24U 64M 71M 65N 66T 72T 23W 72M 13T 72N 66N 23E-A 671 660 26T 23E-B
+ * ---  --- --- --- --- --- --- ----- --- --- --- --- --- --- --- --- --- --- --- --- --- ----- --- --- --- -----
+ * CH0           X   Xa      X    X                X   X   Xn              X       X   X          X   X       X  
+ * CH1   X   X*  X*  Xu   X  X    X    Xu  Xu  Xu  X   X   Xs  X   X   X   X   X   X   X    Xu    X   X  X    X  
+ * CH2           X                                 X   X   Xu              X       X   X          X   X          
+ * CH3                                             X   X   Xs              X       X   X          X   X          
+ * CH4                                             X   X   Xn              X       X   X          X   X          
+ * CH5   X   X   Xi  X    X  Xi   Xu,i X   X   X   X   X   X   X   X   Xi  X   X   X   X    X     X   X  X    X  
+ * CH6           X   X    X  X    X        X   X   X   X   Xn  X   X       Xu      X   X    X     X   X  X    X  
+ * CH7                                             Xu  Xu  Xn              X       X   X          X   X          
+ * CH8           X   Xa   X  X    X            X           X   X   X   Xu  X       X   X          X   X       X  
+ * CH9           X   Xa   X  X    X            X           Xs  X   X       X       X   X          X   X       X  
+ * CH10                                                    X               X       X   X          X   X          
+ * CH11                                        X           Xs  X   X       X       X   X          X   X          
+ * CH12  X   X   X   X    X  X    X                X   X   Xs  X   X   X   X   X   X   X    X     X   X  X    X  
 */
-                                   
+
 #define SCI_CFG_CH0_INCLUDED    (0)
 #define SCI_CFG_CH1_INCLUDED    (0)
 #define SCI_CFG_CH2_INCLUDED    (0)
@@ -118,6 +122,70 @@ Configuration Options
 #define SCI_CFG_CH10_INCLUDED   (0)
 #define SCI_CFG_CH11_INCLUDED   (0)
 #define SCI_CFG_CH12_INCLUDED   (0)
+
+/* SPECIFY WHETHER TO INCLUDE CODE FOR NESTED INTERRUPT TXI */
+/* 1=included, 0=not */
+#define SCI_CFG_CH0_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH1_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH2_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH3_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH4_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH5_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH6_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH7_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH8_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH9_EN_TXI_NESTED_INT    (0)
+#define SCI_CFG_CH10_EN_TXI_NESTED_INT   (0)
+#define SCI_CFG_CH11_EN_TXI_NESTED_INT   (0)
+#define SCI_CFG_CH12_EN_TXI_NESTED_INT   (0)
+
+/* SPECIFY WHETHER TO INCLUDE CODE FOR NESTED INTERRUPT RXI */
+/* 1=included, 0=not */
+#define SCI_CFG_CH0_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH1_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH2_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH3_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH4_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH5_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH6_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH7_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH8_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH9_EN_RXI_NESTED_INT    (0)
+#define SCI_CFG_CH10_EN_RXI_NESTED_INT   (0)
+#define SCI_CFG_CH11_EN_RXI_NESTED_INT   (0)
+#define SCI_CFG_CH12_EN_RXI_NESTED_INT   (0)
+
+/* SPECIFY WHETHER TO INCLUDE CODE FOR NESTED INTERRUPT TEI */
+/* 1=included, 0=not */
+#define SCI_CFG_CH0_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH1_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH2_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH3_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH4_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH5_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH6_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH7_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH8_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH9_EN_TEI_NESTED_INT    (0)
+#define SCI_CFG_CH10_EN_TEI_NESTED_INT   (0)
+#define SCI_CFG_CH11_EN_TEI_NESTED_INT   (0)
+#define SCI_CFG_CH12_EN_TEI_NESTED_INT   (0)
+
+/* SPECIFY WHETHER TO INCLUDE CODE FOR NESTED INTERRUPT ERI */
+/* 1=included, 0=not */
+#define SCI_CFG_CH0_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH1_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH2_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH3_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH4_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH5_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH6_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH7_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH8_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH9_EN_ERI_NESTED_INT    (0)
+#define SCI_CFG_CH10_EN_ERI_NESTED_INT   (0)
+#define SCI_CFG_CH11_EN_ERI_NESTED_INT   (0)
+#define SCI_CFG_CH12_EN_ERI_NESTED_INT   (0)
 
 /* SPECIFY ASYNC MODE TX QUEUE BUFFER SIZES (will not allocate if chan not enabled */
 #define SCI_CFG_CH0_TX_BUFSIZ   (80)
@@ -164,13 +232,14 @@ Configuration Options
 #define SCI_CFG_TEI_INCLUDED    (0)      /* 1=included, 0=not */
 
 /* 
-* SET GROUPBL0 (ERI, TEI) INTERRUPT PRIORITY; RX64M/RX71M/RX65N/RX72M/RX72N/RX66N/RX671/RX660 ONLY
+* SET GROUPBL0 (ERI, TEI) INTERRUPT PRIORITY; RX64M/RX71M/RX65N/RX72M/RX72N/RX66N/RX671/RX660/RX26T ONLY
 * SET GROUPBL1; RX65N ONLY
 * SET GROUPAL0 (ERI,TEI) INTERRUPT PRIORITY; RX65N, RX72M, RX72N, RX66N ONLY
 * This sets the priority level for receiver overrun, framing, and parity errors
 * as well as TEI interrupts for all SCI channels.
 */
-#define SCI_CFG_ERI_TEI_PRIORITY (3)     /* (RX64M/RX71M/RX65N/RX72M/RX72N/RX66N/RX671/RX660 ONLY) 1 lowest, 15 highest */
+/* (RX64M/RX71M/RX65N/RX72M/RX72N/RX66N/RX671/RX660/RX26T ONLY) 1 lowest, 15 highest */
+#define SCI_CFG_ERI_TEI_PRIORITY (3)
 
 /* ENABLE TX/RX FIFO; (SCIi supported MCU ONLY) 1=included, 0=not */
 #define SCI_CFG_CH7_FIFO_INCLUDED   (0)
@@ -182,21 +251,21 @@ Configuration Options
 /* SET TX FIFO THRESHOLD; (SCIi supported MCU ONLY) 0 lowest, 15 highest */
 /* TX FIFO THRESHOLD is invalid in Clock Synchronous Mode and Simple SPI Mode. */
 /* Set the same value for TX FIFO THRESHOLD and RX FIFO THRESHOLD in Clock Synchronous Mode and Simple SPI Mode. */
-#define SCI_CFG_CH7_TX_FIFO_THRESH (8)
-#define SCI_CFG_CH8_TX_FIFO_THRESH (8)
-#define SCI_CFG_CH9_TX_FIFO_THRESH (8)
+#define SCI_CFG_CH7_TX_FIFO_THRESH  (8)
+#define SCI_CFG_CH8_TX_FIFO_THRESH  (8)
+#define SCI_CFG_CH9_TX_FIFO_THRESH  (8)
 #define SCI_CFG_CH10_TX_FIFO_THRESH (8)
 #define SCI_CFG_CH11_TX_FIFO_THRESH (8)
 
 /* SET RX FIFO THRESHOLD; (SCIi supported MCU ONLY) 1 lowest, 15 highest */
-#define SCI_CFG_CH7_RX_FIFO_THRESH (8)
-#define SCI_CFG_CH8_RX_FIFO_THRESH (8)
-#define SCI_CFG_CH9_RX_FIFO_THRESH (8)
+#define SCI_CFG_CH7_RX_FIFO_THRESH  (8)
+#define SCI_CFG_CH8_RX_FIFO_THRESH  (8)
+#define SCI_CFG_CH9_RX_FIFO_THRESH  (8)
 #define SCI_CFG_CH10_RX_FIFO_THRESH (8)
 #define SCI_CFG_CH11_RX_FIFO_THRESH (8)
 
 /* ENABLE Received Data match function (SCIj and SCIi supported MCU RX65N/RX66T/RX72T/RX72M/RX72N/RX66N ONLY) 1=included, 0=not */
-/*((SCIk and SCIm supported MCU RX671/RX660 ONLY) 1=included, 0=not */
+/*((SCIk and SCIm supported MCU RX671/RX660/RX26T ONLY) 1=included, 0=not */
 #define SCI_CFG_CH0_DATA_MATCH_INCLUDED  (0)
 #define SCI_CFG_CH1_DATA_MATCH_INCLUDED  (0)
 #define SCI_CFG_CH2_DATA_MATCH_INCLUDED  (0)

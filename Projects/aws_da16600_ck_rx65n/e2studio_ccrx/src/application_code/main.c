@@ -44,8 +44,16 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 extern int32_t littlFs_init(void);
 bool ApplicationCounter(uint32_t xWaitTime);
 signed char vISR_Routine( void );
-extern KeyValueStore_t gKeyValueStore;
 extern void vStartSimplePubSubDemo( void  );
+
+#if (ENABLE_CREDENTIAL_BY_CLI == 0)
+void vAssignCredentials(void);
+extern int32_t xprvWriteCacheEntry(size_t KeyLength,
+        char * Key,
+        size_t ValueLength,
+        char * pvNewValue );
+extern BaseType_t KVStore_xCommitChanges( void );
+#endif
 
 static bool _wifiEnable( void );
 static bool _wifiConnectAccessPoint( void );
@@ -64,17 +72,6 @@ static bool _wifiConnectAccessPoint( void );
  * available notification from OTA service.
  */
 #define appmainINCLUDE_OTA_UPDATE_TASK            ( 1 )
-
-
-/**
- * @brief Subscribe Publish demo tasks configuration.
- * Subscribe publish demo task shows the basic functionality of connecting to an MQTT broker, subscribing
- * to a topic, publishing messages to a topic and reporting the incoming messages on subscribed topic.
- * Number of subscribe publish demo tasks to be spawned is configurable.
- */
-#define appmainMQTT_NUM_PUBSUB_TASKS              ( 2 )
-#define appmainMQTT_PUBSUB_TASK_STACK_SIZE        ( 2048 )
-#define appmainMQTT_PUBSUB_TASK_PRIORITY          ( tskIDLE_PRIORITY +1 )
 
 /**
  * @brief Stack size and priority for OTA Update task.
@@ -126,56 +123,64 @@ extern void vRegisterSampleCLICommands( void );
  */
 void main_task( void )
 {
-	int32_t xResults, Time2Wait = 10000;
+    int32_t xResults, Time2Wait = 10000;
 
-	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
-	/* The priority used by the UART command console task. */
-	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
+    #define mainUART_COMMAND_CONSOLE_STACK_SIZE ( configMINIMAL_STACK_SIZE * 6UL )
+    /* The priority used by the UART command console task. */
+    #define mainUART_COMMAND_CONSOLE_TASK_PRIORITY  ( 1 )
 
-	extern void vRegisterSampleCLICommands( void );
-	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
-	extern TaskHandle_t xCLIHandle;
+    extern void vRegisterSampleCLICommands( void );
+    extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
+    extern TaskHandle_t xCLIHandle;
 
-	prvMiscInitialization();
-	UserInitialization();
+    prvMiscInitialization();
+    UserInitialization();
 
-	/* Register the standard CLI commands. */
-	vRegisterSampleCLICommands();
-	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
+#if (ENABLE_CREDENTIAL_BY_CLI == 1)
+    /* Register the standard CLI commands. */
+    vRegisterSampleCLICommands();
+    vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
+#endif
 
-	xResults = littlFs_init();
+    xResults = littlFs_init();
 
-	xMQTTAgentInit();
+    xMQTTAgentInit();
 
-	if (xResults == LFS_ERR_OK)
-	{
-		xResults = vprvCacheInit();
-	}
+    if (xResults == LFS_ERR_OK)
+    {
+        xResults = vprvCacheInit();
+    }
 
-	if(ApplicationCounter(Time2Wait))
-	{
-		/* Remove CLI task before going to demo. */
-		/* CLI and Log tasks use common resources but are not exclusively controlled. */
-		/* For this reason, the CLI task must be deleted before executing the Demo. */
-		vTaskDelete(xCLIHandle);
 
-		if(!_wifiEnable())
-		{
-			configPRINTF( ( "Wi-Fi init failed" ) );
-		}
-		else
-		{
+#if (ENABLE_CREDENTIAL_BY_CLI == 0)
+    vAssignCredentials();
+#else
 
-			vTaskDelay(300);
+    if(ApplicationCounter(Time2Wait))
+    {
+        /* Remove CLI task before going to demo. */
+        /* CLI and Log tasks use common resources but are not exclusively controlled. */
+        /* For this reason, the CLI task must be deleted before executing the Demo. */
+        vTaskDelete(xCLIHandle);
+#endif
 
-			configPRINTF( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+        if(!_wifiEnable())
+        {
+            configPRINTF( ( "Wi-Fi init failed" ) );
+        }
+        else
+        {
 
-			configPRINTF( ( "---------STARTING DEMO---------\r\n" ) );
+            vTaskDelay(300);
+
+            configPRINTF( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+
+            configPRINTF( ( "---------STARTING DEMO---------\r\n" ) );
 
         #if (ENABLE_FLEET_PROVISIONING_DEMO == 1)
-           vStartFleetProvisioningDemo();
+            vStartFleetProvisioningDemo();
         #else
-           xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+            xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
         #endif
 
         vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
@@ -183,22 +188,25 @@ void main_task( void )
         vStartSimplePubSubDemo ();
 
         #if (ENABLE_OTA_UPDATE_DEMO == 1)
-                  vStartOtaDemo();
+                    vStartOtaDemo();
         #endif
-		}
-	}
+        }
 
-	while( 1 )
-	{
-		vTaskSuspend( NULL );
-	}
+#if (ENABLE_CREDENTIAL_BY_CLI == 1)
+    }
+#endif
+
+    while( 1 )
+    {
+        vTaskSuspend( NULL );
+    }
 }
 /*-----------------------------------------------------------*/
 
 void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
-	CLI_Support_Settings();
+    CLI_Support_Settings();
 
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
@@ -331,23 +339,65 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
     /* This function will be called during the DHCP: the machine will be registered
      * with an IP address plus this name. 
      * Note: Please make sure vprvCacheInit() is called before this function, because
-	 * it retrieves thingname value from KeyValue table. */
+     * it retrieves thingname value from KeyValue table. */
     const char * pcApplicationHostnameHook( void )
     {
 #if defined(__TEST__)
         return clientcredentialIOT_THING_NAME;
 #else
-        if (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0)
+    {
+        /* The string returned by this API is stipulated to be a maximum of 32 characters. */
+        static char s_buff[32];
+        memset ( s_buff, 0x00, sizeof(s_buff) );
+
+        size_t valueLength = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
+        /* Process for thing name input by CLI. */
+        if (valueLength > 0)
         {
-            return gKeyValueStore.table[KVS_CORE_THING_NAME].value;
+            if ( valueLength > 31 )
+            {
+                configPRINT_STRING( ( "Warning: thing name with null-terminate string is longer than 32 characters.\r\n" ) );
+                valueLength = 31;
+            }
+            size_t xLength = xReadEntry( KVS_CORE_THING_NAME, s_buff, valueLength );
+            if ( 0 != xLength )
+            {
+                s_buff[valueLength] = '\0';
+                return s_buff;
+            }
+            else
+            {
+                valueLength = strlen(clientcredentialIOT_THING_NAME);
+                if ( valueLength > 31 )
+                {
+                    configPRINT_STRING( ( "Warning: thing name with null-terminate string is longer than 32 characters.\r\n" ) );
+                    valueLength = 31;
+                }
+                strncpy(s_buff, clientcredentialIOT_THING_NAME, valueLength);
+                s_buff[valueLength] = '\0';
+                return s_buff;
+            }
         }
+        /* Process for thing name in aws_clientcredential.h. */
         else
         {
-            return clientcredentialIOT_THING_NAME;
+            valueLength = strlen(clientcredentialIOT_THING_NAME);
+            if ( valueLength > 31 )
+            {
+                configPRINT_STRING( ( "Warning: thing name with null-terminate string is longer than 32 characters.\r\n" ) );
+                valueLength = 31;
+            }
+            strncpy(s_buff, clientcredentialIOT_THING_NAME, valueLength);
+            s_buff[valueLength] = '\0';
+            return s_buff;
         }
+    }
 #endif
     }
 #endif
+/*****************************************************************************************
+ End of function pcApplicationHostnameHook
+ ****************************************************************************************/
 
 bool ApplicationCounter(uint32_t xWaitTime)
 {
@@ -358,24 +408,24 @@ bool ApplicationCounter(uint32_t xWaitTime)
     signed char cRxChar;
     while( xCurrent < xPrintFrequency )
     {
-    	vTaskDelay(1);
-    	xCurrent = xTaskGetTickCount();
+        vTaskDelay(1);
+        xCurrent = xTaskGetTickCount();
 
-    	cRxChar = vISR_Routine();
-    	if ((cRxChar != 0) )
-    	{
+        cRxChar = vISR_Routine();
+        if ((cRxChar != 0) )
+        {
 
-    		DEMO_TEST = pdFALSE;
-    		break;
-    	}
+            DEMO_TEST = pdFALSE;
+            break;
+        }
     }
     return DEMO_TEST;
 }
 
 signed char vISR_Routine( void )
 {
-	BaseType_t xTaskWokenByReceive = pdFALSE;
-	extern signed char cRxedChar;
+    BaseType_t xTaskWokenByReceive = pdFALSE;
+    extern signed char cRxedChar;
     return cRxedChar;
 }
 
@@ -468,3 +518,35 @@ static bool _wifiConnectAccessPoint( void )
     return status;
 }
 
+#if (ENABLE_CREDENTIAL_BY_CLI == 0)
+void vAssignCredentials(void)
+{
+
+    /* Write thing name */
+    char *pValue = democonfigCLIENT_IDENTIFIER;
+    xprvWriteCacheEntry( strlen("thingname"), "thingname", strlen(pValue), pValue );
+
+    /* Write endpoint */
+    pValue = democonfigMQTT_BROKER_ENDPOINT;
+    xprvWriteCacheEntry( strlen("endpoint"), "endpoint", strlen(pValue), pValue );
+
+    /* Write certificate */
+    pValue = keyCLIENT_CERTIFICATE_PEM;
+    xprvWriteCacheEntry( strlen("cert"), "cert", strlen(pValue), pValue );
+
+    /* Write private key */
+    pValue = keyCLIENT_PRIVATE_KEY_PEM;
+    xprvWriteCacheEntry( strlen("key"), "key", strlen(pValue), pValue );
+
+    /* Write code signing certificate */
+    pValue = otapalconfigCODE_SIGNING_CERTIFICATE;
+    xprvWriteCacheEntry( strlen("codesigncert"), "codesigncert", strlen(pValue), pValue );
+
+    /* Write root CA */
+    pValue = democonfigROOT_CA_PEM;
+    xprvWriteCacheEntry( strlen("rootca"), "rootca", strlen(pValue), pValue );
+
+    /* Write cache to DF */
+    KVStore_xCommitChanges();
+}
+#endif

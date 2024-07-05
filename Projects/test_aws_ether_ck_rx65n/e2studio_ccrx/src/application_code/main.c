@@ -57,16 +57,6 @@ signed char vISR_Routine( void );
 #define appmainINCLUDE_OTA_UPDATE_TASK            ( 1 )
 
 /**
- * @brief Subscribe Publish demo tasks configuration.
- * Subscribe publish demo task shows the basic functionality of connecting to an MQTT broker, subscribing
- * to a topic, publishing messages to a topic and reporting the incoming messages on subscribed topic.
- * Number of subscribe publish demo tasks to be spawned is configurable.
- */
-#define appmainMQTT_NUM_PUBSUB_TASKS              ( 2 )
-#define appmainMQTT_PUBSUB_TASK_STACK_SIZE        ( 2048 )
-#define appmainMQTT_PUBSUB_TASK_PRIORITY          ( tskIDLE_PRIORITY +1 )
-
-/**
  * @brief Stack size and priority for OTA Update task.
  */
 #define appmainMQTT_OTA_UPDATE_TASK_STACK_SIZE    ( 4096 )
@@ -185,9 +175,9 @@ int RunDeviceAdvisorDemo( void )
 {
     BaseType_t xResult = pdFAIL;
 
-	xResult = xMQTTAgentInit();
-	xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
-	vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
+    xResult = xMQTTAgentInit();
+    xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+    vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
 
     if( xResult == pdPASS )
     {
@@ -207,8 +197,8 @@ int RunOtaE2eDemo( void )
     xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
     vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
 
-	vStartOtaDemo();
-	return 0;
+    vStartOtaDemo();
+    return 0;
 }
 /**
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
@@ -216,83 +206,83 @@ int RunOtaE2eDemo( void )
  */
 void main_task( void )
 {
-	int32_t xResults, Time2Wait = 10000;
-	#define mainUART_COMMAND_CONSOLE_STACK_SIZE	( configMINIMAL_STACK_SIZE * 6UL )
-	/* The priority used by the UART command console task. */
-	#define mainUART_COMMAND_CONSOLE_TASK_PRIORITY	( 1 )
+    int32_t xResults, Time2Wait = 10000;
+    #define mainUART_COMMAND_CONSOLE_STACK_SIZE ( configMINIMAL_STACK_SIZE * 6UL )
+    /* The priority used by the UART command console task. */
+    #define mainUART_COMMAND_CONSOLE_TASK_PRIORITY  ( 1 )
 
-	extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
-	extern void vRegisterSampleCLICommands( void );
-	extern TaskHandle_t xCLIHandle;
+    extern void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority );
+    extern void vRegisterSampleCLICommands( void );
+    extern TaskHandle_t xCLIHandle;
 
-	/* Initialize UART for serial terminal. */
-	prvMiscInitialization();
+    /* Initialize UART for serial terminal. */
+    prvMiscInitialization();
 
-	/* Register the standard CLI commands. */
-	vRegisterSampleCLICommands();
-	vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
+    /* Register the standard CLI commands. */
+    vRegisterSampleCLICommands();
+    vUARTCommandConsoleStart( mainUART_COMMAND_CONSOLE_STACK_SIZE, mainUART_COMMAND_CONSOLE_TASK_PRIORITY );
 
-	xResults = littlFs_init();
+    xResults = littlFs_init();
 
-	if (xResults == LFS_ERR_OK)
-	{
-	xResults = vprvCacheInit();
-	}
-
-
-	if(ApplicationCounter(Time2Wait))
-	{
-		/* Remove CLI task before going to demo. */
-		/* CLI and Log tasks use common resources but are not exclusively controlled. */
-		/* For this reason, the CLI task must be deleted before executing the Demo. */
-		vTaskDelete(xCLIHandle);
-
-		/* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
-		are created in the vApplicationIPNetworkEventHook() hook function
-		below.  The hook function is called when the network connects. */
-
-		FreeRTOS_IPInit( ucIPAddress,
-						 ucNetMask,
-						 ucGatewayAddress,
-						 ucDNSServerAddress,
-						 ucMACAddress );
-
-		/* We should wait for the network to be up before we run any demos. */
-		while( FreeRTOS_IsNetworkUp() == pdFALSE )
-		{
-			vTaskDelay(300);
-		}
-
-		FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+    if (xResults == LFS_ERR_OK)
+    {
+    xResults = vprvCacheInit();
+    }
 
 
-		#if OTA_E2E_TEST_ENABLED
+    if(ApplicationCounter(Time2Wait))
+    {
+        /* Remove CLI task before going to demo. */
+        /* CLI and Log tasks use common resources but are not exclusively controlled. */
+        /* For this reason, the CLI task must be deleted before executing the Demo. */
+        vTaskDelete(xCLIHandle);
 
-		RunOtaE2eDemo();
+        /* Initialise the RTOS's TCP/IP stack.  The tasks that use the network
+        are created in the vApplicationIPNetworkEventHook() hook function
+        below.  The hook function is called when the network connects. */
 
-		#else
-		xResults = xTaskCreate( prvQualificationTestTask,
-							   "TEST",
-							   appmainTEST_TASK_STACK_SIZE,
-							   NULL,
-							   appmainTEST_TASK_PRIORITY,
-							   NULL );
+        FreeRTOS_IPInit( ucIPAddress,
+                         ucNetMask,
+                         ucGatewayAddress,
+                         ucDNSServerAddress,
+                         ucMACAddress );
 
-		#endif
-	}
+        /* We should wait for the network to be up before we run any demos. */
+        while( FreeRTOS_IsNetworkUp() == pdFALSE )
+        {
+            vTaskDelay(300);
+        }
 
-	while( 1 )
-	{
-		vTaskSuspend( NULL );
-	}
+        FreeRTOS_printf( ( "Initialise the RTOS's TCP/IP stack\n" ) );
+
+
+        #if OTA_E2E_TEST_ENABLED
+
+        RunOtaE2eDemo();
+
+        #else
+        xResults = xTaskCreate( prvQualificationTestTask,
+                               "TEST",
+                               appmainTEST_TASK_STACK_SIZE,
+                               NULL,
+                               appmainTEST_TASK_PRIORITY,
+                               NULL );
+
+        #endif
+    }
+
+    while( 1 )
+    {
+        vTaskSuspend( NULL );
+    }
 }
 /*-----------------------------------------------------------*/
 
 void prvMiscInitialization( void )
 {
     /* Initialize UART for serial terminal. */
-	extern void CLI_Support_Settings(void);
-	CLI_Support_Settings();
+    extern void CLI_Support_Settings(void);
+    CLI_Support_Settings();
     /* Start logging task. */
     xLoggingTaskInitialize( mainLOGGING_TASK_STACK_SIZE,
                             tskIDLE_PRIORITY + 2,
@@ -315,24 +305,24 @@ bool ApplicationCounter(uint32_t xWaitTime)
     signed char cRxChar;
     while( xCurrent < xPrintFrequency )
     {
-    	vTaskDelay(1);
-    	xCurrent = xTaskGetTickCount();
+        vTaskDelay(1);
+        xCurrent = xTaskGetTickCount();
 
-    	cRxChar = vISR_Routine();
-    	if ((cRxChar != 0) )
-    	{
+        cRxChar = vISR_Routine();
+        if ((cRxChar != 0) )
+        {
 
-    		DEMO_TEST = pdFALSE;
-    		break;
-    	}
+            DEMO_TEST = pdFALSE;
+            break;
+        }
     }
     return DEMO_TEST;
 }
 
 signed char vISR_Routine( void )
 {
-	BaseType_t xTaskWokenByReceive = pdFALSE;
-	extern signed char cRxedChar;
+    BaseType_t xTaskWokenByReceive = pdFALSE;
+    extern signed char cRxedChar;
     return cRxedChar;
 }
 
@@ -451,27 +441,62 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
 /*-----------------------------------------------------------*/
 
 #if ( ipconfigUSE_LLMNR != 0 ) || ( ipconfigUSE_NBNS != 0 ) || ( ipconfigDHCP_REGISTER_HOSTNAME == 1 )
-
     /* This function will be called during the DHCP: the machine will be registered
      * with an IP address plus this name. 
      * Note: Please make sure vprvCacheInit() is called before this function, because
-	 * it retrieves thingname value from KeyValue table. */
+     * it retrieves thingname value from KeyValue table. */
     const char * pcApplicationHostnameHook( void )
     {
-        /* This function will be called during the DHCP: the machine will be registered
-         * with an IP address plus this name. */
-        
-#if defined(__TEST__)
-        return clientcredentialIOT_THING_NAME;
-#else
-        if (gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength > 0)
-        {
-            return gKeyValueStore.table[KVS_CORE_THING_NAME].value;
-        }
-        else
-        {
+    #if defined(__TEST__)
             return clientcredentialIOT_THING_NAME;
-        }
-#endif
+    #else
+            {
+                /* The string returned by this API is stipulated to be a maximum of 32 characters. */
+                static char s_buff[32];
+                memset ( s_buff, 0x00, sizeof(s_buff) );
+
+                size_t valueLength = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
+                /* Process for thing name input by CLI. */
+                if (valueLength > 0)
+                {
+                    if ( valueLength > 31 )
+                    {
+                        configPRINT_STRING( ( "Warning: thing name with null-terminate string is longer than 32 characters.\r\n" ) );
+                        valueLength = 31;
+                    }
+                    size_t xLength = xReadEntry( KVS_CORE_THING_NAME, s_buff, valueLength );
+                    if ( 0 != xLength )
+                    {
+                        s_buff[valueLength] = '\0';
+                        return s_buff;
+                    }
+                    else
+                    {
+                        valueLength = strlen(clientcredentialIOT_THING_NAME);
+                        if ( valueLength > 31 )
+                        {
+                            configPRINT_STRING( ( "Warning: thing name with null-terminate string is longer than 32 characters.\r\n" ) );
+                            valueLength = 31;
+                        }
+                        strncpy(s_buff, clientcredentialIOT_THING_NAME, valueLength);
+                        s_buff[valueLength] = '\0';
+                        return s_buff;
+                    }
+                }
+                /* Process for thing name in aws_clientcredential.h. */
+                else
+                {
+                    valueLength = strlen(clientcredentialIOT_THING_NAME);
+                    if ( valueLength > 31 )
+                    {
+                        configPRINT_STRING( ( "Warning: thing name with null-terminate string is longer than 32 characters.\r\n" ) );
+                        valueLength = 31;
+                    }
+                    strncpy(s_buff, clientcredentialIOT_THING_NAME, valueLength);
+                    s_buff[valueLength] = '\0';
+                    return s_buff;
+                }
+            }
+    #endif
     }
 #endif

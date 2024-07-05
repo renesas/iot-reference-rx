@@ -14,12 +14,12 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2019 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2022 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 * File Name        : r_smc_interrupt.h
-* Version          : 1.2.10
+* Version          : 1.2.30
 * Device(s)        : R5F565NEHxFB
 * Description      : This file implements interrupt setting.
 ***********************************************************************************************************************/
@@ -111,8 +111,8 @@ Macro definitions
 #define ICU_SCI3_TXI3_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
 #define ICU_SCI4_RXI4_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
 #define ICU_SCI4_TXI4_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
-#define ICU_SCI5_RXI5_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
-#define ICU_SCI5_TXI5_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
+#define ICU_SCI5_RXI5_PRIORITY                     (_03_ICU_PRIORITY_LEVEL3)
+#define ICU_SCI5_TXI5_PRIORITY                     (_03_ICU_PRIORITY_LEVEL3)
 #define ICU_SCI6_RXI6_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
 #define ICU_SCI6_TXI6_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
 #define ICU_LVD1_LVD1_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)

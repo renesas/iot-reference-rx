@@ -24,12 +24,12 @@
     <stringAttribute key="com.renesas.cdt.core.secondGDBExe" value="green_dsp-elf-gdb"/>
     <booleanAttribute key="com.renesas.cdt.core.secondGDBSupport" value="false"/>
     <intAttribute key="com.renesas.cdt.core.secondGdbPortNumber" value="61237"/>
-    <stringAttribute key="com.renesas.cdt.core.serverParam" value="-g E2LITE  -t R5F565NE_DUAL -uConnectionTimeout= 30 -uClockSrcHoco= 1 -uAllowClockSourceInternal= 1 -uUseFine= 1 -uFineBaudRate= &quot;1.50&quot; -w 0 -z &quot;0&quot; -uRegisterSetting= &quot;0&quot; -uModePin= &quot;0&quot; -uChangeStartupBank= 0 -uStartupBank= &quot;0&quot; -uDebugMode= &quot;0&quot; -uExecuteProgram= 0 -uIdCode= &quot;FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF&quot; -uresetOnReload= 1 -n 0 -uWorkRamAddress= &quot;1000&quot; -uverifyOnWritingMemory= 0 -uProgReWriteIRom= 0 -uProgReWriteDFlash= 0 -uhookWorkRamAddr= &quot;0x3fdd0&quot; -uhookWorkRamSize= &quot;0x230&quot; -uOSRestriction= 0"/>
+    <stringAttribute key="com.renesas.cdt.core.serverParam" value="-g E2LITE  -t R5F565NE -uConnectionTimeout= 30 -uClockSrcHoco= 1 -uAllowClockSourceInternal= 1 -uUseFine= 1 -uFineBaudRate= &quot;1.50&quot; -w 0 -z &quot;0&quot; -uRegisterSetting= &quot;0&quot; -uModePin= &quot;0&quot; -uChangeStartupBank= 0 -uStartupBank= &quot;0&quot; -uDebugMode= &quot;0&quot; -uExecuteProgram= 0 -uIdCode= &quot;FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF&quot; -uresetOnReload= 1 -n 0 -uWorkRamAddress= &quot;1000&quot; -uverifyOnWritingMemory= 0 -uProgReWriteIRom= 0 -uProgReWriteDFlash= 0 -uhookWorkRamAddr= &quot;0x3fdd0&quot; -uhookWorkRamSize= &quot;0x230&quot; -uOSRestriction= 0"/>
     <booleanAttribute key="com.renesas.cdt.core.setResume" value="true"/>
     <booleanAttribute key="com.renesas.cdt.core.setStopAt" value="true"/>
     <booleanAttribute key="com.renesas.cdt.core.startServer" value="true"/>
     <stringAttribute key="com.renesas.cdt.core.stopAt" value="main"/>
-    <stringAttribute key="com.renesas.cdt.core.targetDevice" value="R5F565NE_DUAL"/>
+    <stringAttribute key="com.renesas.cdt.core.targetDevice" value="R5F565NE"/>
     <booleanAttribute key="com.renesas.cdt.core.useRemoteTarget" value="true"/>
     <stringAttribute key="com.renesas.cdt.debug.ioview.dsf.registerSelection0" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;selectedRegisterList ioFilePath=&quot;C:\Users\a5118270\.eclipse\com.renesas.platform_1957420541\DebugComp\RX\IoFiles\RX65N.sfrx&quot;/&gt;&#13;&#10;"/>
     <stringAttribute key="com.renesas.cdt.launch.dsf.IO_MAP" value="${support_area_loc}"/>

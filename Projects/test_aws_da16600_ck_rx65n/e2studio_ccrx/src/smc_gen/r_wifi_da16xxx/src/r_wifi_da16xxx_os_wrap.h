@@ -14,7 +14,7 @@
  * following link:
  * http://www.renesas.com/disclaimer
  *
- * Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
+ * Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_wifi_da16xxx_os_wrap.h
@@ -26,10 +26,7 @@
  *********************************************************************************************************************/
 #include <stdio.h>
 #include <string.h>
-
-#if defined(__CCRX__) || defined(__ICCRX__) || defined(__RX__)
 #include "platform.h"
-#endif
 
 #if BSP_CFG_RTOS_USED == 1        /* FreeRTOS is used.   */
 #include "FreeRTOS.h"

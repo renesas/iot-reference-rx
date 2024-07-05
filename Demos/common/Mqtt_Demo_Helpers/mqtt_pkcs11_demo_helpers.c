@@ -665,7 +665,10 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
     MQTTConnectInfo_t xConnectInfo;
     TransportInterface_t xTransport;
     bool sessionPresent = false;
-    extern KeyValueStore_t gKeyValueStore ;
+    size_t endpointLength;
+    size_t rootCALength;
+    char * endpoint_buff = NULL;
+    char * rootca_buff = NULL;
 
     configASSERT( pxMqttContext != NULL );
     configASSERT( pxNetworkContext != NULL );
@@ -674,15 +677,25 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
     pcBrokerEndpoint = clientcredentialMQTT_BROKER_ENDPOINT;
     pcRootCA = democonfigROOT_CA_PEM;
 #else
-    if (gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].valueLength > 0)
+    endpointLength = prvGetCacheEntryLength(KVS_CORE_MQTT_ENDPOINT);
+
+    if (endpointLength > 0)
     {
-        pcBrokerEndpoint = gKeyValueStore.table[ KVS_CORE_MQTT_ENDPOINT ].value;
+    	endpoint_buff = pvPortMalloc( endpointLength + 1 );
+    	xReadEntry(KVS_CORE_MQTT_ENDPOINT, endpoint_buff, endpointLength );
+    	endpoint_buff[endpointLength] = '\0';
+    	pcBrokerEndpoint = endpoint_buff;
     }
 
-    if (gKeyValueStore.table[KVS_ROOT_CA_ID].valueLength > 0)
+    rootCALength = prvGetCacheEntryLength(KVS_ROOT_CA_ID);
+
+    if (rootCALength > 0)
     {
         LogInfo( ( "Using rootCA cert from key store." ) );
-        pcRootCA = gKeyValueStore.table[KVS_ROOT_CA_ID].value;
+        rootca_buff = pvPortMalloc( rootCALength + 1 );
+        xReadEntry(KVS_ROOT_CA_ID, rootca_buff, rootCALength );
+        rootca_buff[rootCALength] = '\0';
+        pcRootCA = rootca_buff;
     }
     else
     {
@@ -835,6 +848,18 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
                 }
             }
         }
+    }
+
+    if (endpointLength > 0)
+    {
+    	vPortFree(endpoint_buff);
+    }
+
+    rootCALength = prvGetCacheEntryLength(KVS_ROOT_CA_ID);
+
+    if (rootCALength > 0)
+    {
+        vPortFree(rootca_buff);
     }
 
     return xReturnStatus;

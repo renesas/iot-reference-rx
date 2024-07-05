@@ -61,9 +61,9 @@ void R_Pins_Create(void)
     PORT0.PDR.BYTE &= 0x7FU;
 
     /* Set AN000 pin */
-    MPC.P40PFS.BYTE = 0x80U;
     PORT4.PMR.BYTE &= 0xFEU;
     PORT4.PDR.BYTE &= 0xFEU;
+    MPC.P40PFS.BYTE = 0x80U;
 
     /* Set ET0_LINKSTA pin */
     MPC.P54PFS.BYTE = 0x11U;

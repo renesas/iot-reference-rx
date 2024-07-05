@@ -71,6 +71,27 @@
 #error "OTA demo is not support in this release"
 #endif
 
+/**
+ * @brief Server's root CA certificate.
+ *
+ * This certificate is used to identify the AWS IoT server and is publicly
+ * available. Refer to the AWS documentation available in the link below for
+ * information about the Server Root CAs.
+ * https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html#server-authentication-certs
+ *
+ * @note The TI C3220 Launchpad board requires that the Root CA have its
+ * certificate self-signed. As mentioned in the above link, the Amazon Root CAs
+ * are cross-signed by the Starfield Root CA. Thus, ONLY the Starfield Root CA
+ * can be used to connect to the ATS endpoints on AWS IoT for the TI board.
+ *
+ * @note This certificate should be PEM-encoded.
+ *
+ * Must include the PEM header and footer:
+ * "-----BEGIN CERTIFICATE-----\n"\
+ * "...base64 data...\n"\
+ * "-----END CERTIFICATE-----\n"
+ *
+ */
 #if defined(FLEET_PROVISIONING_DEMO)
 #define democonfigROOT_CA_PEM             "...insert here..."
 #else
@@ -234,8 +255,6 @@
 #include "core_mqtt.h" /* Include coreMQTT header for MQTT_LIBRARY_VERSION macro. */
 #define democonfigMQTT_LIB    "core-mqtt@"MQTT_LIBRARY_VERSION
 
-#define democonfigDISABLE_SNI       ( pdFALSE )
-
 /**
  * @brief ALPN (Application-Layer Protocol Negotiation) protocol name for AWS IoT MQTT.
  *
@@ -346,29 +365,6 @@
 #ifndef APP_VERSION_BUILD
     #define APP_VERSION_BUILD    OTA_APP_VERSION_BUILD
 #endif
-
-/**
- * @brief Server's root CA certificate.
- *
- * This certificate is used to identify the AWS IoT server and is publicly
- * available. Refer to the AWS documentation available in the link below for
- * information about the Server Root CAs.
- * https://docs.aws.amazon.com/iot/latest/developerguide/server-authentication.html#server-authentication-certs
- *
- * @note The TI C3220 Launchpad board requires that the Root CA have its
- * certificate self-signed. As mentioned in the above link, the Amazon Root CAs
- * are cross-signed by the Starfield Root CA. Thus, ONLY the Starfield Root CA
- * can be used to connect to the ATS endpoints on AWS IoT for the TI board.
- *
- * @note This certificate should be PEM-encoded.
- *
- * Must include the PEM header and footer:
- * "-----BEGIN CERTIFICATE-----\n"\
- * "...base64 data...\n"\
- * "-----END CERTIFICATE-----\n"
- *
- */
-#define democonfigROOT_CA_PEM                   tlsSTARFIELD_ROOT_CERTIFICATE_PEM
 
 /**
  * @brief Timeout for which MQTT library keeps polling the transport interface,

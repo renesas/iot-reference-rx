@@ -25,7 +25,7 @@
  */
 
 /**
- * @file mbedtls_bio_tcp_sockets_wrapper.c
+ * @file mbedtls_bio_freertos_plus_cellular.c
  * @brief Implements mbed TLS platform send/receive functions for the TCP sockets wrapper.
  */
 

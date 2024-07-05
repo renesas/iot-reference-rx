@@ -53,7 +53,7 @@
 
 /* A block time of 0 just means don't block. */
 #define loggingDONT_BLOCK    0
-extern void vOutputString(char * pcString);
+extern void vOutputString( const char * pcString);
 /*
  * Wrapper functions for vsnprintf and snprintf to return the actual number of
  * characters written.

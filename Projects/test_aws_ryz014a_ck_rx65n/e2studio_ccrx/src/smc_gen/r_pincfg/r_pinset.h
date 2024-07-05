@@ -14,7 +14,7 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
 * File Name    : r_pinset.h.h
@@ -28,8 +28,8 @@
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
+#include "r_irq_rx_pinset.h"
 #include "r_s12ad_rx_pinset.h"
 #include "r_sci_rx_pinset.h"
-#include "r_irq_rx_pinset.h"
 
 #endif /* R_PINSET_H */
