@@ -86,12 +86,6 @@
  */
 #define ENABLE_OTA_UPDATE_DEMO              (0)
 
-//#if ENABLE_OTA_UPDATE_DEMO
-//#error "OTA demo is not support in this release"
-//#endif
-
-#define democonfigROOT_CA_PEM               tlsSTARFIELD_ROOT_CERTIFICATE_PEM
-
 /**
  * @brief Path of the file containing the provisioning claim certificate. This
  * certificate is used to connect to AWS IoT Core and use Fleet Provisioning
@@ -249,8 +243,6 @@
 #include "core_mqtt.h" /* Include coreMQTT header for MQTT_LIBRARY_VERSION macro. */
 #define democonfigMQTT_LIB    "core-mqtt@"MQTT_LIBRARY_VERSION
 
-#define democonfigDISABLE_SNI       ( pdFALSE )
-
 /**
  * @brief ALPN (Application-Layer Protocol Negotiation) protocol name for AWS IoT MQTT.
  *
@@ -396,5 +388,13 @@
 #define MQTT_AGENT_NETWORK_BUFFER_SIZE          ( 5000 )
 
 #define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 10 )
+
+/**
+ * @brief To input credential via FreeRTOS-CLI is enabled.
+ * @note This configuration will be deleted in future version.
+ * It is recommended to disable (0) it only when
+ * updating from v202107.00(LTS#1) firmware to v202210.01(LTS#2) firmware.
+ */
+#define ENABLE_CREDENTIAL_BY_CLI    1
 
 #endif /* DEMO_CONFIG_H */

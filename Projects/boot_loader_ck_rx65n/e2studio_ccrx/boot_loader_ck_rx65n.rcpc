@@ -10,6 +10,7 @@
       <Category Name="src">
         <Path>src\boot_loader.c</Path>
         <Path>src\boot_loader.h</Path>
+        <Path>src\my_flash.c</Path>
         <Category Name="key">
           <Path>src\key\code_signer_public_key.h</Path>
         </Category>
@@ -42,10 +43,10 @@
             </Category>
             <Category Name="doc">
               <Category Name="en">
-                <Path>src\smc_gen\r_bsp\doc\en\r01an1685ej0720-rx-bsp.pdf</Path>
+                <Path>src\smc_gen\r_bsp\doc\en\r01an1685ej0742-rx-bsp.pdf</Path>
               </Category>
               <Category Name="ja">
-                <Path>src\smc_gen\r_bsp\doc\ja\r01an1685jj0720-rx-bsp.pdf</Path>
+                <Path>src\smc_gen\r_bsp\doc\ja\r01an1685jj0742-rx-bsp.pdf</Path>
               </Category>
             </Category>
             <Category Name="mcu">
@@ -106,10 +107,10 @@
             <Path>src\smc_gen\r_byteq\readme.txt</Path>
             <Category Name="doc">
               <Category Name="en">
-                <Path>src\smc_gen\r_byteq\doc\en\r01an1683ej0200-rx-apl.pdf</Path>
+                <Path>src\smc_gen\r_byteq\doc\en\r01an1683ej0210-rx-apl.pdf</Path>
               </Category>
               <Category Name="ja">
-                <Path>src\smc_gen\r_byteq\doc\ja\r01an1683jj0200-rx-apl.pdf</Path>
+                <Path>src\smc_gen\r_byteq\doc\ja\r01an1683jj0210-rx-apl.pdf</Path>
               </Category>
             </Category>
             <Category Name="src">
@@ -117,41 +118,24 @@
               <Path>src\smc_gen\r_byteq\src\r_byteq_private.h</Path>
             </Category>
           </Category>
-          <Category Name="r_cmt_rx">
-            <Path>src\smc_gen\r_cmt_rx\r_cmt_rx_if.h</Path>
-            <Path>src\smc_gen\r_cmt_rx\readme.txt</Path>
-            <Category Name="doc">
-              <Category Name="en">
-                <Path>src\smc_gen\r_cmt_rx\doc\en\r01an1856ej0520-rx-timer.pdf</Path>
-              </Category>
-              <Category Name="ja">
-                <Path>src\smc_gen\r_cmt_rx\doc\ja\r01an1856jj0520-rx-timer.pdf</Path>
-              </Category>
-            </Category>
-            <Category Name="src">
-              <Path>src\smc_gen\r_cmt_rx\src\r_cmt_rx.c</Path>
-            </Category>
-          </Category>
           <Category Name="r_config">
             <Path>src\smc_gen\r_config\r_bsp_config.h</Path>
             <Path>src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
             <Path>src\smc_gen\r_config\r_bsp_interrupt_config.h</Path>
             <Path>src\smc_gen\r_config\r_byteq_config.h</Path>
-            <Path>src\smc_gen\r_config\r_cmt_rx_config.h</Path>
             <Path>src\smc_gen\r_config\r_flash_rx_config.h</Path>
             <Path>src\smc_gen\r_config\r_fwup_config.h</Path>
             <Path>src\smc_gen\r_config\r_sci_rx_config.h</Path>
-            <Path>src\smc_gen\r_config\r_sys_time_rx_config.h</Path>
           </Category>
           <Category Name="r_flash_rx">
             <Path>src\smc_gen\r_flash_rx\r_flash_rx_if.h</Path>
             <Path>src\smc_gen\r_flash_rx\readme.txt</Path>
             <Category Name="doc">
               <Category Name="en">
-                <Path>src\smc_gen\r_flash_rx\doc\en\r01an2184ej0500-rx-flash.pdf</Path>
+                <Path>src\smc_gen\r_flash_rx\doc\en\r01an2184ej0511-rx-flash.pdf</Path>
               </Category>
               <Category Name="ja">
-                <Path>src\smc_gen\r_flash_rx\doc\ja\r01an2184jj0500-rx-flash.pdf</Path>
+                <Path>src\smc_gen\r_flash_rx\doc\ja\r01an2184jj0511-rx-flash.pdf</Path>
               </Category>
             </Category>
             <Category Name="src">
@@ -189,7 +173,16 @@
           </Category>
           <Category Name="r_fwup">
             <Path>src\smc_gen\r_fwup\r_fwup_if.h</Path>
+            <Category Name="doc">
+              <Category Name="en">
+                <Path>src\smc_gen\r_fwup\doc\en\r01an6850ej0203-rx-fwup.pdf</Path>
+              </Category>
+              <Category Name="ja">
+                <Path>src\smc_gen\r_fwup\doc\ja\r01an6850jj0203-rx-fwup.pdf</Path>
+              </Category>
+            </Category>
             <Category Name="ref">
+              <Path>src\smc_gen\r_fwup\ref\code_signer_public_key_reference.h</Path>
               <Path>src\smc_gen\r_fwup\ref\r_fwup_config_reference.h</Path>
             </Category>
             <Category Name="src">
@@ -201,6 +194,29 @@
               <Path>src\smc_gen\r_fwup\src\r_fwup_wrap_flash.h</Path>
               <Path>src\smc_gen\r_fwup\src\r_fwup_wrap_verify.c</Path>
               <Path>src\smc_gen\r_fwup\src\r_fwup_wrap_verify.h</Path>
+              <Category Name="base64">
+                <Path>src\smc_gen\r_fwup\src\base64\base64_decode.c</Path>
+                <Path>src\smc_gen\r_fwup\src\base64\base64_decode.h</Path>
+              </Category>
+              <Category Name="tinycrypt">
+                <Category Name="include">
+                  <Category Name="tinycrypt">
+                    <Path>src\smc_gen\r_fwup\src\tinycrypt\include\tinycrypt\constants.h</Path>
+                    <Path>src\smc_gen\r_fwup\src\tinycrypt\include\tinycrypt\ecc.h</Path>
+                    <Path>src\smc_gen\r_fwup\src\tinycrypt\include\tinycrypt\ecc_dh.h</Path>
+                    <Path>src\smc_gen\r_fwup\src\tinycrypt\include\tinycrypt\ecc_dsa.h</Path>
+                    <Path>src\smc_gen\r_fwup\src\tinycrypt\include\tinycrypt\ecc_platform_specific.h</Path>
+                    <Path>src\smc_gen\r_fwup\src\tinycrypt\include\tinycrypt\sha256.h</Path>
+                    <Path>src\smc_gen\r_fwup\src\tinycrypt\include\tinycrypt\utils.h</Path>
+                  </Category>
+                </Category>
+                <Category Name="source">
+                  <Path>src\smc_gen\r_fwup\src\tinycrypt\source\ecc.c</Path>
+                  <Path>src\smc_gen\r_fwup\src\tinycrypt\source\ecc_dsa.c</Path>
+                  <Path>src\smc_gen\r_fwup\src\tinycrypt\source\sha256.c</Path>
+                  <Path>src\smc_gen\r_fwup\src\tinycrypt\source\utils.c</Path>
+                </Category>
+              </Category>
             </Category>
           </Category>
           <Category Name="r_pincfg">
@@ -215,10 +231,10 @@
             <Path>src\smc_gen\r_sci_rx\readme.txt</Path>
             <Category Name="doc">
               <Category Name="en">
-                <Path>src\smc_gen\r_sci_rx\doc\en\r01an1815ej0440-rx-serial.pdf</Path>
+                <Path>src\smc_gen\r_sci_rx\doc\en\r01an1815ej0500-rx-serial.pdf</Path>
               </Category>
               <Category Name="ja">
-                <Path>src\smc_gen\r_sci_rx\doc\ja\r01an1815jj0440-rx-serial.pdf</Path>
+                <Path>src\smc_gen\r_sci_rx\doc\ja\r01an1815jj0500-rx-serial.pdf</Path>
               </Category>
             </Category>
             <Category Name="src">
@@ -238,94 +254,42 @@
               </Category>
             </Category>
           </Category>
-          <Category Name="r_sys_time_rx">
-            <Path>src\smc_gen\r_sys_time_rx\r_sys_time_rx_if.h</Path>
-            <Path>src\smc_gen\r_sys_time_rx\readme.txt</Path>
-            <Category Name="doc">
-              <Category Name="en">
-                <Path>src\smc_gen\r_sys_time_rx\doc\en\r20an0431ej0101-rx-middle.pdf</Path>
-              </Category>
-              <Category Name="ja">
-                <Path>src\smc_gen\r_sys_time_rx\doc\ja\r20an0431jj0101-rx-middle.pdf</Path>
-              </Category>
-            </Category>
-            <Category Name="ref">
-              <Path>src\smc_gen\r_sys_time_rx\ref\r_sys_time_rx_config_reference.h</Path>
-            </Category>
-            <Category Name="src">
-              <Path>src\smc_gen\r_sys_time_rx\src\r_sys_time_rx.c</Path>
-              <Path>src\smc_gen\r_sys_time_rx\src\r_sys_time_rx_private.h</Path>
-            </Category>
-          </Category>
-        </Category>
-        <Category Name="src">
-          <Path>src\src\base64_decode.c</Path>
-          <Path>src\src\base64_decode.h</Path>
-        </Category>
-        <Category Name="tinycrypt">
-          <Category Name="lib">
-            <Category Name="include">
-              <Category Name="tinycrypt">
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\aes.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\cbc_mode.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\ccm_mode.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\cmac_mode.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\constants.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\ctr_mode.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\ctr_prng.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\ecc.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\ecc_dh.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\ecc_dsa.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\ecc_platform_specific.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\hmac.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\hmac_prng.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\sha256.h</Path>
-                <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\include\tinycrypt\utils.h</Path>
-              </Category>
-            </Category>
-            <Category Name="source">
-              <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\source\ecc.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\source\ecc_dsa.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\source\sha256.c</Path>
-              <Path>..\..\..\Middleware\3rdparty\tinycrypt\lib\source\utils.c</Path>
-            </Category>
-          </Category>
         </Category>
       </Category>
     </Files>
     <Device Category="com.renesas.cdt.managedbuild.renesas.ccrx.common.option.cpu.rx600" Series="RX">R5F565NEHxFB_DUAL</Device>
-    <BuildOptions Name="CC-RX" Version="v3.05.00">
+    <BuildOptions Name="CC-RX" Version="v3.06.00">
       <BuildMode Active="True" Name="HardwareDebug">
         <GeneralOptions/>
         <CompileOptions>
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
           <Option>-branch=32</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\..\lts2\Middleware\3rdparty\tinycrypt\lib\include"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\key"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_cmt_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_cmt_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_fwup"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_fwup\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_sys_time_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_sys_time_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_5"</Option>
+          <Option>-include="${ProjDirPath}\src"</Option>
+          <Option>-include="${ProjDirPath}\src\src"</Option>
+          <Option>-include="${ProjDirPath}\src\tinycrypt\lib\include"</Option>
+          <Option>-include="${ProjDirPath}\src\key"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup\src"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_5"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup\src\base64"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup\src\tinycrypt\source"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup\src\tinycrypt\include"</Option>
           <Option>-utf8</Option>
           <Option>-nomessage</Option>
           <Option>-debug</Option>
@@ -339,27 +303,27 @@
         <AssembleOptions>
           <Option>-isa=rxv2</Option>
           <Option>-fpu</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\general"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_pincfg"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_config"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_byteq"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_byteq\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_bsp"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_sci_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_sci_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_cmt_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_cmt_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_fwup"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_fwup\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_sys_time_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_sys_time_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\targets"</Option>
-          <Option>-include="${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_5"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\general"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_pincfg"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_config"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_byteq"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_byteq\src"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_bsp"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_sci_rx"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_sci_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup\src"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_4"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_3"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_1"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\targets"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_5"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup\src\base64"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup\src\tinycrypt\source"</Option>
+          <Option>-include="${ProjDirPath}\src\smc_gen\r_fwup\src\tinycrypt\include"</Option>
           <Option>-utf8</Option>
           <Option>-debug</Option>
           <Option>-nologo</Option>
@@ -370,9 +334,9 @@
           <Option>-form=absolute</Option>
           <Option>-nomessage</Option>
           <Option>-vect=_undefined_interrupt_source_isr</Option>
-          <Option>-list=${ProjName}.map</Option>
+          <Option>-list</Option>
           <Option>-nooptimize</Option>
-          <Option>-rom=D=R,D_1=R_1,D_2=R_2,PFRAM2=RPFRAM2</Option>
+          <Option>-rom=PFRAM2=RPFRAM2,D=R,D_1=R_1,D_2=R_2</Option>
           <Option>-cpu=RAM=00000000-0003ffff,FIX=00080000-00083fff,FIX=00086000-00087fff,FIX=00088000-0009ffff,FIX=000a0000-000a3fff,RAM=000a4000-000a5fff,FIX=000a6000-000bffff,FIX=000c0000-000dffff,FIX=000e0000-000fffff,ROM=00100000-00107fff,FIX=007fc000-007fcfff,FIX=007fe000-007fffff,RAM=00800000-0085ffff,RAM=fe7f5d00-fe7f5d7f,RAM=fe7f7d70-fe7f7d9f,ROM=ffe00000-ffffffff</Option>
           <Option>-nologo</Option>
           <Option>-start=SU,SI,B_1,R_1,B_2,R_2,B,R,RPFRAM2/04,C_1,C_2,C,C$*,D*,W*,L,P*,PFRAM2/0FFFF0000,EXCEPTVECT/0FFFFFF80,RESETVECT/0FFFFFFFC</Option>
@@ -397,106 +361,105 @@
           <GenerateMode>BuildOptionChanged</GenerateMode>
         </LibraryGenerateOptions>
         <LinkOrder>
-          <Path>HardwareDebug\boot_loader.obj</Path>
-          <Path>HardwareDebug\r_cg_hardware_setup.obj</Path>
-          <Path>HardwareDebug\r_smc_cgc.obj</Path>
-          <Path>HardwareDebug\r_smc_cgc_user.obj</Path>
-          <Path>HardwareDebug\r_smc_interrupt.obj</Path>
-          <Path>HardwareDebug\hwsetup.obj</Path>
-          <Path>HardwareDebug\dbsct.obj</Path>
-          <Path>HardwareDebug\lowlvl.obj</Path>
-          <Path>HardwareDebug\lowsrc.obj</Path>
-          <Path>HardwareDebug\mcu_locks.obj</Path>
-          <Path>HardwareDebug\r_bsp_common.obj</Path>
-          <Path>HardwareDebug\r_bsp_cpu.obj</Path>
-          <Path>HardwareDebug\r_bsp_interrupts.obj</Path>
-          <Path>HardwareDebug\r_bsp_locking.obj</Path>
-          <Path>HardwareDebug\r_bsp_mcu_startup.obj</Path>
-          <Path>HardwareDebug\r_bsp_software_interrupt.obj</Path>
-          <Path>HardwareDebug\r_rx_intrinsic_functions.obj</Path>
-          <Path>HardwareDebug\resetprg.obj</Path>
-          <Path>HardwareDebug\sbrk.obj</Path>
-          <Path>HardwareDebug\mcu_clocks.obj</Path>
-          <Path>HardwareDebug\mcu_init.obj</Path>
-          <Path>HardwareDebug\mcu_interrupts.obj</Path>
-          <Path>HardwareDebug\mcu_mapped_interrupts.obj</Path>
-          <Path>HardwareDebug\vecttbl.obj</Path>
-          <Path>HardwareDebug\r_byteq.obj</Path>
-          <Path>HardwareDebug\r_cmt_rx.obj</Path>
-          <Path>HardwareDebug\r_flash_type1.obj</Path>
-          <Path>HardwareDebug\r_flash_type3.obj</Path>
-          <Path>HardwareDebug\r_flash_type4.obj</Path>
-          <Path>HardwareDebug\r_flash_type5.obj</Path>
-          <Path>HardwareDebug\r_flash_fcu.obj</Path>
-          <Path>HardwareDebug\r_flash_group.obj</Path>
-          <Path>HardwareDebug\r_flash_nofcu.obj</Path>
-          <Path>HardwareDebug\r_flash_rx.obj</Path>
-          <Path>HardwareDebug\r_fwup.obj</Path>
-          <Path>HardwareDebug\r_fwup_wrap_com.obj</Path>
-          <Path>HardwareDebug\r_fwup_wrap_flash.obj</Path>
-          <Path>HardwareDebug\r_fwup_wrap_verify.obj</Path>
-          <Path>HardwareDebug\Pin.obj</Path>
-          <Path>HardwareDebug\r_sci_rx_pinset.obj</Path>
-          <Path>HardwareDebug\r_sci_rx.obj</Path>
-          <Path>HardwareDebug\r_sci_rx_dmaca.obj</Path>
-          <Path>HardwareDebug\r_sci_rx_dtc.obj</Path>
-          <Path>HardwareDebug\r_sci_rx65n.obj</Path>
-          <Path>HardwareDebug\r_sci_rx65n_data.obj</Path>
-          <Path>HardwareDebug\r_sys_time_rx.obj</Path>
-          <Path>HardwareDebug\base64_decode.obj</Path>
-          <Path>HardwareDebug\ecc.obj</Path>
-          <Path>HardwareDebug\ecc_dsa.obj</Path>
-          <Path>HardwareDebug\sha256.obj</Path>
-          <Path>HardwareDebug\utils.obj</Path>
+          <Path>HardwareDebug\src\boot_loader.obj</Path>
+          <Path>HardwareDebug\src\my_flash.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/general\r_cg_hardware_setup.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/general\r_smc_cgc.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/general\r_smc_cgc_user.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/general\r_smc_interrupt.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/board/generic_rx65n\hwsetup.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\dbsct.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\lowlvl.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\lowsrc.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\mcu_locks.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\r_bsp_common.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\r_bsp_cpu.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\r_bsp_interrupts.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\r_bsp_locking.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\r_bsp_mcu_startup.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\r_bsp_software_interrupt.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\r_rx_intrinsic_functions.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\resetprg.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/all\sbrk.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/rx65n\mcu_clocks.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/rx65n\mcu_init.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/rx65n\mcu_interrupts.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/rx65n\mcu_mapped_interrupts.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_bsp/mcu/rx65n\vecttbl.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_byteq/src\r_byteq.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_flash_rx/src/flash_type_1\r_flash_type1.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_flash_rx/src/flash_type_3\r_flash_type3.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_flash_rx/src/flash_type_4\r_flash_type4.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_flash_rx/src/flash_type_5\r_flash_type5.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_flash_rx/src\r_flash_fcu.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_flash_rx/src\r_flash_group.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_flash_rx/src\r_flash_nofcu.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_flash_rx/src\r_flash_rx.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_fwup/src/base64\base64_decode.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_fwup/src\r_fwup.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_fwup/src\r_fwup_wrap_com.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_fwup/src\r_fwup_wrap_flash.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_fwup/src\r_fwup_wrap_verify.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_fwup/src/tinycrypt/source\ecc.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_fwup/src/tinycrypt/source\ecc_dsa.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_fwup/src/tinycrypt/source\sha256.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_fwup/src/tinycrypt/source\utils.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_pincfg\Pin.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_pincfg\r_sci_rx_pinset.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_sci_rx/src\r_sci_rx.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_sci_rx/src\r_sci_rx_dmaca.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_sci_rx/src\r_sci_rx_dtc.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_sci_rx/src/targets/rx65n\r_sci_rx65n.obj</Path>
+          <Path>HardwareDebug\src/smc_gen/r_sci_rx/src/targets/rx65n\r_sci_rx65n_data.obj</Path>
           <Path>HardwareDebug\boot_loader_ck_rx65n.lib</Path>
         </LinkOrder>
         <CommonOptions>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\..\lts2\Middleware\3rdparty\tinycrypt\lib\include"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\key"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\general"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_pincfg"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_config"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_byteq"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_byteq\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_bsp"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_sci_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_sci_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_cmt_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_cmt_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_fwup"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_fwup\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_sys_time_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_sys_time_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
-          <IncludePathForC>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_5"</IncludePathForC>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\general"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_pincfg"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_config"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_byteq"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_byteq\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_bsp"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_sci_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_cmt_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_cmt_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_fwup"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_fwup\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_sys_time_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_sys_time_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
-          <IncludePathForAsm>"${ProjDirPath}\..\..\..\src\smc_gen\r_flash_rx\src\flash_type_5"</IncludePathForAsm>
+          <IncludePathForC>"${ProjDirPath}\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\tinycrypt\lib\include"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\key"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\general"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_pincfg"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_config"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_byteq"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_byteq\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_bsp"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_sci_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_sci_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_fwup"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_fwup\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_flash_rx\src"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_flash_rx"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_5"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_fwup\src\base64"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_fwup\src\tinycrypt\source"</IncludePathForC>
+          <IncludePathForC>"${ProjDirPath}\src\smc_gen\r_fwup\src\tinycrypt\include"</IncludePathForC>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\general"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_pincfg"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_config"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_byteq"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_byteq\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_bsp"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_sci_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_sci_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_fwup"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_fwup\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_4"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_3"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_flash_rx\src"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_flash_rx"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_1"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\targets"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_flash_rx\src\flash_type_5"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_fwup\src\base64"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_fwup\src\tinycrypt\source"</IncludePathForAsm>
+          <IncludePathForAsm>"${ProjDirPath}\src\smc_gen\r_fwup\src\tinycrypt\include"</IncludePathForAsm>
         </CommonOptions>
       </BuildMode>
     </BuildOptions>

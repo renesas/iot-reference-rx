@@ -24,6 +24,10 @@
 *           25.08.2020 1.00    Initial Release
 *           31.03.2021 3.80    Added support for RX671.
 *           31.03.2022 4.40    Added support for RX660.
+*           27.12.2022 4.60    Fixed the issue that rx_idle is not changed to true when reception is complete 
+*                              in DMAC mode.
+*           31.03.2023 4.80    Added support for RX26T.
+*                              Fixed to comply with GSCE Coding Standards Rev.6.5.0.
 ***********************************************************************************************************************/
 
 /**********************************************************************************************************************
@@ -227,7 +231,7 @@ sci_err_t sci_txfifo_dmaca_create(sci_hdl_t const hdl, uint8_t *p_src, uint16_t 
                 err_dmaca = R_DMACA_Create(hdl->rom->dmaca_tx_channel, &tx_cfg_dmaca);
             }
 
-#if defined(BSP_MCU_RX64M) || defined(BSP_MCU_RX71M) || defined(BSP_MCU_RX65N) || defined(BSP_MCU_RX66T) || defined(BSP_MCU_RX72T) || defined(BSP_MCU_RX72M) || defined(BSP_MCU_RX72N) || defined(BSP_MCU_RX66N)|| defined(BSP_MCU_RX671)|| defined(BSP_MCU_RX660)
+#if defined(BSP_MCU_RX64M) || defined(BSP_MCU_RX71M) || defined(BSP_MCU_RX65N) || defined(BSP_MCU_RX66T) || defined(BSP_MCU_RX72T) || defined(BSP_MCU_RX72M) || defined(BSP_MCU_RX72N) || defined(BSP_MCU_RX66N)|| defined(BSP_MCU_RX671) || defined(BSP_MCU_RX660) || defined(BSP_MCU_RX26T)
             err_dmaca = R_DMACA_Int_Enable(hdl->rom->dmaca_tx_channel, *hdl->rom->ipr_txi);
 #else
             err_dmaca = R_DMACA_Int_Enable(hdl->rom->dmaca_tx_channel, *hdl->rom->ipr);
@@ -422,7 +426,7 @@ sci_err_t sci_rxfifo_dmaca_create(sci_hdl_t const hdl, uint8_t *p_dst, uint16_t 
  End of function sci_rxfifo_dmaca_create
  *********************************************************************************************************************/
 
-#endif
+#endif /* End of SCI_CFG_FIFO_INCLUDED */
 
 
 /**********************************************************************************************************************
@@ -563,7 +567,7 @@ sci_err_t sci_tx_dmaca_create(sci_hdl_t const hdl, uint8_t *p_src, uint16_t cons
                     err_dmaca = R_DMACA_Create(hdl->rom->dmaca_tx_channel, &tx_cfg_dmaca);
                 }
 
-#if defined(BSP_MCU_RX64M) || defined(BSP_MCU_RX71M) || defined(BSP_MCU_RX65N) || defined(BSP_MCU_RX66T) || defined(BSP_MCU_RX72T) || defined(BSP_MCU_RX72M) || defined(BSP_MCU_RX72N) || defined(BSP_MCU_RX66N)|| defined(BSP_MCU_RX671)|| defined(BSP_MCU_RX660)
+#if defined(BSP_MCU_RX64M) || defined(BSP_MCU_RX71M) || defined(BSP_MCU_RX65N) || defined(BSP_MCU_RX66T) || defined(BSP_MCU_RX72T) || defined(BSP_MCU_RX72M) || defined(BSP_MCU_RX72N) || defined(BSP_MCU_RX66N)|| defined(BSP_MCU_RX671)|| defined(BSP_MCU_RX660) || defined(BSP_MCU_RX26T)
                     err_dmaca = R_DMACA_Int_Enable(hdl->rom->dmaca_tx_channel, *hdl->rom->ipr_txi);
 #else
                     err_dmaca = R_DMACA_Int_Enable(hdl->rom->dmaca_tx_channel, *hdl->rom->ipr);
@@ -730,7 +734,7 @@ sci_err_t sci_rx_dmaca_create(sci_hdl_t const hdl, uint8_t *p_dst, uint16_t cons
                 }
                 if (DMACA_SUCCESS == err_dmaca)
                 {
-#if defined(BSP_MCU_RX64M) || defined(BSP_MCU_RX71M) || defined(BSP_MCU_RX65N) || defined(BSP_MCU_RX66T) || defined(BSP_MCU_RX72T) || defined(BSP_MCU_RX72M) || defined(BSP_MCU_RX72N) || defined(BSP_MCU_RX66N)|| defined(BSP_MCU_RX671)|| defined(BSP_MCU_RX660)
+#if defined(BSP_MCU_RX64M) || defined(BSP_MCU_RX71M) || defined(BSP_MCU_RX65N) || defined(BSP_MCU_RX66T) || defined(BSP_MCU_RX72T) || defined(BSP_MCU_RX72M) || defined(BSP_MCU_RX72N) || defined(BSP_MCU_RX66N)|| defined(BSP_MCU_RX671)|| defined(BSP_MCU_RX660) || defined(BSP_MCU_RX26T)
                     err_dmaca = R_DMACA_Int_Enable(hdl->rom->dmaca_rx_channel, *hdl->rom->ipr_rxi);
 #else
                     err_dmaca = R_DMACA_Int_Enable(hdl->rom->dmaca_rx_channel, *hdl->rom->ipr);
@@ -987,6 +991,12 @@ static void sci_dmac_rx_handler(sci_hdl_t const hdl)
         if ((SCI_MODE_SYNC == hdl->mode) || (SCI_MODE_SSPI == hdl->mode))
         {
             hdl->tx_idle = true;
+        }
+#endif
+#if (SCI_CFG_ASYNC_INCLUDED)
+        if (SCI_MODE_ASYNC == hdl->mode)
+        {
+            hdl->rx_idle = true;
         }
 #endif
         p_ctrl->rx_cnt = p_ctrl->rx_fraction;

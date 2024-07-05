@@ -76,7 +76,7 @@ typedef struct xSOCKETContext
  *
  * 16 total sockets
  */
-#define MAX_NUM_SSOCKETS    (WIFI_CFG_CREATABLE_SOCKETS)
+#define MAX_NUM_SSOCKETS    (WIFI_CFG_TCP_CREATABLE_SOCKETS)
 
 /**
  * @brief Number of secure sockets allocated.
@@ -103,7 +103,7 @@ static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
 {
     uint32_t reconnect_tries = 0;
 
-    if (WIFI_ERR_MODULE_COM != error)
+    if (WIFI_ERR_MODULE_COM != error && WIFI_ERR_MODULE_TIMEOUT != error)
     {
         count_module_comm = 0;
         return error;
@@ -128,28 +128,44 @@ static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
     }
     else
     {
-        count_module_comm++;
-        LogInfo(("Wi-Fi has error = %d in %d times \r\n", error, count_module_comm));
-        if (USER_COMM_ERROR_TRIES > count_module_comm)
-        {
-            return WIFI_SUCCESS;
-        }
-
-        LogInfo(("Start resetting Wi-Fi Hardware due to the continuation of %d error \r\n", error));
-
-        count_module_comm = 0;
-        for (reconnect_tries = 0; reconnect_tries < USER_RECONNECT_TRIES; reconnect_tries++)
-        {
-            LogInfo(("Tried to connect %d times \r\n", reconnect_tries + 1));
-            if (WIFI_SUCCESS == R_WIFI_DA16XXX_HardwareReset())
+    	if (WIFI_ERR_MODULE_COM == error)
+    	{
+            count_module_comm++;
+            LogInfo(("Wi-Fi has error = %d in %d times \r\n", error, count_module_comm));
+            if (USER_COMM_ERROR_TRIES > count_module_comm)
             {
-                break;
+                return WIFI_SUCCESS;
             }
-        }
-        if (USER_RECONNECT_TRIES <= reconnect_tries)
-        {
-            LogError(("Failed after tried to connect %d times", reconnect_tries));
-        }
+    	}
+
+    	if ((USER_COMM_ERROR_TRIES <= count_module_comm) || (WIFI_ERR_MODULE_COM != error))
+    	{
+            if (USER_COMM_ERROR_TRIES <= count_module_comm)
+            {
+                LogInfo(("Start no force reset Wi-Fi Hardware due to the continuation of %d error \r\n", error));
+            }
+
+            if ( WIFI_ERR_MODULE_COM != error )
+            {
+                LogInfo(("Start no force reset Wi-Fi Hardware due to error = %d \r\n", error));
+            }
+            LogInfo(("Resetting Wi-Fi Hardware \r\n"));
+
+            count_module_comm = 0;
+            for (reconnect_tries = 0; reconnect_tries < USER_RECONNECT_TRIES; reconnect_tries++)
+            {
+                LogInfo(("Tried to connect %d times \r\n", reconnect_tries + 1));
+                if (WIFI_SUCCESS == R_WIFI_DA16XXX_HardwareReset())
+                {
+                    break;
+                }
+            }
+            if (USER_RECONNECT_TRIES <= reconnect_tries)
+            {
+                LogError(("Failed after tried to connect %d times", reconnect_tries));
+            }
+    	}
+
         return error;
     }
 }
@@ -171,6 +187,7 @@ static wifi_err_t CloseSocket(uint32_t socket_number)
         LogInfo(("Try to close in %d times.", count));
     }
 
+    return ret;
 }
 
 /*-----------------------------------------------------------*/
@@ -193,7 +210,7 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
 
     R_WIFI_DA16XXX_GetAvailableSocket(&socketId);
 
-    if((s_sockets_num_allocated > WIFI_CFG_CREATABLE_SOCKETS) || (socketId == UINT8_MAX))
+    if((s_sockets_num_allocated > WIFI_CFG_TCP_CREATABLE_SOCKETS) || (socketId == UINT8_MAX))
     {
         LogError(("There is no available socket.\r\n"));
         socketStatus = NO_SOCKET_CREATION_ERROR;
@@ -201,7 +218,7 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
         return socketStatus;
     }
 
-    ret = R_WIFI_DA16XXX_CreateSocket(socketId, DA16XXX_SOCKET_TYPE_TCP_CLIENT, 4);
+    ret = R_WIFI_DA16XXX_CreateSocket(socketId, WIFI_SOCKET_TYPE_TCP_CLIENT, 4);
     if(WIFI_SUCCESS != ret)
     {
         LogError(("Failed to create WiFi sockets. %d\r\n", ret));
@@ -294,7 +311,7 @@ int32_t TCP_Sockets_Recv(Socket_t xSocket,
         }
         else
         {
-            receive_byte = SocketErrorHook(receive_byte, FORCE_RESET);
+            receive_byte = SocketErrorHook(receive_byte, NO_FORCE_RESET);
         }
     }
     else
@@ -329,7 +346,7 @@ int32_t TCP_Sockets_Send(Socket_t xSocket,
         }
         else
         {
-            send_byte = SocketErrorHook(send_byte, FORCE_RESET);
+            send_byte = SocketErrorHook(send_byte, NO_FORCE_RESET);
         }
     }
     else

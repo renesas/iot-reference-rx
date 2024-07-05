@@ -61,9 +61,9 @@
 #include "pkcs11.h"
 #include "core_pki_utils.h"
 
-/* CC-RX Compiler v3.04.00 and below do not support the strnlen function, so use the strlen function instead. */
-#if !defined(strnlen)
-	#define strnlen( _s1, _s2)	(strlen( _s1))
+/* strnlen includes for CC-RX compiler. */
+#if defined(__CCRX__)
+#include "strnlen.h"
 #endif
 
 /*-----------------------------------------------------------*/

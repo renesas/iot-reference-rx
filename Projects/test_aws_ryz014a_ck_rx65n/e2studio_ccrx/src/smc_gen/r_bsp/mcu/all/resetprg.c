@@ -40,6 +40,11 @@
 *         : 18.05.2021 3.13      Changed vbatt_voltage_stability_wait function.
 *         : 30.11.2021 3.14      Changed the compile switch of _CALL_INIT.
 *         : 28.04,2022 3.15      Added the section of ResetPRG only for CCRX.
+*         : 28.02.2023 3.16      Added the compile switch of R_BSP_INIT_TFU.
+*                                Added the bsp_tfu_init function.
+*         : 21.11.2023 3.17      Deleted the process to set bus error.
+*                                Added bsp_bus_priority_initialize function.
+*                                Added compile switch of BSP_CFG_BOOTLOADER_PROJECT.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -81,7 +86,7 @@ R_BSP_PRAGMA_STACKSIZE_SI(BSP_CFG_ISTACK_BYTES)
 Macro definitions
 ***********************************************************************************************************************/
 #if BSP_CFG_RTOS_USED == 4 /* Renesas RI600V4 & RI600PX */
-    #define BSP_PRV_PSW_INIT  (0x00000000)	/* Supervisor mode & Disable Interrupt */
+    #define BSP_PRV_PSW_INIT  (0x00000000)    /* Supervisor mode & Disable Interrupt */
 #else /* BSP_CFG_RTOS_USED!=4 */
 /* If the user chooses only 1 stack then the 'U' bit will not be set and the CPU will always use the interrupt stack. */
 #if BSP_CFG_USER_STACK_ENABLE == 1
@@ -239,12 +244,21 @@ R_BSP_POR_FUNCTION(R_BSP_STARTUP_FUNCTION)
 #endif
 #endif
 
+#if BSP_CFG_BOOTLOADER_PROJECT == 0
+/* Disable the following functions in the bootloader project. */
     /* Initializes the trigonometric function unit. */
 #ifdef BSP_MCU_TRIGONOMETRIC
 #ifdef __TFU
+#if BSP_MCU_TFU_VERSION == 1
     R_BSP_INIT_TFU();
-#endif
-#endif
+#elif BSP_MCU_TFU_VERSION == 2
+#if BSP_CFG_TFU_INITIALIZE_ENABLE == 1
+    bsp_tfu_init();
+#endif /* BSP_CFG_TFU_INITIALIZE_ENABLE == 1 */
+#endif /* BSP_MCU_TFU_VERSION */
+#endif /* __TFU */
+#endif /* BSP_MCU_TRIGONOMETRIC */
+#endif /* BSP_CFG_BOOTLOADER_PROJECT == 0 */
 
 #endif /* defined(__CCRX__), defined(__GNUC__) */
 
@@ -290,6 +304,14 @@ R_BSP_POR_FUNCTION(R_BSP_STARTUP_FUNCTION)
     /* Initialize register protection functionality. */
     bsp_register_protect_open();
 
+#if BSP_CFG_BOOTLOADER_PROJECT == 0
+/* Disable the following functions in the bootloader project. */
+#if BSP_CFG_BUS_PRIORITY_INITIALIZE_ENABLE == 1
+    /* Initialize bus priority. */
+    bsp_bus_priority_initialize();
+#endif /* BSP_CFG_BUS_PRIORITY_INITIALIZE_ENABLE == 1 */
+#endif /* BSP_CFG_BOOTLOADER_PROJECT == 0 */
+
     /* Configure the MCU and board hardware */
     hardware_setup();
 
@@ -308,9 +330,6 @@ R_BSP_POR_FUNCTION(R_BSP_STARTUP_FUNCTION)
     #endif
 #endif /* BSP_CFG_RUN_IN_USER_MODE */
 #endif /* BSP_CFG_RTOS_USED */
-
-    /* Enable the bus error interrupt to catch accesses to illegal/reserved areas of memory */
-    R_BSP_InterruptControl(BSP_INT_SRC_BUS_ERROR, BSP_INT_CMD_INTERRUPT_ENABLE, FIT_NO_PTR);
 
 #if (BSP_CFG_RTOS_USED == 0) || (BSP_CFG_RTOS_USED == 5)    /* Non-OS or Azure RTOS */
     /* Call the main program function (should not return) */

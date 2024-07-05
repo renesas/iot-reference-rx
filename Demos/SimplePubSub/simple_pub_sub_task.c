@@ -63,6 +63,7 @@
 
 /* Fetches thing name from the key store */
 #include "aws_clientcredential.h"
+#include "store.h"
 
 /**
  * @brief Delay for the synchronous publisher task between publishes.
@@ -73,6 +74,11 @@
  * @brief Number of publishes done by each task in this demo.
  */
 #define mqttexamplePUBLISH_COUNT                          10
+
+/**
+ * @brief Number of unsubscribe retries in this demo.
+ */
+#define mqttexampleUNSUBSCRIBE_RETRIES                    5
 
 /**
  * @brief Number of times a publish has to be retried if agent cannot send a QoS0 packet
@@ -150,9 +156,6 @@
 #define appmainMQTT_PUBSUB_TASK_STACK_SIZE        ( 2048 )
 #define appmainMQTT_PUBSUB_TASK_PRIORITY          ( tskIDLE_PRIORITY + 1 )
 /*-----------------------------------------------------------*/
-#define appmainMQTT_AGENT_TASK_STACK_SIZE         ( 6144 )
-#define appmainMQTT_AGENT_TASK_PRIORITY           ( tskIDLE_PRIORITY + 2 )
-
 
 /**
  * @brief Defines the structure to use as the command callback context in this
@@ -226,6 +229,19 @@ static void prvIncomingPublishCallback( void * pvIncomingPublishCallbackContext,
  * @param[in] xTopicFilterLength Length of the topic filter string.
  */
 static MQTTStatus_t prvSubscribeToTopic( MQTTQoS_t xQoS,
+                                         char * pcTopicFilter,
+                                         size_t xTopicFilterLength );
+
+/**
+ * @brief Unsubscribe to the topic the demo task will also publish to
+ *
+ * @param[in] xQoS The quality of service (QoS) to use.  Can be zero or one
+ * for all MQTT brokers.  Can also be QoS2 if supported by the broker.  AWS IoT
+ * does not support QoS2.
+ * @param[in] pcTopicFilter Pointer to the topic filter string to subscribe for.
+ * @param[in] xTopicFilterLength Length of the topic filter string.
+ */
+static MQTTStatus_t prvUnsubscribeToTopic( MQTTQoS_t xQoS,
                                          char * pcTopicFilter,
                                          size_t xTopicFilterLength );
 
@@ -333,6 +349,28 @@ static void prvSubscribeCommandCallback( MQTTAgentCommandContext_t * pxCommandCo
 
 /*-----------------------------------------------------------*/
 
+static void prvUnsubscribeCommandCallback( MQTTAgentCommandContext_t * pxCommandContext,
+        MQTTAgentReturnInfo_t * pxReturnInfo )
+{
+    MQTTAgentSubscribeArgs_t * pxSubscribeArgs = ( MQTTAgentSubscribeArgs_t * ) pxCommandContext->pArgs;
+
+    if( pxCommandContext->xTaskToNotify != NULL )
+    {
+        ( void ) xTaskNotify( pxCommandContext->xTaskToNotify,
+                              pxReturnInfo->returnCode,
+                              eSetValueWithOverwrite );
+
+        /* Remove the topic filter callback */
+        vRemoveMQTTTopicFilterCallback( pxSubscribeArgs->pSubscribeInfo->pTopicFilter,
+                                        pxSubscribeArgs->pSubscribeInfo->topicFilterLength );
+
+    }
+
+
+}
+
+/*-----------------------------------------------------------*/
+
 static void prvIncomingPublishCallback( void * pvIncomingPublishCallbackContext,
                                         MQTTPublishInfo_t * pxPublishInfo )
 {
@@ -425,6 +463,74 @@ static MQTTStatus_t prvSubscribeToTopic( MQTTQoS_t xQoS,
 
     return xCommandStatus;
 }
+
+/*-----------------------------------------------------------*/
+static MQTTStatus_t prvUnsubscribeToTopic( MQTTQoS_t xQoS,
+                                         char * pcTopicFilter,
+                                         size_t xTopicFilterLength )
+{
+    MQTTStatus_t xCommandStatus;
+    MQTTAgentSubscribeArgs_t xSubscribeArgs = { 0 };
+    MQTTSubscribeInfo_t xSubscribeInfo = { 0 };
+    MQTTAgentCommandContext_t xCommandContext = { 0UL };
+    MQTTAgentCommandInfo_t xCommandParams = { 0UL };
+    uint32_t ulNotifiedValue = 0U;
+    uint32_t ulUnsubscribeCount = 0U;
+
+    /* Complete the subscribe information.  The topic string must persist for
+     * duration of subscription! */
+    xSubscribeInfo.pTopicFilter = pcTopicFilter;
+    xSubscribeInfo.topicFilterLength = ( uint16_t ) xTopicFilterLength;
+    xSubscribeInfo.qos = xQoS;
+    xSubscribeArgs.pSubscribeInfo = &xSubscribeInfo;
+    xSubscribeArgs.numSubscriptions = 1;
+
+    /* Complete an application defined context associated with this subscribe message.
+     * This gets updated in the callback function so the variable must persist until
+     * the callback executes. */
+    xCommandContext.xTaskToNotify = xTaskGetCurrentTaskHandle();
+    xCommandContext.pArgs = ( void * ) &xSubscribeArgs;
+
+    xCommandParams.blockTimeMs = mqttexampleMAX_COMMAND_SEND_BLOCK_TIME_MS;
+    xCommandParams.cmdCompleteCallback = prvUnsubscribeCommandCallback;
+    xCommandParams.pCmdCompleteCallbackContext = ( void * ) &xCommandContext;
+
+    xTaskNotifyStateClear( NULL );
+
+    do
+    {
+        ulUnsubscribeCount++;
+
+        /* Unsubscribe the topic */
+        xCommandStatus = MQTTAgent_Unsubscribe( &xGlobalMqttAgentContext,
+                                                &xSubscribeArgs,
+                                                &xCommandParams );
+
+        if( xCommandStatus == MQTTSuccess )
+        {
+            /*
+             * If command was enqueued successfully, then agent will either process the packet successfully, or if
+             * there is a disconnect, then it either retries the subscribe message while reconnecting and resuming
+             * persistent sessions or cancel the operation and invokes the callback for failed response.
+             * Hence the caller task wait indefinitely for a success or failure response from agent.
+             */
+            ( void ) xTaskNotifyWait( 0UL,
+                                      UINT32_MAX,
+                                      &ulNotifiedValue,
+                                      portMAX_DELAY );
+            xCommandStatus = ( MQTTStatus_t ) ( ulNotifiedValue );
+        }
+        else if( ulUnsubscribeCount < mqttexampleUNSUBSCRIBE_RETRIES )
+        {
+            /* If the unsubscribe failed and we still have retries left, wait for a bit before retrying */
+            vTaskDelay( pdMS_TO_TICKS( 100 ) ); /* Delay 100ms before retrying */
+        }
+
+    } while ( (ulUnsubscribeCount < mqttexampleUNSUBSCRIBE_RETRIES) && (xCommandStatus != MQTTSuccess) );
+
+    return xCommandStatus;
+}
+
 /*-----------------------------------------------------------*/
 
 static MQTTStatus_t prvPublishToTopic( MQTTQoS_t xQoS,
@@ -505,6 +611,7 @@ void vSimpleSubscribePublishTask( void * pvParameters )
     char cPayloadBuf[ mqttexampleSTRING_BUFFER_LENGTH ];
     char cInTopicBuf[ mqttexampleINPUT_TOPIC_BUFFER_LENGTH ];
     char cOutTopicBuf[ mqttexampleOUTPUT_TOPIC_BUFFER_LENGTH ];
+    char *sThingName;
     size_t xInTopicLength = 0UL, xOutTopicLength = 0UL, xPayloadLength = 0UL;
     uint32_t ulPublishCount = 0U, ulSuccessCount = 0U, ulFailCount = 0U;
     BaseType_t xStatus = pdPASS;
@@ -525,36 +632,60 @@ void vSimpleSubscribePublishTask( void * pvParameters )
 
     if( xStatus == pdPASS )
     {
-        /* Create a topic name for this task to publish to. */
-        xInTopicLength = snprintf( cInTopicBuf,
-                                   mqttexampleINPUT_TOPIC_BUFFER_LENGTH,
-                                   mqttexampleINPUT_TOPIC_FORMAT,
-								   clientcredentialIOT_THING_NAME,
-                                   ulTaskNumber );
-
-        /*  Assert if the topic buffer is enough to hold the required topic. */
-        configASSERT( xInTopicLength <= mqttexampleINPUT_TOPIC_BUFFER_LENGTH );
-
-        /* Subscribe to the same topic to which this task will publish.  That will
-         * result in each published message being published from the server back to
-         * the target. */
-
-        LogInfo( ( "Sending subscribe request to agent for topic filter: %.*s", xInTopicLength, cInTopicBuf ) );
-
-        xMQTTStatus = prvSubscribeToTopic( xQoS, cInTopicBuf, xInTopicLength );
-
-        if( xMQTTStatus != MQTTSuccess )
+        uint32_t ulKeySize = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
+        if ( ulKeySize > 0 ) /* Thing name stored in cache */
         {
-            LogError( ( "Failed to subscribe to topic: %.*s",
-                        xInTopicLength,
-                        cInTopicBuf ) );
-            xStatus = pdFALSE;
+    		sThingName = (char *)GetStringValue(KVS_CORE_THING_NAME, ulKeySize);
+    		sThingName[ulKeySize] = '\0';
         }
-        else
+        else /* No thing name stored in cache */
         {
-            LogInfo( ( "Successfully subscribed to topic: %.*s",
-                        xInTopicLength,
-                        cInTopicBuf ) );
+            sThingName = pvPortMalloc(strlen(clientcredentialIOT_THING_NAME) + 1);
+            if( sThingName == NULL )
+            {
+                xStatus = pdFALSE;
+                LogError( ( "Failed to allocate memory for thingname Code Flash" ) );
+            }
+            else
+            {
+                sprintf(sThingName, clientcredentialIOT_THING_NAME);
+                sThingName[strlen(clientcredentialIOT_THING_NAME)] = '\0';
+            }
+        }
+
+        if( xStatus == pdPASS )
+        {
+            /* Create a topic name for this task to publish to. */
+            xInTopicLength = snprintf( cInTopicBuf,
+                                    mqttexampleINPUT_TOPIC_BUFFER_LENGTH,
+                                    mqttexampleINPUT_TOPIC_FORMAT,
+                                    sThingName,
+                                    ulTaskNumber );
+
+            /*  Assert if the topic buffer is enough to hold the required topic. */
+            configASSERT( xInTopicLength <= mqttexampleINPUT_TOPIC_BUFFER_LENGTH );
+
+            /* Subscribe to the same topic to which this task will publish.  That will
+            * result in each published message being published from the server back to
+            * the target. */
+
+            LogInfo( ( "Sending subscribe request to agent for topic filter: %.*s", xInTopicLength, cInTopicBuf ) );
+
+            xMQTTStatus = prvSubscribeToTopic( xQoS, cInTopicBuf, xInTopicLength );
+
+            if( xMQTTStatus != MQTTSuccess )
+            {
+                LogError( ( "Failed to subscribe to topic: %.*s",
+                            xInTopicLength,
+                            cInTopicBuf ) );
+                xStatus = pdFALSE;
+            }
+            else
+            {
+                LogInfo( ( "Successfully subscribed to topic: %.*s",
+                            xInTopicLength,
+                            cInTopicBuf ) );
+            }
         }
     }
 
@@ -564,7 +695,7 @@ void vSimpleSubscribePublishTask( void * pvParameters )
         xOutTopicLength = snprintf( cOutTopicBuf,
                                     mqttexampleOUTPUT_TOPIC_BUFFER_LENGTH,
                                     mqttexampleOUTPUT_TOPIC_FORMAT,
-									clientcredentialIOT_THING_NAME,
+                                    sThingName,
                                     ulTaskNumber );
 
         /*  Assert if the topic buffer is enough to hold the required topic. */
@@ -627,6 +758,20 @@ void vSimpleSubscribePublishTask( void * pvParameters )
         LogInfo( ( "Task %u completed.", ulTaskNumber ) );
     }
     LogInfo(( "---------Finish PubSub Demo Task %u---------\r\n", ulTaskNumber ));
+
+    LogInfo(( "Unsubscribe the topic %s.", cOutTopicBuf ));
+    xMQTTStatus = prvUnsubscribeToTopic( xQoS, cInTopicBuf, xInTopicLength );
+    if ( xMQTTStatus == MQTTSuccess )
+    {
+        LogInfo(( "Unsubscribe successfully from task %d.", ulTaskNumber ));
+    }
+    else
+    {
+        LogInfo(( "Unsubscribe fails." ));
+    }
+
+    vPortFree(sThingName);
+
     vTaskDelete( NULL );
 }
 
@@ -658,6 +803,6 @@ BaseType_t xStartSimplePubSubTasks( uint32_t ulNumPubsubTasks,
 void vStartSimplePubSubDemo( void  )
 {
     xStartSimplePubSubTasks( appmainMQTT_NUM_PUBSUB_TASKS,
-                                       appmainMQTT_PUBSUB_TASK_STACK_SIZE,
-                                       appmainMQTT_PUBSUB_TASK_PRIORITY );
+                             appmainMQTT_PUBSUB_TASK_STACK_SIZE,
+                             appmainMQTT_PUBSUB_TASK_PRIORITY );
 }

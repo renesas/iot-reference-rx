@@ -48,7 +48,7 @@ Macro definitions
 #define BL_UART_RTS                 (PORTC.PODR.BIT.B0)
 #define BL_USER_SW_PORT             (PORTD.PIDR.BIT.B1)
 #define BL_USER_SW_ON               (0)
-#define BL_FLASH_BUF_SIZE           (128*5)
+#define BL_FLASH_BUF_SIZE           (FWUP_CFG_CF_W_UNIT_SIZE)
 
 #define BL_SCI_RATE                 (115200)
 #define BL_SCI_INT_PRIORITY         (15)
@@ -63,7 +63,10 @@ Macro definitions
 #define BL_INITIAL_IMAGE_INSTALL 			(0)	/* 0:Disable 1:Enable */
 
 /* Verify main area */
-#define BL_ERASE_BUFFER_AREA_AFTER_VERIFIED (1)	/* 0:Disable 1:Enable */
+#define BL_ERASE_BUFFER_AREA_AFTER_VERIFIED (1)  /* 0:Disable 1:Enable */
+
+/* Update data flash area */
+#define BL_UPDATE_DATA_FLASH                (1)  /* 0:Disable 1:Enable */
 
 /**********************************************************************************************************************
 Typedef definitions

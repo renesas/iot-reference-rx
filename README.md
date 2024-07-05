@@ -17,11 +17,11 @@ Summary of specifications explains in the following chapters.
 
 ### Demos
 
-* PubSub
+* PubSub(without TSIP/With TSIP)
   * Simple MQTT communication with [AWS Management Console](https://aws.amazon.com/console)
-* Fleet Provisioning
+* Fleet Provisioning(without TSIP only)
   * Generating and securely delivering device certificates and private keys to your devices by AWS when they connect to AWS IoT for the first time
-* OTA
+* OTA(without TSIP/With TSIP)
   * Update device firmware using AWS
 
 The preceding demos use the following technical elements of the AWS IoT:
@@ -34,7 +34,13 @@ The preceding demos use the following technical elements of the AWS IoT:
 * [CK-RX65N](https://www.renesas.com/products/microcontrollers-microprocessors/rx-32-bit-performance-efficiency-mcus/ck-rx65n-cloud-kit-based-rx65n-mcu-group) with:
   * Ethernet
   * Cellular(CAT M1)
-    * [RYZ014A](https://www.renesas.com/br/en/products/wireless-connectivity/cellular-iot-modules/ryz014a-lte-cat-m1-cellular-iot-module)
+    * [RYZ014A](https://www.renesas.com/br/en/products/wireless-connectivity/cellular-iot-modules/ryz014a-lte-cat-m1-cellular-iot-module) [(Obsolete)](https://www.renesas.com/document/eln/plc-240004-end-life-eol-process-select-part-numbers?r=1503996)
+
+
+      - [This product](https://www.renesas.com/products/wireless-connectivity/cellular-iot-modules/ryz014a-lte-cat-m1-cellular-iot-module) is no longer in production and technical support may be limited. ryz014a-lte-cat-m1-cellular-iot-module)
+
+      - [End Of Life Notice: PLC# : 240004 End-of-Life (EOL) process on select part numbers](https://www.renesas.com/document/eln/plc-240004-end-life-eol-process-select-part-numbers?r=1503996)
+
   * Wi-Fi
     * [DA16600](https://www.renesas.com/us/en/products/wireless-connectivity/wi-fi/low-power-wi-fi/da16600mod-ultra-low-power-wi-fi-bluetooth-low-energy-combo-modules-battery-powered-iot-devices)
 
@@ -78,30 +84,30 @@ The following table indicates name and version of [FIT modules](https://www.rene
 
 | FIT module | Revision of FIT module | Version of RX Driver Package |
 |------------|---------|-------------------|
-|r_bsp|7.20|1.36|
-|r_s12ad_rx|5.00|1.36 - 1.37|
-|r_byteq|2.00|1.33 - 1.36|
-|r_cellular|1.11|1.40|
-|r_ether_rx|1.23|1.36 - 1.40|
-|r_flash_rx|5.00|1.39|
-|r_sci_rx|4.40|1.36|
-|r_tsip_rx|1.17.l|--|
-|r_irq_rx|4.00|1.34|
-|r_fwup|2.01|--|
-|r_wifi_da16xxx|1.10|1.42|
+|r_bsp|7.42|1.42|
+|r_s12ad_rx|5.30|1.41 - 1.42|
+|r_byteq|2.10|1.33 - 1.41|
+|r_cellular|1.11|1.40 - 1.42|
+|r_ether_rx|1.23|1.36 - 1.42|
+|r_flash_rx|5.11|1.42|
+|r_sci_rx|5.00|1.42|
+|r_tsip_rx|1.20.l|--|
+|r_irq_rx|4.40|1.40 - 1.42|
+|r_fwup|2.03|--|
+|r_wifi_da16xxx|1.20|--|
 
 ### Data Flash Usage
 RX family of MCU has internal Data Flash Memory, and this references are using the Data Flash to store the data for connecting to the Cloud service.  
 | Area | Description | Contents |Start address<br>[Size] | Section name |
 |------|-------------|----------|--------------|--------------|
-|LittleFS management area|It's consist of the filesystem LittleFS,<br>default size is 8960 bytes.<br>You can change size by `LFS_FLASH_BLOCK_COUNT`.|IoT const data<br><ul><li>thingname</li><li>endpoint</li><li>claim credentials</li><li>device credentials</li><li>provisioning template</li><li>codesigncert</li><li>root ca</li></ul>|0x00100000<br><br>[8960 bytes<br>(*Default*)]|C_LITTLEFS_MANAGEMENT_AREA|
+|LittleFS management area|It's consist of the filesystem LittleFS,<br>default size is 8960 bytes.<br>You can change size by `LFS_FLASH_BLOCK_COUNT`.|IoT const data<br><ul><li>thingname</li><li>endpoint</li><li>claim credentials</li><li>device credentials</li><li>provisioning template</li><li>codesigncert</li><li>root ca</li><li>root ca certificate signature verification public key index \*</li><li>Client public key index \*</li><li>Client private key index \*</li></ul>&ensp;\***Demo with TSIP only**|0x00100000<br><br>[8960 bytes<br>(*Default*)]|C_LITTLEFS_MANAGEMENT_AREA|
 |Free area|It's not used by the demo.<br>Therefore, it's free area for user application.|User application data|0x00102300<br>(*Default*)<br><br>[23808 bytes<br>(*Default*)]|C_USER_APPLICATION_AREA|
 
 * LittleFS management area
   * The demo project uses a maximum of 8960 bytes of Data Flash from address 0x00100000 to 0x001022FF using LittleFS.
     * If this area is less than 8960 bytes, the demo will not work properly.
   * You must **NOT** overwrite other data against IoT const data in this area.
-  * If you intend to read/write user application data in this area, increase the value of `LFS_FLASH_BLOCK_COUNT` in the "Projects\\...\\frtos_config\\rm_littlefs_flash_config.h".
+  * If you intend to read/write user application data in this area, incrsease the value of `LFS_FLASH_BLOCK_COUNT` in the "Projects\\...\\frtos_config\\rm_littlefs_flash_config.h".
     * `LFS_FLASH_BLOCK_COUNT` must be specified 71 ( == 9088 bytes) or more and 256 (32768 bytes, it is Data Flash size) or less.
     * You must use LittleFS's API to read/write this area.
   * When increasing `LFS_FLASH_BLOCK_COUNT`, you must also reset the address of the section for free area(C_USER_APPLICATION_AREA) considering the increased LittleFS management area.  
@@ -154,9 +160,21 @@ The hook function *1 is called by occuring an error of a TCP_Sockets API *2 (dis
 
 * Notes on bootloader to application transition.  
   When transitioning from the bootloader sample program to the application, the settings of the bootloader's peripheral functions are taken over by the application.  
-  For more information, check chapter 7 of the following document.   
-  [RX Family Firmware Update module Using Firmware Integration Technology Application Notes Rev.2.01 - Sample Code](https://www.renesas.com/search?keywords=R01AN6850)
+  For more information, check chapter 7 of the following document.  
+  [RX Family Firmware Update module Using Firmware Integration Technology Application Notes.](https://www.renesas.com/search?keywords=R01AN6850)
 
+* Limitations on transmission with multiple sockets
+  
+  If using multiple sockets and one of socket happens error, `Reset Hook` function is executed. In this case, all socket information is removed, while the remaining socket attempts to send or receive data. The communication in this socket will not work properly.
+  Do not use multiple sockets with Reset Hook function.
+
+* Socket wrapper/TCP_socket_hook works in single thread. Do not trigger `TCP_socket_hook` in multiple threads.  
+
+* Demos with TSIP do not support fleet provisioning (only Pubsub and OTA demos are supported).  
+
+* Limitations on using the LittleFS module  
+  The LittleFS is not thread-safe.  
+  Calling the LittleFS API from multiple tasks is prohibited.
 
 ### About bootloader macros
 The following macros have been added in FreeRTOS-v202210.01-LTS-rx-1.1.0.
@@ -185,13 +203,16 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
 
   | FIT module | Config name | Default Value | Project value | Reason for change |
   |------------|-------------|---------------|---------------|-------------------|
-  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x1000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
+  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x2000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
   |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
   |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
-  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE	| 0 | 1 | This project uses SCI UART terminals. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE | 0 | 1 | This project uses SCI UART terminals. |
   |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This project uses SCI CH5 as the SCI UART terminal. |
+  |            | BSP_CFG_EXPANSION_RAM_ENABLE | 1 | 1\* | *This macro is set to "1" by default.<BR>It is included in this table as a note, we used EXRAM area in GCC project to avoid overflow of RAM area. |
   | r_ether_rx | ETHER_CFG_MODE_SEL | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
   |            | ETHER_CFG_CH0_PHY_ADDRESS | 0 | 5 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_EMAC_RX_DESCRIPTORS | 1 | 6 | Settings to prevent descriptor exhaustion when sending and receiving Ethernet frames. |
+  |            | ETHER_CFG_EMAC_TX_DESCRIPTORS | 1 | 3 | Settings to prevent descriptor exhaustion when sending and receiving Ethernet frames |
   |            | ETHER_CFG_CH0_PHY_ACCESS | 1 | 0 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
   |            | ETHER_CFG_LINK_PRESENT | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
   |            | ETHER_CFG_USE_PHY_ICS1894_32 | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
@@ -199,63 +220,111 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |            | FLASH_CFG_DATA_FLASH_BGO | 0 | 1 | LittleFS is implemented to rewrite data flash using BGO functionality. |
   |            | FLASH_CFG_CODE_FLASH_BGO | 0 | 1 | OTA library is implemented to rewrite code flash using BGO functionality. |
   |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
-  | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
+  | r_sci_rx   | SCI_CFG_CH1_INCLUDED | 1 | 0 | Because CH1 is not used. |
+  |            | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
   |            | SCI_CFG_TEI_INCLUDED | 0 | 1 | Transmit end interrupt is used. |
   | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses Dual bank function. |
   |            | FWUP_CFG_FUNCTION_MODE | 0 | 1 | This project is user program. |
   |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_USER_SHA256_INIT_ENABLED | 0 | 1 | Because custom function for SHA256 context initialization is used |
+  |            | FWUP_CFG_USER_SHA256_INIT_FUNCTION | my_sha256_init_function | ota_sha256_init_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_ENABLED | 0 | 1 | Because custom function for SHA256 context update is used |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_FUNCTION | my_sha256_update_function | ota_sha256_update_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_FINAL_ENABLED | 0 | 1 | Because custom function for SHA256 context finalization is used |
+  |            | FWUP_CFG_USER_SHA256_FINAL_FUNCTION | my_sha256_final_function | ota_sha256_final_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_ENABLED | 0 | 1 | Because custom function for ECC key verification is used |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_FUNCTION | my_verify_ecdsa_function | ota_verify_ecdsa_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED | 0 | 1 | Because custom function for cryptography encryption (iot-crypto) is used |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_FUNCTION | my_get_crypt_context_function | ota_get_crypt_context_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_OPEN_ENABLED | 0 | 1 | Because custom FWUP flash wrapper  open function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_open_function | ota_flash_open_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper close  function is used |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_FUNCTION | my_flash_close_function | ota_flash_close_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_ERASE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper erase function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_erase_function | ota_flash_erase_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_WRITE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper write function is used |
+  |            | FWUP_CFG_USER_FLASH_WRITE_FUNCTION | my_flash_write_function | ota_flash_write_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_READ_ENABLED | 0 | 1 | Because custom FWUP flash wrapper read function is used |
+  |            | FWUP_CFG_USER_FLASH_READ_FUNCTION | my_flash_read_function | ota_flash_read_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_BANK_SWAP_ENABLED | 0 | 1 | Because custom FWUP flash wrapper bank swap function is used |
+  |            | FWUP_CFG_USER_BANK_SWAP_FUNCTION | my_bank_swap_function | ota_bank_swap_function | Define custom wrapper function name for OTA use case |
 
   #### CK-RX65N Cellular-RYZ014A Projects
 
   | FIT module | Config name | Default Value | Project value | Reason for change |
   |------------|-------------|---------------|---------------|-------------------|
-  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x1000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
+  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x2000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
   |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
   |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
   |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE	| 0 | 1 | This project uses SCI UART terminals. |
   |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This project uses SCI CH5 as the SCI UART terminal. |
+  |            | BSP_CFG_EXPANSION_RAM_ENABLE | 1 | 1\* | *This macro is set to "1" by default.<BR>It is included in this table as a note, we used EXRAM area in GCC project to avoid overflow of RAM area. |
+  |  r_cellular | CELLULAR_CFG_DEBUGLOG | 0 | 4 | Enable debug logging to facilitate problem resolution. |
   | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | OTA library rewrites code flash. |
   |            | FLASH_CFG_DATA_FLASH_BGO | 0 | 1 | LittleFS is implemented to rewrite data flash using BGO functionality. |
   |            | FLASH_CFG_CODE_FLASH_BGO | 0 | 1 | OTA library is implemented to rewrite code flash using BGO functionality. |
   |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
-  | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
+  | r_sci_rx   | SCI_CFG_CH1_INCLUDED | 1 | 0 | Because CH1 is not used. |
+  |            | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
   |            | SCI_CFG_CH6_INCLUDED | 0 | 1 | SCI CH6 is used to communicate with the RYZ014A module. |
   |            | SCI_CFG_CH6_TX_BUFSIZ | 80 | 2180 | The TX buffer size needs to be increased to communicate with RYZ014A. |
   |            | SCI_CFG_CH6_RX_BUFSIZ | 80 | 8192 | The RX buffer size needs to be increased to communicate with RYZ014A. |
   |            | SCI_CFG_TEI_INCLUDED | 0 | 1 | Transmit end interrupt is used. |
+  |            | SCI_CFG_CH6_EN_TXI_NESTED_INT<BR>SCI_CFG_CH6_EN_RXI_NESTED_INT<BR>SCI_CFG_CH6_EN_TEI_NESTED_INT<BR>SCI_CFG_CH6_EN_ERI_NESTED_INT | 0\* | 1\* | (*In test project only*)<BR>Because RYZ014A module requires flow control in case data  is transmit/received too fast.<BR>Enable this macro as workaround for testing. |
   | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses Dual bank function. |
   |            | FWUP_CFG_FUNCTION_MODE | 0 | 1 | This project is user program. |
   |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_USER_SHA256_INIT_ENABLED | 0 | 1 | Because custom function for SHA256 context initialization is used |
+  |            | FWUP_CFG_USER_SHA256_INIT_FUNCTION | my_sha256_init_function | ota_sha256_init_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_ENABLED | 0 | 1 | Because custom function for SHA256 context update is used |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_FUNCTION | my_sha256_update_function | ota_sha256_update_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_FINAL_ENABLED | 0 | 1 | Because custom function for SHA256 context finalization is used |
+  |            | FWUP_CFG_USER_SHA256_FINAL_FUNCTION | my_sha256_final_function | ota_sha256_final_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_ENABLED | 0 | 1 | Because custom function for ECC key verification is used |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_FUNCTION | my_verify_ecdsa_function | ota_verify_ecdsa_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED | 0 | 1 | Because custom function for cryptography encryption (iot-crypto) is used |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_FUNCTION | my_get_crypt_context_function | ota_get_crypt_context_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_OPEN_ENABLED | 0 | 1 | Because custom FWUP flash wrapper  open function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_open_function | ota_flash_open_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper close  function is used |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_FUNCTION | my_flash_close_function | ota_flash_close_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_ERASE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper erase function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_erase_function | ota_flash_erase_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_WRITE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper write function is used |
+  |            | FWUP_CFG_USER_FLASH_WRITE_FUNCTION | my_flash_write_function | ota_flash_write_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_READ_ENABLED | 0 | 1 | Because custom FWUP flash wrapper read function is used |
+  |            | FWUP_CFG_USER_FLASH_READ_FUNCTION | my_flash_read_function | ota_flash_read_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_BANK_SWAP_ENABLED | 0 | 1 | Because custom FWUP flash wrapper bank swap function is used |
+  |            | FWUP_CFG_USER_BANK_SWAP_FUNCTION | my_bank_swap_function | ota_bank_swap_function | Define custom wrapper function name for OTA use case |
 
   #### CK-RX65N Wi-Fi - DA16600 Projects
 
   | FIT module | Config name | Default Value | Project value | Reason for change |
   |------------|-------------|---------------|---------------|-------------------|
-  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x1000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
+  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x2000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
   |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
   |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
-  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE	| 0 | 1 | This project uses SCI UART terminals. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE | 0 | 1 | This project uses SCI UART terminals. |
   |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This project uses SCI CH5 as the SCI UART terminal. |
+  |            | BSP_CFG_EXPANSION_RAM_ENABLE | 1 | 1\* | *This macro is set to "1" by default.<BR>It is included in this table as a note, we used EXRAM area in GCC project to avoid overflow of RAM area. |
   | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | OTA library rewrites code flash. |
   |            | FLASH_CFG_DATA_FLASH_BGO | 0 | 1 | LittleFS is implemented to rewrite data flash using BGO functionality. |
   |            | FLASH_CFG_CODE_FLASH_BGO | 0 | 1 | OTA library is implemented to rewrite code flash using BGO functionality. |
   |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
   | r_wifi_da16xxx | WIFI_CFG_DA16600_SUPPORT | 0 | 1 | Enable support for DA16600 |
-  |                | WIFI_CFG_SCI_CHANNEL | 0 | 1| PMOD1 using SCI6 channel |
-  |                | WIFI_CFG_CTS_SW_CTRL | 0 | 1 | Enable CTS hardware flow control |
-  |                | WIFI_CFG_CTS_PORT | 2 | J | PMOD1_1 is PJ3 |
-  |                | WIFI_CFG_CTS_PIN | 3 | 3 | PMOD1_1 is PJ3 |
-  |                | WIFI_CFG_RTS_PORT | 2 | J | PMOD1_1 is PJ3 |
-  |                | WIFI_CFG_RTS_PIN | 3 | 3 | PMOD1_1 is PJ3 |
-  |                | WIFI_CFG_PFS_SET_VALUE | 0x0BU | 0x0AU | PFS for Jx is 0x0AU |
-  |                | WIFI_CFG_RESET_PORT | A | 5 | PMOD1_8 is P55 |
-  |                | WIFI_CFG_RESET_PIN | 1 | 5 | PMOD1_8 is P55 |
-  |                | WIFI_CFG_SNTP_ENABLE | 0 | 1 | Enable SNTP client service |
-  | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
+  |                | WIFI_CFG_AT_CMD_TX_BUFFER_SIZE | 512 | 1500 | Because the buffer size is insufficient with the default value. |
+  |                | WIFI_CFG_SNTP_ENABLE | 0 | 1 | Enable SNTP client service. |
+  |                | WIFI_CFG_COUNTRY_CODE | "" | "VN" | Configure this value based on the location of the users.<BR> (Please refer to [Settings of Country code and GMT timezone](Getting_Started_Guide.md#settings-of-country-code-and-gmt-timezone-only-using-wi-fi) for settings) |
+  |                | WIFI_CFG_USE_FREERTOS_LOGGING | 0 | 1 | Using FreeRTOS logging. |
+  |                | WIFI_CFG_DEBUG_LOG | 0 | 4 | Print all debug log. |
+  |                | WIFI_CFG_TCP_CREATABLE_SOCKETS| 1 | 4 | Because the socket number is insufficient with the default value. |
+  |                | WIFI_CFG_TCP_SOCKET_RECEIVE_BUFFER_SIZE | 4096 | 8192 | Because the buffer size is insufficient with the default value. |
+  | r_sci_rx   | SCI_CFG_CH1_INCLUDED | 1 | 0 | Because CH1 is not used. |
+  |            | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
   |            | SCI_CFG_CH6_INCLUDED | 0 | 1 | SCI CH6 is used to communicate with the DA16600 module. |
   |            | SCI_CFG_CH6_TX_BUFSIZ | 80 | 2180 | The TX buffer size needs to be increased to communicate with DA16600. |
   |            | SCI_CFG_CH6_RX_BUFSIZ | 80 | 8192 | The RX buffer size needs to be increased to communicate with DA16600. |
@@ -265,6 +334,130 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_USER_SHA256_INIT_ENABLED | 0 | 1 | Because custom function for SHA256 context initialization is used |
+  |            | FWUP_CFG_USER_SHA256_INIT_FUNCTION | my_sha256_init_function | ota_sha256_init_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_ENABLED | 0 | 1 | Because custom function for SHA256 context update is used |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_FUNCTION | my_sha256_update_function | ota_sha256_update_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_FINAL_ENABLED | 0 | 1 | Because custom function for SHA256 context finalization is used |
+  |            | FWUP_CFG_USER_SHA256_FINAL_FUNCTION | my_sha256_final_function | ota_sha256_final_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_ENABLED | 0 | 1 | Because custom function for ECC key verification is used |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_FUNCTION | my_verify_ecdsa_function | ota_verify_ecdsa_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED | 0 | 1 | Because custom function for cryptography encryption (iot-crypto) is used |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_FUNCTION | my_get_crypt_context_function | ota_get_crypt_context_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_OPEN_ENABLED | 0 | 1 | Because custom FWUP flash wrapper  open function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_open_function | ota_flash_open_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper close  function is used |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_FUNCTION | my_flash_close_function | ota_flash_close_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_ERASE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper erase function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_erase_function | ota_flash_erase_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_WRITE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper write function is used |
+  |            | FWUP_CFG_USER_FLASH_WRITE_FUNCTION | my_flash_write_function | ota_flash_write_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_READ_ENABLED | 0 | 1 | Because custom FWUP flash wrapper read function is used |
+  |            | FWUP_CFG_USER_FLASH_READ_FUNCTION | my_flash_read_function | ota_flash_read_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_BANK_SWAP_ENABLED | 0 | 1 | Because custom FWUP flash wrapper bank swap function is used |
+  |            | FWUP_CFG_USER_BANK_SWAP_FUNCTION | my_bank_swap_function | ota_bank_swap_function | Define custom wrapper function name for OTA use case |
+
+  #### CK-RX65N Ethernet Projects with TSIP
+
+  | FIT module | Config name | Default Value | Project value | Reason for change |
+  |------------|-------------|---------------|---------------|-------------------|
+  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x2000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
+  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
+  |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE | 0 | 1 | This project uses SCI UART terminals. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This project uses SCI CH5 as the SCI UART terminal. |
+  |            | BSP_CFG_EXPANSION_RAM_ENABLE | 1 | 1\* | *This macro is set to "1" by default.<BR>It is included in this table as a note, we used EXRAM area in GCC project to avoid overflow of RAM area. |
+  | r_ether_rx | ETHER_CFG_MODE_SEL | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_CH0_PHY_ADDRESS | 0 | 5 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_EMAC_RX_DESCRIPTORS | 1 | 6 | Settings to prevent descriptor exhaustion when sending and receiving Ethernet frames. |
+  |            | ETHER_CFG_EMAC_TX_DESCRIPTORS | 1 | 3 | Settings to prevent descriptor exhaustion when sending and receiving Ethernet frames |
+  |            | ETHER_CFG_CH0_PHY_ACCESS | 1 | 0 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_LINK_PRESENT | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_USE_PHY_ICS1894_32 | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | OTA library rewrites code flash. |
+  |            | FLASH_CFG_DATA_FLASH_BGO | 0 | 1 | LittleFS is implemented to rewrite data flash using BGO functionality. |
+  |            | FLASH_CFG_CODE_FLASH_BGO | 0 | 1 | OTA library is implemented to rewrite code flash using BGO functionality. |
+  |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
+  | r_sci_rx   | SCI_CFG_CH1_INCLUDED | 1 | 0 | Because CH1 is not used. |
+  |            | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
+  |            | SCI_CFG_TEI_INCLUDED | 0 | 1 | Transmit end interrupt is used. |
+  | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses Dual bank function. |
+  |            | FWUP_CFG_FUNCTION_MODE | 0 | 1 | This project is user program. |
+  |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_USER_SHA256_INIT_ENABLED | 0 | 1 | Because custom function for SHA256 context initialization is used |
+  |            | FWUP_CFG_USER_SHA256_INIT_FUNCTION | my_sha256_init_function | ota_sha256_init_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_ENABLED | 0 | 1 | Because custom function for SHA256 context update is used |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_FUNCTION | my_sha256_update_function | ota_sha256_update_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_FINAL_ENABLED | 0 | 1 | Because custom function for SHA256 context finalization is used |
+  |            | FWUP_CFG_USER_SHA256_FINAL_FUNCTION | my_sha256_final_function | ota_sha256_final_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_ENABLED | 0 | 1 | Because custom function for ECC key verification is used |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_FUNCTION | my_verify_ecdsa_function | ota_verify_ecdsa_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED | 0 | 1 | Because custom function for cryptography encryption (iot-crypto) is used |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_FUNCTION | my_get_crypt_context_function | ota_get_crypt_context_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_OPEN_ENABLED | 0 | 1 | Because custom FWUP flash wrapper  open function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_open_function | ota_flash_open_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper close  function is used |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_FUNCTION | my_flash_close_function | ota_flash_close_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_ERASE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper erase function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_erase_function | ota_flash_erase_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_WRITE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper write function is used |
+  |            | FWUP_CFG_USER_FLASH_WRITE_FUNCTION | my_flash_write_function | ota_flash_write_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_READ_ENABLED | 0 | 1 | Because custom FWUP flash wrapper read function is used |
+  |            | FWUP_CFG_USER_FLASH_READ_FUNCTION | my_flash_read_function | ota_flash_read_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_BANK_SWAP_ENABLED | 0 | 1 | Because custom FWUP flash wrapper bank swap function is used |
+  |            | FWUP_CFG_USER_BANK_SWAP_FUNCTION | my_bank_swap_function | ota_bank_swap_function | Define custom wrapper function name for OTA use case |
+
+  #### CK-RX65N Cellular-RYZ014A Projects with TSIP
+
+  | FIT module | Config name | Default Value | Project value | Reason for change |
+  |------------|-------------|---------------|---------------|-------------------|
+  | r_bsp      | BSP_CFG_HEAP_BYTES | 0x400 | 0x2000 | Because LittleFS and fleet provisioning demo uses malloc which is not an OS feature.<br>Also, because the default value cannot secure enough heap memory. |
+  |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
+  |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE	| 0 | 1 | This project uses SCI UART terminals. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This project uses SCI CH5 as the SCI UART terminal. |
+  |            | BSP_CFG_EXPANSION_RAM_ENABLE | 1 | 1\* | *This macro is set to "1" by default.<BR>It is included in this table as a note, we used EXRAM area in GCC project to avoid overflow of RAM area. |
+  |  r_cellular | CELLULAR_CFG_DEBUGLOG | 0 | 4 | Enable debug logging to facilitate problem resolution. |
+  | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | OTA library rewrites code flash. |
+  |            | FLASH_CFG_DATA_FLASH_BGO | 0 | 1 | LittleFS is implemented to rewrite data flash using BGO functionality. |
+  |            | FLASH_CFG_CODE_FLASH_BGO | 0 | 1 | OTA library is implemented to rewrite code flash using BGO functionality. |
+  |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | OTA library is implemented to execute code that rewrites the code flash from another bank. |
+  | r_sci_rx   | SCI_CFG_CH1_INCLUDED | 1 | 0 | Because CH1 is not used. |
+  |            | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used as the SCI UART terminal. |
+  |            | SCI_CFG_CH6_INCLUDED | 0 | 1 | SCI CH6 is used to communicate with the RYZ014A module. |
+  |            | SCI_CFG_CH6_TX_BUFSIZ | 80 | 2180 | The TX buffer size needs to be increased to communicate with RYZ014A. |
+  |            | SCI_CFG_CH6_RX_BUFSIZ | 80 | 8192 | The RX buffer size needs to be increased to communicate with RYZ014A. |
+  |            | SCI_CFG_TEI_INCLUDED | 0 | 1 | Transmit end interrupt is used. |
+  |            | SCI_CFG_CH6_EN_TXI_NESTED_INT<BR>SCI_CFG_CH6_EN_RXI_NESTED_INT<BR>SCI_CFG_CH6_EN_TEI_NESTED_INT<BR>SCI_CFG_CH6_EN_ERI_NESTED_INT | 0\* | 1\* | (*In test project only*)<BR>Because RYZ014A module requires flow control in case data  is transmit/received too fast.<BR>Enable this macro as workaround for testing. |
+  | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses Dual bank function. |
+  |            | FWUP_CFG_FUNCTION_MODE | 0 | 1 | This project is user program. |
+  |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_USER_SHA256_INIT_ENABLED | 0 | 1 | Because custom function for SHA256 context initialization is used |
+  |            | FWUP_CFG_USER_SHA256_INIT_FUNCTION | my_sha256_init_function | ota_sha256_init_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_ENABLED | 0 | 1 | Because custom function for SHA256 context update is used |
+  |            | FWUP_CFG_USER_SHA256_UPDATE_FUNCTION | my_sha256_update_function | ota_sha256_update_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_SHA256_FINAL_ENABLED | 0 | 1 | Because custom function for SHA256 context finalization is used |
+  |            | FWUP_CFG_USER_SHA256_FINAL_FUNCTION | my_sha256_final_function | ota_sha256_final_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_ENABLED | 0 | 1 | Because custom function for ECC key verification is used |
+  |            | FWUP_CFG_USER_VERIFY_ECDSA_FUNCTION | my_verify_ecdsa_function | ota_verify_ecdsa_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED | 0 | 1 | Because custom function for cryptography encryption (iot-crypto) is used |
+  |            | FWUP_CFG_USER_GET_CRYPT_CONTEXT_FUNCTION | my_get_crypt_context_function | ota_get_crypt_context_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_OPEN_ENABLED | 0 | 1 | Because custom FWUP flash wrapper  open function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_open_function | ota_flash_open_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper close  function is used |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_FUNCTION | my_flash_close_function | ota_flash_close_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_ERASE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper erase function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_FUNCTION | my_flash_erase_function | ota_flash_erase_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_WRITE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper write function is used |
+  |            | FWUP_CFG_USER_FLASH_WRITE_FUNCTION | my_flash_write_function | ota_flash_write_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_FLASH_READ_ENABLED | 0 | 1 | Because custom FWUP flash wrapper read function is used |
+  |            | FWUP_CFG_USER_FLASH_READ_FUNCTION | my_flash_read_function | ota_flash_read_function | Define custom wrapper function name for OTA use case |
+  |            | FWUP_CFG_USER_BANK_SWAP_ENABLED | 0 | 1 | Because custom FWUP flash wrapper bank swap function is used |
+  |            | FWUP_CFG_USER_BANK_SWAP_FUNCTION | my_bank_swap_function | ota_bank_swap_function | Define custom wrapper function name for OTA use case |
 
   #### CK-RX65N v1 Bootloader Project
 
@@ -272,13 +465,23 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |------------|-------------|---------------|---------------|-------------------|
   | r_bsp      | BSP_CFG_USER_CHARPUT_ENABLED | 0 | 1 | Use with log output function. |
   |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE | 0 | 1 | This is to use SCI UART Terminal |
+  |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This is to use SCI UART Terminal |
+  |            | BSP_CFG_BOOTLOADER_PROJECT | 0 | 1 | This is to enable clock setting for Bootloader |
   | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | Bootloader rewrites the code flash. |
   |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | Bootloader is implemented to execute code that rewrites the code flash from another bank. |
-  | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used to write firmware and output log information. |
+  | r_sci_rx   | SCI_CFG_CH1_INCLUDED | 1 | 0 | Because CH1 is not used. |
+  |            | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used to write firmware and output log information. |
   | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses the Dual bank function. |
   |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_USER_FLASH_OPEN_ENABLED | 0 | 1 | Because custom FWUP flash wrapper open function is used |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper close function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper erase function is used |
+  |            | FWUP_CFG_USER_FLASH_WRITE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper write function is used |
+  |            | FWUP_CFG_USER_FLASH_READ_ENABLED | 0 | 1 | Because custom FWUP flash wrapper read function is used |
+  |            | FWUP_CFG_USER_BANK_SWAP_ENABLED | 0 | 1 | Because custom FWUP flash wrapper bank swap function is used |
 
   #### CK-RX65N v2 Bootloader Project
 
@@ -286,13 +489,23 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |------------|-------------|---------------|---------------|-------------------|
   | r_bsp      | BSP_CFG_USER_CHARPUT_ENABLED | 0 | 1 | Use with log output function. |
   |            | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 0 | This project uses the Dual bank function. |
+  |            | BSP_CFG_SCI_UART_TERMINAL_ENABLE | 0 | 1 | This is to use SCI UART Terminal |
+  |            | BSP_CFG_SCI_UART_TERMINAL_CHANNEL | 8 | 5 | This is to use SCI UART Terminal |
+  |            | BSP_CFG_BOOTLOADER_PROJECT | 0 | 1 | This is to enable clock setting for Bootloader |
   | r_flash_rx | FLASH_CFG_CODE_FLASH_ENABLE | 0 | 1 | Bootloader rewrites the code flash. |
   |            | FLASH_CFG_CODE_FLASH_RUN_FROM_ROM | 0 | 1 | Bootloader is implemented to execute code that rewrites the code flash from another bank. |
-  | r_sci_rx   | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used to write firmware and output log information. |
+  | r_sci_rx   | SCI_CFG_CH1_INCLUDED | 1 | 0 | Because CH1 is not used. |
+  |            | SCI_CFG_CH5_INCLUDED | 0 | 1 | SCI CH5 is used to write firmware and output log information. |
   | r_fwup     | FWUP_CFG_UPDATE_MODE | 1 | 0 | This project uses the Dual bank function. |
   |            | FWUP_CFG_MAIN_AREA_ADDR_L | 0xFFE00000U | 0xFFF00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_BUF_AREA_ADDR_L | 0xFFEF8000U | 0xFFE00000U | This value is set according to the RX65N ROM 2MB product. |
   |            | FWUP_CFG_AREA_SIZE | 0xF8000U | 0xF0000U | This value is set according to the RX65N ROM 2MB product. |
+  |            | FWUP_CFG_USER_FLASH_OPEN_ENABLED | 0 | 1 | Because custom FWUP flash wrapper open function is used |
+  |            | FWUP_CFG_USER_FLASH_CLOSE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper close function is used |
+  |            | FWUP_CFG_USER_FLASH_ERASE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper erase function is used |
+  |            | FWUP_CFG_USER_FLASH_WRITE_ENABLED | 0 | 1 | Because custom FWUP flash wrapper write function is used |
+  |            | FWUP_CFG_USER_FLASH_READ_ENABLED | 0 | 1 | Because custom FWUP flash wrapper read function is used |
+  |            | FWUP_CFG_USER_BANK_SWAP_ENABLED | 0 | 1 | Because custom FWUP flash wrapper bank swap function is used |
 
 ## Contribution
 

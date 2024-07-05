@@ -28,12 +28,14 @@ Features
 * (RX140) Simultaneous operation of up to 6 channels.
 * (RX24T) Simultaneous operation of up to 3 channels.
 * (RX24U) Simultaneous operation of up to 6 channels.
+* (RX26T) Simultaneous operation of up to 4 channels.
 * (RX66T) Simultaneous operation of up to 7 channels
 * (RX72T) Simultaneous operation of up to 7 channels
 * (RX72M) Simultaneous operation of up to 13 channels
 * (RX72N) Simultaneous operation of up to 13 channels
 * (RX66N) Simultaneous operation of up to 13 channels
 * (RX23E-A) Simultaneous operation of up to 4 channels
+* (RX23E-B) Simultaneous operation of up to 7 channels
 * (RX671) Simultaneous operation of up to 13 channels
 * (RX660) Simultaneous operation of up to 13 channels
 * Simultaneous operation of Async, Sync, or SSPI modes on different channels.

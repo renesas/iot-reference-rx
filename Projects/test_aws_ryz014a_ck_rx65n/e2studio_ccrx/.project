@@ -121,6 +121,24 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1713860645654</id>
+			<name>Middleware/3rdparty</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-tinycrypt|base64_decode</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1713860645661</id>
+			<name>Middleware/3rdparty</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-mbedtls_with_TSIP</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>1670219545404</id>
 			<name>Middleware/AWS</name>
 			<type>9</type>
@@ -148,6 +166,15 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1713860667734</id>
+			<name>Middleware/network_transport</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-using_mbedtls_pkcs11_with_tsip</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>0</id>
 			<name>Middleware/pkcs11</name>
 			<type>9</type>
@@ -172,6 +199,15 @@
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
 				<arguments>1.0-name-matches-false-true-3rdparty|abstractions|c_sdk|coreMQTT-Agent|freertos_plus|FreeRTOS-LTS|logging|tinycbor</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1707216855105</id>
+			<name>Common/FreeRTOS_common/compiler_support</name>
+			<type>10</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-true-gnuc</arguments>
 			</matcher>
 		</filter>
 		<filter>
@@ -400,15 +436,6 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1686716432673</id>
-			<name>Middleware/3rdparty/tinycrypt/lib/source</name>
-			<type>5</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-ecc_dsa.c|ecc.c|sha256.c|utils.c</arguments>
-			</matcher>
-		</filter>
-		<filter>
 			<id>1668406054995</id>
 			<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/MemMang</name>
 			<type>5</type>
@@ -522,7 +549,7 @@
 			<type>9</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-mbedtls_utils</arguments>
+				<arguments>1.0-name-matches-false-true-mbedtls_utils|pkcs11</arguments>
 			</matcher>
 		</filter>
 		<filter>

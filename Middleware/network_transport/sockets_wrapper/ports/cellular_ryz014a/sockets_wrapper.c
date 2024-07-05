@@ -1,6 +1,7 @@
 /*
  * FreeRTOS V202112.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -35,17 +36,15 @@
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
-#include "tcp_sockets_wrapper.h"
-
-/* FreeRTOS includes. */
-#include "FreeRTOS.h"
 #include "list.h"
 #include "semphr.h"
 #include "task.h"
 #include "core_pkcs11.h"
 #include "iot_crypto.h"
-#include "r_cellular_if.h"
+#include "tcp_sockets_wrapper.h"
 
+/* Renesas includes. */
+#include "r_cellular_if.h"
 #include "user_tcp_hook_config.h"
 
 #define MALLOC_SOCKET_CREATION_ERROR -50
@@ -61,7 +60,7 @@ typedef struct xSOCKETContext
 extern st_cellular_ctrl_t cellular_ctrl;
 extern e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset );
 extern void CloseSocket(uint32_t socket_number);
-extern volatile uint32_t count_module_comm;
+volatile uint32_t count_module_comm = 0;
 /**@} */
 /*-----------------------------------------------------------*/
 
@@ -75,7 +74,6 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
 {
 	xSOCKETContextPtr_t pxContext = NULL;
 	BaseType_t socketStatus = 0;
-	BaseType_t closesocketStatus = 0;
     st_cellular_ipaddr_t ip_addr = {0};
 
     configASSERT( pTcpSocket != NULL );
@@ -264,7 +262,6 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
 void TCP_Sockets_Disconnect( Socket_t tcpSocket )
 {
 	xSOCKETContextPtr_t pxContext = ( xSOCKETContextPtr_t ) tcpSocket; /*lint !e9087 cast used for portability. */
-	e_cellular_err_t socketStatus = CELLULAR_SUCCESS;
 
 	if ( NULL != pxContext )
 	{

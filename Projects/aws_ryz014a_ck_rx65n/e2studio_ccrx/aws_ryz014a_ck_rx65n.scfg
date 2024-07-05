@@ -7,9 +7,9 @@
                 <option id="com.renesas.smc.toolchain.option.language" key="com.renesas.smc.toolchain.option.language.c"/>
                 <option id="com.renesas.smc.toolchain.option.buildArtefactType" key="com.renesas.smc.toolchain.option.buildArtefactType.exe"/>
                 <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.freertoslts">
-                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202210.01-LTS-rx-1.0.1"/>
+                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202210.01-LTS-rx-1.3.0"/>
                 </option>
-                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.false"/>
+                <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.true"/>
             </toolchain>
         </configuration>
         <platform id="R5F565NEHxFB"/>
@@ -324,10 +324,10 @@
         <Item currentVect="81" id="SCI3_TXI3" priority="15" usedState="Not Use"/>
         <Item currentVect="82" id="SCI4_RXI4" priority="15" usedState="Not Use"/>
         <Item currentVect="83" id="SCI4_TXI4" priority="15" usedState="Not Use"/>
-        <Item currentVect="84" id="SCI5_RXI5" priority="15" usedState="Not Use"/>
-        <Item currentVect="85" id="SCI5_TXI5" priority="15" usedState="Not Use"/>
-        <Item currentVect="86" id="SCI6_RXI6" priority="15" usedState="Not Use"/>
-        <Item currentVect="87" id="SCI6_TXI6" priority="15" usedState="Not Use"/>
+        <Item currentVect="84" id="SCI5_RXI5" priority="3" usedState="Used"/>
+        <Item currentVect="85" id="SCI5_TXI5" priority="3" usedState="Used"/>
+        <Item currentVect="86" id="SCI6_RXI6" priority="3" usedState="Used"/>
+        <Item currentVect="87" id="SCI6_TXI6" priority="3" usedState="Used"/>
         <Item currentVect="88" id="LVD1_LVD1" priority="15" usedState="Not Use"/>
         <Item currentVect="89" id="LVD2_LVD2" priority="15" usedState="Not Use"/>
         <Item currentVect="90" id="USB0_USBR0" priority="15" usedState="Not Use"/>
@@ -344,14 +344,14 @@
         <Item currentVect="103" id="SCI9_TXI9" priority="15" usedState="Not Use"/>
         <Item currentVect="104" id="SCI10_RXI10" priority="15" usedState="Not Use"/>
         <Item currentVect="105" id="SCI10_TXI10" priority="15" usedState="Not Use"/>
-        <Item currentVect="106" groupchild="&lt;br&gt;1-ERS0&lt;br&gt;2-ERS1" id="BE0" priority="15" usedState="Not Use"/>
-        <Item currentVect="107" groupchild="&lt;br&gt;1-SDIOI" id="BL2" priority="15" usedState="Not Use"/>
+        <Item currentVect="106" groupchild="&lt;br&gt;0-ERS0&lt;br&gt;1-ERS1" id="BE0" priority="15" usedState="Not Use"/>
+        <Item currentVect="107" groupchild="&lt;br&gt;0-SDIOI" id="BL2" priority="15" usedState="Not Use"/>
         <Item currentVect="108" id="RSPI2_SPRI2" priority="15" usedState="Not Use"/>
         <Item currentVect="109" id="RSPI2_SPTI2" priority="15" usedState="Not Use"/>
-        <Item currentVect="110" groupchild="&lt;br&gt;1-TEI0&lt;br&gt;2-ERI0&lt;br&gt;3-TEI1&lt;br&gt;4-ERI1&lt;br&gt;5-TEI2&lt;br&gt;6-ERI2&lt;br&gt;7-TEI3&lt;br&gt;8-ERI3&lt;br&gt;9-TEI4&lt;br&gt;10-ERI4&lt;br&gt;11-TEI5&lt;br&gt;12-ERI5&lt;br&gt;13-TEI6&lt;br&gt;14-ERI6&lt;br&gt;15-TEI7&lt;br&gt;16-ERI7&lt;br&gt;17-TEI12&lt;br&gt;18-ERI12&lt;br&gt;19-SCIX0&lt;br&gt;20-SCIX1&lt;br&gt;21-SCIX2&lt;br&gt;22-SCIX3&lt;br&gt;23-QSPSSLI&lt;br&gt;24-FERRI&lt;br&gt;25-MENDI&lt;br&gt;26-OVFI&lt;br&gt;27-DOPCI&lt;br&gt;28-PCFEI&lt;br&gt;29-PCERI" id="BL0" priority="3" usedState="Used"/>
-        <Item currentVect="111" groupchild="&lt;br&gt;1-CDETI&lt;br&gt;2-CACI&lt;br&gt;3-SDACI&lt;br&gt;4-CDETIO&lt;br&gt;5-ERRIO&lt;br&gt;6-ACCIO&lt;br&gt;7-OEI1&lt;br&gt;8-OEI2&lt;br&gt;9-OEI3&lt;br&gt;10-OEI4&lt;br&gt;11-TEI0&lt;br&gt;12-EEI0&lt;br&gt;13-TEI2&lt;br&gt;14-EEI2&lt;br&gt;15-S12CMPAI&lt;br&gt;16-S12CMPBI&lt;br&gt;17-S12CMPAI1&lt;br&gt;18-S12CMPBI1&lt;br&gt;19-TEI8&lt;br&gt;20-ERI8&lt;br&gt;21-TEI9&lt;br&gt;22-ERI9&lt;br&gt;23-TEI1&lt;br&gt;24-EEI1" id="BL1" priority="15" usedState="Not Use"/>
-        <Item currentVect="112" groupchild="&lt;br&gt;1-TEI10&lt;br&gt;2-ERI10&lt;br&gt;3-TEI11&lt;br&gt;4-ERI11&lt;br&gt;5-SPII0&lt;br&gt;6-SPEI0&lt;br&gt;7-SPII1&lt;br&gt;8-SPEI1&lt;br&gt;9-SPII2&lt;br&gt;10-SPEI2" id="AL0" priority="15" usedState="Not Use"/>
-        <Item currentVect="113" groupchild="&lt;br&gt;1-EINT0&lt;br&gt;2-VPOS&lt;br&gt;3-GR1UF&lt;br&gt;4-GR2UF&lt;br&gt;5-DRW_IRQ" id="AL1" priority="15" usedState="Not Use"/>
+        <Item currentVect="110" groupchild="&lt;br&gt;0-TEI0&lt;br&gt;1-ERI0&lt;br&gt;2-TEI1&lt;br&gt;3-ERI1&lt;br&gt;4-TEI2&lt;br&gt;5-ERI2&lt;br&gt;6-TEI3&lt;br&gt;7-ERI3&lt;br&gt;8-TEI4&lt;br&gt;9-ERI4&lt;br&gt;10-TEI5&lt;br&gt;11-ERI5&lt;br&gt;12-TEI6&lt;br&gt;13-ERI6&lt;br&gt;14-TEI7&lt;br&gt;15-ERI7&lt;br&gt;16-TEI12&lt;br&gt;17-ERI12&lt;br&gt;18-SCIX0&lt;br&gt;19-SCIX1&lt;br&gt;20-SCIX2&lt;br&gt;21-SCIX3&lt;br&gt;24-QSPSSLI&lt;br&gt;26-FERRI&lt;br&gt;27-MENDI&lt;br&gt;28-OVFI&lt;br&gt;29-DOPCI&lt;br&gt;30-PCFEI&lt;br&gt;31-PCERI" id="BL0" priority="3" usedState="Used"/>
+        <Item currentVect="111" groupchild="&lt;br&gt;3-CDETI&lt;br&gt;4-CACI&lt;br&gt;5-SDACI&lt;br&gt;6-CDETIO&lt;br&gt;7-ERRIO&lt;br&gt;8-ACCIO&lt;br&gt;9-OEI1&lt;br&gt;10-OEI2&lt;br&gt;11-OEI3&lt;br&gt;12-OEI4&lt;br&gt;13-TEI0&lt;br&gt;14-EEI0&lt;br&gt;15-TEI2&lt;br&gt;16-EEI2&lt;br&gt;20-S12CMPAI&lt;br&gt;21-S12CMPBI&lt;br&gt;22-S12CMPAI1&lt;br&gt;23-S12CMPBI1&lt;br&gt;24-TEI8&lt;br&gt;25-ERI8&lt;br&gt;26-TEI9&lt;br&gt;27-ERI9&lt;br&gt;28-TEI1&lt;br&gt;29-EEI1" id="BL1" priority="15" usedState="Not Use"/>
+        <Item currentVect="112" groupchild="&lt;br&gt;8-TEI10&lt;br&gt;9-ERI10&lt;br&gt;12-TEI11&lt;br&gt;13-ERI11&lt;br&gt;16-SPII0&lt;br&gt;17-SPEI0&lt;br&gt;18-SPII1&lt;br&gt;19-SPEI1&lt;br&gt;20-SPII2&lt;br&gt;21-SPEI2" id="AL0" priority="15" usedState="Not Use"/>
+        <Item currentVect="113" groupchild="&lt;br&gt;4-EINT0&lt;br&gt;8-VPOS&lt;br&gt;9-GR1UF&lt;br&gt;10-GR2UF&lt;br&gt;11-DRW_IRQ" id="AL1" priority="15" usedState="Not Use"/>
         <Item currentVect="114" id="SCI11_RXI11" priority="15" usedState="Not Use"/>
         <Item currentVect="115" id="SCI11_TXI11" priority="15" usedState="Not Use"/>
         <Item currentVect="116" id="SCI12_RXI12" priority="15" usedState="Not Use"/>
@@ -579,12 +579,48 @@
         <option id="com.renesas.smc.code.type" value="Normal Folder"/>
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
+        <configuration enable="true" exclude="false" id="594f7461-1844-4613-8bcc-a35ed1d38009" inuse="true" name="FreeRTOS_Object">
+            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="202210.01-LTS-rx-1.3.0"/>
+            <allocatable id="OBJECT" name="OBJECT" type="">
+                <allocatable id="TASK" name="TASK" type="">
+                    <allocatable id="TASKOBJECTLINK1" name="TASK" readonly="true" type="">
+                        <option defaultValue="1" id="Initialize" value="0"/>
+                        <option defaultValue="task_[X]" id="TaskCode" value="main_task"/>
+                        <option defaultValue="task_[X]" id="TaskName" value="MAIN_TASK"/>
+                        <option defaultValue="2048" id="StackSize" value="2048"/>
+                        <option defaultValue="NULL" id="TaskHandler" value="NULL"/>
+                        <option defaultValue="NULL" id="Parameter" value="NULL"/>
+                        <option defaultValue="1" id="Priority" value="1"/>
+                    </allocatable>
+                    <option defaultValue="0" id="LinkNum" value="1"/>
+                </allocatable>
+                <allocatable id="QUEUE" name="QUEUE" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="SEMAPHORE" name="SEMAPHORE" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="SWTIMER" name="SWTIMER" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="EVENTGROUP" name="EVENTGROUP" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="STREAMBUFFER" name="STREAMBUFFER" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="MESSAGEBUFFER" name="MESSAGEBUFFER" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+            </allocatable>
+            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+        </configuration>
         <configuration inuse="true" name="r_bsp">
-            <component description="Dependencies : None&#10;The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include &quot;./board/generic_rx64m/r_bsp.h&quot; include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project." detailDescription="Board Support Packages." display="r_bsp" id="r_bsp7.20" version="7.20">
+            <component description="Dependencies : None&#10;The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include &quot;./board/generic_rx64m/r_bsp.h&quot; include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project." detailDescription="Board Support Packages." display="r_bsp" id="r_bsp7.42" version="7.42">
                 <gridItem id="BSP_CFG_USER_STACK_ENABLE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_USTACK_BYTES" selectedIndex="0x1000"/>
                 <gridItem id="BSP_CFG_ISTACK_BYTES" selectedIndex="0x400"/>
-                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x1000"/>
+                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x2000"/>
                 <gridItem id="BSP_CFG_IO_LIB_ENABLE" selectedIndex="1"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="0"/>
                 <gridItem id="BSP_CFG_USER_CHARGET_FUNCTION" selectedIndex="my_sw_charget_function"/>
@@ -626,12 +662,133 @@
                 <gridItem id="BSP_CFG_SCI_UART_TERMINAL_CHANNEL" selectedIndex="5"/>
                 <gridItem id="BSP_CFG_SCI_UART_TERMINAL_BITRATE" selectedIndex="115200"/>
                 <gridItem id="BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY" selectedIndex="15"/>
+                <gridItem id="BSP_CFG_BUS_PRIORITY_INITIALIZE_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_MEMORY_BUS1_3_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_MEMORY_BUS2_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS1_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS2_3_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS4_5_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS6_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_EXTERNAL_BUS_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_BOOTLOADER_PROJECT" selectedIndex="0"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_byteq">
+            <component description="Dependency : r_bsp version(s) 7.20&#10;This module allocates a queue control block in an Open() call to handle indexing for buffers provided by the user application. Additional functions are provided to put and get data from the buffer queue, inspect the number of bytes available or in use, and to flush the queue. There is no limit to the number of queues supported, and queue control blocks can be allocated statically at build time or dynamically at run time." detailDescription="Byte-based circular buffer library." display="r_byteq" id="r_byteq2.10" version="2.10">
+                <gridItem id="BYTEQ_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
+                <gridItem id="BYTEQ_CFG_USE_HEAP_FOR_CTRL_BLKS" selectedIndex="0"/>
+                <gridItem id="BYTEQ_CFG_MAX_CTRL_BLKS" selectedIndex="32"/>
+                <gridItem id="BYTEQ_CFG_PROTECT_QUEUE" selectedIndex="0"/>
+                <gridItem id="BYTEQ_CFG_CRITICAL_SECTION" selectedIndex="0"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_cellular">
+            <component description="Dependency : r_bsp version(s) 7.10&#10;Dependency : r_sci_rx version(s) 4.30&#10;Dependency : r_irq_rx version(s) 4.00&#10;Use UART to control RYZ014A and connect to the Internet." detailDescription="Cellular Module control functions for Renesas MCUs." display="r_cellular" id="r_cellular1.11" version="1.11">
+                <gridItem id="CELLULAR_CFG_AP_NAME" selectedIndex="ibasis.iot"/>
+                <gridItem id="CELLULAR_CFG_AP_USERID" selectedIndex=""/>
+                <gridItem id="CELLULAR_CFG_AP_PASSWORD" selectedIndex=""/>
+                <gridItem id="CELLULAR_CFG_PIN_CODE" selectedIndex=""/>
+                <gridItem id="CELLULAR_CFG_AUTH_TYPE" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_NETWORK_NOTIFY_LEVEL" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_ATC_RETRY_CGATT" selectedIndex="600"/>
+                <gridItem id="CELLULAR_CFG_EX_TIMEOUT" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_SCI_PRIORITY" selectedIndex="4"/>
+                <gridItem id="CELLULAR_CFG_SEMAPHORE_BLOCK_TIME" selectedIndex="15000"/>
+                <gridItem id="CELLULAR_CFG_PSM_PREPARATION_TIME" selectedIndex="100"/>
+                <gridItem id="CELLULAR_CFG_PSM_WAKEUP_LATENCY" selectedIndex="5000"/>
+                <gridItem id="CELLULAR_CFG_RING_LINE_ACTIVE_TIME" selectedIndex="1000"/>
+                <gridItem id="CELLULAR_CFG_UPGRADE_TIME" selectedIndex="60"/>
+                <gridItem id="CELLULAR_CFG_URC_CHARGET_ENABLED" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_URC_CHARGET_FUNCTION" selectedIndex="my_sw_urc_charget_function"/>
+                <gridItem id="CELLULAR_CFG_DEBUGLOG" selectedIndex="4"/>
+                <gridItem id="CELLULAR_CFG_RESET_SIGNAL_LOGIC" selectedIndex="1"/>
+                <gridItem id="CELLULAR_CFG_UART_SCI_CH" selectedIndex="6"/>
+                <gridItem id="CELLULAR_CFG_CTS_SW_CTRL" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_CTS_PORT" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_CTS_PIN" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_PFS_SET_VALUE" selectedIndex="0x0BU"/>
+                <gridItem id="CELLULAR_CFG_RTS_PORT" selectedIndex="0"/>
+                <gridItem id="CELLULAR_CFG_RTS_PIN" selectedIndex="2"/>
+                <gridItem id="CELLULAR_CFG_RESET_PORT" selectedIndex="5"/>
+                <gridItem id="CELLULAR_CFG_RESET_PIN" selectedIndex="5"/>
+                <gridItem id="CELLULAR_CFG_IRQ_NUM" selectedIndex="4"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_flash_rx">
+            <component description="Dependency : r_bsp version(s) 5.20, 5.30, 5.40, 5.50, 5.52, 6.10, 6.20, 6.21, 7.00, 7.10, 7.20, 7.30, 7.40&#10;This module allows the user to program, erase, write and blankcheck the Code and/or Data flash." detailDescription="Flash API for RX100, RX200, RX600. and RX700." display="r_flash_rx" id="r_flash_rx5.11" version="5.11">
+                <gridItem id="FLASH_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_CODE_FLASH_ENABLE" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_DATA_FLASH_BGO" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_CODE_FLASH_BGO" selectedIndex="1"/>
+                <gridItem id="FLASH_CFG_CODE_FLASH_RUN_FROM_ROM" selectedIndex="1"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_irq_rx">
+            <component description="Dependency : r_bsp version(s) 7.40&#10;This software provides a unified, abstracted interface for low-level handling of interrupt events from external pin interrupts. These events are mapped to the IRQ vectors." detailDescription="IRQ Driver" display="r_irq_rx" id="r_irq_rx4.40" version="4.40">
+                <gridItem id="IRQ0" selectedIndex="0"/>
+                <gridItem id="IRQ1" selectedIndex="1"/>
+                <gridItem id="IRQ2" selectedIndex="1"/>
+                <gridItem id="IRQ3" selectedIndex="0"/>
+                <gridItem id="IRQ4" selectedIndex="0"/>
+                <gridItem id="IRQ5" selectedIndex="0"/>
+                <gridItem id="IRQ6" selectedIndex="0"/>
+                <gridItem id="IRQ7" selectedIndex="1"/>
+                <gridItem id="IRQ8" selectedIndex="0"/>
+                <gridItem id="IRQ9" selectedIndex="0"/>
+                <gridItem id="IRQ10" selectedIndex="0"/>
+                <gridItem id="IRQ11" selectedIndex="0"/>
+                <gridItem id="IRQ12" selectedIndex="0"/>
+                <gridItem id="IRQ13" selectedIndex="1"/>
+                <gridItem id="IRQ14" selectedIndex="1"/>
+                <gridItem id="IRQ15" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_REQUIRE_LOCK" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_PARAM_CHECKING" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ0" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ0" selectedIndex="3"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ1" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ1" selectedIndex="3"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ2" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ2" selectedIndex="3"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ3" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ3" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ4" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ4" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ5" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ5" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ6" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ6" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ7" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ7" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ8" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ8" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ9" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ9" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ10" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ10" selectedIndex="3"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ11" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ11" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ12" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ12" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ13" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ13" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ14" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ14" selectedIndex="0"/>
+                <gridItem id="IRQ_CFG_FILT_EN_IRQ15" selectedIndex="1"/>
+                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ15" selectedIndex="0"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration inuse="true" name="r_s12ad_rx">
-            <component description="Dependency : r_bsp version(s) 7.20&#10;This A/D driver supports the temperature sensor, internal reference voltage sensor, and all analog channels available on the MCU. Single scan and continuous scanning are supported. Group and Double Trigger modes are supported. Triggers may be synchronous, asynchronous, or initiated by software. " detailDescription="ADC Driver" display="r_s12ad_rx" id="r_s12ad_rx5.00" version="5.00">
+            <component description="Dependency : r_bsp version(s) 7.40&#10;This A/D driver supports the temperature sensor, internal reference voltage sensor, and all analog channels available on the MCU. Single scan and continuous scanning are supported. Group and Double Trigger modes are supported. Triggers may be synchronous, asynchronous, or initiated by software. " detailDescription="ADC Driver" display="r_s12ad_rx" id="r_s12ad_rx5.30" version="5.30">
                 <gridItem id="AN000" selectedIndex="1"/>
                 <gridItem id="AN001" selectedIndex="0"/>
                 <gridItem id="AN002" selectedIndex="0"/>
@@ -719,109 +876,8 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration inuse="true" name="r_flash_rx">
-            <component description="Dependency : r_bsp version(s) 5.20, 5.30, 5.40, 5.50, 5.52, 6.10, 6.20, 6.21, 7.00, 7.10, 7.20, 7.30&#10;This module allows the user to program, erase, write and blankcheck the Code and/or Data flash." detailDescription="Flash API for RX100, RX200, RX600. and RX700." display="r_flash_rx" id="r_flash_rx5.00" version="5.00">
-                <gridItem id="FLASH_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_CODE_FLASH_ENABLE" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_DATA_FLASH_BGO" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_CODE_FLASH_BGO" selectedIndex="1"/>
-                <gridItem id="FLASH_CFG_CODE_FLASH_RUN_FROM_ROM" selectedIndex="1"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
-        <configuration inuse="true" name="r_irq_rx">
-            <component description="Dependency : r_bsp version(s) 7.10&#10;This software provides a unified, abstracted interface for low-level handling of interrupt events from external pin interrupts. These events are mapped to the IRQ vectors." detailDescription="IRQ Driver" display="r_irq_rx" id="r_irq_rx4.00" version="4.00">
-                <gridItem id="IRQ0" selectedIndex="0"/>
-                <gridItem id="IRQ1" selectedIndex="1"/>
-                <gridItem id="IRQ2" selectedIndex="1"/>
-                <gridItem id="IRQ3" selectedIndex="0"/>
-                <gridItem id="IRQ4" selectedIndex="0"/>
-                <gridItem id="IRQ5" selectedIndex="0"/>
-                <gridItem id="IRQ6" selectedIndex="0"/>
-                <gridItem id="IRQ7" selectedIndex="1"/>
-                <gridItem id="IRQ8" selectedIndex="0"/>
-                <gridItem id="IRQ9" selectedIndex="0"/>
-                <gridItem id="IRQ10" selectedIndex="0"/>
-                <gridItem id="IRQ11" selectedIndex="0"/>
-                <gridItem id="IRQ12" selectedIndex="0"/>
-                <gridItem id="IRQ13" selectedIndex="1"/>
-                <gridItem id="IRQ14" selectedIndex="1"/>
-                <gridItem id="IRQ15" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_REQUIRE_LOCK" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_PARAM_CHECKING" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ0" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ0" selectedIndex="3"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ1" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ1" selectedIndex="3"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ2" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ2" selectedIndex="3"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ3" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ3" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ4" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ4" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ5" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ5" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ6" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ6" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ7" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ7" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ8" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ8" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ9" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ9" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ10" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ10" selectedIndex="3"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ11" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ11" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ12" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ12" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ13" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ13" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ14" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ14" selectedIndex="0"/>
-                <gridItem id="IRQ_CFG_FILT_EN_IRQ15" selectedIndex="1"/>
-                <gridItem id="IRQ_CFG_FILT_PLCK_IRQ15" selectedIndex="0"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
-        <configuration inuse="true" name="r_cellular">
-            <component description="Dependency : r_bsp version(s) 7.10&#10;Dependency : r_sci_rx version(s) 4.30&#10;Dependency : r_irq_rx version(s) 4.00&#10;Use UART to control RYZ014A and connect to the Internet." detailDescription="Cellular Module control functions for Renesas MCUs." display="r_cellular" id="r_cellular1.11" version="1.11">
-                <gridItem id="CELLULAR_CFG_AP_NAME" selectedIndex="ibasis.iot"/>
-                <gridItem id="CELLULAR_CFG_AP_USERID" selectedIndex=""/>
-                <gridItem id="CELLULAR_CFG_AP_PASSWORD" selectedIndex=""/>
-                <gridItem id="CELLULAR_CFG_PIN_CODE" selectedIndex=""/>
-                <gridItem id="CELLULAR_CFG_AUTH_TYPE" selectedIndex="2"/>
-                <gridItem id="CELLULAR_CFG_NETWORK_NOTIFY_LEVEL" selectedIndex="2"/>
-                <gridItem id="CELLULAR_CFG_ATC_RETRY_CGATT" selectedIndex="600"/>
-                <gridItem id="CELLULAR_CFG_EX_TIMEOUT" selectedIndex="0"/>
-                <gridItem id="CELLULAR_CFG_SCI_PRIORITY" selectedIndex="4"/>
-                <gridItem id="CELLULAR_CFG_SEMAPHORE_BLOCK_TIME" selectedIndex="15000"/>
-                <gridItem id="CELLULAR_CFG_PSM_PREPARATION_TIME" selectedIndex="100"/>
-                <gridItem id="CELLULAR_CFG_PSM_WAKEUP_LATENCY" selectedIndex="5000"/>
-                <gridItem id="CELLULAR_CFG_RING_LINE_ACTIVE_TIME" selectedIndex="1000"/>
-                <gridItem id="CELLULAR_CFG_UPGRADE_TIME" selectedIndex="60"/>
-                <gridItem id="CELLULAR_CFG_URC_CHARGET_ENABLED" selectedIndex="0"/>
-                <gridItem id="CELLULAR_CFG_URC_CHARGET_FUNCTION" selectedIndex="my_sw_urc_charget_function"/>
-                <gridItem id="CELLULAR_CFG_DEBUGLOG" selectedIndex="4"/>
-                <gridItem id="CELLULAR_CFG_RESET_SIGNAL_LOGIC" selectedIndex="1"/>
-                <gridItem id="CELLULAR_CFG_UART_SCI_CH" selectedIndex="6"/>
-                <gridItem id="CELLULAR_CFG_CTS_SW_CTRL" selectedIndex="0"/>
-                <gridItem id="CELLULAR_CFG_CTS_PORT" selectedIndex="2"/>
-                <gridItem id="CELLULAR_CFG_CTS_PIN" selectedIndex="2"/>
-                <gridItem id="CELLULAR_CFG_PFS_SET_VALUE" selectedIndex="0x0BU"/>
-                <gridItem id="CELLULAR_CFG_RTS_PORT" selectedIndex="0"/>
-                <gridItem id="CELLULAR_CFG_RTS_PIN" selectedIndex="2"/>
-                <gridItem id="CELLULAR_CFG_RESET_PORT" selectedIndex="5"/>
-                <gridItem id="CELLULAR_CFG_RESET_PIN" selectedIndex="5"/>
-                <gridItem id="CELLULAR_CFG_IRQ_NUM" selectedIndex="4"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
         <configuration inuse="true" name="r_sci_rx">
-            <component description="Dependency : r_bsp version(s) 7.20&#10;Dependency : r_byteq version(s) 1.40, 1.50, 1.60, 1.70, 1.71, 1.80, 1.81, 1.82, 1.90, 2.00&#10;This module allows any number of SCI channels on the MCU to run in full duplex Asynchronous mode, single master Simple SPI mode, or master Synchronous mode simultaneously. The driver is interrupt driven and non-blocking. Transmit and receive buffer queues are used in Asynchronous mode and their sizes may be configured independently for each channel. Resources for unused channels or modes may be removed via settings in the driver's config.h file." detailDescription="SCI Driver" display="r_sci_rx" id="r_sci_rx4.40" version="4.40">
+            <component description="Dependency : r_bsp version(s) 7.40&#10;Dependency : r_byteq version(s) 1.40, 1.50, 1.60, 1.70, 1.71, 1.80, 1.81, 1.82, 1.90, 2.00, 2.10&#10;This module allows any number of SCI channels on the MCU to run in full duplex Asynchronous mode, single master Simple SPI mode, or master Synchronous mode simultaneously. The driver is interrupt driven and non-blocking. Transmit and receive buffer queues are used in Asynchronous mode and their sizes may be configured independently for each channel. Resources for unused channels or modes may be removed via settings in the driver's config.h file." detailDescription="SCI Driver" display="r_sci_rx" id="r_sci_rx5.00" version="5.00">
                 <gridItem id="SCK0" selectedIndex="0"/>
                 <gridItem id="RXD0/SMISO0/SSCL0" selectedIndex="0"/>
                 <gridItem id="TXD0/SMOSI0/SSDA0" selectedIndex="0"/>
@@ -911,6 +967,58 @@
                 <gridItem id="SCI_CFG_CH10_INCLUDED" selectedIndex="0"/>
                 <gridItem id="SCI_CFG_CH11_INCLUDED" selectedIndex="0"/>
                 <gridItem id="SCI_CFG_CH12_INCLUDED" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH0_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH1_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH2_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH3_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH4_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH5_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH6_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH7_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH8_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH9_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH10_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH11_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH12_EN_TXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH0_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH1_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH2_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH3_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH4_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH5_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH6_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH7_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH8_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH9_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH10_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH11_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH12_EN_RXI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH0_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH1_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH2_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH3_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH4_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH5_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH6_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH7_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH8_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH9_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH10_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH11_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH12_EN_TEI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH0_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH1_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH2_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH3_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH4_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH5_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH6_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH7_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH8_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH9_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH10_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH11_EN_ERI_NESTED_INT" selectedIndex="0"/>
+                <gridItem id="SCI_CFG_CH12_EN_ERI_NESTED_INT" selectedIndex="0"/>
                 <gridItem id="SCI_CFG_CH0_TX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH1_TX_BUFSIZ" selectedIndex="80"/>
                 <gridItem id="SCI_CFG_CH2_TX_BUFSIZ" selectedIndex="80"/>
@@ -1049,45 +1157,8 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration inuse="true" name="r_byteq">
-            <component description="Dependency : r_bsp version(s) 6.20&#10;This module allocates a queue control block in an Open() call to handle indexing for buffers provided by the user application. Additional functions are provided to put and get data from the buffer queue, inspect the number of bytes available or in use, and to flush the queue. There is no limit to the number of queues supported, and queue control blocks can be allocated statically at build time or dynamically at run time." detailDescription="Byte-based circular buffer library." display="r_byteq" id="r_byteq2.00" version="2.00">
-                <gridItem id="BYTEQ_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
-                <gridItem id="BYTEQ_CFG_USE_HEAP_FOR_CTRL_BLKS" selectedIndex="0"/>
-                <gridItem id="BYTEQ_CFG_MAX_CTRL_BLKS" selectedIndex="32"/>
-                <gridItem id="BYTEQ_CFG_PROTECT_QUEUE" selectedIndex="0"/>
-                <gridItem id="BYTEQ_CFG_CRITICAL_SECTION" selectedIndex="0"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
-        <configuration inuse="true" name="r_tsip_rx">
-            <component description="Dependency : r_bsp version(s) 7.10&#10;Support functions: AES, GCM, CCM, CMAC, SHA, MD5, Triple-DES, ARC4, RSA, ECC, Random number generate, Key management, secure boot/secure firmware update.&#10;The &quot;.l&quot; in version number means library version." detailDescription="TSIP(Trusted Secure IP) driver." display="r_tsip_rx" id="r_tsip_rx1.17.l" version="1.17.l"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
-        <configuration inuse="true" name="r_fwup">
-            <component description="Dependency : r_flash_rx version(s) 4.80, 4.91&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.01" version="2.01">
-                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
-                <gridItem id="FWUP_CFG_FUNCTION_MODE" selectedIndex="1"/>
-                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000U"/>
-                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000U"/>
-                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000U"/>
-                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x8000U"/>
-                <gridItem id="FWUP_CFG_CF_W_UNIT_SIZE" selectedIndex="128U"/>
-                <gridItem id="FWUP_CFG_EXT_BUF_AREA_ADDR_L" selectedIndex="0x00000U"/>
-                <gridItem id="FWUP_CFG_EXT_BUF_AREA_BLK_SIZE" selectedIndex="4096U"/>
-                <gridItem id="FWUP_CFG_DF_ADDR_L" selectedIndex="0x00100000"/>
-                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64U"/>
-                <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512U"/>
-                <gridItem id="FWUP_CFG_FWUPV1_COMPATIBLE" selectedIndex="0"/>
-                <gridItem id="FWUP_CFG_SIGNATURE_VERIFICATION" selectedIndex="0"/>
-                <gridItem id="FWUP_CFG_PRINTF_DISABLE" selectedIndex="0"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
-        <configuration enable="true" exclude="false" id="855d049e-f1f8-45c2-ae39-ee5946692720" inuse="true" name="FreeRTOS_Kernel">
-            <component description="FreeRTOS Kernel component detail" detailDescription="FreeRTOS Kernel component detail" display="FreeRTOS Kernel component" id="FreeRTOS_Kernel202210.01-LTS-rx-1.0.1" version="202210.01-LTS-rx-1.0.1">
+        <configuration enable="true" exclude="false" id="4417f710-df09-4758-bd4a-c41ce7de2477" inuse="true" name="FreeRTOS_Kernel">
+            <component description="FreeRTOS Kernel component detail" detailDescription="FreeRTOS Kernel component detail" display="FreeRTOS Kernel component" id="FreeRTOS_Kernel202210.01-LTS-rx-1.3.0" version="10.5.1">
                 <gridItem id="configENABLE_BACKWARD_COMPATIBILITY" selectedIndex="1"/>
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
                 <gridItem id="configUSE_PORT_OPTIMISED_TASK_SELECTION" selectedIndex="0"/>
@@ -1190,52 +1261,76 @@
                 <gridItem id="configUSE_TIME_SLICING" selectedIndex="1"/>
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="930ac371-ab33-4c0b-8fd9-dff7af4177dd" inuse="true" name="FreeRTOS_LittleFS">
-            <component description="FreeRTOS LittleFS component detail" detailDescription="FreeRTOS LittleFS component detail" display="FreeRTOS LittleFS component" id="FreeRTOS_LittleFS202210.01-LTS-rx-1.0.1" version="202210.01-LTS-rx-1.0.1">
+        <configuration enable="true" exclude="false" id="6142870a-cbac-4ac0-a550-84b51bef6737" inuse="true" name="LittleFS">
+            <component description="LittleFS component detail" detailDescription="LittleFS component detail" display="LittleFS component" id="LittleFS202210.01-LTS-rx-1.3.0" version="2.5.1">
                 <gridItem id="LFS_FLASH_READ_SIZE" selectedIndex="1"/>
                 <gridItem id="LFS_FLASH_PROGRAM_SIZE" selectedIndex="4"/>
                 <gridItem id="LFS_FLASH_BLOCK_SIZE" selectedIndex="128"/>
                 <gridItem id="LFS_FLASH_BLOCK_COUNT" selectedIndex="70"/>
-                <gridItem id="RM_LITTLEFS_FLASH_DATA_START" selectedIndex="FLASH_DF_BLOCK_0"/>
+                <gridItem id="RM_LITTLEFS_FLASH_DATA_START" selectedIndex="FLASH_DF_BLOCK_0_MACRO"/>
             </component>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
-        </configuration>
-        <configuration enable="true" exclude="false" id="cd2be959-56ec-4322-ae66-53b703e234a3" inuse="true" name="FreeRTOS_Object">
-            <allocatable id="OBJECT" name="OBJECT" type="">
-                <allocatable id="TASK" name="TASK" type="">
-                    <allocatable id="TASKOBJECTLINK1" name="TASK" type="" readonly="true">
-                        <option defaultValue="1" id="Initialize" value="0"/>
-                        <option defaultValue="task_[X]" id="TaskCode" value="main_task"/>
-                        <option defaultValue="task_[X]" id="TaskName" value="MAIN_TASK"/>
-                        <option defaultValue="512" id="StackSize" value="512"/>
-                        <option defaultValue="NULL" id="TaskHandler" value="NULL"/>
-                        <option defaultValue="NULL" id="Parameter" value="NULL"/>
-                        <option defaultValue="1" id="Priority" value="1"/>
-                    </allocatable>
-                    <option defaultValue="0" id="LinkNum" value="1"/>
-                </allocatable>
-                <allocatable id="QUEUE" name="QUEUE" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="SEMAPHORE" name="SEMAPHORE" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="SWTIMER" name="SWTIMER" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="EVENTGROUP" name="EVENTGROUP" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="STREAMBUFFER" name="STREAMBUFFER" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="MESSAGEBUFFER" name="MESSAGEBUFFER" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-            </allocatable>
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="1.0.113"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_tsip_rx">
+            <component description="Dependency : r_bsp version(s) 7.30&#10;Support functions: AES, GCM, CCM, CMAC, SHA, MD5, Triple-DES, ARC4, RSA, ECC, Random number generate, Key management, secure boot/secure firmware update.&#10;The &quot;.l&quot; in version number means library version." detailDescription="TSIP(Trusted Secure IP) driver." display="r_tsip_rx" id="r_tsip_rx1.20.l" version="1.20.l"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_fwup">
+            <component description="Dependency : r_flash_rx version(s) 4.80, 4.91, 5.10&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.03" version="2.03">
+                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_FUNCTION_MODE" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000U"/>
+                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000U"/>
+                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000U"/>
+                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x8000U"/>
+                <gridItem id="FWUP_CFG_CF_W_UNIT_SIZE" selectedIndex="128U"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_ADDR_L" selectedIndex="0x00000U"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_BLK_SIZE" selectedIndex="4096U"/>
+                <gridItem id="FWUP_CFG_DF_ADDR_L" selectedIndex="0x00100000"/>
+                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64U"/>
+                <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512U"/>
+                <gridItem id="FWUP_CFG_FWUPV1_COMPATIBLE" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_SIGNATURE_VERIFICATION" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_PRINTF_DISABLE" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_DISABLE_INTERRUPT_ENABLED" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_DISABLE_INTERRUPT_FUNCTION" selectedIndex="my_disable_interrupt_function"/>
+                <gridItem id="FWUP_CFG_USER_ENABLE_INTERRUPT_ENABLED" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_ENABLE_INTERRUPT_FUNCTION" selectedIndex="my_enable_interrupt_function"/>
+                <gridItem id="FWUP_CFG_USER_SOFTWARE_DELAY_ENABLED" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_SOFTWARE_DELAY_FUNCTION" selectedIndex="my_software_delay_function"/>
+                <gridItem id="FWUP_CFG_USER_SOFTWARE_RESET_ENABLED" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_SOFTWARE_RESET_FUNCTION" selectedIndex="my_software_reset_function"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_INIT_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_INIT_FUNCTION" selectedIndex="ota_sha256_init_function"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_UPDATE_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_UPDATE_FUNCTION" selectedIndex="ota_sha256_update_function"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_FINAL_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_FINAL_FUNCTION" selectedIndex="ota_sha256_final_function"/>
+                <gridItem id="FWUP_CFG_USER_VERIFY_ECDSA_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_VERIFY_ECDSA_FUNCTION" selectedIndex="ota_verify_ecdsa_function"/>
+                <gridItem id="FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_GET_CRYPT_CONTEXT_FUNCTION" selectedIndex="ota_get_crypt_context_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_OPEN_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_OPEN_FUNCTION" selectedIndex="ota_flash_open_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_CLOSE_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_CLOSE_FUNCTION" selectedIndex="ota_flash_close_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_ERASE_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_ERASE_FUNCTION" selectedIndex="ota_flash_erase_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_WRITE_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_WRITE_FUNCTION" selectedIndex="ota_flash_write_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_READ_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_READ_FUNCTION" selectedIndex="ota_flash_read_function"/>
+                <gridItem id="FWUP_CFG_USER_BANK_SWAP_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_BANK_SWAP_FUNCTION" selectedIndex="ota_bank_swap_function"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
     </tool>
     <tool id="System">

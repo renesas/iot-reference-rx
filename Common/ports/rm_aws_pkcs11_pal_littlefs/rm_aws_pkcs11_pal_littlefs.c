@@ -55,7 +55,11 @@
 #include "transport_mbedtls_pkcs11.h"
 
 /* mbedTLS includes. */
-#include "mbedtls_config.h"
+#if !defined( MBEDTLS_CONFIG_FILE )
+    #include "mbedtls_config.h"
+#else
+    #include MBEDTLS_CONFIG_FILE
+#endif
 #include "mbedtls/compat-2.x.h"
 extern lfs_t RM_STDIO_LITTLEFS_CFG_LFS;
 volatile uint32_t pvwrite = 0;
@@ -92,29 +96,20 @@ uint8_t g_object_handle_dictionary[pkcs11configMAX_NUM_OBJECTS][pkcs11configMAX_
     pkcs11configLABEL_JITP_CERTIFICATE,
 #endif
 };
-TlsTransportStatus_t Crypto( void );
+void Crypto( void );
 
-TlsTransportStatus_t Crypto( void )
+void Crypto( void )
 {
-    TlsTransportStatus_t returnStatus = TLS_TRANSPORT_SUCCESS;
-
     /* Set the mutex functions for mbed TLS thread safety. */
     mbedtls_threading_set_alt( mbedtls_platform_mutex_init,
                                mbedtls_platform_mutex_free,
                                mbedtls_platform_mutex_lock,
                                mbedtls_platform_mutex_unlock );
-
-    if( returnStatus == TLS_TRANSPORT_SUCCESS )
-    {
-        LogDebug( ( "Successfully initialized mbedTLS." ) );
-    }
-
-    return returnStatus;
 }
 /*
  *  @brief Initialize the PAL.
  */
-CK_RV PKCS11_PAL_Initialize ()
+CK_RV PKCS11_PAL_Initialize ( void )
 {
 	Crypto();
     return CKR_OK;
@@ -203,7 +198,6 @@ CK_OBJECT_HANDLE PKCS11_PAL_FindObject (CK_BYTE_PTR pxLabel, CK_ULONG usLength)
     {
         if (!strcmp((char *) &g_object_handle_dictionary[i], (char *) pxLabel))
         {
-            lfs_file_t file;
             struct lfs_info xFileInfo = { 0 };
             if( lfs_stat( &RM_STDIO_LITTLEFS_CFG_LFS, (char *) pxLabel, &xFileInfo ) == LFS_ERR_OK )
 			{

@@ -18,7 +18,7 @@
  * http://www.renesas.com/disclaimer
  *********************************************************************************************************************/
 /**********************************************************************************************************************
- * File Name    : tcp_hook.c
+ * File Name    : TCP_socket_hook.c
  * Description  : the function to
  *********************************************************************************************************************/
 /**********************************************************************************************************************
@@ -90,7 +90,7 @@ e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset )
 
 #else
 
-volatile uint32_t count_module_comm = 0;
+extern volatile uint32_t count_module_comm;
 
 /* This function resets cellular hardware when error and closes cellular module to reconnect to AP */
 e_cellular_err_t SocketErrorHook( e_cellular_err_t error, bool force_reset )

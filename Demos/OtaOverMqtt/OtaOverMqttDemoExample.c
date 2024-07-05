@@ -1,6 +1,7 @@
 /*
  * FreeRTOS V202112.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -78,7 +79,6 @@
 #include "store.h"
 
 #include "mqtt_agent_task.h"
-extern KeyValueStore_t gKeyValueStore;
 
 /*------------- Demo configurations -------------------------*/
 
@@ -1179,108 +1179,111 @@ static BaseType_t prvRunOTADemo( void )
 
     /* Set OTA Library interfaces.*/
     setOtaInterfaces( &otaInterfaces );
-
-    /****************************** Init OTA Library. ******************************/
-
-    if( xStatus == pdPASS )
+    while(1)
     {
-        memset( eventBuffer, 0x00, sizeof( eventBuffer ) );
+        /****************************** Init OTA Library. ******************************/
 
-        if( ( otaRet = OTA_Init( &otaBuffer,
-                                 &otaInterfaces,
-                                 ( const uint8_t * ) ( pcThingName ),
-                                 otaAppCallback ) ) != OtaErrNone )
+        if( xStatus == pdPASS )
         {
-            LogError( ( "Failed to initialize OTA Agent, exiting = %u.",
-                        otaRet ) );
+            memset( eventBuffer, 0x00, sizeof( eventBuffer ) );
 
-            xStatus = pdFAIL;
+            if( ( otaRet = OTA_Init( &otaBuffer,
+                                    &otaInterfaces,
+                                    ( const uint8_t * ) ( pcThingName ),
+                                    otaAppCallback ) ) != OtaErrNone )
+            {
+                LogError( ( "Failed to initialize OTA Agent, exiting = %u.",
+                            otaRet ) );
+
+                xStatus = pdFAIL;
+            }
         }
-    }
 
-    /****************************** Create OTA Agent Task. ******************************/
+        /****************************** Create OTA Agent Task. ******************************/
 
-    if( xStatus == pdPASS )
-    {
-        xStatus = xTaskCreate( prvOTAAgentTask,
-                               "OTA Agent Task",
-                               OTA_AGENT_TASK_STACK_SIZE,
-                               NULL,
-                               OTA_AGENT_TASK_PRIORITY,
-                               NULL );
-
-        if( xStatus != pdPASS )
+        if( xStatus == pdPASS )
         {
-            LogError( ( "Failed to create OTA agent task:" ) );
-        }
-    }
+            xStatus = xTaskCreate( prvOTAAgentTask,
+                                "OTA Agent Task",
+                                OTA_AGENT_TASK_STACK_SIZE,
+                                NULL,
+                                OTA_AGENT_TASK_PRIORITY,
+                                NULL );
 
-    if( xStatus == pdPASS )
-    {
+            if( xStatus != pdPASS )
+            {
+                LogError( ( "Failed to create OTA agent task:" ) );
+            }
+        }
+
+        if( xStatus == pdPASS )
+        {
+            /**
+             * Register a callback for receiving messages intended for OTA agent from broker,
+             * for which the topic has not been subscribed for.
+             */
+            xStatus = xAddMQTTTopicFilterCallback ( OTA_JOB_ACCEPTED_RESPONSE_TOPIC_FILTER,
+                                                    OTA_JOB_ACCEPTED_RESPONSE_TOPIC_FILTER_LENGTH,
+                                                prvMqttJobCallback,
+                                                NULL,
+                                                pdFALSE);
+        }
+
+        /****************************** Start OTA ******************************/
+
+        if( xStatus == pdPASS )
+        {
+            /* Send start event to OTA Agent.*/
+            eventMsg.eventId = OtaAgentEventStart;
+            OTA_SignalEvent( &eventMsg );
+        }
+
+        /****************************** Loop and display OTA statistics ******************************/
+
+        if( xStatus == pdPASS )
+        {
+            while( ( state = OTA_GetState() ) != OtaAgentStateStopped )
+            {
+                /* Get OTA statistics for currently executing job. */
+                if( state != OtaAgentStateSuspended )
+                {
+                    OTA_GetStatistics( &otaStatistics );
+
+                    LogInfo( ( " Received: %u   Queued: %u   Processed: %u   Dropped: %u",
+                            otaStatistics.otaPacketsReceived,
+                            otaStatistics.otaPacketsQueued,
+                            otaStatistics.otaPacketsProcessed,
+                            otaStatistics.otaPacketsDropped ) );
+
+                    if (xWaitForMQTTAgentState (MQTT_AGENT_STATE_DISCONNECTED,
+                                                pdMS_TO_TICKS(otaexampleTASK_DELAY_MS)) == pdTRUE)
+                    {
+                        /* Suspend ongoing OTA job if any until MQTT agent is reconnected. */
+                        prvSuspendOTA ();
+
+                        (void ) xWaitForMQTTAgentState (MQTT_AGENT_STATE_CONNECTED, portMAX_DELAY);
+
+                        /* Resume OTA Update so that agent checks for any new jobs during a lost connection. */
+                        prvResumeOTA ();
+                    }
+                }
+
+                vTaskDelay( pdMS_TO_TICKS( otaexampleTASK_DELAY_MS ) );
+            }
+        }
+
+        LogInfo( ( "---------OTA agent task stopped. Exiting OTA demo.---------" ) );
+
         /**
-         * Register a callback for receiving messages intended for OTA agent from broker,
+         * Remvove callback for receiving messages intended for OTA agent from broker,
          * for which the topic has not been subscribed for.
          */
-        xStatus = xAddMQTTTopicFilterCallback ( OTA_JOB_ACCEPTED_RESPONSE_TOPIC_FILTER,
-                                                OTA_JOB_ACCEPTED_RESPONSE_TOPIC_FILTER_LENGTH,
-                                               prvMqttJobCallback,
-                                               NULL,
-                                               pdFALSE);
+        vRemoveMQTTTopicFilterCallback( OTA_JOB_ACCEPTED_RESPONSE_TOPIC_FILTER,
+                                        OTA_JOB_ACCEPTED_RESPONSE_TOPIC_FILTER_LENGTH );
     }
-
-    /****************************** Start OTA ******************************/
-
-    if( xStatus == pdPASS )
-    {
-        /* Send start event to OTA Agent.*/
-        eventMsg.eventId = OtaAgentEventStart;
-        OTA_SignalEvent( &eventMsg );
-    }
-
-    /****************************** Loop and display OTA statistics ******************************/
-
-    if( xStatus == pdPASS )
-    {
-        while( ( state = OTA_GetState() ) != OtaAgentStateStopped )
-        {
-            /* Get OTA statistics for currently executing job. */
-            if( state != OtaAgentStateSuspended )
-            {
-                OTA_GetStatistics( &otaStatistics );
-
-                LogInfo( ( " Received: %u   Queued: %u   Processed: %u   Dropped: %u",
-                           otaStatistics.otaPacketsReceived,
-                           otaStatistics.otaPacketsQueued,
-                           otaStatistics.otaPacketsProcessed,
-                           otaStatistics.otaPacketsDropped ) );
-
-                if (xWaitForMQTTAgentState (MQTT_AGENT_STATE_DISCONNECTED,
-                                            pdMS_TO_TICKS(otaexampleTASK_DELAY_MS)) == pdTRUE)
-                {
-                    /* Suspend ongoing OTA job if any until MQTT agent is reconnected. */
-                    prvSuspendOTA ();
-
-                    (void ) xWaitForMQTTAgentState (MQTT_AGENT_STATE_CONNECTED, portMAX_DELAY);
-
-                    /* Resume OTA Update so that agent checks for any new jobs during a lost connection. */
-                    prvResumeOTA ();
-                }
-            }
-
-            vTaskDelay( pdMS_TO_TICKS( otaexampleTASK_DELAY_MS ) );
-        }
-    }
-
-    LogInfo( ( "---------OTA agent task stopped. Exiting OTA demo.---------" ) );
-
-    /**
-     * Remvove callback for receiving messages intended for OTA agent from broker,
-     * for which the topic has not been subscribed for.
-     */
-    vRemoveMQTTTopicFilterCallback( OTA_JOB_ACCEPTED_RESPONSE_TOPIC_FILTER,
-                                    OTA_JOB_ACCEPTED_RESPONSE_TOPIC_FILTER_LENGTH );
-
+    
     return xStatus;
+
 }
 
 /**
@@ -1314,10 +1317,10 @@ static void vOtaDemoTask( void * pvParam )
     pcThingName = clientcredentialIOT_THING_NAME ;
     xThingNameLength = strlen(pcThingName);
 #else
-    xThingNameLength = gKeyValueStore.table[KVS_CORE_THING_NAME].valueLength;
+    xThingNameLength = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
     if (xThingNameLength > 0)
     {
-        pcThingName = GetStringValue (KVS_CORE_THING_NAME, xThingNameLength + 1);
+        pcThingName = GetStringValue (KVS_CORE_THING_NAME, xThingNameLength );
     }
     else
     {

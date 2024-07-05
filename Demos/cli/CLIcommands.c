@@ -309,7 +309,8 @@ static BaseType_t prvReset( char * pcWriteBuffer,
 	( void ) xWriteBufferLen;
 	configASSERT( pcWriteBuffer );
 	sprintf( pcWriteBuffer, "Resetting !\r\n");
-	set_psw( 0 );
+	vTaskDelay(1000);
+	R_BSP_SET_PSW( 0 );
 	R_BSP_InterruptsDisable();
 	R_BSP_SoftwareReset();
 
@@ -328,8 +329,10 @@ static BaseType_t prvFormat( char * pcWriteBuffer,
 	( void ) pcCommandString;
 	( void ) xWriteBufferLen;
 	int32_t err ;
-	RM_LITTLEFS_FLASH_Open(g_rm_littlefs0.p_ctrl, g_rm_littlefs0.p_cfg);
 
+    /* File system is already mounted, unmount it to free up memory. */
+    lfs_unmount(&g_rm_littlefs0_lfs);
+	RM_LITTLEFS_FLASH_Open(g_rm_littlefs0.p_ctrl, g_rm_littlefs0.p_cfg);
 
 	err = lfs_format(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
 	if (LFS_ERR_OK == err)
@@ -337,7 +340,7 @@ static BaseType_t prvFormat( char * pcWriteBuffer,
 		lfs_mount(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
 		sprintf( pcWriteBuffer, "Format OK !\r\n");
 
-		//Format the cache too
+		/* Format the cache too */
 		vprvCacheFormat();
 	}
 	else
@@ -388,7 +391,18 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 			}
 			else
 			{
-				sprintf(pcWriteBuffer, "OK.\r\n" );
+				KVStoreKey_t xKey;
+				xKey = (KVStoreKey_t)Filename2Handle(pKey, keyLength);
+				if ((KVS_TSIP_ROOTCA_PUBKEY_ID == xKey) ||
+				    (KVS_TSIP_CLIENT_PUBKEY_ID == xKey) ||
+				    (KVS_TSIP_CLIENT_PRIKEY_ID == xKey))
+				{
+					sprintf(pcWriteBuffer, "The TSIP key index cannot be write.\r\n");
+				}
+				else
+				{
+					sprintf(pcWriteBuffer, "OK.\r\n" );
+				}
 			}
 		}
 		else  if( strncmp( pRequest, "commit", requestLength ) == 0 )
@@ -397,7 +411,7 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 			if( xResult == pdTRUE )
 			{
 			    uint32_t totalSize = GetTotalLengthFromImpl();
-				sprintf(pcWriteBuffer, "Configuration save %d bytes to Data Flash. Total used size is %d bytes .\r\n",( int )pvwrite, totalSize );
+				sprintf(pcWriteBuffer, "Configuration save %d bytes to Data Flash. Total used size is %d bytes .\r\n",( int )pvwrite, ( int )totalSize );
 				pvwrite = 0;
 			}
 			else

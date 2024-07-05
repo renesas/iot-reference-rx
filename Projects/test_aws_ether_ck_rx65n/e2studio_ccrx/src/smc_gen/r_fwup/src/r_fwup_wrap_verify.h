@@ -14,7 +14,7 @@
  * following link:
  * http://www.renesas.com/disclaimer
  *
- * Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
+ * Copyright (C) 2023-2024 Renesas Electronics Corporation. All rights reserved.
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup_wrap_verify.h
@@ -25,23 +25,14 @@
  *         : 29.09.2023 2.01    Fixed log messages.
  *                              Add parameter checking.
  *                              Added arguments to R_FWUP_WriteImageProgram API.
+ *         : 28.03.2024 2.02    Update wrapper functions.
+ *         : 09.04.2024 2.03    Fixed wrapper function.
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
  Includes   <System Includes> , "Project Includes"
  *********************************************************************************************************************/
 #include "r_fwup_private.h"
-#include "store.h"
-
-/**** Start user code ****/
-#if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
-#include "iot_crypto.h"
-
-/* OTA PAL test config file include. */
-#include "demo_config.h"
-#endif /* (FWUP_CFG_SIGNATURE_VERIFICATION == 0) */
-
-/**** End user code   ****/
 
 /**********************************************************************************************************************
  Macro definitions
@@ -49,20 +40,14 @@
 #ifndef R_FWUP_WRAP_VERIFY_H_
 #define R_FWUP_WRAP_VERIFY_H_
 
-/**** Start user code ****/
-/**** End user code   ****/
 
 /**********************************************************************************************************************
  Global Typedef definitions
  *********************************************************************************************************************/
-/**** Start user code ****/
-/**** End user code   ****/
 
 /**********************************************************************************************************************
  External global variables
  *********************************************************************************************************************/
-/**** Start user code ****/
-/**** End user code   ****/
 
 /**********************************************************************************************************************
  Exported global functions

@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : r_smc_interrupt.h
-* Version          : 1.2.13
+* Version          : 1.2.30
 * Device(s)        : R5F565NEHxFB
 * Description      : This file implements interrupt setting.
 ***********************************************************************************************************************/
@@ -111,10 +111,10 @@ Macro definitions
 #define ICU_SCI3_TXI3_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
 #define ICU_SCI4_RXI4_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
 #define ICU_SCI4_TXI4_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
-#define ICU_SCI5_RXI5_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
-#define ICU_SCI5_TXI5_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
-#define ICU_SCI6_RXI6_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
-#define ICU_SCI6_TXI6_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
+#define ICU_SCI5_RXI5_PRIORITY                     (_03_ICU_PRIORITY_LEVEL3)
+#define ICU_SCI5_TXI5_PRIORITY                     (_03_ICU_PRIORITY_LEVEL3)
+#define ICU_SCI6_RXI6_PRIORITY                     (_03_ICU_PRIORITY_LEVEL3)
+#define ICU_SCI6_TXI6_PRIORITY                     (_03_ICU_PRIORITY_LEVEL3)
 #define ICU_LVD1_LVD1_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
 #define ICU_LVD2_LVD2_PRIORITY                     (_0F_ICU_PRIORITY_LEVEL15)
 #define ICU_USB0_USBR0_PRIORITY                    (_0F_ICU_PRIORITY_LEVEL15)

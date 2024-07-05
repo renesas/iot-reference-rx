@@ -33,24 +33,6 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/tinycrypt</name>
-			<type>2</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Middleware/3rdparty/tinycrypt</locationURI>
-		</link>
-	</linkedResources>
-	<filteredResources>
-		<filter>
-			<id>1684405708812</id>
-			<name>src/tinycrypt/lib/source</name>
-			<type>5</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-true-ecc_dsa.c|ecc.c|sha256.c|utils.c</arguments>
-			</matcher>
-		</filter>
-	</filteredResources>
 	<variableList>
 		<variable>
 			<name>AFR_HOME</name>

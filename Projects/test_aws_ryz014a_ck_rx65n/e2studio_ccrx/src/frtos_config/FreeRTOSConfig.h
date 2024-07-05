@@ -117,7 +117,6 @@ void vConfigureTimerForRunTimeStats( void );
 //#define portGET_RUN_TIME_COUNTER_VALUE()            ulGetRunTimeCounterValue()
 
 /* Co-routine definitions. */
-#define configUSE_CO_ROUTINES                   0
 #define configMAX_CO_ROUTINE_PRIORITIES         (2)
 
 /* Currently the TCP/IP stack is using dynamic allocation, and the MQTT task is

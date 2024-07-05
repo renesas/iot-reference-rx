@@ -145,7 +145,7 @@ FRTestThreadHandle_t FRTest_ThreadCreate( FRTestThreadFunction_t threadFunc,
                              "ThreadWrapper",  /* All tasks have same name. */
                              8192,             /* Task stack size. */
                              pTaskParam,       /* Where the task writes its result. */
-                             tskIDLE_PRIORITY, /* Task priority. */
+                             configMAX_PRIORITIES-1, /* Task priority. */
                              &pTaskParam->taskHandle );
     configASSERT( xReturned == pdPASS );
 

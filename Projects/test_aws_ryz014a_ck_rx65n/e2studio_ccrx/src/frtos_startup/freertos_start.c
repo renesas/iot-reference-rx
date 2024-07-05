@@ -22,7 +22,7 @@
 * http://www.renesas.com/disclaimer
 *******************************************************************************/
 /*******************************************************************************
-* File Name    : freertos_usr_func.c
+* File Name    : freertos_start.c
 * Version      : 1.0
 * Description  : Contains FreeRTOS user-defined functions.
 ******************************************************************************/
@@ -361,7 +361,7 @@ void Processing_Before_Start_Kernel(void)
 
     /************** task creation ****************************/
     /* Main task. */
-    ret = xTaskCreate(main_task, "MAIN_TASK", 512, NULL, 3, NULL);
+    ret = xTaskCreate(main_task, "MAIN_TASK", 512, NULL, 1, NULL);
     if (pdPASS != ret)
     {
         while(1)

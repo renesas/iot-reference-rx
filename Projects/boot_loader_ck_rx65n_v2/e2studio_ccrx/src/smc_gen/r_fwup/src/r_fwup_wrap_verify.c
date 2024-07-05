@@ -14,7 +14,7 @@
  * following link:
  * http://www.renesas.com/disclaimer
  *
- * Copyright (C) 2023 Renesas Electronics Corporation. All rights reserved.
+ * Copyright (C) 2023-2024 Renesas Electronics Corporation. All rights reserved.
  *********************************************************************************************************************/
 /**********************************************************************************************************************
  * File Name    : r_fwup_wrap_verify.c
@@ -25,6 +25,9 @@
  *         : 29.09.2023 2.01    Fixed log messages.
  *                              Add parameter checking.
  *                              Added arguments to R_FWUP_WriteImageProgram API.
+ *         : 28.03.2024 2.02    Update wrapper functions.
+ *                              Add tinycrypt library.
+ *         : 09.04.2024 2.03    Fixed wrapper function.
  *********************************************************************************************************************/
 
 /**********************************************************************************************************************
@@ -33,34 +36,52 @@
 #include "r_fwup_if.h"
 #include "r_fwup_wrap_verify.h"
 
-/**** Start user code ****/
-/**** End user code   ****/
+#include "base64_decode.h"
+#include "tinycrypt/constants.h"
+#include "tinycrypt/sha256.h"
+#if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
+#include "tinycrypt/ecc.h"
+#include "tinycrypt/ecc_dsa.h"
+#include "code_signer_public_key.h"
+#endif /* (FWUP_CFG_SIGNATURE_VERIFICATION == 0) */
 
 /**********************************************************************************************************************
  Macro definitions
  *********************************************************************************************************************/
-/**** Start user code ****/
 #define FWUP_HASH_BYTES        (TC_SHA256_DIGEST_SIZE)
 #define FWUP_HASH_BITS         (FWUP_HASH_BYTES * 8)
 #define FWUP_CERT_PEM           g_code_signer_public_key
-/**** End user code   ****/
 
 /**********************************************************************************************************************
  Local Typedef definitions
  *********************************************************************************************************************/
-/**** Start user code ****/
-/**** End user code   ****/
 
 /**********************************************************************************************************************
  Exported global variables
  *********************************************************************************************************************/
-/**** Start user code ****/
-/**** End user code   ****/
+#if (FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED == 1)
+void * FWUP_CFG_USER_GET_CRYPT_CONTEXT_FUNCTION(void);
+#endif /* (FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED == 1) */
+
+#if (FWUP_CFG_USER_SHA256_INIT_ENABLED == 1)
+int32_t FWUP_CFG_USER_SHA256_INIT_FUNCTION(void * vp_ctx);
+#endif /* (FWUP_CFG_USER_SHA256_INIT_ENABLED == 1) */
+
+#if (FWUP_CFG_USER_SHA256_UPDATE_ENABLED == 1)
+int32_t FWUP_CFG_USER_SHA256_UPDATE_FUNCTION(void * vp_ctx, C_U8_FAR *p_data, uint32_t datalen);
+#endif /* (FWUP_CFG_USER_SHA256_UPDATE_ENABLED == 1) */
+
+#if (FWUP_CFG_USER_SHA256_FINAL_ENABLED == 1)
+int32_t FWUP_CFG_USER_SHA256_FINAL_FUNCTION(uint8_t *p_hash, void * vp_ctx);
+#endif /* (FWUP_CFG_USER_SHA256_FINAL_ENABLED == 1) */
+
+#if (FWUP_CFG_USER_VERIFY_ECDSA_ENABLED == 1)
+int32_t FWUP_CFG_USER_VERIFY_ECDSA_FUNCTION(uint8_t *p_hash, uint8_t *p_sig_type, uint8_t *p_sig, uint32_t sig_size);
+#endif /* (FWUP_CFG_USER_VERIFY_ECDSA_ENABLED == 1) */
 
 /**********************************************************************************************************************
  Private (static) variables and functions
  *********************************************************************************************************************/
-/**** Start user code ****/
 #if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
 static int32_t wrap_extract_pubkey (uint8_t *p_buf);
 static C_CH_FAR s_keyheader[] = "-----BEGIN PUBLIC KEY-----";
@@ -69,7 +90,6 @@ static C_CH_FAR g_code_signer_public_key[] = CODE_SIGNER_PUBLIC_KEY_PEM;
 S_C_CH_FAR VERIFICATION_SCHEME_ECDSA[]  = "sig-sha256-ecdsa";
 #endif /* (FWUP_CFG_SIGNATURE_VERIFICATION == 0) */
 S_C_CH_FAR VERIFICATION_SCHEME_SHA[]  = "hash-sha256";
-/**** End user code   ****/
 
 /**********************************************************************************************************************
  * Function Name: r_fwup_wrap_get_crypt_context
@@ -80,10 +100,13 @@ S_C_CH_FAR VERIFICATION_SCHEME_SHA[]  = "hash-sha256";
 void * r_fwup_wrap_get_crypt_context(void)
 {
     /* library's context. that need to be a static value. */
-    /**** Start user code ****/
+#if (FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED == 1)
+    return FWUP_CFG_USER_GET_CRYPT_CONTEXT_FUNCTION();
+#else
+    /* library's context. that need to be a static value. */
     static struct tc_sha256_state_struct s_ctx;
     return ((void *)&s_ctx);
-    /**** End user code   ****/
+#endif /* (FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED == 1) */
 }
 /**********************************************************************************************************************
  End of function r_fwup_wrap_get_crypt_context
@@ -97,9 +120,11 @@ void * r_fwup_wrap_get_crypt_context(void)
  *********************************************************************************************************************/
 int32_t r_fwup_wrap_sha256_init(void * vp_ctx)
 {
-    /**** Start user code ****/
+#if (FWUP_CFG_USER_SHA256_INIT_ENABLED == 1)
+    return FWUP_CFG_USER_SHA256_INIT_FUNCTION(vp_ctx);
+#else
     return (tc_sha256_init((TCSha256State_t)vp_ctx));
-    /**** End user code   ****/
+#endif /* (FWUP_CFG_USER_SHA256_INIT_ENABLED == 1) */
 }
 /**********************************************************************************************************************
  End of function r_fwup_wrap_sha256_init
@@ -115,9 +140,11 @@ int32_t r_fwup_wrap_sha256_init(void * vp_ctx)
  *********************************************************************************************************************/
 int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t datalen)
 {
-    /**** Start user code ****/
+#if (FWUP_CFG_USER_SHA256_UPDATE_ENABLED == 1)
+    return FWUP_CFG_USER_SHA256_UPDATE_FUNCTION(vp_ctx, p_data, datalen);
+#else
     return (tc_sha256_update((TCSha256State_t)vp_ctx, p_data, datalen));
-    /**** End user code   ****/
+#endif /* (FWUP_CFG_USER_SHA256_UPDATE_ENABLED == 1) */
 }
 /**********************************************************************************************************************
  End of function r_fwup_wrap_sha256_update
@@ -132,9 +159,11 @@ int32_t r_fwup_wrap_sha256_update(void * vp_ctx, C_U8_FAR *p_data, uint32_t data
  *********************************************************************************************************************/
 int32_t r_fwup_wrap_sha256_final(uint8_t *p_hash, void * vp_ctx)
 {
-    /**** Start user code ****/
+#if (FWUP_CFG_USER_SHA256_FINAL_ENABLED == 1)
+    return FWUP_CFG_USER_SHA256_FINAL_FUNCTION(p_hash, vp_ctx);
+#else
     return (tc_sha256_final(p_hash, (TCSha256State_t)vp_ctx));
-    /**** End user code   ****/
+#endif /* (FWUP_CFG_USER_SHA256_FINAL_ENABLED == 1) */
 }
 /**********************************************************************************************************************
  End of function r_fwup_wrap_sha256_final
@@ -152,7 +181,9 @@ int32_t r_fwup_wrap_sha256_final(uint8_t *p_hash, void * vp_ctx)
  *********************************************************************************************************************/
 int32_t r_fwup_wrap_verify_ecdsa(uint8_t *p_hash, uint8_t *p_sig_type, uint8_t *p_sig, uint32_t sig_size)
 {
-    /**** Start user code ****/
+#if (FWUP_CFG_USER_VERIFY_ECDSA_ENABLED == 1)
+    return FWUP_CFG_USER_VERIFY_ECDSA_FUNCTION(p_hash, p_sig_type, p_sig, sig_size);
+#else
     int32_t x_result = -1;
 #if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
     uint8_t public_key[64];
@@ -181,14 +212,12 @@ int32_t r_fwup_wrap_verify_ecdsa(uint8_t *p_hash, uint8_t *p_sig_type, uint8_t *
 #endif /* (FWUP_CFG_SIGNATURE_VERIFICATION == 0) */
 
     return (x_result);
-
-    /**** End user code   ****/
+#endif /* (FWUP_CFG_USER_VERIFY_ECDSA_ENABLED == 1) */
 }
 /**********************************************************************************************************************
  End of function r_fwup_wrap_verify_ecdsa
  *********************************************************************************************************************/
 
-/**** Start user code ****/
 
 #if (FWUP_CFG_SIGNATURE_VERIFICATION == 0)
 /**********************************************************************************************************************
@@ -267,6 +296,4 @@ static int32_t wrap_extract_pubkey(uint8_t *p_buf)
  End of function wrap_extract_pubkey
  *********************************************************************************************************************/
 #endif  /* FWUP_CFG_SIGNATURE_VERIFICATION == 0 */
-
-/**** End user code   ****/
 

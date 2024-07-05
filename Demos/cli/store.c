@@ -34,7 +34,7 @@ const char * keys[ KVS_NUM_KEYS ] = KVSTORE_KEYS;
 KeyValueStore_t gKeyValueStore = { 0 };
 extern volatile uint32_t pvwrite;
 extern CK_RV vDevModeKeyPreProvisioning( KeyValueStore_t Keystore, KVStoreKey_t ID, int32_t xvaluelength );
-
+BaseType_t xPending;
 /*
  * @brief Write a value for a given key to Data Flash.
  * @param[in] KVStoreKey_t Key to store the given value in.
@@ -121,7 +121,6 @@ int32_t xprvGetValueLengthFromImpl( KVStoreKey_t keyIndex)
 	size_t xLength = 0;
 	struct lfs_info xFileInfo = { 0 };
 
-	lfs_file_t file;
 	if( lfs_stat( &RM_STDIO_LITTLEFS_CFG_LFS, (char *) keys[ keyIndex ], &xFileInfo ) == LFS_ERR_OK )
 	{
 		xLength =  xFileInfo.size;
@@ -139,7 +138,6 @@ int32_t GetTotalLengthFromImpl()
 {
     size_t xLength = 0;
     struct lfs_info xFileInfo = { 0 };
-    lfs_file_t file;
     for (uint32_t i = 0; i < KVS_NUM_KEYS; i++)
     {
         if (lfs_stat (&RM_STDIO_LITTLEFS_CFG_LFS, (char*) keys[i], &xFileInfo) == LFS_ERR_OK)
@@ -169,6 +167,14 @@ int32_t xprvWriteCacheEntry(size_t KeyLength,
 
 	if (xKey < 0)
 	{
+		return xKey;
+	}
+
+	if ((KVS_TSIP_ROOTCA_PUBKEY_ID == xKey) ||
+	    (KVS_TSIP_CLIENT_PUBKEY_ID == xKey) ||
+	    (KVS_TSIP_CLIENT_PRIKEY_ID == xKey))
+	{
+		/* TSIP key cancels write */
 		return xKey;
 	}
 
@@ -267,13 +273,14 @@ static inline void vReallocDataBuffer( KVStoreKey_t key,
 
 int32_t Filename2Handle( char * pcFileName,size_t KeyLength)
 {
+    (void) KeyLength; /* String comparison to use the length of KVStore key */
 	int32_t xHandle = -1;
 	char * CLIcmdkeys[ KVS_NUM_KEYS ] = CLICMDKEYS;
     if( pcFileName != NULL )
     {
         for (uint32_t i = 0; i < KVS_NUM_KEYS; i++)
         {
-        	if (strncmp( pcFileName, CLIcmdkeys[i], KeyLength ) == 0)
+        	if (strncmp( pcFileName, CLIcmdkeys[i], strlen(CLIcmdkeys[i]) ) == 0)
             {
                 xHandle = i;
                 break;
@@ -354,6 +361,12 @@ BaseType_t KVStore_xCommitChanges( void )
 					gKeyValueStore.table[ i ].xChangePending = pdFALSE;
 				}
 			}
+        	else if ((KVS_TSIP_ROOTCA_PUBKEY_ID == i) ||
+        	            (KVS_TSIP_CLIENT_PUBKEY_ID == i) ||
+        	            (KVS_TSIP_CLIENT_PRIKEY_ID == i))
+        	{
+        		/* No commit processing */
+        	}
         	/*
         	 * Check if others
         	 */
@@ -415,7 +428,7 @@ BaseType_t xprvCopyValueFromCache( KVStoreKey_t xKey,
                                    KVStoreValueType_t * pxDataType,
                                    size_t * pxDataLength,
                                    void * pvBuffer,
-                                   size_t xBufferSize )
+                                   size_t xBufferSize)
 {
     const void * pvDataPtr = NULL;
     size_t xDataLen = 0;
@@ -445,6 +458,8 @@ BaseType_t xprvCopyValueFromCache( KVStoreKey_t xKey,
         {
             *pxDataLength = gKeyValueStore.table[ xKey ].valueLength;
         }
+
+        xPending = gKeyValueStore.table[ xKey ].xChangePending;
     }
 
     return( xDataLen > 0 );
@@ -496,14 +511,12 @@ int32_t vprvCacheInit( void )
 			gKeyValueStore.table[ i ].type = KV_TYPE_NONE;
 
 			xNvLength = xprvGetValueLengthFromImpl( (KVStoreKey_t)i );
-			char *xValue = NULL;
 			if( xNvLength > 0 )
 			{
-				vAllocateDataBuffer( i, xNvLength );
+				gKeyValueStore.table[ i ].valueLength = xNvLength;
 				size_t * pxLength = &( gKeyValueStore.table[ i ].valueLength );
-				strcpy( gKeyValueStore.table[i ].key, keys[ i ] );
-				( void ) xprvReadValueFromImpl( (KVStoreKey_t)i,  &xValue, pxLength, *pxLength );
-				gKeyValueStore.table[ i ].value = xValue;
+				strcpy( gKeyValueStore.table[ i ].key, keys[ i ] );
+				( void ) xprvReadValueFromImpl( (KVStoreKey_t)i,  &( gKeyValueStore.table[ i ].value ), pxLength, *pxLength );
 				gKeyValueStore.table[ i ].type = KV_TYPE_STRING;
 			}
     	}
@@ -560,7 +573,8 @@ char *GetStringValue( KVStoreKey_t key, size_t  pxLength )
 	char* pcBuffer = NULL;
 	if (pxLength > 0)
 	{
-		pcBuffer = pvPortMalloc( pxLength );
+		/* 1 more byte for the null-terminated character */
+		pcBuffer = pvPortMalloc( pxLength + 1 );
 		xSizeWritten = xReadEntry(key, pcBuffer, pxLength);
 		if (xSizeWritten == 0)
 		{
@@ -569,6 +583,7 @@ char *GetStringValue( KVStoreKey_t key, size_t  pxLength )
 		}
 		else
 		{
+			/* Assign the null-terminated character */
 			pcBuffer[ xSizeWritten] = '\0';
 		}
 	}
@@ -597,7 +612,6 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
     const char pxClaimKey[] =  pkcs11configLABEL_CLAIM_PRIVATE_KEY ;
 	CK_FUNCTION_LIST_PTR pxFunctionList = NULL;
 	CK_SESSION_HANDLE xSession = 0;
-    char *client_private_key, *client_certificate;
 	char *tmp;
 	uint32_t data_length = 0;
 
@@ -609,6 +623,15 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
 	{
 		return NULL;
 	}
+
+	if ((KVS_TSIP_ROOTCA_PUBKEY_ID == xKey) ||
+	    (KVS_TSIP_CLIENT_PUBKEY_ID == xKey) ||
+	    (KVS_TSIP_CLIENT_PRIKEY_ID == xKey))
+	{
+		/* TSIP key cancels read */
+		return ("The TSIP key index cannot be read.");
+	}
+
     if ((xKey == KVS_DEVICE_CERT_ID) || (xKey == KVS_DEVICE_PRIVKEY_ID) || (xKey == KVS_DEVICE_PUBKEY_ID)
             || (xKey == KVS_CLAIM_CERT_ID) || (xKey == KVS_CLAIM_PRIVKEY_ID))
     {
@@ -709,14 +732,12 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
 	else
 	{
 		xNvLength = xprvGetValueLengthFromImpl( xKey );
-		char *xValue = NULL;
 		if( xNvLength > 0 )
 		{
-			vAllocateDataBuffer( xKey, xNvLength );
+            gKeyValueStore.table[ xKey ].valueLength = xNvLength;
 			size_t * valueLength = &( gKeyValueStore.table[ xKey ].valueLength );
 			strcpy( gKeyValueStore.table[ xKey ].key, keys[ xKey ] );
-			( void ) xprvReadValueFromImpl( xKey,  &xValue, valueLength, *valueLength );
-			gKeyValueStore.table[ xKey ].value = xValue;
+			( void ) xprvReadValueFromImpl( xKey,  &( gKeyValueStore.table[ xKey ].value ), valueLength, *valueLength );
 		}
 	}
 
@@ -753,3 +774,15 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
 
  	return buffervalue;
 }
+
+/*
+ * @brief Get the length of a value in cache
+ * @param[in] xKey Key to lookup
+ * @return length of data stored in the KVstore.
+ */
+size_t prvGetCacheEntryLength( KVStoreKey_t xKey )
+{
+	configASSERT( xKey < KVS_NUM_KEYS );
+	return gKeyValueStore.table[ xKey ].valueLength;
+}
+

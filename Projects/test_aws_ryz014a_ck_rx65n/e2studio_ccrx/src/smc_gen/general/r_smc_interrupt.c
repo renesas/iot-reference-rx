@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name        : r_smc_interrupt.c
-* Version          : 1.2.13
+* Version          : 1.2.30
 * Device(s)        : R5F565NEHxFB
 * Description      : This file implements interrupt setting.
 ***********************************************************************************************************************/
@@ -57,12 +57,21 @@ void R_Interrupt_Create(void)
     /* Disable group BL0 interrupt*/
     IEN(ICU,GROUPBL0) = 0U;
     
+    /* Disable group AL1 interrupt*/
+    IEN(ICU,GROUPAL1) = 0U;
+    
 
     /* Set group BL0 interrupt priority level */
     IPR(ICU,GROUPBL0) = _03_ICU_PRIORITY_LEVEL3;
 
+    /* Set group AL1 interrupt priority level */
+    IPR(ICU,GROUPAL1) = _02_ICU_PRIORITY_LEVEL2;
+
     /* Enable group BL0 interrupt */
     IEN(ICU,GROUPBL0) = 1U;
+
+    /* Enable group AL1 interrupt */
+    IEN(ICU,GROUPAL1) = 1U;
 }
 
 /* Start user code for adding. Do not edit comment generated here */
