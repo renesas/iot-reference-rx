@@ -368,8 +368,8 @@ Disable: disable stats formatting function</description>
             <constraint display="default disable" actionOnFail="disable">("${configPRINT( X )}" == vLoggingPrint( X ))</constraint>
             <description>Non-format version thread-safe print</description>
         </property>
-        <property id="configPRINT_STRING( x )" display="configPRINT_STRING( x )" default="uart_string_printf( x )" type="textbox">
-            <constraint display="default disable" actionOnFail="disable">("${configPRINT_STRING( x )}" == uart_string_printf( x ))</constraint>
+        <property id="configPRINT_STRING( x )" display="configPRINT_STRING( x )" default="vOutputString(x)" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${configPRINT_STRING( x )}" == vOutputString(x))</constraint>
             <description>Map the logging task's printf to the board specific output function.</description>
         </property>
         <property id="configLOGGING_MAX_MESSAGE_LENGTH" display="Max message length" default="192" type="textbox">

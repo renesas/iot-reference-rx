@@ -7,7 +7,7 @@
                 <option id="com.renesas.smc.toolchain.option.language" key="com.renesas.smc.toolchain.option.language.c"/>
                 <option id="com.renesas.smc.toolchain.option.buildArtefactType" key="com.renesas.smc.toolchain.option.buildArtefactType.exe"/>
                 <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.freertoslts">
-                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202210.01-LTS-rx-1.3.0"/>
+                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202210.01-LTS-rx-1.3.1"/>
                 </option>
                 <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.true"/>
             </toolchain>
@@ -582,7 +582,7 @@
     </tool>
     <tool id="SWComponent" version="1.0.0.0">
         <configuration enable="true" exclude="false" id="4417f710-df09-4758-bd4a-c41ce7de2477" inuse="true" name="FreeRTOS_Kernel">
-            <component description="FreeRTOS Kernel component detail" detailDescription="FreeRTOS Kernel component detail" display="FreeRTOS Kernel component" id="FreeRTOS_Kernel202210.01-LTS-rx-1.3.0" version="10.5.1">
+            <component description="FreeRTOS Kernel component detail" detailDescription="FreeRTOS Kernel component detail" display="FreeRTOS Kernel component" id="FreeRTOS_Kernel202210.01-LTS-rx-1.3.1" version="10.5.1">
                 <gridItem id="configENABLE_BACKWARD_COMPATIBILITY" selectedIndex="1"/>
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
                 <gridItem id="configUSE_PORT_OPTIMISED_TASK_SELECTION" selectedIndex="0"/>
@@ -643,7 +643,7 @@
                 <gridItem id="configUSE_STATS_FORMATTING_FUNCTIONS" selectedIndex="1"/>
                 <gridItem id="configPRINTF ( X )" selectedIndex="vLoggingPrintf X"/>
                 <gridItem id="configPRINT( X )" selectedIndex="vLoggingPrint( X )"/>
-                <gridItem id="configPRINT_STRING( x )" selectedIndex="uart_string_printf( x )"/>
+                <gridItem id="configPRINT_STRING( x )" selectedIndex="vOutputString(x)"/>
                 <gridItem id="configLOGGING_MAX_MESSAGE_LENGTH" selectedIndex="192"/>
                 <gridItem id="configLOGGING_INCLUDE_TIME_AND_TASK_NAME" selectedIndex="1"/>
                 <gridItem id="configINCLUDE_DEMO_DEBUG_STATS" selectedIndex="1"/>
@@ -689,7 +689,7 @@
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
         <configuration enable="true" exclude="false" id="6142870a-cbac-4ac0-a550-84b51bef6737" inuse="true" name="LittleFS">
-            <component description="LittleFS component detail" detailDescription="LittleFS component detail" display="LittleFS component" id="LittleFS202210.01-LTS-rx-1.3.0" version="2.5.1">
+            <component description="LittleFS component detail" detailDescription="LittleFS component detail" display="LittleFS component" id="LittleFS202210.01-LTS-rx-1.3.1" version="2.5.1">
                 <gridItem id="LFS_FLASH_READ_SIZE" selectedIndex="1"/>
                 <gridItem id="LFS_FLASH_PROGRAM_SIZE" selectedIndex="4"/>
                 <gridItem id="LFS_FLASH_BLOCK_SIZE" selectedIndex="128"/>
@@ -701,7 +701,7 @@
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
         <configuration enable="true" exclude="false" id="633116a9-aeb1-4a24-b5ea-ca6fd4baef7d" inuse="true" name="FreeRTOS_Object">
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="202210.01-LTS-rx-1.3.0"/>
+            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="202210.01-LTS-rx-1.3.1"/>
             <allocatable id="OBJECT" name="OBJECT" type="">
                 <allocatable id="TASK" name="TASK" type="">
                     <allocatable id="TASKOBJECTLINK1" name="TASK" readonly="true" type="">
