@@ -839,4 +839,22 @@ If the error "cannot find -lr_tsip_rx65n_little" occurs, please do the following
         1. Click **Rebuild Index**
           ![02_Set_TSIPlib_pass_rebuild](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/02_Set_TSIPlib_pass_rebuild.png)  
 
-After changing the settings, please build the project again.
+After changing the settings, please build the project again.  
+  
+### How to fix greyed-out RTOS Component in the Smart Configurator
+
+If the RTOS Component is greyed-out, it cannot be configured easily in the Smart Configurator.  
+To fix this issue, please do the following:
+1. Open **Smart Configurator** view and go to the "Component" tab.
+1. Click on the greyed-out RTOS Component (for example: FreeRTOS_Kernel), you will see the following message:  
+  `"Software package is missing. The issue may be resolved by changing the package version."`  
+  ![image](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/01_grey_out_fix.png)
+1. Click the **"changing the package version"** button.  
+  ![image](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/02_grey_out_fix.png)
+1. In the "Change Version" window, select the desired version (e.g: 202210.01-LTS-rx-1.3.1) under "Available versions", then click "Next".  
+  ![image](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/03_grey_out_fix.png)  
+_Note: Please make sure a valid iot-reference-rx package exists in your "e2studio RTOS folder path"._  
+  ![image](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/04_grey_out_fix.png)  
+1. Click "Finish" to apply the new version.
+1. If a "Code Generating" window appears, click "Proceed" to confirm the version change.  
+  ![image](https://github.com/renesas/iot-reference-rx/wiki/getting_started_guide_image/05_grey_out_fix.png)
