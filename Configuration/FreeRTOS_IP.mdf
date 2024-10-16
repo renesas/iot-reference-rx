@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+/***********************************************************************************************************************
+  Purpose: Module Description File (MDF) Example (Schema Version 2.0)
+           This is a description of a sample FIT module configuration file
+***********************************************************************************************************************/
+-->
+<module xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="2.0" xs:noNamespaceSchemaLocation="schema_mdf_2.00.xsd">
+    <fileVersion>1.00</fileVersion>
+    <formatVersion>2.00</formatVersion>
+    <fileTemplate></fileTemplate>
+    <configuration>
+        <property id="ipconfigBYTE_ORDER" display="Byte order of Target MCU" default="pdFREERTOS_LITTLE_ENDIAN" type="combobox">
+            <option id="ipconfigBYTE_ORDER.0" display="pdFREERTOS_LITTLE_ENDIAN" value="pdFREERTOS_LITTLE_ENDIAN"/>
+            <option id="ipconfigBYTE_ORDER.1" display="pdFREERTOS_BIG_ENDIAN" value="pdFREERTOS_LITTLE_ENDIAN"/>
+            <description>Define the byte order of the target MCU.
+Valid options are pdFREERTOS_BIG_ENDIAN and pdFREERTOS_LITTLE_ENDIAN.</description>
+        </property>
+        <property id="FreeRTOS_debug_printf( MSG )" display="Print out debugging messages function" default="configPRINTF( MSG )" type="textbox">
+            <description>Print out debugging messages function</description>
+        </property>
+        <property id="ipconfigHAS_PRINTF" display="Enable print out non debugging messages" default="1" type="checkbox">
+            <option id="ipconfigHAS_PRINTF.0" display="Disable" value="0"/>
+            <option id="ipconfigHAS_PRINTF.1" display="Enable" value="1"/>
+            <description>Enable print out non debugging messages</description>
+        </property>
+        <property id="FreeRTOS_printf( MSG )" display="Print out none debugging messages" default="configPRINTF( MSG )" type="textbox">
+            <constraint display="default disable" actionOnFail="disable">("${ipconfigHAS_PRINTF}" == 1)</constraint>
+            <description>Print out none debugging messages</description>
+        </property>
+        <property id="ipconfigUSE_NETWORK_EVENT_HOOK" display="Enable application hook event when the network goes up and when it goes down" default="1" type="checkbox">
+            <option id="ipconfigUSE_NETWORK_EVENT_HOOK.0" display="Disable" value="0"/>
+            <option id="ipconfigUSE_NETWORK_EVENT_HOOK.1" display="Enable" value="1"/>
+            <description>Enable to call vApplicationIPNetworkEventHook() event handler when the network goes up and goes down.</description>
+        </property>
+        <property id="ipconfigARP_CACHE_ENTRIES" display="Define the number of entries in the ARP cache table" default="6" type="textbox">
+            <constraint display="Value must be an integer">testInteger("${ipconfigARP_CACHE_ENTRIES}")</constraint>
+            <description>Define the number of entries in the ARP cache table</description>
+        </property>
+        <property id="ipconfigNUM_NETWORK_BUFFER_DESCRIPTORS" display="Define number of network buffers" default="ETHER_CFG_EMAC_TX_DESCRIPTORS" type="textbox">
+            <description>determines the number of network buffers that are available in the entire application.
+Note that the default of 45 may be pretty high for smaller applications. Also note that when the network interface uses zero-copy reception
+( ipconfigZERO_COPY_RX_DRIVER ), it will reserve a set of network buffers permanently.
+For zero-copy transmission, no network buffers are permanently "reserved" for transmission.</description>
+        </property>
+        <property id="ipconfigCHECK_IP_QUEUE_SPACE" display="Define the length of the message queue of the IP-task" default="1" type="checkbox">
+            <option id="ipconfigCHECK_IP_QUEUE_SPACE.0" display="Disable" value="0"/>
+            <option id="ipconfigCHECK_IP_QUEUE_SPACE.1" display="Enable" value="1"/>
+            <description>Define  the length of the message queue of the IP-task</description>
+        </property>
+        <property id="ipconfigUSE_LLMNR" display="Include LLMNR" default="0" type="checkbox">
+            <option id="ipconfigUSE_LLMNR.0" display="Disable" value="0"/>
+            <option id="ipconfigUSE_LLMNR.1" display="Enable" value="1"/>
+            <description>Include LLMNR</description>
+        </property>
+        <property id="ipconfigUSE_NBNS" display="Include NBNS" default="0" type="checkbox">
+            <option id="ipconfigUSE_NBNS.0" display="Disable" value="0"/>
+            <option id="ipconfigUSE_NBNS.1" display="Enable" value="1"/>
+            <description>Include NBNS</description>
+        </property>
+        <property id="ipconfigDHCP_REGISTER_HOSTNAME" display="Enable DHCP Server to obtain the name of the embedded device" default="1" type="checkbox">
+            <option id="ipconfigDHCP_REGISTER_HOSTNAME.0" display="Disable" value="0"/>
+            <option id="ipconfigDHCP_REGISTER_HOSTNAME.1" display="Enable" value="1"/>
+            <description>DHCP servers have a table with information about each clients.  
+One of the fields in this table contains the host name of the DHCP clients.
+When 'ipconfigDHCP_REGISTER_HOSTNAME' is defined as non-zero, the DHCP
+driver will call 'pcApplicationHostnameHook()' to obtain the name of
+the embedded device.</description>
+        </property>
+        <property id="ipconfigUSE_DNS_CACHE" display="Enable the results of DNS lookup's can be stored in a cache table" default="1" type="checkbox">
+            <option id="ipconfigUSE_DNS_CACHE.0" display="Disable" value="0"/>
+            <option id="ipconfigUSE_DNS_CACHE.1" display="Enable" value="1"/>
+            <description>Enable the results of DNS lookup's can be stored in a cache table.</description>
+        </property>
+        <property id="ipconfigDRIVER_INCLUDED_RX_IP_CHECKSUM" display="Enable the network interface checksums of the incoming packets" default="1" type="checkbox">
+            <option id="ipconfigDRIVER_INCLUDED_RX_IP_CHECKSUM.0" display="Disable" value="0"/>
+            <option id="ipconfigDRIVER_INCLUDED_RX_IP_CHECKSUM.1" display="Enable" value="1"/>
+            <description>When ipconfigDRIVER_INCLUDED_RX_IP_CHECKSUM is enabled,
+the network interface is responsible for checking the checksums of the incoming packets.
+This can be either done in hardware, or by calling the checksum functions.</description>
+        </property>
+        <property id="ipconfigSOCKET_HAS_USER_WAKE_CALLBACK" display="Allows to use a call-back function " default="1" type="checkbox">
+            <option id="ipconfigSOCKET_HAS_USER_WAKE_CALLBACK.0" display="Disable" value="0"/>
+            <option id="ipconfigSOCKET_HAS_USER_WAKE_CALLBACK.1" display="Enable" value="1"/>
+            <description>The macro 'ipconfigSOCKET_HAS_USER_WAKE_CALLBACK' allows to use a call-backfunction
+that will be called at the moment one of the above events occurs.
+Use the socket option 'FREERTOS_SO_WAKEUP_CALLBACK' to install a function
+of the type 'void callback( Socket_t pxSocket )'.
+Note that the call-back function runs in the IP-task, so very little things can be done.
+Better not to call any networking API, because that could easily lead to a deadlock situation.</description>
+        </property>
+        <property id="ipconfigTCP_KEEP_ALIVE" display="Enable protecting established sockets using keep-alive packets" default="1" type="checkbox">
+            <option id="ipconfigTCP_KEEP_ALIVE.0" display="Disable" value="0"/>
+            <option id="ipconfigTCP_KEEP_ALIVE.1" display="Enable" value="1"/>
+            <description>TCP only: if the 'ipconfigTCP_KEEP_ALIVE' macro is defined as 1,
+sockets in state "ESTABLISHED" can be protected using keep-alive packets.
+These packets will be sent as soon as there hasn't been any activity
+for a while.
+The macro 'ipconfigTCP_KEEP_ALIVE_INTERVAL' determines the interval at
+which keep-alive packets are sent.</description>
+        </property>
+        <property id="ipconfigUSE_DHCP" display="Enable DHCP protocol" default="1" type="checkbox">
+            <option id="ipconfigUSE_DHCP.0" display="Disable" value="0"/>
+            <option id="ipconfigUSE_DHCP.1" display="Enable" value="1"/>
+            <description>Enable DHCP to assign IP address via DHCP server. 
+DHCP will assign an IP-address, a netmask, a gateway address, and one or more DNS addresses to the endpoint.</description>
+        </property>
+        <property id="ipconfigUSE_DHCP_HOOK" display="Enable DHCP hook function" default="1" type="checkbox">
+            <option id="ipconfigUSE_DHCP_HOOK.0" display="Disable" value="0"/>
+            <option id="ipconfigUSE_DHCP_HOOK.1" display="Enable" value="1"/>
+            <description>During the DHCP process, the driver will call an application hook if 'ipconfigUSE_DHCP_HOOK' is non-zero.  
+It lets the application decide if the DHCP offer shall be accepted.</description>
+        </property>
+        <property id="ipconfigSUPPORT_OUTGOING_PINGS" display="Enable sending ping requests" default="1" type="checkbox">
+            <option id="ipconfigSUPPORT_OUTGOING_PINGS.0" display="Disable" value="0"/>
+            <option id="ipconfigSUPPORT_OUTGOING_PINGS.1" display="Enable" value="1"/>
+            <description>If ipconfigSUPPORT_OUTGOING_PINGS is set to 1 then the
+FreeRTOS_SendPingRequest() API function is available.</description>
+        </property>
+    </configuration>
+</module>

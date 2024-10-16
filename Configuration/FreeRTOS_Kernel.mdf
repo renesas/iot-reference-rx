@@ -74,6 +74,13 @@ Disable: use 32bit_ticks</description>
             <description>Enable: Idle task will yield immediately if any other task at the idle priority is ready to run. That task will share the same time slice with idle task.
 Disable: prevents the idle task from yielding processing time until the end of time slice. This ensure all tasks at the idle priority are allocated an equal amount of processing time.</description>
         </property>
+        <property id="configUSE_CO_ROUTINES" display="Co-routine" default="0" type="checkbox">
+            <option id="configUSE_CO_ROUTINES.0" display="Disable" value="0"/>
+            <option id="configUSE_CO_ROUTINES.1" display="Enable" value="1"/>
+            <description>Enable:  include co-routine functionality in the build.
+To include co-routines croutine.c must be included in the project. 
+Disable:  omit co-routine functionality from the build. </description>
+        </property>
         <property id="configUSE_MUTEXES" display="Mutex functionality" default="1" type="checkbox">
             <option id="configUSE_MUTEXES.0" display="Disable" value="0"/>
             <option id="configUSE_MUTEXES.1" display="Enable" value="1"/>
@@ -228,13 +235,6 @@ portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()
 portGET_RUN_TIME_COUNTER_VALUE()
 Disable: Omit time statistics.</description>
         </property>
-        <property id="configUSE_CO_ROUTINES" display="Co-routine" default="0" type="checkbox">
-            <option id="configUSE_CO_ROUTINES.0" display="Disable" value="0"/>
-            <option id="configUSE_CO_ROUTINES.1" display="Enable" value="1"/>
-            <description>Enable:  include co-routine functionality in the build.
-To include co-routines croutine.c must be included in the project. 
-Disable:  omit co-routine functionality from the build. </description>
-        </property>
         <property id="configMAX_CO_ROUTINE_PRIORITIES" display="Maximum number of priorities to the application co-routines" default="2" type="textbox">
             <constraint display="Value must be an integer">testInteger("${configMAX_CO_ROUTINE_PRIORITIES}")</constraint>
             <constraint display="Value must be in the range 1 ~ 32">("${configMAX_CO_ROUTINE_PRIORITIES}" &gt;= 1) &amp;&amp; ("${configMAX_CO_ROUTINE_PRIORITIES}" &lt;= 32)</constraint>
@@ -360,16 +360,13 @@ Disable: exclude the xTaskAbortDelay() from your build</description>
             <description>Enable: enable stats formatting function
 Disable: disable stats formatting function</description>
         </property>
-        <property id="configPRINTF ( X )" display="configPRINTF ( X )" default="vLoggingPrintf X" type="textbox">
-            <constraint display="default disable" actionOnFail="disable">("${configPRINTF ( X )}" == vLoggingPrintf X)</constraint>
+        <property id="configPRINTF( X )" display="configPRINTF( X )" default="vLoggingPrintf X" type="textbox">
             <description>The function that implements FreeRTOS printf style output, and the macro that maps the configPRINTF() macros to that function.</description>
         </property>
         <property id="configPRINT( X )" display="configPRINT( X )" default="vLoggingPrint( X )" type="textbox">
-            <constraint display="default disable" actionOnFail="disable">("${configPRINT( X )}" == vLoggingPrint( X ))</constraint>
             <description>Non-format version thread-safe print</description>
         </property>
         <property id="configPRINT_STRING( x )" display="configPRINT_STRING( x )" default="vOutputString(x)" type="textbox">
-            <constraint display="default disable" actionOnFail="disable">("${configPRINT_STRING( x )}" == vOutputString(x))</constraint>
             <description>Map the logging task's printf to the board specific output function.</description>
         </property>
         <property id="configLOGGING_MAX_MESSAGE_LENGTH" display="Max message length" default="192" type="textbox">

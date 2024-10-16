@@ -33,32 +33,32 @@
 		<link>
 			<name>Common</name>
 			<type>2</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Common</locationURI>
+			<locationURI>AWS_IOT_MCU_ROOT/Common</locationURI>
 		</link>
 		<link>
 			<name>Demos</name>
 			<type>2</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Demos</locationURI>
+			<locationURI>AWS_IOT_MCU_ROOT/Demos</locationURI>
 		</link>
 		<link>
 			<name>Middleware</name>
 			<type>2</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Middleware</locationURI>
+			<locationURI>AWS_IOT_MCU_ROOT/Middleware</locationURI>
 		</link>
 		<link>
 			<name>Test</name>
 			<type>2</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Test</locationURI>
+			<locationURI>AWS_IOT_MCU_ROOT/Test</locationURI>
 		</link>
 		<link>
 			<name>src/application_code/include</name>
 			<type>2</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Test/include</locationURI>
+			<locationURI>AWS_IOT_MCU_ROOT/Test/include</locationURI>
 		</link>
 		<link>
 			<name>src/application_code/ports</name>
 			<type>2</type>
-			<locationURI>PARENT-3-PROJECT_LOC/Common/ports</locationURI>
+			<locationURI>AWS_IOT_MCU_ROOT/Common/ports</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>
@@ -657,4 +657,10 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+	<variableList>
+		<variable>
+			<name>AWS_IOT_MCU_ROOT</name>
+			<value>$%7BPARENT-3-PROJECT_LOC%7D</value>
+		</variable>
+	</variableList>
 </projectDescription>
