@@ -15,7 +15,7 @@
 		<toolchain>RXC</toolchain>
 		<toolchain>GNURX</toolchain>
 		<board isDual="true">CK-RX65N</board>
-		<board isDual="true">CK-RX65N-V2</board>
+		<board>CK-RX65N-V2</board>
 		<board>CK-RX65N(DUAL)</board>
 		<board>CK-RX65N-V2(DUAL)</board>
 		<family>RX</family>
@@ -26,12 +26,12 @@
 	<package>
 		<type>rtosmodule</type>
 		<name>FreeRTOSLTS</name>
-		<version>202210.01-LTS-rx-1.3.1</version>
+		<version>202210.01-LTS-rx-1.3.2</version>
 		<!-- define RTOS libraries component -->
 		<component>
 			<name>FreeRTOS_IP</name>
-			<display>FreeRTOS TCP/IP component</display>
-			<detail>FreeRTOS TCP/IP component detail</detail>
+			<display>FreeRTOS-Plus-TCP</display>
+			<detail>FreeRTOS-Plus-TCP is a scalable, open source and thread safe TCP/IP stack for FreeRTOS.</detail>
 			<configgenpath>
 				<path>src/frtos_config/FreeRTOSIPConfig.h</path>
 			</configgenpath>
@@ -39,8 +39,8 @@
 		</component>
 		<component>
 			<name>FreeRTOS_Kernel</name>
-			<display>FreeRTOS Kernel component</display>
-			<detail>FreeRTOS Kernel component detail</detail>
+			<display>FreeRTOS Kernel</display>
+			<detail>FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications.</detail>
 			<configgenpath>
 				<path>src/frtos_config/FreeRTOSConfig.h</path>
 			</configgenpath>
@@ -48,8 +48,8 @@
 		</component>
 		<component>
 			<name>LittleFS</name>
-			<display>LittleFS component</display>
-			<detail>LittleFS component detail</detail>
+			<display>LittleFS</display>
+			<detail>LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers.</detail>
 			<configgenpath>
 				<path>src/frtos_config/rm_littlefs_flash_config.h</path>
 			</configgenpath>
@@ -66,9 +66,335 @@
 		</objectgenpath>
 		<!-- define applications supported -->
 		<apps>
-			<app id="application" value="bootloader" name="Secure bootloader sample project" description="This demonstration is used together with OTA sample project to provide a secure boot.">
-				<toolchain>RXC</toolchain>
-				<toolchain>GNURX</toolchain>
+			<filtercategory name="Connectivity">
+				<filteroption>Ethernet</filteroption>
+				<filteroption>Cellular</filteroption>
+				<filteroption>Wi-Fi</filteroption>
+			</filtercategory>
+			<app id="application" value="freertos_minimal_tcp" name="(Ethernet) Minimal sample project" description="This demonstration illustrates basic TCP/IP functionality using FreeRTOS-Plus-TCP library over Ethernet connection." filteroption="Ethernet">
+				<board>CK-RX65N-V2</board>
+				<!-- impdir section -->
+				<impdir>
+					<folder>Configuration/samples/minimal_tcp/src/frtos_config</folder>
+					<path>src/frtos_config</path>
+				</impdir>
+				<impdir>
+					<folder>Configuration/samples/minimal_tcp/src/application_code</folder>
+					<path>src/application_code</path>
+				</impdir>
+				<impdir>
+					<file>Projects/aws_ether_ck_rx65n/e2studio_ccrx/src/frtos_startup/freertos_start.h</file>
+					<file>Configuration/samples/minimal_tcp/src/frtos_startup/freertos_start.c</file>
+					<path>src/frtos_startup</path>
+				</impdir>
+				<impdir>
+					<toolchain>GNURX</toolchain>
+					<file>Configuration/samples/minimal_tcp/linker_script.ld</file>
+					<path>src</path>
+				</impdir>
+				<impdir>
+					<file>configuration/samples/minimal_tcp/README.md</file>
+					<path>.</path>
+				</impdir>
+				<!-- linkdir section -->
+				<linkdir>
+					<folder linkedfolder="true">Middleware</folder>
+					<path>Middleware</path>
+				</linkdir>
+				<linkdir>
+					<folder linkedfolder="true">Common</folder>
+					<path>Common</path>
+				</linkdir>
+				<!-- incdir section -->
+				<incdir>
+					<path>src/application_code/sample_tcp/include</path>
+					<path>src/smc_gen/r_bsp</path>
+					<path>src/smc_gen/general</path>
+					<path>src/smc_gen/r_config</path>
+					<path>src/smc_gen/r_pincfg</path>
+					<path>src/smc_gen/r_ether_rx</path>
+					<path>src/application_code</path>
+					<path>src/frtos_config</path>
+					<path>src/frtos_startup</path>
+					<path>Common/FreeRTOS_common</path>
+					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/include</path>
+					<path>Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/include</path>
+				</incdir>
+				<incdir>
+					<toolchain>RXC</toolchain>
+					<group>RX65N</group>
+					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
+				</incdir>
+				<incdir>
+					<toolchain>GNURX</toolchain>
+					<group>RX65N</group>
+					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC/RX600v2</path>
+				</incdir>
+				<incdir>
+					<toolchain>RXC</toolchain>
+					<path>Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/Compiler/Renesas</path>
+				</incdir>
+				<incdir>
+					<toolchain>GNURX</toolchain>
+					<path>Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/Compiler/GCC</path>
+				</incdir>
+				<!-- resource filter section -->
+				<resourcefilter>
+					<name>Common</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>FreeRTOS_common</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Common/FreeRTOS_common</name>
+					<type>13</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>compiler_support</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<toolchain>GNURX</toolchain>
+					<name>Common/FreeRTOS_common/compiler_support</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>gnuc</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<toolchain>RXC</toolchain>
+					<name>Common/FreeRTOS_common/compiler_support</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>ccrx</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>FreeRTOS</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/FreeRTOS</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>FreeRTOS-Kernel</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<toolchain>RXC</toolchain>
+					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>Renesas|MemMang</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<toolchain>GNURX</toolchain>
+					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>GCC|MemMang</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/MemMang</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>heap_4.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<toolchain>RXC</toolchain>
+					<group>RX65N</group>
+					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>RX600v2</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<toolchain>GNURX</toolchain>
+					<group>RX65N</group>
+					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>RX600v2</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/FreeRTOS</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>FreeRTOS-Plus-TCP</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/FreeRTOS/FreeRTOS-Plus-TCP/</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>source</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/BufferManagement</name>
+					<type>5</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<file>BufferAllocation_2.c</file>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<toolchain>RXC</toolchain>
+					<name>Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/Compiler</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>Renesas</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<toolchain>GNURX</toolchain>
+					<name>Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/Compiler</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>GCC</folder>
+					</arguments>
+				</resourcefilter>
+				<resourcefilter>
+					<name>Middleware/FreeRTOS/FreeRTOS-Plus-TCP/source/portable/NetworkInterface</name>
+					<type>9</type>
+					<arguments>
+						<key>name</key>
+						<regularexpression>true</regularexpression>
+						<folder>RX</folder>
+					</arguments>
+				</resourcefilter>
+				<!-- template section -->
+				<scfgtemplate>
+					<path>Configuration/samples/minimal_tcp/minimal_scfg.ftl</path>
+				</scfgtemplate>
+				<!-- linker section -->
+				<sections>
+					<toolchain>RXC</toolchain>
+					<section>
+						<name>B_ETHERNET_BUFFERS*</name>
+						<name>B_RX_DESC*</name>
+						<name>B_TX_DESC*</name>
+						<name>B</name>
+						<name>B_1</name>
+						<name>R_2</name>
+						<address>0x00800000</address>
+					</section>
+					<section>
+						<name>PResetPRG</name>
+						<name>C_1</name>
+						<name>C_2</name>
+						<name>C</name>
+						<name>C$*</name>
+						<name>D*</name>
+						<name>W*</name>
+						<name>L</name>
+						<name>P</name>
+						<address>0xFFF00300</address>
+					</section>
+				</sections>
+				<!-- settings section -->
+				<option>
+					<toolchain>RXC</toolchain>
+					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.compiler</toolid>
+					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.compiler.option.gOptimize</optionid>
+					<value>true</value>
+				</option>
+				<option>
+					<toolchain>RXC</toolchain>
+					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.assembler</toolid>
+					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.assembler.option.goptimize</optionid>
+					<value>true</value>
+				</option>
+				<option>
+					<toolchain>RXC</toolchain>
+					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
+					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.optimize</optionid>
+					<value>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.optimize.all</value>
+				</option>
+				<option>
+					<toolchain>RXC</toolchain>
+					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.converter</toolid>
+					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.separated.form.motorolaFile</optionid>
+					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.converter.option.outputHexFile</optionid>
+					<value>true</value>
+				</option>
+				<option>
+					<toolchain>RXC</toolchain>
+					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.common</toolid>
+					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.common.option.branch</optionid>
+					<value>com.renesas.cdt.managedbuild.renesas.ccrx.common.option.branch.none</value>
+				</option>
+				<option>
+					<toolchain>RXC</toolchain>
+					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
+					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.useCustomLinkageOrder</optionid>
+					<value>true</value>
+				</option>
+				<!-- RXC standard library -->
+				<standardlibrary>
+					<toolchain>RXC</toolchain>
+					<libname>ctype.h</libname>
+					<libname>math.h</libname>
+					<libname>mathf.h</libname>
+					<libname>stdarg.h</libname>
+					<libname>stdio.h</libname>
+					<libname>stdlib.h</libname>
+					<libname>string.h</libname>
+					<libname>new.h</libname>
+					<libname>fenv.h</libname>
+					<libname>inttypes.h</libname>
+					<libname>wchar.h</libname>
+					<libname>wctype.h</libname>
+				</standardlibrary>
+				<!-- Macro definition -->
+				<macrodefinition>
+					<compiler>__LITTLE_ENDIAN__</compiler>
+				</macrodefinition>
+			</app>
+			<app id="application" value="bootloader" name="Secure bootloader sample project" description="This demonstration is used together with OTA sample project to provide a secure boot." filteroption="All">
+				<board>CK-RX65N(DUAL)</board>
+				<board>CK-RX65N-V2(DUAL)</board>
+				<board isDual="true">CK-RX65N</board>
+				<board isDual="true">CK-RX65N-V2</board>
 				<!-- impdir section -->
 				<impdir>
 					<board>CK-RX65N</board>
@@ -233,11 +559,9 @@
 					<value>com.renesas.cdt.managedbuild.renesas.ccrx.common.option.branch.none</value>
 				</option>
 			</app>
-			<app id="application" value="pubsub_ether" name="(Ethernet) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Ethernet connection.">
-				<toolchain>RXC</toolchain>
-				<toolchain>GNURX</toolchain>
+			<app id="application" value="pubsub_ether" name="(Ethernet) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Ethernet connection." filteroption="Ethernet">
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pubsub/ck-rx65n/ether/non-tsip/src/frtos_config</folder>
@@ -355,14 +679,10 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -617,7 +937,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -628,7 +947,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC</name>
 					<type>9</type>
 					<arguments>
@@ -794,18 +1112,6 @@
 				</option>
 				<option>
 					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -852,10 +1158,10 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="pubsub_ether_tsip" name="(Ethernet) PubSub/MQTT sample project (TLS with TSIP)" description="This demonstration illustrates PubSub functionality using AWS services with Ethernet connection in TSIP configuration.">
+			<app id="application" value="pubsub_ether_tsip" name="(Ethernet) PubSub/MQTT sample project (TLS with TSIP)" description="This demonstration illustrates PubSub functionality using AWS services with Ethernet connection in TSIP configuration." filteroption="Ethernet">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pubsub/ck-rx65n/ether/tsip/src/frtos_config</folder>
@@ -988,8 +1294,6 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -1219,7 +1523,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -1367,16 +1670,6 @@
 					<value>true</value>
 				</option>
 				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -1411,10 +1704,10 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="pubsub_cell" name="(Cellular) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Cellular(RYZ014A) connection.">
+			<app id="application" value="pubsub_cell" name="(Cellular) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Cellular(RYZ014A) connection." filteroption="Cellular">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pubsub/ck-rx65n/cellular/src/frtos_config</folder>
@@ -1527,8 +1820,6 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -1776,7 +2067,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -1921,16 +2211,6 @@
 					<value>true</value>
 				</option>
 				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -1965,11 +2245,9 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="pubsub_wifi" name="(Wi-Fi) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Wi-Fi(DA16600) connection.">
-				<toolchain>RXC</toolchain>
-				<toolchain>GNURX</toolchain>
+			<app id="application" value="pubsub_wifi" name="(Wi-Fi) PubSub/MQTT sample project" description="This demonstration illustrates PubSub functionality using AWS services with Wi-Fi(DA16600) connection." filteroption="Wi-Fi">
 				<board>CK-RX65N-V2(DUAL)</board>
-				<board>CK-RX65N-V2</board>
+				<board isDual="true">CK-RX65N-V2</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pubsub/ck-rx65n/wifi/src/frtos_config</folder>
@@ -2093,14 +2371,10 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -2364,7 +2638,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -2375,7 +2648,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC</name>
 					<type>9</type>
 					<arguments>
@@ -2538,18 +2810,6 @@
 				</option>
 				<option>
 					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -2585,11 +2845,9 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="fleetps_ether" name="(Ethernet) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Ethernet connection.">
-				<toolchain>RXC</toolchain>
-				<toolchain>GNURX</toolchain>
+			<app id="application" value="fleetps_ether" name="(Ethernet) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Ethernet connection." filteroption="Ethernet">
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleetps/ck-rx65n/ether/src/frtos_config</folder>
@@ -2707,14 +2965,10 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -2960,7 +3214,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -2971,7 +3224,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC</name>
 					<type>9</type>
 					<arguments>
@@ -3137,18 +3389,6 @@
 				</option>
 				<option>
 					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -3195,10 +3435,10 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="fleetps_cell" name="(Cellular) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Cellular(RYZ014A) connection.">
+			<app id="application" value="fleetps_cell" name="(Cellular) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Cellular(RYZ014A) connection." filteroption="Cellular">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleetps/ck-rx65n/cellular/src/frtos_config</folder>
@@ -3311,8 +3551,6 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -3551,7 +3789,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -3696,16 +3933,6 @@
 					<value>true</value>
 				</option>
 				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -3740,11 +3967,9 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="fleetps_wifi" name="(Wi-Fi) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Wi-Fi(DA16600) connection.">
-				<toolchain>RXC</toolchain>
-				<toolchain>GNURX</toolchain>
+			<app id="application" value="fleetps_wifi" name="(Wi-Fi) PubSub/MQTT with Fleet Provisioning sample project" description="This demonstration illustrates Fleet Provisioning functionality, followed by PubSub using AWS services with Wi-Fi(DA16600) connection." filteroption="Wi-Fi">
 				<board>CK-RX65N-V2(DUAL)</board>
-				<board>CK-RX65N-V2</board>
+				<board isDual="true">CK-RX65N-V2</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleetps/ck-rx65n/wifi/src/frtos_config</folder>
@@ -3869,14 +4094,10 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -4131,7 +4352,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -4142,7 +4362,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC</name>
 					<type>9</type>
 					<arguments>
@@ -4305,18 +4524,6 @@
 				</option>
 				<option>
 					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -4352,11 +4559,9 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="pso_ether" name="(Ethernet) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Ethernet connection. Note: This project requires bootloader project.">
-				<toolchain>RXC</toolchain>
-				<toolchain>GNURX</toolchain>
+			<app id="application" value="pso_ether" name="(Ethernet) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Ethernet connection. Note: This project requires bootloader project." filteroption="Ethernet">
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pso/ck-rx65n/ether/non-tsip/src/frtos_config</folder>
@@ -4490,14 +4695,10 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -4771,7 +4972,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -4782,7 +4982,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC</name>
 					<type>9</type>
 					<arguments>
@@ -4947,18 +5146,6 @@
 				</option>
 				<option>
 					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -4983,6 +5170,8 @@
 					<libname>fenv.h</libname>
 					<libname>inttypes.h</libname>
 					<libname>ctype.h</libname>
+					<libname>wchar.h</libname>
+					<libname>wctype.h</libname>
 				</standardlibrary>
 				<!-- Macro definition -->
 				<macrodefinition>
@@ -5004,10 +5193,10 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="pso_ether_tsip" name="(Ethernet) PubSub/MQTT with Over-the-air(OTA) update sample project (TLS with TSIP)" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Ethernet connection in TSIP configuration. Note: This project requires bootloader project.">
+			<app id="application" value="pso_ether_tsip" name="(Ethernet) PubSub/MQTT with Over-the-air(OTA) update sample project (TLS with TSIP)" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Ethernet connection in TSIP configuration. Note: This project requires bootloader project." filteroption="Ethernet">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pso/ck-rx65n/ether/tsip/src/frtos_config</folder>
@@ -5149,8 +5338,6 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -5399,7 +5586,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -5546,16 +5732,6 @@
 					<value>true</value>
 				</option>
 				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -5579,6 +5755,8 @@
 					<libname>fenv.h</libname>
 					<libname>inttypes.h</libname>
 					<libname>ctype.h</libname>
+					<libname>wchar.h</libname>
+					<libname>wctype.h</libname>
 				</standardlibrary>
 				<!-- Macro definition -->
 				<macrodefinition>
@@ -5589,10 +5767,10 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="pso_cell" name="(Cellular) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Cellular(RYZ014A) connection. Note: This project requires bootloader project.">
+			<app id="application" value="pso_cell" name="(Cellular) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Cellular(RYZ014A) connection. Note: This project requires bootloader project." filteroption="Cellular">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pso/ck-rx65n/cellular/src/frtos_config</folder>
@@ -5723,8 +5901,6 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -5982,7 +6158,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -6126,16 +6301,6 @@
 					<value>true</value>
 				</option>
 				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -6159,6 +6324,8 @@
 					<libname>fenv.h</libname>
 					<libname>inttypes.h</libname>
 					<libname>ctype.h</libname>
+					<libname>wchar.h</libname>
+					<libname>wctype.h</libname>
 				</standardlibrary>
 				<!-- Macro definition -->
 				<macrodefinition>
@@ -6169,11 +6336,9 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="pso_wifi" name="(Wi-Fi) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Wi-Fi(DA16600) connection. Note: This project requires bootloader project.">
-				<toolchain>RXC</toolchain>
-				<toolchain>GNURX</toolchain>
+			<app id="application" value="pso_wifi" name="(Wi-Fi) PubSub/MQTT with Over-the-air (OTA) update sample project" description="This demonstration illustrates PubSub and OTA update functionality (simultaneously) using AWS services with Wi-Fi(DA16600) connection. Note: This project requires bootloader project." filteroption="Wi-Fi">
 				<board>CK-RX65N-V2(DUAL)</board>
-				<board>CK-RX65N-V2</board>
+				<board isDual="true">CK-RX65N-V2</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/pso/ck-rx65n/wifi/src/frtos_config</folder>
@@ -6314,14 +6479,10 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -6604,7 +6765,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -6615,7 +6775,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC</name>
 					<type>9</type>
 					<arguments>
@@ -6777,18 +6936,6 @@
 				</option>
 				<option>
 					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -6813,6 +6960,8 @@
 					<libname>fenv.h</libname>
 					<libname>inttypes.h</libname>
 					<libname>ctype.h</libname>
+					<libname>wchar.h</libname>
+					<libname>wctype.h</libname>
 				</standardlibrary>
 				<!-- Macro definition -->
 				<macrodefinition>
@@ -6823,11 +6972,9 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="fleet_pso_ether" name="(Ethernet) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Ethernet connection. Note: This project requires bootloader project.">
-				<toolchain>RXC</toolchain>
-				<toolchain>GNURX</toolchain>
+			<app id="application" value="fleet_pso_ether" name="(Ethernet) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Ethernet connection. Note: This project requires bootloader project." filteroption="Ethernet">
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleet_pso/ck-rx65n/ether/src/frtos_config</folder>
@@ -6963,14 +7110,10 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -7244,7 +7387,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -7255,7 +7397,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC</name>
 					<type>9</type>
 					<arguments>
@@ -7420,18 +7561,6 @@
 				</option>
 				<option>
 					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -7456,6 +7585,8 @@
 					<libname>fenv.h</libname>
 					<libname>inttypes.h</libname>
 					<libname>ctype.h</libname>
+					<libname>wchar.h</libname>
+					<libname>wctype.h</libname>
 				</standardlibrary>
 				<!-- Macro definition -->
 				<macrodefinition>
@@ -7477,10 +7608,10 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="fleet_pso_cell" name="(Cellular) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Cellular(RYZ014A) connection. Note: This project requires bootloader project.">
+			<app id="application" value="fleet_pso_cell" name="(Cellular) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Cellular(RYZ014A) connection. Note: This project requires bootloader project." filteroption="Cellular">
 				<toolchain>RXC</toolchain>
 				<board>CK-RX65N(DUAL)</board>
-				<board>CK-RX65N</board>
+				<board isDual="true">CK-RX65N</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleet_pso/ck-rx65n/cellular/src/frtos_config</folder>
@@ -7619,8 +7750,6 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -7719,7 +7848,7 @@
 						<regularexpression>true</regularexpression>
 						<folder>using_mbedtls_pkcs11_with_tsip</folder>
 					</arguments>
-				</resourcefilter>				
+				</resourcefilter>
 				<resourcefilter>
 					<name>Middleware/AWS</name>
 					<type>9</type>
@@ -7887,7 +8016,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -8031,16 +8159,6 @@
 					<value>true</value>
 				</option>
 				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -8064,6 +8182,8 @@
 					<libname>fenv.h</libname>
 					<libname>inttypes.h</libname>
 					<libname>ctype.h</libname>
+					<libname>wchar.h</libname>
+					<libname>wctype.h</libname>
 				</standardlibrary>
 				<!-- Macro definition -->
 				<macrodefinition>
@@ -8074,11 +8194,9 @@
 					<compiler>__LITTLE_ENDIAN__</compiler>
 				</macrodefinition>
 			</app>
-			<app id="application" value="fleet_pso_wifi" name="(Wi-Fi) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Wi-Fi(DA16600) connection. Note: This project requires bootloader project.">
-				<toolchain>RXC</toolchain>
-				<toolchain>GNURX</toolchain>
+			<app id="application" value="fleet_pso_wifi" name="(Wi-Fi) PubSub/MQTT with Fleet Provisioning and Over-the-air (OTA) update sample project" description="This demonstration illustrates Fleet provisioning functionality followed by PubSub and OTA update (simultaneously) using AWS services with Wi-Fi(DA16600) connection. Note: This project requires bootloader project." filteroption="Wi-Fi">
 				<board>CK-RX65N-V2(DUAL)</board>
-				<board>CK-RX65N-V2</board>
+				<board isDual="true">CK-RX65N-V2</board>
 				<!-- impdir section -->
 				<impdir>
 					<folder>configuration/samples/fleet_pso/ck-rx65n/wifi/src/frtos_config</folder>
@@ -8219,14 +8337,10 @@
 				</incdir>
 				<incdir>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas/RX600v2</path>
 				</incdir>
 				<incdir>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
-					<group>RX65N</group>
 					<path>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC/RX600v2</path>
 				</incdir>
 				<incdir>
@@ -8518,7 +8632,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>RXC</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/Renesas</name>
 					<type>9</type>
 					<arguments>
@@ -8529,7 +8642,6 @@
 				</resourcefilter>
 				<resourcefilter>
 					<toolchain>GNURX</toolchain>
-					<series>RX600</series>
 					<name>Middleware/FreeRTOS/FreeRTOS-Kernel/portable/GCC</name>
 					<type>9</type>
 					<arguments>
@@ -8691,18 +8803,6 @@
 				</option>
 				<option>
 					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWchar</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
-					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.librarian</toolid>
-					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.librarian.option.headWcType</optionid>
-					<value>true</value>
-				</option>
-				<option>
-					<toolchain>RXC</toolchain>
 					<toolid>com.renesas.cdt.managedbuild.renesas.ccrx.base.linker</toolid>
 					<optionid>com.renesas.cdt.managedbuild.renesas.ccrx.linker.option.changeMessage</optionid>
 					<value>true</value>
@@ -8727,6 +8827,8 @@
 					<libname>fenv.h</libname>
 					<libname>inttypes.h</libname>
 					<libname>ctype.h</libname>
+					<libname>wchar.h</libname>
+					<libname>wctype.h</libname>
 				</standardlibrary>
 				<!-- Macro definition -->
 				<macrodefinition>
