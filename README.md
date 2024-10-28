@@ -23,6 +23,11 @@ Summary of specifications explains in the following chapters.
   * Generating and securely delivering device certificates and private keys to your devices by AWS when they connect to AWS IoT for the first time
 * OTA(without TSIP/With TSIP)
   * Update device firmware using AWS
+* FreeRTOS TCP minimal(CK-RX65N-v2/Ethernet Only)
+  * Provides basic TCP/IP functionality using FreeRTOS Kernel and FreeRTOS-Plus-TCP
+    * Acquisition of IP address by DHCP
+    * IP address search of URLs by DNS
+    * Send ping to the specified IP Address
 
 The preceding demos use the following technical elements of the AWS IoT:
 
@@ -175,6 +180,18 @@ The hook function *1 is called by occuring an error of a TCP_Sockets API *2 (dis
 * Limitations on using the LittleFS module  
   The LittleFS is not thread-safe.  
   Calling the LittleFS API from multiple tasks is prohibited.
+
+* When you connect to a GCC project in the debugger using e2 studio version `2024-10`, you may see the following error message:  
+`Exception occurred during launch`  
+In this case, you can make a debug connection by performing the following steps.
+  * Click the following from the e2 studio menu.  
+    `Help` -> `About e2 studio`
+  * Click the  button `Installation Details` at the bottom left of the `About e2 studio` window.
+  * Click the tab `Support Folders`
+  * Click the link `e2 studio support Area`
+  * Open the following folders from the opened Windows Explorer screen.
+  　`\DebugComp\RX\RtosPlugins`
+  * Delete the following files: `FreeRtosDll.dll`
 
 ### About bootloader macros
 The following macros have been added in FreeRTOS-v202210.01-LTS-rx-1.1.0.
