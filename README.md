@@ -87,6 +87,8 @@ The following table indicates name and version of OSS which are used in this ref
 
 The following table indicates name and version of [FIT modules](https://www.renesas.com/software-tool/fit) which are used in this reference and version of [RX Driver Package](https://www.renesas.com/software-tool/rx-driver-package) in which each FIT module is packaged.
 
+#### PubSub/Fleet Provisioning/OTA Project
+
 | FIT module | Revision of FIT module | Version of RX Driver Package |
 |------------|---------|-------------------|
 |r_bsp|7.42|1.42|
@@ -100,6 +102,13 @@ The following table indicates name and version of [FIT modules](https://www.rene
 |r_irq_rx|4.40|1.40 - 1.42|
 |r_fwup|2.03|--|
 |r_wifi_da16xxx|1.20|--|
+
+#### FreeRTOS TCP minimal Project
+
+| FIT module | Revision of FIT module | Version of RX Driver Package |
+|------------|---------|-------------------|
+|r_bsp       |7.51     |1.45               |
+|r_ether_rx  |1.23     |1.36 - 1.45        |
 
 ### Data Flash Usage
 RX family of MCU has internal Data Flash Memory, and this references are using the Data Flash to store the data for connecting to the Cloud service.  
@@ -524,6 +533,21 @@ In this sample, both `BL_UPDATE_MODE` and `BL_INITIAL_IMAGE_INSTALL` are set to 
   |            | FWUP_CFG_USER_FLASH_READ_ENABLED | 0 | 1 | Because custom FWUP flash wrapper read function is used |
   |            | FWUP_CFG_USER_BANK_SWAP_ENABLED | 0 | 1 | Because custom FWUP flash wrapper bank swap function is used |
 
+  #### CK-RX65N v2 FreeRTOS TCP minimal Project
+
+  | FIT module | Config name | Default Value | Project value | Reason for change |
+  |------------|-------------|---------------|---------------|-------------------|
+  | r_bsp      | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 1 \*| *If Dual bank is specified when creating the project, it will be 0. |
+  |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
+  |            | BSP_CFG_EXPANSION_RAM_ENABLE | 1 | 1 \* | *This macro is set to "1" by default.<BR>This table is included as a caveat.<BR>In the GCC project it is set to 0. |
+  | r_ether_rx | ETHER_CFG_MODE_SEL | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_CH0_PHY_ADDRESS | 0 | 5 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_EMAC_RX_DESCRIPTORS | 1 | 6 | Settings to prevent descriptor exhaustion when sending and receiving Ethernet frames. |
+  |            | ETHER_CFG_EMAC_TX_DESCRIPTORS | 1 | 10 | Settings to prevent descriptor exhaustion when sending and receiving Ethernet frames |
+  |            | ETHER_CFG_CH0_PHY_ACCESS | 1 | 0 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_LINK_PRESENT | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_USE_PHY_ICS1894_32 | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  
 ## Contribution
 
 See [CONTRIBUTING](CONTRIBUTING.md) for more information.
