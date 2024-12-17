@@ -23,6 +23,15 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/***********************************************************************************************************************
+ * Includes
+ **********************************************************************************************************************/
+
+/* Register definitions, common services and error codes. */
+#include "platform.h"
+#include "r_flash_rx_if.h"
+#include "lfs.h"
+
 #ifndef RM_LITTLEFS_API_H
 #define RM_LITTLEFS_API_H
 
@@ -40,15 +49,6 @@
  *
  * @{
  **********************************************************************************************************************/
-
-/***********************************************************************************************************************
- * Includes
- **********************************************************************************************************************/
-
-/* Register definitions, common services and error codes. */
-#include "platform.h"
-#include "r_flash_rx_if.h"
-#include "lfs.h"
 
 /* Common macro for SSP header files. There is also a corresponding SSP_FOOTER macro at the end of this file. */
 FSP_HEADER

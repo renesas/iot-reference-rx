@@ -36,13 +36,16 @@
 *                    Type of network up/down event
 * Return Value : None.
 ******************************************************************************/
-void vApplicationIPNetworkEventHook( eIPCallbackEvent_t eNetworkEvent )
+void vApplicationIPNetworkEventHook(eIPCallbackEvent_t eNetworkEvent)
 {
-    uint32_t ulIPAddress, ulNetMask, ulGatewayAddress, ulDNSServerAddress;
-    char cBuffer[ 16 ];
+    uint32_t ulIPAddress;
+    uint32_t ulNetMask;
+    uint32_t ulGatewayAddress;
+    uint32_t ulDNSServerAddress;
+    char cBuffer[16];
 
     /* If the network has just come up...*/
-    if( eNetworkEvent == eNetworkUp )
+    if (eNetworkUp == eNetworkEvent)
     {
         /* Print out the network configuration, which may have come from a DHCP
          * server. */
@@ -52,16 +55,19 @@ void vApplicationIPNetworkEventHook( eIPCallbackEvent_t eNetworkEvent )
             &ulGatewayAddress,
             &ulDNSServerAddress );
 
-        FreeRTOS_inet_ntoa( ulIPAddress, cBuffer );
-        FreeRTOS_printf( ( "IP Address: %s\n", cBuffer ) );
+        FreeRTOS_inet_ntoa(ulIPAddress, cBuffer);
+        FreeRTOS_printf(("IP Address: %s\n", cBuffer));
 
-        FreeRTOS_inet_ntoa( ulNetMask, cBuffer );
-        FreeRTOS_printf( ( "Subnet Mask: %s\n", cBuffer ) );
+        FreeRTOS_inet_ntoa(ulNetMask, cBuffer);
+        FreeRTOS_printf(("Subnet Mask: %s\n", cBuffer));
 
-        FreeRTOS_inet_ntoa( ulGatewayAddress, cBuffer );
-        FreeRTOS_printf( ( "Gateway Address: %s\n", cBuffer ) );
+        FreeRTOS_inet_ntoa(ulGatewayAddress, cBuffer);
+        FreeRTOS_printf(("Gateway Address: %s\n", cBuffer));
 
-        FreeRTOS_inet_ntoa( ulDNSServerAddress, cBuffer );
-        FreeRTOS_printf( ( "DNS Server Address: %s\n", cBuffer ) );
+        FreeRTOS_inet_ntoa(ulDNSServerAddress, cBuffer);
+        FreeRTOS_printf(("DNS Server Address: %s\n", cBuffer));
     }
 }
+/*****************************************************************************************
+End of function vApplicationIPNetworkEventHook
+****************************************************************************************/

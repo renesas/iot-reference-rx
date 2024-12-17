@@ -612,7 +612,7 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
     const char pxClaimKey[] =  pkcs11configLABEL_CLAIM_PRIVATE_KEY ;
 	CK_FUNCTION_LIST_PTR pxFunctionList = NULL;
 	CK_SESSION_HANDLE xSession = 0;
-	char *tmp;
+	char *tmp = NULL;
 	uint32_t data_length = 0;
 
 	CK_BBOOL xIsPrivate = ( CK_BBOOL ) CK_FALSE;
@@ -629,7 +629,8 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
 	    (KVS_TSIP_CLIENT_PRIKEY_ID == xKey))
 	{
 		/* TSIP key cancels read */
-		return ("The TSIP key index cannot be read.");
+		buffervalue = "The TSIP key index cannot be read.";
+		return buffervalue;
 	}
 
     if ((xKey == KVS_DEVICE_CERT_ID) || (xKey == KVS_DEVICE_PRIVKEY_ID) || (xKey == KVS_DEVICE_PUBKEY_ID)

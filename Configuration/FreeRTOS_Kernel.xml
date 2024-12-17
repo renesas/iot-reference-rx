@@ -4,7 +4,7 @@
 	<package>
 		<type>rtosmodule</type>
 		<name>FreeRTOS_Kernel</name>
-		<version>10.5.1</version>
+		<version>11.1.0</version>
 		<application>FreeRTOSLTSLibrary</application>
 		<desc>FreeRTOS Kernel</desc>
 		<details>FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications.</details>

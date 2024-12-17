@@ -90,7 +90,7 @@
 #define ECHO_SERVER_ROOT_CA "PLACE_HOLDER"
 
 
-	/**
+/**
  * @brief Client certificate to connect to echo server.
  *
  * @note This certificate should be PEM-encoded.
@@ -102,7 +102,7 @@
  *
  * #define TRANSPORT_CLIENT_CERTIFICATE NULL
  */
-#define TRANSPORT_CLIENT_CERTIFICATE NULL
+#define TRANSPORT_CLIENT_CERTIFICATE (NULL)
 
 /**
  * @brief Client private key to connect to echo server.
@@ -112,14 +112,15 @@
  * For qualification, the key should be generated on-device.
  *
  * #define TRANSPORT_CLIENT_PRIVATE_KEY  NULL
+ */
 /**
  * @brief Port of the MQTT broker to connect to in mqtt test.
  *
  * #define MQTT_SERVER_PORT       (8883)
  */
-#define TRANSPORT_CLIENT_PRIVATE_KEY  NULL
+#define TRANSPORT_CLIENT_PRIVATE_KEY  (NULL)
 
-	/**
+/**
  * @brief Client certificate to connect to MQTT server.
  *
  * @note This certificate should be PEM-encoded.
@@ -133,15 +134,15 @@
  */
 #define MQTT_CLIENT_CERTIFICATE "PLACE_HOLDER"
 
-	/**
+/**
  * @brief Client private key to connect to MQTT server.
-	 *
-	 * @note This is should only be used for testing purpose.
-	 *
-	 * For qualification, the key should be generated on-device.
-	 *
-	 * #define MQTT_CLIENT_PRIVATE_KEY  NULL
-	 */
+*
+* @note This is should only be used for testing purpose.
+*
+* For qualification, the key should be generated on-device.
+*
+* #define MQTT_CLIENT_PRIVATE_KEY  NULL
+*/
 #define MQTT_CLIENT_PRIVATE_KEY  "PLACE_HOLDER"
 
 /**
@@ -156,15 +157,15 @@
  * must be unique; so edit as required to ensure that no two clients connecting to
  * the same broker use the same client identifier.
  *
- * #define MQTT_TEST_CLIENT_IDENTIFIER				"insert here."
+ * #define MQTT_TEST_CLIENT_IDENTIFIER                "insert here."
  */
-#define MQTT_TEST_CLIENT_IDENTIFIER	IOT_THING_NAME
+#define MQTT_TEST_CLIENT_IDENTIFIER                IOT_THING_NAME
 
 /**
  * @brief Network buffer size specified in bytes. Must be large enough to hold the maximum
  * anticipated MQTT payload.
  *
- * #define MQTT_TEST_NETWORK_BUFFER_SIZE			( 5000 )
+ * #define MQTT_TEST_NETWORK_BUFFER_SIZE            ( 5000 )
  */
 #define MQTT_TEST_NETWORK_BUFFER_SIZE    ( 5000 )
 
@@ -185,9 +186,9 @@
 
 #define PKCS11_TEST_JITP_CODEVERIFY_ROOT_CERT_SUPPORTED   (0)
 
-#define OTA_RSA_SHA1                                     1
-#define OTA_RSA_SHA256                                   2
-#define OTA_ECDSA_SHA256                                 3
+#define OTA_RSA_SHA1                                     (1)
+#define OTA_RSA_SHA256                                   (2)
+#define OTA_ECDSA_SHA256                                 (3)
 
 /**
  * @brief Certificate type for OTA PAL test.
@@ -214,21 +215,23 @@
  * image and the certificates because their non-volatile memory is abstracted by a
  * file system. Set this to 1 if that is the case for your device.
  */
-#define OTA_PAL_USE_FILE_SYSTEM                          0
+#define OTA_PAL_USE_FILE_SYSTEM                          (0)
 
 
 
 /**
  * @brief 1 if using PKCS #11 to access the code sign certificate from NVM.
  */
-#define OTA_PAL_READ_CERTIFICATE_FROM_NVM_WITH_PKCS11    1
+#define OTA_PAL_READ_CERTIFICATE_FROM_NVM_WITH_PKCS11    (1)
 
-#define OTA_APP_VERSION_MAJOR                            0
+#define OTA_APP_VERSION_MAJOR                            (0)
 
-#define OTA_APP_VERSION_MINOR                            9
+#define OTA_APP_VERSION_MINOR                            (9)
 
-#define OTA_APP_VERSION_BUILD                            1
+#define OTA_APP_VERSION_BUILD                            (1)
 
 #define OUTGOING_PUBLISH_RECORD_COUNT                    ( 10 )
 #define INCOMING_PUBLISH_RECORD_COUNT                    ( 10 )
+
+#define MQTT_TEST_PROCESS_LOOP_TIMEOUT_MS                (1000)
 #endif /* TEST_PARAM_CONFIG_H */

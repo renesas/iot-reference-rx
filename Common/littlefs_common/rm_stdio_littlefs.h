@@ -31,9 +31,9 @@
 /**********************************************************************************************************************
  * Includes
  **********************************************************************************************************************/
+#include <stdio.h>
 #include "lfs.h"
 #include "lfs_util.h"
-#include <stdio.h>
 
 /** Common macro for FSP header files. There is also a corresponding FSP_FOOTER macro at the end of this file. */
 FSP_HEADER
@@ -44,16 +44,23 @@ FSP_HEADER
 
 /* By default IAR does not define FILE unless DLIB is used. */
 #if defined(__ICCARM__)
- #if !_DLIB_FILE_DESCRIPTOR
+    #if !_DLIB_FILE_DESCRIPTOR
 typedef void FILE;
- #endif
+    #endif
 #endif
 
-extern lfs_t RM_STDIO_LITTLEFS_CFG_LFS;
-#define MBEDTLS_CONFIG_LFS    &RM_STDIO_LITTLEFS_CFG_LFS
+#define MBEDTLS_CONFIG_LFS    (&RM_STDIO_LITTLEFS_CFG_LFS)
 
 #pragma inline_asm rm_littlefs_fopen
-static FILE * rm_littlefs_fopen (const char * path, const char * mode)
+
+/**********************************************************************************************************************
+ * Function Name: rm_littlefs_fopen
+ * Description  : .
+ * Arguments    : path
+ *              : mode
+ * Return Value : .
+ *********************************************************************************************************************/
+static FILE * rm_littlefs_fopen(const char * path, const char * mode)
 {
     /* Allocate a LittleFS file instance. */
     lfs_file_t * file = malloc(sizeof(lfs_file_t));
@@ -76,24 +83,29 @@ static FILE * rm_littlefs_fopen (const char * path, const char * mode)
 
     return (FILE *) file;
 }
+/*****************************************************************************************
+End of function rm_littlefs_fopen
+****************************************************************************************/
 
 /* Use the above inline function to replace fopen. */
-#define fopen    rm_littlefs_fopen
+#define fopen    (rm_littlefs_fopen)
 
-#define fwrite(data, n, len, stream)    lfs_file_write(MBEDTLS_CONFIG_LFS, (lfs_file_t *) stream, data, n * len)
+#define fwrite(data, n, len, stream)    (lfs_file_write(MBEDTLS_CONFIG_LFS, (lfs_file_t *) stream, data, n * len))
 
-#define fread(data, n, len, stream)     lfs_file_read(MBEDTLS_CONFIG_LFS, (lfs_file_t *) stream, data, n * len)
+#define fread(data, n, len, stream)     (lfs_file_read(MBEDTLS_CONFIG_LFS, (lfs_file_t *) stream, data, n * len))
 
 #define fseek(stream, offset,                                                                              \
-              seek)                     ((lfs_file_seek(MBEDTLS_CONFIG_LFS, (lfs_file_t *) stream, offset, \
+                seek)                     ((lfs_file_seek(MBEDTLS_CONFIG_LFS, (lfs_file_t *) stream, offset, \
                                                         seek) >= 0) ? 0 : -1)
 
-#define remove(file)                    lfs_remove(MBEDTLS_CONFIG_LFS, file)
+#define remove(file)                    (lfs_remove(MBEDTLS_CONFIG_LFS, file))
 
 /* Free the memory associated with this file after it is closed. */
-#define fclose(stream)                  lfs_file_close(MBEDTLS_CONFIG_LFS, (lfs_file_t *) stream); free(stream)
+#define fclose(stream)                  (lfs_file_close(MBEDTLS_CONFIG_LFS, (lfs_file_t *) stream); free(stream))
 
-#define rename(oldpath, newpath)        lfs_rename(MBEDTLS_CONFIG_LFS, oldpath, newpath)
+#define rename(oldpath, newpath)        (lfs_rename(MBEDTLS_CONFIG_LFS, oldpath, newpath))
+
+extern lfs_t RM_STDIO_LITTLEFS_CFG_LFS;
 
 /**********************************************************************************************************************
  * Typedef definitions

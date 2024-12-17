@@ -23,9 +23,11 @@
  * http://www.FreeRTOS.org
  */
 
+#include "test_param_config.h"
+
 #ifndef __AWS_CLIENTCREDENTIAL__H__
 #define __AWS_CLIENTCREDENTIAL__H__
-#include "test_param_config.h"
+
 /*
  * @brief MQTT Broker endpoint.
  *
@@ -53,7 +55,7 @@
 /*
  * @brief Port number the Green Grass Discovery use for JSON retrieval from cloud is using.
  */
-#define clientcredentialGREENGRASS_DISCOVERY_PORT    8443
+#define clientcredentialGREENGRASS_DISCOVERY_PORT    (8443)
 
 /*
  * @brief Wi-Fi network to join.

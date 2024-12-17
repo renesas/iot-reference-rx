@@ -23,8 +23,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef COMMON_DATA_H_
-#define COMMON_DATA_H_
 #include <stdint.h>
 
 #ifdef __TEST__
@@ -41,6 +39,10 @@
 #include "lfs_util.h"
 #include "mbedtls_pk_pkcs11.h"
 #include "core_mqtt.h"
+
+#ifndef COMMON_DATA_H_
+#define COMMON_DATA_H_
+
 FSP_HEADER
 /* Flash on Flash HP Instance */
 
@@ -60,9 +62,25 @@ extern struct lfs g_rm_littlefs0_lfs;
 extern const struct lfs_config g_rm_littlefs0_lfs_cfg;
 extern lfs_t g_lfs;
 
-int32_t littlFs_init( void );
-int32_t littlFs_format( void );
+/**********************************************************************************************************************
+ * Function Name: littlFs_init
+ * Description  : .
+ * Return Value : .
+ *********************************************************************************************************************/
+int32_t littlFs_init (void);
 
-void g_common_init(void);
+/**********************************************************************************************************************
+ * Function Name: littlFs_format
+ * Description  : .
+ * Return Value : .
+ *********************************************************************************************************************/
+int32_t littlFs_format (void);
+
+/**********************************************************************************************************************
+ * Function Name: g_common_init
+ * Description  : .
+ * Return Value : .
+ *********************************************************************************************************************/
+void g_common_init (void);
 FSP_FOOTER
 #endif /* COMMON_DATA_H_ */

@@ -48,12 +48,12 @@
 /*
  * @brief Port number the MQTT broker is using.
  */
-#define clientcredentialMQTT_BROKER_PORT             8883
+#define clientcredentialMQTT_BROKER_PORT             (8883)
 
 /*
  * @brief Port number the Green Grass Discovery use for JSON retrieval from cloud is using.
  */
-#define clientcredentialGREENGRASS_DISCOVERY_PORT    8443
+#define clientcredentialGREENGRASS_DISCOVERY_PORT    (8443)
 
 /*
  * @brief Wi-Fi network to join.
@@ -76,6 +76,6 @@
  * @note Possible values are eWiFiSecurityOpen, eWiFiSecurityWEP, eWiFiSecurityWPA,
  * eWiFiSecurityWPA2 (depending on the support of your device Wi-Fi radio).
  */
-#define clientcredentialWIFI_SECURITY                eWiFiSecurityWPA2
+#define clientcredentialWIFI_SECURITY                (eWiFiSecurityWPA2)
 
 #endif /* ifndef __AWS_CLIENTCREDENTIAL__H__ */

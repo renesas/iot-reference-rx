@@ -31,7 +31,7 @@
   */
 
 #include <string.h>
-#include "platform.h"   // __LIT for all compilers
+#include "platform.h"   /* __LIT for all compilers*/
 #include "r_s12ad_rx_if.h"
 
 #if BSP_CFG_MCU_PART_ENCRYPTION_INCLUDED == true
@@ -43,6 +43,7 @@ tsip_tls_ca_certification_public_key_index_t s_inst1 =
 {
     0
 };
+
 /* Update keyring key index data */
 tsip_update_key_ring_t s_inst2 =
 {
@@ -51,74 +52,86 @@ tsip_update_key_ring_t s_inst2 =
 
 #endif
 
-void get_random_number(uint8_t *data, uint32_t len);
+void get_random_number (uint8_t *data, uint32_t len);
 
-/******************************************************************************
-Functions : hardware entropy collector(repeatedly called until enough gathered)
-******************************************************************************/
-int mbedtls_hardware_poll( void *data,
-                           unsigned char *output, size_t len, size_t *olen )
+/**********************************************************************************************************************
+ * Function Name: mbedtls_hardware_poll
+ * Description  : hardware entropy collector(repeatedly called until enough gathered)
+ * Arguments    : data
+ *              : output
+ *              : len
+ *              : olen
+ * Return Value : .
+ *********************************************************************************************************************/
+int mbedtls_hardware_poll(void *data,
+                            unsigned char *output, size_t len, size_t *olen)
 {
     INTERNAL_NOT_USED(data);
-	INTERNAL_NOT_USED(len);
-	#if BSP_CFG_MCU_PART_ENCRYPTION_INCLUDED == true
-		e_tsip_err_t error_code = TSIP_SUCCESS;
+    INTERNAL_NOT_USED(len);
+    #if BSP_CFG_MCU_PART_ENCRYPTION_INCLUDED == true
+        e_tsip_err_t error_code = TSIP_SUCCESS;
 
-		static uint32_t gs_random_number_buffer[4] =
-		{
-			0
-		};
+        static uint32_t gs_random_number_buffer[4] =
+        {
+            0
+        };
 
-		size_t num_bytes = ( len < sizeof( uint32_t ) ) ? len : sizeof( uint32_t );
+        size_t num_bytes = (len < sizeof(uint32_t)) ? len : sizeof(uint32_t);
 
-		R_Demo_Common_API_TSIP_Open(&s_inst1, &s_inst2);
-		R_TSIP_GenerateRandomNumber(( uint32_t * ) &gs_random_number_buffer);
-		*olen = 0;
+        R_Demo_Common_API_TSIP_Open(&s_inst1, &s_inst2);
+        R_TSIP_GenerateRandomNumber((uint32_t *) &gs_random_number_buffer);
+        *olen = 0;
 
-		memcpy( output, &gs_random_number_buffer, num_bytes );
-		*olen = num_bytes;
-
-
-		return error_code;
-	#else
-		uint32_t random_number = 0;
-		size_t num_bytes = ( len < sizeof( uint32_t ) ) ? len : sizeof( uint32_t );
-
-		get_random_number( ( uint8_t * ) &random_number, sizeof( uint32_t ) );
-		*olen = 0;
-
-		memcpy( output, &random_number, num_bytes );
-		*olen = num_bytes;
-
-		return 0;
+        memcpy(output, &gs_random_number_buffer, num_bytes);
+        *olen = num_bytes;
 
 
-	#endif
+        return error_code;
+    #else
+        uint32_t random_number = 0;
+        size_t num_bytes = (len < sizeof(uint32_t)) ? len : sizeof(uint32_t);
+
+        get_random_number((uint8_t *) &random_number, sizeof(uint32_t));
+        *olen = 0;
+
+        memcpy(output, &random_number, num_bytes);
+        *olen = num_bytes;
+
+        return 0;
+
+
+    #endif
 }
+/*****************************************************************************************
+End of function mbedtls_hardware_poll
+****************************************************************************************/
 
-/******************************************************************************
-Functions : random number generator(XorShift method)
-
-WARNING: For best security practice, it is recommended to utilize a
-    random number generation solution that is truly randomized and conforms to
-    the guidelines provided in the Device Qualification Program for FreeRTOS Guide
-    (https://docs.aws.amazon.com/freertos/latest/qualificationguide/afq-checklist.html).
-    The random number generator method presented in this file by the silicon vendor
-    is not truly random in nature. The current solution takes entropy from the
-    temperature sensor on the board and from the current system time.
-    For production development, Renesas RX65x customers are recommended to use
-    the TRNG included in the Trusted Secure IP Driver.
-    Please see the following for more information on the Trusted Secure IP Driver:
-    https://www.renesas.com/us/en/products/software-tools/software-os-middleware-driver/security-crypto/trusted-secure-ip-driver.html.
-    Please contact the silicon vendor for details regarding the method implemented.
-
-******************************************************************************/
+/**********************************************************************************************************************
+ * Function Name: get_random_number
+ * Description  : random number generator(XorShift method)
+ * Arguments    : data
+ *              : len
+ * Return Value : .
+ *
+ * WARNING: For best security practice, it is recommended to utilize a
+ *  random number generation solution that is truly randomized and conforms to
+ *  the guidelines provided in the Device Qualification Program for FreeRTOS Guide
+ *  (https://docs.aws.amazon.com/freertos/latest/qualificationguide/afq-checklist.html).
+ *  The random number generator method presented in this file by the silicon vendor
+ *  is not truly random in nature. The current solution takes entropy from the
+ *  temperature sensor on the board and from the current system time.
+ *  For production development, Renesas RX65x customers are recommended to use
+ *  the TRNG included in the Trusted Secure IP Driver.
+ *  Please see the following for more information on the Trusted Secure IP Driver:
+ *  https://www.renesas.com/us/en/products/software-tools/software-os-middleware-driver/security-crypto/trusted-secure-ip-driver.html.
+ *  Please contact the silicon vendor for details regarding the method implemented.
+ *********************************************************************************************************************/
 void get_random_number(uint8_t *data, uint32_t len)
 {
     static uint32_t y = 2463534242;
     uint32_t res;
     uint32_t lp;
-    uint8_t *bPtr;
+    uint8_t *bPtr = NULL;
 #if defined (BSP_MCU_RX65N) || (BSP_MCU_RX651) || (BSP_MCU_RX64M)
     adc_cfg_t ad_cfg;
     adc_ch_cfg_t ch_cfg;
@@ -237,7 +250,11 @@ void get_random_number(uint8_t *data, uint32_t len)
             break;
 
         default:
+
             /* no op */
             break;
     }
 }
+/*****************************************************************************************
+End of function get_random_number
+****************************************************************************************/

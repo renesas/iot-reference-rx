@@ -51,7 +51,7 @@ static const char tlsATS1_ROOT_CERTIFICATE_PEM[] =
     "5MsI+yMRQ+hDKXJioaldXgjUkK642M4UwtBV8ob2xJNDd2ZhwLnoQdeXeGADbkpy\n"
     "rqXRfboQnoZsG4q5WTP468SQvvG5\n"
     "-----END CERTIFICATE-----\n";
-static const uint32_t tlsATS1_ROOT_CERTIFICATE_LENGTH = sizeof( tlsATS1_ROOT_CERTIFICATE_PEM );
+static const uint32_t tlsATS1_ROOT_CERTIFICATE_LENGTH = sizeof(tlsATS1_ROOT_CERTIFICATE_PEM);
 
 /*
  * https://www.amazontrust.com/repository/AmazonRootCA2.pem
@@ -89,7 +89,7 @@ static const char tlsATS2_ROOT_CERTIFICATE_PEM[] =
     "9jVlpNMKVv/1F2Rs76giJUmTtt8AF9pYfl3uxRuw0dFfIRDH+fO6AgonB8Xx1sfT\n"
     "4PsJYGw=\n"
     "-----END CERTIFICATE-----\n";
-static const uint32_t tlsATS2_ROOT_CERTIFICATE_LENGTH = sizeof( tlsATS2_ROOT_CERTIFICATE_PEM );
+static const uint32_t tlsATS2_ROOT_CERTIFICATE_LENGTH = sizeof(tlsATS2_ROOT_CERTIFICATE_PEM);
 
 /*
  * https://www.amazontrust.com/repository/AmazonRootCA3.pem
@@ -108,7 +108,7 @@ static const char tlsATS3_ROOT_CERTIFICATE_PEM[] =
     "BqWTrBqYaGFy+uGh0PsceGCmQ5nFuMQCIQCcAu/xlJyzlvnrxir4tiz+OpAUFteM\n"
     "YyRIHN8wfdVoOw==\n"
     "-----END CERTIFICATE-----\n";
-static const uint32_t tlsATS3_ROOT_CERTIFICATE_LENGTH = sizeof( tlsATS3_ROOT_CERTIFICATE_PEM );
+static const uint32_t tlsATS3_ROOT_CERTIFICATE_LENGTH = sizeof(tlsATS3_ROOT_CERTIFICATE_PEM);
 
 /*
  * https://www.amazontrust.com/repository/AmazonRootCA4.pem
@@ -128,7 +128,7 @@ static const char tlsATS4_ROOT_CERTIFICATE_PEM[] =
     "CkcO8DdZEv8tmZQoTipPNU0zWgIxAOp1AE47xDqUEpHJWEadIRNyp4iciuRMStuW\n"
     "1KyLa2tJElMzrdfkviT8tQp21KW8EA==\n"
     "-----END CERTIFICATE-----\n";
-static const uint32_t tlsATS4_ROOT_CERTIFICATE_LENGTH = sizeof( tlsATS4_ROOT_CERTIFICATE_PEM );
+static const uint32_t tlsATS4_ROOT_CERTIFICATE_LENGTH = sizeof(tlsATS4_ROOT_CERTIFICATE_PEM);
 
 /*
  * Starfield Cross-signing CA
@@ -158,7 +158,7 @@ static const char tlsSTARFIELD_ROOT_CERTIFICATE_PEM[] =
     "VSJYACPq4xJDKVtHCN2MQWplBqjlIapBtJUhlbl90TSrE9atvNziPTnNvT51cKEY\n"
     "WQPJIrSPnNVeKtelttQKbfi3QBFGmh95DmK/D5fs4C8fF5Q=\n"
     "-----END CERTIFICATE-----\n";
-static const uint32_t tlsSTARFIELD_ROOT_CERTIFICATE_LENGTH = sizeof( tlsSTARFIELD_ROOT_CERTIFICATE_PEM );
+static const uint32_t tlsSTARFIELD_ROOT_CERTIFICATE_LENGTH = sizeof(tlsSTARFIELD_ROOT_CERTIFICATE_PEM);
 
 /*
  * VeriSign-Class 3-Public-Primary-Certification-Authority-G5
@@ -192,6 +192,6 @@ static const char tlsVERISIGN_ROOT_CERTIFICATE_PEM[] =
     "4fQRbxC1lfznQgUy286dUV4otp6F01vvpX1FQHKOtw5rDgb7MzVIcbidJ4vEZV8N\n"
     "hnacRHr2lVz2XTIIM6RUthg/aFzyQkqFOFSDX9HoLPKsEdao7WNq\n"
     "-----END CERTIFICATE-----\n";
-static const uint32_t tlsVERISIGN_ROOT_CERTIFICATE_LENGTH = sizeof( tlsVERISIGN_ROOT_CERTIFICATE_PEM );
+static const uint32_t tlsVERISIGN_ROOT_CERTIFICATE_LENGTH = sizeof(tlsVERISIGN_ROOT_CERTIFICATE_PEM);
 
 #endif /* ifndef __DEFAULT__ROOT__CERTIFICATES__H__ */

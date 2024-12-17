@@ -26,14 +26,26 @@
 
 /* FreeRTOS Includes. */
 #if defined(__ARMCC_VERSION)
- #pragma GCC diagnostic push
- #pragma GCC diagnostic ignored "-Wmacro-redefined"
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wmacro-redefined"
 #endif
+
+/* C runtime includes. */
+#include <stdio.h>
+#include <string.h>
+
+/* mbedTLS includes. */
+#if !defined( MBEDTLS_CONFIG_FILE )
+    #include "mbedtls_config.h"
+#else
+    #include MBEDTLS_CONFIG_FILE
+#endif
+#include "mbedtls/compat-2.x.h"
 
 #include "core_pkcs11.h"
 
 #if defined(__ARMCC_VERSION)
- #pragma GCC diagnostic pop
+    #pragma GCC diagnostic pop
 #endif
 
 #include "core_pkcs11_config_defaults.h"
@@ -44,23 +56,11 @@
 #include "task.h"
 #include "mbedtls/sha256.h"
 
-/* C runtime includes. */
-#include <stdio.h>
-#include <string.h>
-
 #include "lfs.h"
-#include <lfs_util_config.h>
-
+#include "lfs_util_config.h"
 
 #include "transport_mbedtls_pkcs11.h"
 
-/* mbedTLS includes. */
-#if !defined( MBEDTLS_CONFIG_FILE )
-    #include "mbedtls_config.h"
-#else
-    #include MBEDTLS_CONFIG_FILE
-#endif
-#include "mbedtls/compat-2.x.h"
 extern lfs_t RM_STDIO_LITTLEFS_CFG_LFS;
 volatile uint32_t pvwrite = 0;
 enum eObjectHandles
@@ -69,11 +69,11 @@ enum eObjectHandles
     eAwsDevicePrivateKey = 1,
     eAwsDevicePublicKey,
     eAwsDeviceCertificate,
-	eAwsCodeSigningKey,
-	eAwsClaimCertificate,
-	eAwsClaimPrivateKey,
+    eAwsCodeSigningKey,
+    eAwsClaimCertificate,
+    eAwsClaimPrivateKey,
 #if pkcs11configMAX_NUM_OBJECTS >= 8
-	eAwsRootCertificate,
+    eAwsRootCertificate,
 #endif
 #if pkcs11configMAX_NUM_OBJECTS >= 9
     eAwsJitpCertificate,
@@ -87,8 +87,8 @@ uint8_t g_object_handle_dictionary[pkcs11configMAX_NUM_OBJECTS][pkcs11configMAX_
     pkcs11configLABEL_DEVICE_PUBLIC_KEY_FOR_TLS,
     pkcs11configLABEL_DEVICE_CERTIFICATE_FOR_TLS,
     pkcs11configLABEL_CODE_VERIFICATION_KEY,
-	pkcs11configLABEL_CLAIM_CERTIFICATE,
-	pkcs11configLABEL_CLAIM_PRIVATE_KEY,
+    pkcs11configLABEL_CLAIM_CERTIFICATE,
+    pkcs11configLABEL_CLAIM_PRIVATE_KEY,
 #if pkcs11configMAX_NUM_OBJECTS >= 8
     pkcs11configLABEL_ROOT_CERTIFICATE,
 #endif
@@ -96,37 +96,48 @@ uint8_t g_object_handle_dictionary[pkcs11configMAX_NUM_OBJECTS][pkcs11configMAX_
     pkcs11configLABEL_JITP_CERTIFICATE,
 #endif
 };
-void Crypto( void );
+void Crypto (void);
 
-void Crypto( void )
+/**********************************************************************************************************************
+ * Function Name: Crypto
+ * Description  : Set the mutex functions for mbed TLS thread safety.
+ * Return Value : .
+ *********************************************************************************************************************/
+void Crypto(void)
 {
-    /* Set the mutex functions for mbed TLS thread safety. */
-    mbedtls_threading_set_alt( mbedtls_platform_mutex_init,
-                               mbedtls_platform_mutex_free,
-                               mbedtls_platform_mutex_lock,
-                               mbedtls_platform_mutex_unlock );
+    mbedtls_threading_set_alt(  mbedtls_platform_mutex_init,
+                                mbedtls_platform_mutex_free,
+                                mbedtls_platform_mutex_lock,
+                                mbedtls_platform_mutex_unlock );
 }
-/*
- *  @brief Initialize the PAL.
- */
-CK_RV PKCS11_PAL_Initialize ( void )
+/*****************************************************************************************
+End of function Crypto
+****************************************************************************************/
+
+/**********************************************************************************************************************
+ * Function Name: PKCS11_PAL_Initialize
+ * Description  : Initialize the PAL.
+ * Return Value : .
+ *********************************************************************************************************************/
+CK_RV PKCS11_PAL_Initialize(void)
 {
-	Crypto();
+    Crypto();
     return CKR_OK;
 }
+/*****************************************************************************************
+End of function PKCS11_PAL_Initialize
+****************************************************************************************/
 
-/**
- * @brief Writes a file to local storage.
- *
- * Port-specific file write for cryptographic information.
- *
- * @param[in] pxLabel       Label of the object to be saved.
- * @param[in] pucData       Data buffer to be written to file
- * @param[in] ulDataSize    Size (in bytes) of data to be saved.
- *
- * @return The file handle of the object that was stored.
- */
-CK_OBJECT_HANDLE PKCS11_PAL_SaveObject (CK_ATTRIBUTE_PTR pxLabel, CK_BYTE_PTR pucData, CK_ULONG ulDataSize)
+/**********************************************************************************************************************
+ * Function Name: PKCS11_PAL_SaveObject
+ * Description  : Writes a file to local storage.
+ *                Port-specific file write for cryptographic information.
+ * Arguments    : pxLabel       Label of the object to be saved.
+ *              : pucData       Data buffer to be written to file
+ *              : ulDataSize    Size (in bytes) of data to be saved.
+ * Return Value : The file handle of the object that was stored.
+ *********************************************************************************************************************/
+CK_OBJECT_HANDLE PKCS11_PAL_SaveObject(CK_ATTRIBUTE_PTR pxLabel, CK_BYTE_PTR pucData, CK_ULONG ulDataSize)
 {
     CK_OBJECT_HANDLE xHandle = eInvalidHandle;
 
@@ -162,7 +173,7 @@ CK_OBJECT_HANDLE PKCS11_PAL_SaveObject (CK_ATTRIBUTE_PTR pxLabel, CK_BYTE_PTR pu
 
     lfs_err = lfs_file_write(&RM_STDIO_LITTLEFS_CFG_LFS, &file, pucData, ulDataSize);
 
-    pvwrite +=ulDataSize;
+    pvwrite += ulDataSize;
     if (lfs_err < 0)
     {
         xHandle = eInvalidHandle;
@@ -172,21 +183,20 @@ CK_OBJECT_HANDLE PKCS11_PAL_SaveObject (CK_ATTRIBUTE_PTR pxLabel, CK_BYTE_PTR pu
 
     return xHandle;
 }
+/*****************************************************************************************
+End of function PKCS11_PAL_SaveObject
+****************************************************************************************/
 
-/**
- * @brief Translates a PKCS #11 label into an object handle.
- *
- * Port-specific object handle retrieval.
- *
- *
- * @param[in] pxLabel        Pointer to the label of the object
- *                           who's handle should be found.
- * @param[in] usLength       The length of the label, in bytes.
- *
- * @return The object handle if operation was successful.
- * Returns eInvalidHandle if unsuccessful.
- */
-CK_OBJECT_HANDLE PKCS11_PAL_FindObject (CK_BYTE_PTR pxLabel, CK_ULONG usLength)
+/**********************************************************************************************************************
+ * Function Name: PKCS11_PAL_FindObject
+ * Description  : Translates a PKCS #11 label into an object handle.
+ *                Port-specific object handle retrieval.
+ * Arguments    : pxLabel        Pointer to the label of the object who's handle should be found.
+ *              : usLength       The length of the label, in bytes.
+ * Return Value : The object handle if operation was successful.
+ *                Returns eInvalidHandle if unsuccessful.
+ *********************************************************************************************************************/
+CK_OBJECT_HANDLE PKCS11_PAL_FindObject(CK_BYTE_PTR pxLabel, CK_ULONG usLength)
 {
     /* Avoid compiler warnings about unused variables. */
     (void)usLength;
@@ -196,61 +206,56 @@ CK_OBJECT_HANDLE PKCS11_PAL_FindObject (CK_BYTE_PTR pxLabel, CK_ULONG usLength)
 
     for (i = 1; i < pkcs11configMAX_NUM_OBJECTS; i++)
     {
-        if (!strcmp((char *) &g_object_handle_dictionary[i], (char *) pxLabel))
+        if (!strcmp((char *) &g_object_handle_dictionary[i], (char *)pxLabel))
         {
             struct lfs_info xFileInfo = { 0 };
-            if( lfs_stat( &RM_STDIO_LITTLEFS_CFG_LFS, (char *) pxLabel, &xFileInfo ) == LFS_ERR_OK )
-			{
-            	xHandle = (CK_OBJECT_HANDLE) i;
-            	break;
-			}
+            if (lfs_stat(&RM_STDIO_LITTLEFS_CFG_LFS, (char *)pxLabel, &xFileInfo) == LFS_ERR_OK)
+            {
+                xHandle = (CK_OBJECT_HANDLE) i;
+                break;
+            }
         }
     }
 
     return xHandle;
 }
+/*****************************************************************************************
+End of function PKCS11_PAL_FindObject
+****************************************************************************************/
 
-/**
- * @brief Gets the value of an object in storage, by handle.
- *
- * Port-specific file access for cryptographic information.
- *
- * This call dynamically allocates the buffer which object value
- * data is copied into.  PKCS11_PAL_GetObjectValueCleanup()
- * should be called after each use to free the dynamically allocated
- * buffer.
- *
- * @sa PKCS11_PAL_GetObjectValueCleanup
- *
- * @param[in]  xHandle      Handle of the file to be read.
- * @param[out] ppucData     Pointer to buffer for file data.
- * @param[out] pulDataSize  Size (in bytes) of data located in file.
- * @param[out] pIsPrivate   Boolean indicating if value is private (CK_TRUE)
- *                          or exportable (CK_FALSE)
- *
- * @return CKR_OK if operation was successful.  CKR_KEY_HANDLE_INVALID if
- * no such object handle was found, CKR_DEVICE_MEMORY if memory for
- * buffer could not be allocated, CKR_FUNCTION_FAILED for device driver
- * error.
- */
-
-CK_RV PKCS11_PAL_GetObjectValue (CK_OBJECT_HANDLE xHandle,
-                                 CK_BYTE_PTR    * ppucData,
-                                 CK_ULONG_PTR     pulDataSize,
-                                 CK_BBOOL       * pIsPrivate)
+/**********************************************************************************************************************
+ * Function Name: PKCS11_PAL_GetObjectValue
+ * Description  : Gets the value of an object in storage, by handle.
+ *                Port-specific file access for cryptographic information.
+ *                This call dynamically allocates the buffer which object value
+ *                data is copied into.  PKCS11_PAL_GetObjectValueCleanup()
+ *                should be called after each use to free the dynamically allocated
+ *                buffer.
+ * Arguments    : xHandle      Handle of the file to be read.
+ *              : ppucData     Pointer to buffer for file data.
+ *              : pulDataSize  Size (in bytes) of data located in file.
+ *              : pIsPrivate   Boolean indicating if value is private (CK_TRUE) or exportable (CK_FALSE)
+ * Return Value : CKR_OK if operation was successful.  CKR_KEY_HANDLE_INVALID if
+ *                no such object handle was found, CKR_DEVICE_MEMORY if memory for
+ *                buffer could not be allocated, CKR_FUNCTION_FAILED for device driver error.
+ *********************************************************************************************************************/
+CK_RV PKCS11_PAL_GetObjectValue(CK_OBJECT_HANDLE xHandle,
+                                CK_BYTE_PTR    * ppucData,
+                                CK_ULONG_PTR     pulDataSize,
+                                CK_BBOOL       * pIsPrivate)
 {
     CK_RV            xReturn        = CKR_FUNCTION_FAILED;
     CK_OBJECT_HANDLE xHandleStorage = xHandle;
 
-    if (xHandle != eInvalidHandle)
+    if (eInvalidHandle != xHandle)
     {
         lfs_file_t file;
 
         int lfs_ret =
-            lfs_file_open(&RM_STDIO_LITTLEFS_CFG_LFS,
-                          &file,
-                          (char *) g_object_handle_dictionary[xHandleStorage],
-                          LFS_O_RDONLY);
+            lfs_file_open(  &RM_STDIO_LITTLEFS_CFG_LFS,
+                            &file,
+                            (char *) g_object_handle_dictionary[xHandleStorage],
+                            LFS_O_RDONLY);
 
         if (LFS_ERR_OK != lfs_ret)
         {
@@ -259,11 +264,11 @@ CK_RV PKCS11_PAL_GetObjectValue (CK_OBJECT_HANDLE xHandle,
 
         lfs_ret = lfs_file_size(&RM_STDIO_LITTLEFS_CFG_LFS, &file);
 
-        *ppucData = pvPortMalloc((size_t) lfs_ret);
+        *ppucData = pvPortMalloc((size_t)lfs_ret);
 
         if ((lfs_ret >= 0) && (NULL != *ppucData))
         {
-            lfs_ret = lfs_file_read(&RM_STDIO_LITTLEFS_CFG_LFS, &file, *ppucData, (lfs_size_t) lfs_ret);
+            lfs_ret = lfs_file_read(&RM_STDIO_LITTLEFS_CFG_LFS, &file, *ppucData, (lfs_size_t)lfs_ret);
 
             if (lfs_ret >= 0)
             {
@@ -272,7 +277,7 @@ CK_RV PKCS11_PAL_GetObjectValue (CK_OBJECT_HANDLE xHandle,
                 xReturn = CKR_OK;
             }
 
-            if (xHandle == eAwsDevicePrivateKey || xHandle == eAwsClaimPrivateKey)
+            if ((eAwsDevicePrivateKey == xHandle) || (eAwsClaimPrivateKey == xHandle))
             {
                 *pIsPrivate = CK_TRUE;
             }
@@ -287,33 +292,41 @@ CK_RV PKCS11_PAL_GetObjectValue (CK_OBJECT_HANDLE xHandle,
 
     return xReturn;
 }
+/*****************************************************************************************
+End of function PKCS11_PAL_GetObjectValue
+****************************************************************************************/
 
-/**
- * @brief Cleanup after PKCS11_GetObjectValue().
- *
- * @param[in] pucData       The buffer to free.
- *                          (*ppucData from PKCS11_PAL_GetObjectValue())
- * @param[in] ulDataSize    The length of the buffer to free.
- *                          (*pulDataSize from PKCS11_PAL_GetObjectValue())
- */
-void PKCS11_PAL_GetObjectValueCleanup (CK_BYTE_PTR pucData, CK_ULONG ulDataSize)
+/**********************************************************************************************************************
+ * Function Name: PKCS11_PAL_GetObjectValueCleanup
+ * Description  : Cleanup after PKCS11_GetObjectValue().
+ * Arguments    : pucData       The buffer to free.
+ *                              (*ppucData from PKCS11_PAL_GetObjectValue())
+ *              : ulDataSize    The length of the buffer to free.
+ *                              (*pulDataSize from PKCS11_PAL_GetObjectValue())
+ * Return Value : .
+ *********************************************************************************************************************/
+void PKCS11_PAL_GetObjectValueCleanup(CK_BYTE_PTR pucData, CK_ULONG ulDataSize)
 {
     /* Avoid compiler warnings about unused variables. */
     (void)ulDataSize;
 
     vPortFree(pucData);
 }
+/*****************************************************************************************
+End of function PKCS11_PAL_GetObjectValueCleanup
+****************************************************************************************/
 
-/**
- * @brief Deletes a file from storage
- *
- * @param[in] xHandle       Handle of object to delete.
- */
-CK_RV PKCS11_PAL_DestroyObject (CK_OBJECT_HANDLE xHandle)
+/**********************************************************************************************************************
+ * Function Name: PKCS11_PAL_DestroyObject
+ * Description  : Deletes a file from storage
+ * Argument     : xHandle       Handle of object to delete.
+ * Return Value : .
+ *********************************************************************************************************************/
+CK_RV PKCS11_PAL_DestroyObject(CK_OBJECT_HANDLE xHandle)
 {
     CK_RV xReturn = CKR_FUNCTION_FAILED;
 
-    if (xHandle != eInvalidHandle)
+    if (eInvalidHandle != xHandle)
     {
         volatile int lfs_err = lfs_remove(&RM_STDIO_LITTLEFS_CFG_LFS, (char *) g_object_handle_dictionary[xHandle]);
 
@@ -325,5 +338,8 @@ CK_RV PKCS11_PAL_DestroyObject (CK_OBJECT_HANDLE xHandle)
 
     return xReturn;
 }
+/*****************************************************************************************
+End of function PKCS11_PAL_DestroyObject
+****************************************************************************************/
 
 /*-----------------------------------------------------------*/

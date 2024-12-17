@@ -37,6 +37,9 @@
 #ifndef COMMON_API_R_COMMON_API_TSIP_H_
 #define COMMON_API_R_COMMON_API_TSIP_H_
 
+/* Resources for TSIP Libraries */
+extern xSemaphoreHandle xSemaphoreTSIPAccess;
+
 /* Function Name: R_Demo_Common_API_TSIP_Open */
 /******************************************************************************************************************//**
  * @brief CommonAPI open function for TSIP.
@@ -45,7 +48,7 @@
  * @retval COMMONAPI_SUCCESS        success
  * @retval COMMONAPI_ERR            fail
  *********************************************************************************************************************/
-e_commonapi_err_t R_Demo_Common_API_TSIP_Open(tsip_tls_ca_certification_public_key_index_t *ki1, tsip_update_key_ring_t *ki2);
+e_commonapi_err_t R_Demo_Common_API_TSIP_Open (tsip_tls_ca_certification_public_key_index_t *ki1, tsip_update_key_ring_t *ki2);
 
 /* Function Name: R_Demo_Common_API_TSIP_Close */
 /******************************************************************************************************************//**
@@ -55,9 +58,6 @@ e_commonapi_err_t R_Demo_Common_API_TSIP_Open(tsip_tls_ca_certification_public_k
  * @retval COMMONAPI_SUCCESS        success
  * @retval COMMONAPI_ERR            fail
  *********************************************************************************************************************/
-e_commonapi_err_t R_Demo_Common_API_TSIP_Close(void);
-
-/* Resources for TSIP Libraries */
-extern xSemaphoreHandle xSemaphoreTSIPAccess;
+e_commonapi_err_t R_Demo_Common_API_TSIP_Close (void);
 
 #endif /* COMMON_API_R_COMMON_API_TSIP_H_ */
