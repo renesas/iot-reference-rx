@@ -30,7 +30,7 @@
 
 #include "FreeRTOS.h"
 #include "queue.h"
-#include "stddef.h"
+#include <stddef.h>
 #include "serial.h"
 #include "semphr.h"
 #include "r_common_api_flash.h"
@@ -263,7 +263,7 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Close(void)
 
         /* Flash terminate */
         return_err_state = Flash_COM_terminate ();
-        if (return_err_state == COMMONAPI_ERR)
+        if (COMMONAPI_ERR == return_err_state)
         {
             s_Flash_COM_Status = COMAPI_STATE_CLOSE;
 
@@ -329,7 +329,7 @@ e_commonapi_err_t R_Demo_Common_API_Flash_Close(void)
 void flashing_callback(void *event)
 {
     uint32_t event_code;
-    event_code = *((uint32_t*) event);
+    event_code = *((uint32_t*)event);
 
     static portBASE_TYPE xHigherPriorityTaskWoken;
 
@@ -347,7 +347,7 @@ void flashing_callback(void *event)
                 update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
                 xSemaphoreGiveFromISR(xSemaphoreFlashAccess, &xHigherPriorityTaskWoken);
             }
-        break;
+            break;
         case FLASH_INT_EVENT_WRITE_COMPLETE:
             if (DATA_FLASH_UPDATE_STATE_WRITE_WAIT_COMPLETE == update_data_flash_control_block.status)
             {
@@ -360,19 +360,19 @@ void flashing_callback(void *event)
                 update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
                 xSemaphoreGiveFromISR(xSemaphoreFlashAccess, &xHigherPriorityTaskWoken);
             }
-        break;
+            break;
         case FLASH_INT_EVENT_BLANK:
             g_blank_check_result = FLASH_RES_BLANK;
             xSemaphoreGiveFromISR(xSemaphoreFlashAccess, &xHigherPriorityTaskWoken);
-        break;
+            break;
         case FLASH_INT_EVENT_NOT_BLANK:
             g_blank_check_result = FLASH_RES_NOT_BLANK;
             xSemaphoreGiveFromISR(xSemaphoreFlashAccess, &xHigherPriorityTaskWoken);
-        break;
+            break;
         default:
             update_data_flash_control_block.status = DATA_FLASH_UPDATE_STATE_ERROR;
             xSemaphoreGiveFromISR(xSemaphoreFlashAccess, &xHigherPriorityTaskWoken);
-        break;
+            break;
     }
 }
 /**********************************************************************************************************************

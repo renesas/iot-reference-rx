@@ -30,7 +30,7 @@
 
 #include "test_execution_config.h"
 #include "qualification_test.h"
-#include "ota_pal_test.h"
+//#include "ota_pal_test.h"
 #include "core_pkcs11_config.h"
 #include "test_param_config.h"
 #include "qualification_test.h"

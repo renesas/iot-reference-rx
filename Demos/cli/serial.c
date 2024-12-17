@@ -97,7 +97,7 @@ transmit end interrupt to remove the task from the Blocked state. */
 static TaskHandle_t xSendingTask = NULL;
 
 /* Board Support Data Structures. */
-sci_hdl_t xSerialSciHandle;
+sci_hdl_t xSerialSciHandle = 0;
 void CLI_Support_Settings(void);
 void vSerialSciCallback( void *pvArgs );
 void CLI_Close(void);
@@ -196,7 +196,7 @@ const TickType_t xMaxBlockTime = pdMS_TO_TICKS( 5000 );
         xSendingTask = xTaskGetCurrentTaskHandle();
         uint32_t str_length = usStringLength;
         uint32_t transmit_length = 0;
-        sci_err_t sci_err;
+        sci_err_t sci_err = 0;
         uint32_t retry = 0xFFFF;
 
         while ((retry > 0) && (str_length > 0))

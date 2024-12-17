@@ -23,6 +23,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include "lfs_util.h"
+
 /* generated configuration header file - do not edit */
 #ifndef LFS_UTIL_H_
 #define LFS_UTIL_H_
@@ -74,9 +76,7 @@
 #endif
 
 /* Defines the LittleFS instance control block to be the stdio wrapper. */
-#define RM_STDIO_LITTLEFS_CFG_LFS g_rm_littlefs0_lfs
-
-#include "lfs_util.h"
+#define RM_STDIO_LITTLEFS_CFG_LFS (g_rm_littlefs0_lfs)
 
 #ifdef __cplusplus
         }

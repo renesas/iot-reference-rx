@@ -40,18 +40,18 @@ struct lfs g_rm_littlefs0_lfs;
 
 const struct lfs_config g_rm_littlefs0_lfs_cfg =
 {
-  .context = &g_rm_littlefs0_ctrl,
-  .read = &rm_littlefs_flash_read,
-  .prog = &rm_littlefs_flash_write,
-  .erase = &rm_littlefs_flash_erase,
-  .sync = &rm_littlefs_flash_sync,
-  .read_size = LFS_FLASH_READ_SIZE,
-  .prog_size = LFS_FLASH_PROGRAM_SIZE,
-  .block_size = LFS_FLASH_BLOCK_SIZE,
-  .block_count = LFS_FLASH_BLOCK_COUNT,
-  .block_cycles = 1024,
-  .cache_size = 64,
-  .lookahead_size = 16,
+    .context = &g_rm_littlefs0_ctrl,
+    .read = &rm_littlefs_flash_read,
+    .prog = &rm_littlefs_flash_write,
+    .erase = &rm_littlefs_flash_erase,
+    .sync = &rm_littlefs_flash_sync,
+    .read_size = LFS_FLASH_READ_SIZE,
+    .prog_size = LFS_FLASH_PROGRAM_SIZE,
+    .block_size = LFS_FLASH_BLOCK_SIZE,
+    .block_count = LFS_FLASH_BLOCK_COUNT,
+    .block_cycles = 1024,
+    .cache_size = 64,
+    .lookahead_size = 16,
 #ifdef LFS_NO_MALLOC
     .read_buffer = (void *) g_rm_littlefs0_read,
     .prog_buffer = (void *) g_rm_littlefs0_prog,
@@ -68,32 +68,48 @@ const rm_littlefs_cfg_t g_rm_littlefs0_cfg =
 const rm_littlefs_instance_t g_rm_littlefs0 =
 { .p_ctrl = &g_rm_littlefs0_ctrl, .p_cfg = &g_rm_littlefs0_cfg, .p_api = &g_rm_littlefs_on_flash, };
 
-int32_t littlFs_init( void )
+/**********************************************************************************************************************
+ * Function Name: littlFs_init
+ * Description  : .
+ * Return Value : .
+ *********************************************************************************************************************/
+int32_t littlFs_init(void)
 {
-	int32_t err ;
-	RM_LITTLEFS_FLASH_Open(g_rm_littlefs0.p_ctrl, g_rm_littlefs0.p_cfg);
-	err = lfs_mount(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
+    int32_t err;
+    RM_LITTLEFS_FLASH_Open(g_rm_littlefs0.p_ctrl, g_rm_littlefs0.p_cfg);
+    err = lfs_mount(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
 
-	if (LFS_ERR_OK != err)
-	{
-		err = lfs_format(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
-		if (LFS_ERR_OK == err)
-		{
-			err = lfs_mount(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
-		}
-	}
-	return err;
+    if (LFS_ERR_OK != err)
+    {
+        err = lfs_format(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
+        if (LFS_ERR_OK == err)
+        {
+            err = lfs_mount(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
+       }
+    }
+    return err;
 
 }
+/*****************************************************************************************
+End of function littlFs_init
+****************************************************************************************/
 
-int32_t littlFs_format( void )
+/**********************************************************************************************************************
+ * Function Name: littlFs_format
+ * Description  : .
+ * Return Value : .
+ *********************************************************************************************************************/
+int32_t littlFs_format(void)
 {
-	int32_t err ;
-	RM_LITTLEFS_FLASH_Open(g_rm_littlefs0.p_ctrl, g_rm_littlefs0.p_cfg);
-	err = lfs_format(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
-	if (LFS_ERR_OK == err)
-	{
-		err = lfs_mount(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
-	}
-	return err;
+    int32_t err;
+    RM_LITTLEFS_FLASH_Open(g_rm_littlefs0.p_ctrl, g_rm_littlefs0.p_cfg);
+    err = lfs_format(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
+    if (LFS_ERR_OK == err)
+    {
+        err = lfs_mount(&g_rm_littlefs0_lfs, &g_rm_littlefs0_lfs_cfg);
+    }
+    return err;
 }
+/*****************************************************************************************
+End of function littlFs_format
+****************************************************************************************/

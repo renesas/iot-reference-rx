@@ -135,7 +135,7 @@ static void prvUARTCommandConsoleTask( void *pvParameters )
 {
 signed char cPrevChar = NULL;
 uint16_t ucInputIndex = 0;
-char *pcOutputString;
+char *pcOutputString = NULL;
 static char cInputString[ cmdMAX_INPUT_SIZE ], cLastInputString[ cmdMAX_INPUT_SIZE ];
 BaseType_t xReturned;
 

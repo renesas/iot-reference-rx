@@ -119,11 +119,20 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
         /* Connection parameters. */
         serverAddress.sin_family = FREERTOS_AF_INET;
         serverAddress.sin_port = FreeRTOS_htons( port );
-        serverAddress.sin_addr = ( uint32_t ) FreeRTOS_gethostbyname( pHostName );
         serverAddress.sin_len = ( uint8_t ) sizeof( serverAddress );
+
+        #if defined( ipconfigIPv4_BACKWARD_COMPATIBLE ) && ( ipconfigIPv4_BACKWARD_COMPATIBLE == 0 )
+            serverAddress.sin_address.ulIP_IPv4 = ( uint32_t ) FreeRTOS_gethostbyname( pHostName );
+
+            /* Check for errors from DNS lookup. */
+            if( serverAddress.sin_address.ulIP_IPv4 == 0U )
+        #else
+        serverAddress.sin_addr = ( uint32_t ) FreeRTOS_gethostbyname( pHostName );
 
         /* Check for errors from DNS lookup. */
         if( serverAddress.sin_addr == 0U )
+        #endif /* defined( ipconfigIPv4_BACKWARD_COMPATIBLE ) && ( ipconfigIPv4_BACKWARD_COMPATIBLE == 0 ) */
+
         {
             LogError( ( "Failed to connect to server: DNS resolution failed: Hostname=%s.",
                         pHostName ) );
@@ -174,6 +183,7 @@ BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
         if( tcpSocket != FREERTOS_INVALID_SOCKET )
         {
             ( void ) FreeRTOS_closesocket( tcpSocket );
+            tcpSocket = FREERTOS_INVALID_SOCKET;
         }
     }
     else
@@ -196,7 +206,7 @@ void TCP_Sockets_Disconnect( Socket_t tcpSocket )
     BaseType_t waitForShutdownLoopCount = 0;
     uint8_t pDummyBuffer[ 2 ];
 
-    if( tcpSocket != FREERTOS_INVALID_SOCKET )
+    if( ( tcpSocket != NULL ) && ( tcpSocket != FREERTOS_INVALID_SOCKET ) )
     {
         /* Initiate graceful shutdown. */
         ( void ) FreeRTOS_shutdown( tcpSocket, FREERTOS_SHUT_RDWR );

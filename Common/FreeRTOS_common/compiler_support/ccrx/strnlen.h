@@ -14,8 +14,18 @@
  */
 
 #ifndef _STRNLEN_H_
-#define	_STRNLEN_H_
+#define _STRNLEN_H_
 
-size_t	 strnlen (const char *, size_t);
+/**********************************************************************************************************************
+ * Function Name: strnlen
+ * Description  : The <<strnlen>> function works out the length of the string
+ *                starting at <<*<[str]>>> by counting chararacters until it
+ *                reaches a NUL character or the maximum: <[n]> number of
+ *                characters have been inspected.
+ * Arguments    : str
+ *              : n
+ * Return Value : returns the character count or <[n]>.
+ *********************************************************************************************************************/
+size_t strnlen (const char *, size_t);
 
 #endif /* _STRNLEN_H_ */

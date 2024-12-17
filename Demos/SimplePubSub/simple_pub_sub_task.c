@@ -611,7 +611,7 @@ void vSimpleSubscribePublishTask( void * pvParameters )
     char cPayloadBuf[ mqttexampleSTRING_BUFFER_LENGTH ];
     char cInTopicBuf[ mqttexampleINPUT_TOPIC_BUFFER_LENGTH ];
     char cOutTopicBuf[ mqttexampleOUTPUT_TOPIC_BUFFER_LENGTH ];
-    char *sThingName;
+    char *sThingName = NULL;
     size_t xInTopicLength = 0UL, xOutTopicLength = 0UL, xPayloadLength = 0UL;
     uint32_t ulPublishCount = 0U, ulSuccessCount = 0U, ulFailCount = 0U;
     BaseType_t xStatus = pdPASS;
@@ -621,71 +621,66 @@ void vSimpleSubscribePublishTask( void * pvParameters )
      * if supported by the broker. */
     xQoS = ( MQTTQoS_t ) ( ulTaskNumber % 2UL );
 
-    if( xStatus == pdPASS )
+    if( xGetMQTTAgentState() != MQTT_AGENT_STATE_CONNECTED )
     {
-        if( xGetMQTTAgentState() != MQTT_AGENT_STATE_CONNECTED )
-        {
-            ( void ) xWaitForMQTTAgentState( MQTT_AGENT_STATE_CONNECTED, portMAX_DELAY );
-        }
+        ( void ) xWaitForMQTTAgentState( MQTT_AGENT_STATE_CONNECTED, portMAX_DELAY );
     }
+
     LogInfo(( "---------Start PubSub Demo Task  %u---------\r\n", ulTaskNumber ));
 
+    uint32_t ulKeySize = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
+    if ( ulKeySize > 0 ) /* Thing name stored in cache */
+    {
+    	sThingName = (char *)GetStringValue(KVS_CORE_THING_NAME, ulKeySize);
+    	sThingName[ulKeySize] = '\0';
+    }
+    else /* No thing name stored in cache */
+    {
+        sThingName = pvPortMalloc(strlen(clientcredentialIOT_THING_NAME) + 1);
+        if( sThingName == NULL )
+        {
+            xStatus = pdFALSE;
+            LogError( ( "Failed to allocate memory for thingname Code Flash" ) );
+        }
+        else
+        {
+            sprintf(sThingName, clientcredentialIOT_THING_NAME);
+            sThingName[strlen(clientcredentialIOT_THING_NAME)] = '\0';
+        }
+    }
+
     if( xStatus == pdPASS )
     {
-        uint32_t ulKeySize = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
-        if ( ulKeySize > 0 ) /* Thing name stored in cache */
+        /* Create a topic name for this task to publish to. */
+        xInTopicLength = snprintf( cInTopicBuf,
+                                mqttexampleINPUT_TOPIC_BUFFER_LENGTH,
+                                mqttexampleINPUT_TOPIC_FORMAT,
+                                sThingName,
+                                ulTaskNumber );
+
+        /*  Assert if the topic buffer is enough to hold the required topic. */
+        configASSERT( xInTopicLength <= mqttexampleINPUT_TOPIC_BUFFER_LENGTH );
+
+        /* Subscribe to the same topic to which this task will publish.  That will
+        * result in each published message being published from the server back to
+        * the target. */
+
+        LogInfo( ( "Sending subscribe request to agent for topic filter: %.*s", xInTopicLength, cInTopicBuf ) );
+
+        xMQTTStatus = prvSubscribeToTopic( xQoS, cInTopicBuf, xInTopicLength );
+
+        if( xMQTTStatus != MQTTSuccess )
         {
-    		sThingName = (char *)GetStringValue(KVS_CORE_THING_NAME, ulKeySize);
-    		sThingName[ulKeySize] = '\0';
+            LogError( ( "Failed to subscribe to topic: %.*s",
+                        xInTopicLength,
+                        cInTopicBuf ) );
+            xStatus = pdFALSE;
         }
-        else /* No thing name stored in cache */
+        else
         {
-            sThingName = pvPortMalloc(strlen(clientcredentialIOT_THING_NAME) + 1);
-            if( sThingName == NULL )
-            {
-                xStatus = pdFALSE;
-                LogError( ( "Failed to allocate memory for thingname Code Flash" ) );
-            }
-            else
-            {
-                sprintf(sThingName, clientcredentialIOT_THING_NAME);
-                sThingName[strlen(clientcredentialIOT_THING_NAME)] = '\0';
-            }
-        }
-
-        if( xStatus == pdPASS )
-        {
-            /* Create a topic name for this task to publish to. */
-            xInTopicLength = snprintf( cInTopicBuf,
-                                    mqttexampleINPUT_TOPIC_BUFFER_LENGTH,
-                                    mqttexampleINPUT_TOPIC_FORMAT,
-                                    sThingName,
-                                    ulTaskNumber );
-
-            /*  Assert if the topic buffer is enough to hold the required topic. */
-            configASSERT( xInTopicLength <= mqttexampleINPUT_TOPIC_BUFFER_LENGTH );
-
-            /* Subscribe to the same topic to which this task will publish.  That will
-            * result in each published message being published from the server back to
-            * the target. */
-
-            LogInfo( ( "Sending subscribe request to agent for topic filter: %.*s", xInTopicLength, cInTopicBuf ) );
-
-            xMQTTStatus = prvSubscribeToTopic( xQoS, cInTopicBuf, xInTopicLength );
-
-            if( xMQTTStatus != MQTTSuccess )
-            {
-                LogError( ( "Failed to subscribe to topic: %.*s",
-                            xInTopicLength,
-                            cInTopicBuf ) );
-                xStatus = pdFALSE;
-            }
-            else
-            {
-                LogInfo( ( "Successfully subscribed to topic: %.*s",
-                            xInTopicLength,
-                            cInTopicBuf ) );
-            }
+            LogInfo( ( "Successfully subscribed to topic: %.*s",
+                        xInTopicLength,
+                        cInTopicBuf ) );
         }
     }
 
