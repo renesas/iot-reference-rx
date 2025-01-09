@@ -147,12 +147,12 @@ out the application messages. */
  * if 'ipconfigUSE_DHCP_HOOK' is non-zero.  It lets the application decide
  * if the DHCP offer shall be accepted.
  */
-#define ipconfigUSE_DHCP_HOOK                      ipconfigDISABLE
+#define ipconfigUSE_DHCP_HOOK                      ipconfigENABLE
 
 /* Include support for FreeRTOS_SendPingRequest() and
  * FreeRTOS_SendPingRequestIPv6()
  */
-#define ipconfigSUPPORT_OUTGOING_PINGS             ipconfigDISABLE
+#define ipconfigSUPPORT_OUTGOING_PINGS             ipconfigENABLE
 
 /* Enables the APIs that are backward compatible with single end point IPv4
  * version V3.x.x or older.

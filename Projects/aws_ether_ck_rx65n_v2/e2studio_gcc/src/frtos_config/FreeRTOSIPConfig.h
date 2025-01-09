@@ -1,6 +1,6 @@
 /*
- * FreeRTOS+TCP V3.1.0
- * Copyright (C) 2022 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS+TCP V4.2.2
+ * Copyright (C) 2024 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
  *
  * SPDX-License-Identifier: MIT
@@ -132,23 +132,36 @@ out the application messages. */
  */
 #define ipconfigTCP_KEEP_ALIVE    1
 
-/*
- * ipconfigIPv4_BACKWARD_COMPATIBLE
- *
- * Type: BaseType_t ( ipconfigENABLE | ipconfigDISABLE )
- *
- * Enables the APIs that are backward compatible with single end point IPv4
- * version V3.x.x or older.
- */
+/* Configuration for FreeRTOS TCP minimal sample project. */
 
-#define ipconfigIPv4_BACKWARD_COMPATIBLE    ipconfigENABLE
+/* Allows DHCP to be enabled by setting by setting `endpoint->bits.bWantDHCP`.
+ *
+ * When successful, DHCP will assign an IP-address, a netmask, a gateway
+ * address, and one or more DNS addresses to the endpoint. DHCP must be able to
+ * receive an options field of 312 bytes, the fixed part of the DHCP packet is
+ * 240 bytes, and the IP/UDP headers take 28 bytes.
+ */
+#define ipconfigUSE_DHCP                           ipconfigENABLE
 
 /* During the DHCP process, the driver will call an application hook
  * if 'ipconfigUSE_DHCP_HOOK' is non-zero.  It lets the application decide
  * if the DHCP offer shall be accepted.
  */
-#define ipconfigUSE_DHCP_HOOK    ipconfigDISABLE
+#define ipconfigUSE_DHCP_HOOK                      ipconfigDISABLE
 
+/* Include support for FreeRTOS_SendPingRequest() and
+ * FreeRTOS_SendPingRequestIPv6()
+ */
+#define ipconfigSUPPORT_OUTGOING_PINGS             ipconfigDISABLE
+
+/* Enables the APIs that are backward compatible with single end point IPv4
+ * version V3.x.x or older.
+ */
+#define ipconfigIPv4_BACKWARD_COMPATIBLE    ipconfigENABLE
+
+/* Include support for the IPv6 protocol.
+ * If disabled, the application must enable IPv4.
+ */
 #define ipconfigUSE_IPv6    ipconfigDISABLE
 
 #endif /* FREERTOS_IP_CONFIG_H */
