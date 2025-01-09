@@ -103,6 +103,42 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1734598231899</id>
+			<name>Common/FreeRTOS_common</name>
+			<type>5</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-*</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1734598231912</id>
+			<name>Common/FreeRTOS_common</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-compiler_support|network_support</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1734598231925</id>
+			<name>Common/FreeRTOS_common</name>
+			<type>9</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-compiler_support</arguments>
+			</matcher>
+		</filter>
+		<filter>
+			<id>1734598231941</id>
+			<name>Common/FreeRTOS_common</name>
+			<type>13</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-network_support</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>1725506698775</id>
 			<name>Demos/Fleet_Provisioning_With_CSR_Demo</name>
 			<type>5</type>

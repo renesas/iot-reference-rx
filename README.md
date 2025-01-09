@@ -19,6 +19,11 @@ Summary of specifications explains in the following chapters.
 
 * PubSub
   * Simple MQTT communication with [AWS Management Console](https://aws.amazon.com/console)
+* FreeRTOS TCP minimal
+  * Provides basic TCP/IP functionality using FreeRTOS Kernel and FreeRTOS-Plus-TCP
+    * Acquisition of IP address by DHCP
+    * IP address search of URLs by DNS
+    * Send ping to the specified IP Address
 
 The preceding demos use the following technical elements of the AWS IoT:
 
@@ -68,6 +73,8 @@ The following table indicates name and version of OSS which are used in this ref
 
 The following table indicates name and version of [FIT modules](https://www.renesas.com/software-tool/fit) which are used in this reference and version of [RX Driver Package](https://www.renesas.com/software-tool/rx-driver-package) in which each FIT module is packaged.
 
+#### PubSub Project
+
 | FIT module   | Revision of FIT module | Version of RX Driver Package |
 |--------------|---------|------------|
 |r_bsp         |7.51     |1.45        |
@@ -77,6 +84,13 @@ The following table indicates name and version of [FIT modules](https://www.rene
 |r_flash_rx    |5.20     |1.45        |
 |r_sci_rx      |5.30     |1.45        |
 |r_tsip_rx     |1.21     |1.44 - 1.45 |
+
+#### FreeRTOS TCP minimal Project
+
+| FIT module | Revision of FIT module | Version of RX Driver Package |
+|------------|---------|-------------------|
+|r_bsp       |7.51     |1.45               |
+|r_ether_rx  |1.23     |1.36 - 1.45        |
 
 ### Data Flash Usage
 RX family of MCU has internal Data Flash Memory, and this references are using the Data Flash to store the data for connecting to the Cloud service.  
@@ -126,9 +140,9 @@ In case of `LFS_FLASH_BLOCK_COUNT` == 170 (21760 bytes)
 * CLI task cannot run after starting the demo to avoid the SCI conflict.
 * This demo doesn't support with OTA and Fleet Provisioning.  
 * The following macros are not supported by this source code.  
+  If you build the macros below, a build error will occur.  
   `LFS_NO_MALLOC`  
   `LFS_THREADSAFE`  
-  If you build the above macros, a build error will occur.  
 * Limitations on the xGetMQTTAgentState() function  
   In the following case, the xGetMQTTAgentState() function for monitoring the communication status returns the state of established MQTT connection with AWS (`MQTT_AGENT_STATE_CONNECTED`) without detecting the disconnection:  
 The hook function *1 is called by occuring an error of a TCP_Sockets API *2 (disconnection with AWS) inner the xGetMQTTAgentState(), then this hook restores the connection to established state.  
@@ -195,6 +209,21 @@ In this case, you can make a debug connection by performing the following steps.
   | r_s12ad_rx | *No change*          |   |   |   |
   | r_tsip_rx  | *No change*          |   |   |   |
   | r_byteq    | *No change*          |   |   |   |
+
+  #### CK-RX65N v2 FreeRTOS TCP minimal Project
+
+  | FIT module | Config name | Default Value | Project value | Reason for change |
+  |------------|-------------|---------------|---------------|-------------------|
+  | r_bsp      | BSP_CFG_CODE_FLASH_BANK_MODE | 1 | 1 \*| *If Dual bank is specified when creating the project, it will be 0. |
+  |            | BSP_CFG_RTOS_USED | 0 | 1 | This project uses FreeRTOS. |
+  |            | BSP_CFG_EXPANSION_RAM_ENABLE | 1 | 1 \* | *This macro is set to "1" by default.<BR>This table is included as a caveat.<BR>In the GCC project it is set to 0. |
+  | r_ether_rx | ETHER_CFG_MODE_SEL | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_CH0_PHY_ADDRESS | 0 | 5 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_EMAC_RX_DESCRIPTORS | 1 | 6 | Settings to prevent descriptor exhaustion when sending and receiving Ethernet frames. |
+  |            | ETHER_CFG_EMAC_TX_DESCRIPTORS | 1 | 10 | Settings to prevent descriptor exhaustion when sending and receiving Ethernet frames |
+  |            | ETHER_CFG_CH0_PHY_ACCESS | 1 | 0 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_LINK_PRESENT | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
+  |            | ETHER_CFG_USE_PHY_ICS1894_32 | 0 | 1 | This value depends on the CK-RX65N PHY-LSI and circuit specifications. |
   
 ## Contribution
 
