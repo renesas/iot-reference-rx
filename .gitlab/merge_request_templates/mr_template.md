@@ -19,6 +19,8 @@
    - Implementation details : `Write "No need" or "Name of Applicable projects"`
 - [ ] Have you checked that you are using standard functions and each API correctly?
 - [ ] Have you verified that your changes work correctly in all flows?
+- [ ] Have you synced the settings of the old config file to the new version, based on the updated config file from the 3rdparty/OSS/Renesas libraries?
+- [ ] Have you submitted this MR after reviewing the development guide wiki page and the requirements issue to ensure it meets the criteria?
 
 ## Internal review
 - Internal review minutes : `Attach peer review minutes or [Internal Review]MR!`
