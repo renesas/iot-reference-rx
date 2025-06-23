@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
 /***********************************************************************************************************************
+* Copyright (c) 2023-2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+***********************************************************************************************************************/
+/***********************************************************************************************************************
   Purpose: Module Description File (MDF) Example (Schema Version 2.0)
            This is a description of a sample FIT module configuration file
 ***********************************************************************************************************************/
@@ -12,21 +17,26 @@
     <configuration>
         <property id="ipconfigBYTE_ORDER" display="Byte order of Target MCU" default="pdFREERTOS_LITTLE_ENDIAN" type="combobox">
             <option id="ipconfigBYTE_ORDER.0" display="pdFREERTOS_LITTLE_ENDIAN" value="pdFREERTOS_LITTLE_ENDIAN"/>
-            <option id="ipconfigBYTE_ORDER.1" display="pdFREERTOS_BIG_ENDIAN" value="pdFREERTOS_LITTLE_ENDIAN"/>
+            <option id="ipconfigBYTE_ORDER.1" display="pdFREERTOS_BIG_ENDIAN" value="pdFREERTOS_BIG_ENDIAN"/>
             <description>Define the byte order of the target MCU.
 Valid options are pdFREERTOS_BIG_ENDIAN and pdFREERTOS_LITTLE_ENDIAN.</description>
+        </property>
+        <property id="ipconfigHAS_DEBUG_PRINTF" display="Enable print out debugging messages" default="0" type="checkbox">
+            <option id="ipconfigHAS_PRINTF.0" display="Disable" value="0"/>
+            <option id="ipconfigHAS_PRINTF.1" display="Enable" value="1"/>
+            <description>Enable print out debugging messages</description>
         </property>
         <property id="FreeRTOS_debug_printf( MSG )" display="Print out debugging messages function" default="configPRINTF( MSG )" type="textbox">
             <description>Print out debugging messages function</description>
         </property>
-        <property id="ipconfigHAS_PRINTF" display="Enable print out non debugging messages" default="1" type="checkbox">
+        <property id="ipconfigHAS_PRINTF" display="Enable print out non-debugging messages" default="1" type="checkbox">
             <option id="ipconfigHAS_PRINTF.0" display="Disable" value="0"/>
             <option id="ipconfigHAS_PRINTF.1" display="Enable" value="1"/>
-            <description>Enable print out non debugging messages</description>
+            <description>Enable print out non-debugging messages</description>
         </property>
-        <property id="FreeRTOS_printf( MSG )" display="Print out none debugging messages" default="configPRINTF( MSG )" type="textbox">
+        <property id="FreeRTOS_printf( MSG )" display="Print out non-debugging messages" default="configPRINTF( MSG )" type="textbox">
             <constraint display="default disable" actionOnFail="disable">("${ipconfigHAS_PRINTF}" == 1)</constraint>
-            <description>Print out none debugging messages</description>
+            <description>Print out non-debugging messages</description>
         </property>
         <property id="ipconfigUSE_NETWORK_EVENT_HOOK" display="Enable application hook event when the network goes up and when it goes down" default="1" type="checkbox">
             <option id="ipconfigUSE_NETWORK_EVENT_HOOK.0" display="Disable" value="0"/>

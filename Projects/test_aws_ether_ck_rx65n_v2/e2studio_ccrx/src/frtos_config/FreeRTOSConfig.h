@@ -1,7 +1,7 @@
 /*
- * FreeRTOS Kernel V10.3.0
+ * FreeRTOS Kernel V11.1.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2024-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -34,6 +34,8 @@
 #elif defined(ENABLE_UNIT_TESTS)
 #include "unity.h"
 #endif
+
+#include <stdio.h>
 
 /*-----------------------------------------------------------
 * Application specific definitions.
@@ -70,6 +72,9 @@
 #define configUSE_ALTERNATIVE_API                  0
 #define configNUM_THREAD_LOCAL_STORAGE_POINTERS    3      /* FreeRTOS+FAT requires 2 pointers if a CWD is supported. */
 #define configRECORD_STACK_HIGH_ADDRESS            1
+
+/* Task notification settings. */
+#define configTASK_NOTIFICATION_ARRAY_ENTRIES      4
 
 #define configUSE_DAEMON_TASK_STARTUP_HOOK 1
 
@@ -113,8 +118,8 @@ peripheral chosen.  As supplied this is CMT0. */
 unsigned long ulGetRunTimeCounterValue( void );
 void vConfigureTimerForRunTimeStats( void );
 #define configGENERATE_RUN_TIME_STATS    0
-//#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()    vConfigureTimerForRunTimeStats()
-//#define portGET_RUN_TIME_COUNTER_VALUE()            ulGetRunTimeCounterValue()
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()    portNOP()
+#define portGET_RUN_TIME_COUNTER_VALUE()            xTaskGetTickCount()
 
 /* Co-routine definitions. */
 #define configMAX_CO_ROUTINE_PRIORITIES         (2)
@@ -162,7 +167,9 @@ void vConfigureTimerForRunTimeStats( void );
 #else /* CONFIG_FREERTOS_ASSERT_FAIL_ABORT or nothing */
 /* Assert call defined for debug builds. */
 extern void vAssertCalled( void );
-#define configASSERT( x ) do { if( ( x ) == 0 ) vAssertCalled(); } while( 0 )
+#define configASSERT( x )    do{((x) ? (void)0: \
+		(fprintf(stderr,"ASSERTION FAILED: "#x" FILE %s,LINE %d FUNC %s \n", \
+		__FILE__,__LINE__,__func__),vAssertCalled(),(void)0));}while( 0 )
 #endif
 
 /* The function that implements FreeRTOS printf style output, and the macro

@@ -1,6 +1,7 @@
 /*
  * FreeRTOS Wi-Fi V1.0.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -48,14 +49,14 @@
 /**
  * @brief Wi-Fi initialization status.
  */
-static uint32_t prvConvertSecurityFromDaAT( WIFISecurity_t xSecurity );
-static uint32_t prvConvertEncryptionFromDaAT( WIFIEncryption_t xEncryption );
+static uint32_t prvConvertSecurityFromDaAT (WIFISecurity_t xSecurity);
+static uint32_t prvConvertEncryptionFromDaAT (WIFIEncryption_t xEncryption);
 
-static uint32_t prvConvertSecurityFromDaAT( WIFISecurity_t xSecurity )
+static uint32_t prvConvertSecurityFromDaAT(WIFISecurity_t xSecurity)
 {
     uint32_t xConvertedSecurityType = WIFI_SECURITY_UNDEFINED;
 
-    switch( xSecurity )
+    switch (xSecurity)
     {
         case eWiFiSecurityOpen:
             xConvertedSecurityType = WIFI_SECURITY_OPEN;
@@ -80,63 +81,81 @@ static uint32_t prvConvertSecurityFromDaAT( WIFISecurity_t xSecurity )
 
     return xConvertedSecurityType;
 }
+
+/*****************************************************************************************
+End of function prvConvertSecurityFromDaAT
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-static uint32_t prvConvertEncryptionFromDaAT( WIFIEncryption_t xEncryption )
+static uint32_t prvConvertEncryptionFromDaAT(WIFIEncryption_t xEncryption)
 {
     uint32_t xConvertedEncryptionType = WIFI_ENCRYPTION_UNDEFINED;
 
-    switch( xEncryption )
+    switch (xEncryption)
     {
         case eWiFiEncryptionTKIP:
-        	xConvertedEncryptionType = WIFI_ENCRYPTION_TKIP;
+            xConvertedEncryptionType = WIFI_ENCRYPTION_TKIP;
             break;
 
         case eWiFiEncryptionAES:
-        	xConvertedEncryptionType = WIFI_ENCRYPTION_AES;
+            xConvertedEncryptionType = WIFI_ENCRYPTION_AES;
             break;
 
         case eWiFiEncryptionTKIP_AES:
-        	xConvertedEncryptionType = WIFI_ENCRYPTION_TKIP_AES;
+            xConvertedEncryptionType = WIFI_ENCRYPTION_TKIP_AES;
             break;
 
         case eWiFiEncryptionUndefined:
-        	xConvertedEncryptionType = WIFI_ENCRYPTION_UNDEFINED;
+            xConvertedEncryptionType = WIFI_ENCRYPTION_UNDEFINED;
             break;
     }
 
     return xConvertedEncryptionType;
 }
+
+/*****************************************************************************************
+End of function prvConvertEncryptionFromDaAT
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_On( void )
+WIFIReturnCode_t WIFI_On(void)
 {
     /* FIX ME. */
     WIFIReturnCode_t xRetVal = eWiFiFailure;
 
-    if(WIFI_SUCCESS == R_WIFI_DA16XXX_Open())
+    if (R_WIFI_DA16XXX_Open() == WIFI_SUCCESS)
     {
     	xRetVal = eWiFiSuccess;
     }
 
 	return xRetVal;
 }
+
+/*****************************************************************************************
+End of function WIFI_On
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_Off( void )
+WIFIReturnCode_t WIFI_Off(void)
 {
     /* FIX ME. */
 	R_WIFI_DA16XXX_Close();
 
     return eWiFiSuccess;
 }
+
+/*****************************************************************************************
+End of function WIFI_Off
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_ConnectAP( const WIFINetworkParams_t * const pxNetworkParams )
+WIFIReturnCode_t WIFI_ConnectAP(const WIFINetworkParams_t * const pxNetworkParams)
 {
 	wifi_err_t ret;
-	wifi_ip_configuration_t ipconfig;
-	uint8_t dhcp_enable;
 	wifi_security_t convert_security;
 	uint32_t convert_encryption;
 	WIFIScanResult_t * pxBuffer_scan;
@@ -145,55 +164,37 @@ WIFIReturnCode_t WIFI_ConnectAP( const WIFINetworkParams_t * const pxNetworkPara
 
 	convert_security = (wifi_security_t) prvConvertSecurityFromDaAT(pxNetworkParams->xSecurity);
 
-	if( (pxNetworkParams == NULL) || (pxNetworkParams->ucSSIDLength == 0 ) || ( pxNetworkParams->ucSSIDLength > wificonfigMAX_SSID_LEN ) )
+	if ((NULL == pxNetworkParams) || (0 == pxNetworkParams->ucSSIDLength) || (pxNetworkParams->ucSSIDLength > wificonfigMAX_SSID_LEN))
 	{
 		return eWiFiFailure;
 	}
 
-	if( (pxNetworkParams->xSecurity != eWiFiSecurityOpen) && (pxNetworkParams->xPassword.xWPA.ucLength == 0) )
+	if ((eWiFiSecurityOpen != pxNetworkParams->xSecurity) && (0 == pxNetworkParams->xPassword.xWPA.ucLength))
 	{
 		return eWiFiFailure;
 	}
 
-    if ( pxNetworkParams->xPassword.xWPA.ucLength > wificonfigMAX_PASSPHRASE_LEN )
+    if (pxNetworkParams->xPassword.xWPA.ucLength > wificonfigMAX_PASSPHRASE_LEN)
     {
         return eWiFiFailure;
     }
 
-    if(pdTRUE == WIFI_IsConnected(pxNetworkParams))
+    if (pdTRUE == WIFI_IsConnected(pxNetworkParams))
     {
     	WIFI_Disconnect();
     }
 
-#if	(ipconfigUSE_DHCP == 0)
-	dhcp_enable = 0;
-	ipconfig.ipaddress[0] = configIP_ADDR0;
-	ipconfig.ipaddress[1] = configIP_ADDR1;
-	ipconfig.ipaddress[2] = configIP_ADDR2;
-	ipconfig.ipaddress[3] = configIP_ADDR3;
-	ipconfig.subnetmask[0] = configNET_MASK0;
-	ipconfig.subnetmask[1] = configNET_MASK1;
-	ipconfig.subnetmask[2] = configNET_MASK2;
-	ipconfig.subnetmask[3] = configNET_MASK3;
-	ipconfig.gateway[0] = configGATEWAY_ADDR0;
-	ipconfig.gateway[1] = configGATEWAY_ADDR1;
-	ipconfig.gateway[2] = configGATEWAY_ADDR2;
-	ipconfig.gateway[3] = configGATEWAY_ADDR3;
-#else
-	dhcp_enable = 1;
-#endif
-
-	//work around to fix the bug when memcopy ssid and passphrase
-	uint8_t ssid[ wificonfigMAX_SSID_LEN ] = { 0 };
-	uint8_t password[ wificonfigMAX_PASSPHRASE_LEN ] = { 0 };
-	memcpy( ssid, pxNetworkParams->ucSSID, pxNetworkParams->ucSSIDLength );
-	memcpy( password, pxNetworkParams->xPassword.xWPA.cPassphrase, pxNetworkParams->xPassword.xWPA.ucLength );
+	/* Work around to fix the bug when memcopy ssid and passphrase */
+	uint8_t ssid[wificonfigMAX_SSID_LEN] = { 0 };
+	uint8_t password[wificonfigMAX_PASSPHRASE_LEN] = { 0 };
+	memcpy(ssid, pxNetworkParams->ucSSID, pxNetworkParams->ucSSIDLength);
+	memcpy(password, pxNetworkParams->xPassword.xWPA.cPassphrase, pxNetworkParams->xPassword.xWPA.ucLength);
 
 	/* FIX ME. */
     do
     {
         ret = R_WIFI_DA16XXX_Connect(ssid, password, convert_security, WIFI_ENCRYPTION_AES);
-        if ( (WIFI_ERR_NOT_CONNECT == ret) || (WIFI_ERR_MODULE_COM == ret) )
+        if ((WIFI_ERR_NOT_CONNECT == ret) || (WIFI_ERR_MODULE_COM == ret))
         {
             /* Start resetting due to error */
             configPRINTF(("Start resetting due to error = %d\r\n", ret));
@@ -204,9 +205,9 @@ WIFIReturnCode_t WIFI_ConnectAP( const WIFINetworkParams_t * const pxNetworkPara
         {
             break;
         }
-    } while( 0 < numRetries-- );
+    } while (0 < numRetries--);
 
-	if(WIFI_SUCCESS != ret)
+	if (WIFI_SUCCESS != ret)
 	{
 		return eWiFiFailure;
 	}
@@ -214,17 +215,27 @@ WIFIReturnCode_t WIFI_ConnectAP( const WIFINetworkParams_t * const pxNetworkPara
 
 	return eWiFiSuccess;
 }
+
+/*****************************************************************************************
+End of function WIFI_ConnectAP
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_Disconnect( void )
+WIFIReturnCode_t WIFI_Disconnect(void)
 {
     /* FIX ME. */
 	R_WIFI_DA16XXX_Disconnect();
     return eWiFiSuccess;
 }
+
+/*****************************************************************************************
+End of function WIFI_Disconnect
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_Reset( void )
+WIFIReturnCode_t WIFI_Reset(void)
 {
     /* FIX ME. */
 	WIFIReturnCode_t ret;
@@ -233,91 +244,131 @@ WIFIReturnCode_t WIFI_Reset( void )
     ret = WIFI_On();
     return ret;
 }
+
+/*****************************************************************************************
+End of function WIFI_Reset
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_Scan( WIFIScanResult_t * pxBuffer,
-                            uint8_t ucNumNetworks )
+WIFIReturnCode_t WIFI_Scan(WIFIScanResult_t * pxBuffer,
+                            uint8_t ucNumNetworks)
 {
     WIFIReturnCode_t result = eWiFiFailure;
     wifi_err_t ret;
 
-	ret = R_WIFI_DA16XXX_Scan(pxBuffer, ucNumNetworks);
-	if(WIFI_SUCCESS == ret)
+	ret = R_WIFI_DA16XXX_Scan((wifi_scan_result_t*)pxBuffer, ucNumNetworks);
+	if (WIFI_SUCCESS == ret)
 	{
 		result = eWiFiSuccess;
 	}
     return result;
 }
+
+/*****************************************************************************************
+End of function WIFI_Scan
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_SetMode( WIFIDeviceMode_t xDeviceMode )
+WIFIReturnCode_t WIFI_SetMode(WIFIDeviceMode_t xDeviceMode)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_SetMode
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_GetMode( WIFIDeviceMode_t * pxDeviceMode )
+WIFIReturnCode_t WIFI_GetMode(WIFIDeviceMode_t * pxDeviceMode)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_GetMode
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_NetworkAdd( const WIFINetworkProfile_t * const pxNetworkProfile,
-                                  uint16_t * pusIndex )
+WIFIReturnCode_t WIFI_NetworkAdd(const WIFINetworkProfile_t * const pxNetworkProfile,
+                                  uint16_t * pusIndex)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_NetworkAdd
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_NetworkGet( WIFINetworkProfile_t * pxNetworkProfile,
-                                  uint16_t usIndex )
+WIFIReturnCode_t WIFI_NetworkGet(WIFINetworkProfile_t * pxNetworkProfile,
+                                  uint16_t usIndex)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_NetworkGet
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_NetworkDelete( uint16_t usIndex )
+WIFIReturnCode_t WIFI_NetworkDelete(uint16_t usIndex)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_NetworkDelete
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_Ping( uint8_t * pucIPAddr,
-                            uint16_t usCount )
+WIFIReturnCode_t WIFI_Ping(uint8_t * pucIPAddr,
+                            uint16_t usCount)
 {
     /* FIX ME. */
     WIFIReturnCode_t result = eWiFiFailure;
     wifi_err_t ret;
 
 	ret = R_WIFI_DA16XXX_Ping(pucIPAddr, usCount);
-	if(WIFI_SUCCESS == ret)
+	if (WIFI_SUCCESS == ret)
 	{
 		result = eWiFiSuccess;
 	}
     return result;
 }
+
+/*****************************************************************************************
+End of function WIFI_Ping
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_GetIPInfo( WIFIIPConfiguration_t * pxIPConfig )
+WIFIReturnCode_t WIFI_GetIPInfo(WIFIIPConfiguration_t * pxIPConfig)
 {
     /* FIX ME. */
 	wifi_ip_configuration_t ipconfig;
 
-	if(NULL == pxIPConfig)
+	if (NULL == pxIPConfig)
 	{
 		return eWiFiFailure;
 	}
-	if(WIFI_SUCCESS != R_WIFI_DA16XXX_GetIpAddress(&ipconfig))
+	if (R_WIFI_DA16XXX_GetIpAddress(&ipconfig) != WIFI_SUCCESS)
 	{
 		return eWiFiFailure;
 	}
 
-	memset( pxIPConfig, 0x00, sizeof( WIFIIPConfiguration_t ) );
+	memset(pxIPConfig, 0x00, sizeof(WIFIIPConfiguration_t));
 
 	pxIPConfig->xIPAddress.ulAddress[0] = (uint32_t)ipconfig.ipaddress[0];
 	pxIPConfig->xIPAddress.ulAddress[1] = (uint32_t)ipconfig.ipaddress[1];
@@ -333,26 +384,36 @@ WIFIReturnCode_t WIFI_GetIPInfo( WIFIIPConfiguration_t * pxIPConfig )
 	pxIPConfig->xNetMask.ulAddress[3] = (uint32_t)ipconfig.subnetmask[3];
 	return eWiFiSuccess;
 }
+
+/*****************************************************************************************
+End of function WIFI_GetIPInfo
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_GetMAC( uint8_t * pucMac )
+WIFIReturnCode_t WIFI_GetMAC(uint8_t * pucMac)
 {
     /* FIX ME. */
-	if(WIFI_SUCCESS != R_WIFI_DA16XXX_GetMacAddress(pucMac))
+	if (R_WIFI_DA16XXX_GetMacAddress(pucMac) != WIFI_SUCCESS)
 	{
 		return eWiFiFailure;
 	}
     return eWiFiSuccess;
 }
+
+/*****************************************************************************************
+End of function WIFI_GetMAC
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_GetHostIP( char * pcHost,
-                                 uint8_t * pucIPAddr )
+WIFIReturnCode_t WIFI_GetHostIP(char * pcHost,
+                                 uint8_t * pucIPAddr)
 {
     /* FIX ME. */
 	uint8_t ipAddress[4] = { 0, 0, 0, 0 };
 
-	if(WIFI_SUCCESS != R_WIFI_DA16XXX_DnsQuery((uint8_t*) pcHost, ipAddress))
+	if (R_WIFI_DA16XXX_DnsQuery((uint8_t*)pcHost, ipAddress) != WIFI_SUCCESS)
 	{
 		return eWiFiFailure;
 	}
@@ -363,111 +424,190 @@ WIFIReturnCode_t WIFI_GetHostIP( char * pcHost,
 
     return eWiFiSuccess;
 }
+
+/*****************************************************************************************
+End of function WIFI_GetHostIP
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_StartAP( void )
+WIFIReturnCode_t WIFI_StartAP(void)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_StartAP
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_StopAP( void )
+WIFIReturnCode_t WIFI_StopAP(void)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_StopAP
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_ConfigureAP( const WIFINetworkParams_t * const pxNetworkParams )
+WIFIReturnCode_t WIFI_ConfigureAP(const WIFINetworkParams_t * const pxNetworkParams)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_ConfigureAP
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_SetPMMode( WIFIPMMode_t xPMModeType,
-                                 const void * pvOptionValue )
+WIFIReturnCode_t WIFI_SetPMMode(WIFIPMMode_t xPMModeType,
+                                 const void * pvOptionValue)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_SetPMMode
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-WIFIReturnCode_t WIFI_GetPMMode( WIFIPMMode_t * pxPMModeType,
-                                 void * pvOptionValue )
+WIFIReturnCode_t WIFI_GetPMMode(WIFIPMMode_t * pxPMModeType,
+                                 void * pvOptionValue)
 {
     /* FIX ME. */
     return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_GetPMMode
+****************************************************************************************/
+
 /*-----------------------------------------------------------*/
 
-BaseType_t WIFI_IsConnected( const WIFINetworkParams_t * pxNetworkParams )
+BaseType_t WIFI_IsConnected(const WIFINetworkParams_t * pxNetworkParams)
 {
 	BaseType_t ret = pdFALSE;
+
 	/* FIX ME. */
-	if(0 ==  R_WIFI_DA16XXX_IsConnected())
+	if (0 ==  R_WIFI_DA16XXX_IsConnected())
 	{
 		ret = pdTRUE;
 	}
 	return ret;
 }
 
-WIFIReturnCode_t WIFI_RegisterEvent( WIFIEventType_t xEventType, WIFIEventHandler_t xHandler )
+/*****************************************************************************************
+End of function WIFI_IsConnected
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_RegisterEvent(WIFIEventType_t xEventType, WIFIEventHandler_t xHandler)
 {
     /** Needs to implement dispatching network state change events **/
     return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_GetCapability( WIFICapabilityInfo_t * pxCaps )
+/*****************************************************************************************
+End of function WIFI_RegisterEvent
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_GetCapability(WIFICapabilityInfo_t * pxCaps)
 {
 	return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_GetCountryCode( char * pcCountryCode )
+/*****************************************************************************************
+End of function WIFI_GetCapability
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_GetCountryCode(char * pcCountryCode)
 {
 	return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_GetRSSI( int8_t * pcRSSI )
+/*****************************************************************************************
+End of function WIFI_GetCountryCode
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_GetRSSI(int8_t * pcRSSI)
 {
 	return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_GetScanResults( const WIFIScanResult_t ** pxBuffer,
-                                      uint16_t * ucNumNetworks )
+/*****************************************************************************************
+End of function WIFI_GetRSSI
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_GetScanResults(const WIFIScanResult_t ** pxBuffer,
+                                      uint16_t * ucNumNetworks)
 {
 	return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_GetStationList( WIFIStationInfo_t * pxStationList,
-                                      uint8_t * pcStationListSize )
+/*****************************************************************************************
+End of function WIFI_GetScanResults
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_GetStationList(WIFIStationInfo_t * pxStationList,
+                                      uint8_t * pcStationListSize)
 {
 	return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_GetStatistic( WIFIStatisticInfo_t * pxStats )
+/*****************************************************************************************
+End of function WIFI_GetStationList
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_GetStatistic(WIFIStatisticInfo_t * pxStats)
 {
 	return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_SetCountryCode( const char * pcCountryCode )
+/*****************************************************************************************
+End of function WIFI_GetStatistic
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_SetCountryCode(const char * pcCountryCode)
 {
 	return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_StartConnectAP( const WIFINetworkParams_t * pxNetworkParams )
+/*****************************************************************************************
+End of function WIFI_SetCountryCode
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_StartConnectAP(const WIFINetworkParams_t * pxNetworkParams)
 {
 	return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_StartDisconnect( void )
+/*****************************************************************************************
+End of function WIFI_StartConnectAP
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_StartDisconnect(void)
 {
 	return eWiFiNotSupported;
 }
 
-WIFIReturnCode_t WIFI_StartScan( WIFIScanConfig_t * pxScanConfig )
+/*****************************************************************************************
+End of function WIFI_StartDisconnect
+****************************************************************************************/
+
+WIFIReturnCode_t WIFI_StartScan(WIFIScanConfig_t * pxScanConfig)
 {
 	return eWiFiNotSupported;
 }
+
+/*****************************************************************************************
+End of function WIFI_StartScan
+****************************************************************************************/
 

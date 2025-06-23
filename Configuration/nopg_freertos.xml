@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/***********************************************************************************************************************
+* Copyright (c) 2023-2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+***********************************************************************************************************************/
+-->
+<refinfo>
+	<!-- only one package entry allowed -->
+	<package>
+		<type>rtosmodule</type>
+		<name>FreeRTOSLTS</name>
+		<version>202406.01-LTS-rx-1.1.0</version>
+		<!-- define RTOS libraries component -->
+		<component>
+			<name>FreeRTOS_IP</name>
+			<display>FreeRTOS-Plus-TCP</display>
+			<detail>FreeRTOS-Plus-TCP is a scalable, open source and thread safe TCP/IP stack for FreeRTOS.</detail>
+			<configgenpath>
+				<path>src/frtos_config/FreeRTOSIPConfig.h</path>
+			</configgenpath>
+			<category>rtos.library</category>
+		</component>
+		<component>
+			<name>FreeRTOS_Kernel</name>
+			<display>FreeRTOS Kernel</display>
+			<detail>FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications.</detail>
+			<configgenpath>
+				<path>src/frtos_config/FreeRTOSConfig.h</path>
+			</configgenpath>
+			<category>rtos.kernel</category>
+		</component>
+		<component>
+			<name>LittleFS</name>
+			<display>LittleFS</display>
+			<detail>LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers.</detail>
+			<configgenpath>
+				<path>src/frtos_config/rm_littlefs_flash_config.h</path>
+			</configgenpath>
+			<category>rtos.library</category>
+		</component>
+		<!-- define more RTOS components -->
+	</package>
+</refinfo>

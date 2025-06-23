@@ -7,7 +7,7 @@
                 <option id="com.renesas.smc.toolchain.option.language" key="com.renesas.smc.toolchain.option.language.c"/>
                 <option id="com.renesas.smc.toolchain.option.buildArtefactType" key="com.renesas.smc.toolchain.option.buildArtefactType.exe"/>
                 <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.freertoslts">
-                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202406.01-LTS-rx-1.0.1"/>
+                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202406.01-LTS-rx-1.1.0"/>
                 </option>
                 <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.true"/>
             </toolchain>
@@ -800,66 +800,6 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration inuse="true" name="r_bsp">
-            <component description="Dependencies : None&#10;The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include &quot;./board/generic_rx64m/r_bsp.h&quot; include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project." detailDescription="Board Support Packages." display="r_bsp" id="r_bsp7.51" version="7.51">
-                <gridItem id="BSP_CFG_USER_STACK_ENABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_USTACK_BYTES" selectedIndex="0x1000"/>
-                <gridItem id="BSP_CFG_ISTACK_BYTES" selectedIndex="0x400"/>
-                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x2000"/>
-                <gridItem id="BSP_CFG_IO_LIB_ENABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_USER_CHARGET_FUNCTION" selectedIndex="my_sw_charget_function"/>
-                <gridItem id="BSP_CFG_USER_CHARPUT_ENABLED" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_USER_CHARPUT_FUNCTION" selectedIndex="my_sw_charput_function"/>
-                <gridItem id="BSP_CFG_RUN_IN_USER_MODE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_ID_CODE_LONG_1" selectedIndex="0xFFFFFFFF"/>
-                <gridItem id="BSP_CFG_ID_CODE_LONG_2" selectedIndex="0xFFFFFFFF"/>
-                <gridItem id="BSP_CFG_ID_CODE_LONG_3" selectedIndex="0xFFFFFFFF"/>
-                <gridItem id="BSP_CFG_ID_CODE_LONG_4" selectedIndex="0xFFFFFFFF"/>
-                <gridItem id="BSP_CFG_SERIAL_PROGRAMMER_CONECT_ENABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_ROM_CACHE_ENABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_TRUSTED_MODE_FUNCTION" selectedIndex="0xFFFFFFFF"/>
-                <gridItem id="BSP_CFG_FAW_REG_VALUE" selectedIndex="0xFFFFFFFF"/>
-                <gridItem id="BSP_CFG_ROMCODE_REG_VALUE" selectedIndex="0xFFFFFFFF"/>
-                <gridItem id="BSP_CFG_CODE_FLASH_START_BANK" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_USER_LOCKING_ENABLED" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_USER_LOCKING_TYPE" selectedIndex="bsp_lock_t"/>
-                <gridItem id="BSP_CFG_USER_LOCKING_HW_LOCK_FUNCTION" selectedIndex="my_hw_locking_function"/>
-                <gridItem id="BSP_CFG_USER_LOCKING_HW_UNLOCK_FUNCTION" selectedIndex="my_hw_unlocking_function"/>
-                <gridItem id="BSP_CFG_USER_LOCKING_SW_LOCK_FUNCTION" selectedIndex="my_sw_locking_function"/>
-                <gridItem id="BSP_CFG_USER_LOCKING_SW_UNLOCK_FUNCTION" selectedIndex="my_sw_unlocking_function"/>
-                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" selectedIndex="my_sw_warmstart_prec_function"/>
-                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_USER_WARM_START_POST_C_FUNCTION" selectedIndex="my_sw_warmstart_postc_function"/>
-                <gridItem id="BSP_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_EBMAPCR_1ST_PRIORITY" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_EBMAPCR_2ND_PRIORITY" selectedIndex="3"/>
-                <gridItem id="BSP_CFG_EBMAPCR_3RD_PRIORITY" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_EBMAPCR_4TH_PRIORITY" selectedIndex="2"/>
-                <gridItem id="BSP_CFG_EBMAPCR_5TH_PRIORITY" selectedIndex="4"/>
-                <gridItem id="BSP_CFG_FIT_IPL_MAX" selectedIndex="15"/>
-                <gridItem id="BSP_CFG_SWINT_UNIT1_ENABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_SWINT_UNIT2_ENABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_SWINT_TASK_BUFFER_NUMBER" selectedIndex="8"/>
-                <gridItem id="BSP_CFG_SWINT_IPR_INITIAL_VALUE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_ENABLE" selectedIndex="1"/>
-                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_CHANNEL" selectedIndex="5"/>
-                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_BITRATE" selectedIndex="115200"/>
-                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY" selectedIndex="15"/>
-                <gridItem id="BSP_CFG_BUS_PRIORITY_INITIALIZE_ENABLE" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_MEMORY_BUS1_3_PRIORITY" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_MEMORY_BUS2_PRIORITY" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS1_PRIORITY" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS2_3_PRIORITY" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS4_5_PRIORITY" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS6_PRIORITY" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_EXTERNAL_BUS_PRIORITY" selectedIndex="0"/>
-                <gridItem id="BSP_CFG_BOOTLOADER_PROJECT" selectedIndex="0"/>
-            </component>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
-        </configuration>
         <configuration inuse="true" name="r_s12ad_rx">
             <component description="Dependency : r_bsp version(s) 7.40&#10;This A/D driver supports the temperature sensor, internal reference voltage sensor, and all analog channels available on the MCU. Single scan and continuous scanning are supported. Group and Double Trigger modes are supported. Triggers may be synchronous, asynchronous, or initiated by software. " detailDescription="ADC Driver" display="r_s12ad_rx" id="r_s12ad_rx5.40" version="5.40">
                 <gridItem id="AN000" selectedIndex="0"/>
@@ -947,10 +887,244 @@
                 <gridItem id="ADC_CFG_PARAM_CHECKING_ENABLE" selectedIndex="0"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
+        </configuration>
+        <configuration enable="true" exclude="false" id="b21fee22-0910-4389-964b-11e24d883da3" inuse="true" name="FreeRTOS_Kernel">
+            <component description="Dependency: None&#10;FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications." detailDescription="FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications." display="FreeRTOS Kernel" id="FreeRTOS_Kernel202406.01-LTS-rx-1.1.0" version="11.1.0">
+                <gridItem id="configENABLE_BACKWARD_COMPATIBILITY" selectedIndex="1"/>
+                <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
+                <gridItem id="configUSE_PORT_OPTIMISED_TASK_SELECTION" selectedIndex="0"/>
+                <gridItem id="configMAX_PRIORITIES" selectedIndex="7"/>
+                <gridItem id="configTICK_RATE_HZ" selectedIndex="( TickType_t ) 1000"/>
+                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="768"/>
+                <gridItem id="configTOTAL_HEAP_SIZE_N" selectedIndex="256"/>
+                <gridItem id="configMAX_TASK_NAME_LEN" selectedIndex="12"/>
+                <gridItem id="configUSE_TRACE_FACILITY" selectedIndex="1"/>
+                <gridItem id="configUSE_16_BIT_TICKS" selectedIndex="0"/>
+                <gridItem id="configIDLE_SHOULD_YIELD" selectedIndex="1"/>
+                <gridItem id="configUSE_CO_ROUTINES" selectedIndex="0"/>
+                <gridItem id="configUSE_MUTEXES" selectedIndex="1"/>
+                <gridItem id="configUSE_RECURSIVE_MUTEXES" selectedIndex="1"/>
+                <gridItem id="configQUEUE_REGISTRY_SIZE" selectedIndex="0"/>
+                <gridItem id="configUSE_APPLICATION_TASK_TAG" selectedIndex="0"/>
+                <gridItem id="configUSE_COUNTING_SEMAPHORES" selectedIndex="1"/>
+                <gridItem id="configUSE_ALTERNATIVE_API" selectedIndex="0"/>
+                <gridItem id="configNUM_THREAD_LOCAL_STORAGE_POINTERS" selectedIndex="3"/>
+                <gridItem id="configRECORD_STACK_HIGH_ADDRESS" selectedIndex="1"/>
+                <gridItem id="configUSE_DAEMON_TASK_STARTUP_HOOK" selectedIndex="1"/>
+                <gridItem id="configCPU_CLOCK_HZ" selectedIndex="BSP_ICLK_HZ"/>
+                <gridItem id="configPERIPHERAL_CLOCK_HZ" selectedIndex="BSP_PCLKB_HZ"/>
+                <gridItem id="configUSE_QUEUE_SETS" selectedIndex="1"/>
+                <gridItem id="configUSE_TICK_HOOK" selectedIndex="1"/>
+                <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
+                <gridItem id="configUSE_MALLOC_FAILED_HOOK" selectedIndex="1"/>
+                <gridItem id="configCHECK_FOR_STACK_OVERFLOW" selectedIndex="2"/>
+                <gridItem id="configUSE_TIMERS" selectedIndex="1"/>
+                <gridItem id="configTIMER_TASK_PRIORITY" selectedIndex="6"/>
+                <gridItem id="configTIMER_QUEUE_LENGTH" selectedIndex="5"/>
+                <gridItem id="configTIMER_TASK_STACK_DEPTH" selectedIndex="configMINIMAL_STACK_SIZE"/>
+                <gridItem id="configKERNEL_INTERRUPT_PRIORITY" selectedIndex="1"/>
+                <gridItem id="configMAX_SYSCALL_INTERRUPT_PRIORITY" selectedIndex="4"/>
+                <gridItem id="configTICK_VECTOR" selectedIndex="0"/>
+                <gridItem id="configUSE_EVENT_GROUPS" selectedIndex="1"/>
+                <gridItem id="configGENERATE_RUN_TIME_STATS" selectedIndex="0"/>
+                <gridItem id="configMAX_CO_ROUTINE_PRIORITIES" selectedIndex="2"/>
+                <gridItem id="configSUPPORT_DYNAMIC_ALLOCATION" selectedIndex="1"/>
+                <gridItem id="configSUPPORT_STATIC_ALLOCATION" selectedIndex="1"/>
+                <gridItem id="INCLUDE_vTaskPrioritySet" selectedIndex="1"/>
+                <gridItem id="INCLUDE_uxTaskPriorityGet" selectedIndex="1"/>
+                <gridItem id="INCLUDE_vTaskDelete" selectedIndex="1"/>
+                <gridItem id="INCLUDE_vTaskCleanUpResources" selectedIndex="0"/>
+                <gridItem id="INCLUDE_vTaskSuspend" selectedIndex="1"/>
+                <gridItem id="INCLUDE_vTaskDelayUntil" selectedIndex="1"/>
+                <gridItem id="INCLUDE_vTaskDelay" selectedIndex="1"/>
+                <gridItem id="INCLUDE_uxTaskGetStackHighWaterMark" selectedIndex="1"/>
+                <gridItem id="INCLUDE_xTaskGetSchedulerState" selectedIndex="1"/>
+                <gridItem id="INCLUDE_xTimerGetTimerTaskHandle" selectedIndex="0"/>
+                <gridItem id="INCLUDE_xTaskGetIdleTaskHandle" selectedIndex="0"/>
+                <gridItem id="INCLUDE_xQueueGetMutexHolder" selectedIndex="1"/>
+                <gridItem id="INCLUDE_eTaskGetState" selectedIndex="1"/>
+                <gridItem id="INCLUDE_xEventGroupSetBitsFromISR" selectedIndex="1"/>
+                <gridItem id="INCLUDE_xTimerPendFunctionCall" selectedIndex="1"/>
+                <gridItem id="INCLUDE_xTaskGetCurrentTaskHandle" selectedIndex="1"/>
+                <gridItem id="INCLUDE_xTaskAbortDelay" selectedIndex="1"/>
+                <gridItem id="configUSE_STATS_FORMATTING_FUNCTIONS" selectedIndex="1"/>
+                <gridItem id="configPRINTF( X )" selectedIndex="vLoggingPrintf X"/>
+                <gridItem id="configPRINT( X )" selectedIndex="vLoggingPrint( X )"/>
+                <gridItem id="configPRINT_STRING( x )" selectedIndex="vOutputString(x)"/>
+                <gridItem id="configLOGGING_MAX_MESSAGE_LENGTH" selectedIndex="192"/>
+                <gridItem id="configLOGGING_INCLUDE_TIME_AND_TASK_NAME" selectedIndex="1"/>
+                <gridItem id="configINCLUDE_DEMO_DEBUG_STATS" selectedIndex="1"/>
+                <gridItem id="configCOMMAND_INT_MAX_OUTPUT_SIZE" selectedIndex="850"/>
+                <gridItem id="configMAC_ISR_SIMULATOR_PRIORITY" selectedIndex="configMAX_PRIORITIES - 1"/>
+                <gridItem id="configNETWORK_INTERFACE_TO_USE" selectedIndex="2L"/>
+                <gridItem id="configECHO_SERVER_ADDR0" selectedIndex="192"/>
+                <gridItem id="configECHO_SERVER_ADDR1" selectedIndex="168"/>
+                <gridItem id="configECHO_SERVER_ADDR2" selectedIndex="1"/>
+                <gridItem id="configECHO_SERVER_ADDR3" selectedIndex="200"/>
+                <gridItem id="configTCP_ECHO_CLIENT_PORT" selectedIndex="9999"/>
+                <gridItem id="configMAC_ADDR0" selectedIndex="0x74"/>
+                <gridItem id="configMAC_ADDR1" selectedIndex="0x90"/>
+                <gridItem id="configMAC_ADDR2" selectedIndex="0x50"/>
+                <gridItem id="configMAC_ADDR3" selectedIndex="0x00"/>
+                <gridItem id="configMAC_ADDR4" selectedIndex="0x79"/>
+                <gridItem id="configMAC_ADDR5" selectedIndex="0x03"/>
+                <gridItem id="configIP_ADDR0" selectedIndex="192"/>
+                <gridItem id="configIP_ADDR1" selectedIndex="168"/>
+                <gridItem id="configIP_ADDR2" selectedIndex="11"/>
+                <gridItem id="configIP_ADDR3" selectedIndex="12"/>
+                <gridItem id="configGATEWAY_ADDR0" selectedIndex="172"/>
+                <gridItem id="configGATEWAY_ADDR1" selectedIndex="27"/>
+                <gridItem id="configGATEWAY_ADDR2" selectedIndex="49"/>
+                <gridItem id="configGATEWAY_ADDR3" selectedIndex="1"/>
+                <gridItem id="configDNS_SERVER_ADDR0" selectedIndex="143"/>
+                <gridItem id="configDNS_SERVER_ADDR1" selectedIndex="103"/>
+                <gridItem id="configDNS_SERVER_ADDR2" selectedIndex="47"/>
+                <gridItem id="configDNS_SERVER_ADDR3" selectedIndex="193"/>
+                <gridItem id="configNET_MASK0" selectedIndex="8"/>
+                <gridItem id="configNET_MASK1" selectedIndex="8"/>
+                <gridItem id="configNET_MASK2" selectedIndex="8"/>
+                <gridItem id="configNET_MASK3" selectedIndex="0"/>
+                <gridItem id="configPRINT_PORT" selectedIndex="15000"/>
+                <gridItem id="configPROFILING" selectedIndex="0"/>
+                <gridItem id="configRAND32()" selectedIndex="ulRand()"/>
+                <gridItem id="configPLATFORM_NAME" selectedIndex="&quot;RenesasRX65N&quot;"/>
+                <gridItem id="configINCLUDE_PLATFORM_H_INSTEAD_OF_IODEFINE_H" selectedIndex="1"/>
+                <gridItem id="configUSE_TIME_SLICING" selectedIndex="1"/>
+            </component>
+            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+        </configuration>
+        <configuration enable="true" exclude="false" id="ddf45944-c15b-4d2b-9699-023fbfde2b76" inuse="true" name="LittleFS">
+            <component description="Dependency: None&#10;LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers." detailDescription="LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers." display="LittleFS" id="LittleFS202406.01-LTS-rx-1.1.0" version="2.5.1">
+                <gridItem id="LFS_FLASH_READ_SIZE" selectedIndex="1"/>
+                <gridItem id="LFS_FLASH_PROGRAM_SIZE" selectedIndex="4"/>
+                <gridItem id="LFS_FLASH_BLOCK_SIZE" selectedIndex="128"/>
+                <gridItem id="LFS_FLASH_BLOCK_COUNT" selectedIndex="70"/>
+                <gridItem id="RM_LITTLEFS_FLASH_DATA_START" selectedIndex="FLASH_DF_BLOCK_0_MACRO"/>
+            </component>
+            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+        </configuration>
+        <configuration enable="true" exclude="false" id="290537ed-7371-4081-ad38-99b7176f6398" inuse="true" name="FreeRTOS Object">
+            <allocatable id="OBJECT" name="OBJECT" type="">
+                <allocatable id="TASK" name="TASK" type="">
+                    <allocatable id="TASKOBJECTLINK1" name="TASK" readonly="true" type="">
+                        <option defaultValue="1" id="Initialize" value="0"/>
+                        <option defaultValue="task_[X]" id="TaskCode" value="main_task"/>
+                        <option defaultValue="task_[X]" id="TaskName" value="MAIN_TASK"/>
+                        <option defaultValue="512" id="StackSize" value="512"/>
+                        <option defaultValue="NULL" id="TaskHandler" value="NULL"/>
+                        <option defaultValue="NULL" id="Parameter" value="NULL"/>
+                        <option defaultValue="1" id="Priority" value="1"/>
+                    </allocatable>
+                    <option defaultValue="0" id="LinkNum" value="1"/>
+                </allocatable>
+                <allocatable id="QUEUE" name="QUEUE" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="SEMAPHORE" name="SEMAPHORE" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="SWTIMER" name="SWTIMER" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="EVENTGROUP" name="EVENTGROUP" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="STREAMBUFFER" name="STREAMBUFFER" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+                <allocatable id="MESSAGEBUFFER" name="MESSAGEBUFFER" type="">
+                    <option defaultValue="0" id="LinkNum" value=""/>
+                </allocatable>
+            </allocatable>
+            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="202406.01-LTS-rx-1.1.0"/>
+            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+        </configuration>
+        <configuration enable="true" exclude="false" id="6b99ab55-77da-47fc-b2f3-5b93be5d99a4" inuse="true" name="FreeRTOS_IP">
+            <component description="Dependency: r_ether_rx&#10;FreeRTOS-Plus-TCP is a scalable, open source and thread safe TCP/IP stack for FreeRTOS." detailDescription="FreeRTOS-Plus-TCP is a scalable, open source and thread safe TCP/IP stack for FreeRTOS." display="FreeRTOS-Plus-TCP" id="FreeRTOS_IP202406.01-LTS-rx-1.1.0" version="4.2.2">
+                <gridItem id="ipconfigBYTE_ORDER" selectedIndex="0"/>
+                <gridItem id="FreeRTOS_debug_printf( MSG )" selectedIndex="configPRINTF( MSG )"/>
+                <gridItem id="ipconfigHAS_PRINTF" selectedIndex="1"/>
+                <gridItem id="FreeRTOS_printf( MSG )" selectedIndex="configPRINTF( MSG )"/>
+                <gridItem id="ipconfigUSE_NETWORK_EVENT_HOOK" selectedIndex="1"/>
+                <gridItem id="ipconfigARP_CACHE_ENTRIES" selectedIndex="6"/>
+                <gridItem id="ipconfigNUM_NETWORK_BUFFER_DESCRIPTORS" selectedIndex="ETHER_CFG_EMAC_TX_DESCRIPTORS"/>
+                <gridItem id="ipconfigCHECK_IP_QUEUE_SPACE" selectedIndex="1"/>
+                <gridItem id="ipconfigUSE_LLMNR" selectedIndex="0"/>
+                <gridItem id="ipconfigUSE_NBNS" selectedIndex="0"/>
+                <gridItem id="ipconfigDHCP_REGISTER_HOSTNAME" selectedIndex="1"/>
+                <gridItem id="ipconfigUSE_DNS_CACHE" selectedIndex="1"/>
+                <gridItem id="ipconfigDRIVER_INCLUDED_RX_IP_CHECKSUM" selectedIndex="1"/>
+                <gridItem id="ipconfigSOCKET_HAS_USER_WAKE_CALLBACK" selectedIndex="1"/>
+                <gridItem id="ipconfigTCP_KEEP_ALIVE" selectedIndex="1"/>
+                <gridItem id="ipconfigUSE_DHCP" selectedIndex="1"/>
+                <gridItem id="ipconfigUSE_DHCP_HOOK" selectedIndex="0"/>
+                <gridItem id="ipconfigSUPPORT_OUTGOING_PINGS" selectedIndex="0"/>
+                <gridItem id="ipconfigUSE_IPv6" selectedIndex="0"/>
+            </component>
+            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+        </configuration>
+        <configuration inuse="true" name="r_bsp">
+            <component description="Dependencies : None&#10;The r_bsp package provides a foundation for code to be built on top of. It provides startup code, iodefines, and MCU information for different boards. There are 2 folders that make up the r_bsp package. The 'mcu' folder contains files that are common to a MCU group. These files provide functionality such as easy register access, CPU functions, and a file named 'mcu_info.h' for each MCU group. The 'mcu_info.h' file has information about the MCU on the board and is configured based on the information given in r_bsp_config.h. The information in 'mcu_info.h' is used to help configure Renesas middleware that uses the r_bsp package. The 'board' folder has a folder with startup code for each supported board.  Which MCU and board is chosen is decided by the settings in 'platform.h'. The user can choose which board they are using by uncommenting the include path that applies to their board. For example, if you are using the RSK+RX64M then you would uncomment the #include &quot;./board/generic_rx64m/r_bsp.h&quot; include path. Users are encouraged to add their own boards to the 'board' directory. BSPs are configured by using the r_bsp_config.h file. Each board will have a reference configuration file named r_bsp_config_reference.h. The user should copy this file to their project, rename it to r_bsp_config.h, and use the options inside the file to configure the BSP for their project." detailDescription="Board Support Packages." display="r_bsp" id="r_bsp7.52" version="7.52">
+                <gridItem id="BSP_CFG_USER_STACK_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_USTACK_BYTES" selectedIndex="0x1000"/>
+                <gridItem id="BSP_CFG_ISTACK_BYTES" selectedIndex="0x400"/>
+                <gridItem id="BSP_CFG_HEAP_BYTES" selectedIndex="0x2000"/>
+                <gridItem id="BSP_CFG_IO_LIB_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_USER_CHARGET_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_CHARGET_FUNCTION" selectedIndex="my_sw_charget_function"/>
+                <gridItem id="BSP_CFG_USER_CHARPUT_ENABLED" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_USER_CHARPUT_FUNCTION" selectedIndex="vOutputChar"/>
+                <gridItem id="BSP_CFG_RUN_IN_USER_MODE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_ID_CODE_LONG_1" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_ID_CODE_LONG_2" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_ID_CODE_LONG_3" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_ID_CODE_LONG_4" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_SERIAL_PROGRAMMER_CONECT_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_ROM_CACHE_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_TRUSTED_MODE_FUNCTION" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_FAW_REG_VALUE" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_ROMCODE_REG_VALUE" selectedIndex="0xFFFFFFFF"/>
+                <gridItem id="BSP_CFG_CODE_FLASH_START_BANK" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_TYPE" selectedIndex="bsp_lock_t"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_HW_LOCK_FUNCTION" selectedIndex="my_hw_locking_function"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_HW_UNLOCK_FUNCTION" selectedIndex="my_hw_unlocking_function"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_SW_LOCK_FUNCTION" selectedIndex="my_sw_locking_function"/>
+                <gridItem id="BSP_CFG_USER_LOCKING_SW_UNLOCK_FUNCTION" selectedIndex="my_sw_unlocking_function"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_PRE_INITC_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_PRE_C_FUNCTION" selectedIndex="my_sw_warmstart_prec_function"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_CALLBACK_POST_INITC_ENABLED" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_USER_WARM_START_POST_C_FUNCTION" selectedIndex="my_sw_warmstart_postc_function"/>
+                <gridItem id="BSP_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_EBMAPCR_1ST_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_EBMAPCR_2ND_PRIORITY" selectedIndex="3"/>
+                <gridItem id="BSP_CFG_EBMAPCR_3RD_PRIORITY" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_EBMAPCR_4TH_PRIORITY" selectedIndex="2"/>
+                <gridItem id="BSP_CFG_EBMAPCR_5TH_PRIORITY" selectedIndex="4"/>
+                <gridItem id="BSP_CFG_FIT_IPL_MAX" selectedIndex="15"/>
+                <gridItem id="BSP_CFG_SWINT_UNIT1_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_SWINT_UNIT2_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_SWINT_TASK_BUFFER_NUMBER" selectedIndex="8"/>
+                <gridItem id="BSP_CFG_SWINT_IPR_INITIAL_VALUE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_ENABLE" selectedIndex="1"/>
+                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_CHANNEL" selectedIndex="5"/>
+                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_BITRATE" selectedIndex="115200"/>
+                <gridItem id="BSP_CFG_SCI_UART_TERMINAL_INTERRUPT_PRIORITY" selectedIndex="15"/>
+                <gridItem id="BSP_CFG_BUS_PRIORITY_INITIALIZE_ENABLE" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_MEMORY_BUS1_3_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_MEMORY_BUS2_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS1_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS2_3_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS4_5_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_INTERNAL_PERIPHERAL_BUS6_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_EXTERNAL_BUS_PRIORITY" selectedIndex="0"/>
+                <gridItem id="BSP_CFG_BOOTLOADER_PROJECT" selectedIndex="0"/>
+            </component>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration inuse="true" name="r_flash_rx">
-            <component description="Dependency : r_bsp version(s) 7.51&#10;This module allows the user to program, erase, write and blankcheck the Code and/or Data flash." detailDescription="Flash API for RX100, RX200, RX600. and RX700." display="r_flash_rx" id="r_flash_rx5.20" version="5.20">
+            <component description="Dependency : r_bsp version(s) 7.51&#10;This module allows the user to program, erase, write and blankcheck the Code and/or Data flash." detailDescription="Flash API for RX100, RX200, RX600. and RX700." display="r_flash_rx" id="r_flash_rx5.21" version="5.21">
                 <gridItem id="FLASH_CFG_PARAM_CHECKING_ENABLE" selectedIndex="1"/>
                 <gridItem id="FLASH_CFG_CODE_FLASH_ENABLE" selectedIndex="1"/>
                 <gridItem id="FLASH_CFG_DATA_FLASH_BGO" selectedIndex="1"/>
@@ -961,7 +1135,7 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration inuse="true" name="r_sci_rx">
-            <component description="Dependency : r_bsp version(s) 7.51&#10;Dependency : r_byteq version(s) 1.40, 1.50, 1.60, 1.70, 1.71, 1.80, 1.81, 1.82, 1.90, 2.00, 2.10&#10;This module allows any number of SCI channels on the MCU to run in full duplex Asynchronous mode, single master Simple SPI mode, or master Synchronous mode simultaneously. The driver is interrupt driven and non-blocking. Transmit and receive buffer queues are used in Asynchronous mode and their sizes may be configured independently for each channel. Resources for unused channels or modes may be removed via settings in the driver's config.h file." detailDescription="SCI Driver" display="r_sci_rx" id="r_sci_rx5.30" version="5.30">
+            <component description="Dependency : r_bsp version(s) 7.51&#10;Dependency : r_byteq version(s) 1.40, 1.50, 1.60, 1.70, 1.71, 1.80, 1.81, 1.82, 1.90, 2.00, 2.10&#10;This module allows any number of SCI channels on the MCU to run in full duplex Asynchronous mode, single master Simple SPI mode, or master Synchronous mode simultaneously. The driver is interrupt driven and non-blocking. Transmit and receive buffer queues are used in Asynchronous mode and their sizes may be configured independently for each channel. Resources for unused channels or modes may be removed via settings in the driver's config.h file." detailDescription="SCI Driver" display="r_sci_rx" id="r_sci_rx5.40" version="5.40">
                 <gridItem id="SCK0" selectedIndex="0"/>
                 <gridItem id="RXD0/SMISO0/SSCL0" selectedIndex="0"/>
                 <gridItem id="TXD0/SMOSI0/SSDA0" selectedIndex="0"/>
@@ -1241,180 +1415,55 @@
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
-        <configuration enable="true" exclude="false" id="14346728-bb27-43cb-8fc6-8a9cf1b35251" inuse="true" name="FreeRTOS_Kernel">
-            <component description="Dependency: None&#10;FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications." detailDescription="FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications." display="FreeRTOS Kernel" id="FreeRTOS_Kernel202406.01-LTS-rx-1.0.1" version="11.1.0">
-                <gridItem id="configENABLE_BACKWARD_COMPATIBILITY" selectedIndex="1"/>
-                <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
-                <gridItem id="configUSE_PORT_OPTIMISED_TASK_SELECTION" selectedIndex="0"/>
-                <gridItem id="configMAX_PRIORITIES" selectedIndex="7"/>
-                <gridItem id="configTICK_RATE_HZ" selectedIndex="( TickType_t ) 1000"/>
-                <gridItem id="configMINIMAL_STACK_SIZE" selectedIndex="768"/>
-                <gridItem id="configTOTAL_HEAP_SIZE_N" selectedIndex="256"/>
-                <gridItem id="configMAX_TASK_NAME_LEN" selectedIndex="12"/>
-                <gridItem id="configUSE_TRACE_FACILITY" selectedIndex="1"/>
-                <gridItem id="configUSE_16_BIT_TICKS" selectedIndex="0"/>
-                <gridItem id="configIDLE_SHOULD_YIELD" selectedIndex="1"/>
-                <gridItem id="configUSE_CO_ROUTINES" selectedIndex="0"/>
-                <gridItem id="configUSE_MUTEXES" selectedIndex="1"/>
-                <gridItem id="configUSE_RECURSIVE_MUTEXES" selectedIndex="1"/>
-                <gridItem id="configQUEUE_REGISTRY_SIZE" selectedIndex="0"/>
-                <gridItem id="configUSE_APPLICATION_TASK_TAG" selectedIndex="0"/>
-                <gridItem id="configUSE_COUNTING_SEMAPHORES" selectedIndex="1"/>
-                <gridItem id="configUSE_ALTERNATIVE_API" selectedIndex="0"/>
-                <gridItem id="configNUM_THREAD_LOCAL_STORAGE_POINTERS" selectedIndex="3"/>
-                <gridItem id="configRECORD_STACK_HIGH_ADDRESS" selectedIndex="1"/>
-                <gridItem id="configUSE_DAEMON_TASK_STARTUP_HOOK" selectedIndex="1"/>
-                <gridItem id="configCPU_CLOCK_HZ" selectedIndex="BSP_ICLK_HZ"/>
-                <gridItem id="configPERIPHERAL_CLOCK_HZ" selectedIndex="BSP_PCLKB_HZ"/>
-                <gridItem id="configUSE_QUEUE_SETS" selectedIndex="1"/>
-                <gridItem id="configUSE_TICK_HOOK" selectedIndex="1"/>
-                <gridItem id="configUSE_IDLE_HOOK" selectedIndex="1"/>
-                <gridItem id="configUSE_MALLOC_FAILED_HOOK" selectedIndex="1"/>
-                <gridItem id="configCHECK_FOR_STACK_OVERFLOW" selectedIndex="2"/>
-                <gridItem id="configUSE_TIMERS" selectedIndex="1"/>
-                <gridItem id="configTIMER_TASK_PRIORITY" selectedIndex="6"/>
-                <gridItem id="configTIMER_QUEUE_LENGTH" selectedIndex="5"/>
-                <gridItem id="configTIMER_TASK_STACK_DEPTH" selectedIndex="configMINIMAL_STACK_SIZE"/>
-                <gridItem id="configKERNEL_INTERRUPT_PRIORITY" selectedIndex="1"/>
-                <gridItem id="configMAX_SYSCALL_INTERRUPT_PRIORITY" selectedIndex="4"/>
-                <gridItem id="configTICK_VECTOR" selectedIndex="0"/>
-                <gridItem id="configUSE_EVENT_GROUPS" selectedIndex="1"/>
-                <gridItem id="configGENERATE_RUN_TIME_STATS" selectedIndex="0"/>
-                <gridItem id="configMAX_CO_ROUTINE_PRIORITIES" selectedIndex="2"/>
-                <gridItem id="configSUPPORT_DYNAMIC_ALLOCATION" selectedIndex="1"/>
-                <gridItem id="configSUPPORT_STATIC_ALLOCATION" selectedIndex="1"/>
-                <gridItem id="INCLUDE_vTaskPrioritySet" selectedIndex="1"/>
-                <gridItem id="INCLUDE_uxTaskPriorityGet" selectedIndex="1"/>
-                <gridItem id="INCLUDE_vTaskDelete" selectedIndex="1"/>
-                <gridItem id="INCLUDE_vTaskCleanUpResources" selectedIndex="0"/>
-                <gridItem id="INCLUDE_vTaskSuspend" selectedIndex="1"/>
-                <gridItem id="INCLUDE_vTaskDelayUntil" selectedIndex="1"/>
-                <gridItem id="INCLUDE_vTaskDelay" selectedIndex="1"/>
-                <gridItem id="INCLUDE_uxTaskGetStackHighWaterMark" selectedIndex="1"/>
-                <gridItem id="INCLUDE_xTaskGetSchedulerState" selectedIndex="1"/>
-                <gridItem id="INCLUDE_xTimerGetTimerTaskHandle" selectedIndex="0"/>
-                <gridItem id="INCLUDE_xTaskGetIdleTaskHandle" selectedIndex="0"/>
-                <gridItem id="INCLUDE_xQueueGetMutexHolder" selectedIndex="1"/>
-                <gridItem id="INCLUDE_eTaskGetState" selectedIndex="1"/>
-                <gridItem id="INCLUDE_xEventGroupSetBitsFromISR" selectedIndex="1"/>
-                <gridItem id="INCLUDE_xTimerPendFunctionCall" selectedIndex="1"/>
-                <gridItem id="INCLUDE_xTaskGetCurrentTaskHandle" selectedIndex="1"/>
-                <gridItem id="INCLUDE_xTaskAbortDelay" selectedIndex="1"/>
-                <gridItem id="configUSE_STATS_FORMATTING_FUNCTIONS" selectedIndex="1"/>
-                <gridItem id="configPRINTF( X )" selectedIndex="vLoggingPrintf X"/>
-                <gridItem id="configPRINT( X )" selectedIndex="vLoggingPrint( X )"/>
-                <gridItem id="configPRINT_STRING( x )" selectedIndex="vOutputString(x)"/>
-                <gridItem id="configLOGGING_MAX_MESSAGE_LENGTH" selectedIndex="192"/>
-                <gridItem id="configLOGGING_INCLUDE_TIME_AND_TASK_NAME" selectedIndex="1"/>
-                <gridItem id="configINCLUDE_DEMO_DEBUG_STATS" selectedIndex="1"/>
-                <gridItem id="configCOMMAND_INT_MAX_OUTPUT_SIZE" selectedIndex="850"/>
-                <gridItem id="configMAC_ISR_SIMULATOR_PRIORITY" selectedIndex="configMAX_PRIORITIES - 1"/>
-                <gridItem id="configNETWORK_INTERFACE_TO_USE" selectedIndex="2L"/>
-                <gridItem id="configECHO_SERVER_ADDR0" selectedIndex="192"/>
-                <gridItem id="configECHO_SERVER_ADDR1" selectedIndex="168"/>
-                <gridItem id="configECHO_SERVER_ADDR2" selectedIndex="1"/>
-                <gridItem id="configECHO_SERVER_ADDR3" selectedIndex="200"/>
-                <gridItem id="configTCP_ECHO_CLIENT_PORT" selectedIndex="9999"/>
-                <gridItem id="configMAC_ADDR0" selectedIndex="0x74"/>
-                <gridItem id="configMAC_ADDR1" selectedIndex="0x90"/>
-                <gridItem id="configMAC_ADDR2" selectedIndex="0x50"/>
-                <gridItem id="configMAC_ADDR3" selectedIndex="0x00"/>
-                <gridItem id="configMAC_ADDR4" selectedIndex="0x79"/>
-                <gridItem id="configMAC_ADDR5" selectedIndex="0x03"/>
-                <gridItem id="configIP_ADDR0" selectedIndex="192"/>
-                <gridItem id="configIP_ADDR1" selectedIndex="168"/>
-                <gridItem id="configIP_ADDR2" selectedIndex="11"/>
-                <gridItem id="configIP_ADDR3" selectedIndex="12"/>
-                <gridItem id="configGATEWAY_ADDR0" selectedIndex="172"/>
-                <gridItem id="configGATEWAY_ADDR1" selectedIndex="27"/>
-                <gridItem id="configGATEWAY_ADDR2" selectedIndex="49"/>
-                <gridItem id="configGATEWAY_ADDR3" selectedIndex="1"/>
-                <gridItem id="configDNS_SERVER_ADDR0" selectedIndex="143"/>
-                <gridItem id="configDNS_SERVER_ADDR1" selectedIndex="103"/>
-                <gridItem id="configDNS_SERVER_ADDR2" selectedIndex="47"/>
-                <gridItem id="configDNS_SERVER_ADDR3" selectedIndex="193"/>
-                <gridItem id="configNET_MASK0" selectedIndex="8"/>
-                <gridItem id="configNET_MASK1" selectedIndex="8"/>
-                <gridItem id="configNET_MASK2" selectedIndex="8"/>
-                <gridItem id="configNET_MASK3" selectedIndex="0"/>
-                <gridItem id="configPRINT_PORT" selectedIndex="15000"/>
-                <gridItem id="configPROFILING" selectedIndex="0"/>
-                <gridItem id="configRAND32()" selectedIndex="ulRand()"/>
-                <gridItem id="configPLATFORM_NAME" selectedIndex="&quot;RenesasRX65N&quot;"/>
-                <gridItem id="configINCLUDE_PLATFORM_H_INSTEAD_OF_IODEFINE_H" selectedIndex="1"/>
-                <gridItem id="configUSE_TIME_SLICING" selectedIndex="1"/>
+        <configuration inuse="true" name="r_fwup">
+            <component description="Dependency : r_flash_rx version(s) 4.80, 4.91, 5.10, 5.20&#10;This module is a software library for implementing the firmware update function in user applications." detailDescription="FWUP Library" display="r_fwup" id="r_fwup2.04" version="2.04">
+                <gridItem id="FWUP_CFG_UPDATE_MODE" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_FUNCTION_MODE" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_MAIN_AREA_ADDR_L" selectedIndex="0xFFF00000U"/>
+                <gridItem id="FWUP_CFG_BUF_AREA_ADDR_L" selectedIndex="0xFFE00000U"/>
+                <gridItem id="FWUP_CFG_AREA_SIZE" selectedIndex="0xF0000U"/>
+                <gridItem id="FWUP_CFG_CF_BLK_SIZE" selectedIndex="0x8000U"/>
+                <gridItem id="FWUP_CFG_CF_W_UNIT_SIZE" selectedIndex="128U"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_ADDR_L" selectedIndex="0x00000U"/>
+                <gridItem id="FWUP_CFG_EXT_BUF_AREA_BLK_SIZE" selectedIndex="4096U"/>
+                <gridItem id="FWUP_CFG_DF_ADDR_L" selectedIndex="0x00100000"/>
+                <gridItem id="FWUP_CFG_DF_BLK_SIZE" selectedIndex="64U"/>
+                <gridItem id="FWUP_CFG_DF_NUM_BLKS" selectedIndex="512U"/>
+                <gridItem id="FWUP_CFG_FWUPV1_COMPATIBLE" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_SIGNATURE_VERIFICATION" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_PRINTF_DISABLE" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_DISABLE_INTERRUPT_ENABLED" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_DISABLE_INTERRUPT_FUNCTION" selectedIndex="my_disable_interrupt_function"/>
+                <gridItem id="FWUP_CFG_USER_ENABLE_INTERRUPT_ENABLED" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_ENABLE_INTERRUPT_FUNCTION" selectedIndex="my_enable_interrupt_function"/>
+                <gridItem id="FWUP_CFG_USER_SOFTWARE_DELAY_ENABLED" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_SOFTWARE_DELAY_FUNCTION" selectedIndex="my_software_delay_function"/>
+                <gridItem id="FWUP_CFG_USER_SOFTWARE_RESET_ENABLED" selectedIndex="0"/>
+                <gridItem id="FWUP_CFG_USER_SOFTWARE_RESET_FUNCTION" selectedIndex="my_software_reset_function"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_INIT_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_INIT_FUNCTION" selectedIndex="ota_sha256_init_function"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_UPDATE_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_UPDATE_FUNCTION" selectedIndex="ota_sha256_update_function"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_FINAL_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_SHA256_FINAL_FUNCTION" selectedIndex="ota_sha256_final_function"/>
+                <gridItem id="FWUP_CFG_USER_VERIFY_ECDSA_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_VERIFY_ECDSA_FUNCTION" selectedIndex="ota_verify_ecdsa_function"/>
+                <gridItem id="FWUP_CFG_USER_GET_CRYPT_CONTEXT_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_GET_CRYPT_CONTEXT_FUNCTION" selectedIndex="ota_get_crypt_context_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_OPEN_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_OPEN_FUNCTION" selectedIndex="ota_flash_open_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_CLOSE_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_CLOSE_FUNCTION" selectedIndex="ota_flash_close_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_ERASE_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_ERASE_FUNCTION" selectedIndex="ota_flash_erase_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_WRITE_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_WRITE_FUNCTION" selectedIndex="ota_flash_write_function"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_READ_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_FLASH_READ_FUNCTION" selectedIndex="ota_flash_read_function"/>
+                <gridItem id="FWUP_CFG_USER_BANK_SWAP_ENABLED" selectedIndex="1"/>
+                <gridItem id="FWUP_CFG_USER_BANK_SWAP_FUNCTION" selectedIndex="ota_bank_swap_function"/>
             </component>
-            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
-        </configuration>
-        <configuration enable="true" exclude="false" id="2448599c-4b5a-46cf-a0c9-9cb66e6aef4c" inuse="true" name="LittleFS">
-            <component description="Dependency: None&#10;LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers." detailDescription="LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers." display="LittleFS" id="LittleFS202406.01-LTS-rx-1.0.1" version="2.5.1">
-                <gridItem id="LFS_FLASH_READ_SIZE" selectedIndex="1"/>
-                <gridItem id="LFS_FLASH_PROGRAM_SIZE" selectedIndex="4"/>
-                <gridItem id="LFS_FLASH_BLOCK_SIZE" selectedIndex="128"/>
-                <gridItem id="LFS_FLASH_BLOCK_COUNT" selectedIndex="70"/>
-                <gridItem id="RM_LITTLEFS_FLASH_DATA_START" selectedIndex="FLASH_DF_BLOCK_0_MACRO"/>
-            </component>
-            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
-        </configuration>
-        <configuration enable="true" exclude="false" id="a553bd1e-3a78-4a05-befc-ec5fc4d69d69" inuse="true" name="FreeRTOS Object">
-            <allocatable id="OBJECT" name="OBJECT" type="">
-                <allocatable id="TASK" name="TASK" type="">
-                    <allocatable id="TASKOBJECTLINK1" name="TASK" readonly="true" type="">
-                        <option defaultValue="1" id="Initialize" value="0"/>
-                        <option defaultValue="task_[X]" id="TaskCode" value="main_task"/>
-                        <option defaultValue="task_[X]" id="TaskName" value="MAIN_TASK"/>
-                        <option defaultValue="512" id="StackSize" value="512"/>
-                        <option defaultValue="NULL" id="TaskHandler" value="NULL"/>
-                        <option defaultValue="NULL" id="Parameter" value="NULL"/>
-                        <option defaultValue="1" id="Priority" value="1"/>
-                    </allocatable>
-                    <option defaultValue="0" id="LinkNum" value="1"/>
-                </allocatable>
-                <allocatable id="QUEUE" name="QUEUE" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="SEMAPHORE" name="SEMAPHORE" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="SWTIMER" name="SWTIMER" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="EVENTGROUP" name="EVENTGROUP" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="STREAMBUFFER" name="STREAMBUFFER" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-                <allocatable id="MESSAGEBUFFER" name="MESSAGEBUFFER" type="">
-                    <option defaultValue="0" id="LinkNum" value=""/>
-                </allocatable>
-            </allocatable>
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="202406.01-LTS-rx-1.0.1"/>
-            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
-        </configuration>
-        <configuration enable="true" exclude="false" id="ec48355c-e0eb-4803-838d-323f73449b01" inuse="true" name="FreeRTOS_IP">
-            <component description="Dependency: r_ether_rx&#10;FreeRTOS-Plus-TCP is a scalable, open source and thread safe TCP/IP stack for FreeRTOS." detailDescription="FreeRTOS-Plus-TCP is a scalable, open source and thread safe TCP/IP stack for FreeRTOS." display="FreeRTOS-Plus-TCP" id="FreeRTOS_IP202406.01-LTS-rx-1.0.1" version="4.2.2">
-                <gridItem id="ipconfigBYTE_ORDER" selectedIndex="0"/>
-                <gridItem id="FreeRTOS_debug_printf( MSG )" selectedIndex="configPRINTF( MSG )"/>
-                <gridItem id="ipconfigHAS_PRINTF" selectedIndex="1"/>
-                <gridItem id="FreeRTOS_printf( MSG )" selectedIndex="configPRINTF( MSG )"/>
-                <gridItem id="ipconfigUSE_NETWORK_EVENT_HOOK" selectedIndex="1"/>
-                <gridItem id="ipconfigARP_CACHE_ENTRIES" selectedIndex="6"/>
-                <gridItem id="ipconfigNUM_NETWORK_BUFFER_DESCRIPTORS" selectedIndex="ETHER_CFG_EMAC_TX_DESCRIPTORS"/>
-                <gridItem id="ipconfigCHECK_IP_QUEUE_SPACE" selectedIndex="1"/>
-                <gridItem id="ipconfigUSE_LLMNR" selectedIndex="0"/>
-                <gridItem id="ipconfigUSE_NBNS" selectedIndex="0"/>
-                <gridItem id="ipconfigDHCP_REGISTER_HOSTNAME" selectedIndex="1"/>
-                <gridItem id="ipconfigUSE_DNS_CACHE" selectedIndex="1"/>
-                <gridItem id="ipconfigDRIVER_INCLUDED_RX_IP_CHECKSUM" selectedIndex="1"/>
-                <gridItem id="ipconfigSOCKET_HAS_USER_WAKE_CALLBACK" selectedIndex="1"/>
-                <gridItem id="ipconfigTCP_KEEP_ALIVE" selectedIndex="1"/>
-                <gridItem id="ipconfigUSE_DHCP" selectedIndex="1"/>
-                <gridItem id="ipconfigUSE_DHCP_HOOK" selectedIndex="0"/>
-                <gridItem id="ipconfigSUPPORT_OUTGOING_PINGS" selectedIndex="0"/>
-                <gridItem id="ipconfigUSE_IPv6" selectedIndex="0"/>
-            </component>
-            <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
+            <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
     </tool>
     <tool id="System">

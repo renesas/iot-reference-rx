@@ -1,21 +1,8 @@
-/**********************************************************************************************************************
- * DISCLAIMER
- * This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No
- * other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
- * applicable laws, including copyright laws.
- * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
- * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM
- * EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES
- * SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO
- * THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
- * Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of
- * this software. By using this software, you agree to the additional terms and conditions found by accessing the
- * following link:
- * http://www.renesas.com/disclaimer
- *
- * Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
- *********************************************************************************************************************/
+/*
+* Copyright (c) 2024-2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /**********************************************************************************************************************
  * File Name    : ota_fwup_wrap_flash.c
  * Description  : User functions of FWUP module.
@@ -209,37 +196,36 @@ e_fwup_err_t ota_flash_read_function(uint32_t buf_addr, uint32_t src_addr, uint3
  *********************************************************************************************************************/
 e_fwup_err_t ota_bank_swap_function(void)
 {
+    flash_err_t err = FLASH_ERR_BUSY;
 
-	flash_err_t err;
 	flash_bank_t bank_info;
-	uint8_t bank_no;
+	uint8_t bank_no = 0;
 
 	LogInfo( ("ota_bank_swap_function: Change startup bank...") );
 
 	R_BSP_SoftwareDelay(5000, BSP_DELAY_MILLISECS);
 
-	R_BSP_SET_PSW(0);
-
 	r_fwup_wrap_disable_interrupt();
 
-	err = R_FLASH_Control(FLASH_CMD_BANK_TOGGLE, NULL);
+    err = R_FLASH_Control(FLASH_CMD_BANK_TOGGLE, NULL);
 	r_fwup_wrap_enable_interrupt();
 
-	if (FLASH_SUCCESS != err)
-	{
+    if (FLASH_SUCCESS != err)
+    {
 		LogInfo( ("ota_bank_swap_function: NG, returns %d", err) );
-		return (FWUP_ERR_FLASH);
-	}
+        return (FWUP_ERR_FLASH);
+    }
 
 	err = R_FLASH_Control(FLASH_CMD_BANK_GET, (void *)&bank_info);
 	if ( bank_info == FLASH_BANK1 )
-	{
+    {
 		bank_no = 1;
-	}
+    }
 	else if ( bank_info == FLASH_BANK0 )
-	{
+
+    {
 		bank_no = 0;
-	}
+    }
 	LogInfo( ("ota_bank_swap_function: The startup bank = %d", bank_no) );
 
 	R_BSP_SoftwareDelay(500, BSP_DELAY_MILLISECS);

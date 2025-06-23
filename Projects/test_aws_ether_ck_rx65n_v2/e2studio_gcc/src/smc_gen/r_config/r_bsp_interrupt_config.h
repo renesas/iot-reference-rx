@@ -1,62 +1,12 @@
-/***********************************************************************************************************************
-* DISCLAIMER
-* This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No 
-* other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all 
-* applicable laws, including copyright laws. 
-* THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
-* THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, 
-* FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM 
-* EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES 
-* SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO THIS 
-* SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
-* Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of 
-* this software. By using this software, you agree to the additional terms and conditions found by accessing the 
-* following link:
-* http://www.renesas.com/disclaimer 
+/*
+* Copyright (c) 2016 - 2025 Renesas Electronics Corporation and/or its affiliates
 *
-* Copyright (C) 2016 Renesas Electronics Corporation. All rights reserved.
-***********************************************************************************************************************/
+* SPDX-License-Identifier: BSD-3-Clause
+*/
+
 /***********************************************************************************************************************
 * File Name    : r_bsp_interrupt_config.h
 * Description  : This module maps Interrupt A & B interrupts. More information on how this is done is given below.
-***********************************************************************************************************************/
-/**********************************************************************************************************************
-* History : DD.MM.YYYY Version   Description
-*         : 01.10.2016 1.00      First Release
-*         : 15.05.2017 2.00      Changed the name of the following macro definition, because there was a mistake
-*                                in the name of macro definition.
-*                                - From XXX_TPU0_TGI0V to XXX_TPU0_TCI0V.
-*                                - From XXX_TPU1_TGI1V to XXX_TPU1_TCI1V.
-*                                - From XXX_TPU1_TGI1U to XXX_TPU1_TCI1U.
-*                                - From XXX_TPU2_TGI2V to XXX_TPU2_TCI2V.
-*                                - From XXX_TPU2_TGI2U to XXX_TPU2_TCI2U.
-*                                - From XXX_TPU3_TGI3V to XXX_TPU3_TCI3V.
-*                                - From XXX_TPU4_TGI4V to XXX_TPU4_TCI4V.
-*                                - From XXX_TPU4_TGI4U to XXX_TPU4_TCI4U.
-*                                - From XXX_TPU5_TGI5V to XXX_TPU5_TCI5V.
-*                                - From XXX_TPU5_TGI5U to XXX_TPU5_TCI5U.
-*                                - From XXX_MTU0_TGIV0 to XXX_MTU0_TCIV0.
-*                                - From XXX_MTU1_TGIV1 to XXX_MTU1_TCIV1.
-*                                - From XXX_MTU1_TGIU1 to XXX_MTU1_TCIU1.
-*                                - From XXX_MTU2_TGIV2 to XXX_MTU2_TCIV2.
-*                                - From XXX_MTU2_TGIU2 to XXX_MTU2_TCIU2.
-*                                - From XXX_MTU3_TGIV3 to XXX_MTU3_TCIV3.
-*                                - From XXX_MTU4_TGIV4 to XXX_MTU4_TCIV4.
-*                                - From XXX_MTU6_TGIV6 to XXX_MTU6_TCIV6.
-*                                - From XXX_MTU7_TGIV7 to XXX_MTU7_TCIV7.
-*                                - From XXX_MTU8_TGIV8 to XXX_MTU8_TCIV8.
-*                                Added select processing of the following software configurable interrupt source.
-*                                - TSIP_PROC_BUSY
-*                                - TSIP_ROMOK
-*                                - TSIP_LONG_PLG
-*                                - TSIP_TEST_BUSY
-*                                - TSIP_WRRDY0
-*                                - TSIP_WRRDY1
-*                                - TSIP_WRRDY4
-*                                - TSIP_RDRDY0
-*                                - TSIP_RDRDY1
-*                                - TSIP_INTEGRATE_WRRDY
-*                                - TSIP_INTEGRATE_RDRDY
 ***********************************************************************************************************************/
 #ifndef R_BSP_INTERRUPT_CONFIG_REF_HEADER_FILE
 #define R_BSP_INTERRUPT_CONFIG_REF_HEADER_FILE

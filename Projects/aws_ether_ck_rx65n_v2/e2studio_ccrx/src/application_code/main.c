@@ -1,7 +1,7 @@
 /*
 FreeRTOS
 Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
-Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -46,6 +46,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 bool ApplicationCounter (uint32_t xWaitTime);
 signed char vISR_Routine (void);
 extern void vStartSimplePubSubDemo (void);
+BaseType_t OtaSelfTest(void);
 
 #if (ENABLE_CREDENTIAL_BY_CLI == 0)
 void vAssignCredentials(void);
@@ -595,3 +596,15 @@ void vAssignCredentials(void)
  End of function vAssignCredentials
  *********************************************************************************************************************/
 #endif
+
+/**********************************************************************************************************************
+ * Function Name: OtaSelfTest
+ * Description  : The test function executed during the self-check process during an OTA update
+ * Return Value : pdTRUE (if the self-test was successful)
+ *                pdFALSE (if the self-test was failed)
+ *                Always return pdTRUE since the initial firmware was evaluated during the manufacturing process.
+ *********************************************************************************************************************/
+BaseType_t OtaSelfTest(void)
+{
+	return pdTRUE;
+}

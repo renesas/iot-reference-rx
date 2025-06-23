@@ -1,7 +1,7 @@
 /*
  * FreeRTOS V202211.00
  * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -81,6 +81,15 @@ void vRegisterSampleCLICommands( void );
  * Implements the task-stats command.
  */
 static BaseType_t prvTaskStatsCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString );
+
+
+/*
+ * Implements the run-time-stats command.
+ */
+#if (configGENERATE_RUN_TIME_STATS == 1)
+static BaseType_t prvRunTimeStatsCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString );
+#endif
+
 static BaseType_t prvReset( char * pcWriteBuffer,
 										   size_t xWriteBufferLen,
 										   const char * pcCommandString );
@@ -108,6 +117,16 @@ static const CLI_Command_Definition_t xTaskStats =
 	0 /* No parameters are expected. */
 };
 
+#if (configGENERATE_RUN_TIME_STATS == 1)
+/* Structure that defines the "run-time-stats" command line command. */
+static const CLI_Command_Definition_t xRunTimeStats =
+{
+    "run-time-stats", /* The command string to type. */
+    "\r\nrun-time-stats:\r\n Displays a table showing how much processing time each FreeRTOS task has used\r\n",
+    prvRunTimeStatsCommand, /* The function to run. */
+    0 /* No parameters are expected. */
+};
+#endif
 
 #if( configINCLUDE_QUERY_HEAP_COMMAND == 1 )
 	/* Structure that defines the "query_heap" command line command. */
@@ -262,6 +281,29 @@ BaseType_t xSpacePadding;
 }
 /*-----------------------------------------------------------*/
 
+#if (configGENERATE_RUN_TIME_STATS == 1)
+static BaseType_t prvRunTimeStatsCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString )
+{
+    const char * const pcHeader = "Task            Abs Time      % Time\r\n****************************************\r\n";
+
+    /* Remove compile time warnings about unused parameters, and check the
+     * write buffer is not NULL.  NOTE - for simplicity, this example assumes the
+     * write buffer length is adequate, so does not check for buffer overflows. */
+    ( void ) pcCommandString;
+    ( void ) xWriteBufferLen;
+    configASSERT( pcWriteBuffer );
+
+    /* Generate a table of task stats. */
+    strcpy( pcWriteBuffer, pcHeader );
+    vTaskGetRunTimeStats( pcWriteBuffer + strlen( pcHeader ) );
+
+    /* There is no more data to return after this single string, so return
+     * pdFALSE. */
+    return pdFALSE;
+}
+#endif
+/*-----------------------------------------------------------*/
+
 #if( configINCLUDE_QUERY_HEAP_COMMAND == 1 )
 
 	static BaseType_t prvQueryHeapCommand( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString )
@@ -362,13 +404,14 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
     BaseType_t requestLength = 0, keyLength = 0, valueLength = 0;
 
     pRequest = FreeRTOS_CLIGetParameter( pcCommandString, 1U, &requestLength );
-    * pcWriteBuffer = NULL;
+    * pcWriteBuffer = '\0';
 	if( pRequest != NULL )
 	{
 		if( strncmp( pRequest, "get", requestLength ) == 0 )
 		{
 			pKey = FreeRTOS_CLIGetParameter( pcCommandString, 2U, &keyLength );
-			getValue = xprvGetCacheEntry(pKey,keyLength);
+			/* Cast to type "const char *" to be compatible with parameter type */
+			getValue = (const char *) xprvGetCacheEntry((char *) pKey, keyLength);
 			if (getValue == NULL)
 			{
 				sprintf(pcWriteBuffer,"No %s in Data Flash!\r\n",pKey);
@@ -384,14 +427,16 @@ static BaseType_t prvConfigCommandHandler( char * pcWriteBuffer,
 		{
 			pKey = FreeRTOS_CLIGetParameter( pcCommandString, 2U, &keyLength );
 			pValue = FreeRTOS_CLIGetParameter( pcCommandString, 3U, &valueLength );
-			if (xprvWriteCacheEntry(keyLength,pKey,valueLength,pValue) < 0)
+			/* Cast to type "char *" to be compatible with parameter type */
+			if (xprvWriteCacheEntry(keyLength, (char *)pKey,valueLength, (char *)pValue) < 0)
 			{
 				result = pdFALSE;
 			}
 			else
 			{
 				KVStoreKey_t xKey;
-				xKey = (KVStoreKey_t)Filename2Handle(pKey, keyLength);
+				/* Cast to type "char *" to be compatible with parameter type */
+				xKey = (KVStoreKey_t)Filename2Handle((char *)pKey, keyLength);
 				if ((KVS_TSIP_ROOTCA_PUBKEY_ID == xKey) ||
 				    (KVS_TSIP_CLIENT_PUBKEY_ID == xKey) ||
 				    (KVS_TSIP_CLIENT_PRIKEY_ID == xKey))

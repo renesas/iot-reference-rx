@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -21,7 +22,6 @@
  * http://www.FreeRTOS.org
  * http://aws.amazon.com/freertos
  */
-
 
 /**
  * @brief A test application which loops through subscribing to a topic and publishing message
@@ -512,7 +512,7 @@ void vSubscribePublishTestTask(void * pvParameters)
         LogInfo(("MQTT Agent is connected. Starting the publish subscribe task. "));
 
         xMQTTStatus = prvSubscribeToTopic(MQTTQoS1,
-                                            (const char*)configSUBSCRIBE_TOPIC_FORMAT );
+                                            (char *) configSUBSCRIBE_TOPIC_FORMAT );
 
         if (MQTTSuccess != xMQTTStatus)
         {
@@ -547,7 +547,7 @@ void vSubscribePublishTestTask(void * pvParameters)
                         (char *) cPayloadBuf));
 
             xMQTTStatus = prvPublishToTopic(xQoS,
-                                            (const char*)configPUBLISH_TOPIC_FORMAT,
+                                            (char *) configPUBLISH_TOPIC_FORMAT,
                                             (uint8_t *) cPayloadBuf,
                                             xPayloadLength);
 

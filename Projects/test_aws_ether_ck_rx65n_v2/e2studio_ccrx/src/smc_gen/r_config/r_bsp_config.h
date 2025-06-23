@@ -91,6 +91,7 @@
 *                                - BSP_CFG_INTERNAL_PERIPHERAL_BUS6_PRIORITY
 *                                - BSP_CFG_EXTERNAL_BUS_PRIORITY
 *                                - BSP_CFG_BOOTLOADER_PROJECT
+*         : 27.11.2024 3.05      Changed comment of BSP_CFG_RTC_ENABLE.
 ***********************************************************************************************************************/
 #ifndef R_BSP_CONFIG_REF_HEADER_FILE
 #define R_BSP_CONFIG_REF_HEADER_FILE
@@ -229,8 +230,8 @@ Configuration Options
 #define BSP_CFG_USER_CHARGET_ENABLED    (0)
 #define BSP_CFG_USER_CHARGET_FUNCTION     my_sw_charget_function
 
-#define BSP_CFG_USER_CHARPUT_ENABLED    (0)
-#define BSP_CFG_USER_CHARPUT_FUNCTION     my_sw_charput_function
+#define BSP_CFG_USER_CHARPUT_ENABLED    (1)
+#define BSP_CFG_USER_CHARPUT_FUNCTION     vOutputChar
 
 /* After reset MCU will operate in Supervisor mode. To switch to User mode, set this macro to '1'. For more information
    on the differences between these 2 modes see the CPU >> Processor Mode section of your MCU's hardware manual.
@@ -306,10 +307,11 @@ Configuration Options
 */
 #define BSP_CFG_MAIN_CLOCK_SOURCE       (0) /* Generated value. Do not edit this manually */
 
-/* The sub-clock oscillation control for using the RTC.
-   When '1' is selected, the registers related to RTC are initialized and the sub-clock oscillator is operated.
+/* Defines whether to use the RTC or not.
+   This setting will initialize the RTC related registers.
    0 = The RTC is not to be used.
    1 = The RTC is to be used.
+   When using RTC FIT or RTC CG, the Smart Configurator sets this to "1". Set it to "1" when using RTC.
 */
 #define BSP_CFG_RTC_ENABLE              (0) /* Generated value. Do not edit this manually */
 
@@ -691,7 +693,7 @@ Configuration Options
 /* Version number of Smart Configurator.
    This macro definition is updated by Smart Configurator.
 */
-#define BSP_CFG_CONFIGURATOR_VERSION                (2230) /* Generated value. Do not edit this manually */
+#define BSP_CFG_CONFIGURATOR_VERSION                (2240) /* Generated value. Do not edit this manually */
 
 /* For some BSP functions, it is necessary to ensure that, while these functions are executing, interrupts from other 
    FIT modules do not occur. By controlling the IPL, these functions disable interrupts that are at or below the 

@@ -1,6 +1,7 @@
 /*
  * FreeRTOS WiFi V2.0.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -50,7 +51,7 @@ typedef enum
  *         false if the initialization failed.
  */
 /* @[declare_iotwifisoftapprov_init] */
-bool IotWifiSoftAPProv_Init( void );
+bool IotWifiSoftAPProv_Init (void);
 
 /**
  * @brief Function which runs the process loop for Wifi provisioning.
@@ -62,7 +63,7 @@ bool IotWifiSoftAPProv_Init( void );
  *         to an error.
  */
 /* @[declare_iotwifisoftapprov_init] */
-bool IotWifiSoftAPProv_RunProcessLoop( void );
+bool IotWifiSoftAPProv_RunProcessLoop (void);
 
 /**
  * @brief Gets the total number of provisioned networks.
@@ -70,7 +71,7 @@ bool IotWifiSoftAPProv_RunProcessLoop( void );
  * @return Number of provisioned networks
  */
 /* @[declare_iotwifisoftapprov_getnumnetworks] */
-uint32_t IotWifiSoftAPProv_GetNumNetworks( void );
+uint32_t IotWifiSoftAPProv_GetNumNetworks (void);
 
 /**
  * @brief Connects to one of the saved networks in priority order.
@@ -78,7 +79,7 @@ uint32_t IotWifiSoftAPProv_GetNumNetworks( void );
  * @return Returns true if connection succeeded, else false.
  */
 /* @[declare_iotwifisoftapprov_connect] */
-bool IotWifiSoftAPProv_Connect( uint32_t networkIndex );
+bool IotWifiSoftAPProv_Connect (uint32_t networkIndex);
 
 /**
  * @brief Stop the WiFi provisionig process loop function.
@@ -87,13 +88,13 @@ bool IotWifiSoftAPProv_Connect( uint32_t networkIndex );
  * @return true if succesfully enqueued command to stop WiFi provisioning loop.
  */
 /* @[declare_iotwifisoftapprov_stop] */
-bool IotWifiSoftAPProv_Stop( void );
+bool IotWifiSoftAPProv_Stop (void);
 
 /**
  * @brief Tear down WIFI provisioning service
  *
  */
 /* @[declare_iotwifisoftprov_Deinit] */
-void IotWifiSoftAPProv_Deinit( void );
+void IotWifiSoftAPProv_Deinit (void);
 
 #endif /* ifndef _AWS_SOFTAP_WIFI_PROVISIONING_H_ */

@@ -1,37 +1,48 @@
-### ported from Amazon FreeRTOS: https://github.com/aws/amazon-freertos/blob/master/.gitignore
+### Ported from Amazon FreeRTOS: https://github.com/aws/amazon-freertos/blob/master/.gitignore
 
 # Ignore uncrustify backups
 *.unc*
+
+# Ignore documentation outputs
 doc/html/*
 doc/output/*
 doc/tag/*
+**/doc*/
 doxygen_warnings.txt
+
+# Ignore IDE-specific files
 /.metadata/
 .vscode/*
 *.o
 *.d 
 *.elf
 *.hex
-!/vendors/cypress/MTB/psoc6/psoc64tfm/COMPONENT_TFM_S_FW/tfm_s_unsigned.hex
 *.bin
+
+# Ignore Python-related files
 *.pyc
 
+# Ignore Renesas e2 studio/CS+ specific ignore files/folders
+HardwareDebug/
+DefaultBuild/
+trash/
+*.mtud
+
+!/vendors/cypress/MTB/psoc6/psoc64tfm/COMPONENT_TFM_S_FW/tfm_s_unsigned.hex
+
+# Ignore common temporary files
+*.log
+*.tmp
+*.bak
 RemoteSystemsTempFiles/*
 
 # Ignore top-level build dir
 /build*/
 
-# Ignore certificate files
+# Ignore certificate files (security-sensitive)
 *.pem
 *.crt
 
-### Renesas e2 studio/CS+ specific ignore files/folders
-HardwareDebug/
-DefaultBuild/
-trash/
-*.mtud
-.settings/
-
-### IAR Embedded Workbench specific ignore files/folders
+### Ignore IAR Embedded Workbench specific ignore files/folders
 Debug/
 settings/
