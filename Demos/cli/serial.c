@@ -1,6 +1,7 @@
 /*
  * FreeRTOS V202211.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -36,6 +37,7 @@
 #include "platform.h"
 #include "r_sci_rx_if.h"
 #include "r_byteq_if.h"
+#include "r_sci_rx_pinset.h"
 
 /* FreeRTOS CLI Command Console */
 #if !defined(BSP_CFG_SCI_UART_TERMINAL_ENABLE)
@@ -196,7 +198,7 @@ const TickType_t xMaxBlockTime = pdMS_TO_TICKS( 5000 );
         xSendingTask = xTaskGetCurrentTaskHandle();
         uint32_t str_length = usStringLength;
         uint32_t transmit_length = 0;
-        sci_err_t sci_err = 0;
+        sci_err_t sci_err = SCI_SUCCESS;
         uint32_t retry = 0xFFFF;
 
         while ((retry > 0) && (str_length > 0))

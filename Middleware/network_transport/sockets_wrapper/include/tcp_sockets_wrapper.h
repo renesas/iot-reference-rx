@@ -1,6 +1,7 @@
 /*
  * FreeRTOS V202112.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -32,6 +33,9 @@
 #ifndef TCP_SOCKETS_WRAPPER_H
 #define TCP_SOCKETS_WRAPPER_H
 
+/* Standard includes. */
+#include <stdint.h>
+
 /* Logging related header files are required to be included in the following order:
  * 1. Include the header file "logging_levels.h".
  * 2. Define LIBRARY_LOG_NAME and  LIBRARY_LOG_LEVEL.
@@ -49,13 +53,7 @@
     #define LIBRARY_LOG_LEVEL    LOG_INFO
 #endif
 
-extern void vLoggingPrintf( const char * pcFormatString,
-                            ... );
-
 #include "logging_stack.h"
-
-/* Standard includes. */
-#include <stdint.h>
 
 /* FreeRTOS Kernel includes. */
 #include "FreeRTOS.h"
@@ -81,6 +79,9 @@ extern void vLoggingPrintf( const char * pcFormatString,
     typedef struct xSOCKET * Socket_t; /**< @brief Socket handle data type. */
 #endif
 
+extern void vLoggingPrintf (const char * pcFormatString,
+                                ...);
+
 /**
  * @brief Establish a connection to server.
  *
@@ -94,18 +95,18 @@ extern void vLoggingPrintf( const char * pcFormatString,
  *
  * @return Non-zero value on error, 0 on success.
  */
-BaseType_t TCP_Sockets_Connect( Socket_t * pTcpSocket,
+BaseType_t TCP_Sockets_Connect (Socket_t * pTcpSocket,
                                 const char * pHostName,
                                 uint16_t port,
                                 uint32_t receiveTimeoutMs,
-                                uint32_t sendTimeoutMs );
+                                uint32_t sendTimeoutMs);
 
 /**
  * @brief End connection to server.
  *
  * @param[in] tcpSocket The socket descriptor.
  */
-void TCP_Sockets_Disconnect( Socket_t tcpSocket );
+void TCP_Sockets_Disconnect (Socket_t tcpSocket);
 
 /**
  * @brief Transmit data to the remote socket.
@@ -120,9 +121,9 @@ void TCP_Sockets_Disconnect( Socket_t tcpSocket );
  * * On success, the number of bytes actually sent is returned.
  * * If an error occurred, a negative value is returned. @ref SocketsErrors
  */
-int32_t TCP_Sockets_Send( Socket_t xSocket,
+int32_t TCP_Sockets_Send (Socket_t xSocket,
                           const void * pvBuffer,
-                          size_t xDataLength );
+                          size_t xDataLength);
 
 /**
  * @brief Receive data from a TCP socket.
@@ -141,8 +142,8 @@ int32_t TCP_Sockets_Send( Socket_t xSocket,
  *   is set using @ref SOCKETS_SO_RCVTIMEO).
  * * If an error occurred, a negative value is returned. @ref SocketsErrors
  */
-int32_t TCP_Sockets_Recv( Socket_t xSocket,
+int32_t TCP_Sockets_Recv (Socket_t xSocket,
                           void * pvBuffer,
-                          size_t xBufferLength );
+                          size_t xBufferLength);
 
 #endif /* ifndef TCP_SOCKETS_WRAPPER_H */

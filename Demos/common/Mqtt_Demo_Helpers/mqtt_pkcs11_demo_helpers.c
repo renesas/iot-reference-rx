@@ -1,7 +1,7 @@
 /*
  * FreeRTOS V202112.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -675,7 +675,7 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
 
 #if defined(__TEST__)
     pcBrokerEndpoint = clientcredentialMQTT_BROKER_ENDPOINT;
-    pcRootCA = democonfigROOT_CA_PEM;
+    pcRootCA = (char *) democonfigROOT_CA_PEM;
 #else
     endpointLength = prvGetCacheEntryLength(KVS_CORE_MQTT_ENDPOINT);
 
@@ -700,7 +700,8 @@ BaseType_t xEstablishMqttSession( MQTTContext_t * pxMqttContext,
     else
     {
         LogInfo( ( "Using default rootCA cert." ) );
-        pcRootCA = tlsSTARFIELD_ROOT_CERTIFICATE_PEM;
+        /* Cast to type "char *" to be compatible with parameter type */
+        pcRootCA = (char *)tlsSTARFIELD_ROOT_CERTIFICATE_PEM;
     }
 #endif
     /* Initialize the mqtt context. */

@@ -1,7 +1,7 @@
 /*
  * AWS IoT Fleet Provisioning v1.1.0
  * Copyright (C) 2021 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * SPDX-License-Identifier: MIT
  *

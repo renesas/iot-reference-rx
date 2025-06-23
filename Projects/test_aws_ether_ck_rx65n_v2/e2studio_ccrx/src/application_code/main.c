@@ -1,7 +1,7 @@
 /*
 FreeRTOS
 Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
-Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -45,8 +45,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 bool ApplicationCounter (uint32_t xWaitTime);
 signed char vISR_Routine (void);
-
-/* xSemaphoreHandle xSemaphoreFlashAccess; */
+BaseType_t OtaSelfTest(void);
 
 /**
  * @brief Flag which enables OTA update task in background along with other demo tasks.
@@ -76,13 +75,6 @@ signed char vISR_Routine (void);
  */
 #define appmainCLI_TASK_STACK_SIZE                ( 6144 )
 #define appmainCLI_TASK_PRIORITY                  ( tskIDLE_PRIORITY + 1 )
-
-
-
-extern void prvQualificationTestTask (void * pvParameters);
-
-extern void vSubscribePublishTestTask (void * pvParameters);
-
 
 #define appmainRUN_QUALIFICATION_TEST_SUITE       ( 1 )
 
@@ -171,10 +163,15 @@ void vApplicationDaemonTaskStartupHook (void);
  */
 void prvMiscInitialization (void);
 
-/*-----------------------------------------------------------*/
 extern void prvQualificationTestTask (void * pvParameters);
-
 extern void vSubscribePublishTestTask (void * pvParameters);
+extern void prvQualificationTestTask (void * pvParameters);
+extern void vSubscribePublishTestTask (void * pvParameters);
+extern void vStartOtaDemo( void );
+
+/*-----------------------------------------------------------*/
+
+extern void vStartOtaDemo( void );
 
 /**********************************************************************************************************************
  * Function Name: RunDeviceAdvisorDemo
@@ -205,6 +202,17 @@ int RunDeviceAdvisorDemo(void)
 End of function RunDeviceAdvisorDemo
 ****************************************************************************************/
 
+
+int RunOtaE2eDemo( void )
+{
+    xMQTTAgentInit();
+    xSetMQTTAgentState( MQTT_AGENT_STATE_INITIALIZED );
+    vStartMQTTAgent (appmainMQTT_AGENT_TASK_STACK_SIZE, appmainMQTT_AGENT_TASK_PRIORITY);
+
+    vStartOtaDemo();
+    return 0;
+}
+
 /**
  * @brief The application entry point from a power on reset is PowerON_Reset_PC()
  * in resetprg.c.
@@ -220,8 +228,8 @@ void main_task(void)
 {
     int32_t xResults;
     int32_t Time2Wait = 10000;
-    extern void vUARTCommandConsoleStart (uint16_t usStackSize, UBaseType_t uxPriority);
     extern void vRegisterSampleCLICommands (void);
+    extern void vUARTCommandConsoleStart (uint16_t usStackSize, UBaseType_t uxPriority);
     extern TaskHandle_t xCLIHandle;
 
     /* Initialize UART for serial terminal. */
@@ -265,7 +273,7 @@ void main_task(void)
         FreeRTOS_printf(("Initialise the RTOS's TCP/IP stack\n"));
 
 
-        #if OTA_E2E_TEST_ENABLED
+        #if ( OTA_E2E_TEST_ENABLED == 1 )
 
         RunOtaE2eDemo();
 
@@ -527,47 +535,34 @@ End of function vApplicationStackOverflowHook
  *********************************************************************************************************************/
 const char * pcApplicationHostnameHook(void)
     {
-    #if defined(__TEST__)
+#if defined(__TEST__)
         return clientcredentialIOT_THING_NAME;
-    #else
-        {
-            /* The string returned by this API is stipulated to be a maximum of 32 characters. */
-            static char s_buff[32];
-            memset ( s_buff, 0x00, sizeof(s_buff) );
+#else
+    {
+        /* The string returned by this API is stipulated to be a maximum of 32 characters. */
+        static char s_buff[32];
+        memset (s_buff, 0x00, sizeof(s_buff));
 
-            size_t valueLength = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
-            /* Process for thing name input by CLI. */
-            if (valueLength > 0)
+        size_t valueLength = prvGetCacheEntryLength(KVS_CORE_THING_NAME);
+
+        /* Process for thing name input by CLI. */
+        if (valueLength > 0)
+        {
+            if (valueLength > 31)
             {
-                if ( valueLength > 31 )
-                {
-                    configPRINT_STRING(("Warning: thing name with null-terminate string is longer than 32 characters.\r\n"));
-                    valueLength = 31;
-                }
-                size_t xLength = xReadEntry(KVS_CORE_THING_NAME, s_buff, valueLength);
-                if ( 0 != xLength )
-                {
-                    s_buff[valueLength] = '\0';
-                    return s_buff;
-                }
-                else
-                {
-                    valueLength = strlen(clientcredentialIOT_THING_NAME);
-                    if ( valueLength > 31 )
-                    {
-                        configPRINT_STRING(("Warning: thing name with null-terminate string is longer than 32 characters.\r\n"));
-                        valueLength = 31;
-                    }
-                    strncpy(s_buff, clientcredentialIOT_THING_NAME, valueLength);
-                    s_buff[valueLength] = '\0';
-                    return s_buff;
-                }
+                configPRINT_STRING(("Warning: thing name with null-terminate string is longer than 32 characters.\r\n"));
+                valueLength = 31;
             }
-            /* Process for thing name in aws_clientcredential.h. */
+            size_t xLength = xReadEntry(KVS_CORE_THING_NAME, s_buff, valueLength);
+            if (0 != xLength)
+            {
+                s_buff[valueLength] = '\0';
+                return s_buff;
+            }
             else
             {
                 valueLength = strlen(clientcredentialIOT_THING_NAME);
-                if ( valueLength > 31 )
+                if (valueLength > 31)
                 {
                     configPRINT_STRING(("Warning: thing name with null-terminate string is longer than 32 characters.\r\n"));
                     valueLength = 31;
@@ -577,9 +572,36 @@ const char * pcApplicationHostnameHook(void)
                 return s_buff;
             }
         }
-    #endif
+        /* Process for thing name in aws_clientcredential.h. */
+        else
+        {
+            valueLength = strlen(clientcredentialIOT_THING_NAME);
+            if (valueLength > 31)
+            {
+                configPRINT_STRING(("Warning: thing name with null-terminate string is longer than 32 characters.\r\n"));
+                valueLength = 31;
+            }
+            strncpy(s_buff, clientcredentialIOT_THING_NAME, valueLength);
+            s_buff[valueLength] = '\0';
+            return s_buff;
+        }
+    }
+#endif
     }
 /*****************************************************************************************
 End of function pcApplicationHostnameHook
 ****************************************************************************************/
 #endif
+
+/**********************************************************************************************************************
+ * Function Name: OtaSelfTest
+ * Description  : The test function executed during the self-check process during an OTA update
+ * Return Value : pdTRUE (if the self-test was successful)
+ *                pdFALSE (if the self-test was failed)
+ *                Always return pdTRUE since the initial firmware was evaluated during the manufacturing process.
+ *********************************************************************************************************************/
+BaseType_t OtaSelfTest(void)
+{
+	return pdTRUE;
+}
+

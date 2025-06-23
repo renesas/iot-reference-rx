@@ -1,21 +1,8 @@
-/**********************************************************************************************************************
- * DISCLAIMER
- * This software is supplied by Renesas Electronics Corporation and is only intended for use with Renesas products. No
- * other uses are authorized. This software is owned by Renesas Electronics Corporation and is protected under all
- * applicable laws, including copyright laws.
- * THIS SOFTWARE IS PROVIDED "AS IS" AND RENESAS MAKES NO WARRANTIES REGARDING
- * THIS SOFTWARE, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. ALL SUCH WARRANTIES ARE EXPRESSLY DISCLAIMED. TO THE MAXIMUM
- * EXTENT PERMITTED NOT PROHIBITED BY LAW, NEITHER RENESAS ELECTRONICS CORPORATION NOR ANY OF ITS AFFILIATED COMPANIES
- * SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES FOR ANY REASON RELATED TO
- * THIS SOFTWARE, EVEN IF RENESAS OR ITS AFFILIATES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
- * Renesas reserves the right, without notice, to make changes to this software and to discontinue the availability of
- * this software. By using this software, you agree to the additional terms and conditions found by accessing the
- * following link:
- * http://www.renesas.com/disclaimer
- *
- * Copyright (C) 2024 Renesas Electronics Corporation. All rights reserved.
- *********************************************************************************************************************/
+/*
+* Copyright (c) 2024-2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
 /**********************************************************************************************************************
  * File Name    : ota_fwup_wrap_verify.c
  * Description  : User functions for the FWUP module.
@@ -30,12 +17,8 @@
 
 #include "ota_fwup_wrap_verify.h"
 
-#if (OTA_PAL_TEST_ENABLED == 1)
-#include "aws_test_ota_pal_ecdsa_sha256_signature.h"
-#endif
-
 static uint8_t * get_cert( uint32_t * ulSignerCertSize );
-void* s_ctx_iot;
+void* s_ctx_iot = NULL;
 S_C_CH_FAR VERIFICATION_SCHEME_ECDSA[] = "sig-sha256-ecdsa";
 S_C_CH_FAR VERIFICATION_SCHEME_SHA[]  = "hash-sha256";
 
@@ -141,7 +124,7 @@ int32_t ota_verify_ecdsa_function(uint8_t *p_hash, uint8_t *p_sig_type, uint8_t 
     uint32_t ulSignerCertSize;
     uint8_t * pucSignerCert = NULL;
 
-    extern OtaFileContext_t* pOTAFileContext;
+    extern AfrOtaJobDocumentFields_t* pOTAFileContext;
 
     LogInfo( ( "Started %s signature verification", VERIFICATION_SCHEME_ECDSA ) );
     pucSignerCert = get_cert( &ulSignerCertSize );
@@ -153,7 +136,8 @@ int32_t ota_verify_ecdsa_function(uint8_t *p_hash, uint8_t *p_sig_type, uint8_t 
     else
     {
         if ( CRYPTO_SignatureVerificationFinal( s_ctx_iot, ( char * ) pucSignerCert, ulSignerCertSize,
-                pOTAFileContext->pSignature->data, pOTAFileContext->pSignature->size ) == pdFALSE )
+                /* Cast to type "uint8_t *" to be compatible with parameter type */
+                (uint8_t *)pOTAFileContext->signature, pOTAFileContext->signatureLen ) == pdFALSE )
         {
              LogError( ( "Finished %s signature verification, but signature verification failed",
                          VERIFICATION_SCHEME_ECDSA ) );
@@ -187,15 +171,13 @@ static uint8_t * get_cert( uint32_t * ulSignerCertSize )
     uint8_t * pucCertData = NULL;
     uint32_t ulCertSize;
     uint8_t * pucSignerCert = NULL;
-    size_t valueLength = 0;
 	
-#if (OTA_PAL_TEST_ENABLED == 1)
-		ulCertSize = sizeof( OTA_PAL_CODE_SIGNING_CERTIFICATE );
-		pucCertData = ( uint8_t * ) OTA_PAL_CODE_SIGNING_CERTIFICATE;
-#else
+    size_t valueLength = prvGetCacheEntryLength(KVS_CODE_SIGN_CERT_ID);
 
-	valueLength	= prvGetCacheEntryLength(KVS_CODE_SIGN_CERT_ID);
-    pucCertData = (uint8_t *)GetStringValue(KVS_CODE_SIGN_CERT_ID, valueLength);
+    if (valueLength > 0)
+    {
+        pucCertData = (uint8_t *)GetStringValue(KVS_CODE_SIGN_CERT_ID, valueLength);
+    }
 
     if (pucCertData != NULL)
     {
@@ -207,8 +189,6 @@ static uint8_t * get_cert( uint32_t * ulSignerCertSize )
         LogError( ( "No certificate stored in DF! Please commit using CLI mode.") );
         return pucSignerCert;
     }
-
-#endif
 
     pucSignerCert = pvPortMalloc( ulCertSize + 1 );
 

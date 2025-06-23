@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2023 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -29,6 +29,7 @@
 /* Key provisioning includes. */
 
 #include "aws_dev_mode_key_provisioning.h"
+#include "core_pkcs11_pal.h"
 
 const char * keys[ KVS_NUM_KEYS ] = KVSTORE_KEYS;
 KeyValueStore_t gKeyValueStore = { 0 };
@@ -655,10 +656,12 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
     if ((xKey == KVS_DEVICE_CERT_ID))
     {
 
-        xPalHandle = PKCS11_PAL_FindObject (pxCertLabel, strlen(pxCertLabel));
+        /* Cast to type "CK_BYTE_PTR" to be compatible with parameter type */
+        xPalHandle = PKCS11_PAL_FindObject ((CK_BYTE_PTR)pxCertLabel, strlen(pxCertLabel));
         if (xPalHandle != CK_INVALID_HANDLE)
         {
-            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            /* Cast to type "CK_BYTE_PTR *" to be compatible with parameter type */
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, (CK_BYTE_PTR *)&tmp, &data_length, &xIsPrivate);
             if ((xResult == CKR_OK) && (data_length > 0))
             {
                 vAllocateDataBuffer (xKey, data_length);
@@ -670,11 +673,13 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
     else if (xKey == KVS_DEVICE_PRIVKEY_ID)
     {
         xIsPrivate = (CK_BBOOL ) CK_TRUE;
-        xPalHandle = PKCS11_PAL_FindObject (pxPrivKeyLabel, strlen(pxPrivKeyLabel));
+        /* Cast to type "CK_BYTE_PTR" to be compatible with parameter type */
+        xPalHandle = PKCS11_PAL_FindObject ((CK_BYTE_PTR)pxPrivKeyLabel, strlen(pxPrivKeyLabel));
         if (xPalHandle != CK_INVALID_HANDLE)
         {
 
-            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            /* Cast to type "CK_BYTE_PTR *" to be compatible with parameter type */
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, (CK_BYTE_PTR *)&tmp, &data_length, &xIsPrivate);
             if ((xResult == CKR_OK) && (data_length > 0))
             {
                 vAllocateDataBuffer (xKey, data_length);
@@ -687,11 +692,13 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
     else if (xKey == KVS_DEVICE_PUBKEY_ID)
     {
         xIsPrivate = (CK_BBOOL ) CK_FALSE;
-        xPalHandle = PKCS11_PAL_FindObject (pxPubKeyLabel, strlen(pxPubKeyLabel));
+        /* Cast to type "CK_BYTE_PTR" to be compatible with parameter type */
+        xPalHandle = PKCS11_PAL_FindObject ((CK_BYTE_PTR)pxPubKeyLabel, strlen(pxPubKeyLabel));
         if (xPalHandle != CK_INVALID_HANDLE)
         {
 
-            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            /* Cast to type "CK_BYTE_PTR *" to be compatible with parameter type */
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, (CK_BYTE_PTR *)&tmp, &data_length, &xIsPrivate);
             if ((xResult == CKR_OK) && (data_length > 0))
             {
                 vAllocateDataBuffer (xKey, data_length);
@@ -703,10 +710,12 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
     else if (xKey == KVS_CLAIM_CERT_ID)
     {
         xIsPrivate = (CK_BBOOL ) CK_FALSE;
-        xPalHandle = PKCS11_PAL_FindObject (pxClaimCert, strlen(pxClaimCert));
+        /* Cast to type "CK_BYTE_PTR" to be compatible with parameter type */
+        xPalHandle = PKCS11_PAL_FindObject ((CK_BYTE_PTR)pxClaimCert, strlen(pxClaimCert));
         if (xPalHandle != CK_INVALID_HANDLE)
         {
-            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            /* Cast to type "CK_BYTE_PTR *" to be compatible with parameter type */
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, (CK_BYTE_PTR *)&tmp, &data_length, &xIsPrivate);
             if ((xResult == CKR_OK) && (data_length > 0))
             {
                 vAllocateDataBuffer (xKey, data_length);
@@ -718,10 +727,12 @@ char *xprvGetCacheEntry(char* key, size_t pxLength )
     else if (xKey == KVS_CLAIM_PRIVKEY_ID)
     {
         xIsPrivate = (CK_BBOOL ) CK_TRUE;
-        xPalHandle = PKCS11_PAL_FindObject (pxClaimKey, strlen(pxClaimKey));
+        /* Cast to type "CK_BYTE_PTR" to be compatible with parameter type */
+        xPalHandle = PKCS11_PAL_FindObject ((CK_BYTE_PTR)pxClaimKey, strlen(pxClaimKey));
         if (xPalHandle != CK_INVALID_HANDLE)
         {
-            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, &tmp, &data_length, &xIsPrivate);
+            /* Cast to type "CK_BYTE_PTR *" to be compatible with parameter type */
+            xResult = PKCS11_PAL_GetObjectValue (xPalHandle, (CK_BYTE_PTR *)&tmp, &data_length, &xIsPrivate);
             if ((xResult == CKR_OK) && (data_length > 0))
             {
                 vAllocateDataBuffer (xKey, data_length);

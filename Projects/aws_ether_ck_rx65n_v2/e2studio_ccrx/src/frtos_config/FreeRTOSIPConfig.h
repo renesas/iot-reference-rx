@@ -1,7 +1,7 @@
 /*
  * FreeRTOS+TCP V4.2.2
  * Copyright (C) 2024 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2024-2025 Renesas Electronics Corporation or its affiliates.
  *
  * SPDX-License-Identifier: MIT
  *

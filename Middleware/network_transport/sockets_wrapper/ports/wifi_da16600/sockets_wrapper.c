@@ -1,6 +1,7 @@
 /*
  * FreeRTOS V202112.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -47,8 +48,19 @@
 #include "r_wifi_da16xxx_if.h"
 #include "user_tcp_hook_config.h"
 
-#define MALLOC_SOCKET_CREATION_ERROR -50
-#define NO_SOCKET_CREATION_ERROR -51
+#define MALLOC_SOCKET_CREATION_ERROR (-50)
+#define NO_SOCKET_CREATION_ERROR     (-51)
+
+#define FORCE_RESET     (1)
+#define NO_FORCE_RESET  (0)
+
+/**
+ * @brief Maximum number of sockets.
+ *
+ * 16 total sockets
+ */
+#define MAX_NUM_SSOCKETS    (WIFI_CFG_TCP_CREATABLE_SOCKETS)
+
 
 /* Cast uint32_t -> uint8_t */
 typedef union
@@ -68,15 +80,8 @@ typedef struct xSOCKETContext
     Socket_t xSocket;
     uint32_t ulSendTimeout;
     uint32_t ulRecvTimeout;
-    uint32_t socket_no;
+    uint8_t socket_no;
 } SSOCKETContext_t, * SSOCKETContextPtr_t;
-
-/**
- * @brief Maximum number of sockets.
- *
- * 16 total sockets
- */
-#define MAX_NUM_SSOCKETS    (WIFI_CFG_TCP_CREATABLE_SOCKETS)
 
 /**
  * @brief Number of secure sockets allocated.
@@ -86,11 +91,9 @@ typedef struct xSOCKETContext
 static uint32_t s_sockets_num_allocated = 0;
 
 /*-----------------------------------------------------------*/
-#define FORCE_RESET     1
-#define NO_FORCE_RESET  0
 static volatile uint32_t count_module_comm = 0;
-static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset );
-static wifi_err_t CloseSocket(uint32_t socket_number);
+static wifi_err_t SocketErrorHook (wifi_err_t error, bool force_reset);
+static wifi_err_t CloseSocket (uint8_t socket_number);
 
 #if (0 == USER_TCP_HOOK_ENABLED)
 static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
@@ -99,7 +102,7 @@ static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
     return error;
 }
 #else
-static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
+static wifi_err_t SocketErrorHook(wifi_err_t error, bool force_reset)
 {
     uint32_t reconnect_tries = 0;
 
@@ -115,7 +118,7 @@ static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
         for (reconnect_tries = 0; reconnect_tries < USER_RECONNECT_TRIES; reconnect_tries++)
         {
             LogInfo(("Tried to connect %d times \r\n", reconnect_tries + 1));
-            if (WIFI_SUCCESS == R_WIFI_DA16XXX_HardwareReset())
+            if (R_WIFI_DA16XXX_HardwareReset() == WIFI_SUCCESS)
             {
                 break;
             }
@@ -145,7 +148,7 @@ static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
                 LogInfo(("Start no force reset Wi-Fi Hardware due to the continuation of %d error \r\n", error));
             }
 
-            if ( WIFI_ERR_MODULE_COM != error )
+            if (WIFI_ERR_MODULE_COM != error)
             {
                 LogInfo(("Start no force reset Wi-Fi Hardware due to error = %d \r\n", error));
             }
@@ -155,7 +158,7 @@ static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
             for (reconnect_tries = 0; reconnect_tries < USER_RECONNECT_TRIES; reconnect_tries++)
             {
                 LogInfo(("Tried to connect %d times \r\n", reconnect_tries + 1));
-                if (WIFI_SUCCESS == R_WIFI_DA16XXX_HardwareReset())
+                if (R_WIFI_DA16XXX_HardwareReset() == WIFI_SUCCESS)
                 {
                     break;
                 }
@@ -169,9 +172,13 @@ static wifi_err_t SocketErrorHook( wifi_err_t error, bool force_reset )
         return error;
     }
 }
+
+/*****************************************************************************************
+End of function SocketErrorHook
+****************************************************************************************/
 #endif
 
-static wifi_err_t CloseSocket(uint32_t socket_number)
+static wifi_err_t CloseSocket(uint8_t socket_number)
 {
     int32_t count;
     wifi_err_t ret;
@@ -180,7 +187,7 @@ static wifi_err_t CloseSocket(uint32_t socket_number)
     {
         /* Close sockets. */
         ret = R_WIFI_DA16XXX_CloseSocket(socket_number);
-        if (ret == WIFI_SUCCESS)
+        if (WIFI_SUCCESS == ret)
         {
             break;
         }
@@ -189,6 +196,10 @@ static wifi_err_t CloseSocket(uint32_t socket_number)
 
     return ret;
 }
+
+/*****************************************************************************************
+End of function CloseSocket
+****************************************************************************************/
 
 /*-----------------------------------------------------------*/
 
@@ -201,16 +212,16 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
     BaseType_t socketStatus = TCP_SOCKETS_ERRNO_NONE;
     wifi_err_t ret;
     SSOCKETContextPtr_t pxContext = NULL;
-    uint32_t socketId = 0;
-    uint8_t ipAddress[4] = { 0 };
+    uint8_t socketId = 0;
+    uint32_t ipAddress[4] = { 0 };
 
     /* Ensure that only supported values are supplied. */
-    configASSERT( pTcpSocket != NULL );
-    configASSERT( pHostName != NULL );
+    configASSERT(pTcpSocket != NULL);
+    configASSERT(pHostName != NULL);
 
     R_WIFI_DA16XXX_GetAvailableSocket(&socketId);
 
-    if((s_sockets_num_allocated > WIFI_CFG_TCP_CREATABLE_SOCKETS) || (socketId == UINT8_MAX))
+    if((s_sockets_num_allocated > WIFI_CFG_TCP_CREATABLE_SOCKETS) || (UINT8_MAX == socketId))
     {
         LogError(("There is no available socket.\r\n"));
         socketStatus = NO_SOCKET_CREATION_ERROR;
@@ -227,9 +238,10 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
     else
     {
         /* Allocate the internal context structure. */
-        if( NULL == ( pxContext = pvPortMalloc( sizeof( SSOCKETContext_t ) ) ) )
+        if (NULL == (pxContext = pvPortMalloc(sizeof(SSOCKETContext_t))))
         {
             LogError(("Create malloc error\r\n"));
+
             /* Closing created socket */
             CloseSocket(socketId);
             *pTcpSocket = NULL;
@@ -238,7 +250,7 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
         else
         {
             /* Create the wrapped socket. */
-            memset( pxContext, 0, sizeof( SSOCKETContext_t ) );
+            memset(pxContext, 0, sizeof(SSOCKETContext_t));
             pxContext->socket_no     = socketId;
             pxContext->xSocket       = (Socket_t) pxContext;
             pxContext->ulRecvTimeout = receiveTimeoutMs;
@@ -260,7 +272,7 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
     if (WIFI_SUCCESS == socketStatus)
     {
         ret = R_WIFI_DA16XXX_TcpConnect(pxContext->socket_no, ipAddress, port);
-        if( WIFI_SUCCESS != ret )
+        if (WIFI_SUCCESS != ret)
         {
             LogError( ( "Failed to connect to server: Connect failed: ReturnCode=%d,"
                         " Hostname=%u.%u.%u.%u, Port=%u.",
@@ -271,10 +283,10 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
         }
     }
 
-    if( WIFI_SUCCESS != socketStatus )
+    if(WIFI_SUCCESS != socketStatus)
     {
         SocketErrorHook(socketStatus, FORCE_RESET);
-        LogError(( "Failed to create new socket." ));
+        LogError(("Failed to create new socket."));
     }
     else
     {
@@ -282,28 +294,33 @@ BaseType_t TCP_Sockets_Connect(Socket_t * pTcpSocket,
     }
 
     /* Set the socket. */
-    *pTcpSocket = (Socket_t )pxContext;
+    *pTcpSocket = (Socket_t)pxContext;
 
     return socketStatus;
 }
+
+/*****************************************************************************************
+End of function TCP_Sockets_Connect
+****************************************************************************************/
 
 int32_t TCP_Sockets_Recv(Socket_t xSocket,
                          void * pvBuffer,
                          size_t xBufferLength)
 {
     BaseType_t receive_byte;
-    SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) xSocket; /*lint !e9087 cast used for portability. */
+    SSOCKETContextPtr_t pxContext = (SSOCKETContextPtr_t) xSocket; /*lint !e9087 cast used for portability. */
 
     receive_byte = R_WIFI_DA16XXX_ReceiveSocket(pxContext->socket_no, pvBuffer, xBufferLength, pxContext->ulRecvTimeout);
     if (receive_byte < 0)
     {
-        if ((receive_byte == WIFI_ERR_NOT_CONNECT) || (receive_byte == WIFI_ERR_TAKE_MUTEX))
+        if ((WIFI_ERR_NOT_CONNECT == receive_byte) || (WIFI_ERR_TAKE_MUTEX == receive_byte))
         {
             receive_byte = 0;
+
             /* reset the counter of WIFI_ERR_MODULE_COM */
             count_module_comm = 0;
         }
-        else if (receive_byte == WIFI_ERR_SOCKET_NUM)
+        else if (WIFI_ERR_SOCKET_NUM == receive_byte)
         {
             /* reset the counter of WIFI_ERR_MODULE_COM */
             count_module_comm = 0;
@@ -322,23 +339,28 @@ int32_t TCP_Sockets_Recv(Socket_t xSocket,
     return receive_byte;
 }
 
+/*****************************************************************************************
+End of function TCP_Sockets_Recv
+****************************************************************************************/
+
 int32_t TCP_Sockets_Send(Socket_t xSocket,
                          const void * pvBuffer,
                          size_t xDataLength)
 {
     BaseType_t send_byte;
-    SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) xSocket; /*lint !e9087 cast used for portability. */
+    SSOCKETContextPtr_t pxContext = (SSOCKETContextPtr_t) xSocket; /*lint !e9087 cast used for portability. */
 
     send_byte = R_WIFI_DA16XXX_SendSocket(pxContext->socket_no, (uint8_t *)pvBuffer, xDataLength, pxContext->ulSendTimeout);
     if (send_byte < 0)
     {
-        if ((send_byte == WIFI_ERR_NOT_CONNECT) || (send_byte == WIFI_ERR_TAKE_MUTEX))
+        if ((WIFI_ERR_NOT_CONNECT == send_byte) || (WIFI_ERR_TAKE_MUTEX == send_byte))
         {
             send_byte = 0;
+
             /* reset the counter of WIFI_ERR_MODULE_COM */
             count_module_comm = 0;
         }
-        else if (send_byte == WIFI_ERR_SOCKET_NUM)
+        else if (WIFI_ERR_SOCKET_NUM == send_byte)
         {
             /* reset the counter of WIFI_ERR_MODULE_COM */
             count_module_comm = 0;
@@ -357,12 +379,16 @@ int32_t TCP_Sockets_Send(Socket_t xSocket,
     return send_byte;
 }
 
+/*****************************************************************************************
+End of function TCP_Sockets_Send
+****************************************************************************************/
+
 void TCP_Sockets_Disconnect(Socket_t tcpSocket)
 {
-    SSOCKETContextPtr_t pxContext   = ( SSOCKETContextPtr_t ) tcpSocket; /*lint !e9087 cast used for portability. */
+    SSOCKETContextPtr_t pxContext   = (SSOCKETContextPtr_t) tcpSocket; /*lint !e9087 cast used for portability. */
     wifi_err_t ret;
 
-    if(( NULL == pxContext ) || (tcpSocket == SOCKETS_INVALID_SOCKET) || (pxContext->socket_no >= MAX_NUM_SSOCKETS))
+    if ((NULL == pxContext) || (SOCKETS_INVALID_SOCKET == tcpSocket) || (pxContext->socket_no >= MAX_NUM_SSOCKETS))
     {
         return;
     }
@@ -383,3 +409,7 @@ void TCP_Sockets_Disconnect(Socket_t tcpSocket)
 
     s_sockets_num_allocated--;
 }
+
+/*****************************************************************************************
+End of function TCP_Sockets_Disconnect
+****************************************************************************************/

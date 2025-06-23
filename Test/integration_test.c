@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -29,8 +30,7 @@
 
 
 #include "test_execution_config.h"
-#include "qualification_test.h"
-//#include "ota_pal_test.h"
+#include "ota_pal_test.h"
 #include "core_pkcs11_config.h"
 #include "test_param_config.h"
 #include "qualification_test.h"
@@ -42,7 +42,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "semphr.h"
-#include "ota_config.h"
+#include "MQTTFileDownloader_config.h"
 
 struct NetworkContext
 {
@@ -297,7 +297,7 @@ void SetupTransportTestParam( TransportTestParam_t * pTestParam )
 #if ( OTA_PAL_TEST_ENABLED == 1 )
 void SetupOtaPalTestParam( OtaPalTestParam_t * pTestParam )
 {
-    pTestParam->pageSize = ( 1UL << otaconfigLOG2_FILE_BLOCK_SIZE );
+    pTestParam->pageSize = ( mqttFileDownloader_CONFIG_BLOCK_SIZE );
 }
 #endif /* if ( OTA_PAL_TEST_ENABLED == 1 ) */
 void prvQualificationTestTask( void * pvParameters )

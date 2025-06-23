@@ -1,7 +1,7 @@
 /*
  * FreeRTOS V202111.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2024-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -139,7 +139,10 @@
  * for an MQTT broker that only has an IP address but no hostname. However,
  * SNI should be enabled whenever possible.
  */
-#define democonfigDISABLE_SNI                ( pdFALSE )
+#define democonfigDISABLE_SNI                (0)
+#if ( democonfigDISABLE_SNI == 1 )
+    #error "It is strongly recommended to implement SNI authentication, this requirement is enforced in mbedTLS library (mbedtls_ssl_handshake). Furthermore, SNI is required for connection to AWS IoT Core MQTT broker."
+#endif
 
 /**
  * @brief Configuration that indicates if the demo connection is made to the AWS IoT Core MQTT broker.
@@ -388,7 +391,7 @@
  * @note Specified in bytes.  Must be large enough to hold the maximum
  * anticipated MQTT payload.
  */
-#define MQTT_AGENT_NETWORK_BUFFER_SIZE          ( 5000 )
+#define MQTT_AGENT_NETWORK_BUFFER_SIZE          ( 10000 )
 
 #define MQTT_COMMAND_CONTEXTS_POOL_SIZE              ( 10 )
 #endif /* DEMO_CONFIG_H */

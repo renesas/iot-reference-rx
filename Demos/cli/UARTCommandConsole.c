@@ -1,7 +1,7 @@
 /*
  * FreeRTOS V202211.00
  * Copyright (C) 2017 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -256,3 +256,18 @@ void vOutputString( const char * pcMessage )
 }
 /*-----------------------------------------------------------*/
 
+/******************************************************************************
+ * Function Name: vOutputChar
+ * Description  : Outputs a single character to the UART interface (custom BSP charput function).
+ * Argument     : cOutChar
+ * Return Value : None
+ *****************************************************************************/
+void vOutputChar(const char cOutChar)
+{
+    {
+        vSerialPutString((signed char *) &cOutChar, (unsigned short)sizeof(cOutChar)); //Cast to match input arg of vSerialPutString
+    }
+}
+/******************************************************************************
+ End of function vOutputChar
+ *****************************************************************************/

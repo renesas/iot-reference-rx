@@ -1,7 +1,7 @@
 /*
  * corePKCS11 v3.5.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
- * Modifications Copyright (C) 2023 Renesas Electronics Corporation. or its affiliates.
+ * Modifications Copyright (C) 2024-2025 Renesas Electronics Corporation or its affiliates.
  *
  * SPDX-License-Identifier: MIT
  *
@@ -96,6 +96,22 @@
 * <b>Default value:</b> `0`
 */
 #define pkcs11configOTA_SUPPORTED    1
+
+/**
+ * @brief Malloc API used by iot_pkcs11.h
+ *
+ * <br><b>Possible values:</b> Any platform-specific function for allocating memory.<br>
+ * <b>Default value:</b> The standard C `"malloc"` function
+ */
+#define pkcs11configPKCS11_MALLOC    pvPortMalloc
+
+/**
+ * @brief Free API used by iot_pkcs11.h
+ *
+ * <br><b>Possible values:</b> Any platform-specific function for freeing memory.<br>
+ * <b>Default value:</b> The standard C `"free"` function
+ */
+#define pkcs11configPKCS11_FREE    vPortFree
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus

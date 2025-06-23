@@ -1,6 +1,7 @@
 /*
  * FreeRTOS WiFi V2.0.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -28,9 +29,6 @@
  * @brief Wi-Fi Interface.
  */
 
-#ifndef _AWS_WIFI_H_
-#define _AWS_WIFI_H_
-
 #include <stdint.h>
 
 /* FreeRTOS include for BaseType_t. */
@@ -39,22 +37,25 @@
 /* Wi-Fi configuration includes. */
 #include "iot_wifi_config.h"
 
+#ifndef _AWS_WIFI_H_
+#define _AWS_WIFI_H_
+
 /**
  * @brief IPV6 length in 32-bit words
  *
  * @note This is the constant for IPV6 length in 32-bit words
  */
-#define IPV6_LENGTH                  4
+#define IPV6_LENGTH                  (4)
 
 /**
  * @brief Wi-Fi lower level supported feature mask.
  *
  * @see WIFICapabilityInfo_t.
  */
-#define WIFI_WPS_SUPPORTED           0x0001
-#define WIFI_ENTERPRISE_SUPPORTED    0x0002
-#define WIFI_P2P_SUPPORTED           0x0004
-#define WIFI_TDLS_SUPPORTED          0x0008
+#define WIFI_WPS_SUPPORTED           (0x0001)
+#define WIFI_ENTERPRISE_SUPPORTED    (0x0002)
+#define WIFI_P2P_SUPPORTED           (0x0004)
+#define WIFI_TDLS_SUPPORTED          (0x0008)
 
 /**
  * @brief Return code denoting API status.
@@ -134,7 +135,7 @@ typedef enum
  */
 typedef struct
 {
-    char cKey[ wificonfigMAX_WEPKEY_LEN ]; /**< WEP key (binary array, not C-string). */
+    char cKey[wificonfigMAX_WEPKEY_LEN]; /**< WEP key (binary array, not C-string). */
     uint8_t ucLength;                      /**< Key length. */
 } WIFIWEPKey_t;
 
@@ -143,7 +144,7 @@ typedef struct
  */
 typedef struct
 {
-    char cPassphrase[ wificonfigMAX_PASSPHRASE_LEN ]; /**< WPA passphrase (binary array, not C-string). */
+    char cPassphrase[wificonfigMAX_PASSPHRASE_LEN]; /**< WPA passphrase (binary array, not C-string). */
     uint8_t ucLength;                                 /**< Passphrase length (must be between 8 and 64 inclusive). */
 } WIFIWPAPassphrase_t;
 
@@ -156,13 +157,13 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t ucSSID[ wificonfigMAX_SSID_LEN ]; /**< SSID of the Wi-Fi network (binary array, not C-string). */
+    uint8_t ucSSID[wificonfigMAX_SSID_LEN]; /**< SSID of the Wi-Fi network (binary array, not C-string). */
     uint8_t ucSSIDLength;                     /**< SSID length. */
     WIFISecurity_t xSecurity;                 /**< Wi-Fi Security. */
     WIFIEncryption_t xEncryption;             /**< Wi-Fi Encryption. */
     union
     {
-        WIFIWEPKey_t xWEP[ wificonfigMAX_WEPKEYS ]; /**< WEP keys. */
+        WIFIWEPKey_t xWEP[wificonfigMAX_WEPKEYS]; /**< WEP keys. */
         WIFIWPAPassphrase_t xWPA;                   /**< WPA/WPA2 passphrase. */
     } xPassword;
     uint8_t ucDefaultWEPKeyIndex;                   /**< Default WEP key index. */
@@ -174,7 +175,7 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t ucSSID[ wificonfigMAX_SSID_LEN ]; /**< SSID for targeted scan (binary array, not C-string). */
+    uint8_t ucSSID[wificonfigMAX_SSID_LEN]; /**< SSID for targeted scan (binary array, not C-string). */
     uint8_t ucSSIDLength;                     /**< SSID length, 0 if broadcast scan. */
     uint8_t ucChannel;                        /**< Channel to scan (0 means all channels). */
 } WIFIScanConfig_t;
@@ -194,9 +195,9 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t ucSSID[ wificonfigMAX_SSID_LEN ];   /**< SSID of the Wi-Fi network (binary array, not C-string). */
+    uint8_t ucSSID[wificonfigMAX_SSID_LEN];   /**< SSID of the Wi-Fi network (binary array, not C-string). */
     uint8_t ucSSIDLength;                       /**< SSID length. */
-    uint8_t ucBSSID[ wificonfigMAX_BSSID_LEN ]; /**< BSSID of the Wi-Fi network (binary array, not C-string). */
+    uint8_t ucBSSID[wificonfigMAX_BSSID_LEN]; /**< BSSID of the Wi-Fi network (binary array, not C-string). */
     WIFISecurity_t xSecurity;                   /**< Security type of the Wi-Fi network. */
     WIFIEncryption_t xEncryption;               /**< Encryption type of the Wi-Fi network. */
     int8_t cRSSI;                               /**< Signal strength of the Wi-Fi network. */
@@ -208,7 +209,7 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t ucMAC[ wificonfigMAX_BSSID_LEN ]; /**< MAC address of Wi-Fi station */
+    uint8_t ucMAC[wificonfigMAX_BSSID_LEN]; /**< MAC address of Wi-Fi station */
 } WIFIStationInfo_t;
 
 
@@ -223,10 +224,10 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t ucSSID[ wificonfigMAX_SSID_LEN ];       /**< SSID of the Wi-Fi network to join with a NULL termination. */
+    uint8_t ucSSID[wificonfigMAX_SSID_LEN];       /**< SSID of the Wi-Fi network to join with a NULL termination. */
     uint8_t ucSSIDLength;                           /**< SSID length not including NULL termination. */
-    uint8_t ucBSSID[ wificonfigMAX_BSSID_LEN ];     /**< BSSID of the Wi-Fi network. */
-    char cPassword[ wificonfigMAX_PASSPHRASE_LEN ]; /**< Password needed to join the AP. */
+    uint8_t ucBSSID[wificonfigMAX_BSSID_LEN];     /**< BSSID of the Wi-Fi network. */
+    char cPassword[wificonfigMAX_PASSPHRASE_LEN]; /**< Password needed to join the AP. */
     uint8_t ucPasswordLength;                       /**< Password length not including null termination. */
     WIFISecurity_t xSecurity;                       /**< Wi-Fi Security. @see WIFISecurity_t. */
     WIFIEncryption_t xEncryption;                   /**< Wi-Fi Encryption. @see WIFIEncryption_t. */
@@ -248,7 +249,7 @@ typedef enum
 typedef struct
 {
     WIFIIPAddressType_t xType;         /**< IP address type (only eWiFiIPAddressTypeV4 is currently supported). */
-    uint32_t ulAddress[ IPV6_LENGTH ]; /**< IP address in binary form, use inet_ntop/inet_pton for conversion. */
+    uint32_t ulAddress[IPV6_LENGTH]; /**< IP address in binary form, use inet_ntop/inet_pton for conversion. */
 } WIFIIPAddress_t;
 
 /**
@@ -270,9 +271,9 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t ucSSID[ wificonfigMAX_SSID_LEN ];   /**< SSID of the Wi-Fi network (binary array, not C-string). */
+    uint8_t ucSSID[wificonfigMAX_SSID_LEN];   /**< SSID of the Wi-Fi network (binary array, not C-string). */
     uint8_t ucSSIDLength;                       /**< SSID length. */
-    uint8_t ucBSSID[ wificonfigMAX_BSSID_LEN ]; /**< BSSID of the Wi-Fi network (binary array, not C-string). */
+    uint8_t ucBSSID[wificonfigMAX_BSSID_LEN]; /**< BSSID of the Wi-Fi network (binary array, not C-string). */
     WIFISecurity_t xSecurity;                   /**< Wi-Fi Security. */
     WIFIEncryption_t xEncryption;               /**< Wi-Fi Encryption. */
     uint8_t ucChannel;                          /**< Channel info. */
@@ -395,7 +396,7 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t ucMac[ wificonfigMAX_BSSID_LEN ]; /**< MAC address of connected station. */
+    uint8_t ucMac[wificonfigMAX_BSSID_LEN]; /**< MAC address of connected station. */
 } WiFiEventInfoAPStationConnected_t;
 
 /**
@@ -403,7 +404,7 @@ typedef struct
  */
 typedef struct
 {
-    uint8_t ucMac[ wificonfigMAX_BSSID_LEN ]; /**< MAC address of disconnected station. */
+    uint8_t ucMac[wificonfigMAX_BSSID_LEN]; /**< MAC address of disconnected station. */
     WIFIReason_t xReason;                     /**< Reason code for the disconnection. */
 } WiFiEventInfoAPStationDisconnected_t;
 
@@ -526,7 +527,7 @@ typedef struct
  *
  * @return None.
  */
-typedef void (* WIFIEventHandler_t)( WIFIEvent_t * xEvent );
+typedef void (* WIFIEventHandler_t)(WIFIEvent_t * xEvent);
 
 /**
  * @brief Turns on Wi-Fi.
@@ -537,7 +538,8 @@ typedef void (* WIFIEventHandler_t)( WIFIEvent_t * xEvent );
  * @return @ref eWiFiSuccess if Wi-Fi module was successfully turned on, failure code otherwise.
  */
 /* @[declare_wifi_wifi_on] */
-WIFIReturnCode_t WIFI_On( void );
+WIFIReturnCode_t WIFI_On (void);
+
 /* @[declare_wifi_wifi_on] */
 
 /**
@@ -549,7 +551,8 @@ WIFIReturnCode_t WIFI_On( void );
  * @return @ref eWiFiSuccess if Wi-Fi module was successfully turned off, failure code otherwise.
  */
 /* @[declare_wifi_wifi_off] */
-WIFIReturnCode_t WIFI_Off( void );
+WIFIReturnCode_t WIFI_Off (void);
+
 /* @[declare_wifi_wifi_off] */
 
 /**
@@ -583,7 +586,8 @@ WIFIReturnCode_t WIFI_Off( void );
  * @see WIFINetworkParams_t
  */
 /* @[declare_wifi_wifi_connectap] */
-WIFIReturnCode_t WIFI_ConnectAP( const WIFINetworkParams_t * const pxNetworkParams );
+WIFIReturnCode_t WIFI_ConnectAP (const WIFINetworkParams_t * const pxNetworkParams);
+
 /* @[declare_wifi_wifi_connectap] */
 
 /**
@@ -593,7 +597,8 @@ WIFIReturnCode_t WIFI_ConnectAP( const WIFINetworkParams_t * const pxNetworkPara
  * disconnected, failure code otherwise.
  */
 /* @[declare_wifi_wifi_disconnect] */
-WIFIReturnCode_t WIFI_Disconnect( void );
+WIFIReturnCode_t WIFI_Disconnect (void);
+
 /* @[declare_wifi_wifi_disconnect] */
 
 /**
@@ -602,7 +607,8 @@ WIFIReturnCode_t WIFI_Disconnect( void );
  * @return @ref eWiFiSuccess if Wi-Fi module was successfully reset, failure code otherwise.
  */
 /* @[declare_wifi_wifi_reset] */
-WIFIReturnCode_t WIFI_Reset( void );
+WIFIReturnCode_t WIFI_Reset (void);
+
 /* @[declare_wifi_wifi_reset] */
 
 /**
@@ -623,7 +629,8 @@ WIFIReturnCode_t WIFI_Reset( void );
  * @return @ref eWiFiSuccess if Wi-Fi mode was set successfully, failure code otherwise.
  */
 /* @[declare_wifi_wifi_setmode] */
-WIFIReturnCode_t WIFI_SetMode( WIFIDeviceMode_t xDeviceMode );
+WIFIReturnCode_t WIFI_SetMode (WIFIDeviceMode_t xDeviceMode);
+
 /* @[declare_wifi_wifi_setmode] */
 
 /**
@@ -645,7 +652,8 @@ WIFIReturnCode_t WIFI_SetMode( WIFIDeviceMode_t xDeviceMode );
  * @return @ref eWiFiSuccess if Wi-Fi mode was successfully retrieved, failure code otherwise.
  */
 /* @[declare_wifi_wifi_getmode] */
-WIFIReturnCode_t WIFI_GetMode( WIFIDeviceMode_t * pxDeviceMode );
+WIFIReturnCode_t WIFI_GetMode (WIFIDeviceMode_t * pxDeviceMode);
+
 /* @[declare_wifi_wifi_getmode] */
 
 /**
@@ -672,8 +680,9 @@ WIFIReturnCode_t WIFI_GetMode( WIFIDeviceMode_t * pxDeviceMode );
  * @endcode
  */
 /* @[declare_wifi_wifi_networkadd] */
-WIFIReturnCode_t WIFI_NetworkAdd( const WIFINetworkProfile_t * const pxNetworkProfile,
-                                  uint16_t * pusIndex );
+WIFIReturnCode_t WIFI_NetworkAdd (const WIFINetworkProfile_t * const pxNetworkProfile,
+                                  uint16_t * pusIndex);
+
 /* @[declare_wifi_wifi_networkadd] */
 
 
@@ -703,8 +712,9 @@ WIFIReturnCode_t WIFI_NetworkAdd( const WIFINetworkProfile_t * const pxNetworkPr
  * @endcode
  */
 /* @[declare_wifi_wifi_networkget] */
-WIFIReturnCode_t WIFI_NetworkGet( WIFINetworkProfile_t * pxNetworkProfile,
-                                  uint16_t usIndex );
+WIFIReturnCode_t WIFI_NetworkGet (WIFINetworkProfile_t * pxNetworkProfile,
+                                  uint16_t usIndex);
+
 /* @[declare_wifi_wifi_networkget] */
 
 /**
@@ -730,7 +740,8 @@ WIFIReturnCode_t WIFI_NetworkGet( WIFINetworkProfile_t * pxNetworkProfile,
  *
  */
 /* @[declare_wifi_wifi_networkdelete] */
-WIFIReturnCode_t WIFI_NetworkDelete( uint16_t usIndex );
+WIFIReturnCode_t WIFI_NetworkDelete (uint16_t usIndex);
+
 /* @[declare_wifi_wifi_networkdelete] */
 
 /**
@@ -743,8 +754,9 @@ WIFIReturnCode_t WIFI_NetworkDelete( uint16_t usIndex );
  * @return @ref eWiFiSuccess if ping was successful, other failure code otherwise.
  */
 /* @[declare_wifi_wifi_ping] */
-WIFIReturnCode_t WIFI_Ping( uint8_t * pucIPAddr,
-                            uint16_t usCount );
+WIFIReturnCode_t WIFI_Ping (uint8_t * pucIPAddr,
+                            uint16_t usCount);
+
 /* @[declare_wifi_wifi_ping] */
 
 /**
@@ -762,7 +774,8 @@ WIFIReturnCode_t WIFI_Ping( uint8_t * pucIPAddr,
  * otherwise. The returned MAC address must be 6 consecutive bytes with no delimitters.
  */
 /* @[declare_wifi_wifi_getmac] */
-WIFIReturnCode_t WIFI_GetMAC( uint8_t * pucMac );
+WIFIReturnCode_t WIFI_GetMAC (uint8_t * pucMac);
+
 /* @[declare_wifi_wifi_getmac] */
 
 /**
@@ -781,8 +794,9 @@ WIFIReturnCode_t WIFI_GetMAC( uint8_t * pucMac );
  * @endcode
  */
 /* @[declare_wifi_wifi_gethostip] */
-WIFIReturnCode_t WIFI_GetHostIP( char * pcHost,
-                                 uint8_t * pucIPAddr );
+WIFIReturnCode_t WIFI_GetHostIP (char * pcHost,
+                                 uint8_t * pucIPAddr);
+
 /* @[declare_wifi_wifi_gethostip] */
 
 /**
@@ -803,8 +817,9 @@ WIFIReturnCode_t WIFI_GetHostIP( char * pcHost,
  * @endcode
  */
 /* @[declare_wifi_wifi_scan] */
-WIFIReturnCode_t WIFI_Scan( WIFIScanResult_t * pxBuffer,
-                            uint8_t ucNumNetworks );
+WIFIReturnCode_t WIFI_Scan (WIFIScanResult_t * pxBuffer,
+                            uint8_t ucNumNetworks);
+
 /* @[declare_wifi_wifi_scan] */
 
 /**
@@ -813,7 +828,8 @@ WIFIReturnCode_t WIFI_Scan( WIFIScanResult_t * pxBuffer,
  * @return @ref eWiFiSuccess if SoftAP was successfully started, failure code otherwise.
  */
 /* @[declare_wifi_wifi_startap] */
-WIFIReturnCode_t WIFI_StartAP( void );
+WIFIReturnCode_t WIFI_StartAP (void);
+
 /* @[declare_wifi_wifi_startap] */
 
 /**
@@ -822,7 +838,8 @@ WIFIReturnCode_t WIFI_StartAP( void );
  * @return @ref eWiFiSuccess if the SoftAP was successfully stopped, failure code otherwise.
  */
 /* @[declare_wifi_wifi_stopap] */
-WIFIReturnCode_t WIFI_StopAP( void );
+WIFIReturnCode_t WIFI_StopAP (void);
+
 /* @[declare_wifi_wifi_stopap] */
 
 /**
@@ -843,7 +860,8 @@ WIFIReturnCode_t WIFI_StopAP( void );
  * @endcode
  */
 /* @[declare_wifi_wifi_configureap] */
-WIFIReturnCode_t WIFI_ConfigureAP( const WIFINetworkParams_t * const pxNetworkParams );
+WIFIReturnCode_t WIFI_ConfigureAP (const WIFINetworkParams_t * const pxNetworkParams);
+
 /* @[declare_wifi_wifi_configureap] */
 
 /**
@@ -858,8 +876,9 @@ WIFIReturnCode_t WIFI_ConfigureAP( const WIFINetworkParams_t * const pxNetworkPa
  * @return @ref eWiFiSuccess if the power mode was successfully configured, failure code otherwise.
  */
 /* @[declare_wifi_wifi_setpmmode] */
-WIFIReturnCode_t WIFI_SetPMMode( WIFIPMMode_t xPMModeType,
-                                 const void * pvOptionValue );
+WIFIReturnCode_t WIFI_SetPMMode (WIFIPMMode_t xPMModeType,
+                                 const void * pvOptionValue);
+
 /* @[declare_wifi_wifi_setpmmode] */
 
 /**
@@ -872,8 +891,9 @@ WIFIReturnCode_t WIFI_SetPMMode( WIFIPMMode_t xPMModeType,
  * @return @ref eWiFiSuccess if the power mode was successfully retrieved, failure code otherwise.
  */
 /* @[declare_wifi_wifi_getpmmode] */
-WIFIReturnCode_t WIFI_GetPMMode( WIFIPMMode_t * pxPMModeType,
-                                 void * pvOptionValue );
+WIFIReturnCode_t WIFI_GetPMMode (WIFIPMMode_t * pxPMModeType,
+                                 void * pvOptionValue);
+
 /* @[declare_wifi_wifi_getpmmode] */
 
 
@@ -886,8 +906,9 @@ WIFIReturnCode_t WIFI_GetPMMode( WIFIPMMode_t * pxPMModeType,
  * @return eWiFiSuccess if registration is successful, failure code otherwise.
  */
 /* @[declare_wifi_registerevent] */
-WIFIReturnCode_t WIFI_RegisterEvent( WIFIEventType_t xEventType,
-                                     WIFIEventHandler_t xHandler );
+WIFIReturnCode_t WIFI_RegisterEvent (WIFIEventType_t xEventType,
+                                     WIFIEventHandler_t xHandler);
+
 /* @[declare_wifi_registerevent] */
 
 /**
@@ -898,7 +919,8 @@ WIFIReturnCode_t WIFI_RegisterEvent( WIFIEventType_t xEventType,
  * Wi-Fi link status.
  */
 /* @[declare_wifi_wifi_isconnected] */
-BaseType_t WIFI_IsConnected( const WIFINetworkParams_t * pxNetworkParams );
+BaseType_t WIFI_IsConnected (const WIFINetworkParams_t * pxNetworkParams);
+
 /* @[declare_wifi_wifi_isconnected] */
 
 /**
@@ -912,7 +934,7 @@ BaseType_t WIFI_IsConnected( const WIFINetworkParams_t * pxNetworkParams );
  *
  * @return eWiFiSuccess if scan was started successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_StartScan( WIFIScanConfig_t * pxScanConfig );
+WIFIReturnCode_t WIFI_StartScan (WIFIScanConfig_t * pxScanConfig);
 
 /**
  * @brief Get Wi-Fi scan results. It should be called only after scan is completed.  Scan results are sorted in decreasing rssi order.
@@ -922,8 +944,8 @@ WIFIReturnCode_t WIFI_StartScan( WIFIScanConfig_t * pxScanConfig );
  *
  * @return eWiFiSuccess if the scan results were got successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_GetScanResults( const WIFIScanResult_t ** pxBuffer,
-                                      uint16_t * ucNumNetworks );
+WIFIReturnCode_t WIFI_GetScanResults (const WIFIScanResult_t ** pxBuffer,
+                                      uint16_t * ucNumNetworks);
 
 /**
  * @brief Connect to the Wi-Fi Access Point (AP) specified in the input.
@@ -940,7 +962,7 @@ WIFIReturnCode_t WIFI_GetScanResults( const WIFIScanResult_t ** pxBuffer,
  *
  * @return eWiFiSuccess if connection was started successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_StartConnectAP( const WIFINetworkParams_t * pxNetworkParams );
+WIFIReturnCode_t WIFI_StartConnectAP (const WIFINetworkParams_t * pxNetworkParams);
 
 /**
  * @brief Wi-Fi station disconnects from AP.
@@ -950,7 +972,7 @@ WIFIReturnCode_t WIFI_StartConnectAP( const WIFINetworkParams_t * pxNetworkParam
  *
  * @return eWiFiSuccess if disconnection was started successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_StartDisconnect( void );
+WIFIReturnCode_t WIFI_StartDisconnect (void);
 
 /**
  * @brief Get Wi-Fi info of the connected AP.
@@ -961,7 +983,7 @@ WIFIReturnCode_t WIFI_StartDisconnect( void );
  *
  * @return eWiFiSuccess if connection info was got successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_GetConnectionInfo( WIFIConnectionInfo_t * pxConnectionInfo );
+WIFIReturnCode_t WIFI_GetConnectionInfo (WIFIConnectionInfo_t * pxConnectionInfo);
 
 /**
  * @brief Get IP configuration (IP address, NetworkMask, Gateway and
@@ -973,7 +995,7 @@ WIFIReturnCode_t WIFI_GetConnectionInfo( WIFIConnectionInfo_t * pxConnectionInfo
  *
  * @return eWiFiSuccess if connection info was got successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_GetIPInfo( WIFIIPConfiguration_t * pxIPInfo );
+WIFIReturnCode_t WIFI_GetIPInfo (WIFIIPConfiguration_t * pxIPInfo);
 
 /**
  * @brief Get the RSSI of the connected AP.
@@ -984,7 +1006,7 @@ WIFIReturnCode_t WIFI_GetIPInfo( WIFIIPConfiguration_t * pxIPInfo );
  *
  * @return eWiFiSuccess if RSSI was got successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_GetRSSI( int8_t * pcRSSI );
+WIFIReturnCode_t WIFI_GetRSSI (int8_t * pcRSSI);
 
 /**
  * @brief SoftAP mode get connected station list.
@@ -995,8 +1017,8 @@ WIFIReturnCode_t WIFI_GetRSSI( int8_t * pcRSSI );
  * @return eWiFiSuccess if stations were got successfully (manybe none),
  * failure code otherwise.
  */
-WIFIReturnCode_t WIFI_GetStationList( WIFIStationInfo_t * pxStationList,
-                                      uint8_t * pcStationListSize );
+WIFIReturnCode_t WIFI_GetStationList (WIFIStationInfo_t * pxStationList,
+                                      uint8_t * pcStationListSize);
 
 /**
  * @brief AP mode disconnecting a station.
@@ -1008,7 +1030,7 @@ WIFIReturnCode_t WIFI_GetStationList( WIFIStationInfo_t * pxStationList,
  *
  * @return eWiFiSuccess if disconnection was started successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_StartDisconnectStation( uint8_t * pucMac );
+WIFIReturnCode_t WIFI_StartDisconnectStation (uint8_t * pucMac);
 
 /**
  * @brief Set Wi-Fi MAC addresses.
@@ -1022,7 +1044,7 @@ WIFIReturnCode_t WIFI_StartDisconnectStation( uint8_t * pucMac );
  *
  * @note On some platforms the change of MAC address can only take effect after reboot.
  */
-WIFIReturnCode_t WIFI_SetMAC( uint8_t * pucMac );
+WIFIReturnCode_t WIFI_SetMAC (uint8_t * pucMac);
 
 /**
  * @brief Set country based configuration (including channel list, power table)
@@ -1031,7 +1053,7 @@ WIFIReturnCode_t WIFI_SetMAC( uint8_t * pucMac );
  *
  * @return eWiFiSuccess if Country Code is set successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_SetCountryCode( const char * pcCountryCode );
+WIFIReturnCode_t WIFI_SetCountryCode (const char * pcCountryCode);
 
 /**
  * @brief Get the currently configured country code.
@@ -1041,7 +1063,7 @@ WIFIReturnCode_t WIFI_SetCountryCode( const char * pcCountryCode );
  *
  * @return eWiFiSuccess if Country Code is retrieved successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_GetCountryCode( char * pcCountryCode );
+WIFIReturnCode_t WIFI_GetCountryCode (char * pcCountryCode);
 
 /**
  * @brief Get the Wi-Fi statistics.
@@ -1050,7 +1072,7 @@ WIFIReturnCode_t WIFI_GetCountryCode( char * pcCountryCode );
  *
  * @return eWiFiSuccess if statistics are retrieved successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_GetStatistic( WIFIStatisticInfo_t * pxStats );
+WIFIReturnCode_t WIFI_GetStatistic (WIFIStatisticInfo_t * pxStats);
 
 /**
  * @brief Get the Wi-Fi capability.
@@ -1059,6 +1081,6 @@ WIFIReturnCode_t WIFI_GetStatistic( WIFIStatisticInfo_t * pxStats );
  *
  * @return eWiFiSuccess if capabilities are retrieved successfully, failure code otherwise.
  */
-WIFIReturnCode_t WIFI_GetCapability( WIFICapabilityInfo_t * pxCaps );
+WIFIReturnCode_t WIFI_GetCapability (WIFICapabilityInfo_t * pxCaps);
 
 #endif /* _AWS_WIFI_H_ */

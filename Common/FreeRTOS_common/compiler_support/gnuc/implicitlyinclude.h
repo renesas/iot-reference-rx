@@ -1,3 +1,14 @@
+/*
+* Copyright (c) 2023-2025 Renesas Electronics Corporation and/or its affiliates
+*
+* SPDX-License-Identifier: BSD-3-Clause
+*/
+
+/***********************************************************************************************************************
+ * File Name    : implicitlyinclude.h
+ * Description  : GCC RX support macros and definitions for FreeRTOS portability.
+ **********************************************************************************************************************/
+
 #if !defined(MBEDTLS_USER_CONFIG_FILE)
 #define MBEDTLS_USER_CONFIG_FILE "mbedtls_user_config.h"
 #endif

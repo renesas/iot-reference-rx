@@ -1,6 +1,7 @@
 /*
  * Lab-Project-coreMQTT-Agent 201215
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * Modifications Copyright (C) 2023-2025 Renesas Electronics Corporation or its affiliates.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -139,6 +140,12 @@ BaseType_t xAddMQTTTopicFilterCallback( const char * pcTopicFilter,
  */
 void vRemoveMQTTTopicFilterCallback( const char * pcTopicFilter,
                                      uint16_t usTopicFilterLength );
+
+MQTTStatus_t MqttAgent_SubscribeSync( const char * pcTopicFilter,
+                                      uint16_t uxTopicFilterLength,
+                                      MQTTQoS_t xRequestedQoS,
+                                      IncomingPubCallback_t pxCallback,
+                                      void * pvCallbackCtx );
 
 
 #endif /* ifndef _MQTT_AGENT_TASK_H_ */
