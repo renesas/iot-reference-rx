@@ -393,7 +393,7 @@ If successful, it will be displayed on AWS console as shown below.![4-1-7](https
 
 * Details for *PubSub/MQTT with Over-the-air(OTA) update sample project* are provided in the special application note (document number: R01AN7662).  
   Please check the following webpage:
-  * <https://www.renesas.com/document/apn/rx-family-how-implement-freertos-ota-using-amazon-web-services-v202406-lts-rx>  
+  * <https://www.renesas.com/document/apn/rx-family-how-implement-freertos-ota-using-amazon-web-services-202406-lts-version-rev100>  
 * About how to run this demo, see the chapter "*2. Prerequisites*" and beyond in preceding application note.
 * Although this application note focuses on an Ethernet project, the Cellular and Wi-Fi projects also work as described in the application note.
 * When running this demo, please check your RX Smart Configurator settings.  
