@@ -14,13 +14,13 @@
     </general>
     <tool id="SWComponent" version="1.0.0.0">
         <configuration inuse="true" name="r_bsp">
-            <component display="r_bsp" id="r_bsp7.52" version="7.52">
+            <component display="r_bsp" id="r_bsp7.50" version="7.50" uselatestversion="true">
                 <gridItem id="BSP_CFG_IO_LIB_ENABLE" selectedIndex="1"/>
             </component>
             <source description="Components supporting Firmware Integration Technology" display="Firmware Integration Technology" id="com.renesas.smc.tools.swcomponent.fit.source"/>
         </configuration>
         <configuration inuse="true" name="r_ether_rx">
-            <component display="r_ether_rx" id="r_ether_rx1.23" version="1.23">
+            <component display="r_ether_rx" id="r_ether_rx1.23" version="1.23" uselatestversion="true">
                 <gridItem id="REF50CK0" selectedIndex="1"/>
                 <gridItem id="RMII0_TXD_EN" selectedIndex="1"/>
                 <gridItem id="RMII0_TXD1" selectedIndex="1"/>
