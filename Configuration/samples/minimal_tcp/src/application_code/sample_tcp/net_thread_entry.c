@@ -69,6 +69,7 @@ static  uint8_t ucDNSServerAddress[ 4 ] = {configDNS_SERVER_ADDR0, configDNS_SER
 
 static uint32_t s_usr_print_ability = RESET_VALUE;
 
+#if( ipconfigUSE_DHCP != 0 )
 /**********************************************************************************************************************
  * Function Name: copy_xNd_to_ip_arrays
  * Description  : Copies the values from the xNd structure to the respective IP address arrays.
@@ -101,6 +102,8 @@ static void copy_xNd_to_ip_arrays(void)
  End of function copy_xNd_to_ip_arrays
  *********************************************************************************************************************/
 
+ #endif /*  ipconfigUSE_DHCP != 0  */
+ 
 /**********************************************************************************************************************
  * Function Name: ulRand
  * Description  : Generates 32 bit Random number
