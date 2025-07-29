@@ -5,7 +5,7 @@
 This document provides information about the bootloader used for "*PubSub/MQTT with Over-the-air(OTA) update sample project*".
 
 > **Note:**  
-> For more information about setting up and running the demo, see [**"Getting_Started_Guide.md"**](../../../Getting_Started_Guide.md).
+> For more information about setting up and running the demo, see [**"Getting_Started_Guide.md"**](../../Getting_Started_Guide.md).
 
 ## About the Bootloader
 
@@ -43,7 +43,7 @@ If the signature verification passes, the firmware starts.
 The bootloader project needs to register a public key for firmware signature verification before building.
 
 * The procedure for registering the public key are provided in the special application note (document number: R01AN7662).  
-  You can search it by visiting the following webpage:
-  * <https://www.renesas.com/search?keywords=r01an7662>  
+  Please check the following webpage:
+  * <https://www.renesas.com/document/apn/rx-family-how-implement-freertos-ota-using-amazon-web-services-202406-lts-version-rev100>  
 * Refer to Section 4.2.2 of the application note to register the public key to the project.
-* Also, For software setup instructions, see [**Getting Started Guide: step 4-2**](../../../Getting_Started_Guide.md#step-4-2-run-pubsubmqtt-with-over-the-airota-update-sample-project).
+* Also, For software setup instructions, see [**Getting Started Guide: step 4-2**](../../Getting_Started_Guide.md#step-4-2-run-pubsubmqtt-with-over-the-airota-update-sample-project).

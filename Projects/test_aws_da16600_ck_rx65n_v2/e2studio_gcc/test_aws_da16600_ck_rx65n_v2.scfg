@@ -7,7 +7,7 @@
                 <option id="com.renesas.smc.toolchain.option.language" key="com.renesas.smc.toolchain.option.language.c"/>
                 <option id="com.renesas.smc.toolchain.option.buildArtefactType" key="com.renesas.smc.toolchain.option.buildArtefactType.exe"/>
                 <option id="com.renesas.smc.toolchain.option.rtos" key="com.renesas.smc.toolchain.option.rtos.freertoslts">
-                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202406.01-LTS-rx-1.1.0"/>
+                    <item id="com.renesas.smc.toolchain.option.rtos.freertoslts" value="202406.01-LTS-rx-1.1.1"/>
                 </option>
                 <option id="com.renesas.smc.toolchain.option.dual" key="com.renesas.smc.toolchain.option.dual.true"/>
             </toolchain>
@@ -1196,11 +1196,11 @@
                     <option defaultValue="0" id="LinkNum" value=""/>
                 </allocatable>
             </allocatable>
-            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="202406.01-LTS-rx-1.1.0"/>
+            <component description="This component is a part of RTOS Configurator feature that allow user to use the GUI to create and configure new object of FreeRTOS." detailDescription="" display="FreeRTOS_Object" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.freertos.object" version="202406.01-LTS-rx-1.1.1"/>
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
         <configuration enable="true" exclude="false" id="00a0246e-ad30-4a88-813e-73db490cc2b9" inuse="true" name="LittleFS">
-            <component description="Dependency: None&#10;LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers." detailDescription="LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers." display="LittleFS" id="LittleFS202406.01-LTS-rx-1.1.0" version="2.5.1">
+            <component description="Dependency: None&#10;LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers." detailDescription="LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers." display="LittleFS" id="LittleFS202406.01-LTS-rx-1.1.1" version="2.5.1">
                 <gridItem id="LFS_FLASH_READ_SIZE" selectedIndex="1"/>
                 <gridItem id="LFS_FLASH_PROGRAM_SIZE" selectedIndex="4"/>
                 <gridItem id="LFS_FLASH_BLOCK_SIZE" selectedIndex="128"/>
@@ -1210,7 +1210,7 @@
             <source description="Code generator for Real-time OS" display="RTOS Configurator" id="com.renesas.smc.tools.swcomponent.rtosconfigurator.source"/>
         </configuration>
         <configuration enable="true" exclude="false" id="ca3f33f1-2f6f-4ecc-a5b3-44acf6fa9c2b" inuse="true" name="FreeRTOS_Kernel">
-            <component description="Dependency: None&#10;FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications." detailDescription="FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications." display="FreeRTOS Kernel" id="FreeRTOS_Kernel202406.01-LTS-rx-1.1.0" version="11.1.0">
+            <component description="Dependency: None&#10;FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications." detailDescription="FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications." display="FreeRTOS Kernel" id="FreeRTOS_Kernel202406.01-LTS-rx-1.1.1" version="11.1.0">
                 <gridItem id="configENABLE_BACKWARD_COMPATIBILITY" selectedIndex="1"/>
                 <gridItem id="configUSE_PREEMPTION" selectedIndex="1"/>
                 <gridItem id="configUSE_PORT_OPTIMISED_TASK_SELECTION" selectedIndex="0"/>

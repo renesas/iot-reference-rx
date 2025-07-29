@@ -9,7 +9,7 @@ This document provides information about the demo with the following specificati
 
 > **Note:**  
 > For information about the "*PubSub/MQTT with Over-the-air(OTA) update sample project*", see [**"ryz014a_ota_information.md"**](ryz014a_ota_information.md).  
-> For more information about setting up and running the demo, see [**"Getting_Started_Guide.md"**](../../../Getting_Started_Guide.md).
+> For more information about setting up and running the demo, see [**"Getting_Started_Guide.md"**](../../Getting_Started_Guide.md).
 
 ## About the PubSub Demo using Cellular connection
 
@@ -47,7 +47,7 @@ This demo performs the following tasks:
 
 ### Hardware setup
 
-For common hardware setup procedures, see [**Getting Started Guide: step 2**](../../../Getting_Started_Guide.md#step-2-hardware-setup).
+For common hardware setup procedures, see [**Getting Started Guide: step 2**](../../Getting_Started_Guide.md#step-2-hardware-setup).
 
 #### Board setup
 
@@ -69,7 +69,7 @@ Connect a RYZ014A with LTE antenna and SIM card to device board.
 
 ### Software setup
 
-For common software setup procedures, see [**Getting Started Guide: step 4-1-1**](../../../Getting_Started_Guide.md#step-4-1-1-software-setup-for-pubsub-demo).
+For common software setup procedures, see [**Getting Started Guide: step 4-1-1**](../../Getting_Started_Guide.md#step-4-1-1-software-setup-for-pubsub-demo).
 
 #### Settings of the hook function
 

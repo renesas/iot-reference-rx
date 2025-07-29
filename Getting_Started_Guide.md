@@ -23,7 +23,7 @@ These tasks establish a server and client-authenticated TLS connection, and demo
 > **Note** :
 >
 > * Fleet Provisioning demo is not supported in this version.  
-> * TCP minimal will only be created when you create as a new project (PG) and usage is described in [minimal_tcp/README.md](https://github.com/renesas/iot-reference-rx/blob/main/Configuration/samples/minimal_tcp/README.md).
+> * TCP minimal will only be created when you create as a new project (PG) and usage is described in [minimal_tcp/README.md](https://github.com/renesas/iot-reference-rx/blob/accf243603b068bf6e8d88be76c433f8b9125da5/Configuration/samples/minimal_tcp/README.md).
 
 <details>
 <summary><h2>How to run demos</h2></summary>

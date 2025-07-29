@@ -100,7 +100,9 @@
 #include "backoff_algorithm.h"
 
 #include "store.h"
-#include "mqtt_wrapper.h"
+#if (ENABLE_OTA_UPDATE_DEMO == 1)
+    #include "mqtt_wrapper.h"
+#endif
 #include "pkcs11_helpers.h"
 
 #ifndef democonfigMQTT_BROKER_ENDPOINT
@@ -877,8 +879,10 @@ void prvMQTTAgentTask( void * pvParameters )
              * which the error happened is returned so there is an attempt to
              * clean up and reconnect. */
 
-            /* Set the MQTT context to be used by the MQTT wrapper. */
-            mqttWrapper_setCoreMqttContext( &( xGlobalMqttAgentContext.mqttContext ) );
+            #if (ENABLE_OTA_UPDATE_DEMO == 1)
+                /* Set the MQTT context to be used by the MQTT wrapper. */
+                mqttWrapper_setCoreMqttContext( &( xGlobalMqttAgentContext.mqttContext ) );
+            #endif
 
             prvSetMQTTAgentState( MQTT_AGENT_STATE_CONNECTED );
 

@@ -24,11 +24,11 @@ SECTIONS
 		*(.text)
 		*(.text.*)
 		*(P)
-		etext = .;
 		KEEP(*(.text.*isr))
 		KEEP(*(.text.Excep_*))
 		KEEP(*(.text.*ISR))
-		KEEP(*(.text.*Interrupt))
+		KEEP(*(.text.*interrupt))
+		etext = .;
 	} > ROM
 	.rvectors ALIGN(4):
 	{

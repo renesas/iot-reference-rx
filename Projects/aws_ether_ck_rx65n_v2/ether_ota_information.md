@@ -9,7 +9,7 @@ This document provides information about the demo with the following specificati
 
 > **Note:**  
 > For information about the "*PubSub/MQTT sample project*", see [**"ether_pubsub_information.md"**](ether_pubsub_information.md).  
-> For more information about setting up and running the demo, see [**"Getting_Started_Guide.md"**](../../../Getting_Started_Guide.md).
+> For more information about setting up and running the demo, see [**"Getting_Started_Guide.md"**](../../Getting_Started_Guide.md).
 
 ## About the PubSub Demo using Ethernet connection
 
@@ -49,11 +49,11 @@ This demo performs the following tasks:
 
 ### Hardware setup
 
-For hardware setup instructions, see [**Getting Started Guide: step 2**](../../../Getting_Started_Guide.md#step-2-hardware-setup).
+For hardware setup instructions, see [**Getting Started Guide: step 2**](../../Getting_Started_Guide.md#step-2-hardware-setup).
 
 ### Software setup
 
-For software setup instructions, see [**Getting Started Guide: step 4-2**](../../../Getting_Started_Guide.md#step-4-2-run-pubsubmqtt-with-over-the-airota-update-sample-project).
+For software setup instructions, see [**Getting Started Guide: step 4-2**](../../Getting_Started_Guide.md#step-4-2-run-pubsubmqtt-with-over-the-airota-update-sample-project).
 
 ## Troubleshooting
 
