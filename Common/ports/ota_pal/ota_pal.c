@@ -285,7 +285,7 @@ OtaPalStatus_t otaPal_CloseFile(AfrOtaJobDocumentFields_t * const pFileContext)
 
     if (pFileContext != NULL)
     {
-        pFileContext->fileId = NULL;
+        pFileContext->fileId = 0;
     }
 
     R_FWUP_Close();
@@ -306,7 +306,7 @@ OtaPalStatus_t otaPal_CloseFile(AfrOtaJobDocumentFields_t * const pFileContext)
 OtaPalStatus_t otaPal_CloseFileNoSignatureCheck(AfrOtaJobDocumentFields_t * const pFileContext)
 {
     OtaPalStatus_t eResult = OtaPalSuccess;
-    pFileContext->fileId = NULL;
+    pFileContext->fileId = 0;
 
     R_FWUP_Close();
 
@@ -380,7 +380,7 @@ OtaPalStatus_t otaPal_Abort(AfrOtaJobDocumentFields_t * const pFileContext)
 
     if (OtaPalSuccess == eResult)
     {
-        pFileContext->fileId = NULL;
+        pFileContext->fileId = 0;
     }
 
     return eResult;

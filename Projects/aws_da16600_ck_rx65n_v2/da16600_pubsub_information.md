@@ -9,7 +9,7 @@ This document provides information about the demo with the following specificati
 
 > **Note:**  
 > For information about the "*PubSub/MQTT with Over-the-air(OTA) update sample project*", see [**"da16600_ota_information.md"**](da16600_ota_information.md).  
-> For more information about setting up and running the demo, see [**"Getting_Started_Guide.md"**](../../../Getting_Started_Guide.md).
+> For more information about setting up and running the demo, see [**"Getting_Started_Guide.md"**](../../Getting_Started_Guide.md).
 
 ## About the PubSub Demo using Wi-Fi connection
 
@@ -45,7 +45,7 @@ This demo performs the following tasks:
 
 ### Hardware setup
 
-For common hardware setup instructions, see [**Getting Started Guide: step 2**](../../../Getting_Started_Guide.md#step-2-hardware-setup).
+For common hardware setup instructions, see [**Getting Started Guide: step 2**](../../Getting_Started_Guide.md#step-2-hardware-setup).
 
 #### Board setup
 
@@ -62,7 +62,7 @@ Connect the DA16600 to device board. In case of CK-RX65N v2, connected to the PM
 
 ### Software setup
 
-For common software setup instructions, see [**Getting Started Guide: step 4-1-1**](../../../Getting_Started_Guide.md#step-4-1-1-software-setup-for-pubsub-demo).
+For common software setup instructions, see [**Getting Started Guide: step 4-1-1**](../../Getting_Started_Guide.md#step-4-1-1-software-setup-for-pubsub-demo).
 
 #### Settings of the hook function
 

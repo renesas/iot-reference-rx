@@ -133,7 +133,7 @@ void vUARTCommandConsoleStart( uint16_t usStackSize, UBaseType_t uxPriority )
 
 static void prvUARTCommandConsoleTask( void *pvParameters )
 {
-signed char cPrevChar = NULL;
+signed char cPrevChar = '\0';
 uint16_t ucInputIndex = 0;
 char *pcOutputString = NULL;
 static char cInputString[ cmdMAX_INPUT_SIZE ], cLastInputString[ cmdMAX_INPUT_SIZE ];
