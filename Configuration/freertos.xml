@@ -87,6 +87,15 @@
 					<folder>Configuration/samples/minimal_tcp/src/frtos_config</folder>
 					<path>src/frtos_config</path>
 				</impdir>
+				<!-- TODO: This is just a workaround to work with <impdir><folder> in minimal_tcp.xml -->
+				<impdir>
+					<file>Configuration/samples/minimal_tcp/src/frtos_config/FreeRTOSConfig.h</file>
+					<path>src/patch</path>
+				</impdir>
+				<excludebuild>
+					<path>src/patch</path>
+				</excludebuild>
+				<!-- Workaround end -->
 				<impdir>
 					<folder>Configuration/samples/minimal_tcp/src/application_code</folder>
 					<path>src/application_code</path>
@@ -128,14 +137,6 @@
 					<file rename="linker_script.ld">Configuration/samples/minimal_tcp/linker_script/2m_rom_linker_script.ld</file>
 					<path>src</path>
 				</impdir>
-				<sourceedit>
-					<filterpartnumber group="RX65N">R5F565N[CE].*</filterpartnumber>
-						<file>src/smc_gen/r_config/r_bsp_config.h</file>
-						<key>   1 = Sections of the expansion RAM area is enabled.</key>
-						<key>*/</key>
-						<remove>1</remove>
-						<data>#define BSP_CFG_EXPANSION_RAM_ENABLE  (1)</data>
-				</sourceedit>
 				<impdir>
 					<file>Configuration/samples/minimal_tcp/README.md</file>
 					<path>.</path>
@@ -149,6 +150,19 @@
 						<data>(It seems you have created a project for "custom user board", please note that the default settings were verified with CK-RX65N-V2 target board only.)</data>
 						<data>(You might need to adjust the settings accordingly.)</data>
 				</sourceedit>
+				<postscgen>
+					<sourceedit>
+						<toolchain>GNURX</toolchain>
+						<board>CK-RX65N-V2</board>
+						<board>CK-RX65N-V2(DUAL)</board>
+						<filterpartnumber group="RX65N">R5F565N[CE].*</filterpartnumber>
+							<file>src/smc_gen/r_config/r_bsp_config.h</file>
+							<key>   1 = Sections of the expansion RAM area is enabled.</key>
+							<key>*/</key>
+							<remove>1</remove>
+							<data>#define BSP_CFG_EXPANSION_RAM_ENABLE  (1)</data>
+					</sourceedit>
+				</postscgen>
 				<!-- linkdir section -->
 				<linkdir>
 					<folder linkedfolder="true">Middleware</folder>
@@ -1206,7 +1220,7 @@
 				</impdir>
 				<impdir>
 					<toolchain>GNURX</toolchain>
-					<file>Projects/aws_ether_ck_rx65n_v2/e2studio_gcc/src/linker_script.ld</file>
+					<file>Configuration/samples/common/ck-rx65n-v2_ota/ether/linker_script.ld</file>
 					<path>src</path>
 				</impdir>
 				<impdir>
@@ -2508,7 +2522,7 @@
 				</impdir>
 				<impdir>
 					<toolchain>GNURX</toolchain>
-					<file>Projects/aws_ryz014a_ck_rx65n_v2/e2studio_gcc/src/linker_script.ld</file>
+					<file>Configuration/samples/common/ck-rx65n-v2_ota/cellular/linker_script.ld</file>
 					<path>src</path>
 				</impdir>
 				<impdir>

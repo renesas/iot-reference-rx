@@ -60,4 +60,6 @@ Static IP Mode:
      ```
 
 1.4. Since this is a minimal project, you can easily convert it to a `FreeRTOS_Kernel` only project by removing the `FreeRTOS_IP` component in Smart Configurator.  
-     After removing the `FreeRTOS_IP` component in Smart Configurator, please make sure the source code in `../sample_tcp/` folder does not invoke FreeRTOS-Plus-TCP related API. Otherwise, build error may happen.
+    Note 1: In e2studio_2025-07 or older, after removing the `FreeRTOS_IP` component in Smart Configurator, please make sure to copy the `FreeRTOSConfig.h` from `/src/patch` folder to the `src/frtos_config` folder again.
+      
+    Note 2: After removing the `FreeRTOS_IP` component in Smart Configurator, please make sure the source code in `../sample_tcp/` folder does not invoke FreeRTOS-Plus-TCP related API. Otherwise, build error may happen.   
