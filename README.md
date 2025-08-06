@@ -31,7 +31,8 @@ The following table shows the demos and features available on CK-RX65N v2.<br>
 
 | Tags | Connectivity | Compiler  | Import project | Project generation (PG) | PubSub | OTA update | Fleet Provisioning | TLS with TSIP |TCP minimal |
 |------|--------------|-----------|----------------|-------------------------|--------|-----|-------------------|-------------|-------------|
-| [v202406.01-LTS-rx-1.1.0](https://github.com/renesas/iot-reference-rx/tree/v202406.01-LTS-rx-1.1.0)<br>* This Version | Ethernet, Cellular, Wi-Fi | CC-RX, GCC | Yes | No  | Yes  | Yes<BR>(Not supported for Wi-Fi)  | No  | No  | No  |
+| [v202406.01-LTS-rx-1.1.1](https://github.com/renesas/iot-reference-rx/tree/v202406.01-LTS-rx-1.1.1)<br>* This Version | Ethernet, Cellular, Wi-Fi | CC-RX, GCC | Yes | Yes  | Yes  | Yes<BR>(Not supported for Wi-Fi)  | No  | No  | Yes |
+| [v202406.01-LTS-rx-1.1.0](https://github.com/renesas/iot-reference-rx/tree/v202406.01-LTS-rx-1.1.0) | Ethernet, Cellular, Wi-Fi | CC-RX, GCC | Yes | No  | Yes  | Yes<BR>(Not supported for Wi-Fi)  | No  | No  | No  |
 | [v202406.01-LTS-rx-1.0.1](https://github.com/renesas/iot-reference-rx/tree/v202406.01-LTS-rx-1.0.1) | Ethernet | CC-RX, GCC | Yes | Yes | Yes | No  | No | No | Yes |
 | [v202210.01-LTS-rx-1.3.2](https://github.com/renesas/iot-reference-rx/tree/v202210.01-LTS-rx-1.3.2) | Ethernet, Wi-Fi | CC-RX, GCC | Yes | Yes | Yes | Yes | Yes | Yes<BR>(PubSub and OTA for CC-RX) | Yes |
 
@@ -57,6 +58,8 @@ The following table shows the demos and features available on CK-RX65N v2.<br>
 >
 > * [AWS IoT Jobs](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html)
 > * [MQTT File Delivery](https://docs.aws.amazon.com/iot/latest/developerguide/mqtt-based-file-delivery.html) 
+
+> note 4: From v202406.01-LTS-rx-1.1.1, the PG feature also supports RX65N group custom user boards.
 
 ### Open Source Software (OSS) Components
 
