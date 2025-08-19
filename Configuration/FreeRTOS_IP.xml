@@ -23,13 +23,8 @@
 		</dependency>
 		<!-- linkdir section -->
 		<!-- impdir section -->
-		<!-- <impdir>
-			<file>Configuration/samples/minimal_tcp/src/frtos_config/FreeRTOSIPConfig.h</file>
-			<path>src/frtos_config</path>
-		</impdir> -->
-		<!-- TODO: Revert this after fixed, this is just a workaround for e2s_2025-07 or older -->
 		<impdir>
-			<folder>Configuration/samples/minimal_tcp/src/patch</folder>
+			<file>Configuration/samples/minimal_tcp/src/frtos_config/FreeRTOSIPConfig.h</file>
 			<path>src/frtos_config</path>
 		</impdir>
 		<!-- resource filter section -->

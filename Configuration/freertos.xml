@@ -87,15 +87,6 @@
 					<folder>Configuration/samples/minimal_tcp/src/frtos_config</folder>
 					<path>src/frtos_config</path>
 				</impdir>
-				<!-- TODO: This is just a workaround to work with <impdir><folder> in minimal_tcp.xml -->
-				<impdir>
-					<file>Configuration/samples/minimal_tcp/src/frtos_config/FreeRTOSConfig.h</file>
-					<path>src/patch</path>
-				</impdir>
-				<excludebuild>
-					<path>src/patch</path>
-				</excludebuild>
-				<!-- Workaround end -->
 				<impdir>
 					<folder>Configuration/samples/minimal_tcp/src/application_code</folder>
 					<path>src/application_code</path>

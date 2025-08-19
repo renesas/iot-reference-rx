@@ -447,6 +447,10 @@ The hook function *1 is called by occurring an error of a TCP_Sockets API *2 (di
 
   If this is a problem, please consider changing the following macro in `r_bsp_config.h` to revert the output destination of the `printf`/`fprintf` function to Renesas Virtual Console in e2 studio.  
   `#define BSP_CFG_USER_CHARPUT_ENABLED    (0)`
+
+* In `e2 studio 2025-07` or older, there is a known issue where the `FreeRTOSIPConfig.h` file will be removed when changing the package version of an import project.  
+  Please manually recover the `FreeRTOSIPConfig.h` from the `/trash` folder in e2studio Project Explorer.  
+  Please make sure to click the "Generate Code" button again after the recovery, to ensure the latest settings are applied.  
   
 </details>
 
