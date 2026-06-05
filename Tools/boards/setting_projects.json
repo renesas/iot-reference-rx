@@ -1,0 +1,228 @@
+[
+  {
+    "ProjectName": "aws_ether_ck_rx65n_v2",
+    "ProjectPath": "Projects/aws_ether_ck_rx65n_v2/e2studio_ccrx",
+    "StaConf": {
+      "CpptestConf": {
+        "CompilerPath": "Tools/sta/cpptest/compiler/renesas_ccrx.properties",
+        "ConfigPath": "Tools/sta/cpptest/config/Flow_Analysis_Standard_FreeRTOS.properties",
+        "IncludePath": "Tools/sta/cpptest/include/all.lst",
+        "ExcludePath": "Tools/sta/cpptest/exclude/afrtos_lts2.lst",
+        "SettingPath": [
+          "Tools/sta/cpptest/setting/license.properties",
+          "Tools/sta/cpptest/setting/dtp.properties",
+          "Tools/sta/cpptest/setting/mapping.properties",
+          "Tools/sta/cpptest/setting/report.properties"
+        ]
+      }
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "aws_ether_ck_rx65n_v2_gcc",
+    "ProjectPath": "Projects/aws_ether_ck_rx65n_v2/e2studio_gcc",
+    "StaConf": {
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "test_aws_ether_ck_rx65n_v2",
+    "ProjectPath": "Projects/test_aws_ether_ck_rx65n_v2/e2studio_ccrx",
+    "StaConf": {
+      "CpptestConf": {
+        "CompilerPath": "Tools/sta/cpptest/compiler/renesas_ccrx.properties",
+        "ConfigPath": "Tools/sta/cpptest/config/Flow_Analysis_Standard_FreeRTOS.properties",
+        "IncludePath": "Tools/sta/cpptest/include/all.lst",
+        "ExcludePath": "Tools/sta/cpptest/exclude/afrtos_lts2.lst",
+        "SettingPath": [
+          "Tools/sta/cpptest/setting/license.properties",
+          "Tools/sta/cpptest/setting/dtp.properties",
+          "Tools/sta/cpptest/setting/mapping.properties",
+          "Tools/sta/cpptest/setting/report.properties"
+        ]
+      }
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "test_aws_ether_ck_rx65n_v2_gcc",
+    "ProjectPath": "Projects/test_aws_ether_ck_rx65n_v2/e2studio_gcc",
+    "StaConf": {
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "aws_ryz014a_ck_rx65n_v2",
+    "ProjectPath": "Projects/aws_ryz014a_ck_rx65n_v2/e2studio_ccrx",
+    "StaConf": {
+      "CpptestConf": {
+        "CompilerPath": "Tools/sta/cpptest/compiler/renesas_ccrx.properties",
+        "ConfigPath": "Tools/sta/cpptest/config/Flow_Analysis_Standard_FreeRTOS.properties",
+        "IncludePath": "Tools/sta/cpptest/include/all.lst",
+        "ExcludePath": "Tools/sta/cpptest/exclude/afrtos_lts2.lst",
+        "SettingPath": [
+          "Tools/sta/cpptest/setting/license.properties",
+          "Tools/sta/cpptest/setting/dtp.properties",
+          "Tools/sta/cpptest/setting/mapping.properties",
+          "Tools/sta/cpptest/setting/report.properties"
+        ]
+      }
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "aws_ryz014a_ck_rx65n_v2_gcc",
+    "ProjectPath": "Projects/aws_ryz014a_ck_rx65n_v2/e2studio_gcc",
+    "StaConf": {
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "test_aws_ryz014a_ck_rx65n_v2",
+    "ProjectPath": "Projects/test_aws_ryz014a_ck_rx65n_v2/e2studio_ccrx",
+    "StaConf": {
+      "CpptestConf": {
+        "CompilerPath": "Tools/sta/cpptest/compiler/renesas_ccrx.properties",
+        "ConfigPath": "Tools/sta/cpptest/config/Flow_Analysis_Standard_FreeRTOS.properties",
+        "IncludePath": "Tools/sta/cpptest/include/all.lst",
+        "ExcludePath": "Tools/sta/cpptest/exclude/afrtos_lts2.lst",
+        "SettingPath": [
+          "Tools/sta/cpptest/setting/license.properties",
+          "Tools/sta/cpptest/setting/dtp.properties",
+          "Tools/sta/cpptest/setting/mapping.properties",
+          "Tools/sta/cpptest/setting/report.properties"
+        ]
+      }
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "test_aws_ryz014a_ck_rx65n_v2_gcc",
+    "ProjectPath": "Projects/test_aws_ryz014a_ck_rx65n_v2/e2studio_gcc",
+    "StaConf": {
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "aws_da16600_ck_rx65n_v2",
+    "ProjectPath": "Projects/aws_da16600_ck_rx65n_v2/e2studio_ccrx",
+    "StaConf": {
+      "CpptestConf": {
+        "CompilerPath": "Tools/sta/cpptest/compiler/renesas_ccrx.properties",
+        "ConfigPath": "Tools/sta/cpptest/config/Flow_Analysis_Standard_FreeRTOS.properties",
+        "IncludePath": "Tools/sta/cpptest/include/all.lst",
+        "ExcludePath": "Tools/sta/cpptest/exclude/afrtos_lts2.lst",
+        "SettingPath": [
+          "Tools/sta/cpptest/setting/license.properties",
+          "Tools/sta/cpptest/setting/dtp.properties",
+          "Tools/sta/cpptest/setting/mapping.properties",
+          "Tools/sta/cpptest/setting/report.properties"
+        ]
+      }
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "aws_da16600_ck_rx65n_v2_gcc",
+    "ProjectPath": "Projects/aws_da16600_ck_rx65n_v2/e2studio_gcc",
+    "StaConf": {
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "test_aws_da16600_ck_rx65n_v2",
+    "ProjectPath": "Projects/test_aws_da16600_ck_rx65n_v2/e2studio_ccrx",
+    "StaConf": {
+      "CpptestConf": {
+        "CompilerPath": "Tools/sta/cpptest/compiler/renesas_ccrx.properties",
+        "ConfigPath": "Tools/sta/cpptest/config/Flow_Analysis_Standard_FreeRTOS.properties",
+        "IncludePath": "Tools/sta/cpptest/include/all.lst",
+        "ExcludePath": "Tools/sta/cpptest/exclude/afrtos_lts2.lst",
+        "SettingPath": [
+          "Tools/sta/cpptest/setting/license.properties",
+          "Tools/sta/cpptest/setting/dtp.properties",
+          "Tools/sta/cpptest/setting/mapping.properties",
+          "Tools/sta/cpptest/setting/report.properties"
+        ]
+      }
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "test_aws_da16600_ck_rx65n_v2_gcc",
+    "ProjectPath": "Projects/test_aws_da16600_ck_rx65n_v2/e2studio_gcc",
+    "StaConf": {
+    },
+    "MsgCountPath": "Tools/check/msg_count/path_list.json",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "boot_loader_ck_rx65n_v2",
+    "ProjectPath": "Projects/boot_loader_ck_rx65n_v2/e2studio_ccrx",
+    "StaConf": {
+    },
+    "MsgCountPath": "",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  },
+  {
+    "ProjectName": "boot_loader_ck_rx65n_v2_gcc",
+    "ProjectPath": "Projects/boot_loader_ck_rx65n_v2/e2studio_gcc",
+    "StaConf": {
+    },
+    "MsgCountPath": "",
+    "ConfigCheck": "Tools/check/config/sc_values.json",
+    "ModuleCheck": "Tools/check/module/module_versions.json",
+    "LogPath": "log",
+    "MotPath": "mot"
+  }
+]

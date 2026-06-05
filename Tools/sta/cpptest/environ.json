@@ -1,0 +1,8 @@
+{
+  "win-common-rtos-01": {
+    "CpptestPath": "C:/cpptest",
+    "RxToolChainPath": "C:/Program Files (x86)/Renesas/RX/3_6_0",
+    "MakePath": "C:/Users/MyPC/.eclipse/com.renesas.platform_737482542",
+    "EclipsePath": "C:/Renesas/e2_studio_2023_04/eclipse"
+  }
+}

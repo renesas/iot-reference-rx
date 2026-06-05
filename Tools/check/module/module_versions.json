@@ -1,0 +1,18 @@
+{
+  "LittleFS": "2.5.1",
+  "FreeRTOS Kernel": "11.1.0",
+  "FreeRTOS-Plus-TCP": "4.2.4",
+  "FreeRTOS_Object": "202406.04-LTS-rx-1.2.1",
+  "r_bsp": "7.54",
+  "r_byteq": "2.11",
+  "r_irq_rx": "4.71",
+  "r_s12ad_rx": "5.41",
+  "r_sci_rx": "5.41",
+  "r_tsip_rx": "1.22",
+  "r_fwup": "2.04",
+  "r_cellular": "1.13",
+  "r_aws_cellular": "1.00",
+  "r_flash_rx": "5.22",
+  "r_wifi_da16xxx": "1.40",
+  "r_ether_rx": "1.24"
+}

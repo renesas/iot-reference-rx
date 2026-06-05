@@ -1,0 +1,13 @@
+{
+    "ExcludePath": [
+        "Middleware",
+        "Configuration",
+        "Projects",
+        "Test"
+    ],
+    "file_extensions": [
+        ".c",
+        ".h"
+    ],
+    "fix": false
+}
