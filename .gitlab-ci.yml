@@ -1,0 +1,148 @@
+stages:
+  - config
+  - check
+  - sta
+  - build
+
+variables:
+  GIT_CLONE_PATH: $CI_BUILDS_DIR/frtos-test
+  CONFIG_CI_ENVIRON_PATH: ./Tools/boards/environ.json
+
+# -----------------------------------------------------------------------------
+# Init stage
+# -----------------------------------------------------------------------------
+
+config_test:
+  stage: config
+  tags:
+    - win-common-rtos-01
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  before_script:
+    - chcp 932
+  script:
+    - python -B ./Tools/git/submodule_update.py
+  interruptible: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
+# -----------------------------------------------------------------------------
+# Check stage
+# -----------------------------------------------------------------------------
+
+# check_uncrustify:
+#   stage: check
+#   tags:
+#     - win-common-rtos-01
+#   before_script:
+#     - chcp 65001
+#   script:
+#     # Run uncrustify
+#     - python -B ./Tools/check/style/uncrustify_check.py
+#   artifacts:
+#     when: always
+#     paths:
+#       - $GIT_CLONE_PATH/diff_output
+#     expire_in: 1 week
+#   interruptible: true
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "push"'
+#     - if: '$CI_PIPELINE_SOURCE == "web"'
+#     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+#   allow_failure: true
+
+check_clang:
+  stage: check
+  tags:
+    - win-common-rtos-01
+  before_script:
+    - chcp 65001
+  script:
+    # Run clang checker/fixer
+    - python -B ./Tools/check/style/clang_format.py
+  artifacts:
+    when: always
+    paths:
+      - $GIT_CLONE_PATH/diff_output
+    expire_in: 1 week
+  interruptible: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  allow_failure: true
+
+check_config:
+  stage: check
+  tags:
+    - win-common-rtos-01
+  script:
+    - python -B ./Tools/check/config/check_config.py
+  interruptible: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  allow_failure: true
+
+check_module:
+  stage: check
+  tags:
+    - win-common-rtos-01
+  script:
+    - python -B ./Tools/check/module/check_module.py
+  interruptible: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  allow_failure: true
+
+# -----------------------------------------------------------------------------
+# Static analysis stage
+# -----------------------------------------------------------------------------
+
+# sta_cpptest:
+#   stage: sta
+#   tags:
+#     - win-common-rtos-01
+#   before_script:
+#     - chcp 65001
+#   script:
+#     - python -B ./Tools/sta/cpptest/run_cpptest.py
+#   rules:
+#     - if: '$CI_PIPELINE_SOURCE == "web"'
+#     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+#   allow_failure: true
+#   timeout: 1h 30m
+#   artifacts:
+#     name: '$CI_JOB_NAME'
+#     when: always
+#     paths:
+#       - ./log/cpptest
+
+# -----------------------------------------------------------------------------
+# Build stage
+# -----------------------------------------------------------------------------
+
+build_rx65n:
+  stage: build
+  tags:
+    - win-common-rtos-01
+  before_script:
+    - chcp 65001
+  script:
+    - python -B ./Tools/build/e2studio/headless_build.py
+  interruptible: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  artifacts:
+    name: "$CI_JOB_NAME"
+    when: always
+    paths:
+      - ./mot/**/*.mot
+      - ./log/**/log_build*.txt

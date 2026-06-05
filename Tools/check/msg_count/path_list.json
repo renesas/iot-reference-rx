@@ -1,0 +1,6 @@
+{
+  "aws_ryz014a_ck_rx65n": [
+    "../src/smc_gen/r_cellular",
+    "../src/application_code"
+  ]
+}

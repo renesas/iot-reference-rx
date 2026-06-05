@@ -1,0 +1,37 @@
+{
+    "ExcludePath": [
+        "Configuration",
+        "smc_gen",
+        "Test",
+        "Middleware/3rdparty/littlefs",
+        "Middleware/3rdparty/mbedtls",
+        "Middleware/3rdparty/mbedtls_with_TSIP",
+        "Middleware/3rdparty/tinycbor",
+        "Middleware/AWS/aws-iot-core-mqtt-file-streams-embedded-c",
+        "Middleware/AWS/Device-Defender-for-AWS-IoT-embedded-sdk",
+        "Middleware/AWS/Device-Shadow-for-AWS-IoT-embedded-sdk",
+        "Middleware/AWS/Fleet-Provisioning-for-AWS-IoT-embedded-sdk",
+        "Middleware/AWS/Jobs-for-AWS-IoT-embedded-sdk",
+        "Middleware/AWS/SigV4-for-AWS-IoT-embedded-sdk",
+        "Middleware/FreeRTOS/backoffAlgorithm",
+        "Middleware/FreeRTOS/coreHTTP",
+        "Middleware/FreeRTOS/coreJSON",
+        "Middleware/FreeRTOS/coreMQTT",
+        "Middleware/FreeRTOS/coreMQTT-Agent",
+        "Middleware/FreeRTOS/corePKCS11",
+        "Middleware/FreeRTOS/coreSNTP",
+        "Middleware/FreeRTOS/FreeRTOS-Cellular-Interface",
+        "Middleware/FreeRTOS/FreeRTOS-Kernel",
+        "Middleware/FreeRTOS/FreeRTOS-Plus-TCP",
+        "Middleware/freertos_plus/standard",
+        "Middleware/freertos_plus/standard/crypto",
+        "Middleware/network_transport/sockets_wrapper",
+        "Middleware/network_transport/sockets_wrapper/ports",
+        "Middleware/wifi/ports"
+    ],
+    "file_extensions": [
+        ".c",
+        ".h"
+    ],
+    "fix": true
+}
