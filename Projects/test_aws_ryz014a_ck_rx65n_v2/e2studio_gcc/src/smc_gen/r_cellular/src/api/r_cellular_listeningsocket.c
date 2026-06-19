@@ -1,0 +1,103 @@
+/*
+ * Copyright (c) 2025 Renesas Electronics Corporation and/or its affiliates
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+/**********************************************************************************************************************
+ * File Name    : r_cellular_listeningsocket.c
+ * Description  : Function to specify a socket to listen for TCP connections on a given port.
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ Includes   <System Includes> , "Project Includes"
+ *********************************************************************************************************************/
+#include "cellular_private_api.h"
+#include "cellular_freertos.h"
+#include "at_command.h"
+
+/**********************************************************************************************************************
+ * Macro definitions
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ * Typedef definitions
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ * Exported global variables
+ *********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ * Private (static) variables and functions
+ *********************************************************************************************************************/
+
+/************************************************************************
+ * Function Name  @fn            R_CELLULAR_ListeningSocket
+ ***********************************************************************/
+e_cellular_err_t R_CELLULAR_ListeningSocket(st_cellular_ctrl_t * const p_ctrl, const uint8_t socket_no,
+                                                const uint8_t ip_version, const uint16_t port)
+{
+    uint32_t                   preemption    = 0;
+    e_cellular_err_t           ret           = CELLULAR_SUCCESS;
+    e_cellular_err_semaphore_t semaphore_ret = CELLULAR_SEMAPHORE_SUCCESS;
+
+    preemption = cellular_interrupt_disable();
+    if ((NULL == p_ctrl) || (CELLULAR_PROTOCOL_IPV4 != ip_version)  || (CELLULAR_PROTOCOL_IPV6 != ip_version))
+    {
+        ret = CELLULAR_ERR_PARAMETER;
+    }
+    else
+    {
+        if (0 != (p_ctrl->running_api_count % 2))
+        {
+            ret = CELLULAR_ERR_OTHER_API_RUNNING;
+        }
+        else if (CELLULAR_SYSTEM_CLOSE == p_ctrl->system_state)
+        {
+            ret = CELLULAR_ERR_NOT_OPEN;
+        }
+        else if (CELLULAR_SYSTEM_OPEN == p_ctrl->system_state)
+        {
+            ret = CELLULAR_ERR_NOT_CONNECT;
+        }
+        else
+        {
+            R_BSP_NOP();
+        }
+
+        if (CELLULAR_SUCCESS == ret)
+        {
+            if ((CELLULAR_SOCKET_STATUS_SOCKET !=
+                        p_ctrl->p_socket_ctrl[socket_no - CELLULAR_START_SOCKET_NUMBER].socket_status))
+            {
+                ret = CELLULAR_ERR_SOCKET_NOT_READY;
+            }
+            else
+            {
+                p_ctrl->running_api_count += 2;
+            }
+        }
+    }
+    cellular_interrupt_enable(preemption);
+
+    if (CELLULAR_SUCCESS == ret)
+    {
+        semaphore_ret = cellular_take_semaphore(p_ctrl->at_semaphore);
+        if (CELLULAR_SEMAPHORE_SUCCESS == semaphore_ret)
+        {
+            ret = atc_sqnsl(p_ctrl, socket_no, ip_version, port);
+
+            cellular_give_semaphore(p_ctrl->at_semaphore);
+        }
+        else
+        {
+            ret = CELLULAR_ERR_OTHER_ATCOMMAND_RUNNING;
+        }
+        p_ctrl->running_api_count -= 2;
+    }
+
+    return ret;
+}
+/**********************************************************************************************************************
+ * End of function R_CELLULAR_ListeningSocket
+ *********************************************************************************************************************/

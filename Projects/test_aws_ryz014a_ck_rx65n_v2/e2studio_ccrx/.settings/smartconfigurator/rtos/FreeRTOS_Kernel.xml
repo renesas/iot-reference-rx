@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refinfo>
+	<!-- only one package entry allowed -->
+	<package>
+		<type>rtosmodule</type>
+		<name>FreeRTOS_Kernel</name>
+		<version>11.1.0</version>
+		<application>FreeRTOSLTSLibrary</application>
+		<desc>FreeRTOS Kernel</desc>
+		<details>FreeRTOS kernel is a real-time operating system (RTOS) designed for building embedded microcontroller applications.</details>
+	</package>
+</refinfo>
