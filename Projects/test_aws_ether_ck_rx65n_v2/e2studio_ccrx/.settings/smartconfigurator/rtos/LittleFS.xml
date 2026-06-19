@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<refinfo>
+	<!-- only one package entry allowed -->
+	<package>
+		<type>rtosmodule</type>
+		<name>LittleFS</name>
+		<version>2.5.1</version>
+		<application>FreeRTOSLTSLibrary</application>
+		<desc>LittleFS</desc>
+		<details>LittleFS is a lightweight, fail-safe filesystem designed for microcontrollers.</details>
+	</package>
+</refinfo>
